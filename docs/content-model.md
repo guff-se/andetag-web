@@ -35,6 +35,7 @@ hreflang:
   sv: string | null
   en: string | null
   de: string | null
+xDefaultPath: string | null      # path with slashes; emitted as link rel="alternate" hreflang="x-default" when non-null (see site/src/lib/layout/seo.ts)
 seo:
   robots: "index,follow" | "noindex,follow"
   ogType: website | article
@@ -49,6 +50,7 @@ tracking:
 
 - `canonicalPath` must match the path portion of `canonicalUrl`.
 - `hreflang` entries must be absolute paths, nullable when no equivalent exists.
+- `xDefaultPath` must be a root-relative path with trailing slash when set, and should follow `docs/Andetag SEO Manual.md` and Phase 4 routing decisions (typically the Swedish canonical for Stockholm pairs, or `/de/berlin/` for Berlin-only pages).
 - `lang` must match the language segment of `canonicalPath` where applicable.
 - `pageType=legal` should use destination `shared`.
 

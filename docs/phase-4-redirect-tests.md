@@ -12,12 +12,14 @@ Environment: run against Cloudflare preview or production after deploy, or use `
 | 2 | `/de/?utm_source=test` | 301 | `/de/berlin/?utm_source=test` | yes |
 | 3 | `/en/berlin-en/` | 301 | `/en/berlin/` | yes |
 | 4 | `/en/stockholm/art-yoga-en/` | 301 | `/en/stockholm/art-yoga/` | yes |
+| 5 | `/privacy-policy/` | 301 | `/privacy/` | yes |
 
 ## Execution log
 
 | date | environment | operator | result |
 |------|-------------|----------|--------|
-| 2026-03-23 | `https://andetag-web.guff.workers.dev/` (Cloudflare Workers static assets) | automated `curl -sI` | **Pass** — all four matrix cases: `301` and relative `location` paths match; `utm_source=test` preserved where applied. Extra spot checks: `/en/berlin-en/?utm_source=test`, `/en/stockholm/art-yoga-en/?utm_source=test` also pass. |
+| 2026-03-23 | `https://andetag-web.guff.workers.dev/` (Cloudflare Workers static assets) | automated `curl -sI` | **Pass** — cases 1–4: `301` and relative `location` paths match; `utm_source=test` preserved where applied. Extra: `/en/berlin-en/?utm_source=test`, `/en/stockholm/art-yoga-en/?utm_source=test`. |
+| 2026-03-23 | same | automated `curl -sI` | **Case 5 not yet on edge** — `GET /privacy-policy/` returned `404` before redeploy with updated `_redirects`; re-run after next publish. |
 
 ### Evidence (2026-03-23)
 
@@ -51,4 +53,6 @@ curl -sI "$BASE/de/"
 curl -sI "$BASE/de/?utm_source=test"
 curl -sI "$BASE/en/berlin-en/"
 curl -sI "$BASE/en/stockholm/art-yoga-en/"
+curl -sI "$BASE/privacy-policy/"
+curl -sI "$BASE/privacy-policy/?utm_source=test"
 ```

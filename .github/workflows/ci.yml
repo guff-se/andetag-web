@@ -28,12 +28,19 @@ jobs:
           args: --verbose --no-progress --include-fragments "./docs/**/*.md" "./CHANGELOG.md" "./AGENTS.md"
           fail: true
 
-  stack-placeholder:
-    name: Build and lint placeholder
+  site-build-and-test:
+    name: Astro site build and tests
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: site
     steps:
       - uses: actions/checkout@v4
-      - name: Placeholder for stack-specific checks
-        run: |
-          echo "Phase 0 placeholder job."
-          echo "Activate framework build and lint checks after Phase 1 stack selection."
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      - run: npm ci
+      - run: npm test
+      - run: npm run build

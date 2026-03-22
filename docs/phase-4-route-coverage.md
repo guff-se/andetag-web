@@ -9,9 +9,10 @@ Status: aligned with Phase 4 implementation in `site/` (2026-03-23).
 | Mechanism | Count | Notes |
 |-----------|------:|-------|
 | Static HTML shell (`index.astro` + `[...slug].astro`) | 49 | Paths keyed in `site/src/data/page-shell-meta.json` |
-| Repo `public/_redirects` (Cloudflare Pages) | 3 | `/de/`, legacy EN aliases |
+| Repo `public/_redirects` (Cloudflare Pages / Workers assets) | 4 | `/de/`, legacy EN aliases, optional `/privacy-policy/` → `/privacy/` per URL policy |
 | Internal or preview-only routes (not in URL matrix) | 4 | `layout-preview`, `header-small-sv`, `component-showcase`, `404` |
-| Matrix `redirect` rows covered by `_redirects` | 3 | Matches `redirect_type=301` rows |
+| Matrix `redirect` rows covered by `_redirects` | 3 | Matches `redirect_type=301` rows in `url-matrix.csv` |
+| Policy-only redirect | 1 | `/privacy-policy/` (not a separate matrix row) |
 
 ## Matrix rows
 
@@ -44,6 +45,8 @@ Status: aligned with Phase 4 implementation in `site/` (2026-03-23).
 
 Host-level `http`/`https` and apex → `www` redirects are owned by Cloudflare (see `docs/phase-4-todo.md` decision block), not by `_redirects`.
 
+Optional alias **`/privacy-policy/`** → **`/privacy/`** (`301`) is defined in `_redirects` per `docs/url-migration-policy.md` (not listed as its own row in `url-matrix.csv`).
+
 ## Artifacts
 
 - Shell metadata extraction: `site/scripts/extract-page-shell-meta.mjs` → `site/src/data/page-shell-meta.json`
@@ -51,6 +54,8 @@ Host-level `http`/`https` and apex → `www` redirects are owned by Cloudflare (
 - Redirects: `site/public/_redirects`
 
 ## 404 behavior
+
+See **`docs/phase-4-404.md`**. Summary:
 
 - Global static `404.html` from `site/src/pages/404.astro`.
 - Swedish-primary copy and `html lang="sv"` via `SiteLayout`; recovery links to `/`, `/en/`, `/de/berlin/`, `/stockholm/biljetter/`.

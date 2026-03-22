@@ -309,3 +309,5 @@ Acceptance checks:
 5. Track showcase performance follow-up under **EX-0006** when consent-gated and lazy embed loading lands in Phase 7.
 
 Phase 3 closure (2026-03-22): component library, showcase, usage docs, and verification record are complete; see `docs/phase-3-todo.md` and `docs/phase-3-verification-record.md`.
+
+Phase 4 evidence draft (2026-03-23): `docs/phase-4-verification-record.md`, `docs/phase-4-redirect-tests.md`, `docs/phase-4-route-coverage.md`, `docs/phase-4-404.md`; CI runs `npm test` and `npm run build` in `site/`.

@@ -94,7 +94,7 @@ const out = {
   _meta: {
     source: "site-html/*.html via extract-page-shell-meta.mjs",
     notes:
-      "/en/stockholm/ uses en.html because en-stockholm.html snapshot points canonical to / (scrape mismatch).",
+      "/en/stockholm/: en-stockholm.html and live andetag.museum both mis-set Yoast canonical to / and Swedish home title; shell uses en.html until EX-0007 is resolved in Phase 5.",
   },
   pages: {},
 };
