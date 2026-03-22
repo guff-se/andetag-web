@@ -69,6 +69,10 @@ Reference docs before implementation:
 | `docs/Visual Identity.md` | Quick visual direction and brand consistency checks. |
 | `docs/grand-plan.md` | Project roadmap, phase gates, business objectives, and decision log. |
 | `docs/phase-0-todo.md` | Execution checklist for Phase 0 guardrails and deliverables. |
+| `docs/phase-1-todo.md` | Execution checklist for Phase 1 analysis deliverables and exit gate inputs. |
+| `docs/phase-1-design-baseline.md` | Source-backed design token and component evidence baseline for Phase 1. |
+| `docs/ia-language-destination-options.md` | IA options and recommendation for language plus destination routing continuity. |
+| `docs/kpi-measurement-map.md` | KPI funnel event taxonomy for GTM and Phase 6 analytics implementation. |
 | `docs/url-migration-policy.md` | Canonical URL, redirect, alias, and sitemap policy for migration and launch. |
 | `docs/url-matrix-schema.md` | URL matrix data contract for must-keep URLs and redirect status tracking. |
 | `docs/content-model.md` | Versioned contract for page frontmatter, shared data, and component props. |
@@ -198,6 +202,17 @@ When finishing substantial work:
 1. Report concrete file-level changes and behavior impact.
 2. Call out any **Critical** constraints from docs that affected implementation.
 3. Explicitly mention residual risks (for example language edge cases, widget variants not covered, or network-dependent checks not run).
+
+### Phase Closure Forward Audit (Mandatory)
+
+When a phase is marked complete, always perform a forward audit across all remaining future phases before finalizing:
+
+1. Review planning docs for every later phase (`N+1` and onward), not only the next phase.
+2. Identify assumptions or decisions that changed in the completed phase and could invalidate future phase plans.
+3. Update affected planning docs in the same task, or explicitly log unresolved impacts as gaps/exceptions with owners and target phases.
+4. Ask clarifying questions immediately when a future-phase dependency is ambiguous or requires stakeholder approval.
+
+Rule: no phase closure is final until this forward audit has been completed and documented.
 
 ---
 

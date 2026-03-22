@@ -34,6 +34,14 @@ Each exception entry must include:
 |--------------|------|-------|-------|------------------|----------|-----------|------------|-------------|----------|-----------|
 | EX-0001 | YYYY-MM-DD | 2 | URL | `/en/berlin-en/` | redirect alias to `/en/berlin/` | canonical normalization | low | none | pending | add redirect test |
 
+## Active Exceptions Logged in Phase 1
+
+| exception_id | date | phase | scope | source_reference | decision | rationale | seo_impact | user_impact | approval | follow_up |
+|--------------|------|-------|-------|------------------|----------|-----------|------------|-------------|----------|-----------|
+| EX-0002 | 2026-03-22 | 1 | integration | `site-html/index.html` and `shortcode.default` usage on homepages | Remove TripAdvisor shortcode/plugin runtime in rebuilt stack | Parser plan excludes shortcode parsing and migration targets component-native implementation | low | low, reviews presentation may change | approved (Gustaf) | Deliver static reviews copy block in Phase 3 component showcase |
+| EX-0003 | 2026-03-22 | 1 | integration | `site-html/*.html` WonderPush script references | Remove WonderPush from retained integration set | Not included in conversion-priority retained integrations and adds runtime/script overhead | low | none expected for core conversion path | approved (Gustaf) | Keep removal in Phase 6 launch checklist validation |
+| EX-0004 | 2026-03-22 | 1 | URL | `/en/berlin-en/` and `site-html/en-berlin-en.html` | Treat `/en/berlin-en/` as alias-only and canonicalize to `/en/berlin/` | Align with URL migration policy and reduce duplicate destination URL intent | medium | none expected if redirects are correct | approved (Gustaf) | Add redirect test cases and align page registry naming in parser outputs |
+
 ## Status Rules
 
 - New entries start as `pending` in `approval`.

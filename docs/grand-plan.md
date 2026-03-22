@@ -81,6 +81,8 @@ Acceptance checks:
 
 Goal: complete source-of-truth documentation of current site behavior and structure.
 Starting point note: review existing analysis first in `docs/existing-site-structure.md` and `docs/parser-plan.md`, then extend and validate rather than redoing from scratch.
+Execution checklist: `docs/phase-1-todo.md`
+Status: complete (approved on 2026-03-22).
 
 Deliverables:
 - Inventory of all pages, locales, URL paths, templates, and integrations.
@@ -191,7 +193,7 @@ Acceptance checks:
 
 ### Platform and Delivery
 
-- Stack and hosting are intentionally decided after Phase 1 analysis, not before.
+- Stack and hosting were decided after Phase 1 analysis and accepted in `docs/decisions/0001-static-stack-selection.md` (Astro + Cloudflare Pages).
 - Post-launch content operations are pull-request based, with one staging instance per PR for verification before merge.
 - Rollout order is fixed: Swedish Stockholm production first, then localization and Berlin destination expansion.
 
@@ -205,7 +207,8 @@ Acceptance checks:
 ### Integrations and Compliance
 
 - Retain and reimplement: Google Tag Manager and Brevo.
-- Replace Complianz with a static-site-compatible consent solution that can gate tags by consent category.
+- Replace Complianz with CookieYes and enforce category-based tag gating (`necessary`, `analytics`, `marketing`) in static runtime.
+- Understory booking widget is classified as `necessary` and must remain available without optional consent opt-in.
 - No urgency widgets or upsell modules required in the initial conversion implementation.
 
 ### Design and UX
@@ -218,8 +221,8 @@ Acceptance checks:
 
 ### Platform and Delivery
 
-- Final static stack selection after Phase 1 (Astro, Next static export, Eleventy, other).
-- Hosting/deployment target after Phase 1 (Netlify, Vercel, Cloudflare Pages, custom).
+- Final static stack selection after Phase 1: resolved to Astro (see `docs/decisions/0001-static-stack-selection.md`).
+- Hosting/deployment target after Phase 1: resolved to Cloudflare Pages (see `docs/decisions/0001-static-stack-selection.md`).
 - Required environments (dev/stage/prod) and who approves promotions.
 
 ### SEO and URL Policy
@@ -237,7 +240,7 @@ Acceptance checks:
 
 - Consent/legal requirements by market.
 - Access to analytics/tag containers and verification process.
-- Preferred cookie platform replacement (for example Cookiebot, iubenda, Osano, or custom in-house consent module).
+- Preferred cookie platform replacement: resolved to CookieYes (see `docs/decisions/0002-consent-platform-selection.md`).
 
 ### Content Operations
 
@@ -247,9 +250,9 @@ Acceptance checks:
 
 ## Practical Next Steps
 
-1. Complete Phase 1 analysis and produce the sitemap-derived must-keep URL matrix.
-2. Confirm stack + hosting immediately after Phase 1.
-3. Select consent replacement and legal category mapping for tag gating.
+1. Initialize Phase 2 work on Astro + Cloudflare Pages baseline.
+2. Implement CookieYes category mapping and GTM consent signal behavior in staging (must be validated before Phase 6 launch hardening).
+3. Add and validate redirect tests for approved alias handling (`/en/berlin-en/` to `/en/berlin/`).
 4. Define first-wave Stockholm Swedish page order by conversion priority (homepage, tickets, opening hours, find us, FAQ, events, corporate/private).
 5. Start with Phases 2 and 3 in parallel where possible (shared layout + component system).
 6. Approve component showcase before any full page migration wave.

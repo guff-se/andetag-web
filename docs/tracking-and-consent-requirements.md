@@ -55,9 +55,13 @@ Policy:
 
 | Category | Allowed examples | Blocked until consent |
 |----------|------------------|-----------------------|
-| `necessary` | consent manager runtime, security/session essentials | no |
+| `necessary` | consent manager runtime, security/session essentials, Understory booking widget runtime | no |
 | `analytics` | GA4 via GTM | yes |
 | `marketing` | Meta Pixel, Google Ads conversion tags, Brevo marketing tags | yes |
+
+Understory classification rule:
+
+- Understory booking widget is business-critical for primary conversion and must be treated as `necessary` (not blocked behind optional consent categories).
 
 ## 5) Compliance and UX Requirements
 
