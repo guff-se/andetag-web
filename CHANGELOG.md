@@ -25,6 +25,7 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 - Phase 2: recorded final stakeholder sign-off in `docs/phase-2-todo.md`, updated `docs/grand-plan.md` Phase 2 status, marked spillover checklist items as completed via Phase 3 deliverables, and refreshed Phase 2 immediate next actions.
 - Documentation: Phase 3 marked closed in planning flow; `docs/grand-plan.md` practical next steps now point at Phase 4 onward; `docs/phase-4-todo.md` lists Phase 3 prerequisites for implementers.
 - Partners logo grid: at `640px` viewport width and below, use two columns so pairs of logos wrap into rows (`site/src/styles/components.css`).
+- `docs/phase-4-redirect-tests.md`: recorded passing `curl` verification for all matrix redirects on `https://andetag-web.guff.workers.dev/`; `docs/phase-4-todo.md` marks `P4-07` complete.
 
 ### Fixed
 

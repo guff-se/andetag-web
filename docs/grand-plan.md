@@ -153,7 +153,7 @@ Carry-forward to Phase 4 and Phase 5:
 
 Goal: implement complete route coverage and migration-safe URL handling.
 Execution checklist: `docs/phase-4-todo.md`
-Status: implementation landed 2026-03-23, pending Cloudflare redirect verification and stakeholder sign-off (see `docs/phase-4-redirect-tests.md`).
+Status: implementation landed 2026-03-23; repo path redirects verified on Workers (`docs/phase-4-redirect-tests.md`). Pending stakeholder sign-off for phase closure.
 
 Deliverables:
 - Static route tree covering all existing paths (including language prefixes), each route with shared layout and real head metadata; main page content and design parity are Phase 5.
@@ -302,7 +302,7 @@ Acceptance checks:
 
 ## Practical Next Steps
 
-1. Close Phase 4: verify Cloudflare Pages redirects per `docs/phase-4-redirect-tests.md`, approve **EX-0007** or refresh `/en/stockholm/` metadata, then record stakeholder sign-off in `docs/phase-4-todo.md`.
+1. Close Phase 4: approve **EX-0007** or refresh `/en/stockholm/` metadata, then record stakeholder sign-off in `docs/phase-4-todo.md` (redirect checks already logged in `docs/phase-4-redirect-tests.md`).
 2. Define and approve first-wave Swedish page migration order for Phase 5, using `docs/phase-3-component-usage.md` and showcase-validated components.
 3. Keep localization work paused until Swedish Phase 5 completion, then start Phase 6 localization rollout.
 4. Validate CookieYes and GTM consent behavior in staging ahead of Phase 7 launch hardening.

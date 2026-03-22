@@ -4,7 +4,7 @@ Purpose: implement complete static routing, migration-safe redirects, and consis
 
 **Prerequisites:** Phase 3 is complete (2026-03-22). Use `docs/phase-3-component-usage.md`, `docs/content-model.md`, and fixtures from `docs/phase-3-fixture-strategy.md` when implementing route shells and later page bodies.
 
-Status: implementation complete on 2026-03-23, pending Cloudflare Pages redirect verification (`P4-07`) and stakeholder sign-off for phase closure.
+Status: implementation complete on 2026-03-23; redirect verification recorded in `docs/phase-4-redirect-tests.md` (2026-03-23). Pending stakeholder sign-off for phase closure.
 
 ## Decisions (stakeholder approval, 2026-03-23)
 
@@ -115,7 +115,7 @@ Phase 4 is complete only when all items marked `P4` are done and approved:
     - Keyboard and screen-reader sanity check: focus management, heading, skip link compatibility.
   - Done when: 404 behavior is documented in the route coverage report or a short `docs/phase-4-404.md` addendum and passes basic accessibility review.
 
-- [ ] **P4-07 Build and run the redirect validation list**
+- [x] **P4-07 Build and run the redirect validation list**
   - Owner: AI agent
   - Inputs:
     - Redirect rules from `P4-04`
@@ -124,6 +124,7 @@ Phase 4 is complete only when all items marked `P4` are done and approved:
     - A documented test table: source URL, expected status, expected `Location` or final path, and query-string preservation cases.
     - Record execution environment (local preview, Cloudflare preview, or production) and results.
   - Done when: all required redirects are verified with no undocumented failures.
+  - Resolution: executed 2026-03-23 against `https://andetag-web.guff.workers.dev/`; see `docs/phase-4-redirect-tests.md` for `curl` evidence.
 
 - [x] **P4-08 Add regression checks for routing and head metadata**
   - Owner: AI agent
@@ -162,6 +163,6 @@ Phase 4 is complete only when all items marked `P4` are done and approved:
 
 ## Immediate Next 3 Actions
 
-1. Run `P4-07` redirect checks on a Cloudflare Pages preview or production and record results in `docs/phase-4-redirect-tests.md`.
-2. Approve **EX-0007** in `docs/migration-exceptions.md` or replace `/en/stockholm/` metadata when a corrected snapshot exists.
+1. Approve **EX-0007** in `docs/migration-exceptions.md` or replace `/en/stockholm/` metadata when a corrected snapshot exists.
+2. Record Phase 4 stakeholder sign-off in this file and `docs/grand-plan.md` when ready.
 3. Start Phase 5 page migration using `docs/phase-3-component-usage.md` and the shell registry as the routing backbone.
