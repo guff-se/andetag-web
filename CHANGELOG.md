@@ -31,6 +31,7 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 - Documentation: Phase 3 marked closed in planning flow; `docs/grand-plan.md` practical next steps now point at Phase 4 onward; `docs/phase-4-todo.md` lists Phase 3 prerequisites for implementers.
 - Partners logo grid: at `640px` viewport width and below, use two columns so pairs of logos wrap into rows (`site/src/styles/components.css`).
 - `docs/phase-4-redirect-tests.md`: recorded passing `curl` verification for all matrix redirects on `https://andetag-web.guff.workers.dev/`; `docs/phase-4-todo.md` marks `P4-07` complete.
+- `docs/phase-4-redirect-tests.md`: case 5 (`/privacy-policy/` → `/privacy/`) verified on Workers after deploy; `docs/phase-4-verification-record.md` updated.
 
 ### Fixed
 

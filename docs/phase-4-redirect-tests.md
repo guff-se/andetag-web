@@ -18,8 +18,7 @@ Environment: run against Cloudflare preview or production after deploy, or use `
 
 | date | environment | operator | result |
 |------|-------------|----------|--------|
-| 2026-03-23 | `https://andetag-web.guff.workers.dev/` (Cloudflare Workers static assets) | automated `curl -sI` | **Pass** — cases 1–4: `301` and relative `location` paths match; `utm_source=test` preserved where applied. Extra: `/en/berlin-en/?utm_source=test`, `/en/stockholm/art-yoga-en/?utm_source=test`. |
-| 2026-03-23 | same | automated `curl -sI` | **Case 5 not yet on edge** — `GET /privacy-policy/` returned `404` before redeploy with updated `_redirects`; re-run after next publish. |
+| 2026-03-23 | `https://andetag-web.guff.workers.dev/` (Cloudflare Workers static assets) | automated `curl -sI` | **Pass** — cases 1–5: `301` and relative `location` paths match; `utm_source=test` preserved on cases 2, 3b, 4b, 5b. Spot checks: `/en/berlin-en/?utm_source=test`, `/en/stockholm/art-yoga-en/?utm_source=test`. Case 5 confirmed after deploy including `/privacy-policy/` → `/privacy/`. |
 
 ### Evidence (2026-03-23)
 
@@ -41,6 +40,14 @@ location: /en/berlin/
 # 4 GET /en/stockholm/art-yoga-en/
 HTTP/2 301
 location: /en/stockholm/art-yoga/
+
+# 5 GET /privacy-policy/
+HTTP/2 301
+location: /privacy/
+
+# 5b GET /privacy-policy/?utm_source=test
+HTTP/2 301
+location: /privacy/?utm_source=test
 ```
 
 Note: `location` is path-only (relative). Clients resolve it against the request host, which matches Cloudflare static asset redirect behavior.

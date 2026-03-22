@@ -164,6 +164,6 @@ Phase 4 is complete only when all items marked `P4` are done and approved:
 
 ## Immediate Next 3 Actions
 
-1. After next deploy, run redirect case 5 in `docs/phase-4-redirect-tests.md` (`/privacy-policy/`) and mark the execution log row **Pass**.
-2. Approve **EX-0007** in `docs/migration-exceptions.md` or replace `/en/stockholm/` metadata when WordPress or Phase 5 supplies correct English hub head tags.
-3. Record Phase 4 stakeholder sign-off in `docs/phase-4-verification-record.md`, this file, and `docs/grand-plan.md`, then start Phase 5 page migration using `docs/phase-3-component-usage.md` and the shell registry.
+1. Approve **EX-0007** in `docs/migration-exceptions.md` or replace `/en/stockholm/` metadata when WordPress or Phase 5 supplies correct English hub head tags.
+2. Record Phase 4 stakeholder sign-off in `docs/phase-4-verification-record.md`, this file, and `docs/grand-plan.md`.
+3. Start Phase 5 page migration using `docs/phase-3-component-usage.md` and the shell registry.
