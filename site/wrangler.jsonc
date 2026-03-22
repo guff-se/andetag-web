@@ -1,0 +1,8 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "andetag-web",
+  "compatibility_date": "2026-03-01",
+  "assets": {
+    "directory": "./dist"
+  }
+}

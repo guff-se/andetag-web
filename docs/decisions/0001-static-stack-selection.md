@@ -62,6 +62,7 @@ Decision accepted by Gustaf on 2026-03-22 after reviewing current route hierarch
 ### Operational notes
 - Rollout implications: set up `dev`, `staging`, and `prod` environments with consistent redirect behavior.
 - Validation/check requirements: verify redirect policy, canonical emission, and hreflang output before Phase 4 completion.
+- Cloudflare Pages: use root `site`, build `npm run build`, output `dist`, and an empty deploy command unless you intentionally deploy via Workers (then use `site/wrangler.jsonc` and `wrangler deploy` from `site/`).
 
 ## SEO and migration impact
 

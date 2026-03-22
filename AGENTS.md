@@ -216,6 +216,11 @@ python3 spider.py
 - **Secrets:** None currently required in-repo.
 - **Gotcha:** `spider.py` may fetch live assets; avoid unintended full recrawls during small parser-only changes.
 
+### Cloudflare (Astro `site/`)
+
+- **Pages (recommended):** Project root directory `site`, build command `npm run build`, build output directory `dist`, and **leave the deploy command empty** so Pages publishes `dist` after the build.
+- **Workers static assets:** If the pipeline runs `npx wrangler deploy`, run it with working directory `site` so `wrangler.jsonc` applies. That file points `assets.directory` at `./dist` (Astro static output, includes `public/_redirects`).
+
 ---
 
 ## Delivery and Reporting

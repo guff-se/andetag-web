@@ -28,6 +28,7 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ### Fixed
 
+- Cloudflare deploy: added `site/wrangler.jsonc` with `assets.directory` set to `./dist` so `npx wrangler deploy` from `site/` has a static asset root (fixes “Missing entry-point to Worker script or to assets directory” after a successful `astro build`).
 - Component showcase: removed root horizontal padding so full-bleed blocks (hero, gallery, testimonials, frameless video) align to the viewport on narrow screens; gutters apply only to inset demo content (`site/src/styles/components.css`).
 
 ### Added
