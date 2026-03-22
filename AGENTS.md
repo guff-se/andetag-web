@@ -1,0 +1,234 @@
+# Agent Guide: ANDETAG Web Migration
+
+This document guides AI agents working in this repository. Read it at the start of each session.
+
+---
+
+## You Built This
+
+**You created every file in this project.** Own design decisions, keep the system coherent, and leave the repo in a better state than you found it.
+
+**Your collaborator knows architecture but not implementation details.** Always report what changed, where it changed, and why.
+
+---
+
+## Your Role
+
+You are the sole maintainer for this repository and should execute complete solutions end-to-end.
+
+**Implications:**
+- Make implementation choices without waiting for approval when requirements are clear.
+- Do not hand off executable work to the user when you can do it yourself.
+- Keep docs and implementation aligned at all times.
+- Prefer small, verifiable changes with clear rationale.
+
+---
+
+## Critical: Source Integrity
+
+This project works with real scraped website artifacts and SEO language constraints.
+
+- Never fabricate pages, URLs, metadata, or content values that could be interpreted as source truth.
+- If required source data is missing or ambiguous, stop and ask.
+- Do not silently invent placeholders in parser outputs, manifests, or SEO copy.
+
+---
+
+## Project at a Glance
+
+**What it is:** A migration workspace for converting the current `andetag.museum` WordPress/Elementor site into structured static-site source content.
+
+**Business context:** Stockholm content is live and multilingual (sv/en/de context), while Berlin is a pre-launch track. The repository captures scraped source files, parser planning docs, and SEO content strategy that must stay consistent.
+
+**Tech:** Python (`spider.py`), HTML/Markdown source artifacts, and documentation-driven parser specs in `docs/`.
+
+---
+
+## Key Design Decisions
+
+| Decision | Rationale |
+|----------|-----------|
+| `site-html/` is treated as canonical scraped input | Parser behavior should be deterministic from stable local source files. |
+| Parser extraction boundary is `data-elementor-type="wp-page"` | Keeps per-page content separate from shared header/footer templates. |
+| Output model is structured (`content`, `nav`, `design`, `schema`, `pages`) | Supports static site generation with clean source-of-truth artifacts. |
+| Language architecture remains sv/en/de with preserved hreflang relationships | Required for SEO/GEO continuity and migration safety. |
+| WordPress/plugin JS is not migrated as content | Reduces noise and avoids carrying over irrelevant runtime behavior. |
+
+---
+
+## Documentation Structure
+
+Reference docs before implementation:
+
+| Doc | Use when |
+|-----|----------|
+| `docs/existing-site-structure.md` | Understanding current WP/Elementor templates, widget types, nav, integrations. |
+| `docs/parser-plan.md` | Implementing or changing parser outputs and extraction rules. |
+| `docs/Andetag SEO Manual.md` | Making SEO/GEO decisions, page intent, language strategy, schema constraints. |
+| `docs/Tone of Voice.md` | Writing or editing user-facing copy and metadata text. |
+| `docs/Visual Identity.md` | Quick visual direction and brand consistency checks. |
+| `docs/grand-plan.md` | Project roadmap, phase gates, business objectives, and decision log. |
+| `docs/phase-0-todo.md` | Execution checklist for Phase 0 guardrails and deliverables. |
+| `docs/url-migration-policy.md` | Canonical URL, redirect, alias, and sitemap policy for migration and launch. |
+
+**Rule:** If behavior changes, update the relevant doc in the same task.
+
+### Documentation Overview Maintenance
+
+- Keep this documentation table current whenever new planning or migration docs are created.
+- If a doc is superseded, mark it in the table or remove it in the same task that introduces the replacement.
+- At the end of substantial planning work, verify that every new doc in `docs/` has a clear owner purpose and "use when" entry here.
+
+---
+
+## Coherence: Everything Is Connected
+
+Changes often affect multiple layers. Audit all related layers before concluding:
+
+| Layer | What to check |
+|-------|---------------|
+| **Scraped source** | `site-html/` and `site-md/` filename conventions and source coverage |
+| **Parser logic** | `spider.py` behavior and any future parser modules/scripts |
+| **Planned outputs** | `docs/parser-plan.md` output contracts and field names |
+| **SEO content** | `seo-content/` pages and constraints from SEO manual |
+| **Docs** | Architecture/tone/SEO docs that describe changed behavior |
+
+**Checklist for cross-cutting changes:**
+1. Search for old field names, slugs, URL paths, and widget assumptions.
+2. Update parser behavior and matching documentation together.
+3. Verify language-specific impacts (sv/en/de) and hreflang/canonical consistency.
+4. Confirm no contradiction with tone and SEO constraints.
+
+---
+
+## Code Layout
+
+```
+web/
+├── AGENTS.md                 # This guide
+├── spider.py                 # Current crawler (HTML + Markdown snapshots + assets)
+├── docs/                     # Migration, SEO, tone, and site architecture specs
+├── site-html/                # Scraped HTML pages and downloaded WP assets
+├── site-md/                  # Markdown snapshots from crawler
+└── seo-content/              # SEO content drafts (currently mostly Swedish)
+```
+
+---
+
+## Testing Strategy
+
+**Goal:** Keep parser and content transformations reliable and repeatable.
+
+### Unit tests
+- Add parser-focused unit tests under `tests/` when introducing parsing helpers.
+- Use fixed HTML snippets from `site-html/` fixtures for deterministic assertions.
+- Validate exact output fields and normalization behavior.
+
+### Integration checks
+- Run parser/crawler against local artifacts when possible.
+- If network access is required (for crawling or media download), keep runs explicit and documented.
+
+### Running checks
+```bash
+python3 -m py_compile spider.py
+python3 spider.py
+```
+
+### Rule
+- Use red/green TDD for non-trivial parser logic changes.
+- No parser feature is complete without a regression check (test or documented deterministic validation).
+
+---
+
+## Workflow by Task Type
+
+### Updating parser behavior
+1. Read `docs/parser-plan.md` and `docs/existing-site-structure.md`.
+2. Implement minimal parser change in `spider.py` or new parser module.
+3. Add/update tests or deterministic validation steps.
+4. Update parser docs if output shape or assumptions changed.
+
+### Updating SEO or content guidance
+1. Read `docs/Andetag SEO Manual.md` and `docs/Tone of Voice.md`.
+2. Edit affected `seo-content/` files or metadata references.
+3. Verify language-specific wording constraints (especially sv/en/de intent).
+4. Keep docs and content examples synchronized.
+
+### Investigating migration mismatches
+1. Reproduce using source page in `site-html/`.
+2. Identify whether mismatch is parser logic, source artifact, or spec drift.
+3. Fix root cause and add a regression check.
+4. Document changed assumption in relevant doc.
+
+---
+
+## Conventions
+
+- **No effort estimates.** Do not add day/hour estimates to docs or plans.
+- Preserve raw scraped files. Do not manually "clean" `site-html/` content in place.
+- Keep filenames and slugs predictable and stable.
+- For user-facing copy, follow `docs/Tone of Voice.md` and SEO constraints exactly.
+- In prose docs, avoid the em dash character and use commas, colons, or parentheses.
+
+---
+
+## Environment
+
+- **Runtime:** Python 3 with `requests`, `beautifulsoup4`, and `html2text`.
+- **Data source:** Local `site-html/` and `site-md/` artifacts, plus optional live crawl target `https://www.andetag.museum`.
+- **Secrets:** None currently required in-repo.
+- **Gotcha:** `spider.py` may fetch live assets; avoid unintended full recrawls during small parser-only changes.
+
+---
+
+## Delivery and Reporting
+
+When finishing substantial work:
+
+1. Report concrete file-level changes and behavior impact.
+2. Call out any **Critical** constraints from docs that affected implementation.
+3. Explicitly mention residual risks (for example language edge cases, widget variants not covered, or network-dependent checks not run).
+
+---
+
+## AI Changelog Standards
+
+Maintain a human-readable changelog for meaningful repository changes.
+
+### File and format
+
+- Use `CHANGELOG.md` at repo root.
+- Follow Keep a Changelog categories: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`.
+- Keep an `Unreleased` section at the top.
+- For releases, use reverse chronological order and ISO date format (`YYYY-MM-DD`).
+- Link versions and relevant PRs/issues when available.
+
+### Entry quality rules
+
+- Write for humans, not commit logs, and summarize user-visible impact.
+- Group related changes, avoid noisy internal-only notes unless they affect behavior or operations.
+- Include migration notes when URL behavior, schema fields, or contracts change.
+- Explicitly call out breaking changes and deprecations before removals.
+- Include verification notes for major changes (tests run, deterministic checks, or manual validation scope).
+
+### AI-specific logging rules
+
+- For AI-authored changes, include a short "why" statement for each notable entry.
+- Record scope precisely with file paths or subsystem names (for example parser, docs, SEO metadata, routing).
+- If uncertainty remains (for example missing source data), document assumptions and follow-up actions.
+- Keep changelog entries consistent with commit intent (`feat`, `fix`, and breaking changes) for future automation.
+
+### Release workflow
+
+1. During work: add notable items under `Unreleased`.
+2. On release: move `Unreleased` items into a new version heading with date.
+3. After release: reset `Unreleased` with empty category headings.
+
+---
+
+## When in Doubt
+
+1. Check docs first.
+2. Prefer simpler parser logic over clever extraction heuristics.
+3. Add a deterministic test/check before and after changing behavior.
+4. Update docs immediately when behavior changes.
