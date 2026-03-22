@@ -1,0 +1,6 @@
+# Path redirects (repo-owned). Apex, www, and HTTPS are handled in Cloudflare DNS or Pages custom domains.
+# See docs/phase-4-route-coverage.md and docs/url-migration-policy.md.
+
+/de/ /de/berlin/ 301
+/en/berlin-en/ /en/berlin/ 301
+/en/stockholm/art-yoga-en/ /en/stockholm/art-yoga/ 301

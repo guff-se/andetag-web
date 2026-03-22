@@ -1,0 +1,27 @@
+---
+import SiteLayout from "../layouts/SiteLayout.astro";
+---
+
+<SiteLayout
+  title="Sidan hittades inte | ANDETAG"
+  description="Vi hittade inte sidan du sökte. Välj en av länkarna nedan eller gå till startsidan."
+  language="sv"
+  destination="stockholm"
+  headerVariantId="header-2223"
+  footerVariantId="footer-207"
+  canonicalPath="/404/"
+  hreflang={{ sv: null, en: null, de: null }}
+  xDefaultPath={null}
+  robots="noindex,follow"
+>
+  <section class="error-page">
+    <h1>Sidan hittades inte</h1>
+    <p>Adressen kan vara felstavad eller sidan kan ha flyttats.</p>
+    <ul>
+      <li><a href="/">Till startsidan</a></li>
+      <li><a href="/en/">English home</a></li>
+      <li><a href="/de/berlin/">ANDETAG Berlin</a></li>
+      <li><a href="/stockholm/biljetter/">Biljetter</a></li>
+    </ul>
+  </section>
+</SiteLayout>

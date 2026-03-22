@@ -794,3 +794,16 @@ select:focus-visible {
     border-radius: 4px;
   }
 }
+
+/* Phase 4: empty main until page bodies migrate */
+.page-shell-placeholder {
+  min-height: 1px;
+}
+
+.error-page {
+  padding: 1.5rem 0;
+}
+
+.error-page ul {
+  padding-left: 1.25rem;
+}

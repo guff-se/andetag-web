@@ -4,7 +4,7 @@ Purpose: implement complete static routing, migration-safe redirects, and consis
 
 **Prerequisites:** Phase 3 is complete (2026-03-22). Use `docs/phase-3-component-usage.md`, `docs/content-model.md`, and fixtures from `docs/phase-3-fixture-strategy.md` when implementing route shells and later page bodies.
 
-Status: not started.
+Status: implementation complete on 2026-03-23, pending Cloudflare Pages redirect verification (`P4-07`) and stakeholder sign-off for phase closure.
 
 ## Decisions (stakeholder approval, 2026-03-23)
 
@@ -32,7 +32,7 @@ Phase 4 is complete only when all items marked `P4` are done and approved:
 
 ## P4, Must Complete in Phase 4
 
-- [ ] **P4-00 Confirm Phase 4 scope, routing strategy, and edge versus build responsibilities**
+- [x] **P4-00 Confirm Phase 4 scope, routing strategy, and edge versus build responsibilities**
   - Owner: Gustaf + AI agent
   - Inputs:
     - `docs/grand-plan.md`
@@ -46,7 +46,7 @@ Phase 4 is complete only when all items marked `P4` are done and approved:
     - Verify `docs/grand-plan.md` Phase 4 wording matches layout-plus-metadata-only scope.
   - Done when: implementation and published docs match the decision block with no open blockers.
 
-- [ ] **P4-01 Close URL matrix gaps and publish the route coverage report**
+- [x] **P4-01 Close URL matrix gaps and publish the route coverage report**
   - Owner: AI agent
   - Inputs:
     - `docs/url-matrix.csv`
@@ -58,7 +58,7 @@ Phase 4 is complete only when all items marked `P4` are done and approved:
     - Produce a human-readable route coverage report (suggested path: `docs/phase-4-route-coverage.md`) listing each matrix row, expected behavior (`keep`, `redirect`, `remove`), and implementation location (Astro page path, redirect rule id, or exception id).
   - Done when: the report shows 100% coverage of known URLs with traceable implementation targets.
 
-- [ ] **P4-02 Configure Astro build routing for canonical path shape**
+- [x] **P4-02 Configure Astro build routing for canonical path shape**
   - Owner: AI agent
   - Inputs:
     - `docs/url-migration-policy.md`
@@ -68,7 +68,7 @@ Phase 4 is complete only when all items marked `P4` are done and approved:
     - `site` URL base already set to `https://www.andetag.museum`; keep canonical or absolute URL helpers compatible with a Phase 7 sitemap (sitemap not built in Phase 4).
   - Done when: local `astro build` output paths match the canonical path style for representative routes without manual guesswork.
 
-- [ ] **P4-03 Implement static routes for all `keep` URLs**
+- [x] **P4-03 Implement static routes for all `keep` URLs**
   - Owner: AI agent
   - Inputs:
     - Route coverage report from `P4-01`
@@ -81,7 +81,7 @@ Phase 4 is complete only when all items marked `P4` are done and approved:
     - Main slot: empty or a minimal non-marketing placeholder is acceptable in Phase 4; titles and meta descriptions must still come from approved sources (`seo-content/`, parser output contracts, or `site-html/` extraction), not invented marketing copy.
   - Done when: each `keep` URL returns a successful HTML response in preview or production build output with correct layout shell and policy-compliant head tags.
 
-- [ ] **P4-04 Implement redirect rules for all `redirect` and policy-required aliases**
+- [x] **P4-04 Implement redirect rules for all `redirect` and policy-required aliases**
   - Owner: AI agent
   - Inputs:
     - `docs/url-migration-policy.md`
@@ -92,7 +92,7 @@ Phase 4 is complete only when all items marked `P4` are done and approved:
     - Avoid redirect chains for combinations covered by multiple rules, document ordering if the platform requires it.
   - Done when: redirect test list from `P4-07` passes for every matrix redirect row and documented policy aliases.
 
-- [ ] **P4-05 Align canonical and hreflang emission with SEO manual and content model**
+- [x] **P4-05 Align canonical and hreflang emission with SEO manual and content model**
   - Owner: AI agent
   - Inputs:
     - `docs/Andetag SEO Manual.md` (hreflang section)
@@ -104,7 +104,7 @@ Phase 4 is complete only when all items marked `P4` are done and approved:
     - Apply the BCP47 mapping from **Decisions (stakeholder approval, 2026-03-23)** in `site/src/lib/layout/seo.ts` (or successor); `href` values remain absolute.
   - Done when: sample pages for each language and destination pattern validate against the manual checklist and content model.
 
-- [ ] **P4-06 Implement 404 strategy and language-aware fallback**
+- [x] **P4-06 Implement 404 strategy and language-aware fallback**
   - Owner: AI agent
   - Inputs:
     - `docs/url-migration-policy.md`
@@ -125,7 +125,7 @@ Phase 4 is complete only when all items marked `P4` are done and approved:
     - Record execution environment (local preview, Cloudflare preview, or production) and results.
   - Done when: all required redirects are verified with no undocumented failures.
 
-- [ ] **P4-08 Add regression checks for routing and head metadata**
+- [x] **P4-08 Add regression checks for routing and head metadata**
   - Owner: AI agent
   - Inputs:
     - `P4-03` and `P4-05` outputs
@@ -135,7 +135,7 @@ Phase 4 is complete only when all items marked `P4` are done and approved:
     - Optional CI check that `docs/url-matrix.csv` rows have a corresponding route file or redirect entry when tooling is introduced (only if low-noise and deterministic).
   - Done when: changes to SEO helpers or redirect tables are caught by tests before merge.
 
-- [ ] **P4-09 Prepare carry-forward outputs for Phase 5**
+- [x] **P4-09 Prepare carry-forward outputs for Phase 5**
   - Owner: AI agent
   - Inputs:
     - Completed Phase 4 artifacts
@@ -162,6 +162,6 @@ Phase 4 is complete only when all items marked `P4` are done and approved:
 
 ## Immediate Next 3 Actions
 
-1. Run `P4-00` to align `docs/grand-plan.md` and the route coverage report template with the decision block.
-2. Execute `P4-01` and freeze the matrix plus coverage report as the Phase 5 migration backlog ordering input.
-3. Implement `P4-02` through `P4-04`, then validate with `P4-07` before spending time on optional CI matrix guards in `P4-08`.
+1. Run `P4-07` redirect checks on a Cloudflare Pages preview or production and record results in `docs/phase-4-redirect-tests.md`.
+2. Approve **EX-0007** in `docs/migration-exceptions.md` or replace `/en/stockholm/` metadata when a corrected snapshot exists.
+3. Start Phase 5 page migration using `docs/phase-3-component-usage.md` and the shell registry as the routing backbone.

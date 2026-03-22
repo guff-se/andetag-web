@@ -16,6 +16,7 @@ export type LayoutExample = {
   footerVariantId: FooterVariantId;
   canonicalPath: string;
   hreflang: Record<Language, string | null>;
+  xDefaultPath: string | null;
   description: string;
 };
 
@@ -33,6 +34,7 @@ export const LAYOUT_EXAMPLES: LayoutExample[] = [
       en: "/en/",
       de: "/de/berlin/",
     },
+    xDefaultPath: "/",
     description: "Swedish homepage hero layout with stockholm main navigation.",
   },
   {
@@ -48,6 +50,7 @@ export const LAYOUT_EXAMPLES: LayoutExample[] = [
       en: "/en/",
       de: "/de/berlin/",
     },
+    xDefaultPath: "/",
     description: "English homepage hero layout with full english navigation.",
   },
   {
@@ -63,6 +66,7 @@ export const LAYOUT_EXAMPLES: LayoutExample[] = [
       en: "/en/berlin/",
       de: "/de/berlin/",
     },
+    xDefaultPath: "/de/berlin/",
     description: "German berlin hero layout with berlin-first navigation.",
   },
   {
@@ -78,6 +82,7 @@ export const LAYOUT_EXAMPLES: LayoutExample[] = [
       en: "/en/about-andetag/",
       de: null,
     },
+    xDefaultPath: "/om-andetag/",
     description:
       "English brand header variant with desktop brand navigation and mobile fallback.",
   },
@@ -94,6 +99,7 @@ export const LAYOUT_EXAMPLES: LayoutExample[] = [
       en: "/en/berlin/",
       de: "/de/berlin/",
     },
+    xDefaultPath: "/de/berlin/",
     description: "Legacy alias header mapped to the unified english hero variant.",
   },
 ];

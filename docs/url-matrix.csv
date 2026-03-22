@@ -10,6 +10,7 @@ https://www.andetag.museum/en/,https://www.andetag.museum/en/,en,stockholm,conte
 https://www.andetag.museum/en/about-andetag/,https://www.andetag.museum/en/about-andetag/,en,stockholm,content,keep,none,canonical sitemap URL
 https://www.andetag.museum/en/about-the-artists-malin-gustaf-tadaa/,https://www.andetag.museum/en/about-the-artists-malin-gustaf-tadaa/,en,stockholm,content,keep,none,canonical sitemap URL
 https://www.andetag.museum/en/berlin-en/,https://www.andetag.museum/en/berlin/,en,berlin,content,redirect,301,legacy alias per URL migration policy
+https://www.andetag.museum/en/berlin/,https://www.andetag.museum/en/berlin/,en,berlin,content,keep,none,canonical target for en-berlin-en alias; added for matrix completeness
 https://www.andetag.museum/en/music/,https://www.andetag.museum/en/music/,en,stockholm,content,keep,none,canonical sitemap URL
 https://www.andetag.museum/en/optical-fibre-textile/,https://www.andetag.museum/en/optical-fibre-textile/,en,stockholm,content,keep,none,canonical sitemap URL
 https://www.andetag.museum/en/stockholm/,https://www.andetag.museum/en/stockholm/,en,stockholm,content,keep,none,canonical sitemap URL

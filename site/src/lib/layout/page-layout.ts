@@ -15,6 +15,7 @@ type LayoutModelInput = {
   footerVariantId: FooterVariantId;
   canonicalPath: string;
   hreflang: Record<Language, string | null>;
+  xDefaultPath: string | null;
 };
 
 export function createPageLayoutModel(input: LayoutModelInput) {
@@ -44,7 +45,7 @@ export function createPageLayoutModel(input: LayoutModelInput) {
       destination: input.destination,
     }),
     canonicalUrl: buildCanonicalUrl(input.canonicalPath),
-    hreflangLinks: buildHreflangLinks(input.hreflang),
+    hreflangLinks: buildHreflangLinks(input.hreflang, input.xDefaultPath),
   };
 }
 

@@ -5,4 +5,5 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
   site: "https://www.andetag.museum",
   output: "static",
+  trailingSlash: "always",
 });

@@ -9,6 +9,7 @@ import "../styles/components.css";
 
 type Props = {
   title: string;
+  description?: string;
   language: Language;
   destination: Destination;
   headerVariantId:
@@ -22,13 +23,22 @@ type Props = {
   footerVariantId: FooterVariantId;
   canonicalPath: string;
   hreflang: Record<Language, string | null>;
+  xDefaultPath?: string | null;
   robots?: "index,follow" | "noindex,nofollow";
   fullWidthMain?: boolean;
   bodyClass?: string;
 };
 
 const props = Astro.props as Props;
-const model = createPageLayoutModel(props);
+const model = createPageLayoutModel({
+  language: props.language,
+  destination: props.destination,
+  headerVariantId: props.headerVariantId,
+  footerVariantId: props.footerVariantId,
+  canonicalPath: props.canonicalPath,
+  hreflang: props.hreflang,
+  xDefaultPath: props.xDefaultPath ?? null,
+});
 ---
 
 <!doctype html>
@@ -40,6 +50,7 @@ const model = createPageLayoutModel(props);
     <link rel="icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
     <title>{props.title}</title>
+    {props.description ? <meta name="description" content={props.description} /> : null}
     {props.robots ? <meta name="robots" content={props.robots} /> : null}
     <link rel="canonical" href={model.canonicalUrl} />
     {

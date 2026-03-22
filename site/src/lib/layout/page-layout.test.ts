@@ -12,6 +12,7 @@ describe("page layout model", () => {
         footerVariantId: fixture.footerVariantId,
         canonicalPath: fixture.canonicalPath,
         hreflang: fixture.hreflang,
+        xDefaultPath: fixture.xDefaultPath,
       });
 
       expect(model.header.id).toBe(fixture.expectedHeaderId);

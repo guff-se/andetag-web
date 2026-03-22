@@ -1,0 +1,253 @@
+{
+  "_meta": {
+    "source": "site-html/*.html via extract-page-shell-meta.mjs",
+    "notes": "/en/stockholm/ uses en.html because en-stockholm.html snapshot points canonical to / (scrape mismatch)."
+  },
+  "pages": {
+    "/": {
+      "sourceFile": "index.html",
+      "title": "ANDETAG | En stillsam konstupplevelse i Stockholm",
+      "description": "Andetag är ett stillsamt konstmuseum i centrala Stockholm. En omslutande upplevelse av ljus, textil och musik, skapad för närvaro, vila och ett gemensamt andetag."
+    },
+    "/de/berlin/": {
+      "sourceFile": "de-berlin.html",
+      "title": "ANDETAG Berlin | Das Atemmuseum | Stille, Licht und gemeinsamer Atem | ANDETAG Stockholm",
+      "description": "ANDETAG eröffnet bald in Berlin, ein stilles Atemmuseum, in dem Licht, Textil und Musik sich im Rhythmus eines gemeinsamen Atemzugs bewegen."
+    },
+    "/de/die-kuenstler-malin-gustaf-tadaa/": {
+      "sourceFile": "de-die-kuenstler-malin-gustaf-tadaa.html",
+      "title": "Malin & Gustaf Tadaa | Die Künstler hinter ANDETAG | ANDETAG Stockholm",
+      "description": "Malin und Gustaf Tadaa sind das Künstlerpaar hinter dem Atemmuseum ANDETAG. Ihre gemeinsame Praxis bewegt sich zwischen Licht, Textil, Code und Interaktion."
+    },
+    "/de/musik-von-andetag/": {
+      "sourceFile": "de-musik-von-andetag.html",
+      "title": "Musik von ANDETAG | Originalmusik zum Hören und Atmen | ANDETAG Stockholm",
+      "description": "Zwölf Stücke. Gut eine Stunde zusammenhängendes Hören. Die Originalmusik von ANDETAG — komponiert für Stille und Gegenwärtigkeit, von Gustaf Tadaa und Povel Olsson."
+    },
+    "/de/optische-fasertextil/": {
+      "sourceFile": "de-optische-fasertextil.html",
+      "title": "Die Textilkunst von ANDETAG | Optische Faser, Licht und Gewebe | ANDETAG Stockholm",
+      "description": "Jedes ANDETAG-Werk beginnt mit einem Gewebe. Optische Faser, Baumwolle und Licht werden zu einer Textilkunst verwoben, die langsam leuchtet und sich nie wiederholt."
+    },
+    "/de/ueber-andetag/": {
+      "sourceFile": "de-ueber-andetag.html",
+      "title": "ANDETAG – Das Kunstwerk | Ein gemeinsamer Atemzug als Kunst | ANDETAG Stockholm",
+      "description": "ANDETAG — ein fortlaufendes Kunstprojekt, in dem Licht, Textil und Musik sich im Rhythmus eines gemeinsamen menschlichen Atemzugs bewegen. Nie abgeschlossen, immer in Bewegung."
+    },
+    "/en/": {
+      "sourceFile": "en.html",
+      "title": "ANDETAG | The Breathing Museum in Stockholm",
+      "description": "ANDETAG is a breathing museum in Stockholm—a calm, art experience where light, breath, and music meet. Visit the breathing art museum near Hötorget."
+    },
+    "/en/about-andetag/": {
+      "sourceFile": "en-about-andetag.html",
+      "title": "About ANDETAG | A Breathing Art Project by Malin & Gustaf Tadaa | ANDETAG Stockholm",
+      "description": "ANDETAG is an ongoing art project by Malin and Gustaf Tadaa, built around a shared human breath and unfolding through light, textile, sound, and space."
+    },
+    "/en/about-the-artists-malin-gustaf-tadaa/": {
+      "sourceFile": "en-about-the-artists-malin-gustaf-tadaa.html",
+      "title": "Malin & Gustaf Tadaa | Artists Working with Light, Textile, and Technology in Stockholm | ANDETAG | ANDETAG Stockholm",
+      "description": "Malin and Gustaf Tadaa are a Stockholm-based artist duo working with light, textile, and technology in participatory and spatial art installations. They are the artists behind Andetag."
+    },
+    "/en/berlin/": {
+      "sourceFile": "en-berlin-en.html",
+      "title": "ANDETAG Berlin | The Breathing Museum Opens Autumn 2026 | ANDETAG Stockholm",
+      "description": "ANDETAG, the breathing museum, is coming to Berlin in autumn 2026. A calm, light-based art experience built for stillness and presence. Sign up for early bird tickets."
+    },
+    "/en/music/": {
+      "sourceFile": "en-music.html",
+      "title": "The Music | ANDETAG Stockholm",
+      "description": "The original music from ANDETAG. Twelve tracks in a slower rhythm. A shared breath to listen to, beyond the exhibition. By Gustaf Tadaa and Povel Olsson."
+    },
+    "/en/optical-fibre-textile/": {
+      "sourceFile": "en-optical-fibre-textile.html",
+      "title": "The Textile Behind the Art | ANDETAG Stockholm",
+      "description": "About the weaving, materials, and craft behind ANDETAG. A deeper look at optical fiber textile and the textile that carries light and breath."
+    },
+    "/en/stockholm/": {
+      "sourceFile": "en.html",
+      "title": "ANDETAG | The Breathing Museum in Stockholm",
+      "description": "ANDETAG is a breathing museum in Stockholm—a calm, art experience where light, breath, and music meet. Visit the breathing art museum near Hötorget."
+    },
+    "/en/stockholm/accessibility/": {
+      "sourceFile": "en-stockholm-accessibility.html",
+      "title": "Accessibility at ANDETAG Stockholm | ANDETAG Stockholm",
+      "description": "Accessibility information for ANDETAG in Stockholm. Wheelchair-accessible exhibition, elevators from street and metro, free entry for caregivers. Groups welcome."
+    },
+    "/en/stockholm/art-yoga/": {
+      "sourceFile": "en-stockholm-art-yoga.html",
+      "title": "Art Yoga i Stockholm | Yoga i konstmiljö på ANDETAG | ANDETAG Stockholm",
+      "description": "Art Yoga är en långsam yogaklass i Andetags omslutande konstmiljö i centrala Stockholm. En plats att röra sig, andas och landa, en gång i veckan."
+    },
+    "/en/stockholm/corporate-events/": {
+      "sourceFile": "en-stockholm-corporate-events.html",
+      "title": "Corporate events in Stockholm | ANDETAG Stockholm",
+      "description": "Calm corporate events in Stockholm. A shared experience of light, woven textile and music at ANDETAG. Suitable for kickoffs, team building and conference breaks."
+    },
+    "/en/stockholm/date/": {
+      "sourceFile": "en-stockholm-date.html",
+      "title": "Date in Stockholm | A Quiet Place to Be Together | ANDETAG Stockholm",
+      "description": "A still, immersive art experience in central Stockholm. A calm date where you can be close, be quiet, and share an hour together. Suitable for first dates and couples."
+    },
+    "/en/stockholm/faq/": {
+      "sourceFile": "en-stockholm-faq.html",
+      "title": "Frequently Asked Questions about ANDETAG Stockholm | (FAQ)​ | ANDETAG Stockholm",
+      "description": "Answers to frequently asked questions about ANDETAG in Stockholm. Practical information about your visit, tickets, accessibility, children, groups, and how the experience works."
+    },
+    "/en/stockholm/giftcard/": {
+      "sourceFile": "en-stockholm-giftcard.html",
+      "title": "Give ANDETAG as a gift in Stockholm | Gift cards & tickets | ANDETAG Stockholm",
+      "description": "Give ANDETAG A gift does not have to be an object.It can be a moment. ANDETAG is an immersive art experience where light, textile and music move in rhythm with a shared breath. A quiet place inside the city. A pause from pace and input. To give ANDETAG is to invite someone into presence.To step […]"
+    },
+    "/en/stockholm/group-bookings/": {
+      "sourceFile": "en-stockholm-group-bookings.html",
+      "title": "Group bookings in Stockholm | ANDETAG Stockholm",
+      "description": "Group bookings in Stockholm for groups and private parties. A calm experience of light, woven textile and music at ANDETAG, in the heart of the city."
+    },
+    "/en/stockholm/how-to-find-us/": {
+      "sourceFile": "en-stockholm-how-to-find-us.html",
+      "title": "How to Find ANDETAG Stockholm | Hötorget Metro Station | ANDETAG Stockholm",
+      "description": "ANDETAG is located in the central entrance of Hötorget metro station in Stockholm. Easy to reach, right beneath the city’s rhythm."
+    },
+    "/en/stockholm/opening-hours/": {
+      "sourceFile": "en-stockholm-opening-hours.html",
+      "title": "Opening Hours | ANDETAG Stockholm",
+      "description": "Opening hours for ANDETAG in Stockholm. An immersive art experience with fixed start times and limited capacity."
+    },
+    "/en/stockholm/season-pass/": {
+      "sourceFile": "en-stockholm-season-pass.html",
+      "title": "Season Pass ANDETAG Stockholm | Unlimited Access to the Experience | ANDETAG Stockholm",
+      "description": "The ANDETAG season pass in Stockholm gives you unlimited access over time. A calm art experience to return to, whenever you need a pause."
+    },
+    "/en/stockholm/tickets/": {
+      "sourceFile": "en-stockholm-tickets.html",
+      "title": "Tickets | ANDETAG Stockholm",
+      "description": "Book tickets to ANDETAG in Stockholm. A calm art experience with timed entry and limited availability."
+    },
+    "/en/stockholm/visitor-reviews/": {
+      "sourceFile": "en-stockholm-visitor-reviews.html",
+      "title": "Visitor Reviews of ANDETAG | Art Experience in Stockholm | ANDETAG Stockholm",
+      "description": "Read visitor reviews of ANDETAG in Stockholm. Selected Tripadvisor comments about the art experience, combining light, textile and music."
+    },
+    "/en/stockholm/what-kind-of-experience/": {
+      "sourceFile": "en-stockholm-what-kind-of-experience.html",
+      "title": "What kind of experience is ANDETAG? A breathing museum experience | ANDETAG Stockholm",
+      "description": "ANDETAG is a calm, immersive art experience shaped by stillness, presence, and a shared breathing rhythm. A clear description of what to expect before you visit."
+    },
+    "/musik/": {
+      "sourceFile": "musik.html",
+      "title": "Musiken | ANDETAG Stockholm",
+      "description": "Originalmusiken från ANDETAG. Tolv spår i långsam takt. Ett gemensamt andetag att lyssna till, även utanför utställningen. Av Gustaf Tadaa och Povel Olsson."
+    },
+    "/om-andetag/": {
+      "sourceFile": "om-andetag.html",
+      "title": "Om ANDETAG | Ett konstprojekt format av ett gemensamt andetag | ANDETAG Stockholm",
+      "description": "ANDETAG är ett pågående konstprojekt av Malin och Gustaf Tadaa, byggt kring ett gemensamt mänskligt andetag och uttryckt genom ljus, textil, ljud och rum."
+    },
+    "/om-konstnarerna-malin-gustaf-tadaa/": {
+      "sourceFile": "om-konstnarerna-malin-gustaf-tadaa.html",
+      "title": "Malin & Gustaf Tadaa | Konstnärspar som arbetar med ljus, textil och teknologi | ANDETAG Stockholm",
+      "description": "Malin och Gustaf Tadaa är ett konstnärspar baserat i Stockholm som arbetar med ljus, textil och teknologi i deltagarbaserade och rumsliga konstverk. De står bakom Andetag och flera uppmärksammade utställningar."
+    },
+    "/optisk-fibertextil/": {
+      "sourceFile": "optisk-fibertextil.html",
+      "title": "Textilen bakom konsten | ANDETAG Stockholm",
+      "description": "Om vävningen, materialen och hantverket bakom ANDETAG. En fördjupning i den optiska fibertextil som bär ljuset och andetaget."
+    },
+    "/privacy/": {
+      "sourceFile": "privacy.html",
+      "title": "Privacy Policy | ANDETAG Stockholm",
+      "description": "This Privacy Policy, hereinafter referred to as the ”Policy,” pertains to the processing, collection, utilization, retention, and dissemination of personal data by Tadaa Art AB (”we,” ”us,” or ”our”) in the course of operations conducted through our website, ticketing systems, and associated digital or physical platforms. This Policy is instituted in accordance with the General […]"
+    },
+    "/stockholm/aktivitet-inomhus-stockholm/": {
+      "sourceFile": "stockholm-aktivitet-inomhus-stockholm.html",
+      "title": "ANDETAG | En lugn aktivitet inomhus i Stockholm",
+      "description": "Inomhusaktivitet i Stockholm. ANDETAG - en stillsam aktivitet för närvaro. Ljus, textil och musik i ett gemensamt andetag. Perfekt vid dåligt väder."
+    },
+    "/stockholm/art-yoga/": {
+      "sourceFile": "stockholm-art-yoga.html",
+      "title": "Art Yoga i Stockholm | Yoga i konstmiljö på ANDETAG | ANDETAG Stockholm",
+      "description": "Art Yoga är en långsam yogaklass i Andetags omslutande konstmiljö i centrala Stockholm. En plats att röra sig, andas och landa, en gång i veckan."
+    },
+    "/stockholm/att-gora-stockholm/": {
+      "sourceFile": "stockholm-att-gora-stockholm.html",
+      "title": "ANDETAG | Något lugnt att göra i Stockholm",
+      "description": "Att göra i Stockholm idag? ANDETAG – en stillsam konstupplevelse i centrala Stockholm. Ljus, andning och närvaro. Öppet året runt vid Hötorget."
+    },
+    "/stockholm/besokaromdomen/": {
+      "sourceFile": "stockholm-besokaromdomen.html",
+      "title": "Besökaromdömen om ANDETAG | Konstupplevelse i Stockholm | ANDETAG Stockholm",
+      "description": "Läs vad besökare säger om ANDETAG i Stockholm. Omdömen från Tripadvisor om upplevelsen av ljus, textil, musik och stillhet mitt i staden."
+    },
+    "/stockholm/biljetter/": {
+      "sourceFile": "stockholm-biljetter.html",
+      "title": "Biljetter | ANDETAG Stockholm",
+      "description": "Boka biljetter till ANDETAG i Stockholm. En stillsam konstupplevelse där ljus, textil och musik rör sig i långsam takt."
+    },
+    "/stockholm/dejt/": {
+      "sourceFile": "stockholm-dejt.html",
+      "title": "Dejt i Stockholm | En lugn plats att vara tillsammans | ANDETAG Stockholm",
+      "description": "En stillsam konstupplevelse mitt i Stockholm. En lugn dejt där ni kan sitta nära, vara tysta och dela en stund tillsammans. Passar både första dejten och etablerade par."
+    },
+    "/stockholm/foretagsevent/": {
+      "sourceFile": "stockholm-foretagsevent.html",
+      "title": "Företagsevent i Stockholm | ANDETAG Stockholm",
+      "description": "Stillsamma företagsevent i Stockholm. En gemensam upplevelse av ljus, textil och musik på ANDETAG. För kickoff, teambuilding och konferenspaus."
+    },
+    "/stockholm/fragor-svar/": {
+      "sourceFile": "stockholm-fragor-svar.html",
+      "title": "Vanliga frågor om ANDETAG Stockholm | FAQ | ANDETAG Stockholm",
+      "description": "Svar på vanliga frågor om ANDETAG i Stockholm. Praktisk information om besöket, biljetter, tillgänglighet, barn, grupper och hur upplevelsen fungerar."
+    },
+    "/stockholm/gruppbokning/": {
+      "sourceFile": "stockholm-gruppbokning.html",
+      "title": "Gruppbokning i Stockholm | ANDETAG Stockholm",
+      "description": "Gruppbokning i Stockholm för grupper och privata sällskap. En stillsam upplevelse av ljus, textil och musik på ANDETAG, mitt i staden."
+    },
+    "/stockholm/hitta-hit/": {
+      "sourceFile": "stockholm-hitta-hit.html",
+      "title": "Hitta till ANDETAG Stockholm | Vid Hötorgets tunnelbana | ANDETAG Stockholm",
+      "description": "ANDETAG ligger i Hötorgets tunnelbanestation i centrala Stockholm. En stillsam plats precis under stadens tempo, lätt att nå med tunnelbana."
+    },
+    "/stockholm/museum-stockholm/": {
+      "sourceFile": "stockholm-museum-stockholm.html",
+      "title": "ANDETAG | En stillsamt museum i Stockholm​",
+      "description": "Ett stillsamt konstmuseum i Stockholm. ANDETAG vid Hötorget – ljusbaserad konst, närvaro och andning. Kvällsöppet museum i centrala Stockholm."
+    },
+    "/stockholm/npf-stockholm/": {
+      "sourceFile": "stockholm-npf-stockholm.html",
+      "title": "NPF-vänlig utställning Stockholm | Sensoriskt vänlig museum i lugn miljö vid Hötorget | ANDETAG Stockholm",
+      "description": "En NPF-vänlig och sensoriskt vänlig museum i Stockholm. ANDETAG – lugnt museum med låg stimulus, förutsägbart ljus och små grupper. Autismvänlig. Vid Hötorget."
+    },
+    "/stockholm/oppettider/": {
+      "sourceFile": "stockholm-oppettider.html",
+      "title": "Öppettider ANDETAG Stockholm | ANDETAG Stockholm",
+      "description": "Se aktuella öppettider för ANDETAG i Stockholm. En stillsam konstupplevelse med fasta starttider och begränsat antal platser."
+    },
+    "/stockholm/presentkort/": {
+      "sourceFile": "stockholm-presentkort.html",
+      "title": "Ge bort ANDETAG i Stockholm | Presentkort & biljetter till konstupplevelse | ANDETAG Stockholm",
+      "description": "En gåva som inte ska behållas, utan upplevas. ANDETAG kan ges som presentkort eller biljett. En stund att andas i, mitt i Stockholm."
+    },
+    "/stockholm/sasongskort/": {
+      "sourceFile": "stockholm-sasongskort.html",
+      "title": "Säsongskort ANDETAG Stockholm | Fri tillgång till upplevelsen | ANDETAG Stockholm",
+      "description": "Säsongskort till ANDETAG i Stockholm. Fri tillgång till den stillsamma konstupplevelsen under en längre period. En plats att återvända till, i din egen takt."
+    },
+    "/stockholm/tillganglighet/": {
+      "sourceFile": "stockholm-tillganglighet.html",
+      "title": "Tillgänglighet på ANDETAG Stockholm | ANDETAG Stockholm",
+      "description": "Information om tillgänglighet på ANDETAG i Stockholm. Rullstolsanpassad utställning, hiss från tunnelbana och gatuplan, ledsagare fri entré. Grupper välkomna."
+    },
+    "/stockholm/utstallning-stockholm/": {
+      "sourceFile": "stockholm-utstallning-stockholm.html",
+      "title": "ANDETAG | En stillsam konstutställing i Stockholm​",
+      "description": "En stillsam konstutställning i Stockholm. ANDETAG vid Hötorget – ljus- och textilkonst som andas. Öppna utställningar i centrala Stockholm."
+    },
+    "/stockholm/vilken-typ-av-upplevelse/": {
+      "sourceFile": "stockholm-vilken-typ-av-upplevelse.html",
+      "title": "Vilken typ av upplevelse är ANDETAG? En stillsam konstupplevelse i ljus | ANDETAG Stockholm",
+      "description": "ANDETAG är en stillsam, ljusbaserad konstupplevelse byggd kring närvaro, andning och långsamhet. En ärlig beskrivning av vad du möter innan ditt besök."
+    }
+  }
+}

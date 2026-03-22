@@ -1,0 +1,33 @@
+---
+import SiteLayout from "../layouts/SiteLayout.astro";
+import {
+  getPageShellRoute,
+  PAGE_SHELL_PATHS,
+  slugParamForShellPath,
+} from "../lib/routes/page-shell-registry";
+
+export function getStaticPaths() {
+  return PAGE_SHELL_PATHS.filter((p) => p !== "/").map((canonicalPath) => ({
+    params: { slug: slugParamForShellPath(canonicalPath) },
+  }));
+}
+
+const slug = Astro.params.slug as string;
+const segments = slug.split("/").filter(Boolean);
+const canonicalPath = `/${segments.join("/")}/`;
+const shell = getPageShellRoute(canonicalPath);
+---
+
+<SiteLayout
+  title={shell.title}
+  description={shell.description}
+  language={shell.language}
+  destination={shell.destination}
+  headerVariantId={shell.headerVariantId}
+  footerVariantId={shell.footerVariantId}
+  canonicalPath={shell.canonicalPath}
+  hreflang={shell.hreflang}
+  xDefaultPath={shell.xDefaultPath}
+>
+  <div class="page-shell-placeholder" aria-hidden="true"></div>
+</SiteLayout>
