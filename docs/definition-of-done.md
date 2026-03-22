@@ -1,0 +1,69 @@
+# Definition of Done by Phase
+
+Purpose: provide measurable exit checks aligned to each phase in `docs/grand-plan.md`.
+
+## Shared Quality Gates
+
+All phases must keep these baseline checks in scope:
+
+- Performance: Core Web Vitals on key templates meet modern production targets (LCP <= 2.5s, INP <= 200ms, CLS <= 0.1) under controlled test conditions.
+- SEO: canonical/hreflang integrity preserved for affected URLs.
+- Accessibility: no unresolved high-severity accessibility violations in changed surfaces (WCAG 2.2 AA intent).
+- Visual parity: approved differences only.
+- Functional conversion path: ticket and lead paths remain operable.
+
+## Phase 0, Foundations and Guardrails
+
+- Performance: CI workflow executes on every push to `main` and completes within 5 minutes for docs-only changes.
+- SEO: URL policy and URL schema are documented and internally consistent.
+- Accessibility: no direct UI output in this phase, not applicable.
+- Visual parity: no direct UI output in this phase, not applicable.
+- Functional conversion path: tracking and consent requirements documented for later implementation.
+
+## Phase 1, Existing Site Analysis and Documentation
+
+- Performance: analysis artifacts are reproducible from source files.
+- SEO: 100 percent of known URLs are represented in analysis schema or marked unknown with rationale.
+- Accessibility: existing accessibility risks are documented where detected during analysis.
+- Visual parity: component and template inventory includes evidence sources from existing pages.
+- Functional conversion path: integration disposition identifies how booking and conversion flows are retained.
+
+## Phase 2, Shared Layout System
+
+- Performance: shared layout code does not add unnecessary blocking resources.
+- SEO: nav/footer links, canonical generation hooks, and hreflang hooks are implemented.
+- Accessibility: keyboard nav, focus order, and semantic landmarks pass review.
+- Visual parity: each header/footer variant approved on desktop and mobile reference views.
+- Functional conversion path: primary CTA links in nav/footer route correctly.
+
+## Phase 3, Component Library and Verification Page
+
+- Performance: component showcase page scores at least 90 for Lighthouse Performance on mobile profile.
+- SEO: reusable components support metadata injection where relevant.
+- Accessibility: each core component has keyboard and screen-reader behavior validated, and Lighthouse Accessibility score is at least 95 on showcase page.
+- Visual parity: component showcase is approved before page migration starts.
+- Functional conversion path: CTA and embed components support required ticketing and lead journeys.
+
+## Phase 4, Routing and URL Preservation
+
+- Performance: redirects and route handling do not introduce redirect chains.
+- SEO: route coverage report shows full mapping, canonical URLs match policy.
+- Accessibility: error and fallback routes remain usable with keyboard and screen readers.
+- Visual parity: route-level templates render approved layout variants.
+- Functional conversion path: critical conversion routes and aliases resolve correctly.
+
+## Phase 5, Page Migration and Iterative Approval
+
+- Performance: migrated conversion-priority pages score at least 85 in Lighthouse Performance on mobile profile, and do not exceed one blocking redirect hop.
+- SEO: each migrated page has title, description, canonical, hreflang, and indexability set.
+- Accessibility: no unresolved high-severity issues on approved migrated pages.
+- Visual parity: per-page approval is explicitly recorded before next migration batch.
+- Functional conversion path: booking/lead interactions on each migrated page are validated.
+
+## Phase 6, Scripts, Consent, Analytics, and Launch Hardening
+
+- Performance: third-party scripts are consent-gated, and key conversion pages maintain Lighthouse Performance >= 85 mobile and >= 95 desktop.
+- SEO: sitemap, robots, canonicals, and hreflang output pass pre-launch checks.
+- Accessibility: consent experience and script-driven UI remain accessible, with no unresolved critical accessibility issues.
+- Visual parity: final cross-device QA has no unresolved high-priority defects.
+- Functional conversion path: analytics and attribution coverage is validated end-to-end for purchase funnel events.

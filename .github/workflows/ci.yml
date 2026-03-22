@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  markdown-lint:
+    name: Markdown lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run markdownlint
+        uses: DavidAnson/markdownlint-cli2-action@v20
+        with:
+          globs: |
+            **/*.md
+
+  docs-link-check:
+    name: Internal docs link check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check markdown links
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --verbose --no-progress --include-fragments "./docs/**/*.md" "./CHANGELOG.md" "./AGENTS.md"
+          fail: true
+
+  stack-placeholder:
+    name: Build and lint placeholder
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Placeholder for stack-specific checks
+        run: |
+          echo "Phase 0 placeholder job."
+          echo "Activate framework build and lint checks after Phase 1 stack selection."

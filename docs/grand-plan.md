@@ -66,6 +66,7 @@ Purpose: rebuild `https://andetag.museum` as a lightweight static site with pres
 
 Goal: create the project guardrails before building pages.
 Execution checklist: `docs/phase-0-todo.md`
+Status: complete (approved on 2026-03-22).
 
 Deliverables:
 - URL migration policy: direct mapping + redirect handling strategy.

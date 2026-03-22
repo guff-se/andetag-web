@@ -13,7 +13,7 @@ Purpose: preserve SEO value and inbound links while rebuilding `andetag.museum` 
 
 - Canonical domain is `https://www.andetag.museum`.
 - Canonical protocol is `https`.
-- Canonical path style uses trailing slash for content pages: `/path/`.
+- Canonical path style uses trailing slash for HTML content pages: `/path/`.
 - Slugs must remain ASCII-only, lowercase, and hyphen-separated.
 - Canonicals must not include tracking query parameters.
 
@@ -21,7 +21,7 @@ Purpose: preserve SEO value and inbound links while rebuilding `andetag.museum` 
 
 - Redirect non-canonical host to canonical host (`andetag.museum` -> `www.andetag.museum`) using `301`.
 - Redirect `http` to `https` using `301`.
-- Redirect non-trailing-slash page paths to trailing-slash paths using `301`.
+- Redirect non-trailing-slash HTML page paths to trailing-slash paths using `301`.
 - Redirect uppercase path requests to lowercase canonical paths using `301`.
 - Preserve query parameters through all redirects (including `utm_*`, `gclid`, `fbclid`, and similar).
 - Normalize common malformed paths (for example duplicate slashes) to canonical path using `301`.
@@ -61,6 +61,20 @@ Policy notes:
 - Canonical privacy URL remains `/privacy/` for migration continuity.
 - Optional alias `/privacy-policy/` should redirect to `/privacy/` (`301`) if introduced.
 
+## Query Parameter Policy
+
+- Query parameters do not create canonical variants.
+- Canonical URLs are always stored and emitted without query strings.
+- Requests with query parameters must resolve to the same canonical page path, preserving parameters through redirects where redirects occur.
+- Known tracking parameters (`utm_*`, `gclid`, `fbclid`, `msclkid`) are allowed for attribution and must not be used for indexable URL expansion.
+
+## Non-HTML Endpoint Policy
+
+- WordPress/system endpoints (`/wp-json/`, `/xmlrpc.php`, feed URLs, and admin endpoints) are non-HTML and are not migrated as indexable pages.
+- Non-HTML assets (images, videos, PDFs) keep direct asset URLs where needed and are excluded from page canonical maps.
+- Any legacy non-HTML endpoint retained for compatibility must be explicitly listed in the URL matrix with `page_type=non_html` and `status` set to `redirect` or `remove`.
+- Trailing slash normalization applies only to HTML content routes, never to file-extension endpoints (for example `.pdf`, `.jpg`, `.xml`, `.json`).
+
 ## Berlin Transition Policy
 
 - Berlin temporary prelaunch/waitlist content and live content should use the same stable destination URLs.
@@ -84,8 +98,9 @@ Policy notes:
 - URL matrix artifacts should map:
   - `source_url`
   - `canonical_url`
-  - `redirect_status`
-  - `notes/exception_reason`
+  - `status`
+  - `redirect_type`
+  - `notes`
 
 ## Policy Status
 

@@ -70,6 +70,14 @@ Reference docs before implementation:
 | `docs/grand-plan.md` | Project roadmap, phase gates, business objectives, and decision log. |
 | `docs/phase-0-todo.md` | Execution checklist for Phase 0 guardrails and deliverables. |
 | `docs/url-migration-policy.md` | Canonical URL, redirect, alias, and sitemap policy for migration and launch. |
+| `docs/url-matrix-schema.md` | URL matrix data contract for must-keep URLs and redirect status tracking. |
+| `docs/content-model.md` | Versioned contract for page frontmatter, shared data, and component props. |
+| `docs/definition-of-done.md` | Measurable exit checks for each delivery phase. |
+| `docs/tracking-and-consent-requirements.md` | GTM, Brevo, and consent category requirements for compliant tracking. |
+| `docs/migration-exceptions.md` | Exception log format and approval workflow for source parity deviations. |
+| `docs/design-extraction-method.md` | Reproducible method for extracting design tokens and component patterns from all CSS sources. |
+| `docs/phase-1-analysis-schema.md` | Structured tables for Phase 1 variant, widget, and integration analysis. |
+| `docs/decisions/README.md` | ADR template, naming convention, and decision lifecycle process. |
 
 **Rule:** If behavior changes, update the relevant doc in the same task.
 
@@ -106,6 +114,8 @@ Changes often affect multiple layers. Audit all related layers before concluding
 ```
 web/
 ├── AGENTS.md                 # This guide
+├── CHANGELOG.md              # Human-readable project change log
+├── .github/workflows/        # CI workflows for docs and quality gates
 ├── spider.py                 # Current crawler (HTML + Markdown snapshots + assets)
 ├── docs/                     # Migration, SEO, tone, and site architecture specs
 ├── site-html/                # Scraped HTML pages and downloaded WP assets
