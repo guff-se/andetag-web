@@ -1,0 +1,20 @@
+---
+type Props = {
+  title: string;
+  src: string;
+  fallbackText: string;
+  unavailable?: boolean;
+};
+
+const { title, src, fallbackText, unavailable = false } = Astro.props as Props;
+---
+
+<section class={`embed-shell ${unavailable ? "" : "embed-shell-no-frame"}`.trim()}>
+  {unavailable ? (
+    <p class="embed-fallback" role="status">{fallbackText}</p>
+  ) : (
+    <div class="embed-shell-video">
+      <iframe title={title} src={src} loading="lazy" class="embed-frame embed-frame-video" />
+    </div>
+  )}
+</section>

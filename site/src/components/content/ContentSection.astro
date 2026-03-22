@@ -1,0 +1,19 @@
+---
+import { getHeadingTag } from "../../lib/components/presentation";
+import type { HeadingLevel } from "../../lib/components/types";
+
+type Props = {
+  heading?: string;
+  headingLevel?: HeadingLevel | "h4";
+  markdown: string;
+  align?: "left" | "center";
+};
+
+const { heading, headingLevel = "h2", markdown, align = "left" } = Astro.props as Props;
+const HeadingTag = getHeadingTag(headingLevel, "h2");
+---
+
+<section class={`content-section align-${align}`}>
+  {heading ? <HeadingTag>{heading}</HeadingTag> : null}
+  <div class="content-section-body" set:html={markdown} />
+</section>

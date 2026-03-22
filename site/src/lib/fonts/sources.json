@@ -8,7 +8,7 @@
   {
     "family": "Baskervville",
     "id": "baskervville",
-    "cssUrl": "https://fonts.googleapis.com/css2?family=Baskervville:ital,wght@0,400&display=swap",
+    "cssUrl": "https://fonts.googleapis.com/css2?family=Baskervville:ital,wght@0,400;1,400&display=swap",
     "subsetPriority": ["latin-ext", "latin"]
   }
 ]

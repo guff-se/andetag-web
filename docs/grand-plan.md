@@ -130,6 +130,7 @@ Key outcomes (carry-forward to later phases):
 ### Phase 3, Design Component Library and Verification Page
 
 Goal: build a reusable component system with explicit visual approval workflow.
+Execution checklist: `docs/phase-3-todo.md`
 
 Deliverables:
 - Reusable components with stable APIs (button, hero, section wrappers, testimonial, FAQ, gallery, embeds, booking module, info boxes, map block, etc).

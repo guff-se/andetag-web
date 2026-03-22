@@ -1,0 +1,25 @@
+---
+import { getLinkClassName } from "../../lib/components/presentation";
+import type { LinkStyleVariant } from "../../lib/components/types";
+
+type Props = {
+  label: string;
+  href: string;
+  styleVariant: LinkStyleVariant;
+  external?: boolean;
+  className?: string;
+};
+
+const { label, href, styleVariant, external = false, className = "" } = Astro.props as Props;
+const rel = external ? "noreferrer noopener" : undefined;
+const target = external ? "_blank" : undefined;
+---
+
+<a
+  href={href}
+  class={`shared-link ${getLinkClassName(styleVariant)} ${className}`.trim()}
+  rel={rel}
+  target={target}
+>
+  {label}
+</a>

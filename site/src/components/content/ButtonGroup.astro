@@ -1,0 +1,23 @@
+---
+import StyledLink from "../ui/StyledLink.astro";
+import type { Cta } from "../../lib/components/types";
+
+type Props = {
+  buttons: Cta[];
+  className?: string;
+};
+
+const { buttons, className = "" } = Astro.props as Props;
+---
+
+<div class={`button-group ${className}`.trim()}>
+  {
+    buttons.map((button) => (
+      <StyledLink
+        label={button.label}
+        href={button.href}
+        styleVariant={`cta-${button.variant}`}
+      />
+    ))
+  }
+</div>

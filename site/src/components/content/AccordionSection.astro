@@ -1,0 +1,21 @@
+---
+type AccordionItem = {
+  title: string;
+  body: string;
+};
+
+type Props = {
+  items: AccordionItem[];
+};
+
+const { items } = Astro.props as Props;
+---
+
+<section class="accordion-section">
+  {items.map((item, index) => (
+    <details class="accordion-item" open={index === 0 ? true : undefined}>
+      <summary>{item.title}</summary>
+      <p>{item.body}</p>
+    </details>
+  ))}
+</section>

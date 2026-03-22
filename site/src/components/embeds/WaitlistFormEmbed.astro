@@ -1,0 +1,142 @@
+---
+type Props = {
+  formId: string;
+  locale: "sv" | "en" | "de";
+  fallbackText: string;
+  unavailable?: boolean;
+  formAction?: string;
+};
+
+const {
+  formId,
+  locale,
+  fallbackText,
+  unavailable = false,
+  formAction = "https://e25384f2.sibforms.com/serve/MUIFAIE_B025Xt2_dvCh6azEBOnH0kzPxiBea2f7jUViDLsDx-pRy5dD1jIAMONyecpQcwONReLIxoslmfauUfbwRwT-nS1PrkUgU3b75XFYC0zaiUMAWHfT4JEjCcr-z8evDEZI67AjDSWgznc1r03Yn-Z08v3nly6HA0qj7gt8bAVfpMU8Dixy5tlmby7y79jV4ZXfnt0RqgiH",
+} = Astro.props as Props;
+---
+
+<section class="embed-shell">
+  {unavailable ? (
+    <p class="embed-fallback" role="status">{fallbackText}</p>
+  ) : (
+    <div class="waitlist-embed" data-form-id={formId} data-locale={locale}>
+      <style is:global>
+        {`
+          #sib-container input:-ms-input-placeholder {
+            text-align: left;
+            font-family: "Baskervville", Georgia, serif;
+            color: #d0a4cc;
+          }
+
+          #sib-container input::placeholder {
+            text-align: left;
+            font-family: "Baskervville", Georgia, serif;
+            color: #d0a4cc;
+          }
+
+          #sib-container a {
+            text-decoration: underline;
+            color: #4a0d2f;
+          }
+
+          #sib-container .entry__field,
+          #sib-container .form__entry,
+          #sib-container .form__label-row,
+          #sib-container .sib-input {
+            background-color: transparent !important;
+            border: none !important;
+            border-radius: 12px;
+          }
+        `}
+      </style>
+      <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css" />
+      <div class="sib-form" style="text-align: center; background-color: transparent;">
+        <div id="sib-form-container" class="sib-form-container">
+          <div
+            id="sib-container"
+            class="sib-container--large sib-container--vertical"
+            style="text-align:center; background-color:transparent; max-width:540px; border-radius:0; border-width:0; border-style:none; padding:0;"
+          >
+            <form id="sib-form" method="POST" action={formAction} style="padding:0; margin:0;">
+              <div style="padding: 4px 0;">
+                <div class="sib-input sib-form-block">
+                  <div class="form__entry entry_block">
+                    <div class="form__label-row">
+                      <div class="entry__field">
+                        <input
+                          class="input"
+                          type="text"
+                          id="EMAIL"
+                          name="EMAIL"
+                          autocomplete="off"
+                          placeholder="Your email address"
+                          data-required="true"
+                          required
+                          style="font-family: 'Baskervville', Georgia, serif; font-size: 16px; color: #111111; border: 1px solid #4A0D2F !important; border-radius: 12px; background-color: #F7DCEA; padding: 0.8em 1em;"
+                        />
+                      </div>
+                    </div>
+                    <label
+                      class="entry__error entry__error--primary"
+                      style="font-size: 14px; text-align: left; font-family: 'Baskervville', Georgia, serif; color: #661d1d; background-color: #ffeded; border-radius: 5px; border-color: #ff4949;"
+                    >
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div style="padding: 4px 0;">
+                <div class="sib-optin sib-form-block" data-required="true">
+                  <div class="form__entry entry_mcq">
+                    <div class="form__label-row">
+                      <div class="entry__choice">
+                        <label>
+                          <input type="checkbox" class="input_replaced" value="1" id="OPT_IN" name="OPT_IN" required />
+                          <span class="checkbox checkbox_tick_positive"></span>
+                          <span
+                            style="font-size: 14px; text-align: left; font-family: 'Baskervville', Georgia, serif; color: #4A0D2F; background-color: transparent;"
+                          >
+                            <p>
+                              I agree to receive emails and accept the
+                              <a href="/privacy/" style="color: #4A0D2F;">Privacy Policy</a>.
+                            </p>
+                            <span data-required="*" style="display: inline;" class="entry__label entry__label_optin"></span>
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                    <label
+                      class="entry__error entry__error--primary"
+                      style="font-size: 14px; text-align: left; font-family: 'Baskervville', Georgia, serif; color: #661d1d; background-color: #ffeded; border-radius: 5px; border-color: #ff4949;"
+                    >
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div style="padding: 4px 0;">
+                <div class="sib-form-block" style="text-align: center">
+                  <button
+                    class="sib-form-block__button sib-form-block__button-with-loader"
+                    style="font-family: 'Jost', sans-serif; font-size: 14px; text-align: center; font-weight: 500; text-transform: uppercase; letter-spacing: 0.3em; color: #FAFAFA; background-color: #4A0D2F; border-radius: 12px; border: 1px solid #111111; padding: 1em 1.3em; box-shadow: 5px 5px 10px 0px rgba(0,0,0,0.5); cursor: pointer;"
+                    form="sib-form"
+                    type="submit"
+                  >
+                    <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512">
+                      <path
+                        d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z"
+                      ></path>
+                    </svg>
+                    Sign up
+                  </button>
+                </div>
+              </div>
+              <input type="text" name="email_address_check" value="" class="input--hidden" />
+              <input type="hidden" name="locale" value={locale} />
+              <input type="hidden" name="html_type" value="simple" />
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  )}
+</section>

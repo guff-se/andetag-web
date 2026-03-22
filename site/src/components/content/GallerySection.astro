@@ -1,0 +1,89 @@
+---
+type GalleryImage = {
+  src: string;
+  alt: string;
+  caption?: string;
+  fullSrc?: string;
+};
+
+type Props = {
+  images: GalleryImage[];
+  mobileMode: "carousel" | "grid";
+  galleryId?: string;
+};
+
+const { images, mobileMode, galleryId = "phase3-gallery" } = Astro.props as Props;
+---
+
+<section class={`gallery-section mobile-${mobileMode}`} data-gallery-id={galleryId}>
+  {images.map((image) => (
+    <figure class="gallery-tile">
+      <a
+        href={image.fullSrc ?? image.src}
+        class="gallery-lightbox-link js-gallery-lightbox"
+        data-gallery={galleryId}
+        aria-label={image.alt}
+      >
+        <img src={image.src} alt={image.alt} loading="lazy" />
+        <span class="gallery-hover-overlay" aria-hidden="true"></span>
+      </a>
+      {image.caption ? <figcaption>{image.caption}</figcaption> : null}
+    </figure>
+  ))}
+</section>
+
+<script>
+  import $ from "jquery";
+
+  const ensureLightbox = () => {
+    if (document.getElementById("gallery-lightbox-overlay")) {
+      return;
+    }
+
+    const overlay = document.createElement("div");
+    overlay.id = "gallery-lightbox-overlay";
+    overlay.className = "gallery-lightbox-overlay";
+    overlay.innerHTML = `
+      <button type="button" class="gallery-lightbox-close" aria-label="Close image">&times;</button>
+      <img class="gallery-lightbox-image" alt="" />
+    `;
+    document.body.appendChild(overlay);
+  };
+
+  ensureLightbox();
+
+  const $overlay = $("#gallery-lightbox-overlay");
+  const $image = $overlay.find(".gallery-lightbox-image");
+
+  $(document).on("click", ".js-gallery-lightbox", (event) => {
+    event.preventDefault();
+    const target = event.currentTarget;
+    if (!(target instanceof HTMLAnchorElement)) return;
+    const imageUrl = target.getAttribute("href");
+    const imageAlt = target.getAttribute("aria-label") ?? "";
+    if (!imageUrl) return;
+    $image.attr("src", imageUrl);
+    $image.attr("alt", imageAlt);
+    $overlay.addClass("is-open");
+    document.body.classList.add("lightbox-open");
+  });
+
+  $(document).on("click", ".gallery-lightbox-close, #gallery-lightbox-overlay", (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLElement)) return;
+    if (
+      target.classList.contains("gallery-lightbox-overlay") ||
+      target.classList.contains("gallery-lightbox-close")
+    ) {
+      $overlay.removeClass("is-open");
+      document.body.classList.remove("lightbox-open");
+    }
+  });
+
+  $(document).on("keydown", (event) => {
+    if (event.key === "Escape") {
+      $overlay.removeClass("is-open");
+      document.body.classList.remove("lightbox-open");
+    }
+  });
+</script>

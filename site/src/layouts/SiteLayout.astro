@@ -5,6 +5,7 @@ import { createPageLayoutModel } from "../lib/layout/page-layout";
 import type { Destination, FooterVariantId, Language } from "../lib/layout/types";
 import "../styles/fonts.css";
 import "../styles/layout.css";
+import "../styles/components.css";
 
 type Props = {
   title: string;
@@ -21,6 +22,9 @@ type Props = {
   footerVariantId: FooterVariantId;
   canonicalPath: string;
   hreflang: Record<Language, string | null>;
+  robots?: "index,follow" | "noindex,nofollow";
+  fullWidthMain?: boolean;
+  bodyClass?: string;
 };
 
 const props = Astro.props as Props;
@@ -36,6 +40,7 @@ const model = createPageLayoutModel(props);
     <link rel="icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
     <title>{props.title}</title>
+    {props.robots ? <meta name="robots" content={props.robots} /> : null}
     <link rel="canonical" href={model.canonicalUrl} />
     {
       model.hreflangLinks.map((link) => (
@@ -43,11 +48,15 @@ const model = createPageLayoutModel(props);
       ))
     }
   </head>
-  <body>
+  <body class={props.bodyClass}>
     <a class="skip-link" href="#main-content">Hoppa till innehall</a>
     <div class="page-shell">
       <SiteHeader model={model} currentPath={Astro.url.pathname} />
-      <main id="main-content" class="main-content" tabindex="-1">
+      <main
+        id="main-content"
+        class={`main-content ${props.fullWidthMain ? "main-content-wide" : ""}`.trim()}
+        tabindex="-1"
+      >
         <slot />
       </main>
       <SiteFooter model={model} />

@@ -1,0 +1,143 @@
+---
+type TestimonialItem = {
+  quote: string;
+  author?: string;
+};
+
+type Props = {
+  items: TestimonialItem[];
+  backgroundImage?: string;
+  autoplayMs?: number;
+};
+
+const {
+  items,
+  backgroundImage = "/wp-content/uploads/2024/11/Andetag-27-037-copy-scaled.jpg",
+  autoplayMs = 6000,
+} = Astro.props as Props;
+---
+
+<section
+  class="testimonial-carousel js-testimonial-carousel"
+  style={`--testimonial-background-image: url('${backgroundImage}')`}
+  data-autoplay-ms={autoplayMs}
+>
+  <div class="testimonial-carousel-overlay" aria-hidden="true"></div>
+  <div class="testimonial-carousel-viewport" aria-live="polite">
+    {items.map((item, index) => (
+      <blockquote
+        class={`testimonial-slide${index === 0 ? " is-active" : ""}`}
+        data-slide-index={index}
+        aria-hidden={index === 0 ? "false" : "true"}
+      >
+        <p>{item.quote}</p>
+        {item.author ? <cite>{item.author}</cite> : null}
+      </blockquote>
+    ))}
+  </div>
+  {
+    items.length > 1 ? (
+      <>
+        <button class="testimonial-nav testimonial-nav-prev" type="button" aria-label="Previous testimonial">
+          <span aria-hidden="true">‹</span>
+        </button>
+        <button class="testimonial-nav testimonial-nav-next" type="button" aria-label="Next testimonial">
+          <span aria-hidden="true">›</span>
+        </button>
+      </>
+    ) : null
+  }
+</section>
+
+<script>
+  import $ from "jquery";
+  import { getWrappedIndex } from "../../lib/components/testimonial-carousel";
+
+  const setupTestimonialCarousel = (root) => {
+    const $root = $(root);
+    if ($root.data("carouselInitialized")) return;
+    $root.data("carouselInitialized", true);
+
+    const $slides = $root.find(".testimonial-slide");
+    const total = $slides.length;
+    if (total === 0) return;
+
+    let activeIndex = getWrappedIndex(0, total);
+    const autoplayMs = Number($root.attr("data-autoplay-ms")) || 6000;
+    const transitionMs = 500;
+    let intervalId = null;
+
+    const setActiveSlide = (requestedIndex) => {
+      const nextIndex = getWrappedIndex(requestedIndex, total);
+      if (nextIndex === activeIndex) return;
+
+      const $current = $slides.eq(activeIndex);
+      const $next = $slides.eq(nextIndex);
+
+      $current
+        .stop(true, true)
+        .removeClass("is-active")
+        .attr("aria-hidden", "true")
+        .fadeOut(transitionMs);
+
+      $next
+        .stop(true, true)
+        .addClass("is-active")
+        .attr("aria-hidden", "false")
+        .fadeIn(transitionMs);
+
+      activeIndex = nextIndex;
+    };
+
+    const startAutoplay = () => {
+      if (total <= 1 || autoplayMs <= 0 || intervalId !== null) return;
+      intervalId = window.setInterval(() => {
+        setActiveSlide(activeIndex + 1);
+      }, autoplayMs);
+    };
+
+    const stopAutoplay = () => {
+      if (intervalId === null) return;
+      window.clearInterval(intervalId);
+      intervalId = null;
+    };
+
+    $slides.each((index, slide) => {
+      const $slide = $(slide);
+      if (index === activeIndex) {
+        $slide.show();
+      } else {
+        $slide.hide();
+      }
+    });
+
+    $root.find(".testimonial-nav-prev").on("click", () => {
+      setActiveSlide(activeIndex - 1);
+      stopAutoplay();
+      startAutoplay();
+    });
+
+    $root.find(".testimonial-nav-next").on("click", () => {
+      setActiveSlide(activeIndex + 1);
+      stopAutoplay();
+      startAutoplay();
+    });
+
+    $root.on("mouseenter focusin", stopAutoplay);
+    $root.on("mouseleave focusout", () => {
+      startAutoplay();
+    });
+
+    startAutoplay();
+  };
+
+  const initializeAll = () => {
+    document.querySelectorAll(".js-testimonial-carousel").forEach(setupTestimonialCarousel);
+  };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initializeAll, { once: true });
+  } else {
+    initializeAll();
+  }
+</script>

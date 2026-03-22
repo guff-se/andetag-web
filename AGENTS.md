@@ -71,6 +71,11 @@ Reference docs before implementation:
 | `docs/phase-0-todo.md` | Execution checklist for Phase 0 guardrails and deliverables. |
 | `docs/phase-1-todo.md` | Execution checklist for Phase 1 analysis deliverables and exit gate inputs. |
 | `docs/phase-2-todo.md` | Execution checklist for Phase 2 shared layout system deliverables and approvals. |
+| `docs/phase-3-todo.md` | Execution checklist for Phase 3 component library, showcase approval, and verification gates. |
+| `docs/phase-3-component-qa-checklist.md` | Reusable QA checklist template for Phase 3 component verification and showcase sign-off. |
+| `docs/phase-3-fixture-strategy.md` | Deterministic fixture strategy and coverage map for Phase 3 layout and component regression checks. |
+| `docs/phase-3-component-inventory.md` | Source-backed Phase 3 component inventory and approved API contracts. |
+| `docs/phase-3-component-usage.md` | Implementation-facing usage reference for approved Phase 3 components and embeds. |
 | `docs/phase-1-design-baseline.md` | Source-backed design token and component evidence baseline for Phase 1. |
 | `docs/ia-language-destination-options.md` | IA options and recommendation for language plus destination routing continuity. |
 | `docs/kpi-measurement-map.md` | KPI funnel event taxonomy for GTM and Phase 7 analytics implementation. |

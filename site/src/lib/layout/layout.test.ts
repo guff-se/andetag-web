@@ -10,6 +10,7 @@ import {
   getNavigationVariant,
 } from "./navigation";
 import { buildCanonicalUrl, buildHreflangLinks } from "./seo";
+import { NAVIGATION_FIXTURES, SELECTOR_FIXTURES } from "./fixtures";
 
 describe("layout variant contracts", () => {
   it("contains all validated header variants from phase 1", () => {
@@ -37,54 +38,37 @@ describe("layout variant contracts", () => {
 });
 
 describe("navigation behavior", () => {
-  it("returns sv-main for swedish stockholm pages", () => {
-    const variant = getNavigationVariant({
-      language: "sv",
-      destination: "stockholm",
-      headerVariantId: "header-2223",
-    });
+  NAVIGATION_FIXTURES.forEach((fixture) => {
+    it(`returns ${fixture.expectedVariantId} for ${fixture.id}`, () => {
+      const variant = getNavigationVariant({
+        language: fixture.language,
+        destination: fixture.destination,
+        headerVariantId: fixture.headerVariantId,
+        viewport: fixture.viewport,
+      });
 
-    expect(variant.id).toBe("sv-main");
+      expect(variant.id).toBe(fixture.expectedVariantId);
+    });
   });
 
-  it("returns en-brand for desktop when brand header is used", () => {
-    const variant = getNavigationVariant({
-      language: "en",
-      destination: "stockholm",
-      headerVariantId: "header-4287",
-      viewport: "desktop-tablet",
+  SELECTOR_FIXTURES.forEach((fixture) => {
+    it(`keeps selectors independent for ${fixture.id}`, () => {
+      const languageOptions = getLanguageSelectorOptions({
+        language: fixture.language,
+        destination: fixture.destination,
+      });
+      const destinationOptions = getDestinationSelectorOptions({
+        language: fixture.language,
+        destination: fixture.destination,
+      });
+
+      expect(languageOptions.map((option) => option.value)).toEqual(
+        expect.arrayContaining(fixture.expectedLanguages),
+      );
+      expect(destinationOptions.map((option) => option.value)).toEqual(
+        expect.arrayContaining(fixture.expectedDestinations),
+      );
     });
-
-    expect(variant.id).toBe("en-brand");
-  });
-
-  it("falls back to en-main on mobile for brand header", () => {
-    const variant = getNavigationVariant({
-      language: "en",
-      destination: "stockholm",
-      headerVariantId: "header-4287",
-      viewport: "mobile",
-    });
-
-    expect(variant.id).toBe("en-main");
-  });
-
-  it("keeps language and destination selector controls independent", () => {
-    const languageOptions = getLanguageSelectorOptions({
-      language: "en",
-      destination: "stockholm",
-    });
-    const destinationOptions = getDestinationSelectorOptions({
-      language: "en",
-      destination: "stockholm",
-    });
-
-    expect(languageOptions.map((option) => option.value)).toEqual(
-      expect.arrayContaining(["sv", "en"]),
-    );
-    expect(destinationOptions.map((option) => option.value)).toEqual(
-      expect.arrayContaining(["stockholm", "berlin"]),
-    );
   });
 });
 

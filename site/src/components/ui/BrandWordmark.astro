@@ -1,0 +1,14 @@
+---
+import { WORDMARK_CLASS } from "../../lib/components/presentation";
+
+type Props = {
+  text?: "ANDETAG";
+  as?: "span" | "p" | "h1" | "h2";
+  decorative?: boolean;
+};
+
+const { text = "ANDETAG", as = "span", decorative = false } = Astro.props as Props;
+const Tag = as;
+---
+
+<Tag class={WORDMARK_CLASS} aria-hidden={decorative ? "true" : undefined}>{text}</Tag>

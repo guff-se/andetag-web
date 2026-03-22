@@ -1,0 +1,25 @@
+---
+import { getUnderstoryWidgetConfig } from "../../lib/components/understory";
+
+type Props = {
+  companyId: string;
+  language: "sv" | "en" | "de";
+  anchorId?: string;
+  fallbackText: string;
+  unavailable?: boolean;
+};
+
+const { companyId, language, anchorId = "book", fallbackText, unavailable = false } = Astro.props as Props;
+const widget = getUnderstoryWidgetConfig(companyId, language);
+---
+
+<section id={anchorId} class="embed-shell">
+  {unavailable ? (
+    <p class="embed-fallback" role="status">{fallbackText}</p>
+  ) : (
+    <>
+      <script src={widget.scriptSrc}></script>
+      <div class={widget.className} data-company-id={widget.companyId} data-language={widget.language}></div>
+    </>
+  )}
+</section>

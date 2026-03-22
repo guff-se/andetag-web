@@ -1,0 +1,33 @@
+---
+import { getHeadingTag } from "../../lib/components/presentation";
+import type { HeadingLevel } from "../../lib/components/types";
+
+type Partner = {
+  name: string;
+  href: string;
+  logoSrc: string;
+  logoAlt: string;
+};
+
+type Props = {
+  heading?: string;
+  headingLevel?: HeadingLevel | "h4";
+  partners: Partner[];
+};
+
+const { heading = "Våra partners", headingLevel = "h2", partners } = Astro.props as Props;
+const HeadingTag = getHeadingTag(headingLevel, "h2");
+---
+
+<section class="partners-section">
+  <HeadingTag>{heading}</HeadingTag>
+  <ul class="partners-grid">
+    {partners.map((partner) => (
+      <li>
+        <a href={partner.href} class="partners-link" target="_blank" rel="noreferrer noopener" aria-label={partner.name}>
+          <img src={partner.logoSrc} alt={partner.logoAlt} decoding="async" />
+        </a>
+      </li>
+    ))}
+  </ul>
+</section>
