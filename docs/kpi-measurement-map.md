@@ -1,6 +1,6 @@
 # KPI Measurement Map (Phase 1)
 
-Purpose: map conversion goals to measurable events that can be implemented via GTM and validated in Phase 6.
+Purpose: map conversion goals to measurable events that can be implemented via GTM and validated in Phase 7.
 
 ## Reused Inputs
 
@@ -51,7 +51,7 @@ Purpose: map conversion goals to measurable events that can be implemented via G
   - marketing tags: `marketing`
 - Prevent duplicate event firing when both widget load and route hydration occur.
 
-## Minimum Validation Plan (Phase 6 Input)
+## Minimum Validation Plan (Phase 7 Input)
 
 1. Verify every taxonomy event in GTM preview on one representative route per language.
 2. Verify consent gating by category before and after opt-in.
@@ -65,4 +65,4 @@ Purpose: map conversion goals to measurable events that can be implemented via G
 ## Open Measurement Dependencies
 
 - Purchase completion callback capabilities from Understory integration.
-- Final event implementation details and reporting destinations must be validated in Phase 6 staging runs.
+- Final event implementation details and reporting destinations must be validated in Phase 7 staging runs.

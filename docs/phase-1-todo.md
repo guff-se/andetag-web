@@ -83,7 +83,7 @@ Phase 1 is complete only when all items marked `P1` are done and approved:
     - Primary KPI (completed purchase) and supporting proxy events.
     - GTM event mapping by funnel stage.
     - Minimum validation approach for later implementation phases.
-  - Done when: event taxonomy can be consumed directly during Phase 6 script and analytics implementation.
+  - Done when: event taxonomy can be consumed directly during Phase 7 script and analytics implementation.
 
 - [x] **P1-08 Open and resolve migration exceptions discovered in analysis**
   - Owner: AI agent
@@ -94,7 +94,7 @@ Phase 1 is complete only when all items marked `P1` are done and approved:
 
 - [ ] **P2-01 Define first-wave Stockholm Swedish migration order**
   - Owner: Gustaf + AI agent
-  - Output: prioritized page sequence in a Phase 2 execution checklist (path to be decided in Phase 2 kickoff).
+  - Output: prioritized page sequence in the Phase 2 execution checklist (`docs/phase-2-todo.md`).
   - Done when: page order is approved before Phase 5 migration starts.
 
 - [ ] **P2-02 Capture accessibility risk notes from source analysis**
@@ -120,9 +120,9 @@ Phase 1 is complete only when all items marked `P1` are done and approved:
 
 Date: 2026-03-22
 
-Future-phase impact review completed for Phases 2 through 6:
+Future-phase impact review completed for Phases 2 through 7:
 
 - Platform dependency sync: Astro + Cloudflare references confirmed in planning docs.
 - Consent dependency sync: CookieYes acceptance propagated to roadmap and analysis schema.
 - URL policy dependency sync: alias approval (`/en/berlin-en/` to `/en/berlin/`) reflected and moved to implementation test action.
-- Remaining carried-forward work is explicitly tracked in later phases (`GAP-002`, `GAP-004`, and Phase 6 consent validation tasks).
+- Remaining carried-forward work is explicitly tracked in later phases (`GAP-002`, `GAP-004`, and Phase 7 consent validation tasks).

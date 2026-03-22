@@ -252,23 +252,14 @@ Therese
 
 Gabrielle
 
-Fantastic art  \- Words can’t describe how amazing this experience is. The art is big and breathtaking, literally.   
-Don’t miss this if you’re in Stockholm, and have anything interest in art. ... read more   
-It’s meditative, relaxing, inspiring and just amazing. We will definitely come back.
+Stunning and hypnotic art experience  \- Immersive. Mesmerizing. Uplifting! Andetag invites you to checkin with your innerself through art, breath and technology. If you re looking for some unusual culture and unique personal adventure do not... read more hesitate longer!
+
+[](https://media-cdn.tripadvisor.com/media/photo-s/2f/57/66/44/caption.jpg)
 
 [](https://www.tripadvisor.com/Attraction_Review-g189852-d32883203-Reviews-Andetag-Stockholm.html)
 
-viktora513  
+Gabriela D  
 14 March 2025
-
-Self care  \- Highly recommend for self care and for couples to detach from reality 🖤 i spent 90 min and could have easily spent longer but I wanted to share with others 
-
-[](https://media-cdn.tripadvisor.com/media/photo-s/31/68/8b/d6/caption.jpg)
-
-[](https://www.tripadvisor.com/Attraction_Review-g189852-d32883203-Reviews-Andetag-Stockholm.html)
-
-Jenny L  
-15 October 2025
 
 Amazing and unique experience  \- Highlight of my visit to Stockholm - a genuinely beautiful and brilliant immersive art experience. It took us a little while to find the place - it’s in the underground... read more station. But it was well worth it.
 
@@ -276,6 +267,13 @@ Amazing and unique experience  \- Highlight of my visit to Stockholm - a genuine
 
 DayTrip36892708826  
 25 October 2025
+
+100 % mesmerizing – a luxurious meditation  \- We had the most wonderful experience in the exhibition Andetag by Malin and Gustav Tadaa. Time stood still - we were all three (including an 11 year old daughter) moved... read more to a deep level of relaxation and tapping into a sub conscious state, it was a form of luxurious meditation with the immensely beautiful glowing pieces. 100 % mesmerizing! A must see and experience.
+
+[](https://www.tripadvisor.com/Attraction_Review-g189852-d32883203-Reviews-Andetag-Stockholm.html)
+
+Ragnhild G  
+31 October 2025
 
 [ Experience Andetag! ](#book)
 

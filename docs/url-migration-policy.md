@@ -71,9 +71,16 @@ Policy notes:
 ## Non-HTML Endpoint Policy
 
 - WordPress/system endpoints (`/wp-json/`, `/xmlrpc.php`, feed URLs, and admin endpoints) are non-HTML and are not migrated as indexable pages.
-- Non-HTML assets (images, videos, PDFs) keep direct asset URLs where needed and are excluded from page canonical maps.
+- Non-HTML assets (images, videos, PDFs) are served from local project-hosted paths in the rebuilt site and are excluded from page canonical maps.
 - Any legacy non-HTML endpoint retained for compatibility must be explicitly listed in the URL matrix with `page_type=non_html` and `status` set to `redirect` or `remove`.
 - Trailing slash normalization applies only to HTML content routes, never to file-extension endpoints (for example `.pdf`, `.jpg`, `.xml`, `.json`).
+
+## Internal Asset Locality Policy
+
+- Internal assets must not use absolute `https://www.andetag.museum/...` references in Astro templates, styles, or scripts.
+- Allowed internal asset reference format is root-relative pathing (for example `/wp-content/uploads/2024/11/andetag-logo-white-shadow.png`) backed by files in the Astro workspace.
+- Legacy WordPress CSS bundles are reference material only, styles must be recreated in fresh local CSS files.
+- Legacy WordPress JS bundles are reference material only, behavior must be recreated in local code and package-managed dependencies.
 
 ## Berlin Transition Policy
 

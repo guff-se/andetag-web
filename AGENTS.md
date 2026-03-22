@@ -70,9 +70,10 @@ Reference docs before implementation:
 | `docs/grand-plan.md` | Project roadmap, phase gates, business objectives, and decision log. |
 | `docs/phase-0-todo.md` | Execution checklist for Phase 0 guardrails and deliverables. |
 | `docs/phase-1-todo.md` | Execution checklist for Phase 1 analysis deliverables and exit gate inputs. |
+| `docs/phase-2-todo.md` | Execution checklist for Phase 2 shared layout system deliverables and approvals. |
 | `docs/phase-1-design-baseline.md` | Source-backed design token and component evidence baseline for Phase 1. |
 | `docs/ia-language-destination-options.md` | IA options and recommendation for language plus destination routing continuity. |
-| `docs/kpi-measurement-map.md` | KPI funnel event taxonomy for GTM and Phase 6 analytics implementation. |
+| `docs/kpi-measurement-map.md` | KPI funnel event taxonomy for GTM and Phase 7 analytics implementation. |
 | `docs/url-migration-policy.md` | Canonical URL, redirect, alias, and sitemap policy for migration and launch. |
 | `docs/url-matrix-schema.md` | URL matrix data contract for must-keep URLs and redirect status tracking. |
 | `docs/content-model.md` | Versioned contract for page frontmatter, shared data, and component props. |
@@ -181,8 +182,21 @@ python3 spider.py
 - **No effort estimates.** Do not add day/hour estimates to docs or plans.
 - Preserve raw scraped files. Do not manually "clean" `site-html/` content in place.
 - Keep filenames and slugs predictable and stable.
+- Locale-specific source files must use language suffixes at the end of the filename, using only `sv`, `en`, and `de` (for example `hero-sv.ts`, `hero-en.ts`, `hero-de.ts`).
+- Design system rule: visual design primitives are universal across languages. Language can change content, active variants, and shown elements, but core design tokens, layout patterns, and component styling must remain shared unless an approved migration exception is logged.
+- The rebuilt site must self-host all first-party assets. Do not use absolute `https://www.andetag.museum/...` URLs for internal JS, CSS, images, video, fonts, or other media in `site/`; use local root-relative paths (for example `/wp-content/uploads/...`) backed by files in the Astro workspace.
+- For CSS, create fresh local styles in `site/src/styles/` or component-scoped files instead of copying legacy WordPress CSS bundles.
+- For JS behavior, reimplement with local project code and package-managed dependencies instead of loading legacy WordPress script files by URL.
+- For webfonts, maintain source definitions in `site/src/lib/fonts/sources.json` and regenerate local files via `npm run fonts:sync`; do not ship runtime links to remote font providers.
 - For user-facing copy, follow `docs/Tone of Voice.md` and SEO constraints exactly.
 - In prose docs, avoid the em dash character and use commas, colons, or parentheses.
+
+### Header and Footer Parity Notes
+
+- Keep CSS selector naming design-scoped and reusable (`shared-*`), language-specific files should provide content and routing differences only.
+- When a source template has distinct mobile navigation behavior, implement that behavior directly instead of collapsing to desktop interaction patterns.
+- For sticky UI elements that start near or outside viewport bounds, calculate stick points from the element's real document position and recalculate on resize.
+- Maintain dedicated preview routes for high-change variants during parity tuning to reduce feedback latency and regression risk.
 
 ---
 

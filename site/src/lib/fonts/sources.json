@@ -1,0 +1,14 @@
+[
+  {
+    "family": "Jost",
+    "id": "jost",
+    "cssUrl": "https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,400;0,500;0,700&display=swap",
+    "subsetPriority": ["latin-ext", "latin"]
+  },
+  {
+    "family": "Baskervville",
+    "id": "baskervville",
+    "cssUrl": "https://fonts.googleapis.com/css2?family=Baskervville:ital,wght@0,400&display=swap",
+    "subsetPriority": ["latin-ext", "latin"]
+  }
+]

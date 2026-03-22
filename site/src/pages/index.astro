@@ -1,0 +1,26 @@
+---
+import { LAYOUT_EXAMPLES } from "../data/layout-examples";
+import SiteLayout from "../layouts/SiteLayout.astro";
+
+const home = LAYOUT_EXAMPLES.find((example) => example.id === "sv-home-hero");
+if (!home) {
+  throw new Error("Missing sv-home-hero layout example.");
+}
+---
+
+<SiteLayout
+  title={home.title}
+  language={home.language}
+  destination={home.destination}
+  headerVariantId={home.headerVariantId}
+  footerVariantId={home.footerVariantId}
+  canonicalPath={home.canonicalPath}
+  hreflang={home.hreflang}
+>
+  <h1>Phase 2 Shared Layout Baseline</h1>
+  <p>{home.description}</p>
+  <p>
+    Use <a class="chip" href="/layout-preview/">/layout-preview/</a> to review all layout variants in this
+    phase.
+  </p>
+</SiteLayout>

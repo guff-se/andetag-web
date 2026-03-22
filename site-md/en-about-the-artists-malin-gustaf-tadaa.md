@@ -127,40 +127,19 @@ Gustaf is a self-taught programmer and has worked with art, technology, and spat
 
 **Museum Manager:** Fabian Macklin
 
-Visit ANDETAG
+The art
 
-  * [Tickets](https://www.andetag.museum/en/stockholm/tickets/)
-  * [Season Pass](https://www.andetag.museum/en/stockholm/season-pass/)
-  * [Gift Card](https://www.andetag.museum/en/stockholm/giftcard/)
-  * [Opening Hours](https://www.andetag.museum/en/stockholm/opening-hours/)
-  * [How to Find Us](https://www.andetag.museum/en/stockholm/how-to-find-us/)
-  * [Accessibility](https://www.andetag.museum/en/stockholm/accessibility/)
-  * [FAQ](https://www.andetag.museum/en/stockholm/faq/)
+  *     * [About ANDETAG](https://www.andetag.museum/en/about-andetag/)
+    * [The Artists](https://www.andetag.museum/en/about-the-artists-malin-gustaf-tadaa/)
+    * The Music
+    * [The Textile](https://www.andetag.museum/en/optical-fibre-textile/)
 
 
 
-The Experience
+Locations
 
-  * [How is it?](https://www.andetag.museum/en/stockholm/what-kind-of-experience/)
-  * [Romantic Date](https://www.andetag.museum/en/stockholm/date/)
-  * [Art Yoga](https://www.andetag.museum/en/stockholm/art-yoga/)
-  * [The Music](https://www.andetag.museum/en/music/)
-  * [Visitor Reviews](https://www.andetag.museum/en/stockholm/visitor-reviews/)
-
-
-
-Groups and Companies
-
-  * [Group bookings / private events](https://www.andetag.museum/en/stockholm/group-bookings/)
-  * [Company Events](https://www.andetag.museum/en/stockholm/corporate-events/)
-
-
-
-About
-
-  * [About ANDETAG](https://www.andetag.museum/en/about-andetag/)
-  * [The Textile](https://www.andetag.museum/en/optical-fibre-textile/)
-  * [About the artists](https://www.andetag.museum/en/about-the-artists-malin-gustaf-tadaa/)
+  * [Stockholm](https://www.andetag.museum/en/)
+  * [Berlin](https://www.andetag.museum/en/berlin-en/)
 
 
 

@@ -74,3 +74,21 @@ Phase 1 extraction must produce:
 - All extraction runs must be deterministic from local `site-html/` artifacts.
 - Scripts must document exact input glob patterns and normalization rules.
 - Any manual overrides must be logged in `docs/migration-exceptions.md`.
+
+## Font Localization Process
+
+When extracted typography requires webfonts, localize them into the Astro site instead of linking remote font providers at runtime.
+
+1. Identify required font family, weight, style, and language coverage from source CSS.
+2. Add source definitions in `site/src/lib/fonts/sources.json`.
+3. Run `npm run fonts:sync` from `site/`.
+4. Verify generated outputs:
+   - `site/public/fonts/<family-id>/*.woff2`
+   - `site/src/styles/fonts.css`
+5. Reference only generated local families (for example `JostLocal`) in site styles.
+
+Rules:
+
+- Prefer `woff2` output for production delivery.
+- Include subset priority for language coverage (`latin-ext` before `latin` when Swedish/German glyphs are required).
+- Keep font downloads deterministic by storing source config in version control and regenerating from script.

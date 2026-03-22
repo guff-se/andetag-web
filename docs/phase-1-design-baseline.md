@@ -79,7 +79,7 @@ Exclude or deprecate:
 
 ## Gaps Linked to Exceptions
 
-- Consent platform selection is resolved to CookieYes, implementation-specific banner/preference UI styling is carried into Phase 6 integration QA.
+- Consent platform selection is resolved to CookieYes, implementation-specific banner/preference UI styling is carried into Phase 7 integration QA.
 - English Berlin alias page (`/en/berlin-en/`) uses a distinct header variant requiring routing/IA reconciliation.
 - Non-sitemap legacy snapshot files exist and should not be treated as canonical design sources without explicit decision.
 

@@ -33,8 +33,9 @@ All phases must keep these baseline checks in scope:
 - Performance: shared layout code does not add unnecessary blocking resources.
 - SEO: nav/footer links, canonical generation hooks, and hreflang hooks are implemented.
 - Accessibility: keyboard nav, focus order, and semantic landmarks pass review.
-- Visual parity: each header/footer variant approved on desktop and mobile reference views.
+- Visual parity: each header/footer variant approved on desktop/tablet and mobile reference views, with mobile-first QA on iOS Safari and Chrome (iOS), plus desktop Chrome and Safari.
 - Functional conversion path: primary CTA links in nav/footer route correctly.
+- Asset integrity: shared layout does not depend on absolute old-site asset URLs, and all first-party media/js/css references resolve from local Astro-hosted paths.
 
 ## Phase 3, Component Library and Verification Page
 
@@ -60,7 +61,15 @@ All phases must keep these baseline checks in scope:
 - Visual parity: per-page approval is explicitly recorded before next migration batch.
 - Functional conversion path: booking/lead interactions on each migrated page are validated.
 
-## Phase 6, Scripts, Consent, Analytics, and Launch Hardening
+## Phase 6, Localization Rollout (After Swedish Completion)
+
+- Performance: localized pages keep the same component-level performance profile as approved Swedish equivalents.
+- SEO: localized pages preserve canonical/hreflang integrity and locale-specific metadata correctness.
+- Accessibility: localized content updates do not introduce unresolved high-severity accessibility issues.
+- Visual parity: shared design system remains consistent across locales, with only approved content/variant differences.
+- Functional conversion path: localized CTA and booking/lead flows resolve to the correct locale and destination routes.
+
+## Phase 7, Scripts, Consent, Analytics, and Launch Hardening
 
 - Performance: third-party scripts are consent-gated, and key conversion pages maintain Lighthouse Performance >= 85 mobile and >= 95 desktop.
 - SEO: sitemap, robots, canonicals, and hreflang output pass pre-launch checks.

@@ -1,0 +1,367 @@
+---
+import type { PageLayoutModel } from "../../lib/layout/page-layout";
+import { getSwedishHeroHeaderModel } from "../../lib/layout/hero-sv";
+import { HEADER_SMALL_SV_ASSETS, HERO_SV_ASSETS } from "../../lib/layout/assets";
+import { isHeaderSmallSv } from "../../lib/layout/header-small-sv";
+
+const { model, currentPath } = Astro.props as { model: PageLayoutModel; currentPath: string };
+
+const desktopNav = model.navigation;
+const mobileNav = model.navigationMobile;
+const sharedSvHeader = (model.header.id === "header-192" || isHeaderSmallSv(model.header.id))
+  ? getSwedishHeroHeaderModel(currentPath)
+  : null;
+const isSmallSvHeader = isHeaderSmallSv(model.header.id);
+---
+
+{
+sharedSvHeader ? (
+<header class={`shared-hero-header${isSmallSvHeader ? " is-small" : ""}`} id="andetag-header">
+  <div class="shared-hero-media-layer">
+    {
+      isSmallSvHeader ? (
+        <picture class="shared-hero-static-picture">
+          <source media="(max-width: 767px)" srcset={HEADER_SMALL_SV_ASSETS.mobileBackground} />
+          <img class="shared-hero-static-image" src={HEADER_SMALL_SV_ASSETS.desktopBackground} alt="" aria-hidden="true" />
+        </picture>
+      ) : (
+        <video
+          class="shared-hero-video"
+          autoplay
+          muted
+          playsinline
+          loop
+          poster={HERO_SV_ASSETS.poster}
+        >
+          <source src={HERO_SV_ASSETS.video} type="video/mp4" />
+        </video>
+      )
+    }
+    <div class="shared-hero-overlay"></div>
+  </div>
+
+  <div class="shared-hero-content">
+    <div class="shared-hero-top">
+      <a class="shared-hero-logo-link" href="/" aria-label="Go to homepage">
+        <img
+          class="shared-hero-logo"
+          src={HERO_SV_ASSETS.logo}
+          alt="ANDETAG"
+        />
+      </a>
+
+      <div class="shared-hero-top-right">
+        <div class="shared-hero-socials" aria-label="Social links">
+          <a href="https://www.instagram.com/andetag.museum/" target="_blank" rel="noreferrer" aria-label="Instagram">
+            <svg viewBox="0 0 448 512" aria-hidden="true"><path d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+          </a>
+          <a href="https://www.facebook.com/andetag.museum" target="_blank" rel="noreferrer" aria-label="Facebook">
+            <svg viewBox="0 0 320 512" aria-hidden="true"><path d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"/></svg>
+          </a>
+          <a href="https://pinterest.com/malintadaa" target="_blank" rel="noreferrer" aria-label="Pinterest">
+            <svg viewBox="0 0 496 512" aria-hidden="true"><path d="M496 256c0 137-111 248-248 248-25.6 0-50.2-3.9-73.4-11.1 10.1-16.5 25.2-43.5 30.8-65 3-11.6 15.4-59 15.4-59 8.1 15.4 31.7 28.5 56.8 28.5 74.8 0 128.7-68.8 128.7-154.3 0-81.9-66.9-143.2-152.9-143.2-107 0-163.9 71.8-163.9 150.1 0 36.4 19.4 81.7 50.3 96.1 4.7 2.2 7.2 1.2 8.3-3.3.8-3.4 5-20.3 6.9-28.1.6-2.5.3-4.7-1.7-7.1-10.1-12.5-18.3-35.3-18.3-56.6 0-54.7 41.4-107.6 112-107.6 60.9 0 103.6 41.5 103.6 100.9 0 67.1-33.9 113.6-78 113.6-24.3 0-42.6-20.1-36.7-44.8 7-29.5 20.5-61.3 20.5-82.6 0-19-10.2-34.9-31.4-34.9-24.9 0-44.9 25.7-44.9 60.2 0 22 7.4 36.8 7.4 36.8s-24.5 103.8-29 123.2c-5 21.4-3 51.6-.9 71.2C65.4 450.9 0 361.1 0 256 0 119 111 8 248 8s248 111 248 248z"/></svg>
+          </a>
+        </div>
+        <div class="shared-hero-lang-top">
+          {sharedSvHeader.topLanguages.map((language) => <a href={language.href}>{language.label}</a>)}
+        </div>
+      </div>
+    </div>
+
+    {!isSmallSvHeader && (
+      <div class="shared-hero-center">
+        <a class="shared-hero-cta" href="#book">Hitta biljetter</a>
+      </div>
+    )}
+  </div>
+
+  <div class="shared-hero-nav-shell" data-hero-nav-shell>
+    <nav class="shared-hero-nav" aria-label="Meny">
+      <ul class="shared-hero-menu">
+        {
+          sharedSvHeader.menuItems.map((item) => (
+            <li class={`shared-hero-menu-item${item.active ? " is-active" : ""}`}>
+              <a href={item.href}>{item.label}</a>
+              <ul class="shared-hero-submenu">
+                {item.subMenu.map((subItem) => <li><a href={subItem.href}>{subItem.label}</a></li>)}
+              </ul>
+            </li>
+          ))
+        }
+        <li class="shared-hero-menu-item shared-hero-ticket-item">
+          <a href={sharedSvHeader.ticketItem.href}>{sharedSvHeader.ticketItem.label}</a>
+        </li>
+        <li class="shared-hero-menu-item shared-hero-flag-item">
+          <a href={sharedSvHeader.languageFlags.find((flag) => flag.active)?.href ?? "/"} aria-label="Språk">
+            {sharedSvHeader.languageFlags.find((flag) => flag.active)?.flag ?? "🇸🇪"}
+          </a>
+          <ul class="shared-hero-submenu shared-hero-flag-submenu">
+            {sharedSvHeader.languageFlags.map((flag) => <li><a href={flag.href} aria-label={flag.label}>{flag.flag}</a></li>)}
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="shared-hero-mobile-nav-shell" data-hero-mobile-nav-shell>
+    <div class="shared-hero-mobile-nav-bar">
+      <button
+        class="shared-hero-menu-toggle"
+        type="button"
+        aria-label="Slå på eller av meny"
+        aria-expanded="false"
+        aria-haspopup="true"
+        aria-controls="shared-hero-mobile-menu"
+        data-hero-menu-toggle
+      >
+        <span class="shared-hero-menu-icon-open" aria-hidden="true">☰</span>
+        <span class="shared-hero-menu-icon-close" aria-hidden="true">✕</span>
+      </button>
+    </div>
+    <nav id="shared-hero-mobile-menu" class="shared-hero-mobile-menu" aria-label="Mobil meny" hidden>
+      <ul class="shared-hero-mobile-menu-list">
+        {
+          sharedSvHeader.menuItems.map((item) => (
+            <li class="shared-hero-mobile-menu-item">
+              {item.subMenu.length > 0 ? (
+                <details>
+                  <summary>{item.label}</summary>
+                  <ul class="shared-hero-mobile-submenu">
+                    {item.subMenu.map((subItem) => <li><a href={subItem.href}>{subItem.label}</a></li>)}
+                  </ul>
+                </details>
+              ) : (
+                <a href={item.href}>{item.label}</a>
+              )}
+            </li>
+          ))
+        }
+        <li class="shared-hero-mobile-menu-item shared-hero-ticket-item">
+          <a href={sharedSvHeader.ticketItem.href}>{sharedSvHeader.ticketItem.label}</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+) : (
+<header class="header-root" id="andetag-header">
+  <div class="header-container desktop-tablet-only">
+    <div class="header-row">
+      <a href="/" class="brand-tag">ANDETAG</a>
+      <div class="selectors" aria-label="Desktop selectors">
+        <select
+          aria-label="Destination selector"
+          oninput="window.location.href = this.value"
+        >
+          {
+            model.destinationSelector.map((option) => (
+              <option value={option.href} selected={option.active}>
+                {option.label}
+              </option>
+            ))
+          }
+        </select>
+        <select
+          aria-label="Language selector"
+          oninput="window.location.href = this.value"
+        >
+          {
+            model.languageSelector.map((option) => (
+              <option value={option.href} selected={option.active}>
+                {option.label}
+              </option>
+            ))
+          }
+        </select>
+      </div>
+    </div>
+    <nav aria-label="Primary navigation desktop/tablet">
+      <ul class="nav-list">
+        {
+          desktopNav.items.map((item) => (
+            <li class="nav-item">
+              <a class={`nav-link${item.cta ? " is-cta" : ""}`} href={item.href}>
+                {item.label}
+              </a>
+              {
+                item.children && (
+                  <ul class="sub-nav">
+                    {item.children.map((subItem) => <li><a href={subItem.href}>{subItem.label}</a></li>)}
+                  </ul>
+                )
+              }
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    {
+      model.header.kind === "hero" && (
+        <p class="hero-note">Hero variant: desktop/tablet container active</p>
+      )
+    }
+  </div>
+
+  <div class="header-container mobile-only">
+    <div class="header-row">
+      <a href="/" class="brand-tag">ANDETAG</a>
+      <a class="nav-link is-cta" href={model.header.ctaHref}>{model.header.ctaLabel}</a>
+    </div>
+    <div class="selectors" aria-label="Mobile selectors">
+      <select
+        aria-label="Destination selector"
+        oninput="window.location.href = this.value"
+      >
+        {
+          model.destinationSelector.map((option) => (
+            <option value={option.href} selected={option.active}>
+              {option.label}
+            </option>
+          ))
+        }
+      </select>
+      <select
+        aria-label="Language selector"
+        oninput="window.location.href = this.value"
+      >
+        {
+          model.languageSelector.map((option) => (
+            <option value={option.href} selected={option.active}>
+              {option.label}
+            </option>
+          ))
+        }
+      </select>
+    </div>
+    <nav aria-label="Primary navigation mobile">
+      <ul class="nav-list">
+        {
+          mobileNav.items.map((item) => (
+            <li class="nav-item">
+              <a class={`nav-link${item.cta ? " is-cta" : ""}`} href={item.href}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    {
+      model.header.kind === "hero" && (
+        <p class="hero-note">Hero variant: mobile container active</p>
+      )
+    }
+  </div>
+</header>
+)
+}
+
+<script is:inline>
+  const navShell = document.querySelector("[data-hero-nav-shell]");
+  const heroHeader = document.querySelector(".shared-hero-header");
+  if (navShell && heroHeader) {
+    const syncSticky = () => {
+      const navHeight = navShell.getBoundingClientRect().height;
+      const threshold = heroHeader.getBoundingClientRect().top + window.scrollY + heroHeader.getBoundingClientRect().height - navHeight;
+      if (window.scrollY >= threshold) {
+        navShell.classList.add("is-stuck");
+      } else {
+        navShell.classList.remove("is-stuck");
+      }
+    };
+
+    syncSticky();
+    window.addEventListener("scroll", syncSticky, { passive: true });
+    window.addEventListener("resize", syncSticky);
+  }
+
+  const mobileNavShell = document.querySelector("[data-hero-mobile-nav-shell]");
+  if (mobileNavShell && heroHeader) {
+    const mobileStickTop = 8;
+    let mobileStickStart = 0;
+
+    const recalcMobileStickStart = () => {
+      const wasStuck = mobileNavShell.classList.contains("is-stuck");
+      if (wasStuck) {
+        mobileNavShell.classList.remove("is-stuck");
+      }
+
+      mobileStickStart = mobileNavShell.getBoundingClientRect().top + window.scrollY - mobileStickTop;
+
+      if (wasStuck && window.scrollY >= mobileStickStart) {
+        mobileNavShell.classList.add("is-stuck");
+      }
+    };
+
+    const syncMobileSticky = () => {
+      if (window.scrollY >= mobileStickStart) {
+        mobileNavShell.classList.add("is-stuck");
+      } else {
+        mobileNavShell.classList.remove("is-stuck");
+      }
+    };
+
+    recalcMobileStickStart();
+    syncMobileSticky();
+    window.addEventListener("scroll", syncMobileSticky, { passive: true });
+    window.addEventListener("resize", () => {
+      recalcMobileStickStart();
+      syncMobileSticky();
+    });
+  }
+
+  const heroMenuToggle = document.querySelector("[data-hero-menu-toggle]");
+  const heroMobileMenu = document.querySelector("#shared-hero-mobile-menu");
+  if (heroMenuToggle instanceof HTMLButtonElement && heroMobileMenu instanceof HTMLElement) {
+    const focusableSelector = "a[href], button:not([disabled]), summary, [tabindex]:not([tabindex='-1'])";
+    const getFirstFocusable = () => heroMobileMenu.querySelector(focusableSelector);
+
+    const closeMenu = (restoreFocus) => {
+      heroMenuToggle.setAttribute("aria-expanded", "false");
+      heroMobileMenu.hidden = true;
+      if (restoreFocus) {
+        heroMenuToggle.focus();
+      }
+    };
+
+    const openMenu = () => {
+      heroMenuToggle.setAttribute("aria-expanded", "true");
+      heroMobileMenu.hidden = false;
+      requestAnimationFrame(() => {
+        const firstFocusable = getFirstFocusable();
+        if (firstFocusable instanceof HTMLElement) {
+          firstFocusable.focus();
+        }
+      });
+    };
+
+    heroMenuToggle.addEventListener("click", () => {
+      const expanded = heroMenuToggle.getAttribute("aria-expanded") === "true";
+      if (expanded) {
+        closeMenu(false);
+      } else {
+        openMenu();
+      }
+    });
+
+    heroMenuToggle.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeMenu(false);
+      }
+    });
+
+    heroMobileMenu.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeMenu(true);
+      }
+    });
+
+    heroMobileMenu.addEventListener("click", (event) => {
+      const target = event.target;
+      if (target instanceof Element && target.closest("a[href]")) {
+        closeMenu(false);
+      }
+    });
+  }
+</script>

@@ -75,15 +75,15 @@ Field notes:
 
 | integration | current_usage | pages_or_templates | business_role | disposition | rationale | replacement_target | phase_target | risk_level | notes |
 |-------------|---------------|--------------------|---------------|-------------|-----------|--------------------|--------------|------------|-------|
-| understory | embedded booking widget | index + tickets/date pages in sv/en | primary conversion handoff | keep | Required for completed purchase flow continuity | Understory embed component with consent-safe wrapper | 5-6 | high | Must preserve widget language and company-id behavior |
-| gtm | global script | all pages | attribution and analytics orchestration | keep | Mandatory in `docs/grand-plan.md` and tracking requirements | GTM runtime in static site with env-aware container IDs | 6 | high | Event taxonomy tied to KPI map |
-| ga4 | currently direct and GTM-linked | all pages | analytics measurement | replace | Consolidate to GTM-managed GA4 to avoid duplicate instrumentation paths | GA4 via GTM only | 6 | medium | Validate no duplicate `page_view` events |
-| meta-pixel | consent-blocked marketing script | all pages via Complianz | paid attribution | keep | Required marketing attribution path | Meta Pixel via GTM with marketing consent gate | 6 | medium | Category-gated firing only |
-| brevo | global script + German embedded form | all pages, form on German pages | CRM and waitlist capture | keep | Explicitly retained in grand plan and tracking requirements | Brevo embed component + controlled load policy | 5-6 | medium | Fallback content required when blocked |
-| consent-manager (Complianz) | WordPress plugin markup/runtime | all pages | legal consent and tag gating | replace | WordPress-dependent plugin is not suitable for static runtime | CookieYes CMP with GTM Consent Mode v2 integration | 6 | high | Must support category gating and audit logs |
-| wonderpush | push notification SDK | all pages | re-engagement | remove | Not in retained integration scope and not required for conversion-first rebuild | n/a | 6 | low | Log as approved removal exception |
+| understory | embedded booking widget | index + tickets/date pages in sv/en | primary conversion handoff | keep | Required for completed purchase flow continuity | Understory embed component with consent-safe wrapper | 5-7 | high | Must preserve widget language and company-id behavior |
+| gtm | global script | all pages | attribution and analytics orchestration | keep | Mandatory in `docs/grand-plan.md` and tracking requirements | GTM runtime in static site with env-aware container IDs | 7 | high | Event taxonomy tied to KPI map |
+| ga4 | currently direct and GTM-linked | all pages | analytics measurement | replace | Consolidate to GTM-managed GA4 to avoid duplicate instrumentation paths | GA4 via GTM only | 7 | medium | Validate no duplicate `page_view` events |
+| meta-pixel | consent-blocked marketing script | all pages via Complianz | paid attribution | keep | Required marketing attribution path | Meta Pixel via GTM with marketing consent gate | 7 | medium | Category-gated firing only |
+| brevo | global script + German embedded form | all pages, form on German pages | CRM and waitlist capture | keep | Explicitly retained in grand plan and tracking requirements | Brevo embed component + controlled load policy | 5-7 | medium | Fallback content required when blocked |
+| consent-manager (Complianz) | WordPress plugin markup/runtime | all pages | legal consent and tag gating | replace | WordPress-dependent plugin is not suitable for static runtime | CookieYes CMP with GTM Consent Mode v2 integration | 7 | high | Must support category gating and audit logs |
+| wonderpush | push notification SDK | all pages | re-engagement | remove | Not in retained integration scope and not required for conversion-first rebuild | n/a | 7 | low | Log as approved removal exception |
 | tripadvisor-slider | shortcode/plugin output | homepages | social proof | remove | Parser plan excludes shortcode content and unified component system avoids plugin dependency | Native testimonials/reviews content block | 5 | low | Preserve review intent without plugin runtime |
-| yoast/wp-seo runtime | WP plugin output | all pages | metadata generation | replace | Static site will emit metadata and sitemap directly from source model | Build-time metadata generation in static stack | 4-6 | medium | Canonical/hreflang parity must be validated |
+| yoast/wp-seo runtime | WP plugin output | all pages | metadata generation | replace | Static site will emit metadata and sitemap directly from source model | Build-time metadata generation in static stack | 4-7 | medium | Canonical/hreflang parity must be validated |
 | polylang switcher runtime | WP plugin output | headers | language routing | replace | Static routing will own locale switching logic | Static language switcher + hreflang map | 2-4 | medium | Must preserve existing sv/en/de relationships |
 
 Disposition values:
@@ -97,10 +97,10 @@ Disposition values:
 | gap_id | area | description | source_reference | impact | owner | resolution_status | target_phase |
 |--------|------|-------------|------------------|--------|-------|-------------------|--------------|
 | GAP-001 | widget mapping | TripAdvisor shortcode handling and replacement content strategy needs explicit sign-off | `docs/parser-plan.md` exclusion list + homepage `shortcode.default` usage | medium | AI agent + Gustaf | resolved (approved via EX-0002) | 3 |
-| GAP-002 | header variant coverage | Header Elementor ID `4136` appears on `en-berlin-en.html` but is not in baseline header registry docs | `site-html/en-berlin-en.html` + `docs/existing-site-structure.md` header section | medium | AI agent | carried-forward | 2 |
+| GAP-002 | header variant coverage | Header Elementor ID `4136` appears on `en-berlin-en.html` but is not in baseline header registry docs | `site-html/en-berlin-en.html` + `docs/existing-site-structure.md` header section | medium | AI agent | resolved (mapped via EX-0005 to `header-918`) | 2 |
 | GAP-003 | canonical route target | Legacy URL `/en/berlin-en/` redirects to `/en/berlin/`, but canonical snapshot file naming still centers alias slug | `docs/url-migration-policy.md` + `site-html/sitemap.xml` | high | AI agent + Gustaf | resolved (approved via EX-0004) | 4 |
 | GAP-004 | URL inventory noise | Unsuffixed snapshot set includes non-sitemap legacy slugs (for example `stockholm-event-stockholm.html`) requiring explicit keep/remove decision | `site-html/*.html` inventory vs `site-html/sitemap.xml` | medium | AI agent | carried-forward | 4 |
-| GAP-005 | consent platform selection | Static-site consent platform selection is complete, implementation validation remains for Phase 6 | `docs/decisions/0002-consent-platform-selection.md` + `docs/tracking-and-consent-requirements.md` | high | Gustaf + AI agent | resolved (ADR 0002 accepted: CookieYes) | 6 |
+| GAP-005 | consent platform selection | Static-site consent platform selection is complete, implementation validation remains for Phase 7 | `docs/decisions/0002-consent-platform-selection.md` + `docs/tracking-and-consent-requirements.md` | high | Gustaf + AI agent | resolved (ADR 0002 accepted: CookieYes) | 7 |
 
 ## Population Rules
 

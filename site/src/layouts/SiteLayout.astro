@@ -1,0 +1,56 @@
+---
+import SiteFooter from "../components/layout/SiteFooter.astro";
+import SiteHeader from "../components/layout/SiteHeader.astro";
+import { createPageLayoutModel } from "../lib/layout/page-layout";
+import type { Destination, FooterVariantId, Language } from "../lib/layout/types";
+import "../styles/fonts.css";
+import "../styles/layout.css";
+
+type Props = {
+  title: string;
+  language: Language;
+  destination: Destination;
+  headerVariantId:
+    | "header-192"
+    | "header-918"
+    | "header-4344"
+    | "header-2223"
+    | "header-3305"
+    | "header-4287"
+    | "header-4136";
+  footerVariantId: FooterVariantId;
+  canonicalPath: string;
+  hreflang: Record<Language, string | null>;
+};
+
+const props = Astro.props as Props;
+const model = createPageLayoutModel(props);
+---
+
+<!doctype html>
+<html lang={props.language}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{props.title}</title>
+    <link rel="canonical" href={model.canonicalUrl} />
+    {
+      model.hreflangLinks.map((link) => (
+        <link rel="alternate" hreflang={link.hreflang} href={link.href} />
+      ))
+    }
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Hoppa till innehall</a>
+    <div class="page-shell">
+      <SiteHeader model={model} currentPath={Astro.url.pathname} />
+      <main id="main-content" class="main-content" tabindex="-1">
+        <slot />
+      </main>
+      <SiteFooter model={model} />
+    </div>
+  </body>
+</html>

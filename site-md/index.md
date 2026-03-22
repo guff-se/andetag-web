@@ -1,4 +1,4 @@
-# Source: https://www.andetag.museum
+# Source: https://www.andetag.museum/
 
 [Hoppa till innehåll](#content)
 
@@ -129,13 +129,7 @@
 
 ### Du har aldrig upplevt något liknande...
 
-Inne i ANDETAG står tiden stilla.
-
-ANDETAG är en immersiv konstupplevelse i centrala Stockholm, där ljus, andning och musik möts i ett stilla museum nära Hötorget.
-
-I en tid där tempot ständigt ökar, får du en möjlighet att stilla din andning och låta dig svepas in i en förtrollande väv av former, ljus och ljud.
-
-Välkommen till ANDETAG— en plats för stillhet och förundran.
+Inne i ANDETAG står tiden stilla. ANDETAG är en immersiv konstupplevelse i centrala Stockholm, där ljus, andning och musik möts i ett stilla museum nära Hötorget. I en tid där tempot ständigt ökar, får du en möjlighet att stilla din andning och låta dig svepas in i en förtrollande väv av former, ljus och ljud. Välkommen till ANDETAG— en plats för stillhet och förundran.
 
 Vad är ANDETAG? 
 
@@ -252,21 +246,12 @@ Therese
 
 Gabrielle
 
-100 % mesmerizing – a luxurious meditation  \- We had the most wonderful experience in the exhibition Andetag by Malin and Gustav Tadaa. Time stood still - we were all three (including an 11 year old daughter) moved... read more to a deep level of relaxation and tapping into a sub conscious state, it was a form of luxurious meditation with the immensely beautiful glowing pieces. 100 % mesmerizing! A must see and experience.
+Optiska textilmästerverk!  \- Häftig känsla att stiga in i den här lugnande oasen mitt bland stadens buller. Det är en imponerande teknik som har använts för att blåsa liv i verken. Jag kan... read more starkt rekommendera ett besök!
 
 [](https://www.tripadvisor.com/Attraction_Review-g189852-d32883203-Reviews-Andetag-Stockholm.html)
 
-Ragnhild G  
-31 oktober 2025
-
-Stunning and hypnotic art experience  \- Immersive. Mesmerizing. Uplifting! Andetag invites you to checkin with your innerself through art, breath and technology. If you re looking for some unusual culture and unique personal adventure do not... read more hesitate longer!
-
-[](https://media-cdn.tripadvisor.com/media/photo-s/2f/57/66/44/caption.jpg)
-
-[](https://www.tripadvisor.com/Attraction_Review-g189852-d32883203-Reviews-Andetag-Stockholm.html)
-
-Gabriela D  
-14 mars 2025
+Linus H  
+18 mars 2025
 
 Fascinating and connective  \- Beautiful space and art, an oasis of grounded calm in the busy city center.  
 Fascinating tech and interconnectivity with all art pieces. 
@@ -277,6 +262,13 @@ Fascinating tech and interconnectivity with all art pieces.
 
 Maria C  
 14 mars 2025
+
+Amazing and unique experience  \- Highlight of my visit to Stockholm - a genuinely beautiful and brilliant immersive art experience. It took us a little while to find the place - it’s in the underground... read more station. But it was well worth it.
+
+[](https://www.tripadvisor.com/Attraction_Review-g189852-d32883203-Reviews-Andetag-Stockholm.html)
+
+DayTrip36892708826  
+25 oktober 2025
 
 [ Upplev Andetag! ](#book)
 
@@ -347,6 +339,7 @@ Upplevelsen
 
   * [Hur är ANDETAG?](https://www.andetag.museum/stockholm/vilken-typ-av-upplevelse/)
   * [Dejt](https://www.andetag.museum/stockholm/dejt/)
+  * [NPF-besökare](https://www.andetag.museum/stockholm/npf-stockholm/)
   * [Art Yoga](https://www.andetag.museum/stockholm/art-yoga/)
   * [Musiken](https://www.andetag.museum/musik/)
   * [Besökaromdömen](https://www.andetag.museum/stockholm/besokaromdomen/)
@@ -367,6 +360,8 @@ Om
   * [Om konstnärerna](https://www.andetag.museum/om-konstnarerna-malin-gustaf-tadaa/)
 
 
+
+[Aktivitet](https://www.andetag.museum/stockholm/aktivitet-inomhus-stockholm/) / [Museum](https://www.andetag.museum/stockholm/museum-stockholm/) / [Att göra](https://www.andetag.museum/stockholm/att-gora-stockholm/) / [Utställing](https://www.andetag.museum/stockholm/utstallning-stockholm/)
 
 © 2026 Tadaa Art AB
 

@@ -178,6 +178,7 @@ Upplevelsen
 
   * [Hur är ANDETAG?](https://www.andetag.museum/stockholm/vilken-typ-av-upplevelse/)
   * [Dejt](https://www.andetag.museum/stockholm/dejt/)
+  * [NPF-besökare](https://www.andetag.museum/stockholm/npf-stockholm/)
   * [Art Yoga](https://www.andetag.museum/stockholm/art-yoga/)
   * [Musiken](https://www.andetag.museum/musik/)
   * [Besökaromdömen](https://www.andetag.museum/stockholm/besokaromdomen/)
@@ -198,6 +199,8 @@ Om
   * [Om konstnärerna](https://www.andetag.museum/om-konstnarerna-malin-gustaf-tadaa/)
 
 
+
+[Aktivitet](https://www.andetag.museum/stockholm/aktivitet-inomhus-stockholm/) / [Museum](https://www.andetag.museum/stockholm/museum-stockholm/) / [Att göra](https://www.andetag.museum/stockholm/att-gora-stockholm/) / [Utställing](https://www.andetag.museum/stockholm/utstallning-stockholm/)
 
 © 2026 Tadaa Art AB
 

@@ -27,6 +27,9 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 - Added `docs/kpi-measurement-map.md` with funnel event taxonomy and GTM requirements, so conversion tracking scope is implementation-ready for later phases.
 - Added `docs/decisions/0001-static-stack-selection.md` as the proposed Phase 1 stack and hosting ADR, so exit-gate decisions are captured in decision-log format.
 - Added `docs/decisions/0002-consent-platform-selection.md` to document deferred consent platform selection with guardrails, so the open gap has an explicit decision path.
+- Added `docs/phase-2-todo.md` with a Phase 2 task board, exit criteria, and clarification queue, so shared layout implementation can start with explicit variant, SEO, accessibility, and approval checkpoints.
+- Added `site/` Astro implementation workspace with Phase 2 shared layout foundation (header/footer components, layout model modules, and preview pages), so shared navigation and metadata behavior can be validated before page migration.
+- Added Phase 2 layout test coverage in `site/src/lib/layout/*.test.ts`, so variant mapping, selector behavior, and canonical/hreflang hooks are regression-tested.
 
 ### Changed
 
@@ -69,6 +72,33 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 - Updated `AGENTS.md` with a mandatory phase-closure forward audit rule, so each completed phase now triggers a review and synchronization pass across all future phases before final closure.
 - Updated `docs/phase-1-todo.md` with a formal Phase 1 forward-audit record and refreshed dependent docs (`docs/phase-1-design-baseline.md`, `docs/ia-language-destination-options.md`, `docs/kpi-measurement-map.md`, `docs/decisions/0002-consent-platform-selection.md`) to remove stale deferred-decision wording.
 - Updated `docs/tracking-and-consent-requirements.md`, `docs/kpi-measurement-map.md`, and `docs/grand-plan.md` to classify Understory as `necessary`, so the booking widget remains unblocked by optional consent categories.
+- Updated `docs/grand-plan.md` and `AGENTS.md` to reference `docs/phase-2-todo.md`, so the Phase 2 execution checklist is discoverable in both roadmap and agent guidance.
+- Updated `docs/phase-2-todo.md` and `docs/grand-plan.md` with resolved Phase 2 kickoff decisions (Astro workspace path, responsive baseline, and separate destination/language selectors), so layout implementation can begin without clarification blockers.
+- Updated `docs/phase-2-todo.md` and `docs/grand-plan.md` with an explicit mobile-first browser QA matrix (iOS Safari and Chrome on iOS, plus desktop Chrome, Safari, and Firefox), so Phase 2 layout sign-off criteria are concrete and testable.
+- Updated `docs/phase-2-todo.md` and `docs/grand-plan.md` to remove desktop Firefox from the Phase 2 QA browser matrix, so sign-off scope matches the current testing policy.
+- Updated `docs/phase-2-todo.md` to use repository root (`./`) as the Astro workspace path instead of `apps/site/`, so project structure stays aligned to a single-site repository.
+- Updated `docs/phase-2-todo.md` to use `site/` as the Astro workspace path instead of repository root, so deployable app code stays isolated from docs and source-artifact folders.
+- Updated `docs/grand-plan.md`, `docs/definition-of-done.md`, and `docs/phase-1-todo.md` to align Phase 2 references with current decisions (desktop/tablet + mobile parity language, mobile-first browser QA matrix, and `docs/phase-2-todo.md` path), so planning docs stay consistent before implementation starts.
+- Updated `docs/phase-2-todo.md`, `docs/phase-1-analysis-schema.md`, `docs/migration-exceptions.md`, and `docs/grand-plan.md` to reflect in-progress Phase 2 implementation, including GAP-002 resolution via EX-0005 and current completion state.
+- Updated `.gitignore` with `site/` build and dependency artifacts, so the new Astro workspace does not pollute repository tracking with generated files.
+- Renamed the Swedish hero layout module from `swedish-hero` to `hero-sv` and documented locale suffix rules in `AGENTS.md` and `docs/phase-2-todo.md`, so language-specific source files follow one consistent `-sv`/`-en`/`-de` convention.
+- Updated migration governance docs (`AGENTS.md`, `docs/grand-plan.md`, `docs/url-migration-policy.md`, `docs/phase-2-todo.md`, `docs/definition-of-done.md`) with a strict self-hosted asset policy, so the rebuilt site never depends on absolute old-site internal JS/CSS/media URLs.
+- Localized Swedish hero media references to Astro-hosted root-relative paths and added `site/src/lib/layout/assets.ts` plus `assets.test.ts`, so current header implementation enforces local internal asset usage with regression coverage.
+- Added a local font sync pipeline (`site/scripts/sync-fonts.mjs`, `site/src/lib/fonts/sources.json`, `site/src/styles/fonts.css`, `npm run fonts:sync`) and wired hero/menu typography to local `Jost` assets, so menu rendering matches source typography without remote font dependencies.
+- Updated `site/README.md`, `docs/design-extraction-method.md`, and `AGENTS.md` with a repeatable font localization workflow, so additional required fonts can be downloaded and regenerated deterministically.
+- Fixed the font sync pipeline to preserve both `latin-ext` and `latin` subsets with `unicode-range` declarations per weight/style, so local `Jost` rendering no longer falls back due to incomplete glyph coverage.
+- Implemented a dedicated Swedish footer variant imitation (`footer-207`) using source-backed section structure, SEO link row, legal row, and social icon treatment in `SiteFooter.astro` plus `footer-sv.ts`, so the rebuilt footer mirrors the original `index.html` footer layout while keeping internal links local.
+- Renamed shared header and footer CSS/DOM selectors from language-prefixed `sv-*` names to design-scoped `shared-*` names, so layout styling is reusable across all languages without implying language-specific design coupling.
+- Added an explicit universal-design rule to `AGENTS.md`, `docs/grand-plan.md`, and `docs/phase-2-todo.md`, so language-specific behavior is limited to content and variant selection while core design styles remain shared by default.
+- Updated `hero-sv` mobile behavior to imitate source sticky hamburger navigation with a dedicated mobile menu shell and expandable submenu groups, so phone layout now follows the original separate mobile menu pattern instead of desktop-style menu wrapping.
+- Added `header-small-sv` implementation path for `header-2223` in `SiteHeader.astro`, using local static background assets and no hero CTA (source template: `stockholm-art-yoga`), plus a dedicated preview route at `/header-small-sv/` for direct visual QA.
+- Added a Phase 2 implementation-insights retrospective to `docs/phase-2-todo.md`, `docs/grand-plan.md`, and `AGENTS.md`, so the header/footer parity workflow (shared design naming, mobile-first interaction parity, sticky threshold method, local asset-first tuning, and variant preview routes) is reusable in future phases.
+- Updated `docs/grand-plan.md` and `docs/phase-2-todo.md` to defer localized header implementation until the Swedish site header baseline is working and approved, so header rollout order matches the Swedish-first execution strategy.
+- Updated `docs/grand-plan.md` and `docs/phase-2-todo.md` to defer all localization work, including header and page-content localization, until Swedish content migration is completed and approved through Phase 5, so sequencing is explicit and consistent across implementation phases.
+- Updated planning and quality docs (`docs/grand-plan.md`, `docs/definition-of-done.md`, and downstream phase-reference docs) plus `AGENTS.md` to insert a dedicated Phase 6 localization rollout and move scripts/consent/analytics launch hardening to Phase 7, so Phase 5 remains a clean Swedish-only implementation milestone.
+- Updated shared layout accessibility in `site/src/layouts/SiteLayout.astro`, `site/src/components/layout/SiteHeader.astro`, and `site/src/styles/layout.css` with skip-to-main support, visible keyboard focus states, and mobile menu focus management, and marked `P2-05` complete in `docs/phase-2-todo.md`, so Phase 2 accessibility criteria are satisfied at layout level.
+- Marked `P2-06` complete in `docs/phase-2-todo.md` after visual approval and non-visual checks, confirming Swedish header/footer link targets against `site-html/index.html` and confirming no absolute old-site media/CSS/JS asset URL dependencies in `site/src/` layout code.
+- Completed `P2-07` carry-forward updates by marking Phase 2 complete pending sign-off in `docs/phase-2-todo.md`, updating `docs/grand-plan.md` with Phase 2 outcomes and post-Phase-2 next steps, and closing EX-0005 follow-up language in `docs/migration-exceptions.md`, so Phase 3 can begin without shared-layout documentation blockers.
 
 ### Deprecated
 
@@ -80,7 +110,7 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ### Fixed
 
-- None.
+- Updated `spider.py` crawl startup to remove existing `site-html/` and `site-md/` directories before creating fresh outputs, so reruns rebuild the mirror from scratch instead of creating duplicate `-1`, `-2` files.
 
 ### Security
 

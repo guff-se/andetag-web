@@ -6,6 +6,7 @@ Web spider to crawl andetag.museum and save content as markdown files.
 import os
 import re
 import time
+import shutil
 import requests
 from urllib.parse import urljoin, urlparse, urlunparse
 from bs4 import BeautifulSoup
@@ -25,6 +26,9 @@ class AndetagSpider:
         self.crawled_pages = set()
         self.downloaded_assets = set()  # Track downloaded CSS/JS files
         
+        # Start from a clean mirror on every run.
+        self.reset_output_directories()
+
         # Create output directories
         Path(html_dir).mkdir(exist_ok=True)
         Path(md_dir).mkdir(exist_ok=True)
@@ -42,6 +46,14 @@ class AndetagSpider:
         self.session.headers.update({
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'
         })
+
+    def reset_output_directories(self):
+        """Delete previous crawl output directories before rebuilding."""
+        for directory in (self.html_dir, self.md_dir):
+            dir_path = Path(directory)
+            if dir_path.exists() and dir_path.is_dir():
+                shutil.rmtree(dir_path)
+                print(f"Removed previous output directory: {directory}")
     
     def is_internal_link(self, url):
         """Check if URL is within the same domain."""
@@ -126,14 +138,7 @@ class AndetagSpider:
         slug = self.get_slug_from_url(url)
         filename = f"{slug}.md"
         filepath = os.path.join(self.md_dir, filename)
-        
-        # Handle duplicate filenames
-        counter = 1
-        while os.path.exists(filepath):
-            filename = f"{slug}-{counter}.md"
-            filepath = os.path.join(self.md_dir, filename)
-            counter += 1
-        
+
         with open(filepath, 'w', encoding='utf-8') as f:
             f.write(f"# Source: {url}\n\n")
             f.write(content)
@@ -146,14 +151,7 @@ class AndetagSpider:
         slug = self.get_slug_from_url(url)
         filename = f"{slug}.html"
         filepath = os.path.join(self.html_dir, filename)
-        
-        # Handle duplicate filenames
-        counter = 1
-        while os.path.exists(filepath):
-            filename = f"{slug}-{counter}.html"
-            filepath = os.path.join(self.html_dir, filename)
-            counter += 1
-        
+
         with open(filepath, 'w', encoding='utf-8') as f:
             f.write(html_content)
         

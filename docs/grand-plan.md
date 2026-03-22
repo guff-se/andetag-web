@@ -15,8 +15,10 @@ Purpose: rebuild `https://andetag.museum` as a lightweight static site with pres
 - Preserve existing URL paths when possible, and add redirects when path changes are unavoidable.
 - Keep multilingual architecture (`sv`, `en`, `de`) and hreflang relationships coherent.
 - Treat `site-html/` as canonical migration input for deterministic extraction and rebuild.
+- Self-host all first-party assets in the rebuilt Astro site, never reference old-site absolute asset URLs for internal JS, CSS, images, video, fonts, or other media.
 - Validate each major milestone with Gustaf before proceeding to the next phase.
 - Build Swedish Stockholm first, complete and approve it before localization and Berlin rollout work.
+- Localization sequencing rule: defer all localization work, including content and header localization, until Swedish content migration is completed and approved through Phase 5.
 
 ## Business Objectives and Conversion Strategy
 
@@ -49,6 +51,7 @@ Purpose: rebuild `https://andetag.museum` as a lightweight static site with pres
 ### Rollout and Localization Strategy
 
 - Build order: Swedish Stockholm first, then language and destination expansion.
+- Localization execution timing: complete Phases 2 through 5 for Swedish content first, then start localization waves (`en`, `de`) including localized headers and page content.
 - Target language and destination model after first release:
   - Stockholm: Swedish and English
   - Berlin: German and English
@@ -103,16 +106,26 @@ Acceptance checks:
 ### Phase 2, Shared Layout System (Headers, Footers, Navigation)
 
 Goal: build robust shared layout variants before page implementation.
+Execution checklist: `docs/phase-2-todo.md`
+Status: complete, pending final sign-off (2026-03-22).
 
 Deliverables:
-- Unified header/footer architecture with variant support by language and context.
+- Unified header/footer architecture with a Swedish-first working baseline, and no localized header rollout before Swedish Phase 5 completion.
 - Navigation data model and render logic for all current menu structures.
 - Language switcher behavior defined and implemented for static routing.
 - Footer legal/metadata/script slots designed for safe reuse.
+- Internal media references localized to Astro-hosted paths with source-backed files in the project asset structure.
 
 Acceptance checks:
-- Snapshot review of each header/footer variant on desktop and mobile.
+- Snapshot review of each header/footer variant on desktop/tablet and mobile.
+- Mobile-first cross-browser QA for layout sign-off on iOS Safari and Chrome (iOS), plus desktop Chrome and Safari.
 - Link parity checks against current nav and footer destinations.
+
+Key outcomes (carry-forward to later phases):
+- Shared Swedish hero and small-header variants are source-backed, approved for current visual baseline, and wired through shared layout primitives.
+- Shared Swedish footer variant parity is established with source-backed route targets and legal/social structure.
+- Layout-level accessibility baseline is in place (landmarks, skip-to-main, keyboard focus treatment, and mobile menu focus behavior).
+- Layout parity checks are complete for approved variants and no absolute old-site internal media/CSS/JS asset URL dependencies remain in layout source.
 
 ### Phase 3, Design Component Library and Verification Page
 
@@ -149,7 +162,7 @@ Approach:
 - Migrate one page at a time (or small approved batches).
 - Validate content parity, component usage, SEO metadata, and behavior.
 - Collect feedback from Gustaf, adjust components if needed, then approve page.
-- Migrate Swedish Stockholm core conversion pages first before any localization wave.
+- Complete Swedish Stockholm content migration and approval first, then hand off localization work to Phase 6 (content plus headers).
 
 Deliverables per page:
 - Route implemented.
@@ -161,7 +174,22 @@ Acceptance checks:
 - Explicit approval recorded before moving to next page.
 - No unresolved high-priority visual or functional issues.
 
-### Phase 6, Scripts, Consent, Analytics, and Launch Hardening
+### Phase 6, Localization Rollout (After Swedish Completion)
+
+Goal: localize approved Swedish structures and content into planned non-Swedish locales after Phase 5 sign-off.
+
+Deliverables:
+- Localized page-content rollout for approved routes in `en` and `de`, based on Swedish-approved components and page structures.
+- Localized header and navigation content rollout using the shared design system and approved variant mappings.
+- Locale-level metadata and copy QA pass to confirm source intent and tone alignment.
+- Localization exception tracking where source parity or market adaptation requires approved divergence.
+
+Acceptance checks:
+- Swedish Phase 5 page set is complete and approved before any localized page goes live.
+- Localized pages pass language-content review and link integrity checks for their locale.
+- No unapproved design forks are introduced during localization work.
+
+### Phase 7, Scripts, Consent, Analytics, and Launch Hardening
 
 Goal: reintroduce required third-party scripts safely and compliantly.
 
@@ -179,9 +207,18 @@ Acceptance checks:
 
 - Keep content, routes, and component configuration in versioned source files, not in hidden CMS state.
 - Use deterministic extraction/mapping from `site-html/`, avoid ad hoc manual copy when possible.
+- Do not import legacy WordPress CSS or JS bundles directly, recreate styles and behavior in local Astro source using maintained dependencies where needed.
 - Add regression checks for URL mapping, nav integrity, and metadata output.
 - Run structured QA on three levels: visual parity, technical SEO, and accessibility.
 - Keep a migration log of exceptions, with rationale and approval status.
+
+### Phase 2 Header and Footer Implementation Insights
+
+- Preserve one shared design system across locales, treat language as content and variant selection, not a style fork.
+- Model desktop/tablet and mobile navigation as distinct interaction systems when source behavior differs, especially around sticky and hamburger patterns.
+- For sticky transitions, use measured element positions to define trigger points, this avoids visual jumps from container-based threshold guesses.
+- Localize assets and fonts before visual fine tuning, parity work is more stable when external network dependencies are removed.
+- Keep a direct preview route for each actively tuned variant to speed approval loops and reduce side effects during iteration.
 
 ## Suggested Build Cadence
 
@@ -195,7 +232,7 @@ Acceptance checks:
 
 - Stack and hosting were decided after Phase 1 analysis and accepted in `docs/decisions/0001-static-stack-selection.md` (Astro + Cloudflare Pages).
 - Post-launch content operations are pull-request based, with one staging instance per PR for verification before merge.
-- Rollout order is fixed: Swedish Stockholm production first, then localization and Berlin destination expansion.
+- Rollout order is fixed: Swedish Stockholm production first, then Phase 6 localization rollout, then final launch hardening.
 
 ### SEO and URL Policy
 
@@ -214,6 +251,7 @@ Acceptance checks:
 ### Design and UX
 
 - Visual direction is modernized-but-familiar: unified component-based UI, not pixel-perfect Elementor parity.
+- Design language is universal across locales: language affects content and variant selection, but core design system styles stay shared across `sv`, `en`, and `de` unless an approved exception exists.
 - Conversion UX should prioritize fast path to standard ticket booking and event ticket booking.
 - Component selection policy: evaluate patterns across all pages and keep only reusable components needed for the unified UI system.
 
@@ -233,8 +271,8 @@ Acceptance checks:
 ### Design and UX
 
 - Priority pages for first migration wave.
-- Approved responsive breakpoints and browser support baseline.
-- Destination selector versus language selector UX pattern for future multi-city rollout.
+- Responsive baseline follows current source behavior with two layout buckets, desktop/tablet and mobile, with mobile-first QA support in iOS Safari and Chrome (iOS), plus desktop Chrome and Safari.
+- Destination and language selector UX pattern is resolved to separate controls for future multi-city rollout.
 
 ### Integrations and Compliance
 
@@ -250,10 +288,9 @@ Acceptance checks:
 
 ## Practical Next Steps
 
-1. Initialize Phase 2 work on Astro + Cloudflare Pages baseline.
-2. Implement CookieYes category mapping and GTM consent signal behavior in staging (must be validated before Phase 6 launch hardening).
-3. Add and validate redirect tests for approved alias handling (`/en/berlin-en/` to `/en/berlin/`).
-4. Define first-wave Stockholm Swedish page order by conversion priority (homepage, tickets, opening hours, find us, FAQ, events, corporate/private).
-5. Start with Phases 2 and 3 in parallel where possible (shared layout + component system).
-6. Approve component showcase before any full page migration wave.
-7. Begin page migration in priority order with explicit approval checkpoints.
+1. Start Phase 3 component library execution and create a reusable layout QA checklist.
+2. Formalize nav/footer fixture coverage for regression testing in CI-oriented workflows.
+3. Implement Phase 4 route coverage and redirect validation, including approved alias behavior (`/en/berlin-en/` to `/en/berlin/`).
+4. Define and approve first-wave Swedish page migration order for Phase 5.
+5. Keep localization work paused until Swedish Phase 5 completion, then start Phase 6 localization rollout.
+6. Validate CookieYes and GTM consent behavior in staging ahead of Phase 7 launch hardening.

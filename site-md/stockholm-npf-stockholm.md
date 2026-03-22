@@ -222,7 +222,7 @@ Om
 
 
 
-[Aktivitet](https://www.andetag.museum/stockholm/aktivitet-stockholm/) / [Museum](https://www.andetag.museum/stockholm/museum-stockholm/) / [Att göra](https://www.andetag.museum/stockholm/att-gora-stockholm/) / [Utställing](https://www.andetag.museum/stockholm/utstallning-stockholm/) / [Event](https://www.andetag.museum/stockholm/event-stockholm/)
+[Aktivitet](https://www.andetag.museum/stockholm/aktivitet-inomhus-stockholm/) / [Museum](https://www.andetag.museum/stockholm/museum-stockholm/) / [Att göra](https://www.andetag.museum/stockholm/att-gora-stockholm/) / [Utställing](https://www.andetag.museum/stockholm/utstallning-stockholm/)
 
 © 2026 Tadaa Art AB
 

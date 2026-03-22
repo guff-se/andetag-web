@@ -199,29 +199,31 @@ Besökare nämner ofta:
 
 
 
-Optiska textilmästerverk!  \- Häftig känsla att stiga in i den här lugnande oasen mitt bland stadens buller. Det är en imponerande teknik som har använts för att blåsa liv i verken. Jag kan... read more starkt rekommendera ett besök!
+Unique art experience  \- THIS is something else. Hard to describe - it’s a MUST experience thing!! What I feel is unique is that this art gently INVITES you to feel and explore yourself... read more in a different way. Whilst a lot of art created in the world is triggering you into an emotion, this one just opens the possibility for you to go deeper, chose is yours!   
+I will definitely come back again!
+
+[](https://media-cdn.tripadvisor.com/media/photo-s/2f/58/6b/a3/caption.jpg)
 
 [](https://www.tripadvisor.com/Attraction_Review-g189852-d32883203-Reviews-Andetag-Stockholm.html)
 
-Linus H  
-18 mars 2025
+MiniPaprika  
+14 mars 2025
 
-100 % mesmerizing – a luxurious meditation  \- We had the most wonderful experience in the exhibition Andetag by Malin and Gustav Tadaa. Time stood still - we were all three (including an 11 year old daughter) moved... read more to a deep level of relaxation and tapping into a sub conscious state, it was a form of luxurious meditation with the immensely beautiful glowing pieces. 100 % mesmerizing! A must see and experience.
-
-[](https://www.tripadvisor.com/Attraction_Review-g189852-d32883203-Reviews-Andetag-Stockholm.html)
-
-Ragnhild G  
-31 oktober 2025
-
-Amazing experience \- Amazing experience everyone should go and take a deep breath here ..  
-.. 
-
-[](https://media-cdn.tripadvisor.com/media/photo-s/31/a8/3f/b4/caption.jpg)
+Amazing and unique experience  \- Highlight of my visit to Stockholm - a genuinely beautiful and brilliant immersive art experience. It took us a little while to find the place - it’s in the underground... read more station. But it was well worth it.
 
 [](https://www.tripadvisor.com/Attraction_Review-g189852-d32883203-Reviews-Andetag-Stockholm.html)
 
-Sara L  
-6 november 2025
+DayTrip36892708826  
+25 oktober 2025
+
+Calming  \- Very cool experience, the larger room with the pillows and blanket were very grounding and comforting. After a long day of traveling it was a nice reset 
+
+[](https://media-cdn.tripadvisor.com/media/photo-s/31/7b/e4/01/caption.jpg)[](https://media-cdn.tripadvisor.com/media/photo-s/31/7b/e4/02/caption.jpg)
+
+[](https://www.tripadvisor.com/Attraction_Review-g189852-d32883203-Reviews-Andetag-Stockholm.html)
+
+Katie D  
+22 oktober 2025
 
 Besök ANDETAG
 
@@ -239,6 +241,7 @@ Upplevelsen
 
   * [Hur är ANDETAG?](https://www.andetag.museum/stockholm/vilken-typ-av-upplevelse/)
   * [Dejt](https://www.andetag.museum/stockholm/dejt/)
+  * [NPF-besökare](https://www.andetag.museum/stockholm/npf-stockholm/)
   * [Art Yoga](https://www.andetag.museum/stockholm/art-yoga/)
   * [Musiken](https://www.andetag.museum/musik/)
   * [Besökaromdömen](https://www.andetag.museum/stockholm/besokaromdomen/)
@@ -259,6 +262,8 @@ Om
   * [Om konstnärerna](https://www.andetag.museum/om-konstnarerna-malin-gustaf-tadaa/)
 
 
+
+[Aktivitet](https://www.andetag.museum/stockholm/aktivitet-inomhus-stockholm/) / [Museum](https://www.andetag.museum/stockholm/museum-stockholm/) / [Att göra](https://www.andetag.museum/stockholm/att-gora-stockholm/) / [Utställing](https://www.andetag.museum/stockholm/utstallning-stockholm/)
 
 © 2026 Tadaa Art AB
 

@@ -33,6 +33,8 @@
   * [Biljetter](https://www.andetag.museum/stockholm/biljetter/)
   * [](#pll_switcher)
     * [](https://www.andetag.museum/stockholm/att-gora-stockholm/)
+    * [](https://www.andetag.museum/en/)
+    * [](https://www.andetag.museum/de/berlin/)
 
 
 
@@ -57,6 +59,8 @@
   * [Biljetter](https://www.andetag.museum/stockholm/biljetter/)
   * [](#pll_switcher)
     * [](https://www.andetag.museum/stockholm/att-gora-stockholm/)
+    * [](https://www.andetag.museum/en/)
+    * [](https://www.andetag.museum/de/berlin/)
 
 
 
@@ -119,46 +123,152 @@
 
 
 
-# Att göra i Stockholm – en plats att stanna
+# Något lugnt att göra i Stockholm
 
-Söker du saker att göra i Stockholm?  
+Söker du saker att göra i Stockholm?
+
 Något som inte kräver planer, biljetter till stora evenemang eller vackert väder?
 
-ANDETAG är en plats att göra en sak: stanna.  
-Andas. Låta ögonen vila i ljus. Det räcker.
+ANDETAG är en plats att göra en sak: stanna.
 
-[ Boka biljetter nu! ](https://www.andetag.museum/stockholm/biljetter/)
+Låt ögonen vila i vackra ljusspel.
 
-## Göra idag i Stockholm
+Andas.
 
-Öppet tisdag till söndag. Du kan boka [biljetter](https://www.andetag.museum/stockholm/biljetter/) i förväg eller köpa i dörren om det finns plats.  
-En aktivitet du kan göra idag – inte nästa månad eller när vädret tillåter.
+Det räcker.
 
-Upplevelsen tar runt 45–50 minuter i genomsnitt, men du får stanna så länge du vill. Ingen press. Ingen tid att hålla koll på.
+Vad är ANDETAG? 
 
-## Saker att göra i Stockholm idag
+ANDETAG är en unik konstinstallation och upplevelse i Stockholm. Besökare rör sig genom rum av ljus och textilkonst som reagerar på andning och ljud. Upplevelsen är en blandning av samtida konst, meditation och stillhet, och har blivit ett uppskattat alternativ för både konstälskare, nyfikna besökare och alla som söker ett lugnt avbrott mitt i city.
 
-Stockholm erbjuder mycket. Restauranger, shopping, museer. Här erbjuds motsatsen till många alternativ: ett enda rum. Tre utrymmen med ljusbaserad textilkonst. Originalmusik. Ett gemensamt andetag som går genom verken.
+Du får stanna så länge du vill. Den genomsnittliga besökaren stannar runt 50 minuter.
 
-  
+Passar Andetag för barn? 
 
+Ja, vi har haft många barn på besök och upplever att alla åldrar kan hitta ett lugnare tempo hos ANDETAG.
 
-En aktivitet för dig som vill göra något annorlunda. Något stilla. Något som inte kräver att du presterar eller väljer nästa steg.
+Det finns ingen plats för barnvagn inne hos oss, men en sådan kan låsas fast vid cyckelställen på Sveavägen.
 
-### Praktisk information
+Kan jag boka biljetter på plats? 
 
-**Adress:** Kungsgatan 39, Stockholm (Hötorgets tunnelbana)
+Ja, du kan köpa biljett i dörren, i mån av plats.
 
-**Öppettider:** Tisdag–lördag 12.00–20.00, söndag 12.00–17.00. Måndagar stängt.
+Kan jag avboka eller omboka min biljett? 
 
-**Pris:**  
-Ordinarie 240 kr (190 kr dagtid vardagar 12–17).  
-Student/pensionär 200 kr (150 dagtid).  
-Ungdom 8–17 år 125 kr.
+Du kan boka om ditt besök ända fram tills din bokning börjar.
 
-**Tidsåtgång:** Besökare stannar i genomsnitt 45–50 minuter. Du får stanna så länge du vill.
+Länk till avbokning finns i ditt bekräftelsemail.
 
-**Ålder:** Passar alla åldrar. Barn är välkomna.
+Vad händer om jag missar min bokade tid? 
+
+Är du mindre än 30 minuter sen är du hjärtligt välkommen. Utöver det så kan vi släppa in dig i mån av plats.
+
+Är upplevelsen tillgänglighetsanpassad? 
+
+Hiss finns både till gatuplan och tunnelbana. Utställningen är rullstolsanpassad, men vi har tyvärr ingen fullgod rullstolstoalett.
+
+Delar av utställningen är mörk, men relativt enkel att navigera. Ledarhundar är välkomna.
+
+En ljudslinga existerar ej, men musiken finns tillgänglig på internet, om du vill spela på din egen enhet.
+
+Ledsagare eller assistent har fri entré
+
+ANDETAG   
+Kungsgatan 39, Hötorgets tunnelbana,  
+Stockholm 
+
+[ Hitta hit ](#hitta)
+
+## Boka direkt
+
+Vänligen maila [info@tadaa.se](mailto:info@tadaa.se) om du har några frågor.
+
+ANDETAG-Kungsgatan 39, Hötorgets tunnelbana, Stockholm 
+
+[ Hitta hit ](#hitta)
+
+[ ](https://www.andetag.museum/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-6074-scaled.jpg) [ ](https://www.andetag.museum/wp-content/uploads/2024/11/Andetag-13-35-copy-2.jpg) [ ](https://www.andetag.museum/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-5983-scaled.jpg) [ ](https://www.andetag.museum/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-6038-scaled.jpg) [ ](https://www.andetag.museum/wp-content/uploads/2024/11/Andetag-10-53-copy-2.jpg) [ ](https://www.andetag.museum/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-59311-scaled.jpg) [ ](https://www.andetag.museum/wp-content/uploads/2024/11/Andetag-19-508-copy.jpg) [ ](https://www.andetag.museum/wp-content/uploads/2024/11/Andetag-10-69-copy.jpg)
+
+## Biljetter
+
+ANDETAG är en upplevelse som tar dig från vardagens stress in i en fridfull magisk värld.
+
+Du är välkommen att anlända före utsatt tid, förutsatt att vanlig öppettid råder. Du går igenom utställningen i din egen takt, och stannar tills dess du känner dig klar.
+
+Vi använder tidsbokning för att se till att inte för många anländer samtidigt. Platserna fylls snabbt, så se till att boka i tid.
+
+### Priser
+
+**Ordinarie biljett:** 240 kr (190 kr dagtid)
+
+**Student/pensionär:** 200 kr (150 kr dagtid)
+
+**Ungdom (8-17 år):** 125 kr
+
+Dagtidspris gäller vardagar 12.00 – 17.00
+
+## Säsongskort
+
+Vill du göra ANDETAG till en vana? Vi har många besökare som gjort det till sin veckorutin att ta ett ANDETAG.  
+För 950 kr får du fri tillgång till upplevelsen i 6 månader.
+
+[Säsongskort](https://www.andetag.museum/stockholm/sasongskort/) köpes i kassan. Om du visar din biljett får du dessutom avdrag på säsongskortet.
+
+## Privat upplevelse
+
+ANDETAG erbjuder skräddarsydda event morgon, dag, kväll och helg—perfekt för [företag](https://www.andetag.museum/stockholm/foretagsevent/), [grupper](https://www.andetag.museum/stockholm/gruppbokning/) eller speciella tillfällen. Vi kan också erbjuda grupprabatter.
+
+Skicka ett mail till [info@tadaa.se](mailto:info@tadaa.se), så hjälper vi dig!
+
+"The installation is incredibly immersive, with light, sound and textile art blending into a unique experience. It invites you to slow down, breathe and simply be present. Truly one of a kind.”" 
+
+Edwin
+
+“A calming and meditative experience that feels like a deep breath for the whole body. The movement of light and color creates a soothing atmosphere. You leave feeling grounded, rested and quietly moved.” 
+
+Therese
+
+"The artwork is stunning, with intricate textures and glowing fibers that feel alive. The experience engages many senses at once, creating a rare sense of wonder. Beautiful, thoughtful and unforgettable." 
+
+Gabrielle
+
+Self care  \- Highly recommend for self care and for couples to detach from reality 🖤 i spent 90 min and could have easily spent longer but I wanted to share with others 
+
+[](https://media-cdn.tripadvisor.com/media/photo-s/31/68/8b/d6/caption.jpg)
+
+[](https://www.tripadvisor.com/Attraction_Review-g189852-d32883203-Reviews-Andetag-Stockholm.html)
+
+Jenny L  
+15 oktober 2025
+
+Calming  \- Very cool experience, the larger room with the pillows and blanket were very grounding and comforting. After a long day of traveling it was a nice reset 
+
+[](https://media-cdn.tripadvisor.com/media/photo-s/31/7b/e4/01/caption.jpg)[](https://media-cdn.tripadvisor.com/media/photo-s/31/7b/e4/02/caption.jpg)
+
+[](https://www.tripadvisor.com/Attraction_Review-g189852-d32883203-Reviews-Andetag-Stockholm.html)
+
+Katie D  
+22 oktober 2025
+
+Magical  \- A magical, cool art exhibition—immersive, inspiring, and bursting with creative wonder.  
+I loved it so much! Thank you 
+
+[](https://www.tripadvisor.com/Attraction_Review-g189852-d32883203-Reviews-Andetag-Stockholm.html)
+
+Claudia m  
+26 september 2025
+
+[ Upplev Andetag! ](#book)
+
+[ Boka biljetter nu! ](#book)
+
+## Var är ANDETAG?
+
+Du hittar ANDETAG i den centrala uppgången av Hötorgets Tunnelbanestation.
+
+**Från tunnelbanan** : Uppgång Kungsgatan (mitten av plattformen), sedan uppgång Kungsgatan mot Stureplan, Sveavägen mot Sergels torg.
+
+**Från gatan** : precis nedanför trappan i tunnelbanenedgången på Kungsgatan 39.
 
 Besök ANDETAG
 
@@ -198,7 +308,7 @@ Om
 
 
 
-[Aktivitet](https://www.andetag.museum/stockholm/aktivitet-stockholm/) / [Museum](https://www.andetag.museum/stockholm/museum-stockholm/) / [Att göra](https://www.andetag.museum/stockholm/att-gora-stockholm/) / [Utställing](https://www.andetag.museum/stockholm/utstallning-stockholm/) / [Event](https://www.andetag.museum/stockholm/event-stockholm/)
+[Aktivitet](https://www.andetag.museum/stockholm/aktivitet-inomhus-stockholm/) / [Museum](https://www.andetag.museum/stockholm/museum-stockholm/) / [Att göra](https://www.andetag.museum/stockholm/att-gora-stockholm/) / [Utställing](https://www.andetag.museum/stockholm/utstallning-stockholm/)
 
 © 2026 Tadaa Art AB
 
