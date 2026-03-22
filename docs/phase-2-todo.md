@@ -2,7 +2,16 @@
 
 Purpose: implement and validate the shared layout system required before component library and page migration work.
 
-Status: Complete, pending final sign-off.
+Status: **Complete (final sign-off 2026-03-22, Gustaf).**
+
+## Final sign-off
+
+| Field | Value |
+|-------|--------|
+| Phase | 2 |
+| Stakeholder approval | Gustaf (2026-03-22), shared layout and variant parity |
+| Scope | Headers, footers, navigation model, layout SEO hooks, accessibility baseline, link and asset parity per `P2-00` through `P2-07` |
+| Record | This checklist and `docs/grand-plan.md` Phase 2 section |
 
 ## Exit Criteria
 
@@ -131,15 +140,17 @@ Phase 2 is complete only when all items marked `P2` are done and approved:
 
 ## P3, Important but Can Spill into Early Phase 3
 
-- [ ] **P3-01 Create reusable layout QA checklist template**
+- [x] **P3-01 Create reusable layout QA checklist template**
   - Owner: AI agent
   - Output: a repeatable checklist document or section for desktop/mobile variant verification and link parity checks.
   - Done when: future layout adjustments can be revalidated without redefining QA steps.
+  - Resolution: delivered in Phase 3 as `docs/phase-3-component-qa-checklist.md` (see `docs/phase-3-todo.md` **P3-01**).
 
-- [ ] **P3-02 Formalize nav/footer structured data fixture set for regression checks**
+- [x] **P3-02 Formalize nav/footer structured data fixture set for regression checks**
   - Owner: AI agent
   - Output: source-backed fixtures that can be used for deterministic nav/footer rendering tests.
   - Done when: nav/footer regressions can be detected in CI after Phase 3 test expansion.
+  - Resolution: delivered in Phase 3 as `docs/phase-3-fixture-strategy.md` and `site/src/lib/layout/fixtures.ts` (see `docs/phase-3-todo.md` **P3-02**).
 
 ## Clarification Queue (Ask Early)
 
@@ -184,7 +195,7 @@ Phase 2 is complete only when all items marked `P2` are done and approved:
 
 ## Phase Closure Forward Audit Record
 
-Date: 2026-03-22
+Date: 2026-03-22 (updated at Phase 2 final sign-off)
 
 Future-phase impact review completed for Phases 3 through 7:
 

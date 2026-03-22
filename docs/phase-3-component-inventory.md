@@ -15,7 +15,7 @@ Status: approved for implementation.
 
 | component id | source widget/pattern evidence | migration priority | notes |
 |--------------|--------------------------------|--------------------|-------|
-| `ButtonGroup` | `button.default`, nav/footer CTA patterns | high | Covers primary and secondary CTA paths |
+| `ButtonGroup` | `button.default`, nav/footer CTA patterns | high | Three CTA tokens: `primary` (any surface), `secondary` (light only), `outline` (photo backgrounds); see `docs/Visual Identity.md` |
 | `HeroSection` | Hero header and hero content patterns | high | Reuses shared hero primitives and CTA group |
 | `ContentSection` | `heading.default` + `text-editor.default` blocks | high | Base wrapper for structured content areas |
 | `AccordionSection` | `nested-accordion.default` on FAQ pages | high | Required for FAQ parity |
@@ -35,6 +35,7 @@ All contracts are TypeScript-first, prop names stay stable once confirmed.
 ```ts
 type Link = { label: string; href: string };
 
+/** `primary`: v1 any surface. `secondary`: v2 light background only. `outline`: v3 photo/busy backgrounds. */
 type Cta = Link & {
   variant: "primary" | "secondary" | "outline";
 };
@@ -47,8 +48,8 @@ type HeroSectionProps = {
   heading: string;
   body?: string;
   eyebrow?: string;
+  /** Full-bleed background image + overlay + light text. Omit for solid aubergine band with light text only (no combined image strip + dark block). */
   backgroundImage?: string;
-  backgroundStyle?: "inline" | "cover";
   headingLevel?: "h1" | "h2";
   ctas: Cta[];
 };

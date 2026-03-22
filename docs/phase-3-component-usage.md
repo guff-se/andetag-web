@@ -2,6 +2,12 @@
 
 Purpose: provide implementation-facing usage guidance for approved Phase 3 components before page migration in Phase 5.
 
+## Global typography
+
+- Default **body and paragraph** text: **Baskervville** (`BaskervvilleLocal`), per `docs/Visual Identity.md` and `site/src/styles/layout.css` (`body`).
+- **Accordion question rows** (`AccordionSection` `summary` text): **Baskervville** (`BaskervvilleLocal`) in `site/src/styles/components.css`, same as FAQ body copy.
+- **Headings**, eyebrow labels, card titles, **CTAs**, and preview **header chrome**: **Jost** (`JostLocal`) where scoped in `site/src/styles/components.css` and `site/src/styles/layout.css`.
+
 ## Usage Rules
 
 - Use the approved prop contracts from `docs/phase-3-component-inventory.md`.
@@ -41,6 +47,10 @@ Purpose: provide implementation-facing usage guidance for approved Phase 3 compo
 - Notes:
   - Use for hero and card CTA clusters.
   - Keep labels concise and action-oriented.
+  - **Variant usage** (see `docs/Visual Identity.md`, CTA buttons):
+    - **`primary` (version 1):** light or dark backgrounds.
+    - **`secondary` (version 2):** **light surfaces only** (for example pink page background), strongest emphasis.
+    - **`outline` (version 3):** **photo or busy backgrounds** (for example `HeroSection` with `backgroundImage`).
 
 ### `HeroSection`
 
@@ -50,13 +60,13 @@ Purpose: provide implementation-facing usage guidance for approved Phase 3 compo
   - `body?: string`
   - `eyebrow?: string`
   - `backgroundImage?: string`
-  - `backgroundStyle?: "inline" | "cover"`
   - `headingLevel?: "h1" | "h2"`
   - `ctas: Cta[]`
 - Notes:
   - Use `h1` only when this is the page primary heading.
   - Use `h2` when the page already has a primary heading elsewhere.
-  - Use `backgroundStyle: "cover"` with `backgroundImage` for image-overlay hero variants such as `Take a Breath - Book your ticket`.
+  - **Two mutually exclusive modes:** with `backgroundImage`, the hero is **full-bleed image + dark overlay + light text** (source-shaped band such as `site-html/index.html` container `b899d4f`). **Without** `backgroundImage`, the hero is **solid aubergine (`#4a0d2f`) with light text only** (no image strip above the same band).
+  - Do not use dark body text on the aubergine or image-overlay hero; headings, eyebrow, and lead use light tones in `site/src/styles/components.css`.
 
 ### `ContentSection`
 
@@ -98,6 +108,7 @@ Purpose: provide implementation-facing usage guidance for approved Phase 3 compo
 - Notes:
   - Partner links are external and should preserve keyboard focus clarity.
   - Logo `alt` text is required for accessibility.
+  - Layout: one row of eight columns by default; at `640px` and below the grid is two columns so logos break every two.
 
 ### `TestimonialCarousel`
 
@@ -108,7 +119,7 @@ Purpose: provide implementation-facing usage guidance for approved Phase 3 compo
   - `autoplayMs?: number`
 - Notes:
   - Include at least one item, support single-item fallback.
-  - Uses jQuery transitions with previous/next arrow controls and autoplay, modeled after the source testimonial carousel pattern.
+  - Uses jQuery-driven slide transitions (incoming from the side, outgoing opposite) with previous/next arrow controls and autoplay, modeled after the source testimonial carousel pattern; `prefers-reduced-motion` shortens the CSS transition.
   - Source-parity showcase uses background image `/wp-content/uploads/2024/11/Andetag-27-037-copy-scaled.jpg`.
 
 ### `InfoCardGrid`

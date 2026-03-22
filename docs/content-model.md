@@ -121,8 +121,11 @@ tracking:
 type HeroSectionProps = {
   heading: string;
   body?: string;
+  eyebrow?: string;
+  /** Full-bleed image + overlay, or omit for solid aubergine band only. */
   backgroundImage?: string;
-  ctas: Array<{ label: string; href: string; style: "primary" | "secondary" | "outline" }>;
+  headingLevel?: "h1" | "h2";
+  ctas: Array<{ label: string; href: string; variant: "primary" | "secondary" | "outline" }>;
 };
 ```
 

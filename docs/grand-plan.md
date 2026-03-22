@@ -107,7 +107,7 @@ Acceptance checks:
 
 Goal: build robust shared layout variants before page implementation.
 Execution checklist: `docs/phase-2-todo.md`
-Status: complete, pending final sign-off (2026-03-22).
+Status: complete (final sign-off 2026-03-22, Gustaf). Sign-off record: `docs/phase-2-todo.md` (Final sign-off section).
 
 Deliverables:
 - Unified header/footer architecture with a Swedish-first working baseline, and no localized header rollout before Swedish Phase 5 completion.
@@ -131,6 +131,7 @@ Key outcomes (carry-forward to later phases):
 
 Goal: build a reusable component system with explicit visual approval workflow.
 Execution checklist: `docs/phase-3-todo.md`
+Status: complete (approved 2026-03-22).
 
 Deliverables:
 - Reusable components with stable APIs (button, hero, section wrappers, testimonial, FAQ, gallery, embeds, booking module, info boxes, map block, etc).
@@ -141,15 +142,25 @@ Acceptance checks:
 - Gustaf signs off component showcase before page-by-page migration starts.
 - Responsive checks completed for each approved component.
 
+Verification record: `docs/phase-3-verification-record.md`. Showcase Lighthouse Performance on mobile may fall below the nominal Phase 3 DoD target because all embeds and media load on one internal page; see **EX-0006** in `docs/migration-exceptions.md`. Migrated pages remain subject to Phase 5 performance gates.
+
+Carry-forward to Phase 4 and Phase 5:
+- Implement routes and redirects using stable component contracts from `docs/phase-3-component-usage.md` and `docs/content-model.md`.
+- Migrate pages using showcase-validated components; avoid duplicating one-off styles outside `site/src/styles/components.css` unless logged as a migration exception.
+- Revisit showcase and global performance when consent-gated and lazy embed loading lands in Phase 7.
+
 ### Phase 4, Routing and URL Preservation
 
 Goal: implement complete route coverage and migration-safe URL handling.
+Execution checklist: `docs/phase-4-todo.md`
+Status: not started.
 
 Deliverables:
-- Static route tree covering all existing paths (including language prefixes).
+- Static route tree covering all existing paths (including language prefixes), each route with shared layout and real head metadata; main page content and design parity are Phase 5.
 - Redirect rules for aliases, legacy patterns, and unavoidable route changes.
 - Canonical and hreflang generation wired for all routes.
 - 404 strategy and language-aware fallback behavior.
+- XML sitemap generation is deferred to Phase 7 (canonical URLs only, per URL policy).
 
 Acceptance checks:
 - Route coverage report showing 100% mapping of known URLs.
@@ -198,10 +209,12 @@ Deliverables:
 - Tracking stack setup (analytics/tag manager/pixel where required).
 - Cookie consent and script gating according to policy and legal requirements.
 - External widgets finalized (Understory, Brevo if retained, others as approved).
-- Final SEO and performance validation (sitemaps, robots, metadata parity, Core Web Vitals targets).
+- XML sitemap(s) at canonical production URLs listing only canonical indexable HTML routes (exclude redirect aliases, `noindex` internal tools such as the component showcase, and non-HTML endpoints per `docs/url-migration-policy.md`).
+- `robots.txt` and final SEO validation (metadata parity, hreflang, Core Web Vitals targets) aligned with policy.
 
 Acceptance checks:
 - Consent behavior tested by category (functional, analytics, marketing).
+- Sitemap URLs match only canonical indexable routes; `robots.txt` references the sitemap and matches crawl policy.
 - Pre-launch checklist completed and signed off.
 
 ## Cross-Cutting Best Practices
@@ -289,9 +302,10 @@ Acceptance checks:
 
 ## Practical Next Steps
 
-1. Start Phase 3 component library execution and create a reusable layout QA checklist.
-2. Formalize nav/footer fixture coverage for regression testing in CI-oriented workflows.
-3. Implement Phase 4 route coverage and redirect validation, including approved alias behavior (`/en/berlin-en/` to `/en/berlin/`).
-4. Define and approve first-wave Swedish page migration order for Phase 5.
-5. Keep localization work paused until Swedish Phase 5 completion, then start Phase 6 localization rollout.
-6. Validate CookieYes and GTM consent behavior in staging ahead of Phase 7 launch hardening.
+1. Execute Phase 4 routing and URL preservation per `docs/phase-4-todo.md` (route tree, redirects, canonical or hreflang, coverage report).
+2. Define and approve first-wave Swedish page migration order for Phase 5, using `docs/phase-3-component-usage.md` and showcase-validated components.
+3. Keep localization work paused until Swedish Phase 5 completion, then start Phase 6 localization rollout.
+4. Validate CookieYes and GTM consent behavior in staging ahead of Phase 7 launch hardening.
+5. Track showcase performance follow-up under **EX-0006** when consent-gated and lazy embed loading lands in Phase 7.
+
+Phase 3 closure (2026-03-22): component library, showcase, usage docs, and verification record are complete; see `docs/phase-3-todo.md` and `docs/phase-3-verification-record.md`.

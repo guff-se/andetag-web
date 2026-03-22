@@ -39,7 +39,7 @@ All phases must keep these baseline checks in scope:
 
 ## Phase 3, Component Library and Verification Page
 
-- Performance: component showcase page scores at least 90 for Lighthouse Performance on mobile profile.
+- Performance: component showcase page scores at least 90 for Lighthouse Performance on mobile profile, **unless** an approved exception applies for the internal showcase route only (see **EX-0006** in `docs/migration-exceptions.md` and `docs/phase-3-verification-record.md`).
 - SEO: reusable components support metadata injection where relevant.
 - Accessibility: each core component has keyboard and screen-reader behavior validated, and Lighthouse Accessibility score is at least 95 on showcase page.
 - Visual parity: component showcase is approved before page migration starts.

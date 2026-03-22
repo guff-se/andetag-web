@@ -7,8 +7,8 @@ type Props = {
   heading: string;
   body?: string;
   eyebrow?: string;
+  /** When set, hero is full-bleed image + overlay + light text. When omitted, hero is solid aubergine + light text only (no image strip). */
   backgroundImage?: string;
-  backgroundStyle?: "inline" | "cover";
   headingLevel?: HeadingLevel | "h4";
   ctas: Cta[];
 };
@@ -18,16 +18,20 @@ const {
   body,
   eyebrow,
   backgroundImage,
-  backgroundStyle = "inline",
   headingLevel = "h1",
   ctas,
 } = Astro.props as Props;
 const HeadingTag = getHeadingTag(headingLevel, "h1");
+const hasImage = Boolean(backgroundImage);
 ---
 
-<section class={`component-hero ${backgroundStyle === "cover" ? "is-cover" : ""}`.trim()}>
-  {backgroundImage ? <img src={backgroundImage} alt="" class="component-hero-media" loading="lazy" /> : null}
-  {backgroundStyle === "cover" ? <div class="component-hero-cover-overlay" aria-hidden="true"></div> : null}
+<section class={`component-hero ${hasImage ? "is-cover" : "is-solid"}`}>
+  {hasImage ? (
+    <>
+      <img src={backgroundImage} alt="" class="component-hero-media" loading="lazy" />
+      <div class="component-hero-cover-overlay" aria-hidden="true"></div>
+    </>
+  ) : null}
   <div class="component-hero-content">
     {eyebrow ? <p class="component-eyebrow">{eyebrow}</p> : null}
     <HeadingTag>{heading}</HeadingTag>

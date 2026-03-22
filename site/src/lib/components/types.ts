@@ -5,6 +5,7 @@ export type Link = {
   href: string;
 };
 
+/** v1: any surface. v2: light background only (emphasis). v3: photo or busy backgrounds. See `docs/Visual Identity.md`. */
 export type CtaVariant = "primary" | "secondary" | "outline";
 
 export type Cta = Link & {

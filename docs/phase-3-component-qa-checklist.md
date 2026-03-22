@@ -2,7 +2,7 @@
 
 Purpose: provide one repeatable QA template for Phase 3 component and showcase validation across desktop/tablet and mobile before Phase 5 page migration.
 
-Use this checklist for every component QA cycle and for final showcase sign-off in `P3-08`.
+Use this checklist for every component QA cycle and for final showcase sign-off in `P3-08`. Completed run outcomes for the consolidated sign-off are summarized in `docs/phase-3-verification-record.md`.
 
 Sign-off mode for this phase:
 

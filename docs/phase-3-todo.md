@@ -2,7 +2,7 @@
 
 Purpose: build a reusable, source-backed component library and verification workflow before Phase 5 page migration.
 
-Status: In progress.
+Status: complete (2026-03-22).
 
 ## Exit Criteria
 
@@ -145,7 +145,7 @@ Phase 3 is complete only when all items marked `P3` are done and approved:
   - Done when: Phase 5 migration work can consume component docs without reverse-engineering implementation details.
   - Output delivered: `docs/phase-3-component-usage.md`
 
-- [ ] **P3-08 Run Phase 3 verification and record approval outcomes**
+- [x] **P3-08 Run Phase 3 verification and record approval outcomes**
   - Owner: Gustaf + AI agent
   - Inputs:
     - Component showcase route
@@ -156,8 +156,12 @@ Phase 3 is complete only when all items marked `P3` are done and approved:
     - Keyboard and screen-reader behavior is validated for each core component.
     - Responsive checks pass for desktop/tablet and mobile views.
   - Done when: Gustaf signs off the showcase and no high-severity unresolved Phase 3 defects remain.
+  - Resolution:
+    - Evidence and approval captured in `docs/phase-3-verification-record.md`.
+    - Accessibility: Lighthouse mobile **100** after contrast, in-text link, and touch-target fixes in `site/src/styles/components.css` and `site/src/styles/layout.css`.
+    - Performance: Lighthouse mobile **74** with all embeds and assets on one page; **EX-0006** documents approved deviation from the 90 showcase target (internal route only). Phase 5 page-level perf gate remains unchanged.
 
-- [ ] **P3-09 Prepare carry-forward outputs for Phase 4 and Phase 5**
+- [x] **P3-09 Prepare carry-forward outputs for Phase 4 and Phase 5**
   - Owner: AI agent
   - Inputs:
     - Completed Phase 3 artifacts
@@ -166,6 +170,7 @@ Phase 3 is complete only when all items marked `P3` are done and approved:
     - `docs/migration-exceptions.md` (approved component-level deviations)
     - `CHANGELOG.md` (`Unreleased` notes with why)
   - Done when: route and page-migration phases can start without component-library blockers.
+  - Outputs delivered: Phase 3 marked complete in `docs/grand-plan.md`, **EX-0006** added, verification record added, this todo closed, `CHANGELOG.md` updated, `AGENTS.md` documentation table updated for the verification record.
 
 ## Clarification Queue (Resolved)
 
@@ -194,6 +199,6 @@ Phase 3 is complete only when all items marked `P3` are done and approved:
 
 ## Immediate Next 3 Actions
 
-1. Run consolidated showcase review in `P3-08` on `/component-showcase/`.
-2. Record open issues or approved exceptions, then close `P3-08`.
-3. Complete `P3-09` carry-forward updates for Phase 4 and Phase 5 readiness.
+1. Start Phase 4 routing and URL preservation per `docs/grand-plan.md`.
+2. Use `docs/phase-3-component-usage.md` and fixtures when wiring migrated pages in Phase 5.
+3. Track showcase performance follow-up under **EX-0006** for Phase 7 embed and script gating work.

@@ -7,8 +7,20 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ## [Unreleased]
 
+### Changed
+
+- Phase 4 planning: recorded stakeholder decisions (layout plus metadata only, redirect ownership, trailing slash and matrix authority, hreflang and 404 defaults, sitemap deferred to Phase 7) in `docs/phase-4-todo.md`; aligned `docs/grand-plan.md` Phase 4 deliverables and Phase 7 sitemap or robots deliverables.
+- Phase 2: recorded final stakeholder sign-off in `docs/phase-2-todo.md`, updated `docs/grand-plan.md` Phase 2 status, marked spillover checklist items as completed via Phase 3 deliverables, and refreshed Phase 2 immediate next actions.
+- Documentation: Phase 3 marked closed in planning flow; `docs/grand-plan.md` practical next steps now point at Phase 4 onward; `docs/phase-4-todo.md` lists Phase 3 prerequisites for implementers.
+- Partners logo grid: at `640px` viewport width and below, use two columns so pairs of logos wrap into rows (`site/src/styles/components.css`).
+
+### Fixed
+
+- Component showcase: removed root horizontal padding so full-bleed blocks (hero, gallery, testimonials, frameless video) align to the viewport on narrow screens; gutters apply only to inset demo content (`site/src/styles/components.css`).
+
 ### Added
 
+- Added `docs/phase-4-todo.md` with Phase 4 task board, exit criteria, and clarification queue for routing, redirects, canonical or hreflang behavior, and URL coverage reporting before Phase 5 migration.
 - Initial changelog setup aligned with repository AI changelog standards.
 - Added `docs/url-migration-policy.md` with canonical domain, trailing slash, alias redirects, SEO landing page handling, and sitemap rules.
 - Added `docs/decisions/README.md` to standardize ADR naming and one-page decision capture, so major migration choices can be approved and traced.
@@ -134,6 +146,14 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 - Updated testimonial carousel hero styling in `site/src/styles/components.css` to full-bleed viewport width with full-frame slides, light text treatment, and arrow positioning tied to content gutters, so each rotating testimonial occupies the full hero area while keeping jQuery-based autoplay and arrow-driven transitions.
 - Reverted `site/src/components/content/PartnersSection.astro` to plain `<img>` partner logos (removed build-time inline SVG), so Toniton and other logos render again without Astro fragment or sanitization side effects on SVG markup.
 - Extended `site/src/lib/fonts/sources.json` with Baskervville 400 italic, ran `npm run fonts:sync`, and pointed testimonial quote copy at `BaskervvilleLocal` at `font-weight: 400` with real italic files, so quote typography uses self-hosted faces and `font-weight: 300` is not claimed without a matching woff2.
+- Updated `.gitignore` to ignore `.cursor/`, so Cursor IDE metadata stays out of the working tree noise.
+- Set default `body` typography to `BaskervvilleLocal` in `site/src/styles/layout.css`, scoped preview `header-root` back to Jost, and declared Jost for component headings and accordion titles in `site/src/styles/components.css`, so body and paragraphs match `docs/Visual Identity.md` while nav and heading surfaces stay Jost; documented the split in `docs/phase-3-component-usage.md`.
+- Updated `.accordion-item summary` in `site/src/styles/components.css` to **Baskervville** at `font-weight: 400`, so FAQ questions match body typography and are not bold.
+- Replaced testimonial carousel jQuery fade with horizontal slide transitions in `site/src/components/content/TestimonialCarousel.astro` and `site/src/styles/components.css` (forward: exit left, enter from right; backward the reverse), with `transitionend` plus timeout cleanup, `prefers-reduced-motion` handling, and docs note in `docs/phase-3-component-usage.md`.
+- Reworked `HeroSection` to two exclusive modes (`is-cover` when `backgroundImage` is set, `is-solid` when not), removed the image-strip-plus-aubergine `inline` layout, set light typography on both modes, adjusted secondary CTA on solid aubergine for contrast, fixed `.component-showcase` overrides that forced dark text onto hero content, and updated `component-showcase.astro`, `docs/phase-3-component-inventory.md`, `docs/phase-3-component-usage.md`, and `docs/content-model.md`.
+- Documented three CTA usage levels in `docs/Visual Identity.md` (primary any surface, secondary light only, outline on photos), wired notes through `docs/phase-3-component-usage.md`, `docs/phase-3-component-inventory.md`, and comments in `site/src/styles/components.css`.
+- Closed Phase 3 (`P3-08`, `P3-09`): added `docs/phase-3-verification-record.md`, marked `docs/phase-3-todo.md` complete, set Phase 3 status in `docs/grand-plan.md` with carry-forward notes, logged **EX-0006** for showcase-only Lighthouse Performance, clarified Phase 3 performance wording in `docs/definition-of-done.md`, and indexed the verification record in `AGENTS.md` and `docs/phase-3-component-qa-checklist.md`.
+- Improved accessibility for showcase and layout: underlines on `link-footer` and `content-section-body` links, aubergine ghost styling for outline CTAs on the pink demo button row only, larger tap targets for Swedish hero social and language links and footer list and social icons in `site/src/styles/layout.css` (Lighthouse mobile accessibility 100 on `/component-showcase/` after build).
 
 ### Deprecated
 

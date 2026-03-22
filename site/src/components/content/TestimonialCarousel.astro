@@ -64,35 +64,62 @@ const {
 
     let activeIndex = getWrappedIndex(0, total);
     const autoplayMs = Number($root.attr("data-autoplay-ms")) || 6000;
-    const transitionMs = 500;
+    const transitionMs = 550;
     let intervalId = null;
 
-    const setActiveSlide = (requestedIndex) => {
+    const setActiveSlide = (requestedIndex, direction) => {
       const nextIndex = getWrappedIndex(requestedIndex, total);
       if (nextIndex === activeIndex) return;
+      if ($root.data("testimonialTransitioning")) return;
 
+      const forward = direction === "forward";
       const $current = $slides.eq(activeIndex);
       const $next = $slides.eq(nextIndex);
 
-      $current
-        .stop(true, true)
-        .removeClass("is-active")
-        .attr("aria-hidden", "true")
-        .fadeOut(transitionMs);
+      $root.data("testimonialTransitioning", true);
 
-      $next
-        .stop(true, true)
-        .addClass("is-active")
-        .attr("aria-hidden", "false")
-        .fadeIn(transitionMs);
+      $next.css({
+        visibility: "visible",
+        opacity: 1,
+        zIndex: 2,
+        transform: forward ? "translateX(100%)" : "translateX(-100%)",
+      });
+      $current.css({ zIndex: 1 });
 
-      activeIndex = nextIndex;
+      void $next[0]?.offsetHeight;
+
+      $current.css({
+        transform: forward ? "translateX(-100%)" : "translateX(100%)",
+        opacity: 0,
+      });
+      $next.css({ transform: "translateX(0)" });
+
+      let finished = false;
+      const finish = () => {
+        if (finished) return;
+        finished = true;
+        $next.off("transitionend", onTransitionEnd);
+        window.clearTimeout(fallbackTimer);
+        $current.removeClass("is-active").attr("aria-hidden", "true").removeAttr("style");
+        $next.addClass("is-active").attr("aria-hidden", "false").removeAttr("style");
+        activeIndex = nextIndex;
+        $root.removeData("testimonialTransitioning");
+      };
+
+      const onTransitionEnd = (event) => {
+        const prop = event.originalEvent?.propertyName;
+        if (prop && prop !== "transform") return;
+        finish();
+      };
+
+      $next.on("transitionend", onTransitionEnd);
+      const fallbackTimer = window.setTimeout(finish, transitionMs + 100);
     };
 
     const startAutoplay = () => {
       if (total <= 1 || autoplayMs <= 0 || intervalId !== null) return;
       intervalId = window.setInterval(() => {
-        setActiveSlide(activeIndex + 1);
+        setActiveSlide(activeIndex + 1, "forward");
       }, autoplayMs);
     };
 
@@ -102,23 +129,14 @@ const {
       intervalId = null;
     };
 
-    $slides.each((index, slide) => {
-      const $slide = $(slide);
-      if (index === activeIndex) {
-        $slide.show();
-      } else {
-        $slide.hide();
-      }
-    });
-
     $root.find(".testimonial-nav-prev").on("click", () => {
-      setActiveSlide(activeIndex - 1);
+      setActiveSlide(activeIndex - 1, "backward");
       stopAutoplay();
       startAutoplay();
     });
 
     $root.find(".testimonial-nav-next").on("click", () => {
-      setActiveSlide(activeIndex + 1);
+      setActiveSlide(activeIndex + 1, "forward");
       stopAutoplay();
       startAutoplay();
     });

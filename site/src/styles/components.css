@@ -11,6 +11,16 @@ body.theme-pink {
   background: #f7dcea;
 }
 
+/* Visual Identity: prose uses Baskervville on body; headings stay Jost. */
+.content-section > :is(h1, h2, h3, h4),
+.content-section-body :is(h1, h2, h3, h4),
+.partners-section > :is(h1, h2, h3, h4),
+.component-hero :is(h1, h2, h3),
+.component-eyebrow,
+.info-card > :is(h3, h4) {
+  font-family: "JostLocal", "Jost", Arial, sans-serif;
+}
+
 .brand-wordmark {
   font-family: "JostLocal", "Jost", Arial, sans-serif;
   text-transform: uppercase;
@@ -34,8 +44,16 @@ body.theme-pink {
 
 .link-footer {
   color: #4a0d2f;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }
 
+/*
+ * CTA tokens (see docs/Visual Identity.md):
+ * - primary (v1): light or dark backgrounds.
+ * - secondary (v2): light backgrounds only (extra emphasis); aubergine fill.
+ * - outline (v3): photo or busy backgrounds.
+ */
 .link-cta-primary,
 .link-cta-secondary,
 .link-cta-outline {
@@ -101,9 +119,34 @@ body.theme-pink {
   position: relative;
 }
 
+/* Solid band: aubergine only, light text (no image strip combined with this surface). */
+.component-hero.is-solid .component-hero-content {
+  padding-top: 2.25rem;
+  padding-bottom: 2.25rem;
+}
+
+.component-hero.is-solid :is(h1, h2, h3, h4) {
+  color: #fafafa;
+}
+
+.component-hero.is-solid .component-eyebrow {
+  color: #d0a4cc;
+}
+
+.component-hero.is-solid .component-lead {
+  color: #f7dcea;
+}
+
+/* Secondary is for light surfaces only; on solid aubergine use bordered stand-in when demoing all three. */
+.component-hero.is-solid .link-cta-secondary {
+  background: transparent;
+  color: #f7dcea;
+  border-color: #d0a4cc;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
 .component-hero-media {
   width: 100%;
-  max-height: 320px;
   object-fit: cover;
   display: block;
 }
@@ -143,9 +186,16 @@ body.theme-pink {
   gap: 0.9rem;
 }
 
-.component-hero.is-cover h1,
-.component-hero.is-cover h2 {
+.component-hero.is-cover :is(h1, h2, h3, h4) {
   color: #fafafa;
+}
+
+.component-hero.is-cover .component-lead {
+  color: #f7dcea;
+}
+
+.component-hero.is-cover .component-eyebrow {
+  color: #d0a4cc;
 }
 
 .component-eyebrow {
@@ -165,6 +215,8 @@ body.theme-pink {
 
 .content-section-body a {
   color: var(--component-link);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }
 
 .accordion-item {
@@ -188,7 +240,8 @@ body.theme-pink {
 .accordion-item summary {
   cursor: pointer;
   padding: 0.9rem 1rem;
-  font-weight: 600;
+  font-family: "BaskervvilleLocal", "Baskervville", Georgia, serif;
+  font-weight: 400;
   color: #111111;
 }
 
@@ -364,10 +417,27 @@ body.lightbox-open {
   justify-content: center;
   text-align: center;
   box-sizing: border-box;
+  z-index: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translate3d(0, 0, 0);
+  transition:
+    transform 0.55s cubic-bezier(0.33, 0.83, 0.32, 1),
+    opacity 0.5s ease;
 }
 
-.testimonial-slide:not(.is-active) {
-  display: none;
+.testimonial-slide.is-active {
+  z-index: 1;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .testimonial-slide {
+    transition-duration: 0.01ms;
+  }
 }
 
 .testimonial-slide p {
@@ -483,7 +553,30 @@ body.lightbox-open {
   gap: 2rem;
   background: var(--showcase-bg);
   color: var(--showcase-text);
-  padding: 2rem max(1rem, calc((100vw - 1100px) / 2)) 3rem;
+  /* Full-bleed children use viewport-based margins; horizontal padding on this root breaks that math. */
+  --showcase-inline-pad: max(1rem, calc((100vw - 1100px) / 2));
+  padding: 2rem 0 3rem;
+}
+
+.component-showcase > section:first-child {
+  padding-left: var(--showcase-inline-pad);
+  padding-right: var(--showcase-inline-pad);
+}
+
+.component-showcase
+  section.component-demo
+  > *:not(.component-hero):not(.testimonial-carousel):not(.gallery-section):not(.embed-shell-no-frame) {
+  padding-left: var(--showcase-inline-pad);
+  padding-right: var(--showcase-inline-pad);
+  box-sizing: border-box;
+}
+
+/* Outline CTA is for photo backgrounds; on pink demo strip use aubergine ghost so contrast passes. */
+.component-showcase section.component-demo > .button-group .link-cta-outline {
+  color: #4a0d2f;
+  border-color: #4a0d2f;
+  background: transparent;
+  box-shadow: 3px 3px 10px rgba(74, 13, 47, 0.12);
 }
 
 .component-showcase .brand-wordmark,
@@ -500,6 +593,27 @@ body.lightbox-open {
 .component-showcase .testimonial-slide p,
 .component-showcase .testimonial-slide cite {
   color: #4a0d2f;
+}
+
+/* Hero blocks carry their own light-on-dark typography; do not inherit showcase body text color. */
+.component-showcase .component-hero.is-solid :is(h1, h2, h3, h4),
+.component-showcase .component-hero.is-cover :is(h1, h2, h3, h4) {
+  color: #fafafa;
+}
+
+.component-showcase .component-hero .component-lead {
+  color: #f7dcea;
+}
+
+.component-showcase .component-hero .component-eyebrow {
+  color: #d0a4cc;
+}
+
+.component-showcase .component-hero.is-solid .link-cta-secondary {
+  background: transparent;
+  color: #f7dcea;
+  border-color: #d0a4cc;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
 }
 
 .component-showcase h1,
@@ -561,6 +675,11 @@ body.lightbox-open {
   .gallery-section,
   .info-card-grid {
     grid-template-columns: 1fr;
+  }
+
+  /* Two columns so logos wrap every pair (e.g. eight partners → four rows). */
+  .partners-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .testimonial-carousel {

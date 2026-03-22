@@ -72,7 +72,9 @@ Reference docs before implementation:
 | `docs/phase-1-todo.md` | Execution checklist for Phase 1 analysis deliverables and exit gate inputs. |
 | `docs/phase-2-todo.md` | Execution checklist for Phase 2 shared layout system deliverables and approvals. |
 | `docs/phase-3-todo.md` | Execution checklist for Phase 3 component library, showcase approval, and verification gates. |
+| `docs/phase-4-todo.md` | Execution checklist for Phase 4 routing, redirects, canonical or hreflang wiring, and URL coverage validation. |
 | `docs/phase-3-component-qa-checklist.md` | Reusable QA checklist template for Phase 3 component verification and showcase sign-off. |
+| `docs/phase-3-verification-record.md` | Phase 3 `P3-08` Lighthouse results, manual QA summary, and stakeholder sign-off for `/component-showcase/`. |
 | `docs/phase-3-fixture-strategy.md` | Deterministic fixture strategy and coverage map for Phase 3 layout and component regression checks. |
 | `docs/phase-3-component-inventory.md` | Source-backed Phase 3 component inventory and approved API contracts. |
 | `docs/phase-3-component-usage.md` | Implementation-facing usage reference for approved Phase 3 components and embeds. |
