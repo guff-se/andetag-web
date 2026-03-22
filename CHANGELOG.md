@@ -7,6 +7,10 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ## [Unreleased]
 
+### Changed
+
+- Phase 4 marked **complete** with stakeholder sign-off (2026-03-23): `docs/phase-4-todo.md`, `docs/phase-4-verification-record.md`, `docs/grand-plan.md`; **EX-0007** approved as accepted Phase 4 shell deviation until Phase 5 migrates `/en/stockholm/`.
+
 ### Added
 
 - `docs/phase-4-404.md` and `docs/phase-4-verification-record.md` for Phase 4 documentation and sign-off tracking.

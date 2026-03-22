@@ -76,7 +76,7 @@ Reference docs before implementation:
 | `docs/phase-4-route-coverage.md` | URL matrix to Astro shell and `_redirects` mapping for Phase 4 route coverage. |
 | `docs/phase-4-redirect-tests.md` | Redirect test table and execution log for Cloudflare Pages `public/_redirects`. |
 | `docs/phase-4-404.md` | Phase 4 global `404` behavior and accessibility notes. |
-| `docs/phase-4-verification-record.md` | Phase 4 verification evidence and stakeholder sign-off placeholder (parallel to Phase 3 record). |
+| `docs/phase-4-verification-record.md` | Phase 4 verification evidence and stakeholder sign-off (parallel to Phase 3 record). |
 | `docs/phase-3-component-qa-checklist.md` | Reusable QA checklist template for Phase 3 component verification and showcase sign-off. |
 | `docs/phase-3-verification-record.md` | Phase 3 `P3-08` Lighthouse results, manual QA summary, and stakeholder sign-off for `/component-showcase/`. |
 | `docs/phase-3-fixture-strategy.md` | Deterministic fixture strategy and coverage map for Phase 3 layout and component regression checks. |

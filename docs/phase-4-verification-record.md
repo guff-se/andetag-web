@@ -7,8 +7,8 @@ Purpose: capture routing, redirect, and shell verification evidence plus stakeho
 | Field | Value |
 |-------|--------|
 | Phase | 4 |
-| Stakeholder approval | pending (record date when approved) |
-| Record date | 2026-03-23 (partial); update on sign-off |
+| Stakeholder approval | Gustaf (2026-03-23), Phase 4 routing and shells approved |
+| Record date | 2026-03-23 |
 
 ## Redirects (repo `site/public/_redirects`)
 
@@ -30,7 +30,7 @@ Validated with `curl -sI` on deployed Workers static assets:
 
 ## Known exception
 
-- **EX-0007** (`docs/migration-exceptions.md`): `/en/stockholm/` shell metadata. Local snapshot `en-stockholm.html` and live `https://www.andetag.museum/en/stockholm/` both expose Swedish home `<title>` / `og:description` and canonical `/`. Shell reuses `en.html` metadata as the least-wrong snapshot until Phase 5 migration supplies correct English hub copy.
+- **EX-0007** (`docs/migration-exceptions.md`): `/en/stockholm/` shell metadata. Approved with Phase 4 closure; shell reuses `en.html` metadata until Phase 5 supplies correct English hub head tags and body.
 
 ## Carry-forward
 

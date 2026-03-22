@@ -199,6 +199,6 @@ Phase 3 is complete only when all items marked `P3` are done and approved:
 
 ## Immediate Next 3 Actions
 
-1. Start Phase 4 routing and URL preservation per `docs/grand-plan.md`.
+1. Phase 4 is closed (2026-03-23); continue from `docs/grand-plan.md` Practical Next Steps and `docs/phase-4-todo.md` carry-forward.
 2. Use `docs/phase-3-component-usage.md` and fixtures when wiring migrated pages in Phase 5.
 3. Track showcase performance follow-up under **EX-0006** for Phase 7 embed and script gating work.

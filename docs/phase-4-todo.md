@@ -4,7 +4,7 @@ Purpose: implement complete static routing, migration-safe redirects, and consis
 
 **Prerequisites:** Phase 3 is complete (2026-03-22). Use `docs/phase-3-component-usage.md`, `docs/content-model.md`, and fixtures from `docs/phase-3-fixture-strategy.md` when implementing route shells and later page bodies.
 
-Status: implementation complete on 2026-03-23; redirect verification recorded in `docs/phase-4-redirect-tests.md` (2026-03-23). Pending stakeholder sign-off for phase closure.
+Status: **complete** (stakeholder approval Gustaf, 2026-03-23). Redirect verification: `docs/phase-4-redirect-tests.md`. Evidence: `docs/phase-4-verification-record.md`.
 
 ## Decisions (stakeholder approval, 2026-03-23)
 
@@ -164,6 +164,6 @@ Phase 4 is complete only when all items marked `P4` are done and approved:
 
 ## Immediate Next 3 Actions
 
-1. Approve **EX-0007** in `docs/migration-exceptions.md` or replace `/en/stockholm/` metadata when WordPress or Phase 5 supplies correct English hub head tags.
-2. Record Phase 4 stakeholder sign-off in `docs/phase-4-verification-record.md`, this file, and `docs/grand-plan.md`.
-3. Start Phase 5 page migration using `docs/phase-3-component-usage.md` and the shell registry.
+1. Start Phase 5 Swedish Stockholm page migration using `docs/phase-3-component-usage.md`, `site/src/lib/routes/page-shell-registry.ts`, and approved component contracts.
+2. On `/en/stockholm/` (and any shell), replace head and body with source-backed migrated content; **EX-0007** follow-up remains until that page is migrated.
+3. Keep localization paused until Swedish Phase 5 completion per `docs/grand-plan.md`.
