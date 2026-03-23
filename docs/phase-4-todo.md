@@ -4,7 +4,7 @@ Purpose: implement complete static routing, migration-safe redirects, and consis
 
 **Prerequisites:** Phase 3 is complete (2026-03-22). Use `docs/phase-3-component-usage.md`, `docs/content-model.md`, and fixtures from `docs/phase-3-fixture-strategy.md` when implementing route shells and later page bodies.
 
-Status: **complete** (stakeholder approval Gustaf, 2026-03-23). Redirect verification: `docs/phase-4-redirect-tests.md`. Evidence: `docs/phase-4-verification-record.md`.
+Status: **complete and closed** (stakeholder approval Gustaf, 2026-03-23). Phase 4 gates are not reopened. Follow-up routing (entry Worker, **`/sv/stockholm/`**, **`/en/`** hub, **`andetag_entry`**, Berlin or Stockholm parity, global-page navigation) is **scheduled in Phases 5–7** per **`docs/grand-plan.md`** (Entry routing and URL expansion schedule). Context and Phase 4 codebase delta: **`docs/phase-4-routing-reopen.md`**. Redirect verification: **`docs/phase-4-redirect-tests.md`**. Evidence: **`docs/phase-4-verification-record.md`**.
 
 ## Decisions (stakeholder approval, 2026-03-23)
 

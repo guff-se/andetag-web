@@ -55,7 +55,7 @@ Policy:
 
 | Category | Allowed examples | Blocked until consent |
 |----------|------------------|-----------------------|
-| `necessary` | consent manager runtime, security/session essentials, Understory booking widget runtime | no |
+| `necessary` | consent manager runtime, security/session essentials, Understory booking widget runtime, **`andetag_entry` routing cookie** (see `docs/url-migration-policy.md` entry routing section) | no |
 | `analytics` | GA4 via GTM | yes |
 | `marketing` | Meta Pixel, Google Ads conversion tags, Brevo marketing tags | yes |
 

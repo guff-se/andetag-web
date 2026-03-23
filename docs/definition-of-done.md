@@ -72,7 +72,7 @@ All phases must keep these baseline checks in scope:
 ## Phase 7, Scripts, Consent, Analytics, and Launch Hardening
 
 - Performance: third-party scripts are consent-gated, and key conversion pages maintain Lighthouse Performance >= 85 mobile and >= 95 desktop.
-- SEO: sitemap, robots, canonicals, and hreflang output pass pre-launch checks.
+- SEO: sitemap, robots, canonicals, and hreflang output pass pre-launch checks. Self-hosted favicon (and agreed touch or mask icons) are present. Open Graph and Twitter (or X) card tags follow the documented default and per-page override rules in `docs/grand-plan.md` Phase 7 and `docs/content-model.md`. JSON-LD schema.org output matches `docs/Andetag SEO Manual.md` for each live destination phase (Stockholm; Berlin Place versus Museum rules).
 - Accessibility: consent experience and script-driven UI remain accessible, with no unresolved critical accessibility issues.
 - Visual parity: final cross-device QA has no unresolved high-priority defects.
 - Functional conversion path: analytics and attribution coverage is validated end-to-end for purchase funnel events.

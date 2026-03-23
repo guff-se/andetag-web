@@ -73,7 +73,9 @@ Reference docs before implementation:
 | `docs/phase-2-todo.md` | Execution checklist for Phase 2 shared layout system deliverables and approvals. |
 | `docs/phase-3-todo.md` | Execution checklist for Phase 3 component library, showcase approval, and verification gates. |
 | `docs/phase-4-todo.md` | Execution checklist for Phase 4 routing, redirects, canonical or hreflang wiring, and URL coverage validation. |
+| `docs/phase-7-todo.md` | Execution checklist for Phase 7 scripts, consent, analytics, favicon, sharing metadata, schema.org, sitemap, and launch hardening. |
 | `docs/phase-4-route-coverage.md` | URL matrix to Astro shell and `_redirects` mapping for Phase 4 route coverage. |
+| `docs/phase-4-routing-reopen.md` | Post-closure routing revisit: location and language matrix, Berlin or Stockholm parity, global pages and navigation. |
 | `docs/phase-4-redirect-tests.md` | Redirect test table and execution log for Cloudflare Pages `public/_redirects`. |
 | `docs/phase-4-404.md` | Phase 4 global `404` behavior and accessibility notes. |
 | `docs/phase-4-verification-record.md` | Phase 4 verification evidence and stakeholder sign-off (parallel to Phase 3 record). |
@@ -122,6 +124,14 @@ Changes often affect multiple layers. Audit all related layers before concluding
 2. Update parser behavior and matching documentation together.
 3. Verify language-specific impacts (sv/en/de) and hreflang/canonical consistency.
 4. Confirm no contradiction with tone and SEO constraints.
+
+### Routing and entry URLs (Phase 5 onward)
+
+Before changing Astro routes (`site/src/pages/`, `page-shell-registry`, `page-shell-meta`), `docs/url-matrix.csv`, `site/public/_redirects`, or edge Workers for entry routing:
+
+1. Read **`docs/phase-4-routing-reopen.md`** (decided behavior, open questions, **Phase 4 implementation delta**).
+2. Read **`docs/url-migration-policy.md`** (entry routing, **`andetag_entry`**, **`Accept-Language`**, crawlers).
+3. Check **`docs/grand-plan.md`** (Entry routing and URL expansion schedule).
 
 ---
 

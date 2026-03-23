@@ -166,9 +166,33 @@ Acceptance checks:
 - Route coverage report showing 100% mapping of known URLs.
 - Redirect test list validated.
 
+**Phase 4 follow-up (entry routing, `/sv/`, parity):** Original Phase 4 delivered static shells and repo redirects against the matrix at closure. The expanded model in `docs/url-migration-policy.md` ( **`andetag_entry`**, **`/`** and **`/en/`** edge routing, **`Accept-Language`**, verified bots to **`/en/stockholm/`**) and Berlin or Stockholm parity is **scheduled below** so it does not block Phase 5 start on Swedish pages.
+
+### Entry routing and URL expansion schedule (decided)
+
+Source: `docs/phase-4-routing-reopen.md` and `docs/url-migration-policy.md`. This table is the implementation authority for *when* relative to phased delivery.
+
+| Deliverable | Phase | Rationale |
+|-------------|-------|-----------|
+| **`url-matrix.csv`**, `phase-4-route-coverage.md`, and registry updates for **`/sv/stockholm/`**, legacy **`/`** Swedish home handling, and **Berlin or Stockholm parity paths** (shells first) | **Phase 5, early** | Edge logic must not **302** to missing routes. Add or adjust static Astro routes and documented redirects before turning on production Worker behavior. |
+| **English hub** page at **`/en/`** (chooser content and layout) and **Swedish Stockholm home** at **`/sv/stockholm/`** (migrated content, not placeholder-only) | **Phase 5, early-to-mid** | Humans and bots depend on real **200** responses at hub and bot landing targets. |
+| **Berlin parity**: new routes and migrated **English Berlin** pages needed for launch | **Phase 5, mid** (continue as needed) | Parity is content plus routing; prioritize after core Swedish Stockholm migration wave is underway, unless business gates launch on Berlin sooner. |
+| **Berlin parity**: **German** Berlin pages and locale QA | **Phase 6** | Matches existing rule: non-Swedish locale rollout after Swedish Phase 5 completion; English Berlin can precede or overlap per launch plan. |
+| **Cloudflare Worker** (or equivalent edge) implementing **`/`**, **`/en/`**, cookie **set or read**, **`Accept-Language`** parsing, **verified-bot** branch | **Phase 5, late** | Ship when static targets above are **200** in production builds and staging tests pass; avoids redirecting into empty shells. |
+| **Production enable** of entry Worker (if staged earlier) | **Phase 5 exit or Phase 6 open** | Prefer enabling when hub, **`/sv/stockholm/`**, and **`/en/stockholm/`** are content-approved and critical Berlin **`/en/berlin/`** paths exist; exact gate is Gustaf sign-off on entry UX smoke test. |
+| **CookieYes** listing for **`andetag_entry`** as **`necessary`** (essential or functional) | **Phase 7** | Aligns with consent platform go-live and audit checklist; cookie may already be set by the Worker in Phase 5 or 6. |
+| **Sitemap and `robots.txt`** including new canonical entry URLs | **Phase 7** | Sitemap is already a Phase 7 deliverable; ensure **`/sv/stockholm/`**, hub, and parity URLs appear only as canonical **keep** rows. |
+| **`docs/Andetag SEO Manual.md`** and hreflang or **`x-default`** examples for new entry behavior | **Phase 5 late or Phase 6** (content) **and Phase 7** (final audit) | Update when routes go live; revalidate in launch hardening. |
+
+**Dependency rule:** do not point production **`/`** or **`/en/`** entry traffic through the Worker until the **minimum static targets** for that configuration return **200** (at least **`/en/`**, **`/en/stockholm/`**, **`/sv/stockholm/`**, **`/de/berlin/`**, **`/en/berlin/`**).
+
 ### Phase 5, Page Migration and Iterative Approval
 
 Goal: migrate page content in controlled batches with design review feedback loops.
+
+Carry-forward: complete **static routes and real pages** required by the **Entry routing and URL expansion schedule** (above) before or in parallel with the first migration wave, so entry **`302`** targets never 404.
+
+**Standing reminder:** any routing, matrix, registry, `_redirects`, or Worker work must revisit **`docs/phase-4-routing-reopen.md`** and the entry section of **`docs/url-migration-policy.md`** (see **`AGENTS.md`**, Routing and entry URLs).
 
 Approach:
 - Migrate one page at a time (or small approved batches).
@@ -203,19 +227,29 @@ Acceptance checks:
 
 ### Phase 7, Scripts, Consent, Analytics, and Launch Hardening
 
-Goal: reintroduce required third-party scripts safely and compliantly.
+Goal: reintroduce required third-party scripts safely and compliantly, and close launch-facing head markup (identity in tabs, sharing previews, structured data).
 
 Deliverables:
 - Tracking stack setup (analytics/tag manager/pixel where required).
 - Cookie consent and script gating according to policy and legal requirements.
 - External widgets finalized (Understory, Brevo if retained, others as approved).
+- **Favicon and touch icons:** ship self-hosted favicon (and optional `apple-touch-icon` and mask icon) under `site/public/`, wired from the root layout so every indexable route resolves icons without third-party URLs.
+- **Open Graph and sharing metadata:** document and implement a minimum tag set for social previews. Use shared defaults from the site `seo` contract in `docs/content-model.md` (`defaultOgImage`, `siteName`, `canonicalHost`). Allow per-page overrides via page frontmatter (`ogImage`, `seo.ogType`, title and description already on the page model). Decisions to lock before implementation:
+  - Default `og:image` asset (dimensions, safe cropping, locale-neutral versus locale-specific variants if needed).
+  - Whether `twitter:card` is `summary_large_image` sitewide or mixed by template.
+  - Required properties: at minimum `og:title`, `og:description`, `og:image` (absolute URL), `og:url`, `og:type`, `og:site_name`, and `og:locale` (and `og:locale:alternate` where hreflang equivalents exist).
+- **Schema.org (JSON-LD):** emit structured data aligned with `docs/Andetag SEO Manual.md` section 6 (Organization, Place, Museum, TouristAttraction for Stockholm; Event only when applicable). Follow Berlin protocol in the same manual (Place only pre-opening; Museum when Berlin opens). Validate with Rich Results or equivalent checks on representative URLs per locale.
 - XML sitemap(s) at canonical production URLs listing only canonical indexable HTML routes (exclude redirect aliases, `noindex` internal tools such as the component showcase, and non-HTML endpoints per `docs/url-migration-policy.md`).
 - `robots.txt` and final SEO validation (metadata parity, hreflang, Core Web Vitals targets) aligned with policy.
 
 Acceptance checks:
 - Consent behavior tested by category (functional, analytics, marketing).
 - Sitemap URLs match only canonical indexable routes; `robots.txt` references the sitemap and matches crawl policy.
+- Favicon and default sharing image requests return `200` on production; spot-check sharing debugger or card validators on hub and sample inner pages (with and without per-page `ogImage`).
+- JSON-LD parses without errors and matches the SEO manual entity rules for Stockholm (and Berlin phase as applicable).
 - Pre-launch checklist completed and signed off.
+
+Task-level checklist: `docs/phase-7-todo.md`.
 
 ## Cross-Cutting Best Practices
 
@@ -311,3 +345,5 @@ Acceptance checks:
 Phase 3 closure (2026-03-22): component library, showcase, usage docs, and verification record are complete; see `docs/phase-3-todo.md` and `docs/phase-3-verification-record.md`.
 
 Phase 4 closure (2026-03-23): routing, shells, redirects, hreflang, 404, and CI are complete; stakeholder sign-off recorded in `docs/phase-4-verification-record.md` and `docs/phase-4-todo.md`. Artifacts: `docs/phase-4-redirect-tests.md`, `docs/phase-4-route-coverage.md`, `docs/phase-4-404.md`. CI runs `npm test` and `npm run build` in `site/` on `main`.
+
+Follow-up (routing): Phase 4 remains **closed**. `docs/phase-4-routing-reopen.md` tracks location versus language, Berlin and Stockholm page parity, and global (non-destination) pages. **Implementation timing** is fixed in the **Entry routing and URL expansion schedule** under Phase 4 in this document (Phase 5 through 7).
