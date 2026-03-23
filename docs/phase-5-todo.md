@@ -8,7 +8,7 @@ Purpose: migrate real page content and design in controlled batches, complete st
 
 **Localization rule:** No localized page content or localized header rollout until Swedish Phase 5 is complete and approved (`docs/grand-plan.md`, Phase 6).
 
-Status: **open** (not started).
+Status: **in progress** (started 2026-03-23; first-wave migration underway).
 
 ## Exit Criteria
 
@@ -69,7 +69,7 @@ Use `docs/phase-3-component-qa-checklist.md` and `docs/phase-3-component-usage.m
 
 ## P5, Must Complete in Phase 5
 
-- [ ] **P5-00 Confirm Phase 5 scope, first-wave order, and approval rhythm**
+- [x] **P5-00 Confirm Phase 5 scope, first-wave order, and approval rhythm**
   - Owner: Gustaf + AI agent
   - Inputs:
     - `docs/grand-plan.md` (Phase 5 and Entry routing and URL expansion schedule)

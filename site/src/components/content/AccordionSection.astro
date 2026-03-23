@@ -1,7 +1,12 @@
 ---
+import { randomUUID } from "node:crypto";
+
 type AccordionItem = {
   title: string;
-  body: string;
+  /** Plain text body (single paragraph). */
+  body?: string;
+  /** Trusted HTML when the source has links or multiple blocks (for example FAQ). */
+  bodyHtml?: string;
 };
 
 type Props = {
@@ -9,13 +14,45 @@ type Props = {
 };
 
 const { items } = Astro.props as Props;
+/** Stable per section instance for `aria-controls` / `id` (avoids clashes when two accordions sit on one page). */
+const accUid = randomUUID().replace(/-/g, "").slice(0, 10);
 ---
 
 <section class="accordion-section">
-  {items.map((item, index) => (
-    <details class="accordion-item" open={index === 0 ? true : undefined}>
-      <summary>{item.title}</summary>
-      <p>{item.body}</p>
-    </details>
-  ))}
+  {items.map((item, index) => {
+    const headerId = `acc-h-${accUid}-${index}`;
+    const panelId = `acc-p-${accUid}-${index}`;
+    const isOpen = index === 0;
+    return (
+      <div class:list={["accordion-item", isOpen && "is-open"]}>
+        <button
+          type="button"
+          class="accordion-item-toggle"
+          id={headerId}
+          aria-expanded={isOpen}
+          aria-controls={panelId}
+        >
+          {item.title}
+        </button>
+        <div
+          class="accordion-item-expand"
+          id={panelId}
+          role="region"
+          aria-labelledby={headerId}
+        >
+          <div class="accordion-item-expand-inner">
+            {item.bodyHtml ? (
+              <div class="accordion-item-body" set:html={item.bodyHtml} />
+            ) : (
+              <p>{item.body}</p>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  })}
 </section>
+
+<script>
+  import "../../scripts/accordion-section-exclusive.ts";
+</script>

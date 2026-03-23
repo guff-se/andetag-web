@@ -1,0 +1,56 @@
+---
+import ContentSection from "../content/ContentSection.astro";
+import HeroSection from "../content/HeroSection.astro";
+
+/**
+ * Body migrated from `site-html/stockholm-art-yoga.html`
+ * (`data-elementor-type="wp-page"` post id 2519). Head from `page-shell-meta.json`.
+ * Mid-page image band + outline CTA: same asset as legacy `elementor-element-0a8e569`
+ * (`post-2519.css`), implemented with `HeroSection` (page h1 stays in intro; cover parallax via `HeroSection` script).
+ * "Praktisk information" (**EX-0009**): inner list and closing paragraphs verbatim.
+ */
+const bookingHref =
+  "https://andetag.understory.io/experience/cc2f4ed4e1709b93a454a1e5abad6595";
+
+const heroImageSrc =
+  "/wp-content/uploads/2025/04/Art-Yoga-at-ANDETAG-photo-by-Johan-Eriksson-Terran-e1745929172557.jpeg";
+
+const introHtml = [
+  '<h1>Art Yoga på <span class="brand-wordmark">ANDETAG</span></h1>',
+  "<h2>Yoga i Stockholm varje tisdag kl. 17.00</h2>",
+  "<p>Art Yoga är en långsam yogaklass i Andetags omslutande konstmiljö i centrala Stockholm.<br />En plats att röra sig, andas och landa, mitt i staden.</p>",
+  "<p>Omgiven av glödande textilkonst och levande ljus leds klassen av yogaläraren <strong>Fabian Macklin</strong>.<br />Rörelse, andning och närvaro vävs samman i ett mjukt tempo.<br />Fokus ligger på att lyssna in kroppen snarare än att prestera.</p>",
+  "<p>Klassen är öppen för både nybörjare och erfarna yogautövare.<br />Inga förkunskaper krävs.</p>",
+].join("");
+
+const practicalHtml = [
+  "<h3>Praktisk information</h3>",
+  "<ul>",
+  "<li>Tid: Tisdagar kl. 17.00</li>",
+  "<li>Boka ditt pass online innan du anländer</li>",
+  "<li>Plats: Andetag, Stockholm</li>",
+  "<li>Dörrarna stänger kl. 17.00. Vänligen kom i tid.</li>",
+  "<li>Kom gärna 20 minuter innan. Du är välkommen att stanna kvar efteråt.</li>",
+  "<li>Ta med egen yogamatta om du vill. Det går även bra att delta utan.</li>",
+  "<li>Omklädningsrum och dusch saknas, men garderober finns för personliga tillhörigheter.</li>",
+  "</ul>",
+  "<p>Art Yoga på Andetag är en stillsam yogaupplevelse där konst och kropp möts.<br />Ett andetag i veckan.</p>",
+].join("");
+---
+
+<div class="page-migrated">
+  <ContentSection markdown={introHtml} />
+  <HeroSection
+    backgroundImage={heroImageSrc}
+    ariaLabel="Boka Art Yoga"
+    ctas={[
+      {
+        label: "Boka Yoga",
+        href: bookingHref,
+        variant: "outline",
+        external: true,
+      },
+    ]}
+  />
+  <ContentSection markdown={practicalHtml} />
+</div>

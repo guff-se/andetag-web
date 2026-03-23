@@ -74,6 +74,7 @@ Reference docs before implementation:
 | `docs/phase-3-todo.md` | Execution checklist for Phase 3 component library, showcase approval, and verification gates. |
 | `docs/phase-4-todo.md` | Execution checklist for Phase 4 routing, redirects, canonical or hreflang wiring, and URL coverage validation. |
 | `docs/phase-5-todo.md` | Execution checklist for Phase 5 page migration, entry static targets, Worker staging or production enable, and Swedish-first approval gates. |
+| `docs/phase-5-verification-record.md` | Phase 5 evidence, per-page design approval log, Lighthouse or QA summary, and stakeholder sign-off (open while Phase 5 is in progress). |
 | `docs/phase-7-todo.md` | Execution checklist for Phase 7 scripts, consent, analytics, favicon, sharing metadata, schema.org, sitemap, and launch hardening. |
 | `docs/phase-4-route-coverage.md` | URL matrix to Astro shell and `_redirects` mapping for Phase 4 route coverage. |
 | `docs/phase-4-routing-reopen.md` | Post-closure routing revisit: location and language matrix, Berlin or Stockholm parity, global pages and navigation. |
@@ -209,6 +210,7 @@ Astro workspace (`site/`): `npm test` and `npm run build` (also run on `push` to
 - Locale-specific source files must use language suffixes at the end of the filename, using only `sv`, `en`, and `de` (for example `hero-sv.ts`, `hero-en.ts`, `hero-de.ts`).
 - Design system rule: visual design primitives are universal across languages. Language can change content, active variants, and shown elements, but core design tokens, layout patterns, and component styling must remain shared unless an approved migration exception is logged.
 - The rebuilt site must self-host all first-party assets. Do not use absolute `https://www.andetag.museum/...` URLs for internal JS, CSS, images, video, fonts, or other media in `site/`; use local root-relative paths (for example `/wp-content/uploads/...`) backed by files in the Astro workspace.
+- **Missing media in `site-html/`:** When a migrated page needs an image or other first-party file that is referenced in scraped HTML or on the live site but was not captured under `site-html/`, **download it from the current production URL** (or re-run the crawler if you prefer a batch refresh) and commit it under **`site/public/`** on the same path the site will serve (for example `site/public/wp-content/uploads/...`). Then wire that path in Astro. Do not leave permanent hotlinks to `andetag.museum` for internal assets, and do not invent placeholder imagery.
 - For CSS, create fresh local styles in `site/src/styles/` or component-scoped files instead of copying legacy WordPress CSS bundles.
 - For JS behavior, reimplement with local project code and package-managed dependencies instead of loading legacy WordPress script files by URL.
 - For webfonts, maintain source definitions in `site/src/lib/fonts/sources.json` and regenerate local files via `npm run fonts:sync`; do not ship runtime links to remote font providers.

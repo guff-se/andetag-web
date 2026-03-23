@@ -1,5 +1,12 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
+import ArtYogaSv from "../components/pages/ArtYogaSv.astro";
+import BiljetterSv from "../components/pages/BiljetterSv.astro";
+import DejtSv from "../components/pages/DejtSv.astro";
+import FragorSvarSv from "../components/pages/FragorSvarSv.astro";
+import ForetagseventSv from "../components/pages/ForetagseventSv.astro";
+import GruppbokningSv from "../components/pages/GruppbokningSv.astro";
+import OptiskFibertextilSv from "../components/pages/OptiskFibertextilSv.astro";
 import {
   getPageShellRoute,
   PAGE_SHELL_PATHS,
@@ -16,6 +23,29 @@ const slug = Astro.params.slug as string;
 const segments = slug.split("/").filter(Boolean);
 const canonicalPath = `/${segments.join("/")}/`;
 const shell = getPageShellRoute(canonicalPath);
+
+/** Keep keys aligned with `PAGE_CUSTOM_BODY_PATHS` in `lib/pages/page-body-registry.ts`. */
+const pageBodies: Partial<
+  Record<
+    string,
+    | typeof GruppbokningSv
+    | typeof ForetagseventSv
+    | typeof OptiskFibertextilSv
+    | typeof ArtYogaSv
+    | typeof BiljetterSv
+    | typeof DejtSv
+    | typeof FragorSvarSv
+  >
+> = {
+  "/sv/stockholm/gruppbokning/": GruppbokningSv,
+  "/sv/stockholm/foretagsevent/": ForetagseventSv,
+  "/sv/optisk-fibertextil/": OptiskFibertextilSv,
+  "/sv/stockholm/art-yoga/": ArtYogaSv,
+  "/sv/stockholm/biljetter/": BiljetterSv,
+  "/sv/stockholm/dejt/": DejtSv,
+  "/sv/stockholm/fragor-svar/": FragorSvarSv,
+};
+const PageBody = pageBodies[canonicalPath];
 ---
 
 <SiteLayout
@@ -29,5 +59,5 @@ const shell = getPageShellRoute(canonicalPath);
   hreflang={shell.hreflang}
   xDefaultPath={shell.xDefaultPath}
 >
-  <div class="page-shell-placeholder" aria-hidden="true"></div>
+  {PageBody ? <PageBody /> : <div class="page-shell-placeholder" aria-hidden="true"></div>}
 </SiteLayout>

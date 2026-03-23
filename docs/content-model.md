@@ -121,13 +121,20 @@ tracking:
 
 ```ts
 type HeroSectionProps = {
-  heading: string;
+  heading?: string;
   body?: string;
   eyebrow?: string;
   /** Full-bleed image + overlay, or omit for solid aubergine band only. */
   backgroundImage?: string;
   headingLevel?: "h1" | "h2";
-  ctas: Array<{ label: string; href: string; variant: "primary" | "secondary" | "outline" }>;
+  ctas: Array<{
+    label: string;
+    href: string;
+    variant: "primary" | "secondary" | "outline";
+    external?: boolean;
+  }>;
+  /** When `heading` is omitted, use for `aria-label` on the section. */
+  ariaLabel?: string;
 };
 ```
 
@@ -144,7 +151,7 @@ type RichTextSectionProps = {
 
 ```ts
 type AccordionSectionProps = {
-  items: Array<{ title: string; body: string }>;
+  items: Array<{ title: string; body?: string; bodyHtml?: string }>;
 };
 ```
 

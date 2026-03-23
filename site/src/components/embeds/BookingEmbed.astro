@@ -1,4 +1,12 @@
 ---
+/**
+ * Understory booking widget. Standard page placement: `page-layout-with-aside` with this
+ * component in `page-layout-with-aside__aside` (`unframed`), main column for copy beside it.
+ * See `docs/phase-3-component-usage.md` → BookingEmbed.
+ */
+import { getHeadingTag } from "../../lib/components/presentation";
+import type { HeadingLevel } from "../../lib/components/types";
+import { getBookingEmbedContactHtml } from "../../lib/components/booking-embed-contact";
 import { getUnderstoryWidgetConfig } from "../../lib/components/understory";
 
 type Props = {
@@ -7,13 +15,44 @@ type Props = {
   anchorId?: string;
   fallbackText: string;
   unavailable?: boolean;
+  /** When set, rendered as the first child inside the embed shell (before widget or fallback). */
+  heading?: string;
+  headingLevel?: HeadingLevel;
+  /** Title alignment when `heading` is set. */
+  headingAlign?: "left" | "center";
+  /** When true, no border, fill, or padding (widget sits flush in the layout). */
+  unframed?: boolean;
+  /** When false, omits the standard contact line below the widget (`info@andetag.museum`). Default true. */
+  showContact?: boolean;
 };
 
-const { companyId, language, anchorId = "book", fallbackText, unavailable = false } = Astro.props as Props;
+const {
+  companyId,
+  language,
+  anchorId = "book",
+  fallbackText,
+  unavailable = false,
+  heading,
+  headingLevel = "h2",
+  headingAlign = "center",
+  unframed = false,
+  showContact = true,
+} = Astro.props as Props;
 const widget = getUnderstoryWidgetConfig(companyId, language);
+const contactHtml = showContact ? getBookingEmbedContactHtml(language) : null;
+const HeadingTag = getHeadingTag(headingLevel, "h2");
+const shellClass = [
+  "embed-shell",
+  unframed ? "embed-shell--unframed" : "",
+  heading && headingAlign === "center" ? "embed-shell--heading-center" : "",
+  heading && headingAlign === "left" ? "embed-shell--heading-left" : "",
+]
+  .filter(Boolean)
+  .join(" ");
 ---
 
-<section id={anchorId} class="embed-shell">
+<section id={anchorId} class={shellClass}>
+  {heading ? <HeadingTag class="embed-shell-heading">{heading}</HeadingTag> : null}
   {unavailable ? (
     <p class="embed-fallback" role="status">{fallbackText}</p>
   ) : (
@@ -22,4 +61,7 @@ const widget = getUnderstoryWidgetConfig(companyId, language);
       <div class={widget.className} data-company-id={widget.companyId} data-language={widget.language}></div>
     </>
   )}
+  {contactHtml ? (
+    <div class="booking-embed-contact" set:html={contactHtml} />
+  ) : null}
 </section>

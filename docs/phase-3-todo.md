@@ -95,7 +95,7 @@ Phase 3 is complete only when all items marked `P3` are done and approved:
     - `site/src/components/content/GallerySection.astro`
     - `site/src/components/content/PartnersSection.astro`
     - `site/src/components/content/TestimonialCarousel.astro`
-    - `site/src/components/content/InfoCardGrid.astro`
+    - `site/src/components/content/InfoFrame.astro`
     - `site/src/styles/components.css`
   - Scope refinement: removed standalone `SocialLinks` from Phase 3 component scope, social links remain header/footer-owned surfaces.
 

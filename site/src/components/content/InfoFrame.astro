@@ -1,0 +1,35 @@
+---
+import { getHeadingTag } from "../../lib/components/presentation";
+import type { HeadingLevel } from "../../lib/components/types";
+import StyledLink from "../ui/StyledLink.astro";
+
+type Props = {
+  /** Trusted HTML for the framed block (same contract as `ContentSection` body). */
+  bodyHtml: string;
+  /** Optional title inside the frame (for example "Priser"). */
+  heading?: string;
+  headingLevel?: HeadingLevel;
+  /** Optional text link below the body. */
+  cta?: {
+    label: string;
+    href: string;
+    external?: boolean;
+  };
+};
+
+const { bodyHtml, heading, headingLevel = "h3", cta } = Astro.props as Props;
+const HeadingTag = getHeadingTag(headingLevel, "h3");
+---
+
+<section class="info-frame">
+  {heading ? <HeadingTag>{heading}</HeadingTag> : null}
+  <div class="info-frame-body" set:html={bodyHtml} />
+  {cta ? (
+    <StyledLink
+      label={cta.label}
+      href={cta.href}
+      styleVariant="content"
+      external={cta.external}
+    />
+  ) : null}
+</section>

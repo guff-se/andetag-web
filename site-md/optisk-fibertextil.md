@@ -123,7 +123,7 @@
 
 
 
-# Textilenkonsten bakom ANDETAG
+# Textilkonsten bakom ANDETAG
 
 ANDETAG börjar inte med teknik.  
 Det börjar med en väv.

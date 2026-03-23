@@ -30,7 +30,7 @@ Three variants in `ButtonGroup` / `StyledLink` (`cta-primary`, `cta-secondary`, 
 
 | Version | Token | Use |
 |--------|--------|-----|
-| **1** | `primary` | Default CTA: works on **light or dark** backgrounds (light rose fill `#f7dcea`, aubergine text and border `#4a0d2f`). |
+| **1** | `primary` | Default CTA: works on **light or dark** backgrounds (lavender fill `#d0a4cc` / `rgb(208, 164, 204)`, aubergine text and border `#4a0d2f`). |
 | **2** | `secondary` | **Light backgrounds only** (for example page pink `#f7dcea`): aubergine fill with light text for **extra emphasis**. Do not use on aubergine or black bands where it disappears or clashes. |
 | **3** | `outline` | **Photo or busy backgrounds** (for example image-cover hero): transparent fill, light text and border so the control stays readable over imagery. |
 

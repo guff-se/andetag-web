@@ -1,0 +1,105 @@
+---
+import AccordionSection from "../content/AccordionSection.astro";
+import BookingEmbed from "../embeds/BookingEmbed.astro";
+import ContentSection from "../content/ContentSection.astro";
+import HeroSection from "../content/HeroSection.astro";
+import InfoFrame from "../content/InfoFrame.astro";
+
+/**
+ * Body migrated from `site-html/stockholm-dejt.html`
+ * (`data-elementor-type="wp-page"` post id 2693). Head from `page-shell-meta.json`.
+ * Image self-hosted under `site/public/wp-content/uploads/2026/01/` (same path as legacy).
+ * Intro: `page-layout-with-aside` (text main, photo aside; stacks under 900px). Legacy block `8417be2` (central Stockholm copy) is merged into main intro text after `481dc60` closing lines.
+ * English visitor quotes: verbatim from legacy text-editor (elementor-element-fba96c9).
+ * **Praktisk information:** `InfoFrame` (legacy was heading + text-editor in same visual band as accordion parent).
+ * Below testimonials: **`page-layout-with-aside`** with main (InfoFrame, accordion) + aside **`BookingEmbed`** (built-in contact below widget: **`info@andetag.museum`**, legacy mailto was **`info@tadaa.se`**, **EX-0010**).
+ */
+const understoryCompanyId = "3b3aa7a7c2cd455b8f3a56cd81033110";
+
+/** Legacy testimonial band background (`elementor-element-09c3d0a`, `post-2693.css`). */
+const testimonialHeroImageSrc =
+  "/wp-content/uploads/2026/01/TADAA-LONG-V1.00_07_29_05.Still009-2-2.jpg";
+
+const introTextHtml = [
+  "<h1>Dejt på <span class=\"brand-wordmark\">ANDETAG</span></h1>",
+  "<h2>En lugn plats att vara tillsammans</h2>",
+  '<p><span class="brand-wordmark">ANDETAG</span> är en stillsam konstupplevelse mitt i Stockholm.<br />En plats där två personer kan sitta nära, vara tysta och dela en stund utan krav.<br />Upplevelsen tar cirka en timme och passar både första dejten och par.</p>',
+  "<p>Ni sitter på kuddar och filtar på golvet, omgivna av ljus, textil och långsam musik.<br />Blicken vilar framåt. Tempot sjunker.</p>",
+  "<p>Här finns inget att prestera.<br />Inget tempo att hålla.<br />Bara tid att vara tillsammans.</p>",
+  '<p><span class="brand-wordmark">ANDETAG</span> ligger centralt i Stockholm, med enkel tillgång till tunnelbana och stadens rörelse.<br />Det är lätt att ses här efter jobbet eller som en paus mitt i veckan.<br />En plats som inte kräver planering, bara närvaro.</p>',
+].join("");
+
+const quotesHtml = [
+  "<blockquote><p>“We were completely hypnotized by the beautiful colors.”<br /><em>Leona</em></p></blockquote>",
+  "<blockquote><p>“We had our first date at ANDETAG and just came back for our anniversary.”<br /><em>Ella &amp; John</em></p></blockquote>",
+  "<blockquote><p>“It was a lovely and peaceful experience to lie on the floor with pillows under our heads. Time ceased to exist.”<br /><em>Michael</em></p></blockquote>",
+].join("");
+
+const practicalBodyHtml =
+  "<p>Enkelt tillgängligt vid Hötorgets tunnelbana<br />Upplevelsen tar cirka en timme<br />Ni sitter eller ligger med kuddar och filtar på en mjuk matta<br />Ingen alkohol serveras<br />Öppet året runt</p>";
+
+const accordionItems = [
+  {
+    title: "Är ANDETAG lämpligt för en första dejt?",
+    body: "Många upplever det så. Det är en lugn miljö där tystnad och närvaro är tillåtna.",
+  },
+  {
+    title: "Får man prata?",
+    body: "I det sista rummet uppmuntras ni att vara tysta tillsammans, men det går att viska med varandra i skydd av musiken.",
+  },
+  {
+    title: "Kan man sitta tillsammans?",
+    body: "Ja. Det sista rummet är utformat för att sitta, eller ligga tillsammans på golvet. Det finns kuddar och filtar att tillgå för att skapa sin egen myshörna.",
+  },
+  {
+    title: "Serveras något?",
+    body: "Nej, men du är välkommen att ta med egen vattenflaska.",
+  },
+  {
+    title: "Är det romantiskt?",
+    body: "Det är stillsamt. Vad det blir för er lämnas öppet.",
+  },
+] as const;
+
+const bookingFooterHtml =
+  '<p>Kontakta <a href="mailto:info@andetag.museum">info@andetag.museum</a> om du har några frågor.</p>';
+---
+
+<div class="page-migrated page-dejt">
+  <div class="page-dejt-intro page-layout-with-aside">
+    <div class="page-layout-with-aside__main">
+      <ContentSection markdown={introTextHtml} />
+    </div>
+    <aside class="page-layout-with-aside__aside" aria-label="Illustration">
+      <figure class="page-dejt-intro__figure">
+        <img
+          src="/wp-content/uploads/2026/01/date1-copy-e1769692334982.jpeg"
+          width="1024"
+          height="1024"
+          alt=""
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+    </aside>
+  </div>
+  <HeroSection backgroundImage={testimonialHeroImageSrc} ariaLabel="Besökaromdömen">
+    <div set:html={quotesHtml} />
+  </HeroSection>
+  <div class="page-layout-with-aside">
+    <div class="page-layout-with-aside__main">
+      <InfoFrame heading="Praktisk information" headingLevel="h3" bodyHtml={practicalBodyHtml} />
+      <AccordionSection items={[...accordionItems]} />
+    </div>
+    <aside class="page-layout-with-aside__aside" aria-label="Bokning">
+      <BookingEmbed
+        companyId={understoryCompanyId}
+        language="sv"
+        anchorId="book"
+        heading="Tillgängliga tider"
+        unframed
+        fallbackText="Bokningskalendern kunde inte laddas. Ladda om sidan eller kontakta oss om problemet kvarstår."
+      />
+    </aside>
+  </div>
+</div>

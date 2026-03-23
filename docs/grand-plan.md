@@ -189,6 +189,7 @@ Source: `docs/phase-4-routing-reopen.md` and `docs/url-migration-policy.md`. Thi
 ### Phase 5, Page Migration and Iterative Approval
 
 Goal: migrate page content in controlled batches with design review feedback loops.
+Status: **in progress** (2026-03-23; evidence and approval log in `docs/phase-5-verification-record.md`).
 Execution checklist: `docs/phase-5-todo.md`
 
 Carry-forward: complete **static routes and real pages** required by the **Entry routing and URL expansion schedule** (above) before or in parallel with the first migration wave, so entry **`302`** targets never 404.

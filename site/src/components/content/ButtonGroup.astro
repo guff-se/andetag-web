@@ -17,6 +17,7 @@ const { buttons, className = "" } = Astro.props as Props;
         label={button.label}
         href={button.href}
         styleVariant={`cta-${button.variant}`}
+        external={button.external ?? false}
       />
     ))
   }

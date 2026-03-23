@@ -8,11 +8,102 @@
 /* Visual Identity: prose uses Baskervville on body; headings stay Jost. */
 .content-section > :is(h1, h2, h3, h4),
 .content-section-body :is(h1, h2, h3, h4),
+.info-frame > :is(h2, h3, h4),
+.info-frame-body :is(h1, h2, h3, h4),
 .partners-section > :is(h1, h2, h3, h4),
 .component-hero :is(h1, h2, h3),
-.component-eyebrow,
-.info-card > :is(h3, h4) {
+.component-eyebrow {
   font-family: "JostLocal", "Jost", Arial, sans-serif;
+}
+
+/*
+ * Primary page title on light surfaces (brand pink main column).
+ * Visual Identity.md: Jost headings uppercase, 0.3em letter-spacing.
+ */
+.content-section > h1,
+.content-section-body h1 {
+  color: #4a0d2f;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  line-height: 1.25;
+  margin: 0 0 1rem;
+  font-size: clamp(1.25rem, 3.2vw, 1.85rem);
+  text-wrap: balance;
+}
+
+/* Direct section headings in ContentSection (h2–h4 as children of the section). */
+.content-section > :is(h2, h3, h4),
+.info-frame > :is(h2, h3, h4) {
+  color: #4a0d2f;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  line-height: 1.3;
+  margin: 0 0 0.75rem;
+  font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+  text-wrap: balance;
+}
+
+/* Subheadings inside migrated or markdown body HTML. */
+.content-section-body :is(h2, h3, h4),
+.info-frame-body :is(h2, h3, h4) {
+  color: #4a0d2f;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  line-height: 1.3;
+  margin: 1.25rem 0 0.5rem;
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  text-wrap: balance;
+}
+
+.content-section-body h2,
+.info-frame-body h2 {
+  font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+}
+
+.content-section-body ul {
+  margin: 0 0 1rem;
+  padding-left: 1.25rem;
+}
+
+.content-section-body li {
+  margin-bottom: 0.35em;
+}
+
+.content-section-body li:last-child {
+  margin-bottom: 0;
+}
+
+.partners-section > :is(h1, h2, h3) {
+  color: #4a0d2f;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  line-height: 1.3;
+  margin: 0 0 0.75rem;
+  font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+  text-wrap: balance;
+}
+
+/* Hero titles: same Jost heading system; color comes from .is-solid / .is-cover rules below. */
+.component-hero :is(h1, h2, h3) {
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-weight: 500;
+  line-height: 1.2;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.component-hero :is(h1, h2) {
+  font-size: clamp(1.35rem, 4vw, 2.25rem);
+}
+
+.component-hero h3 {
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  letter-spacing: 0.2em;
 }
 
 .brand-wordmark {
@@ -53,6 +144,7 @@
 .link-cta-outline {
   border-radius: 5px;
   padding: 1em 1.3em;
+  margin: 0.45rem 0.4rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -66,7 +158,7 @@
 }
 
 .link-cta-primary {
-  background: #f7dcea;
+  background: var(--component-accent); /* lavender #d0a4cc = rgb(208, 164, 204) */
   color: #4a0d2f;
   border-color: #4a0d2f;
 }
@@ -90,17 +182,74 @@
 
 .button-group {
   display: flex;
-  gap: 0.75rem;
   flex-wrap: wrap;
+  gap: 0.85rem;
+  justify-content: center;
+  margin: 0.35rem 0;
 }
 
-.component-hero,
+.page-migrated-cta {
+  display: flex;
+  justify-content: center;
+  margin: 0.5rem 0 2rem;
+}
+
+/* Main column + fixed-width aside (e.g. biljetter booking widget). Stacks below breakpoint. */
+.page-layout-with-aside {
+  --page-aside-width: 420px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--page-aside-width);
+  gap: 2rem;
+  align-items: start;
+}
+
+.page-layout-with-aside__main {
+  min-width: 0;
+}
+
+.page-layout-with-aside__aside {
+  width: 100%;
+  max-width: var(--page-aside-width);
+  justify-self: end;
+}
+
+/* Match column headline tops: aside booking embed uses margin-top 0; drop first main block top margin. */
+.page-layout-with-aside__main > :is(.content-section, .info-frame, .accordion-section):first-child {
+  margin-top: 0;
+}
+
+@media (max-width: 900px) {
+  .page-layout-with-aside {
+    grid-template-columns: 1fr;
+  }
+
+  .page-layout-with-aside__aside {
+    justify-self: stretch;
+    max-width: none;
+  }
+}
+
+/* Dejt: intro text left, hero photo right (same grid as biljetter; stacks under 900px). */
+.page-dejt-intro.page-layout-with-aside {
+  --page-aside-width: 480px;
+}
+
+.page-dejt-intro__figure {
+  margin: 0;
+}
+
+.page-dejt-intro__figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+}
+
 .content-section,
 .accordion-section,
 .gallery-section,
 .partners-section,
-.testimonial-carousel,
-.info-card-grid {
+.testimonial-carousel {
   margin: 1.5rem 0;
 }
 
@@ -108,6 +257,8 @@
   background: var(--component-surface);
   border-radius: 0;
   overflow: hidden;
+  margin-top: 2.25rem;
+  margin-bottom: 2.25rem;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
   position: relative;
@@ -145,17 +296,23 @@
   display: block;
 }
 
+/* Vertical bleed for cover parallax: must cover max |translateY| in hero-cover-parallax.ts (MAX_SHIFT_PX). */
 .component-hero.is-cover {
-  min-height: 420px;
+  --hero-parallax-max-shift: 96px;
+  min-height: 336px;
 }
 
 .component-hero.is-cover .component-hero-media {
   position: absolute;
-  inset: 0;
+  left: 0;
   width: 100%;
-  height: 100%;
+  top: calc(-1 * var(--hero-parallax-max-shift));
+  height: calc(100% + 2 * var(--hero-parallax-max-shift));
   max-height: none;
   object-fit: cover;
+  object-position: center center;
+  transform-origin: center center;
+  will-change: transform;
 }
 
 .component-hero-cover-overlay {
@@ -171,7 +328,7 @@
 }
 
 .component-hero.is-cover .component-hero-content {
-  min-height: 420px;
+  min-height: 336px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -207,7 +364,40 @@
   text-align: center;
 }
 
-.content-section-body a {
+.page-migrated .content-section-body img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Custom body inside cover hero (for example Dejt visitor quotes); shares overlay + parallax with Art Yoga band. */
+.component-hero.is-cover .component-hero-slot {
+  max-width: 40rem;
+  width: 100%;
+}
+
+.component-hero.is-cover .component-hero-slot blockquote {
+  margin: 0 0 1rem;
+}
+
+.component-hero.is-cover .component-hero-slot blockquote:last-child {
+  margin-bottom: 0;
+}
+
+.component-hero.is-cover .component-hero-slot blockquote p {
+  margin: 0;
+  color: #f7dcea;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.component-hero.is-cover .component-hero-slot blockquote em {
+  color: #d0a4cc;
+  font-style: italic;
+}
+
+.content-section-body a,
+.info-frame-body a {
   color: var(--component-link);
   text-decoration: underline;
   text-underline-offset: 0.2em;
@@ -224,25 +414,122 @@
 .accordion-section {
   border: 1px solid #d0a4cc;
   border-radius: 12px;
-  background: #f6ebf3;
+  background: transparent;
 }
 
 .accordion-item:last-child {
   border-bottom: 0;
 }
 
-.accordion-item summary {
+.accordion-item-toggle {
   cursor: pointer;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.65rem;
   padding: 0.9rem 1rem;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  text-align: left;
   font-family: "BaskervvilleLocal", "Baskervville", Georgia, serif;
   font-weight: 400;
   color: #111111;
 }
 
+.accordion-item-toggle::before {
+  content: "+";
+  flex-shrink: 0;
+  width: 1.5rem;
+  text-align: center;
+  font-family: "JostLocal", "Jost", Arial, sans-serif;
+  font-size: 1.35rem;
+  font-weight: 500;
+  line-height: 1;
+  color: #4a0d2f;
+}
+
+.accordion-item.is-open .accordion-item-toggle::before {
+  content: "\2212";
+}
+
+/* Smooth open/close height (grid 0fr → 1fr); padding lives on inner so clip is clean.
+   Uses `.is-open` on a wrapper (not `<details>`) so transitions repeat reliably in Chromium/WebKit. */
+.accordion-item-expand {
+  display: grid;
+  grid-template-rows: 0fr;
+  min-height: 0;
+  transition: grid-template-rows 0.4s cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+.accordion-item.is-open > .accordion-item-expand {
+  grid-template-rows: 1fr;
+}
+
+/* No vertical padding when closed: bottom padding would set a non-zero min height and
+   leave ~half a line visible under `grid-template-rows: 0fr`. */
+.accordion-item-expand-inner {
+  min-height: 0;
+  overflow: hidden;
+  padding: 0 1rem;
+}
+
+.accordion-item.is-open .accordion-item-expand-inner {
+  padding-bottom: 1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .accordion-item-expand {
+    transition: none;
+  }
+}
+
 .accordion-item p {
   margin: 0;
-  padding: 0 1rem 1rem;
+  padding: 0;
   color: #2b2b2b;
+}
+
+.accordion-item .accordion-item-body {
+  margin: 0;
+  padding: 0;
+  color: #2b2b2b;
+}
+
+.accordion-item .accordion-item-body p {
+  margin: 0 0 0.5rem;
+  padding: 0;
+}
+
+.accordion-item .accordion-item-body p:last-child {
+  margin-bottom: 0;
+}
+
+.accordion-item .accordion-item-body a {
+  color: var(--component-link);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.accordion-item .accordion-item-body strong {
+  font-weight: 700;
+}
+
+/* FAQ: two Elementor accordions in one grid (`stockholm-fragor-svar.html` wp-page 2881). */
+.page-faq-accordions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem 2rem;
+  align-items: start;
+  margin: 1.5rem 0;
+}
+
+@media (max-width: 900px) {
+  .page-faq-accordions {
+    grid-template-columns: 1fr;
+  }
 }
 
 .gallery-section {
@@ -486,26 +773,37 @@ body.lightbox-open {
   color: #ffffff;
 }
 
-.info-card-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
-}
-
-.info-card {
+/* Single framed highlight for pricing, policy snippets, and similar callouts (not a multi-card grid). */
+.info-frame {
+  margin: 2.25rem 0;
   background: #d0a4cc;
   border-radius: 12px;
-  padding: 1rem;
+  padding: 1.5rem;
   display: grid;
   gap: 0.65rem;
 }
 
-.info-card h3,
-.info-card p {
-  margin: 0;
+.info-frame-body {
+  color: #4a0d2f;
+  font-family: "JostLocal", "Jost", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.45;
+  font-weight: 400;
 }
 
-.info-card .shared-link {
+.info-frame-body strong {
+  font-weight: 700;
+}
+
+.info-frame-body p {
+  margin: 0 0 0.5rem;
+}
+
+.info-frame-body p:last-child {
+  margin-bottom: 0;
+}
+
+.info-frame .shared-link {
   margin-top: 0.1rem;
 }
 
@@ -515,6 +813,63 @@ body.lightbox-open {
   border: 1px solid #d0a4cc;
   border-radius: 10px;
   background: #f3e6ef;
+}
+
+.embed-shell--unframed {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  padding: 0;
+}
+
+.embed-shell-heading {
+  margin: 0 0 1.5rem;
+  color: #4a0d2f;
+  font-family: "JostLocal", "Jost", Arial, sans-serif;
+  font-weight: 500;
+  font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+  letter-spacing: 0.2em;
+  line-height: 1.3;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.embed-shell--heading-center .embed-shell-heading {
+  text-align: center;
+}
+
+.embed-shell--heading-left .embed-shell-heading {
+  text-align: left;
+}
+
+.page-layout-with-aside__aside .embed-shell {
+  margin-top: 0;
+}
+
+/* Below Understory mount inside `BookingEmbed` (not the site footer). */
+.booking-embed-contact {
+  margin-top: 1.1rem;
+  font-size: 15px;
+  line-height: 1.45;
+  color: #2b2b2b;
+}
+
+.booking-embed-contact p {
+  margin: 0;
+}
+
+.booking-embed-contact a {
+  color: var(--component-link);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.embed-shell--heading-center .booking-embed-contact {
+  text-align: center;
+}
+
+.embed-shell--heading-left .booking-embed-contact {
+  text-align: left;
 }
 
 .embed-shell-no-frame {
@@ -559,11 +914,6 @@ body.lightbox-open {
 }
 
 @media (max-width: 900px) {
-  .gallery-section,
-  .info-card-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .gallery-section {
     width: 100vw;
     max-width: 100vw;
@@ -584,11 +934,6 @@ body.lightbox-open {
 }
 
 @media (max-width: 640px) {
-  .gallery-section,
-  .info-card-grid {
-    grid-template-columns: 1fr;
-  }
-
   /* Two columns so logos wrap every pair (e.g. eight partners → four rows). */
   .partners-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -608,5 +953,56 @@ body.lightbox-open {
 
   .testimonial-nav {
     font-size: 1.7rem;
+  }
+}
+
+/* Optisk fibertextil (wp-page 3637): images ~1/3 width, prose ~2/3; stack in source order on narrow viewports. */
+.optisk-fibertextil-grid {
+  display: grid;
+  gap: clamp(1rem, 3vw, 1.5rem);
+  margin-top: 0;
+  align-items: start;
+}
+
+.optisk-fibertextil-figure {
+  margin: 0;
+}
+
+.optisk-fibertextil-figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.optisk-fibertextil-prose > :last-child {
+  margin-bottom: 0;
+}
+
+@media (min-width: 768px) {
+  .optisk-fibertextil-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: auto auto;
+  }
+
+  /* Row 1: image | text (1:2). */
+  .optisk-fibertextil-grid > .optisk-fibertextil-figure:first-of-type {
+    grid-column: 1 / 2;
+    grid-row: 1;
+  }
+
+  .optisk-fibertextil-grid > .optisk-fibertextil-prose:first-of-type {
+    grid-column: 2 / 4;
+    grid-row: 1;
+  }
+
+  /* Row 2: text | image (2:1). */
+  .optisk-fibertextil-grid > .optisk-fibertextil-prose:last-of-type {
+    grid-column: 1 / 3;
+    grid-row: 2;
+  }
+
+  .optisk-fibertextil-grid > .optisk-fibertextil-figure:last-of-type {
+    grid-column: 3 / 4;
+    grid-row: 2;
   }
 }

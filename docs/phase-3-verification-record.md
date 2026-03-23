@@ -29,7 +29,7 @@ Run against local static preview after `npm run build` in `site/`, URL `http://1
 Consolidated pass (2026-03-22):
 
 - **Responsive:** Showcase layout reviewed at mobile, tablet, and desktop widths; full-width components (gallery, testimonial, heroes) checked for overflow and tap targets.
-- **Keyboard:** Skip link, header nav and mobile menu, accordion `details`/`summary`, testimonial prev/next `button`s, gallery lightbox triggers, embed fallbacks, and footer links are focusable; focus ring uses shared `--component-focus` / layout outline rules.
+- **Keyboard:** Skip link, header nav and mobile menu, accordion **`AccordionSection`** **`button.accordion-item-toggle`**, testimonial prev/next `button`s, gallery lightbox triggers, embed fallbacks, and footer links are focusable; focus ring uses shared `--component-focus` / layout outline rules.
 - **Screen readers:** Landmark `main`, heading hierarchy in demos, `aria-live` on testimonial viewport, `aria-hidden` on carousel slides, `aria-label` on icon-only controls where implemented; embeds use titles or fallback copy when unavailable.
 - **CTAs and links:** Demo destinations use root-relative Stockholm paths consistent with fixture intent; external links use `rel` where applicable via components.
 

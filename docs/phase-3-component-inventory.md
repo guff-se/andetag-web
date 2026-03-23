@@ -16,17 +16,17 @@ Status: approved for implementation.
 | component id | source widget/pattern evidence | migration priority | notes |
 |--------------|--------------------------------|--------------------|-------|
 | `ButtonGroup` | `button.default`, nav/footer CTA patterns | high | Three CTA tokens: `primary` (any surface), `secondary` (light only), `outline` (photo backgrounds); see `docs/Visual Identity.md` |
-| `HeroSection` | Hero header and hero content patterns | high | Reuses shared hero primitives and CTA group |
+| `HeroSection` | Hero header and hero content patterns | high | Optional default **slot** (`.component-hero-slot`); cover **`backgroundImage`** loads **`hero-cover-parallax.ts`** from the component |
 | `ContentSection` | `heading.default` + `text-editor.default` blocks | high | Base wrapper for structured content areas |
-| `AccordionSection` | `nested-accordion.default` on FAQ pages | high | Required for FAQ parity |
-| `BookingEmbed` | `html.default` Understory widget | high | Primary conversion path component |
+| `AccordionSection` | `nested-accordion.default` on FAQ pages | high | Optional **`bodyHtml`**; **`button`** + **`.is-open`** panel (not **`<details>`**); one open row per **`accordion-section`** (**`accordion-section-exclusive.ts`**); **`FragorSvarSv.astro`** twin columns (**`.page-faq-accordions`**) |
+| `BookingEmbed` | `html.default` Understory widget | high | Primary conversion path; **standard:** fixed-width **`page-layout-with-aside__aside`** (**`420px`**), main column variable; see **`docs/phase-3-component-usage.md`** |
 | `WaitlistFormEmbed` | `html.default` Brevo form (DE flow) | high | Lead capture and Berlin pre-launch flow |
 | `MapEmbed` | `google_maps.default` | medium | Consent-aware embed surface |
 | `VideoEmbed` | `video.default` Vimeo embeds | medium | Consent-aware media surface |
 | `TestimonialCarousel` | `testimonial-carousel.default` | medium | Reusable proof/quote pattern |
 | `GallerySection` | `gallery.default` and `image-carousel.default` | medium | Shared gallery surface with responsive variants |
 | `PartnersSection` | Front-page `Våra partners` heading + linked `image.default` logo grid (`site-html/index.html`) | medium | Reusable partner logo/link section with consistent heading and link behavior |
-| `InfoCardGrid` | Reused rounded-card information layouts | medium | Supports pricing/info card patterns |
+| `InfoFrame` | Single rounded lavender callout (legacy pricing-style box) | medium | One framed block per use; **`BiljetterSv.astro`** priser (`/sv/stockholm/biljetter/`) |
 
 ## Proposed API Contracts
 
@@ -45,13 +45,15 @@ type ButtonGroupProps = {
 };
 
 type HeroSectionProps = {
-  heading: string;
+  heading?: string;
   body?: string;
   eyebrow?: string;
   /** Full-bleed background image + overlay + light text. Omit for solid aubergine band with light text only (no combined image strip + dark block). */
   backgroundImage?: string;
   headingLevel?: "h1" | "h2";
-  ctas: Cta[];
+  ctas?: Cta[];
+  /** When `heading` is omitted, `aria-label` on the section (for example mid-page booking band). */
+  ariaLabel?: string;
 };
 
 type ContentSectionProps = {
@@ -62,7 +64,7 @@ type ContentSectionProps = {
 };
 
 type AccordionSectionProps = {
-  items: Array<{ title: string; body: string }>;
+  items: Array<{ title: string; body?: string; bodyHtml?: string }>;
 };
 
 type BookingEmbedProps = {
@@ -70,6 +72,12 @@ type BookingEmbedProps = {
   language: "sv" | "en" | "de";
   anchorId?: string;
   fallbackText: string;
+  unavailable?: boolean;
+  heading?: string;
+  headingLevel?: "h1" | "h2" | "h3";
+  headingAlign?: "left" | "center";
+  unframed?: boolean;
+  showContact?: boolean;
 };
 
 type WaitlistFormEmbedProps = {
@@ -112,8 +120,11 @@ type PartnersSectionProps = {
   }>;
 };
 
-type InfoCardGridProps = {
-  cards: Array<{ title: string; body: string; cta?: Link }>;
+type InfoFrameProps = {
+  bodyHtml: string;
+  heading?: string;
+  headingLevel?: "h1" | "h2" | "h3";
+  cta?: Link & { external?: boolean };
 };
 ```
 
@@ -122,9 +133,10 @@ type InfoCardGridProps = {
 Heading usage is semantic-first and must stay consistent across components:
 
 - Exactly one `h1` per indexable page.
-- `HeroSection` uses `h1` when it is the primary page-intent heading, otherwise `h2`.
+- `HeroSection` uses `h1` when it is the primary page-intent heading, otherwise `h2`; omit `heading` when the title lives elsewhere and set `ariaLabel` on the section.
 - `ContentSection` defaults to `h2`, with `h3` for subsections nested under the active section.
 - `AccordionSection` item titles should map to `h3`-level semantics (or equivalent accessible heading structure) when rendered inside an `h2` section.
+- `InfoFrame` optional title defaults to **`h3`** when it is a subsection under the page primary heading (for example **Priser** under **Biljetter**).
 
 Implementation contract for heading consistency:
 
@@ -199,7 +211,7 @@ Minimum state requirements for sign-off:
 - `TestimonialCarousel`: single-item fallback, multi-item carousel behavior.
 - `GallerySection`: desktop grid, mobile carousel or grid fallback.
 - `PartnersSection`: heading + logo grid, keyboard focus on partner links, logo fallback text/alt behavior.
-- `InfoCardGrid`: multi-card grid, single-card fallback.
+- `InfoFrame`: optional heading + `bodyHtml` + optional CTA; default **`h3`** when under page **`h1`** (for example Priser on biljetter).
 
 ## Confirmation Resolutions
 

@@ -1,0 +1,66 @@
+---
+import BookingEmbed from "../embeds/BookingEmbed.astro";
+import ButtonGroup from "../content/ButtonGroup.astro";
+import ContentSection from "../content/ContentSection.astro";
+import InfoFrame from "../content/InfoFrame.astro";
+
+/**
+ * Body migrated from `site-html/stockholm-biljetter.html`
+ * (`data-elementor-type="wp-page"` post id 2780). Head from `page-shell-meta.json`.
+ * Understory widget: same company id and snippet as legacy `elementor-element-dd77045`.
+ * Season CTA: legacy Elementor button had no `href`; target is canonical säsongskort URL.
+ * Layout: `page-layout-with-aside` (main + fixed-width booking column); see `components.css`.
+ * Pricing block: legacy text-editor + "Priser" → single `InfoFrame` (framed highlight, not a multi-card grid).
+ */
+const understoryCompanyId = "3b3aa7a7c2cd455b8f3a56cd81033110";
+
+const introHtml = [
+  "<h1>Biljetter</h1>",
+  '<p><span class="brand-wordmark">ANDETAG</span> är en stillsam konstupplevelse i centrala Stockholm. En plats att stiga ur vardagens tempo och ta ett gemensamt andetag.</p>',
+  "<p>För att skapa ett lugnt publikflöde används tidsbokning, vilket gör att inte för många besökare anländer samtidigt.</p>",
+  '<p>Du är välkommen att anlända före din bokade tid, förutsatt att <a href="/sv/stockholm/oppettider/">ordinarie öppettider</a> råder. Biljett kan även köpas på plats i mån av tillgång.</p>',
+  '<p>Vid utvalda tider erbjuds <a href="/sv/stockholm/art-yoga/">Art Yoga</a>, en lugn yogaklass som även den kan bokas igenom bokningskalendern.</p>',
+].join("");
+
+const priceFrameHtml = [
+  "<p><strong>Ordinarie biljett:</strong> 240 kr (190 kr dagtid)</p>",
+  "<p><strong>Student/pensionär:</strong> 200 kr (150 kr dagtid)</p>",
+  "<p><strong>Ungdom (8-17 år):</strong> 125 kr</p>",
+  "<p><strong>Art Yoga (Tisdagar 17.00–18.00):</strong> 320 kr</p>",
+  "<p><strong>Dagtidspris:</strong> gäller vardagar 12.00 – 17.00</p>",
+].join("");
+
+const seasonHtml = [
+  "<p>Vill du återvända ofta?<br />",
+  '<span class="brand-wordmark">ANDETAG</span>- har ett säsongskort för dig som vill göra upplevelsen till en vana.</p>',
+].join("");
+---
+
+<div class="page-migrated page-layout-with-aside">
+  <div class="page-layout-with-aside__main">
+    <ContentSection markdown={introHtml} />
+    <InfoFrame heading="Priser" headingLevel="h3" bodyHtml={priceFrameHtml} />
+    <ContentSection heading="Säsongskort" headingLevel="h2" markdown={seasonHtml} />
+    <div class="page-migrated-cta">
+      <ButtonGroup
+        buttons={[
+          {
+            label: "Läs mer om säsongskort",
+            href: "/sv/stockholm/sasongskort/",
+            variant: "primary",
+          },
+        ]}
+      />
+    </div>
+  </div>
+  <aside class="page-layout-with-aside__aside">
+    <BookingEmbed
+      companyId={understoryCompanyId}
+      language="sv"
+      anchorId="book"
+      heading="Tillgängliga tider"
+      unframed
+      fallbackText="Bokningskalendern kunde inte laddas. Ladda om sidan eller kontakta oss om problemet kvarstår."
+    />
+  </aside>
+</div>

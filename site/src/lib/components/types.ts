@@ -10,6 +10,8 @@ export type CtaVariant = "primary" | "secondary" | "outline";
 
 export type Cta = Link & {
   variant: CtaVariant;
+  /** When true, link opens in a new tab with `rel="noopener noreferrer"`. */
+  external?: boolean;
 };
 
 export type LinkStyleVariant =
