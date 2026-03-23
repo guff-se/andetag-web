@@ -1,14 +1,19 @@
 :root {
-  --color-bg: #0e0e10;
-  --color-surface: #1b1b1f;
-  --color-text: #f7f7f5;
-  --color-muted: #c3c1be;
+  /* Default page chrome: brand pink (see docs/Visual Identity.md). Dark grays are not the site default. */
+  --color-bg: #f7dcea;
+  --color-surface: #ffffff;
+  --color-text: #111111;
+  --color-muted: #4a4a4a;
   --color-accent: #f4d35e;
-  --color-border: #2d2d33;
+  --color-border: rgba(74, 13, 47, 0.28);
 }
 
 * {
   box-sizing: border-box;
+}
+
+html {
+  background: var(--color-bg);
 }
 
 body {
@@ -422,10 +427,23 @@ select:focus-visible {
   position: sticky;
   top: 0;
   z-index: 10;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   background: rgba(14, 14, 16, 0.95);
   backdrop-filter: blur(8px);
   font-family: "JostLocal", "Jost", Arial, sans-serif;
+  color: #f7f7f5;
+}
+
+.header-root .nav-link:not(.is-cta) {
+  color: #f7f7f5;
+}
+
+.header-root .sub-nav a {
+  color: var(--color-text);
+}
+
+.header-root .hero-note {
+  color: rgba(247, 247, 245, 0.72);
 }
 
 .header-container {
@@ -632,8 +650,18 @@ select:focus-visible {
 
 .footer-root {
   margin-top: auto;
-  border-top: 1px solid var(--color-border);
-  background: #121217;
+  border-top: 1px solid rgba(247, 220, 234, 0.25);
+  background: #4a0d2f;
+  color: #f7dcea;
+}
+
+.footer-root .chip {
+  border-color: rgba(247, 220, 234, 0.45);
+  color: #f7dcea;
+}
+
+.footer-root .hero-note {
+  color: rgba(247, 220, 234, 0.85);
 }
 
 .footer-container {
@@ -655,24 +683,6 @@ select:focus-visible {
   padding: 0.35rem 0.7rem;
   color: var(--color-muted);
   font-size: 0.85rem;
-}
-
-.variant-grid {
-  display: grid;
-  gap: 1.5rem;
-}
-
-.variant-card {
-  border: 1px solid var(--color-border);
-  border-radius: 0.8rem;
-  overflow: hidden;
-}
-
-.variant-card h2 {
-  margin: 0;
-  font-size: 1rem;
-  padding: 0.9rem 1rem;
-  border-bottom: 1px solid var(--color-border);
 }
 
 @media (max-width: 900px) {

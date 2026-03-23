@@ -200,7 +200,7 @@ footerVariantId: footer-3100
 pageElementorId: 3729
 ogImage: andetag-faq-og.jpg
 hreflang:
-  sv: /stockholm/fragor-svar/
+  sv: /sv/stockholm/fragor-svar/
   en: /en/stockholm/faq/
   de: null
 seo:

@@ -7,7 +7,7 @@ Use this checklist for every component QA cycle and for final showcase sign-off 
 Sign-off mode for this phase:
 
 - Build all approved components and required states before stakeholder review.
-- Perform one consolidated sign-off pass in `/component-showcase/` instead of individual component sign-off gates.
+- Phase 3 used one consolidated sign-off pass on the internal verification route **`/component-showcase/`** (since removed) instead of individual component sign-off gates.
 
 ## Scope and Inputs
 

@@ -135,19 +135,19 @@ Status: complete (approved 2026-03-22).
 
 Deliverables:
 - Reusable components with stable APIs (button, hero, section wrappers, testimonial, FAQ, gallery, embeds, booking module, info boxes, map block, etc).
-- Dedicated internal component showcase page that renders all variants/states.
+- Internal consolidated verification route for all variants/states (historical; route removed after 2026-03-22 sign-off).
 - Documentation per component: purpose, props, content constraints, and usage examples.
 
 Acceptance checks:
-- Gustaf signs off component showcase before page-by-page migration starts.
+- Gustaf signed off the consolidated component verification pass before page-by-page migration starts.
 - Responsive checks completed for each approved component.
 
 Verification record: `docs/phase-3-verification-record.md`. Showcase Lighthouse Performance on mobile may fall below the nominal Phase 3 DoD target because all embeds and media load on one internal page; see **EX-0006** in `docs/migration-exceptions.md`. Migrated pages remain subject to Phase 5 performance gates.
 
 Carry-forward to Phase 4 and Phase 5:
 - Implement routes and redirects using stable component contracts from `docs/phase-3-component-usage.md` and `docs/content-model.md`.
-- Migrate pages using showcase-validated components; avoid duplicating one-off styles outside `site/src/styles/components.css` unless logged as a migration exception.
-- Revisit showcase and global performance when consent-gated and lazy embed loading lands in Phase 7.
+- Migrate pages using Phase 3-validated components; avoid duplicating one-off styles outside `site/src/styles/components.css` unless logged as a migration exception.
+- Revisit global performance when consent-gated and lazy embed loading lands in Phase 7.
 
 ### Phase 4, Routing and URL Preservation
 
@@ -189,6 +189,7 @@ Source: `docs/phase-4-routing-reopen.md` and `docs/url-migration-policy.md`. Thi
 ### Phase 5, Page Migration and Iterative Approval
 
 Goal: migrate page content in controlled batches with design review feedback loops.
+Execution checklist: `docs/phase-5-todo.md`
 
 Carry-forward: complete **static routes and real pages** required by the **Entry routing and URL expansion schedule** (above) before or in parallel with the first migration wave, so entry **`302`** targets never 404.
 
@@ -239,7 +240,7 @@ Deliverables:
   - Whether `twitter:card` is `summary_large_image` sitewide or mixed by template.
   - Required properties: at minimum `og:title`, `og:description`, `og:image` (absolute URL), `og:url`, `og:type`, `og:site_name`, and `og:locale` (and `og:locale:alternate` where hreflang equivalents exist).
 - **Schema.org (JSON-LD):** emit structured data aligned with `docs/Andetag SEO Manual.md` section 6 (Organization, Place, Museum, TouristAttraction for Stockholm; Event only when applicable). Follow Berlin protocol in the same manual (Place only pre-opening; Museum when Berlin opens). Validate with Rich Results or equivalent checks on representative URLs per locale.
-- XML sitemap(s) at canonical production URLs listing only canonical indexable HTML routes (exclude redirect aliases, `noindex` internal tools such as the component showcase, and non-HTML endpoints per `docs/url-migration-policy.md`).
+- XML sitemap(s) at canonical production URLs listing only canonical indexable HTML routes (exclude redirect aliases, `noindex` internal or preview tools, and non-HTML endpoints per `docs/url-migration-policy.md`).
 - `robots.txt` and final SEO validation (metadata parity, hreflang, Core Web Vitals targets) aligned with policy.
 
 Acceptance checks:

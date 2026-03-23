@@ -40,7 +40,7 @@ export const HEADER_VARIANTS: Record<HeaderVariantId, HeaderVariant> = {
     navVariantDesktop: "sv-main",
     navVariantMobile: "sv-main",
     ctaLabel: "Hitta biljetter",
-    ctaHref: "/stockholm/biljetter/",
+    ctaHref: "/sv/stockholm/biljetter/",
   },
   "header-3305": {
     id: "header-3305",

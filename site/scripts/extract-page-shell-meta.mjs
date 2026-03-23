@@ -1,6 +1,8 @@
 /**
  * Extracts <title> and og:description from site-html snapshots into JSON for Phase 4 shells.
  * Run from repo root: node site/scripts/extract-page-shell-meta.mjs
+ *
+ * Swedish canonical paths use the /sv/ language prefix; legacy HTML filenames are unchanged.
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -13,7 +15,7 @@ const outFile = path.join(__dirname, "..", "src", "data", "page-shell-meta.json"
 
 /** @type {Record<string, string>} canonical path (with slashes) -> site-html filename */
 const PATH_TO_HTML = {
-  "/": "index.html",
+  "/sv/stockholm/": "index.html",
   "/de/berlin/": "de-berlin.html",
   "/de/die-kuenstler-malin-gustaf-tadaa/": "de-die-kuenstler-malin-gustaf-tadaa.html",
   "/de/musik-von-andetag/": "de-musik-von-andetag.html",
@@ -39,29 +41,29 @@ const PATH_TO_HTML = {
   "/en/stockholm/tickets/": "en-stockholm-tickets.html",
   "/en/stockholm/visitor-reviews/": "en-stockholm-visitor-reviews.html",
   "/en/stockholm/what-kind-of-experience/": "en-stockholm-what-kind-of-experience.html",
-  "/musik/": "musik.html",
-  "/om-andetag/": "om-andetag.html",
-  "/om-konstnarerna-malin-gustaf-tadaa/": "om-konstnarerna-malin-gustaf-tadaa.html",
-  "/optisk-fibertextil/": "optisk-fibertextil.html",
+  "/sv/musik/": "musik.html",
+  "/sv/om-andetag/": "om-andetag.html",
+  "/sv/om-konstnarerna-malin-gustaf-tadaa/": "om-konstnarerna-malin-gustaf-tadaa.html",
+  "/sv/optisk-fibertextil/": "optisk-fibertextil.html",
   "/privacy/": "privacy.html",
-  "/stockholm/aktivitet-inomhus-stockholm/": "stockholm-aktivitet-inomhus-stockholm.html",
-  "/stockholm/art-yoga/": "stockholm-art-yoga.html",
-  "/stockholm/att-gora-stockholm/": "stockholm-att-gora-stockholm.html",
-  "/stockholm/besokaromdomen/": "stockholm-besokaromdomen.html",
-  "/stockholm/biljetter/": "stockholm-biljetter.html",
-  "/stockholm/dejt/": "stockholm-dejt.html",
-  "/stockholm/foretagsevent/": "stockholm-foretagsevent.html",
-  "/stockholm/fragor-svar/": "stockholm-fragor-svar.html",
-  "/stockholm/gruppbokning/": "stockholm-gruppbokning.html",
-  "/stockholm/hitta-hit/": "stockholm-hitta-hit.html",
-  "/stockholm/museum-stockholm/": "stockholm-museum-stockholm.html",
-  "/stockholm/npf-stockholm/": "stockholm-npf-stockholm.html",
-  "/stockholm/oppettider/": "stockholm-oppettider.html",
-  "/stockholm/presentkort/": "stockholm-presentkort.html",
-  "/stockholm/sasongskort/": "stockholm-sasongskort.html",
-  "/stockholm/tillganglighet/": "stockholm-tillganglighet.html",
-  "/stockholm/utstallning-stockholm/": "stockholm-utstallning-stockholm.html",
-  "/stockholm/vilken-typ-av-upplevelse/": "stockholm-vilken-typ-av-upplevelse.html",
+  "/sv/stockholm/aktivitet-inomhus-stockholm/": "stockholm-aktivitet-inomhus-stockholm.html",
+  "/sv/stockholm/art-yoga/": "stockholm-art-yoga.html",
+  "/sv/stockholm/att-gora-stockholm/": "stockholm-att-gora-stockholm.html",
+  "/sv/stockholm/besokaromdomen/": "stockholm-besokaromdomen.html",
+  "/sv/stockholm/biljetter/": "stockholm-biljetter.html",
+  "/sv/stockholm/dejt/": "stockholm-dejt.html",
+  "/sv/stockholm/foretagsevent/": "stockholm-foretagsevent.html",
+  "/sv/stockholm/fragor-svar/": "stockholm-fragor-svar.html",
+  "/sv/stockholm/gruppbokning/": "stockholm-gruppbokning.html",
+  "/sv/stockholm/hitta-hit/": "stockholm-hitta-hit.html",
+  "/sv/stockholm/museum-stockholm/": "stockholm-museum-stockholm.html",
+  "/sv/stockholm/npf-stockholm/": "stockholm-npf-stockholm.html",
+  "/sv/stockholm/oppettider/": "stockholm-oppettider.html",
+  "/sv/stockholm/presentkort/": "stockholm-presentkort.html",
+  "/sv/stockholm/sasongskort/": "stockholm-sasongskort.html",
+  "/sv/stockholm/tillganglighet/": "stockholm-tillganglighet.html",
+  "/sv/stockholm/utstallning-stockholm/": "stockholm-utstallning-stockholm.html",
+  "/sv/stockholm/vilken-typ-av-upplevelse/": "stockholm-vilken-typ-av-upplevelse.html",
 };
 
 function decodeEntities(text) {
@@ -94,7 +96,7 @@ const out = {
   _meta: {
     source: "site-html/*.html via extract-page-shell-meta.mjs",
     notes:
-      "/en/stockholm/: en-stockholm.html and live andetag.museum both mis-set Yoast canonical to / and Swedish home title; shell uses en.html until EX-0007 is resolved in Phase 5.",
+      "Swedish canonical paths use /sv/; legacy unprefixed URLs redirect via site/public/_redirects. /en/stockholm/: en-stockholm.html and live site mis-set Yoast; shell uses en.html until EX-0007 is resolved in Phase 5.",
   },
   pages: {},
 };

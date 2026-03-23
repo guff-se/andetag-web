@@ -23,32 +23,32 @@ const metaPages = pageShellMeta.pages as Record<string, PageShellSourceMeta>;
 
 /** Stockholm (and shared Swedish) pages with Swedish + English equivalents. Order: [sv, en]. */
 const SV_EN_PAIRS: Array<[string, string]> = [
-  ["/", "/en/"],
-  ["/musik/", "/en/music/"],
-  ["/om-andetag/", "/en/about-andetag/"],
-  ["/om-konstnarerna-malin-gustaf-tadaa/", "/en/about-the-artists-malin-gustaf-tadaa/"],
-  ["/optisk-fibertextil/", "/en/optical-fibre-textile/"],
-  ["/stockholm/art-yoga/", "/en/stockholm/art-yoga/"],
-  ["/stockholm/besokaromdomen/", "/en/stockholm/visitor-reviews/"],
-  ["/stockholm/biljetter/", "/en/stockholm/tickets/"],
-  ["/stockholm/dejt/", "/en/stockholm/date/"],
-  ["/stockholm/foretagsevent/", "/en/stockholm/corporate-events/"],
-  ["/stockholm/fragor-svar/", "/en/stockholm/faq/"],
-  ["/stockholm/gruppbokning/", "/en/stockholm/group-bookings/"],
-  ["/stockholm/hitta-hit/", "/en/stockholm/how-to-find-us/"],
-  ["/stockholm/oppettider/", "/en/stockholm/opening-hours/"],
-  ["/stockholm/presentkort/", "/en/stockholm/giftcard/"],
-  ["/stockholm/sasongskort/", "/en/stockholm/season-pass/"],
-  ["/stockholm/tillganglighet/", "/en/stockholm/accessibility/"],
-  ["/stockholm/vilken-typ-av-upplevelse/", "/en/stockholm/what-kind-of-experience/"],
+  ["/sv/stockholm/", "/en/"],
+  ["/sv/musik/", "/en/music/"],
+  ["/sv/om-andetag/", "/en/about-andetag/"],
+  ["/sv/om-konstnarerna-malin-gustaf-tadaa/", "/en/about-the-artists-malin-gustaf-tadaa/"],
+  ["/sv/optisk-fibertextil/", "/en/optical-fibre-textile/"],
+  ["/sv/stockholm/art-yoga/", "/en/stockholm/art-yoga/"],
+  ["/sv/stockholm/besokaromdomen/", "/en/stockholm/visitor-reviews/"],
+  ["/sv/stockholm/biljetter/", "/en/stockholm/tickets/"],
+  ["/sv/stockholm/dejt/", "/en/stockholm/date/"],
+  ["/sv/stockholm/foretagsevent/", "/en/stockholm/corporate-events/"],
+  ["/sv/stockholm/fragor-svar/", "/en/stockholm/faq/"],
+  ["/sv/stockholm/gruppbokning/", "/en/stockholm/group-bookings/"],
+  ["/sv/stockholm/hitta-hit/", "/en/stockholm/how-to-find-us/"],
+  ["/sv/stockholm/oppettider/", "/en/stockholm/opening-hours/"],
+  ["/sv/stockholm/presentkort/", "/en/stockholm/giftcard/"],
+  ["/sv/stockholm/sasongskort/", "/en/stockholm/season-pass/"],
+  ["/sv/stockholm/tillganglighet/", "/en/stockholm/accessibility/"],
+  ["/sv/stockholm/vilken-typ-av-upplevelse/", "/en/stockholm/what-kind-of-experience/"],
 ];
 
 const SV_ONLY_STOCKHOLM = new Set<string>([
-  "/stockholm/aktivitet-inomhus-stockholm/",
-  "/stockholm/att-gora-stockholm/",
-  "/stockholm/museum-stockholm/",
-  "/stockholm/npf-stockholm/",
-  "/stockholm/utstallning-stockholm/",
+  "/sv/stockholm/aktivitet-inomhus-stockholm/",
+  "/sv/stockholm/att-gora-stockholm/",
+  "/sv/stockholm/museum-stockholm/",
+  "/sv/stockholm/npf-stockholm/",
+  "/sv/stockholm/utstallning-stockholm/",
 ]);
 
 const EN_BRAND_PATHS = new Set<string>([
@@ -70,13 +70,21 @@ function layoutVariantsForPath(
   language: Language,
   destination: Destination,
 ): { headerVariantId: HeaderVariantId | "header-4136"; footerVariantId: FooterVariantId } {
-  if (canonicalPath === "/" || canonicalPath === "/en/" || canonicalPath === "/de/berlin/") {
+  if (canonicalPath === "/sv/stockholm/" || canonicalPath === "/en/" || canonicalPath === "/de/berlin/") {
     const header: HeaderVariantId =
-      canonicalPath === "/" ? "header-192" : canonicalPath === "/en/" ? "header-918" : "header-4344";
+      canonicalPath === "/sv/stockholm/"
+        ? "header-192"
+        : canonicalPath === "/en/"
+          ? "header-918"
+          : "header-4344";
     return {
       headerVariantId: header,
       footerVariantId:
-        canonicalPath === "/" ? "footer-207" : canonicalPath === "/en/" ? "footer-3100" : "footer-4229",
+        canonicalPath === "/sv/stockholm/"
+          ? "footer-207"
+          : canonicalPath === "/en/"
+            ? "footer-3100"
+            : "footer-4229",
     };
   }
 
@@ -146,8 +154,8 @@ function resolveSeo(canonicalPath: string): {
 
   if (canonicalPath === "/en/stockholm/") {
     return {
-      hreflang: { sv: null, en: "/en/stockholm/", de: null },
-      xDefaultPath: "/",
+      hreflang: { sv: "/sv/stockholm/", en: "/en/stockholm/", de: null },
+      xDefaultPath: "/sv/stockholm/",
     };
   }
 
@@ -177,7 +185,10 @@ function languageAndDestinationForPath(canonicalPath: string): {
   if (canonicalPath === "/privacy/") {
     return { language: "sv", destination: "stockholm" };
   }
-  return { language: "sv", destination: "stockholm" };
+  if (canonicalPath.startsWith("/sv/")) {
+    return { language: "sv", destination: "stockholm" };
+  }
+  throw new Error(`Unknown shell path for language mapping: ${canonicalPath}`);
 }
 
 export const PAGE_SHELL_PATHS = Object.keys(metaPages).sort();
@@ -209,10 +220,7 @@ export function getPageShellRoute(canonicalPath: string): PageShellRoute {
   };
 }
 
-/** Paths served by `[...slug].astro` (excludes `/`, handled by `index.astro`). */
+/** Paths served by `[...slug].astro` (all shells except root redirect in `index.astro`). */
 export function slugParamForShellPath(canonicalPath: string): string {
-  if (canonicalPath === "/") {
-    throw new Error("Use index.astro for /");
-  }
   return canonicalPath.replace(/^\/+|\/+$/g, "");
 }

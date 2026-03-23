@@ -39,10 +39,10 @@ All phases must keep these baseline checks in scope:
 
 ## Phase 3, Component Library and Verification Page
 
-- Performance: component showcase page scores at least 90 for Lighthouse Performance on mobile profile, **unless** an approved exception applies for the internal showcase route only (see **EX-0006** in `docs/migration-exceptions.md` and `docs/phase-3-verification-record.md`).
+- Performance: the internal consolidated verification route scored at least 90 for Lighthouse Performance on mobile profile **unless** an approved exception applies (**EX-0006**, historical; see `docs/migration-exceptions.md` and `docs/phase-3-verification-record.md`). That route was removed after Phase 3 sign-off.
 - SEO: reusable components support metadata injection where relevant.
-- Accessibility: each core component has keyboard and screen-reader behavior validated, and Lighthouse Accessibility score is at least 95 on showcase page.
-- Visual parity: component showcase is approved before page migration starts.
+- Accessibility: each core component has keyboard and screen-reader behavior validated; Lighthouse Accessibility on the verification route was at least 95 (recorded in `docs/phase-3-verification-record.md`).
+- Visual parity: consolidated component sign-off completed before page migration starts (record in `docs/phase-3-verification-record.md`).
 - Functional conversion path: CTA and embed components support required ticketing and lead journeys.
 
 ## Phase 4, Routing and URL Preservation

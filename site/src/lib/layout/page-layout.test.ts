@@ -19,6 +19,7 @@ describe("page layout model", () => {
       expect(model.navigation.id).toBe(fixture.expectedNavDesktop);
       expect(model.canonicalUrl).toBe(fixture.expectedCanonicalUrl);
       expect(model.hreflangLinks).toHaveLength(fixture.expectedHreflangCount);
+      expect(model.brandHomeHref).toBe(fixture.expectedBrandHomeHref);
     });
   });
 });

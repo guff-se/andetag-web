@@ -1,4 +1,9 @@
-import { getDestinationSelectorOptions, getLanguageSelectorOptions, getNavigationVariant } from "./navigation";
+import {
+  getBrandHomeHref,
+  getDestinationSelectorOptions,
+  getLanguageSelectorOptions,
+  getNavigationVariant,
+} from "./navigation";
 import { buildCanonicalUrl, buildHreflangLinks } from "./seo";
 import type {
   Destination,
@@ -22,6 +27,7 @@ export function createPageLayoutModel(input: LayoutModelInput) {
   const resolvedHeaderId = getResolvedHeaderVariantId(input.headerVariantId);
 
   return {
+    brandHomeHref: getBrandHomeHref(input.language, input.destination),
     header: HEADER_VARIANTS[resolvedHeaderId],
     footer: FOOTER_VARIANTS[input.footerVariantId],
     navigation: getNavigationVariant({

@@ -24,24 +24,24 @@ export function getSwedishFooterModel() {
     {
       title: "Besök ANDETAG",
       links: [
-        { label: "Biljetter", href: "/stockholm/biljetter/" },
-        { label: "Säsongskort", href: "/stockholm/sasongskort/" },
-        { label: "Presentkort", href: "/stockholm/presentkort/" },
-        { label: "Öppettider", href: "/stockholm/oppettider/" },
-        { label: "Hitta hit", href: "/stockholm/hitta-hit/" },
-        { label: "Tillgänglighet", href: "/stockholm/tillganglighet/" },
-        { label: "FAQ", href: "/stockholm/fragor-svar/" },
+        { label: "Biljetter", href: "/sv/stockholm/biljetter/" },
+        { label: "Säsongskort", href: "/sv/stockholm/sasongskort/" },
+        { label: "Presentkort", href: "/sv/stockholm/presentkort/" },
+        { label: "Öppettider", href: "/sv/stockholm/oppettider/" },
+        { label: "Hitta hit", href: "/sv/stockholm/hitta-hit/" },
+        { label: "Tillgänglighet", href: "/sv/stockholm/tillganglighet/" },
+        { label: "FAQ", href: "/sv/stockholm/fragor-svar/" },
       ],
     },
     {
       title: "Upplevelsen",
       links: [
-        { label: "Hur är ANDETAG?", href: "/stockholm/vilken-typ-av-upplevelse/" },
-        { label: "Dejt", href: "/stockholm/dejt/" },
-        { label: "NPF-besökare", href: "/stockholm/npf-stockholm/" },
-        { label: "Art Yoga", href: "/stockholm/art-yoga/" },
-        { label: "Musiken", href: "/musik/" },
-        { label: "Besökaromdömen", href: "/stockholm/besokaromdomen/" },
+        { label: "Hur är ANDETAG?", href: "/sv/stockholm/vilken-typ-av-upplevelse/" },
+        { label: "Dejt", href: "/sv/stockholm/dejt/" },
+        { label: "NPF-besökare", href: "/sv/stockholm/npf-stockholm/" },
+        { label: "Art Yoga", href: "/sv/stockholm/art-yoga/" },
+        { label: "Musiken", href: "/sv/musik/" },
+        { label: "Besökaromdömen", href: "/sv/stockholm/besokaromdomen/" },
       ],
     },
   ];
@@ -50,25 +50,25 @@ export function getSwedishFooterModel() {
     {
       title: "Grupper & företag",
       links: [
-        { label: "Gruppbokningar / privata evenemang", href: "/stockholm/gruppbokning/" },
-        { label: "Företagsevent", href: "/stockholm/foretagsevent/" },
+        { label: "Gruppbokningar / privata evenemang", href: "/sv/stockholm/gruppbokning/" },
+        { label: "Företagsevent", href: "/sv/stockholm/foretagsevent/" },
       ],
     },
     {
       title: "Om",
       links: [
-        { label: "Om Andetag", href: "/om-andetag/" },
-        { label: "Textilen", href: "/optisk-fibertextil/" },
-        { label: "Om konstnärerna", href: "/om-konstnarerna-malin-gustaf-tadaa/" },
+        { label: "Om Andetag", href: "/sv/om-andetag/" },
+        { label: "Textilen", href: "/sv/optisk-fibertextil/" },
+        { label: "Om konstnärerna", href: "/sv/om-konstnarerna-malin-gustaf-tadaa/" },
       ],
     },
   ];
 
   const seoLinks: FooterLink[] = [
-    { label: "Aktivitet", href: "/stockholm/aktivitet-inomhus-stockholm/" },
-    { label: "Museum", href: "/stockholm/museum-stockholm/" },
-    { label: "Att göra", href: "/stockholm/att-gora-stockholm/" },
-    { label: "Utställing", href: "/stockholm/utstallning-stockholm/" },
+    { label: "Aktivitet", href: "/sv/stockholm/aktivitet-inomhus-stockholm/" },
+    { label: "Museum", href: "/sv/stockholm/museum-stockholm/" },
+    { label: "Att göra", href: "/sv/stockholm/att-gora-stockholm/" },
+    { label: "Utställing", href: "/sv/stockholm/utstallning-stockholm/" },
   ];
 
   const socialLinks: FooterSocialLink[] = [

@@ -1,7 +1,14 @@
 # Path redirects (repo-owned). Apex, www, and HTTPS are handled in Cloudflare DNS or Pages custom domains.
 # See docs/phase-4-route-coverage.md and docs/url-migration-policy.md.
+# Swedish: legacy unprefixed URLs 301 to canonical /sv/ paths (language-prefix policy).
 
 /de/ /de/berlin/ 301
 /en/berlin-en/ /en/berlin/ 301
 /en/stockholm/art-yoga-en/ /en/stockholm/art-yoga/ 301
 /privacy-policy/ /privacy/ 301
+/musik/ /sv/musik/ 301
+/om-andetag/ /sv/om-andetag/ 301
+/om-konstnarerna-malin-gustaf-tadaa/ /sv/om-konstnarerna-malin-gustaf-tadaa/ 301
+/optisk-fibertextil/ /sv/optisk-fibertextil/ 301
+/stockholm/* /sv/stockholm/:splat 301
+/ /sv/stockholm/ 301

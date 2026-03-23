@@ -11,34 +11,33 @@ Purpose: define language and destination information architecture options that p
 
 ## Constraints
 
-- Preserve existing must-keep URL contracts and redirect behavior.
+- Preserve inbound links and SEO value: legacy URLs **`301`** to agreed canonicals where paths change.
 - Keep coherent `sv`, `en`, and `de` hreflang relationships.
 - Avoid IA rewrites when Berlin expands from pre-launch to full destination.
 - Keep Swedish Stockholm as first fully migrated release.
 
-## Option A: Language-first, destination in path (recommended)
+## Option A: Explicit language prefix for every locale (current decision)
 
 Pattern:
 
-- Swedish default routes: `/stockholm/...`
-- English routes: `/en/stockholm/...` and `/en/berlin/...`
-- German routes: `/de/berlin/...`
+- **Swedish:** **`/sv/stockholm/...`** for Stockholm pages; shared Swedish brand pages **`/sv/<slug>/`** (for example **`/sv/musik/`**, **`/sv/om-andetag/`**).
+- **English:** **`/en/stockholm/...`**, **`/en/berlin/...`**, English hub **`/en/`**, plus shared **`/en/about-andetag/`** and similar.
+- **German:** **`/de/berlin/...`** and related **`/de/...`** routes.
+
+Legacy unprefixed Swedish URLs from the old site (**`/`**, **`/stockholm/...`**, **`/musik/`**, and so on) **`301`** to the matching **`/sv/...`** canonical. See **`docs/url-matrix.csv`** and **`site/public/_redirects`**.
 
 Pros:
 
-- Preserves current URL patterns with minimal rewrite risk.
-- Keeps migration path straightforward for existing sitemap and redirects.
-- Works with current business rollout order (Stockholm first, Berlin later).
+- One rule: every locale is visible in the path; matches developer and analytics mental models.
+- Symmetric with English and German; scales cleanly if Swedish content grows beyond Stockholm.
 
 Cons:
 
-- Swedish root does not include explicit destination segment on home (`/`).
-- Destination switching logic is slightly asymmetric between Swedish and non-Swedish paths.
+- Requires a complete redirect map at launch; internal links and sitemaps must use **`/sv/...`** canonicals only.
 
 URL contract impact:
 
-- No required path changes beyond already documented alias redirects.
-- Supports current policy redirects (`/de/` to `/de/berlin/`, `/en/berlin-en/` to `/en/berlin/`).
+- Matrix **`redirect`** rows plus repo **`_redirects`** for all legacy Swedish paths; no duplicate indexable Swedish content at old and new URLs.
 
 ## Option B: Destination-first, language nested under destination
 
@@ -82,15 +81,15 @@ URL contract impact:
 
 ## Recommendation
 
-Use Option A (language-first, destination in path), because it preserves current URL contracts and supports staged rollout with the least SEO and implementation risk.
+Use **Option A** (explicit **`/sv/`** prefix and Stockholm segment **`/sv/stockholm/...`**). Normative policy and redirect rules live in **`docs/url-migration-policy.md`**.
 
 Implementation notes:
 
-- Keep `/` and `/en/` as Stockholm home routes in the first release.
-- Keep `/de/berlin/` as German Berlin canonical root.
-- Resolve `/en/berlin-en/` as legacy alias only, with canonical `/en/berlin/`.
+- Swedish Stockholm home is **`/sv/stockholm/`**; production **`/`** is entry routing (Worker), not the Swedish home document.
+- Keep **`/en/`** as English hub; keep **`/de/berlin/`** as German Berlin canonical root.
+- Resolve **`/en/berlin-en/`** as legacy alias only, with canonical **`/en/berlin/`**.
 - Keep destination and language switcher behavior route-driven (not JS state only), so canonical/hreflang output remains deterministic.
 
 ## Decision Status
 
-- Recommended Option A is accepted as architecture input for Phase 2 routing and navigation implementation.
+- **Option A** with explicit **`/sv/`** is the active URL model for the rebuilt site; this document supersedes the earlier Phase 1 wording that described unprefixed Swedish **`/stockholm/...`**.

@@ -77,6 +77,7 @@ export type PageLayoutFixture = {
   expectedNavDesktop: "sv-main" | "en-main" | "en-brand" | "de-main";
   expectedCanonicalUrl: string;
   expectedHreflangCount: number;
+  expectedBrandHomeHref: string;
 };
 
 export const PAGE_LAYOUT_FIXTURES: PageLayoutFixture[] = [
@@ -88,15 +89,16 @@ export const PAGE_LAYOUT_FIXTURES: PageLayoutFixture[] = [
     footerVariantId: "footer-3100",
     canonicalPath: "/en/stockholm/tickets/",
     hreflang: {
-      sv: "/stockholm/biljetter/",
+      sv: "/sv/stockholm/biljetter/",
       en: "/en/stockholm/tickets/",
       de: null,
     },
-    xDefaultPath: "/stockholm/biljetter/",
+    xDefaultPath: "/sv/stockholm/biljetter/",
     expectedHeaderId: "header-3305",
     expectedNavDesktop: "en-main",
     expectedCanonicalUrl: "https://www.andetag.museum/en/stockholm/tickets/",
     expectedHreflangCount: 3,
+    expectedBrandHomeHref: "/en/",
   },
   {
     id: "legacy-berlin-alias-route",
@@ -115,6 +117,7 @@ export const PAGE_LAYOUT_FIXTURES: PageLayoutFixture[] = [
     expectedNavDesktop: "en-main",
     expectedCanonicalUrl: "https://www.andetag.museum/en/berlin/",
     expectedHreflangCount: 3,
+    expectedBrandHomeHref: "/en/berlin/",
   },
 ];
 

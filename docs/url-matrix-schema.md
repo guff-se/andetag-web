@@ -50,6 +50,7 @@ source_url,canonical_url,lang,destination,page_type,status,redirect_type,notes
 
 ```csv
 https://www.andetag.museum/en/berlin-en/,https://www.andetag.museum/en/berlin/,en,berlin,content,redirect,301,legacy alias from WP slug variant
-https://www.andetag.museum/stockholm/faq/,https://www.andetag.museum/stockholm/faq/,sv,stockholm,content,keep,none,canonical as-is
+https://www.andetag.museum/stockholm/biljetter/,https://www.andetag.museum/sv/stockholm/biljetter/,sv,stockholm,content,redirect,301,legacy unprefixed Swedish URL
+https://www.andetag.museum/sv/stockholm/biljetter/,https://www.andetag.museum/sv/stockholm/biljetter/,sv,stockholm,content,keep,none,canonical Swedish path with /sv/ prefix
 https://www.andetag.museum/wp-json/,https://www.andetag.museum/wp-json/,none,none,non_html,remove,none,WordPress API endpoint not migrated and not indexed
 ```

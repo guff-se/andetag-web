@@ -134,60 +134,46 @@ Future localization (parallel strategy when launching):
 
 3. URL & Location Architecture (POLYLANG COMPATIBLE)
 
-3.1 Root language URLs (LOCKED)
+3.1 Language prefix (LOCKED)
 
-Swedish root: /
+Every locale uses an explicit language segment in the path (symmetric IA):
 
-English root: /en/
+* **Swedish:** **`/sv/...`**
+* **English:** **`/en/...`**
+* **German:** **`/de/...`**
 
-These roots act as the primary Stockholm landing pages while Stockholm is the only open location.
+Normative redirect, cookie, and entry behavior for **`/`** and **`/en/`** is in **`docs/url-migration-policy.md`**.
 
-3.2 Location URL pattern (LOCKED)
+3.2 Stockholm URL pattern (LOCKED)
 
-Swedish location pages: /stockholm/slug/
+Swedish Stockholm **home:** **`/sv/stockholm/`**
 
-English location pages: /en/stockholm/slug/
+Swedish Stockholm **subpages:** **`/sv/stockholm/<slug>/`**
 
-Rules:
+English Stockholm **hub:** **`/en/stockholm/`**
 
-City is always the first segment after the (optional) language.
+English Stockholm **subpages:** **`/en/stockholm/<slug>/`**
+
+Legacy unprefixed Swedish URLs from the old site (**`/`**, **`/stockholm/...`**, **`/musik/`**, **`/om-andetag/`**, and similar) are **not** canonical. They **`301`** to the matching **`/sv/...`** URL. See **`docs/url-matrix.csv`** and **`site/public/_redirects`**.
 
 One domain only. No language subdomains.
 
-3.3 Language detection redirects (LOCKED)
+3.3 Entry routing (LOCKED)
 
-The following URLs use browser language detection to redirect to the appropriate language landing page:
+**`/`** is not the Swedish home document in the target production model: it is an **edge router** (Worker) with **`Accept-Language`**, **`andetag_entry`**, and verified-bot rules. Canonical Swedish home for indexation and hreflang is **`/sv/stockholm/`**.
 
-* / redirects to / (Swedish) or /en/ (English) based on detected language
-* /en redirects to / or /en/ based on detected language
-* /stockholm redirects to / or /en/ based on detected language
-* /en/stockholm redirects to / or /en/ based on detected language
-
-This ensures visitors land on the correct language version while maintaining clean, predictable URLs for direct access
-
-Examples:
-
-/stockholm/oppettider/
-
-/en/stockholm/opening-hours/
-
-/om-andetag/
-
-/en/about-andetag/
+Details: **`docs/url-migration-policy.md`** (sections on **`/`**, **`/en/`**, cookie, crawlers).
 
 3.4 Page types
 
-There are two types of pages:
-
-Global pages (brand level) under / and /en/
-
-Location subpages (city level) under /stockholm/ and /en/stockholm/
+* **Global (brand) pages:** Swedish under **`/sv/<slug>/`** (for example **`/sv/musik/`**), English under **`/en/...`**, German under **`/de/...`** where applicable.
+* **Stockholm location subpages:** **`/sv/stockholm/...`** and **`/en/stockholm/...`**.
 
 3.5 Locations
 
-Stockholm: sv default at /, en at /en/
+Stockholm: canonical Swedish **`/sv/stockholm/`**, English hub and location **`/en/`** and **`/en/stockholm/`** per policy.
 
-Berlin: de default at /de/berlin/, en at /en/berlin/
+Berlin: de default **`/de/berlin/`**, en **`/en/berlin/`**
 
 ---
 
@@ -222,9 +208,9 @@ Defaults:
 Hreflang example (Stockholm opening hours):
 
 ```
-<link rel="alternate" hreflang="sv-SE" href="/stockholm/oppettider/" />
+<link rel="alternate" hreflang="sv-SE" href="/sv/stockholm/oppettider/" />
 <link rel="alternate" hreflang="en" href="/en/stockholm/opening-hours/" />
-<link rel="alternate" hreflang="x-default" href="/stockholm/" />
+<link rel="alternate" hreflang="x-default" href="/sv/stockholm/oppettider/" />
 ```
 
 Rules:
@@ -287,7 +273,7 @@ Accessibility:
 * Physical access
 * Sensory considerations
 * Seating and rest
-* NPF pages (/stockholm/npf-stockholm/, /en/stockholm/neurodivergent-friendly-stockholm/) expand pre-visit information for neurodivergent visitors
+* NPF pages (**`/sv/stockholm/npf-stockholm/`**, **`/en/stockholm/neurodivergent-friendly-stockholm/`**) expand pre-visit information for neurodivergent visitors
 
 ---
 
@@ -327,12 +313,12 @@ No marketing language.
 
 Current phase (Stockholm only traffic):
 
-* All Sweden ads point to /
+* Sweden ads should use the **canonical** Swedish entry or hub URL (**`/sv/stockholm/`** or **`/`** only if the ad platform requires the root and edge routing sends Swedish traffic correctly). Prefer **`/sv/stockholm/`** for clarity.
 
 Multi-location phase (after Berlin ads launch):
 
-* Sweden ads point to /stockholm/
-* Germany ads point to /de/berlin/ (or /en/berlin/ for EN ads)
+* Sweden ads point to **`/sv/stockholm/`** (or English **`/en/stockholm/`** for EN-only campaigns).
+* Germany ads point to **`/de/berlin/`** (or **`/en/berlin/`** for EN ads).
 
 No cross-location ad traffic.
 
@@ -368,21 +354,21 @@ English root (Stockholm landing)
 
 About Andetag
 
-* SV: /om-andetag/
+* SV: /sv/om-andetag/
 * EN: /en/about-andetag/
 * DE: /de/ueber-andetag/
 * Keywords: Andetag project, breathing museum concept, breathing art, concept, art, stillness
 
 About the artists
 
-* SV: /om-konstnarerna-malin-gustaf-tadaa/
+* SV: /sv/om-konstnarerna-malin-gustaf-tadaa/
 * EN: /en/about-the-artists-malin-gustaf-tadaa/
 * DE: /de/die-kuenstler-malin-gustaf-tadaa/
 * Keywords: artists, creators, practice, collaboration
 
 The music from Andetag
 
-* SV: /musik/
+* SV: /sv/musik/
 * EN: /en/music/
 * DE: /de/musik-von-andetag/
 * Keywords: music, soundscape, composition, listening
@@ -391,7 +377,7 @@ The music from Andetag
 
 Location hub
 
-* SV: /stockholm/
+* SV: /sv/stockholm/
 * EN: /en/stockholm/
 * Keywords: **breathing museum**, Andetag Stockholm, breathing light art museum, breathing art museum, light-based art museum, stillness
 
@@ -399,37 +385,37 @@ Core factual anchors
 
 Opening hours
 
-* SV: /stockholm/oppettider/
+* SV: /sv/stockholm/oppettider/
 * EN: /en/stockholm/opening-hours/
 * Keywords: opening hours, when to visit, open year-round, schedule
 
 How to find us
 
-* SV: /stockholm/hitta-hit/
+* SV: /sv/stockholm/hitta-hit/
 * EN: /en/stockholm/how-to-find-us/
 * Keywords: address, Kungsgatan 39, Hötorget, directions, entrance
 
 Tickets
 
-* SV: /stockholm/biljetter/
+* SV: /sv/stockholm/biljetter/
 * EN: /en/stockholm/tickets/
 * Keywords: tickets, pricing, booking, visit rules
 
 FAQ
 
-* SV: /stockholm/fragor-svar/
+* SV: /sv/stockholm/fragor-svar/
 * EN: /en/stockholm/faq/
 * Keywords: common questions, duration, age, rules
 
 Accessibility
 
-* SV: /stockholm/tillganglighet/
+* SV: /sv/stockholm/tillganglighet/
 * EN: /en/stockholm/accessibility/
 * Keywords: accessibility, physical access, seating, sensory considerations
 
 NPF / neurodivergent audience
 
-* SV: /stockholm/npf-stockholm/
+* SV: /sv/stockholm/npf-stockholm/
 * EN: /en/stockholm/neurodivergent-friendly-stockholm/
 * Keywords: NPF-vänlig, neurodivergent-friendly, sensory-friendly museum, low stimulation, autism-friendly, lugn miljö, low demand, what to expect
 * Content: Pre-visit information for visitors with autism, ADHD or sensory sensitivities. Sensory profile, predictable rhythm, small groups, decompress. Links to accessibility page.
@@ -438,19 +424,19 @@ Clarification and program pages
 
 What kind of experience is this?
 
-* SV: /stockholm/vilken-typ-av-upplevelse/
+* SV: /sv/stockholm/vilken-typ-av-upplevelse/
 * EN: /en/stockholm/what-kind-of-experience/
 * Keywords: breathing museum experience, calm experience, stillness, presence, breathing light art, light-based art
 
 Romantic date
 
-* SV: /stockholm/dejt/
+* SV: /sv/stockholm/dejt/
 * EN: /en/stockholm/date/
 * Keywords: date idea, calm date, togetherness
 
 Art Yoga
 
-* SV: /stockholm/art-yoga/
+* SV: /sv/stockholm/art-yoga/
 * EN: /en/stockholm/art-yoga/
 * Keywords: art yoga, breathing art, movement, breath, slow practice, breathing museum
 
@@ -458,43 +444,43 @@ Commercial extensions
 
 Gift cards
 
-* SV: /stockholm/presentkort/
+* SV: /sv/stockholm/presentkort/
 * EN: /en/stockholm/giftcard/
 * Keywords: gift card, give Andetag, present
 
 Season pass
 
-* SV: /stockholm/sasongskort/
+* SV: /sv/stockholm/sasongskort/
 * EN: /en/stockholm/season-pass/
 * Keywords: season pass, return visits, repeated access
 
 Group bookings and private events
 
-* SV: /stockholm/gruppbokning/
+* SV: /sv/stockholm/gruppbokning/
 * EN: /en/stockholm/group-bookings/
 * Keywords: group booking, private viewing, small groups
 
 Company events
 
-* SV: /stockholm/foretagsevent/
+* SV: /sv/stockholm/foretagsevent/
 * EN: /en/stockholm/corporate-events/
 * Keywords: company events, corporate booking
 
 Press (location specific)
 
-* SV: /stockholm/press/
+* SV: /sv/stockholm/press/
 * EN: /en/stockholm/press/
 * Keywords: press material, media kit, images, description
 
 Visitor voices and reviews
 
-* SV: /stockholm/besokaromdomen/
+* SV: /sv/stockholm/besokaromdomen/
 * EN: /en/stockholm/visitor-reviews/
 * Keywords: visitor reviews, reflections, quotes
 
 The textile behind the art
 
-* SV: /optisk-fibertextil/
+* SV: /sv/optisk-fibertextil/
 * EN: /en/optical-fibre-textile/
 * DE: /de/optische-fasertextil/
 * Keywords: weaving, textile, optical fibre, fabric, breathing light art
@@ -517,33 +503,33 @@ Note: Berlin shares the global pages (About, Artists, Music, Textile) listed in 
 
 Primary navigation (Stockholm, SV default):
 
-* Visit -> /stockholm/
+* Visit -> /sv/stockholm/
 
-  * Tickets -> /stockholm/biljetter/
-  * Season pass -> /stockholm/sasongskort/
-  * Opening hours -> /stockholm/oppettider/
-  * How to find us -> /stockholm/hitta-hit/
-  * Accessibility -> /stockholm/tillganglighet/
-  * FAQ -> /stockholm/fragor-svar/
+  * Tickets -> /sv/stockholm/biljetter/
+  * Season pass -> /sv/stockholm/sasongskort/
+  * Opening hours -> /sv/stockholm/oppettider/
+  * How to find us -> /sv/stockholm/hitta-hit/
+  * Accessibility -> /sv/stockholm/tillganglighet/
+  * FAQ -> /sv/stockholm/fragor-svar/
 
-* The experience -> /stockholm/vilken-typ-av-upplevelse/
+* The experience -> /sv/stockholm/vilken-typ-av-upplevelse/
 
-  * Romantic date -> /stockholm/dejt/
-  * Art Yoga -> /stockholm/art-yoga/
-  * Music -> /musik/
+  * Romantic date -> /sv/stockholm/dejt/
+  * Art Yoga -> /sv/stockholm/art-yoga/
+  * Music -> /sv/musik/
 
-* Groups and companies -> /stockholm/gruppbokning/
+* Groups and companies -> /sv/stockholm/gruppbokning/
 
-  * Company events -> /stockholm/foretagsevent/
+  * Company events -> /sv/stockholm/foretagsevent/
 
-* About -> /om-andetag/
+* About -> /sv/om-andetag/
 
-  * About the artists -> /om-konstnarerna-malin-gustaf-tadaa/
-  * Press -> /stockholm/press/
+  * About the artists -> /sv/om-konstnarerna-malin-gustaf-tadaa/
+  * Press -> /sv/stockholm/press/
 
-* Gifts -> /stockholm/presentkort/
+* Gifts -> /sv/stockholm/presentkort/
 
-* Tickets (CTA) -> /stockholm/biljetter/
+* Tickets (CTA) -> /sv/stockholm/biljetter/
 
 Footer groups:
 
@@ -561,24 +547,14 @@ Rules:
 
 ---
 
-## 14. Root Page Behavior (LOCKED)
+## 14. Root and entry behavior (LOCKED)
 
-Decision:
+Normative rules live in **`docs/url-migration-policy.md`** and **`docs/phase-4-routing-reopen.md`**.
 
-* **A selected**
+Summary:
 
-Implementation:
+* **`/`** is an **entry router** at the edge (not the Swedish home document). Canonical Swedish home is **`/sv/stockholm/`**.
+* **`/en/`** is the **English hub** when the visitor is in the English lane without a committed Stockholm or Berlin preference.
+* Legacy Swedish paths without **`/sv/`** **`301`** to **`/sv/...`** per the URL matrix and **`site/public/_redirects`**.
 
-* `/` and `/en/` serve as Stockholm-focused landing pages while Stockholm is the only open location.
-* Browser language detection automatically redirects visitors from `/`, `/en`, `/stockholm`, and `/en/stockholm` to the appropriate language root (/ or /en/).
-* All Sweden ads continue to point to `/` during this phase (language detection handles routing to correct language).
-
-Transition rule:
-
-* When Berlin opens and ads launch for multiple locations:
-
-  * `/` and `/en/` transition into brand-level Andetag pages.
-  * Sweden ads move to `/stockholm/` and `/en/stockholm/` (which should then become actual landing pages instead of detection redirects).
-  * Germany ads point to `/de/berlin/` or `/en/berlin/`.
-
-This transition should be executed without redirects initially, relying on internal linking and navigation updates.
+When Berlin opens and campaigns split by market, align ad landing URLs with the canonical location hubs (**`/sv/stockholm/`**, **`/en/stockholm/`**, **`/de/berlin/`**, **`/en/berlin/`**) and update this manual if examples change.

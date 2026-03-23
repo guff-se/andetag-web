@@ -68,7 +68,7 @@ Phase 2 is complete only when all items marked `P2` are done and approved:
     - `site/src/components/layout/SiteHeader.astro`
     - `site/src/components/layout/SiteFooter.astro`
     - `site/src/layouts/SiteLayout.astro`
-    - `site/src/pages/layout-preview.astro`
+    - Historical Phase 2 grid preview `site/src/pages/layout-preview.astro` (removed after parity sign-off; Phase 4 matrix shells cover ongoing checks)
 
 - [x] **P2-03 Implement navigation data model and rendering logic**
   - Owner: AI agent
@@ -185,7 +185,7 @@ Phase 2 is complete only when all items marked `P2` are done and approved:
 - Build mobile behavior as a first-class variant, not a reduced desktop fallback, especially for sticky and hamburger navigation.
 - For sticky controls that start outside the viewport, compute stick thresholds from the element's actual in-flow position, not from container height assumptions.
 - Use local asset and local font pipelines early, visual parity and typography tuning are faster after external dependencies are removed.
-- Add dedicated preview routes per variant (for example `/header-small-sv/`) to shorten review cycles and isolate UI adjustments.
+- During active parity work, optional dedicated preview routes under `site/src/pages/` can shorten review cycles; **remove them when the owning phase closes** (see `AGENTS.md`, phase closure cleanup). Prefer matrix shell pages or documented fixtures for regression after sign-off.
 
 ## Immediate Next 3 Actions
 
@@ -199,7 +199,7 @@ Date: 2026-03-22 (updated at Phase 2 final sign-off)
 
 Future-phase impact review completed for Phases 3 through 7:
 
-- Phase 3: no shared-layout blockers remain, component showcase and reusable QA checklist can start immediately.
+- Phase 3: no shared-layout blockers remain, Phase 3 component library work and the reusable QA checklist could start immediately.
 - Phase 4: canonical/hreflang base hooks are in place from Phase 2, routing work can focus on coverage and redirect validation.
 - Phase 5: Swedish-first sequencing remains mandatory, localization work stays deferred until Swedish content migration is approved.
 - Phase 6: localization phase scope remains content plus header localization using shared design primitives from Phase 2.

@@ -82,7 +82,7 @@ describe("layout seo hooks", () => {
   it("returns only available hreflang links with BCP47 codes", () => {
     const links = buildHreflangLinks(
       {
-        sv: "/stockholm/biljetter/",
+        sv: "/sv/stockholm/biljetter/",
         en: "/en/stockholm/tickets/",
         de: null,
       },
@@ -90,7 +90,7 @@ describe("layout seo hooks", () => {
     );
 
     expect(links).toEqual([
-      { hreflang: "sv-SE", href: "https://www.andetag.museum/stockholm/biljetter/" },
+      { hreflang: "sv-SE", href: "https://www.andetag.museum/sv/stockholm/biljetter/" },
       { hreflang: "en", href: "https://www.andetag.museum/en/stockholm/tickets/" },
     ]);
   });
@@ -98,17 +98,17 @@ describe("layout seo hooks", () => {
   it("appends x-default when provided", () => {
     const links = buildHreflangLinks(
       {
-        sv: "/stockholm/biljetter/",
+        sv: "/sv/stockholm/biljetter/",
         en: "/en/stockholm/tickets/",
         de: null,
       },
-      "/stockholm/biljetter/",
+      "/sv/stockholm/biljetter/",
     );
 
     expect(links).toEqual([
-      { hreflang: "sv-SE", href: "https://www.andetag.museum/stockholm/biljetter/" },
+      { hreflang: "sv-SE", href: "https://www.andetag.museum/sv/stockholm/biljetter/" },
       { hreflang: "en", href: "https://www.andetag.museum/en/stockholm/tickets/" },
-      { hreflang: "x-default", href: "https://www.andetag.museum/stockholm/biljetter/" },
+      { hreflang: "x-default", href: "https://www.andetag.museum/sv/stockholm/biljetter/" },
     ]);
   });
 });

@@ -1,13 +1,13 @@
 # Phase 3 Verification and Approval Record
 
-Purpose: capture `P3-08` verification evidence and stakeholder sign-off for the component library and `/component-showcase/` route.
+Purpose: capture `P3-08` verification evidence and stakeholder sign-off for the component library and the historical internal verification route **`/component-showcase/`** (removed from the Astro workspace after sign-off on 2026-03-23; this document remains the audit trail).
 
 ## Sign-off
 
 | Field | Value |
 |-------|--------|
 | Phase | 3 |
-| Route | `/component-showcase/` |
+| Route | `/component-showcase/` (retired) |
 | Stakeholder approval | Gustaf (2026-03-22), consolidated showcase pass |
 | Record date | 2026-03-22 |
 
@@ -22,7 +22,7 @@ Run against local static preview after `npm run build` in `site/`, URL `http://1
 
 **Accessibility:** Meets `docs/definition-of-done.md` Phase 3 gate (Accessibility at least 95).
 
-**Performance:** Below the Phase 3 DoD target of 90 for this route. Rationale and approved deviation: `EX-0006` in `docs/migration-exceptions.md`. Follow-up: lazy or consent-gated embed loading and showcase-specific optimizations in later phases.
+**Performance:** Below the Phase 3 DoD target of 90 for this route. Rationale and approved deviation: `EX-0006` in `docs/migration-exceptions.md`. Follow-up: lazy or consent-gated embed loading on migrated pages in later phases.
 
 ## Manual and structural checks (`docs/phase-3-component-qa-checklist.md`)
 

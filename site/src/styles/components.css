@@ -3,12 +3,6 @@
   --component-accent: #d0a4cc;
   --component-link: #4a0d2f;
   --component-focus: #e0e31c;
-  --showcase-bg: #f7dcea;
-  --showcase-text: #111111;
-}
-
-body.theme-pink {
-  background: #f7dcea;
 }
 
 /* Visual Identity: prose uses Baskervville on body; headings stay Jost. */
@@ -546,88 +540,6 @@ body.lightbox-open {
 .embed-fallback {
   margin: 0;
   color: #3b3b3b;
-}
-
-.component-showcase {
-  display: grid;
-  gap: 2rem;
-  background: var(--showcase-bg);
-  color: var(--showcase-text);
-  /* Full-bleed children use viewport-based margins; horizontal padding on this root breaks that math. */
-  --showcase-inline-pad: max(1rem, calc((100vw - 1100px) / 2));
-  padding: 2rem 0 3rem;
-}
-
-.component-showcase > section:first-child {
-  padding-left: var(--showcase-inline-pad);
-  padding-right: var(--showcase-inline-pad);
-}
-
-.component-showcase
-  section.component-demo
-  > *:not(.component-hero):not(.testimonial-carousel):not(.gallery-section):not(.embed-shell-no-frame) {
-  padding-left: var(--showcase-inline-pad);
-  padding-right: var(--showcase-inline-pad);
-  box-sizing: border-box;
-}
-
-/* Outline CTA is for photo backgrounds; on pink demo strip use aubergine ghost so contrast passes. */
-.component-showcase section.component-demo > .button-group .link-cta-outline {
-  color: #4a0d2f;
-  border-color: #4a0d2f;
-  background: transparent;
-  box-shadow: 3px 3px 10px rgba(74, 13, 47, 0.12);
-}
-
-.component-showcase .brand-wordmark,
-.component-showcase h1,
-.component-showcase h2,
-.component-showcase h3,
-.component-showcase p,
-.component-showcase li,
-.component-showcase blockquote,
-.component-showcase figcaption {
-  color: var(--showcase-text);
-}
-
-.component-showcase .testimonial-slide p,
-.component-showcase .testimonial-slide cite {
-  color: #4a0d2f;
-}
-
-/* Hero blocks carry their own light-on-dark typography; do not inherit showcase body text color. */
-.component-showcase .component-hero.is-solid :is(h1, h2, h3, h4),
-.component-showcase .component-hero.is-cover :is(h1, h2, h3, h4) {
-  color: #fafafa;
-}
-
-.component-showcase .component-hero .component-lead {
-  color: #f7dcea;
-}
-
-.component-showcase .component-hero .component-eyebrow {
-  color: #d0a4cc;
-}
-
-.component-showcase .component-hero.is-solid .link-cta-secondary {
-  background: transparent;
-  color: #f7dcea;
-  border-color: #d0a4cc;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
-}
-
-.component-showcase h1,
-.component-showcase h2 {
-  color: #4a0d2f;
-  font-family: "JostLocal", "Jost", Arial, sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 0.3em;
-  line-height: 1.1;
-}
-
-.component-demo {
-  border-top: 1px solid #d0a4cc;
-  padding-top: 1rem;
 }
 
 .embed-shell-video {

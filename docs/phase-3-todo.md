@@ -9,7 +9,7 @@ Status: complete (2026-03-22).
 Phase 3 is complete only when all items marked `P3` are done and approved:
 
 - Reusable component APIs are implemented for the approved migration component set.
-- A dedicated internal component showcase page exists and covers approved variants and states.
+- A dedicated internal verification route existed for approved variants and states (historical **`/component-showcase/`**, removed after sign-off).
 - Component usage guidance is documented with purpose, props, and content constraints.
 - Showcase validation passes visual, accessibility, and responsive checks required by `docs/definition-of-done.md`.
 
@@ -31,7 +31,7 @@ Phase 3 is complete only when all items marked `P3` are done and approved:
   - Resolution:
     - Component implementation strategy is batched: build all approved components and required states before sign-off.
     - Single consolidated sign-off: Gustaf reviews all components and states in one showcase pass, not per-component approvals.
-    - Showcase route policy: use `/component-showcase/`, available in local and preview/staging, excluded from sitemap and production navigation.
+    - Showcase route policy (historical): `/component-showcase/` for local and preview/staging, excluded from sitemap and production navigation; route removed after Phase 3 closure.
 
 - [x] **P3-01 Create reusable layout and component QA checklist template**
   - Owner: AI agent
@@ -116,7 +116,7 @@ Phase 3 is complete only when all items marked `P3` are done and approved:
     - `site/src/components/embeds/WaitlistFormEmbed.astro`
     - `site/src/components/embeds/MapEmbed.astro`
     - `site/src/components/embeds/VideoEmbed.astro`
-    - `site/src/data/component-showcase.ts` (fallback-state scenarios)
+    - Fallback-state scenarios were covered on the historical showcase data module (removed with the showcase route).
 
 - [x] **P3-06 Build dedicated internal component showcase route**
   - Owner: AI agent
@@ -128,10 +128,8 @@ Phase 3 is complete only when all items marked `P3` are done and approved:
     - Test controls or structured data permutations for responsive and state verification.
     - Approval-ready visual presentation for one-pass Gustaf sign-off.
   - Done when: showcase can be used as the single approval surface before page migration starts.
-  - Implementation evidence:
-    - `site/src/pages/component-showcase.astro`
-    - `site/src/layouts/SiteLayout.astro` (`robots` support for `noindex,nofollow`)
-  - Route: `/component-showcase/`
+  - Implementation evidence (historical): `component-showcase.astro` and demo data under `site/src/data/` (removed after sign-off). `site/src/layouts/SiteLayout.astro` retains `robots` support for other `noindex` routes.
+  - Route: `/component-showcase/` (retired)
 
 - [x] **P3-07 Add component usage documentation for migration implementation**
   - Owner: AI agent
@@ -148,7 +146,7 @@ Phase 3 is complete only when all items marked `P3` are done and approved:
 - [x] **P3-08 Run Phase 3 verification and record approval outcomes**
   - Owner: Gustaf + AI agent
   - Inputs:
-    - Component showcase route
+    - Historical component showcase route (see `docs/phase-3-verification-record.md`)
     - Phase 3 QA checklist template from `P3-01`
   - Verify:
     - Lighthouse Performance score on showcase route is at least 90 on mobile profile.
@@ -176,10 +174,10 @@ Phase 3 is complete only when all items marked `P3` are done and approved:
 
 - [x] **CQ-01 Confirm internal URL path and access policy for the component showcase page**
   - Resolution:
-    - Route: `/component-showcase/`
-    - Availability: local and preview/staging
-    - Visibility: excluded from production navigation and sitemap
-  - Why now: Phase 3 approval workflow depends on one stable showcase route.
+    - Route: `/component-showcase/` (retired after Phase 3 sign-off)
+    - Availability was: local and preview/staging
+    - Visibility was: excluded from production navigation and sitemap
+  - Why now: Phase 3 approval workflow depended on one stable showcase route.
 
 - [x] **CQ-02 Confirm which component states are mandatory for sign-off versus optional**
   - Resolution:
@@ -190,7 +188,7 @@ Phase 3 is complete only when all items marked `P3` are done and approved:
 ## Working Rhythm
 
 - Review cadence: one checkpoint per completed `P3` item.
-- Approval rule: implementation proceeds through `P3-04` to `P3-07` without per-component sign-off, and Gustaf provides one consolidated approval in `P3-08` via the showcase page.
+- Approval rule: implementation proceeds through `P3-04` to `P3-07` without per-component sign-off, and Gustaf provided one consolidated approval in `P3-08` via the historical showcase route.
 - Clarification rule: ask clarifying questions immediately when component scope, data contracts, acceptance criteria, or ownership is ambiguous.
 - Change control: any source parity deviation is logged in `docs/migration-exceptions.md`.
 - Decision logging: architecture-impacting decisions are captured as ADRs in `docs/decisions/`.

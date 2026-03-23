@@ -217,5 +217,5 @@ Minimum state requirements for sign-off:
 ## Showcase and Sign-Off Strategy (Phase 3)
 
 - Implementation flow: build all approved components and required states in one batch (`P3-04` to `P3-07`).
-- Showcase route: `/component-showcase/` (local and preview/staging), excluded from sitemap and production navigation.
+- Historical verification route: `/component-showcase/` (retired after Phase 3 sign-off); was local and preview/staging only, excluded from sitemap and production navigation.
 - Approval flow: one consolidated Gustaf sign-off in `P3-08`, after the showcase route renders all required components and states.

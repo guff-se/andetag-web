@@ -182,6 +182,6 @@ Purpose: provide implementation-facing usage guidance for approved Phase 3 compo
 
 ## Verification Notes
 
-- Showcase route for review: `/component-showcase/`
-- Review mode: one consolidated sign-off pass for all required states
+- Historical review route: `/component-showcase/` (retired after Phase 3 sign-off; see `docs/phase-3-verification-record.md`)
+- Review mode was one consolidated sign-off pass for all required states
 - Quality checklist: `docs/phase-3-component-qa-checklist.md`

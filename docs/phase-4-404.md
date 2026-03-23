@@ -7,7 +7,7 @@ Purpose: document the global not-found page for the static Astro build (Phase 4 
 - **Source:** `site/src/pages/404.astro`
 - **Output:** `404.html` at site root of the deploy bundle (Cloudflare serves it for unknown paths).
 - **Layout:** `SiteLayout` with `language="sv"`, `destination="stockholm"`, small Swedish header (`header-2223`), Swedish footer (`footer-207`).
-- **Copy:** Swedish primary heading and body; recovery links to `/`, `/en/`, `/de/berlin/`, `/stockholm/biljetter/`.
+- **Copy:** Swedish primary heading and body; recovery links to **`/sv/stockholm/`**, **`/en/`**, **`/de/berlin/`**, **`/sv/stockholm/biljetter/`**.
 - **SEO:** `robots` `noindex,follow`; no `hreflang` alternates (`xDefaultPath` null).
 - **Accessibility:** Skip link to `#main-content`, visible heading, list of text links (keyboard and screen-reader friendly).
 

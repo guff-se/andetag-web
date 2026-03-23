@@ -42,7 +42,7 @@ sharedSvHeader ? (
 
   <div class="shared-hero-content">
     <div class="shared-hero-top">
-      <a class="shared-hero-logo-link" href="/" aria-label="Go to homepage">
+      <a class="shared-hero-logo-link" href="/sv/stockholm/" aria-label="Go to homepage">
         <img
           class="shared-hero-logo"
           src={HERO_SV_ASSETS.logo}
@@ -92,7 +92,7 @@ sharedSvHeader ? (
           <a href={sharedSvHeader.ticketItem.href}>{sharedSvHeader.ticketItem.label}</a>
         </li>
         <li class="shared-hero-menu-item shared-hero-flag-item">
-          <a href={sharedSvHeader.languageFlags.find((flag) => flag.active)?.href ?? "/"} aria-label="Språk">
+          <a href={sharedSvHeader.languageFlags.find((flag) => flag.active)?.href ?? "/sv/stockholm/"} aria-label="Språk">
             {sharedSvHeader.languageFlags.find((flag) => flag.active)?.flag ?? "🇸🇪"}
           </a>
           <ul class="shared-hero-submenu shared-hero-flag-submenu">
@@ -147,7 +147,7 @@ sharedSvHeader ? (
 <header class="header-root" id="andetag-header">
   <div class="header-container desktop-tablet-only">
     <div class="header-row">
-      <a href="/" class="brand-tag">ANDETAG</a>
+      <a href={model.brandHomeHref} class="brand-tag">ANDETAG</a>
       <div class="selectors" aria-label="Desktop selectors">
         <select
           aria-label="Destination selector"
@@ -204,7 +204,7 @@ sharedSvHeader ? (
 
   <div class="header-container mobile-only">
     <div class="header-row">
-      <a href="/" class="brand-tag">ANDETAG</a>
+      <a href={model.brandHomeHref} class="brand-tag">ANDETAG</a>
       <a class="nav-link is-cta" href={model.header.ctaHref}>{model.header.ctaLabel}</a>
     </div>
     <div class="selectors" aria-label="Mobile selectors">

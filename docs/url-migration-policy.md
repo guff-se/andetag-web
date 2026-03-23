@@ -63,7 +63,7 @@ Purpose: one **necessary** (strictly functional) first-party cookie plus edge lo
 
 **When to set or refresh**
 
-- **`sv`:** user lands on any page under `/sv/stockholm/` (policy path; implement when routes exist) or is sent there from entry routing.
+- **`sv`:** user lands on any page under **`/sv/`** (Swedish language prefix) or is sent there from entry routing.
 - **`de`:** user lands on any page under `/de/berlin/`.
 - **`en-s`:** user chooses Stockholm on the English hub, or lands on any page under `/en/stockholm/`.
 - **`en-b`:** user chooses Berlin on the English hub, or lands on any page under `/en/berlin/`.
@@ -113,10 +113,16 @@ Do not apply this router to other `/en/*` paths.
 
 Update `docs/Andetag SEO Manual.md` and hreflang examples when **`/sv/stockholm/`** and **`/en/`** entry behavior change so **`x-default`** and alternates match this policy.
 
-### Swedish Stockholm path
+### Swedish language prefix (`/sv/`)
 
-- Canonical Swedish Stockholm **home** (new target): **`/sv/stockholm/`** (trailing slash).
-- Existing Swedish URLs under **`/stockholm/...`** and **`/`** from the matrix remain migration subjects: add **`301`** or **`302`** from legacy paths per matrix rows when `/sv/` rollout is implemented (do not invent rows here).
+**Decision:** All **canonical** Swedish HTML pages use an explicit **`/sv/`** language prefix, symmetric with **`/en/...`** and **`/de/...`**.
+
+- **Stockholm Swedish** content lives under **`/sv/stockholm/...`** (home **`/sv/stockholm/`**, trailing slash).
+- **Shared Swedish** brand pages (for example music, about, artists, optical-fibre textile) use **`/sv/<slug>/`** at the site root segment (for example **`/sv/musik/`**, **`/sv/om-andetag/`**).
+- **Legacy** unprefixed URLs from the live WordPress site (**`/`**, **`/stockholm/...`**, **`/musik/`**, **`/om-andetag/`**, and similar) are **not** canonical: the URL matrix lists them as **`redirect`** rows with **`301`** to the matching **`/sv/...`** path. Repo rules live in **`site/public/_redirects`**; keep matrix and redirects aligned.
+- **Privacy** remains **`/privacy/`** for all locales (unchanged).
+
+Canonical Swedish Stockholm **home:** **`/sv/stockholm/`**.
 
 ### Redirect test expectations (when implemented)
 
@@ -125,13 +131,15 @@ Update `docs/Andetag SEO Manual.md` and hreflang examples when **`/sv/stockholm/
 
 ## SEO Landing Page Policy
 
-The following Swedish Stockholm SEO landing pages remain indexable and live:
+The following Swedish Stockholm SEO landing pages remain indexable and live at their **canonical** paths:
 
-- `/stockholm/aktivitet-inomhus-stockholm/`
-- `/stockholm/att-gora-stockholm/`
-- `/stockholm/museum-stockholm/`
-- `/stockholm/npf-stockholm/`
-- `/stockholm/utstallning-stockholm/`
+- `/sv/stockholm/aktivitet-inomhus-stockholm/`
+- `/sv/stockholm/att-gora-stockholm/`
+- `/sv/stockholm/museum-stockholm/`
+- `/sv/stockholm/npf-stockholm/`
+- `/sv/stockholm/utstallning-stockholm/`
+
+Legacy **`/stockholm/...`** requests **`301`** to the **`/sv/stockholm/...`** equivalents.
 
 Policy notes:
 - These may share base content blocks, but each page can keep distinct SEO intent fields (title, meta description, hero/header text, and opening copy).

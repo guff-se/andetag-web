@@ -73,6 +73,7 @@ Reference docs before implementation:
 | `docs/phase-2-todo.md` | Execution checklist for Phase 2 shared layout system deliverables and approvals. |
 | `docs/phase-3-todo.md` | Execution checklist for Phase 3 component library, showcase approval, and verification gates. |
 | `docs/phase-4-todo.md` | Execution checklist for Phase 4 routing, redirects, canonical or hreflang wiring, and URL coverage validation. |
+| `docs/phase-5-todo.md` | Execution checklist for Phase 5 page migration, entry static targets, Worker staging or production enable, and Swedish-first approval gates. |
 | `docs/phase-7-todo.md` | Execution checklist for Phase 7 scripts, consent, analytics, favicon, sharing metadata, schema.org, sitemap, and launch hardening. |
 | `docs/phase-4-route-coverage.md` | URL matrix to Astro shell and `_redirects` mapping for Phase 4 route coverage. |
 | `docs/phase-4-routing-reopen.md` | Post-closure routing revisit: location and language matrix, Berlin or Stockholm parity, global pages and navigation. |
@@ -80,7 +81,7 @@ Reference docs before implementation:
 | `docs/phase-4-404.md` | Phase 4 global `404` behavior and accessibility notes. |
 | `docs/phase-4-verification-record.md` | Phase 4 verification evidence and stakeholder sign-off (parallel to Phase 3 record). |
 | `docs/phase-3-component-qa-checklist.md` | Reusable QA checklist template for Phase 3 component verification and showcase sign-off. |
-| `docs/phase-3-verification-record.md` | Phase 3 `P3-08` Lighthouse results, manual QA summary, and stakeholder sign-off for `/component-showcase/`. |
+| `docs/phase-3-verification-record.md` | Phase 3 `P3-08` Lighthouse results, manual QA summary, and stakeholder sign-off (historical internal showcase route, since removed). |
 | `docs/phase-3-fixture-strategy.md` | Deterministic fixture strategy and coverage map for Phase 3 layout and component regression checks. |
 | `docs/phase-3-component-inventory.md` | Source-backed Phase 3 component inventory and approved API contracts. |
 | `docs/phase-3-component-usage.md` | Implementation-facing usage reference for approved Phase 3 components and embeds. |
@@ -219,7 +220,7 @@ Astro workspace (`site/`): `npm test` and `npm run build` (also run on `push` to
 - Keep CSS selector naming design-scoped and reusable (`shared-*`), language-specific files should provide content and routing differences only.
 - When a source template has distinct mobile navigation behavior, implement that behavior directly instead of collapsing to desktop interaction patterns.
 - For sticky UI elements that start near or outside viewport bounds, calculate stick points from the element's real document position and recalculate on resize.
-- Maintain dedicated preview routes for high-change variants during parity tuning to reduce feedback latency and regression risk.
+- During active layout or component parity work, optional dedicated preview routes under `site/src/pages/` can shorten review cycles. **Remove those routes and any `_redirects` entries or doc references that exist only for them when the owning phase is marked complete**, unless follow-up is logged in `docs/migration-exceptions.md` or the relevant phase todo with an owner. After closure, rely on matrix shells, tests, and verification records for regression (see **Phase closure cleanup** below).
 
 ---
 
@@ -253,8 +254,9 @@ When a phase is marked complete, always perform a forward audit across all remai
 2. Identify assumptions or decisions that changed in the completed phase and could invalidate future phase plans.
 3. Update affected planning docs in the same task, or explicitly log unresolved impacts as gaps/exceptions with owners and target phases.
 4. Ask clarifying questions immediately when a future-phase dependency is ambiguous or requires stakeholder approval.
+5. **Phase closure cleanup:** remove human-auditing scaffolding that was created **only** for the phase being closed (for example temporary preview pages under `site/src/pages/`, redirect rules in `site/public/_redirects` that only served those pages, duplicate scratch checklists in `docs/` when the phase verification record already holds evidence). **Keep** regression tests, fixtures, and signed verification records required by `docs/definition-of-done.md`. If something must stay temporarily, log it with owner and removal target in `docs/migration-exceptions.md` or the phase todo.
 
-Rule: no phase closure is final until this forward audit has been completed and documented.
+Rule: no phase closure is final until this forward audit has been completed and documented, and applicable cleanup has been executed or explicitly deferred with an owner.
 
 ---
 

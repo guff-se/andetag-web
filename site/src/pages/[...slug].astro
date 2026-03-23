@@ -7,7 +7,7 @@ import {
 } from "../lib/routes/page-shell-registry";
 
 export function getStaticPaths() {
-  return PAGE_SHELL_PATHS.filter((p) => p !== "/").map((canonicalPath) => ({
+  return PAGE_SHELL_PATHS.map((canonicalPath) => ({
     params: { slug: slugParamForShellPath(canonicalPath) },
   }));
 }

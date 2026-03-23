@@ -20,13 +20,13 @@ Validated with `curl -sI` on deployed Workers static assets:
 
 ## Static route shells
 
-- **Build:** `npm run build` in `site/` produces `index.html` plus one `index.html` per matrix `keep` path under `[...slug].astro` (49 content shells plus internal preview routes).
+- **Build:** `npm run build` in `site/` produces `index.html` plus one `index.html` per matrix `keep` path under `[...slug].astro`, plus non-matrix **`404.html`**.
 - **Parity:** `site/src/lib/routes/url-matrix-parity.test.ts` asserts `docs/url-matrix.csv` `keep` canonical paths match `PAGE_SHELL_PATHS` exactly.
 
 ## Hreflang and canonical
 
 - BCP47 attribute mapping (`sv-SE`, `en`, `de-DE`) and optional `x-default` via `site/src/lib/layout/seo.ts` and `page-shell-registry.ts`.
-- Spot-check: view source on `/`, `/en/stockholm/tickets/`, `/de/berlin/` for `link rel="canonical"` and `alternate` tags.
+- Spot-check: view source on **`/sv/stockholm/`**, **`/en/stockholm/tickets/`**, **`/de/berlin/`** for `link rel="canonical"` and `alternate` tags (and that **`/`** responds with **`301`** to **`/sv/stockholm/`** where redirects apply).
 
 ## Known exception
 

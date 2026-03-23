@@ -30,7 +30,7 @@ const DESTINATION_LANGUAGE_SUPPORT: Record<Destination, Language[]> = {
 
 const DESTINATION_HOME_PATHS: Record<Destination, Record<Language, string | null>> = {
   stockholm: {
-    sv: "/",
+    sv: "/sv/stockholm/",
     en: "/en/",
     de: null,
   },
@@ -49,41 +49,41 @@ const NAVIGATION_VARIANTS: Record<NavigationVariant["id"], NavigationVariant> = 
     items: [
       {
         label: "Besok",
-        href: "/stockholm/biljetter/",
+        href: "/sv/stockholm/biljetter/",
         children: [
-          { label: "Biljetter", href: "/stockholm/biljetter/" },
-          { label: "Sasongskort", href: "/stockholm/sasongskort/" },
-          { label: "Presentkort", href: "/stockholm/presentkort/" },
-          { label: "Oppettider", href: "/stockholm/oppettider/" },
-          { label: "Hitta till oss", href: "/stockholm/hitta-hit/" },
-          { label: "Tillganglighet", href: "/stockholm/tillganglighet/" },
-          { label: "Vanliga fragor", href: "/stockholm/fragor-svar/" },
+          { label: "Biljetter", href: "/sv/stockholm/biljetter/" },
+          { label: "Sasongskort", href: "/sv/stockholm/sasongskort/" },
+          { label: "Presentkort", href: "/sv/stockholm/presentkort/" },
+          { label: "Oppettider", href: "/sv/stockholm/oppettider/" },
+          { label: "Hitta till oss", href: "/sv/stockholm/hitta-hit/" },
+          { label: "Tillganglighet", href: "/sv/stockholm/tillganglighet/" },
+          { label: "Vanliga fragor", href: "/sv/stockholm/fragor-svar/" },
         ],
       },
       {
         label: "Upplevelsen",
-        href: "/stockholm/dejt/",
+        href: "/sv/stockholm/dejt/",
         children: [
-          { label: "Dejt pa ANDETAG", href: "/stockholm/dejt/" },
-          { label: "Art Yoga", href: "/stockholm/art-yoga/" },
-          { label: "Musiken", href: "/musik/" },
+          { label: "Dejt pa ANDETAG", href: "/sv/stockholm/dejt/" },
+          { label: "Art Yoga", href: "/sv/stockholm/art-yoga/" },
+          { label: "Musiken", href: "/sv/musik/" },
         ],
       },
       {
         label: "Grupper",
-        href: "/stockholm/foretagsevent/",
-        children: [{ label: "Foretagsevent", href: "/stockholm/foretagsevent/" }],
+        href: "/sv/stockholm/foretagsevent/",
+        children: [{ label: "Foretagsevent", href: "/sv/stockholm/foretagsevent/" }],
       },
       {
         label: "Om ANDETAG",
-        href: "/om-andetag/",
+        href: "/sv/om-andetag/",
         children: [
-          { label: "Textilen", href: "/textilen/" },
-          { label: "Om konstnarerna", href: "/om-konstnarerna/" },
+          { label: "Textilen", href: "/sv/optisk-fibertextil/" },
+          { label: "Om konstnarerna", href: "/sv/om-konstnarerna-malin-gustaf-tadaa/" },
           { label: "ANDETAG Berlin", href: "/de/berlin/" },
         ],
       },
-      { label: "Biljetter", href: "/stockholm/biljetter/", cta: true },
+      { label: "Biljetter", href: "/sv/stockholm/biljetter/", cta: true },
     ],
   },
   "en-main": {
@@ -196,6 +196,11 @@ export function getNavigationVariant(input: NavSelectionInput): NavigationVarian
   return NAVIGATION_VARIANTS[variantId];
 }
 
+/** Home URL for the non-hero header brand link (same language and destination as the page). */
+export function getBrandHomeHref(language: Language, destination: Destination): string {
+  return DESTINATION_HOME_PATHS[destination][language] ?? "/sv/stockholm/";
+}
+
 export function getLanguageSelectorOptions(input: {
   language: Language;
   destination: Destination;
@@ -205,7 +210,7 @@ export function getLanguageSelectorOptions(input: {
   return supportedLanguages.map((language) => ({
     value: language,
     label: LANGUAGE_LABELS[language],
-    href: DESTINATION_HOME_PATHS[input.destination][language] ?? "/",
+    href: DESTINATION_HOME_PATHS[input.destination][language] ?? "/sv/stockholm/",
     active: language === input.language,
   }));
 }
@@ -225,7 +230,7 @@ export function getDestinationSelectorOptions(input: {
     return {
       value: destination,
       label: DESTINATION_LABELS[destination],
-      href: DESTINATION_HOME_PATHS[destination][destinationLanguage] ?? "/",
+      href: DESTINATION_HOME_PATHS[destination][destinationLanguage] ?? "/sv/stockholm/",
       active: destination === input.destination,
     };
   });

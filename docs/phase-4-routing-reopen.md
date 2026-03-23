@@ -44,7 +44,7 @@ Source of truth: **`docs/url-migration-policy.md`**, section **Entry routing, `A
 
 ## Historical baseline (superseded for entry URLs when `/sv/` ships)
 
-- **Option A** in `docs/ia-language-destination-options.md` assumed Swedish at **`/`** without a **`/sv/`** prefix. The entry-routing decision adds **`/sv/stockholm/`** and edge behavior on **`/`**; update that doc when routing is implemented.
+- **`docs/ia-language-destination-options.md`** now records explicit **`/sv/`** as the Swedish language prefix; legacy unprefixed paths **`301`** to **`/sv/...`** (matrix + **`_redirects`**).
 - **SEO:** `docs/Andetag SEO Manual.md` will need **`x-default`** and hreflang examples aligned with **`/sv/stockholm/`** and the English hub.
 - **Global pages** today sit outside `/stockholm/` and `/berlin/` trees (for example `/om-andetag/`, `/en/about-andetag/`, `/de/ueber-andetag/`).
 
@@ -95,18 +95,18 @@ Location pages: alternates are **same city, other languages** only. Global pages
 
 Phase 4 remains **valid for the closed matrix** until you flip production entry behavior. Nothing must be torn out **immediately** solely because policy was updated. The items below are **reimplementation or realignment** work triggered when **`/sv/stockholm/`**, the **`/en/`** hub model, the **Worker**, and matrix updates go live.
 
-| Area | Current Phase 4 behavior | What changes |
+| Area | Current repo behavior | What changes when the entry Worker ships |
 |------|-------------------------|--------------|
-| **`/`** | `site/src/pages/index.astro` serves a **static Swedish home** with full `SiteLayout` and hreflang paired to **`/en/`**. | Production **`/`** is an **edge router**, not the Swedish home document. Keep a static **`/`** only for **local preview without Worker** (optional stub), or document that preview must run the Worker. Swedish home content moves to **`/sv/stockholm/`**. |
-| **`page-shell-registry.ts`** | **`SV_EN_PAIRS`** includes **`["/", "/en/"]`**; **`resolveSeo`** uses **`/`** as **`x-default`** for many Swedish pages; **`/en/stockholm/`** uses **`xDefaultPath: "/"`**. | Rebuild pairs and **`resolveSeo`** so **canonical Swedish home** is **`/sv/stockholm/`** (and English hub **`/en/`** has its own hreflang story). Update **`x-default`** and **`/en/stockholm/`** defaults per **`docs/Andetag SEO Manual.md`** after edit. |
-| **`layoutVariantsForPath`** | Treats **`/`** and **`/en/`** as special hub variants (`header-192`, `header-918`). | Add **`/sv/stockholm/`** (and any new hub rules); adjust **`/`** if a minimal shell is ever served. |
-| **`page-shell-meta.json` / extractor** | Metadata keyed to current paths including **`/`**. | New rows for **`/sv/stockholm/`**, updated **`/en/`** hub; legacy **`/`** may drop out of indexable meta or become router-only. |
-| **`public/_redirects`** | Repo rules for **`/de/`**, legacy EN aliases, privacy. | Add **matrix-driven** rules for legacy Swedish home → **`/sv/stockholm/`** (or rely on Worker only for **`/`**; avoid double redirects). |
-| **Tests** | `page-shell-registry.test.ts`, `url-matrix-parity.test.ts`, layout fixtures. | Expectation updates for hreflang, **`x-default`**, and any new paths. |
-| **`404.astro` / `phase-4-404.md`** | Recovery links include **`/`** as Swedish entry. | Point recovery at **`/sv/stockholm/`**, **`/en/`**, **`/de/berlin/`** as policy dictates. |
-| **Worker** | Not in repo Phase 4 scope. | **New** deliverable: cookie, **`Accept-Language`**, bot list, **`302`** rules; extend **`docs/phase-4-redirect-tests.md`** (or successor) for **`/`** and **`/en/`** entry cases. |
+| **`/`** | **`index.astro`** and **`_redirects`** **`301`** to **`/sv/stockholm/`**; Swedish home is a normal shell route. | Production **`/`** becomes an **edge router** (`302` by policy). Coordinate so static **`301`** and Worker **`302`** do not chain incorrectly. |
+| **`page-shell-registry.ts`** | **`/sv/stockholm/...`** canonicals; **`SV_EN_PAIRS`** pairs **`/sv/stockholm/`** with **`/en/`**; **`x-default`** for paired pages points at Swedish **`/sv/...`** paths. | SEO manual examples and any **`x-default`** policy tweaks after live URLs settle. |
+| **`layoutVariantsForPath`** | Hub variants for **`/sv/stockholm/`** and **`/en/`**. | Adjust only if hub set grows. |
+| **`page-shell-meta.json` / extractor** | Keys use **`/sv/...`**; run **`npm run page-shell:meta`** after **`site-html/`** updates. | None beyond ongoing extraction. |
+| **`public/_redirects`** | Swedish legacy paths **`301`** to **`/sv/...`**; see **`docs/url-matrix.csv`**. | Avoid duplicate redirects with Worker for **`/`** if both apply. |
+| **Tests** | Registry and matrix parity tests enforce **`keep`** paths vs shells. | Add or extend tests when Worker behavior is testable in CI if desired. |
+| **`404.astro` / `phase-4-404.md`** | Recovery links use **`/sv/stockholm/`**. | None. |
+| **Worker** | Not in repo yet. | **New** deliverable: cookie, **`Accept-Language`**, bot list, **`302`** rules; extend **`docs/phase-4-redirect-tests.md`** for **`/`** and **`/en/`** entry cases. |
 
-**Not reimplemented:** `[...slug].astro` shell pattern, `SiteLayout` + `seo.ts` hreflang **mechanics**, trailing-slash config, global **404** pattern, and existing **`_redirects`** rows that still match policy. Those **stay**; only **data and routing rules** around the **entry URLs** and **new paths** change.
+**Stable:** `[...slug].astro` shell pattern, `SiteLayout` + `seo.ts` hreflang **mechanics**, trailing-slash config, global **404** pattern. **Evolving:** Worker versus static ownership of **`/`** and query preservation at the edge.
 
 ## Clarifying questions for stakeholders
 
