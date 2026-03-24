@@ -100,6 +100,9 @@ Reference docs before implementation:
 | `docs/testimonials-reimplementation-options.md` | Research and strategic options for customer testimonials and social proof (discussion before implementation). |
 | `docs/design-extraction-method.md` | Reproducible method for extracting design tokens and component patterns from all CSS sources. |
 | `docs/phase-1-analysis-schema.md` | Structured tables for Phase 1 variant, widget, and integration analysis. |
+| `docs/site-structure-refactor-plan.md` | Side phase: `site/src/` layout inventory, **locked** tree (ADR 0003), phased `git mv`, §6.1 stale-path `rg`, fixed CHANGELOG + **S7 skip** rules. **Executable by the maintainer agent alone** (no stakeholder input). **Status:** ready for execution until complete. |
+| `docs/phase-structure-todo.md` | Execution checklist for the site structure refactor (S0–S8); record baseline hash and check off phases. |
+| `docs/decisions/0003-site-src-structure.md` | **Accepted** ADR: final folder names (`chrome`, `page-bodies`, `page-registry`, `ui-logic`, `client-scripts`). |
 | `docs/decisions/README.md` | ADR template, naming convention, and decision lifecycle process. |
 
 **Rule:** If behavior changes, update the relevant doc in the same task.
@@ -151,6 +154,7 @@ web/
 ├── docs/                     # Migration, SEO, tone, and site architecture specs
 ├── site-html/                # Scraped HTML pages and downloaded WP assets
 ├── site-md/                  # Markdown snapshots from crawler
+├── site/                     # Astro workspace (`npm test`, `npm run build`); see `docs/site-structure-refactor-plan.md` + `docs/phase-structure-todo.md` for src layout refactor (ADR 0003)
 └── seo-content/              # SEO content drafts (currently mostly Swedish)
 ```
 

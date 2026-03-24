@@ -17,6 +17,7 @@ Examples:
 
 - `docs/decisions/0001-static-stack-selection.md`
 - `docs/decisions/0002-consent-platform-selection.md`
+- `docs/decisions/0003-site-src-structure.md`
 
 ## ADR One-Page Template
 
