@@ -1,0 +1,39 @@
+---
+import ContentSection from "../content/ContentSection.astro";
+
+/**
+ * `site-html/om-andetag.html` wp-page **2945**. Internal links → `/sv/...`.
+ */
+const heroMarkdown =
+  "<h1><span class=\"brand-wordmark\">ANDETAG</span> - Konstverket</h1>" +
+  "<p><span class=\"brand-wordmark\">ANDETAG</span> är ett pågående konstprojekt av Malin Tadaa och Gustaf Tadaa, som vecklar ut sig genom sammanlänkade konstverk, installationer och rum formade av ett gemensamt mänskligt andetag.</p>";
+
+const breathMarkdown = [
+  "<h3>Ett verk format av ett andetag</h3>",
+  "<p>Allt började med ett ljud. Under arbetet med <a href=\"https://imbuedart.com\">Imbued</a>, Malin och Gustafs tidigare projekt, redigerade Gustaf inspelningar av Malins guidade meditationer. I början av en inspelning sa hon ”take a breath”, följt av ljudet av hennes andning, en enda inandning och utandning. När Gustaf lade detta ljud i loop och arbetade fram dess närvaro, uppstod en fråga: vad händer om ett konstverk byggs helt kring ett andetag?</p>",
+  "<p>En idé blev snabbt central. Genom internet skulle verken kunna andas tillsammans, oavsett var i världen de befann sig. På så sätt kunde känslan av att vara del av något större bli nästan bokstavlig.</p>",
+  "<h3>Att ge andetaget en kropp</h3>",
+  "<p>För att något skulle kunna andas behövdes en kropp. Malin har arbetat med <a href=\"/sv/optisk-fibertextil/\">vävda optiska fibrer</a> sedan 2012, och denna textilkonst med vävt ljus kom att utgöra projektets materiella grund. När formen tog gestalt blev det tydligt att den behövde vara vertikalt symmetrisk, ibland kallad ”livets symmetri”. En sådan symmetri väcker igenkänning innan tolkning. Den aktiverar spegelneuroner och sinnets tendens att projicera sig självt i det som betraktas, vilket gör att formen uppfattas som levande innan den förstås.</p>",
+  "<p>Samtidigt blev det tydligt att ljusets rörelse behövde baseras på ett faktiskt inspelat luftflöde från Malins andning. Endast på så sätt kunde rörelsen kännas organisk och instinktivt identifieras som andning.</p>",
+  "<p>Det inspelade andetaget blev grunden för ett generativt system som styr ljusets rörelse och skapar animationer som aldrig upprepar sig. Varje ögonblick är matematiskt bestämt men återkommer aldrig. Över längre tidsförlopp förändras verket långsammare, med färgskiften som styrs av planeternas rörelser snarare än mänskliga scheman, vilket låter tiden passera utan att markeras.</p>",
+].join("");
+
+const etymologyMarkdown =
+  "<p><span style=\"font-size: 1.2em;\">andetag [ˈanːdetaːɡ]</span></p><p><span style=\"font-weight: 400;\">Från </span><i><span style=\"font-weight: 400;\">ande</span></i><span style=\"font-weight: 400;\"> + </span><i><span style=\"font-weight: 400;\">tag</span></i><span style=\"font-weight: 400;\">.</span><span style=\"font-weight: 400;\"><br /></span><span style=\"font-weight: 400;\">Svenskt substantiv.</span></p><ol><li><span style=\"font-weight: 400;\">en fullständnig inandning och utandning av luft ur lungorna.</span></li></ol>";
+
+const closingMarkdown = [
+  "<p>Inför den första presentationen på <a href=\"https://artmiami.com/\">Art Miami</a> valdes det svenska ordet andetag, trots att de flesta besökare inte skulle förstå det. Just därför. Ordet förenar ande och tag, att ta in anden, vilket kändes sannare än någon engelsk motsvarighet för att beskriva verket.</p>",
+  "<p>Tidiga verk visades internationellt, bland annat i New York, Oslo och på Institut suédois i Paris, innan projektet återvände till Stockholm. Det som framstår som ett enskilt objekt är del av ett distribuerat system som sträcker sig över geografin, ett enda andetag uttryckt på många platser samtidigt. I dag finns över tjugo verk hos privata samlare i Seattle, New York, Miami, Costa Rica, Portugal och runt om i Sverige, alla andandes tillsammans.</p>",
+  "<h3>Från enskilda verk till gemensam konstupplevelse</h3>",
+  "<p><span class=\"brand-wordmark\">ANDETAG</span> började som en serie om femtio individuella konstverk placerade i olika sammanhang runt om i världen. Med tiden krävde projektet mer utrymme och rörde sig från enskilda objekt mot miljöer där den gemensamma rytmen kunde upplevas kollektivt.</p>",
+  "<p>När skalan växte blev ljudet avgörande. Originalmusik komponerad av Gustaf Tadaa och Povel Olsson växte fram som en fortsättning på samma principer, formad av andning, varaktighet och återhållsamhet. Ljus, textil och ljud fogades samman till omslutande miljöer tänkta som sekulära heliga rum: platser utan dogm eller tro, men präglade av stillhet, uppmärksamhet och en gemensam rytm. I januari 2025 öppnade <span class=\"brand-wordmark\">ANDETAG</span> Stockholm som den hittills mest fullständiga gestaltningen av denna idé. Berlin markerar nästa steg och för samma gemensamma andetag vidare till en ny stad. Formen förändrades, men rytmen förblev densamma.</p>",
+  "<p><span class=\"brand-wordmark\">ANDETAG</span> är inte ett avslutat verk. Nya delar fortsätter att skapas och placeras, och nya uttryck får växa fram. Ingenting hastas fram. Projektet förblir öppet och förändras långsamt, ett andetag i taget.</p>",
+].join("");
+---
+
+<div class="page-migrated page-om-andetag-sv">
+  <ContentSection markdown={heroMarkdown} />
+  <ContentSection markdown={breathMarkdown} />
+  <ContentSection markdown={etymologyMarkdown} />
+  <ContentSection markdown={closingMarkdown} />
+</div>

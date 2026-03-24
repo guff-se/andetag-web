@@ -7,18 +7,85 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ## [Unreleased]
 
+### Added
+
+- **Tripadvisor brand assets in testimonial aggregate:** **`site/public/assets/tripadvisor/tripadvisor-5dots.png`** and **`tripadvisor-logo.svg`** (from repo root sources), shown in **`TestimonialCarousel`** when **`aggregate`** is set and **`showTripAdvisorBrand`** is not false. **Why:** summary row matches Tripadvisor visual language while keeping figures in text.
+
+- **Preview · mock testimonial carousel:** **`/preview/testimonial-mock-quotes/`** (`noindex`) uses three fictional quotes from **`testimonial-mockup-items.ts`**; slide rotation is the **`TestimonialCarousel.astro`** client script (**`js-testimonial-carousel`**). **Why:** layout QA without sourcing copy as real reviews.
+
+- **`TestimonialCarousel` / Stockholm home + SEO landings:** Root **`testimonial-block`** with **`testimonial-block__bg`** and full-band **`testimonial-block__overlay`** over photo, quotes, and optional **`aggregate`**. **`stockholm-testimonial-aggregate.ts`** (Tripadvisor stats per besökaromdömen source). Docs: **`phase-3-component-usage.md`**, **`phase-3-component-inventory.md`**.
+
+- **`docs/testimonials-reimplementation-options.md`:** Research-backed options (carousel evolution, trust strip, hub-first) for reimplementing testimonials and 4.9-style social proof; aligns with tone, accessibility, and **EX-0002**/**EX-0012**. **`AGENTS.md`** documentation table updated. **Why:** stakeholder review before implementation.
+
+- **Phase 5 (second batch, complete implementation queue):** Remaining alphabetical **`/sv/`** shells from **`docs/phase-5-todo.md`**: **`OmAndetagSv`**, **`OmKonstnarernaSv`**, **`StockholmAktivitetInomhusSv`**, **`StockholmAttGoraSv`**, **`StockholmMuseumSv`**, **`StockholmUtstallningSv`** (shared **`StockholmSeoLandingSv`** + **`stockholm-marketing-faq-sv.ts`**), **`BesokaromdomenSv`**, **`HittaHitSv`**, **`NpfStockholmSv`**, **`OppettiderSv`**, **`PresentkortSv`**, **`SasongskortSv`**, **`TillganglighetSv`**, **`VilkenTypAvUpplevelseSv`**. **`page-body-registry`** now **23** paths; **`[...slug].astro`** uses shared **`ShellPageBody`** typing; page-specific layout in **`components.css`**. **`docs/migration-exceptions.md`**: **EX-0012** (TripAdvisor slider on besökaromdömen + SEO landings, extends **EX-0002**). **`docs/phase-5-todo.md`** and **`docs/phase-5-verification-record.md`** updated. **`npm test`** and **`npm run build`** verified. **Why:** close the agreed second-batch migration queue before batch design sign-off.
+
+- **Phase 5 (second batch):** **`/sv/musik/`** body from **`site-html/musik.html`** (`wp-page` 2162) via **`MusikSv.astro`**: **`h1`** + prose (**`.brand-wordmark`**), streaming links (Spotify, Apple Music, Soundcloud, Bandcamp), Povel Olsson credit; Spotify album **`iframe`** in **`embed-shell`** (legacy embed URL). **`page-body-registry`**, **`[...slug].astro`**, **`page-body-registry.test.ts`**, **`components.css`**. **`docs/phase-5-verification-record.md`**, **`docs/phase-5-todo.md`**. Pending batch design approval.
+
+- **Phase 5:** **`/sv/stockholm/`** (Swedish Stockholm home) body from **`site-html/index.html`** (`wp-page` 2) via **`StockholmHomeSv.astro`**: intro, FAQ accordion (all closed on load), gallery, biljett/säsong/privat bands, booking hero, Art Yoga, English **`TestimonialCarousel`** (TripAdvisor shortcode omitted per **EX-0002**), Vimeo embed, partners, kontakt/press blocks, map (**`#hitta`**). **`AccordionSection`:** optional **`initialOpenIndex`** (use **`null`** for home). Asset: **`Andetag-18-058-copy2-1024x683.jpg`** in **`site/public/wp-content/uploads/2024/11/`**. **`page-body-registry`**, **`[...slug].astro`**, **`page-body-registry.test.ts`**, **`components.css`**, **`docs/phase-3-component-usage.md`**. Design-approved **`docs/phase-5-verification-record.md`** (2026-03-23, Gustaf); Swedish Stockholm first-wave items **1–8** closed. **`docs/phase-5-todo.md`** Immediate Next 3 Actions updated.
+
+### Removed
+
+- **`site/src/pages/preview/testimonials-mockups-sv.astro`** and **`site/src/styles/testimonial-mockups-preview.css`:** testimonial mockup preview route and styles (superseded by production **`testimonial-block`**).
+
+### Changed
+
+- **`components.css`:** **`page-stockholm-home__cta-after-testimonials`** top margin **`1rem` → `4rem`** (Upplev Andetag! below testimonials). **`docs/phase-3-component-usage.md`** updated.
+
+- **`stockholm-testimonial-aggregate.ts` / `TestimonialCarousel`:** Stockholm aggregate **`meta`** is **`165 recensioner`** only (no second **4,9 av 5** or **Tripadvisor** after the score row and brand assets). Link text **`Läs alla recensioner`** with **`linkAriaLabel`** **`Läs alla recensioner på Tripadvisor`**. **Why:** avoid repeating score and platform on screen.
+
+- **`TestimonialCarousel`:** Replaced jQuery with a small vanilla **`setupTestimonialCarousel`** (native **`transitionend`** on **`transform`**, timeout fallback, **`dataset`** for init/transition guard). **Why:** reliable autoplay and arrow controls across browsers. **`docs/phase-3-component-usage.md`** updated.
+
+- **`components.css` · testimonial band:** Tighter gap from quote carousel to aggregate (**`testimonial-block__aggregate-inner`** padding-top **`0.65rem`**), more space below Tripadvisor link (padding-bottom **`2.35rem`**); **`testimonial-block__carousel`** **`isolation: isolate`**; nav **`z-index: 5`**. **Why:** spacing feedback and clearer hit targets.
+
+- **`TestimonialCarousel` / `components.css`:** Single **`testimonial-block__overlay`** (full-band light veil) replaces separate carousel overlay and aggregate gradient scrim.
+
+- **`TestimonialCarousel`:** Removed pause (**Pausa**) control and **`pauseControl`** props; **`components.css`** drops **`.testimonial-pause`**. Docs: **`phase-3-component-usage.md`**, **`phase-3-component-inventory.md`**.
+
+- **`AccordionSection` / `components.css` / FAQ data:** Optional **`titleHtml`** for questions with **`.brand-wordmark`**; scoped **`.brand-wordmark`** rules under **`.accordion-item-toggle`** and **`.accordion-item-body`**; **`strong`** in accordion answers uses **Jost** **`700`**. **`stockholm-marketing-faq-sv.ts`**, **`FragorSvarSv.astro`**, **`DejtSv.astro`**; **`StockholmHomeSharedBody.astro`** imports **`stockholmMarketingFaqSv`** instead of duplicating the array. **`docs/phase-3-component-usage.md`**.
+
+- **`HittaHitSv.astro` / `components.css`:** **Hitta till ANDETAG** uses a **grid** (**`title | map`** / **`body | map`**) so the **h1** aligns with the **top** of the map; **square** map (**`aspect-ratio: 1 / 1`**); **`page-hitta-hit-sv__map-frame`**; footer address **centered**; **`strong`** in directions uses **Jost** **`700`** (Baskerville has no bold master). Matches **`stockholm-hitta-hit.html`** structure.
+
+- **`components.css`:** **Om konstnärerna** circular portraits (**`.page-om-konstnarerna-sv__figure--portrait`**) use **double** **`clamp`** size (**`15rem` / `52vw` / `22rem`**).
+
+- **`components.css`:** **Om konstnärerna** artist bios (**`.page-om-konstnarerna-sv__duo-grid`**) stay a **single column** of rows at all breakpoints so each artist is portrait left and text right (removed desktop **`1fr 1fr`** that placed Malin and Gustaf side by side).
+
+- **`docs/phase-5-todo.md`:** First wave marked **complete**; **second batch** lists all **15** remaining **`/sv/`** shells from **`page-shell-meta.json`** in **strict alphabetical** path order with **`site-html/`** sources; **batch approval** exception after the queue is built; **`P5-03`** and **Immediate Next 3 Actions** updated. **`AGENTS.md`** documentation table note for **`phase-5-todo`**.
+
+- **`layout.css` / `components.css`:** Unified vertical gap from the **shared Swedish hero nav** to the **first main column block** using **`--page-shell-main-top-gap`** on **`.main-content`** (**`padding-top`**), **`margin-top: 0`** on the first nested block under **`<main>`**, and **`margin-bottom: 0`** on **`.shared-hero-header.is-small`** (was stacking with main and section margins). **`docs/phase-3-component-usage.md`**.
+
+- **`MapEmbed`:** Optional **`unframed`** (same shell treatment as **`BookingEmbed`**). **`StockholmHomeSv`:** **Var är ANDETAG?** uses **`content-section`** **`h2`** typography; prose + **`unframed`** map in a two-column grid from **`768px`**; directions use **`Från tunnelbanan:`** / **`Från gatan:`** in **`strong`**. **`components.css`**, **`docs/phase-3-component-usage.md`**, **`docs/phase-3-component-inventory.md`**.
+
+- **`BookingEmbed`:** Shell always includes **`booking-embed`**; heading above the Understory widget is **always centered** (removed **`headingAlign`**). **`components.css`**, **`docs/phase-3-component-usage.md`**, **`docs/phase-3-component-inventory.md`**. **`StockholmHomeSv`:** lead line full width above the intro/booking grid; intro copy left-aligned; **Hitta hit** on its own row (**`.page-stockholm-home__hitta-row`**).
+
+- **`StockholmHomeSv`:** **Hitta hit** (**`StyledLink`**) uses **`cta-primary`** instead of **`cta-outline`** (hero and intro/booking band).
+
+- **`components.css`:** Stockholm home booking **`HeroSection`**: **`.component-hero.is-cover h2.page-stockholm-home__book-hero-heading`** overrides generic cover **`h2`** **`font-size`** and **`text-wrap: balance`** (**`nowrap`** + readable **`clamp(1rem, 2.35vw, 1.42rem)`** under the default hero cap); slot **`max-width`** **`min(60rem, 100%)`**; **`.page-stockholm-home__book-hero-heading-full`** **`white-space: nowrap`**.
+
 ### Fixed
+
+- **`components.css` / `OmKonstnarernaSv.astro`:** Reusable **`.two-col-align-top`** (**`align-items: start`** + **`margin-top: 0`** on direct **`.content-section`** children) so two-column rows align column tops; **Om konstnärerna** lead grid uses it so the **h1** lines up with the hero image (was offset by default **`.content-section`** vertical margin).
+
+- **`components.css`:** **Boka biljetter nu!** band (**`.page-stockholm-home__cta-secondary-band`**) zeros nested **`.page-migrated-cta`** and **`.button-group`** margins so top and bottom spacing match the band **`padding`** (was heavier below due to **`page-migrated-cta`** **`margin-bottom: 2rem`**).
+
+- **`StockholmHomeSv` / `components.css`:** **Från tunnelbanan:** / **Från gatan:** in the **Var är ANDETAG?** map copy use **Jost** **`font-weight: 700`** (`.page-stockholm-home__map-copy strong`) because **Baskervville** is only shipped at 400, so generic **`strong`** was effectively unbold.
+
+- **`StyledLink` / `components.css`:** **`cta-primary`**, **`cta-secondary`**, **`cta-outline`** use **`width: fit-content`** and **`max-width: 100%`** so CTA anchors are not stretched full width by page layout or **`display: block`** overrides. **Hitta hit** row uses flex centering only (**`.page-stockholm-home__hitta-row`**). **`docs/phase-3-component-usage.md`**.
+
+- **`VideoEmbed` / `components.css`:** Loaded state uses root **`video-embed`** (no **`embed-shell`** margin or padding; no **`embed-shell-no-frame`** viewport breakout). Iframe fills container width under **`.video-embed`**. **`.page-stockholm-home__video-band`** **`padding: 0`**. **`docs/phase-3-component-usage.md`**.
 
 - **`AccordionSection` / `components.css`:** Closed panels no longer show a sliver of body text: **`padding-bottom`** on **`.accordion-item-expand-inner`** only when **`.accordion-item.is-open`** (padding was inflating **`0fr`** grid min height). **`min-height: 0`** on **`.accordion-item-expand`**. Doc note in **`phase-3-component-usage.md`**.
 - **`AccordionSection` / `components.css` / `accordion-section-exclusive.ts`:** Replaced native **`<details>`** with **`button.accordion-item-toggle`** + **`.is-open`** on **`.accordion-item`** so **`.accordion-item-expand`** height transitions run on every open and close (native **`<details>`** caused a one-time expand then snap-close and snap-reopen in Chromium/WebKit). Exclusive one-open behavior unchanged (click handler). Docs: **`phase-3-component-usage.md`**, **`phase-3-component-inventory.md`**, **`phase-3-verification-record.md`**.
 
 ### Changed
 
+- **`layout.css`:** **`shared-footer-privacy`** (Integritetspolicy) shares the same typography as **`shared-footer-seo-links`** (Aktivitet / Museum row): **0.6em**, uppercase, **0.3em** letter-spacing, **Jost**.
+- **`layout.css`:** Swedish footer menu columns (**`shared-footer-col`**) match **`site-html/wp-content/uploads/elementor/css/post-207.css`** footer text-editor widgets: **`font-weight: 400`**, **`line-height: 1.3em`**, lists inherit that rhythm, **`padding-inline-start: 2.5em`**, **`list-style-position: outside`**, plain inline links (no **`inline-block`** row height). **`p`** still **`font-size: inherit`** so global body **`p`** does not force 16px. **`footer-root p`** unchanged.
+- **`SiteHeader` / Swedish hero:** Header logo matches **`site-html/index.html`**: inline SVG wordmark and drop shadow (class **`andetag-logo`**) instead of **`andetag-logo-white-shadow.png`**. New **`AndetagHeaderLogo.astro`**; **`HERO_SV_ASSETS.logo`** removed from **`assets.ts`** (poster and video unchanged).
 - **`AccordionSection`:** **`accordion-section-exclusive.ts`** keeps **one** open row per **`accordion-section`** (clicks on **`.accordion-item-toggle`**; sibling **`.is-open`** removed); FAQ twin columns stay independent.
 - **`AccordionSection` / `components.css`:** expand/collapse uses **`.accordion-item-expand`** (**`display: grid`**, **`grid-template-rows`** **`0fr`→`1fr`**); **`.accordion-item-expand-inner`** horizontal padding when closed, **`padding-bottom`** only when **`.accordion-item.is-open`**. **`prefers-reduced-motion`** skips the transition.
 - **`AccordionSection` / `components.css`:** **`.accordion-item-toggle`** uses **`+`** / **−** (Unicode minus) on the **left** (**`::before`**). **`accordion-section`** background removed (**`transparent`**), **border** retained.
 - **`layout.css`:** **`.shared-hero-lang-top`** (language links under hero socials) uses **Jost**; links inherit **`text-transform: uppercase`**.
-- **Phase 5:** **`/sv/stockholm/fragor-svar/`** (FAQ): body from **`site-html/stockholm-fragor-svar.html`** via **`FragorSvarSv.astro`** (twin **`AccordionSection`**, **`bodyHtml`**, **`.page-faq-accordions`**); **`page-body-registry`**, **`[...slug].astro`**, **`page-body-registry.test.ts`**, **`components.css`**. Design-approved **`docs/phase-5-verification-record.md`** (2026-03-23, Gustaf). Docs: **`phase-3-component-usage.md`**, **`phase-3-component-inventory.md`**. **Next first-wave:** **`/sv/stockholm/`** (Swedish Stockholm home).
+- **Phase 5:** **`/sv/stockholm/fragor-svar/`** (FAQ): body from **`site-html/stockholm-fragor-svar.html`** via **`FragorSvarSv.astro`** (twin **`AccordionSection`**, **`bodyHtml`**, **`.page-faq-accordions`**); **`page-body-registry`**, **`[...slug].astro`**, **`page-body-registry.test.ts`**, **`components.css`**. Design-approved **`docs/phase-5-verification-record.md`** (2026-03-23, Gustaf). Docs: **`phase-3-component-usage.md`**, **`phase-3-component-inventory.md`**.
 - **Phase 5:** **`/sv/stockholm/dejt/`** marked design-approved in **`docs/phase-5-verification-record.md`** (2026-03-23, Gustaf).
 - **`BookingEmbed`:** default **`.booking-embed-contact`** below the widget mount (not site footer); copy from **`booking-embed-contact.ts`** (**`showContact`** default **`true`**). Removed **`footerHtml`**. **`BiljetterSv`** and **`DejtSv`** use the default; **`info@andetag.museum`** (**EX-0010**). Docs: **`phase-3-component-usage.md`**, **`phase-3-component-inventory.md`**, **`migration-exceptions.md`**, **`phase-5-verification-record.md`**.
 - **`HeroSection`:** optional default **slot** (**`.component-hero-slot`**) for overlay body (for example Dejt testimonials); **`ctas`** optional. Cover heroes load **`hero-cover-parallax.ts`** via co-located **`<script>`**; init guarded by **`window.__andetagHeroCoverParallax`**. **`SiteLayout`:** removed global parallax import. Self-hosted **`TADAA-LONG-V1.00_07_29_05.Still009-2-2.jpg`** for Dejt testimonial band. **`components.css`:** cover slot blockquote styles; removed **`.dejt-testimonials`**. Docs: **`phase-3-component-usage.md`**, **`phase-3-component-inventory.md`**, **`phase-5-verification-record.md`**.

@@ -4,12 +4,15 @@ type Props = {
   src: string;
   fallbackText: string;
   unavailable?: boolean;
+  /** When true, no border, fill, or padding (flush map tile). */
+  unframed?: boolean;
 };
 
-const { title, src, fallbackText, unavailable = false } = Astro.props as Props;
+const { title, src, fallbackText, unavailable = false, unframed = false } = Astro.props as Props;
+const shellClass = ["embed-shell", unframed ? "embed-shell--unframed" : ""].filter(Boolean).join(" ");
 ---
 
-<section class="embed-shell">
+<section class={shellClass}>
   {unavailable ? (
     <p class="embed-fallback" role="status">{fallbackText}</p>
   ) : (

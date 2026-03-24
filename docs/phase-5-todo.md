@@ -8,7 +8,7 @@ Purpose: migrate real page content and design in controlled batches, complete st
 
 **Localization rule:** No localized page content or localized header rollout until Swedish Phase 5 is complete and approved (`docs/grand-plan.md`, Phase 6).
 
-Status: **in progress** (started 2026-03-23; first-wave migration underway).
+Status: **in progress** (started 2026-03-23; **first wave complete** and design-approved 2026-03-23; **alphabetical Swedish remainder** queue active per below).
 
 ## Exit Criteria
 
@@ -19,7 +19,7 @@ Phase 5 is complete only when all items marked `P5` are done and approved:
 - **Entry routing and URL expansion schedule** (`docs/grand-plan.md`): static **`200`** targets exist before production Worker traffic on **`/`** or **`/en/`**; Worker behavior matches policy; production enable is signed off when hub, **`/sv/stockholm/`**, **`/en/stockholm/`**, and critical Berlin **`/en/berlin/`** paths meet the agreed gate (stakeholder entry UX smoke test).
 - English Berlin parity for launch (if required by business) is implemented to the agreed scope; German Berlin pages remain Phase 6 unless plan changes.
 - Stakeholder sign-off and evidence live in **`docs/phase-5-verification-record.md`** (create when closing Phase 5).
-- Each page in the migration order reaches **final design approval** before work starts on the next (see below).
+- Each page reaches **final design approval** before the next **unless** an explicit **batch exception** is recorded (see **Design approval gate**; post first-wave alphabetical `/sv/` queue uses batch approval after the list is built).
 
 ## Design approval gate (sequential)
 
@@ -27,6 +27,8 @@ For **each** page in **Swedish Stockholm migration order (agreed)** (and the sam
 
 - **Stop:** Do not begin the next page until Gustaf has approved the **final design** of the current page at the agreed breakpoints (layout, typography, spacing, imagery, states, and key interactions). Final means signed off as the production target for that URL, not an interim draft.
 - **Record:** Log approval in the Phase 5 verification trail (for example dated note in `docs/phase-5-verification-record.md` once that file exists, or an agreed interim log until then).
+
+**Batch exception (post first-wave Swedish queue only):** For **Swedish alphabetical remainder** (second batch list below), the agent **implements the full queue one URL at a time** (each page **finished** before the next: body component, `page-body-registry`, `[...slug].astro` map, tests if applicable, shared styles or docs when behavior changes). **Design approval is deferred until Gustaf has reviewed the whole batch** (or signs off per URL during that pass). This overrides the per-page stop rule above **only** for that ordered list, unless Gustaf rescopes mid-batch.
 
 ## Component-first change rule
 
@@ -44,7 +46,7 @@ Use `docs/phase-3-component-qa-checklist.md` and `docs/phase-3-component-usage.m
 - Adjustments follow **Component-first change rule** above.
 - Title, description, canonical, hreflang, indexability, and (where applicable) Open Graph fields match `docs/content-model.md` and `docs/Andetag SEO Manual.md`.
 - Custom embeds, maps, booking, or lead paths behave and link correctly.
-- **Design approval gate:** Gustaf approves final design; only then move to the next page.
+- **Design approval gate:** Gustaf approves final design; only then move to the next page (**except** second-batch alphabetical `/sv/` queue: see **Batch exception** above).
 
 ## Swedish Stockholm migration order (agreed)
 
@@ -52,18 +54,40 @@ Use `docs/phase-3-component-qa-checklist.md` and `docs/phase-3-component-usage.m
 
 **Swedish home URL:** **`/sv/stockholm/`** is the canonical Swedish Stockholm home (content from legacy **`/`** in `site-html/`). **`/`** **`301`**s to **`/sv/stockholm/`** in static deploys; production **`/`** is also the **edge entry router** per **`docs/url-migration-policy.md`** and **`docs/phase-4-routing-reopen.md`**.
 
-**First wave (strict order):**
+**First wave (strict order) — complete (migrated + design-approved, 2026-03-23, Gustaf):**
 
-1. `/sv/stockholm/gruppbokning/` (group bookings; legacy **`/stockholm/gruppbokning/`** **`301`**s here)
-2. `/sv/stockholm/foretagsevent/`
-3. `/sv/optisk-fibertextil/` (shared Swedish; English pair **`/en/optical-fibre-textile/`**)
-4. `/sv/stockholm/art-yoga/`
-5. `/sv/stockholm/biljetter/`
-6. `/sv/stockholm/dejt/`
-7. `/sv/stockholm/fragor-svar/`
-8. **`/sv/stockholm/`** — Swedish Stockholm home (final step of this wave). Migrate and approve content and design; static **`/`** already redirects to this path.
+1. ~~`/sv/stockholm/gruppbokning/`~~ (group bookings; legacy **`/stockholm/gruppbokning/`** **`301`**s here)
+2. ~~`/sv/stockholm/foretagsevent/`~~
+3. ~~`/sv/optisk-fibertextil/`~~ (shared Swedish; English pair **`/en/optical-fibre-textile/`**)
+4. ~~`/sv/stockholm/art-yoga/`~~
+5. ~~`/sv/stockholm/biljetter/`~~
+6. ~~`/sv/stockholm/dejt/`~~
+7. ~~`/sv/stockholm/fragor-svar/`~~
+8. ~~**`/sv/stockholm/`**~~ — Swedish Stockholm home. Static **`/`** redirects to this path.
 
-**After the first wave:** All other Swedish Stockholm (and remaining `keep`) pages may be migrated in **any order**, still using the per-page checklist, **design approval gate**, and **component-first change rule**.
+**Second batch (alphabetical, all remaining `/sv/` shells in `site/src/data/page-shell-meta.json`):** Canonical paths below are the full set of **defined and routed** Swedish locale pages not yet wired to custom body content in `site/src/lib/pages/page-body-registry.ts`. **Order is strict A–Z by path string.** Use **`docs/phase-3-component-usage.md`**, **`docs/phase-3-component-inventory.md`**, and the same patterns as the first eight pages (`ContentSection`, `HeroSection`, `AccordionSection`, `BookingEmbed`, `ButtonGroup`, `GallerySection`, grids in `components.css`, and so on). **One page at a time:** complete migration for URL *n* before editing URL *n+1*. **Do not** pause between URLs for stakeholder sign-off; record approvals in **`docs/phase-5-verification-record.md`** when Gustaf finishes the batch review.
+
+| # | Canonical path | Primary `site-html/` source |
+|---|----------------|----------------------------|
+| 1 | `/sv/musik/` | `musik.html` — **migrated** (`MusikSv.astro`; pending batch design approval) |
+| 2 | `/sv/om-andetag/` | `om-andetag.html` — **migrated** (`OmAndetagSv.astro`; pending batch design approval) |
+| 3 | `/sv/om-konstnarerna-malin-gustaf-tadaa/` | `om-konstnarerna-malin-gustaf-tadaa.html` — **migrated** (`OmKonstnarernaSv.astro`; pending batch design approval) |
+| 4 | `/sv/stockholm/aktivitet-inomhus-stockholm/` | `stockholm-aktivitet-inomhus-stockholm.html` — **migrated** (`StockholmAktivitetInomhusSv.astro` + `StockholmSeoLandingSv`; pending batch design approval) |
+| 5 | `/sv/stockholm/att-gora-stockholm/` | `stockholm-att-gora-stockholm.html` — **migrated** (`StockholmAttGoraSv.astro` + `StockholmSeoLandingSv`; pending batch design approval) |
+| 6 | `/sv/stockholm/besokaromdomen/` | `stockholm-besokaromdomen.html` — **migrated** (`BesokaromdomenSv.astro`; TripAdvisor slider omitted **EX-0012**; pending batch design approval) |
+| 7 | `/sv/stockholm/hitta-hit/` | `stockholm-hitta-hit.html` — **migrated** (`HittaHitSv.astro`; pending batch design approval) |
+| 8 | `/sv/stockholm/museum-stockholm/` | `stockholm-museum-stockholm.html` — **migrated** (`StockholmMuseumSv.astro` + `StockholmSeoLandingSv`; pending batch design approval) |
+| 9 | `/sv/stockholm/npf-stockholm/` | `stockholm-npf-stockholm.html` — **migrated** (`NpfStockholmSv.astro`; pending batch design approval) |
+| 10 | `/sv/stockholm/oppettider/` | `stockholm-oppettider.html` — **migrated** (`OppettiderSv.astro`; pending batch design approval) |
+| 11 | `/sv/stockholm/presentkort/` | `stockholm-presentkort.html` — **migrated** (`PresentkortSv.astro`; pending batch design approval) |
+| 12 | `/sv/stockholm/sasongskort/` | `stockholm-sasongskort.html` — **migrated** (`SasongskortSv.astro`; pending batch design approval) |
+| 13 | `/sv/stockholm/tillganglighet/` | `stockholm-tillganglighet.html` — **migrated** (`TillganglighetSv.astro`; pending batch design approval) |
+| 14 | `/sv/stockholm/utstallning-stockholm/` | `stockholm-utstallning-stockholm.html` — **migrated** (`StockholmUtstallningSv.astro` + `StockholmSeoLandingSv`; pending batch design approval) |
+| 15 | `/sv/stockholm/vilken-typ-av-upplevelse/` | `stockholm-vilken-typ-av-upplevelse.html` — **migrated** (`VilkenTypAvUpplevelseSv.astro`; pending batch design approval) |
+
+**Out of this table (still Phase 5 elsewhere):** **`/privacy/`** (shell exists; not under **`/sv/`** prefix), **`/en/`** hub (**`P5-02`**), English and German shells, Berlin routes. **`/en/stockholm/`** remains **EX-0007** until migrated.
+
+**After the second batch:** Any newly added **`keep`** Swedish URLs follow the same checklist; restore the default **design approval gate** (approve before next) unless a new batch exception is agreed.
 
 ## Task Board
 
@@ -106,13 +130,14 @@ Use `docs/phase-3-component-qa-checklist.md` and `docs/phase-3-component-usage.m
 - [ ] **P5-03 Execute Swedish Stockholm page migration in approved order**
   - Owner: Gustaf + AI agent
   - Inputs:
-    - **Swedish Stockholm migration order (agreed)** (first wave, then remainder in any order)
+    - **Swedish Stockholm migration order (agreed):** first wave (**done**); second batch **alphabetical table** (`/sv/` remainder in `page-shell-meta.json`)
     - `docs/phase-3-component-usage.md`
   - Include:
-    - One page at a time in first-wave order: **final design approval** before starting the next.
+    - **First wave:** complete (8 URLs).
+    - **Second batch:** implement the 15-row alphabetical table **sequentially**; **batch design approval** after the queue is built (see **Batch exception** under Design approval gate).
     - Apply **component-first change rule** for all fixes and polish.
     - Resolve **EX-0007** when **`/en/stockholm/`** is fully migrated with source-backed metadata and body.
-  - Done when: all Swedish Stockholm pages in scope for Phase 5 are approved per the per-page checklist above.
+  - Done when: all Swedish **`/sv/`** shells in `page-shell-meta.json` plus agreed extras (for example **`/privacy/`** if in scope) are migrated and approved per the per-page checklist above.
 
 - [ ] **P5-04 Berlin English parity (scope per launch plan)**
   - Owner: Gustaf + AI agent
@@ -165,13 +190,14 @@ Use `docs/phase-3-component-qa-checklist.md` and `docs/phase-3-component-usage.m
 ## Working Rhythm
 
 - One checkpoint per completed migration batch or infrastructure milestone (Worker staging, hub, home).
-- Per page: implement, iterate until **final design** is approved, then advance in the list.
+- **First wave:** per page, implement then **final design** approved before the next URL.
+- **Second batch (alphabetical `/sv/` remainder):** per URL, implement completely before the next; **stakeholder approval** after the full 15-page queue (unless Gustaf rescopes).
 - Prefer shared components and shared styles over page-only CSS or one-off markup; log justified one-offs in `docs/migration-exceptions.md`.
 - Log URL or content deviations in `docs/migration-exceptions.md` before treating them as done.
 - Re-read entry policy when touching **`/`**, **`/en/`**, cookies, or bot handling.
 
 ## Immediate Next 3 Actions
 
-1. Run **`P5-00`**: confirm approval logging only (first-wave order is fixed above).
-2. Run **`P5-01`** and **`P5-02`** in parallel where possible so entry redirects never target empty shells.
-3. Begin **`P5-03`** on **`/sv/stockholm/gruppbokning/`**, then continue the first wave in listed order.
+1. **`P5-03` second batch:** next **`/sv/om-andetag/`** (`om-andetag.html`); then continue the alphabetical table **in order**; finish each URL before starting the next; hold stakeholder sign-off until the batch is ready for review. (**`/sv/musik/`** done.)
+2. Run **`P5-01`** and **`P5-02`** in parallel where useful (static entry targets audit and real **`/en/`** hub content); **`/sv/stockholm/`** is already design-approved.
+3. Track **`EX-0007`**, Berlin parity scope, and Worker staging timing per **`docs/grand-plan.md`** once hub and matrix targets are stable.

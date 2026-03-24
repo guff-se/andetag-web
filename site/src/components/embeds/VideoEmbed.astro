@@ -9,7 +9,7 @@ type Props = {
 const { title, src, fallbackText, unavailable = false } = Astro.props as Props;
 ---
 
-<section class={`embed-shell ${unavailable ? "" : "embed-shell-no-frame"}`.trim()}>
+<section class={unavailable ? "embed-shell" : "video-embed"}>
   {unavailable ? (
     <p class="embed-fallback" role="status">{fallbackText}</p>
   ) : (

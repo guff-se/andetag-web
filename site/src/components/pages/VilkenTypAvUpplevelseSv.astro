@@ -1,0 +1,120 @@
+---
+import ContentSection from "../content/ContentSection.astro";
+import GallerySection from "../content/GallerySection.astro";
+
+/**
+ * `site-html/stockholm-vilken-typ-av-upplevelse.html` wp-page **2930**.
+ * Legacy nested `h2` inside Elementor heading widget replaced with a single page `h1` (same visible title).
+ */
+const h1Html =
+  "<h1>Vilken typ av upplevelse är <span class=\"brand-wordmark\">ANDETAG</span>?</h1>";
+
+const introProse =
+  "<p><span class=\"brand-wordmark\">ANDETAG</span> är en stillsam, ljus- och musikbaserad konstupplevelse för närvaro och lugn.</p>" +
+  "<p>Det är inte ett evenemang.<br />Inte ett spektakel.<br />Inte något att skynda igenom.</p>" +
+  "<p>Det är en plats att sätta sig ner.<br />Att andas.<br />Att stanna en stund.</p>";
+
+const forYouMarkdown =
+  "<h3>Det här är för dig om du söker</h3>" +
+  "<ul>" +
+  "<li><p>En tyst plats mitt i staden</p></li>" +
+  "<li><p>Ljusbaserad konst att vistas i, snarare än konsumera</p></li>" +
+  "<li><p>Ett långsamt tempo som låter kroppen sjunka ner</p></li>" +
+  "<li><p>Ett omslutande rum där inget kräver din uppmärksamhet</p></li>" +
+  "<li><p>En upplevelse formad av stillhet snarare än stimulans</p></li>" +
+  "</ul>";
+
+const notForYouMarkdown =
+  "<h3>Det här är kanske inte för dig om du söker</h3>" +
+  "<ul>" +
+  "<li><p>En snabb utställning att beta av på några minuter</p></li>" +
+  "<li><p>Stora effekter, höga ljud eller ständig intensitet</p></li>" +
+  "<li><p>En tydlig berättelse eller guidad upplevelse</p></li>" +
+  "<li><p>Ett socialt sammanhang med högt tempo</p></li>" +
+  "<li><p>En plats för rörelse och aktivitet</p></li>" +
+  "</ul>";
+
+const galleryImages = [
+  {
+    src: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-6074-scaled.jpg",
+    fullSrc: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-6074-scaled.jpg",
+    alt: "fine art stockholm",
+  },
+  {
+    src: "/wp-content/uploads/2024/11/Andetag-13-35-copy-2.jpg",
+    fullSrc: "/wp-content/uploads/2024/11/Andetag-13-35-copy-2.jpg",
+    alt: "optical fiber art textile installation",
+  },
+  {
+    src: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-5983-scaled.jpg",
+    fullSrc: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-5983-scaled.jpg",
+    alt: "a perfect place for a date in stockholm",
+  },
+  {
+    src: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-6038-scaled.jpg",
+    fullSrc: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-6038-scaled.jpg",
+    alt: "calm down in stockholm",
+  },
+  {
+    src: "/wp-content/uploads/2024/11/Andetag-10-53-copy-2.jpg",
+    fullSrc: "/wp-content/uploads/2024/11/Andetag-10-53-copy-2.jpg",
+    alt: "unique light art stockholm",
+  },
+  {
+    src: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-59311-scaled.jpg",
+    fullSrc: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-59311-scaled.jpg",
+    alt: "a meditative experience in stockholm",
+  },
+  {
+    src: "/wp-content/uploads/2024/11/Andetag-19-508-copy.jpg",
+    fullSrc: "/wp-content/uploads/2024/11/Andetag-19-508-copy.jpg",
+    alt: "mindfulness exhibition stockholm",
+  },
+  {
+    src: "/wp-content/uploads/2024/11/Andetag-10-69-copy.jpg",
+    fullSrc: "/wp-content/uploads/2024/11/Andetag-10-69-copy.jpg",
+    alt: "things to do in stockholm",
+  },
+] as const;
+
+const concreteMarkdown =
+  "<h2>Vad det är, konkret.</h2>" +
+  "<p><strong>Ljusbaserad textilkonst</strong><br />Verken är vävda av optisk fiber och traditionella textila material. Ljuset rör sig inuti tyget, drivet av tusentals små programmerbara lysdioder. Textilen glöder inifrån och förändras långsamt över tid.</p>" +
+  "<p><strong>Ett gemensamt andningsrytm</strong><br />Ljud och ljus är synkroniserade till ett långsamt, meditativt andetag. Rytmen bygger på en verklig andningsinspelning från meditation. Systemet upprepar sig aldrig. Varje ögonblick visas bara en gång. Om du vill får du andas med.</p>" +
+  "<p><strong>Tre sammanhängande rum</strong><br />Utställningen rör sig genom ett galleri för nära betraktelse, ett mörkare övergångsrum och ett fullt omslutande andningsrum. I det sista rummet finns filtar och kuddar, och du in att sätta eller lägga dig ner och stanna med ljuset och ljudet.</p>" +
+  "<p><strong>Musik som leder dig</strong><br />Musiken till ANDETAG är skapad som små berättelser, vars syfte är dig ta dig på resor i ditt inre. Varje låt har olika karaktär, och synkroniserar både till andetaget och visualiseras i ljuset.</p>" +
+  "<p><strong>Ett globalt andetag</strong><br />Varje ANDETAG-verk är kopplade via internet för att synkroniseras med andra runt om i världen. Oavsett var de befinner sig andas verken tillsammans. Det finns redan idag konstverk i USA, Costa Rica, Mexico och Sverige, som andas tillsammans med utställningen och med dig.</p>" +
+  "<p>Välkommen.</p>";
+
+const heroImage = {
+  src: "/wp-content/uploads/2026/01/TADAA-LONG-V1.00_07_24_06.Still008-2-1024x576.jpg",
+  width: 1024,
+  height: 576,
+  alt: "",
+} as const;
+---
+
+<div class="page-migrated page-vilken-typ-sv">
+  <section class="content-section align-left" aria-labelledby="vilken-typ-h1">
+    <div id="vilken-typ-h1" class="content-section-body" set:html={h1Html} />
+  </section>
+  <div class="page-vilken-typ-sv__intro">
+    <div class="content-section-body" set:html={introProse} />
+    <figure class="page-vilken-typ-sv__hero-figure">
+      <img
+        src={heroImage.src}
+        width={heroImage.width}
+        height={heroImage.height}
+        alt={heroImage.alt}
+        loading="eager"
+        decoding="async"
+      />
+    </figure>
+  </div>
+  <div class="page-vilken-typ-sv__lists">
+    <ContentSection markdown={forYouMarkdown} />
+    <ContentSection markdown={notForYouMarkdown} />
+  </div>
+  <GallerySection images={[...galleryImages]} mobileMode="carousel" galleryId="vilken-typ-upplevelse" />
+  <ContentSection markdown={concreteMarkdown} />
+</div>

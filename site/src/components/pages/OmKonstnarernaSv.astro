@@ -1,0 +1,74 @@
+---
+import ContentSection from "../content/ContentSection.astro";
+
+/**
+ * `site-html/om-konstnarerna-malin-gustaf-tadaa.html` wp-page **2627**.
+ * Images: `site/public/wp-content/uploads/2025/04/` and `2024/12/` (fetched from production).
+ * Bio HTML lives in the frontmatter so `<` in strings is not parsed as Astro markup on `set:html`.
+ */
+const openingMarkdown = [
+  "<h1>Malin &amp; Gustaf Tadaa</h1>",
+  "<p>Malin och Gustaf Tadaa är ett konstnärspar baserat i Stockholm som förenar konst, teknologi och mänsklig närvaro i gränsöverskridande verk. De har arbetat tillsammans sedan 2011 och varit gifta sedan 2017. Deras gemensamma praktik rör sig mellan ljus, textil, kod och interaktion, och bjuder in besökaren att kliva in som medskapare snarare än betraktare.</p>",
+  "<p>År 2019 visades deras utställning <a href=\"https://tadaa.se/portfolio/emerging-sensation/\"><strong>Emerging Sensation</strong></a> i reaktorhallen R1 i Stockholm. Utställningen blev slutsåld med över 4 000 besökare på två veckor. Genom optiska fibrer, ljus, interaktiv teknik och augmented reality skapades ett rumsligt verk om livets evolution och människans plats i ett teknologiskt sammanhang. Gränsen mellan konst och teknik löstes upp och lämnade utrymme för reflektion, närvaro och deltagande.</p>",
+].join("");
+
+const malinBioHtml =
+  "<p><strong>Malin Bobeck Tadaa</strong> är en prisbelönt textilkonstnär baserad i Stockholm. Med en egenutvecklad metod väver hon in optisk fiber, ljus, sensorer och elektronik i textila strukturer. Resultatet är verk där materialitet, ljus och beröring samverkar och där betraktaren ofta får en aktiv roll.</p><p>Hennes konst hämtar inspiration från den mänskliga fantasin, djuphavet, yttre rymden och världar som normalt ligger bortom vår vardagliga perception. Genom rumsliga installationer skapas förskjutna perspektiv och en stillsam känsla av att befinna sig någon annanstans.</p>";
+
+const gustafBioHtml =
+  "<p><strong>Gustaf Josefsson Tadaa</strong> är konstnär, serieentreprenör och föreläsare med över 25 års erfarenhet av deltagarkultur och interaktiv konst.</p><p>Hans konstnärliga arbete utgår från idén att teknologi är något djupt mänskligt och att vårt möte med den kan hjälpa oss att förstå oss själva bättre.</p><p>Gustaf är självlärd programmerare och har arbetat med konst, teknik och rumsliga upplevelser i över två decennier. Parallellt har han varit verksam som föreläsare inom framtids- och samhällsfrågor, där teknikens mänskliga dimension står i centrum.</p>";
+
+const teamMarkdown =
+  "<h2>Teamet bakom Andetag</h2>" +
+  "<p><strong>Konstnärer:</strong> Malin &amp; Gustaf Tadaa</p><p><strong>Konstnärlig produktion:</strong> Cecilia Pfaff</p><p><strong>Utställningsproduktion:</strong> Linnéa Appert.</p><p><strong>Originalmusik och ljudproduktion:</strong> <a href=\"https://povelolsson.com/\">Povel Olsson</a> och Gustaf Tadaa.</p><p><strong>Museichef:</strong> Fabian Macklin</p>";
+---
+
+<div class="page-migrated page-om-konstnarerna-sv">
+  <div class="page-om-konstnarerna-sv__lead-grid two-col-align-top">
+    <ContentSection markdown={openingMarkdown} />
+    <aside class="page-om-konstnarerna-sv__lead-aside" aria-label="Bild och länk">
+      <figure class="page-om-konstnarerna-sv__figure page-om-konstnarerna-sv__figure--hero">
+        <img
+          src="/wp-content/uploads/2025/04/ANDETAG-Art-Week-Opening-2-photo-by-Gustaf-Tadaa-1024x683.jpg"
+          width={1024}
+          height={683}
+          alt=""
+          loading="eager"
+          decoding="async"
+        />
+      </figure>
+      <p class="page-om-konstnarerna-sv__lead-link">
+        <a href="https://tadaa.se">Läs mer på tadaa.se</a>
+      </p>
+    </aside>
+  </div>
+  <div class="page-om-konstnarerna-sv__duo-grid">
+    <div class="page-om-konstnarerna-sv__duo-col">
+      <figure class="page-om-konstnarerna-sv__figure page-om-konstnarerna-sv__figure--portrait">
+        <img
+          src="/wp-content/uploads/2024/12/Malin-Tadaa-Andetag-2025-face-1-1024x1024.jpg"
+          width={1024}
+          height={1024}
+          alt=""
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+      <div class="content-section-body" set:html={malinBioHtml}></div>
+    </div>
+    <div class="page-om-konstnarerna-sv__duo-col">
+      <figure class="page-om-konstnarerna-sv__figure page-om-konstnarerna-sv__figure--portrait">
+        <img
+          src="/wp-content/uploads/2024/12/Gustaf-Tadaa-Andetag-2025-face-1-1024x1024.jpg"
+          width={1024}
+          height={1024}
+          alt=""
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+      <div class="content-section-body" set:html={gustafBioHtml}></div>
+    </div>
+  </div>
+  <ContentSection markdown={teamMarkdown} />
+</div>

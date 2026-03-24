@@ -1,0 +1,18 @@
+---
+import StockholmSeoLandingSv from "./StockholmSeoLandingSv.astro";
+
+/**
+ * `site-html/stockholm-museum-stockholm.html` wp-page **4492**.
+ */
+const introMarkdown = [
+  "<p><span class=\"brand-wordmark\">ANDETAG</span> är ett litet konstmuseum mitt i Stockholm, nära Hötorget. Ett museum för ljus, andning och närvaro.</p>",
+  "<p>Här finns ingen traditionell samling. Här finns en plats att stanna upp, slå dig ned, ta din tid och landa.<br />Ljus- och textilkonst som vävs samman med musik av ett gemensamt andetag.</p>",
+  "<p>En plats att stanna upp.<br />En plats att andas.</p>",
+].join("");
+---
+
+<StockholmSeoLandingSv
+  galleryId="stockholm-museum"
+  h1Text="Ett stillsamt museum i Stockholm"
+  introMarkdown={introMarkdown}
+/>

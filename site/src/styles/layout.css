@@ -6,6 +6,8 @@
   --color-muted: #4a4a4a;
   --color-accent: #f4d35e;
   --color-border: rgba(74, 13, 47, 0.28);
+  /* Space from shared hero nav strip (header bottom) to first main column content; see `components.css` first-block margin reset. */
+  --page-shell-main-top-gap: 2.5rem;
 }
 
 * {
@@ -65,8 +67,8 @@ select:focus-visible {
 
 .main-content {
   width: min(1100px, 100% - 2rem);
-  /* Top margin pairs with header bottom margin in flex layout (margins add, no collapse). */
-  margin: 1rem auto 3rem;
+  margin: 0 auto 3rem;
+  padding-top: var(--page-shell-main-top-gap);
 }
 
 .shared-hero-header {
@@ -126,7 +128,8 @@ select:focus-visible {
 .shared-hero-header.is-small {
   min-height: auto;
   height: auto;
-  margin-bottom: 2rem;
+  /* Main offset lives on `.main-content` padding so gap matches full-hero pages. */
+  margin-bottom: 0;
 }
 
 .shared-hero-top {
@@ -560,44 +563,60 @@ select:focus-visible {
   gap: 1.5rem;
 }
 
+/* Three-column menu: matches Elementor footer text-editor widgets in site-html/wp-content/uploads/elementor/css/post-207.css (3490b2e, 4defcba, ae07731) plus index.html `.elementor-location-footer ul li a` (Jost on links). */
 .shared-footer-col {
   font-family: "JostLocal", "Jost", sans-serif;
   font-size: 0.8em;
-  font-weight: 300;
+  font-weight: 400;
   text-transform: uppercase;
-  line-height: 1.15em;
+  line-height: 1.3em;
   letter-spacing: 0.3em;
   color: #f7dcea;
 }
 
 .shared-footer-col p {
   margin: 0 0 0.5rem;
+  line-height: 1.3em;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.shared-footer-col ul,
+.shared-footer-col ol {
+  margin: 0 0 1em;
+  padding-inline-start: 2.5em;
+  line-height: 1.3em;
+  list-style-position: outside;
 }
 
 .shared-footer-col ul {
-  margin: 0 0 0.9rem;
-  padding-left: 1.2em;
-  list-style: disc;
+  list-style-type: disc;
+}
+
+.shared-footer-col ol {
+  list-style-type: decimal;
 }
 
 .shared-footer-col li {
-  margin: 0 0 0.55rem;
+  margin: 0;
+  padding: 0;
+  line-height: 1.3em;
 }
 
-.shared-footer-col ul li a {
-  display: inline-block;
-  min-height: 1.5rem;
-  line-height: 1.5rem;
-  padding: 0.1rem 0;
+.shared-footer-col ul li a,
+.shared-footer-col ol li a {
+  font-family: "JostLocal", "Jost", sans-serif;
 }
 
 .shared-footer-col a,
-.shared-footer-seo-links a {
+.shared-footer-seo-links a,
+.shared-footer-privacy a {
   color: #f7dcea;
 }
 
-.shared-footer-seo-links {
-  margin: 0.7rem 0 1.2rem;
+/* Elementor post-207 a408888 (SEO row) typography; shared with Integritetspolicy. */
+.shared-footer-seo-links,
+.shared-footer-privacy {
   text-align: center;
   font-family: "JostLocal", "Jost", sans-serif;
   font-size: 0.6em;
@@ -606,6 +625,10 @@ select:focus-visible {
   line-height: 1.3em;
   letter-spacing: 0.3em;
   color: #f7dcea;
+}
+
+.shared-footer-seo-links {
+  margin: 0.7rem 0 1.2rem;
 }
 
 .shared-footer-bottom {
@@ -625,16 +648,12 @@ select:focus-visible {
   color: #fafafa;
 }
 
-.shared-footer-privacy {
-  text-align: center;
-  font-family: "BaskervvilleLocal", "Baskervville", serif;
-  font-weight: 400;
-  color: #f7dcea;
-}
-
 .shared-footer-privacy a {
-  font-size: 0.8em;
-  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
 }
 
 .shared-footer-socials {
@@ -663,6 +682,11 @@ select:focus-visible {
   border-top: 1px solid rgba(247, 220, 234, 0.25);
   background: #4a0d2f;
   color: #f7dcea;
+}
+
+.footer-root p {
+  line-height: 1.25;
+  font-size: inherit;
 }
 
 .footer-root .chip {

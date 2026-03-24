@@ -148,6 +148,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
+  width: fit-content;
+  max-width: 100%;
   font-family: "JostLocal", "Jost", Arial, sans-serif;
   text-transform: uppercase;
   letter-spacing: 0.3em;
@@ -178,6 +181,12 @@
 .main-content-wide {
   width: 100%;
   margin: 0;
+  /* Keep `padding-top` from `.main-content` (wide layout only overrides horizontal margin). */
+}
+
+/* First block under main: do not stack section/hero vertical margins on top of `--page-shell-main-top-gap`. */
+.main-content > :first-child > *:first-child {
+  margin-top: 0;
 }
 
 .button-group {
@@ -192,6 +201,11 @@
   display: flex;
   justify-content: center;
   margin: 0.5rem 0 2rem;
+}
+
+/* Stockholm home + SEO landings: "Upplev Andetag!" band below testimonials (extra top air below testimonial band). */
+.page-stockholm-home__cta-after-testimonials {
+  margin: 4rem 0 6rem;
 }
 
 /* Main column + fixed-width aside (e.g. biljetter booking widget). Stacks below breakpoint. */
@@ -215,6 +229,20 @@
 
 /* Match column headline tops: aside booking embed uses margin-top 0; drop first main block top margin. */
 .page-layout-with-aside__main > :is(.content-section, .info-frame, .accordion-section):first-child {
+  margin-top: 0;
+}
+
+/*
+ * Two-column grid or flex: align the start of each column. Use on the row wrapper
+ * together with `display: grid` or `display: flex`. Cancels `.content-section`
+ * default top margin for direct section children so copy headings line up with
+ * media or widgets in the sibling column (same goal as the rule above for aside layouts).
+ */
+.two-col-align-top {
+  align-items: start;
+}
+
+.two-col-align-top > .content-section {
   margin-top: 0;
 }
 
@@ -249,7 +277,7 @@
 .accordion-section,
 .gallery-section,
 .partners-section,
-.testimonial-carousel {
+.testimonial-block {
   margin: 1.5rem 0;
 }
 
@@ -439,6 +467,12 @@
   color: #111111;
 }
 
+.accordion-item-toggle-label {
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+}
+
 .accordion-item-toggle::before {
   content: "+";
   flex-shrink: 0;
@@ -514,7 +548,17 @@
 }
 
 .accordion-item .accordion-item-body strong {
+  font-family: "JostLocal", "Jost", Arial, sans-serif;
   font-weight: 700;
+}
+
+/* Wordmark in button label and panel body (toggle uses Baskerville; span must keep Jost). */
+.accordion-item-toggle .brand-wordmark,
+.accordion-item-body .brand-wordmark {
+  font-family: "JostLocal", "Jost", Arial, sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  line-height: 1.1;
 }
 
 /* FAQ: two Elementor accordions in one grid (`stockholm-fragor-svar.html` wp-page 2881). */
@@ -654,7 +698,8 @@ body.lightbox-open {
   display: block;
 }
 
-.testimonial-carousel {
+/* Full-bleed band: shared photo behind quote carousel + optional aggregate (Tripadvisor summary). */
+.testimonial-block {
   position: relative;
   overflow: hidden;
   border-radius: 0;
@@ -663,8 +708,14 @@ body.lightbox-open {
   margin-right: calc(50% - 50vw);
   width: 100vw;
   max-width: 100vw;
-  min-height: 360px;
   padding: 0;
+  background-color: #111111;
+}
+
+.testimonial-block__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
   background-color: #111111;
   background-image: var(--testimonial-background-image);
   background-position: center;
@@ -672,17 +723,141 @@ body.lightbox-open {
   background-repeat: no-repeat;
 }
 
-.testimonial-carousel-overlay {
+/* One light veil over photo for both quote row and aggregate (replaces split carousel + gradient scrim). */
+.testimonial-block__overlay {
   position: absolute;
   inset: 0;
+  z-index: 1;
   background: rgba(255, 255, 255, 0.72);
   pointer-events: none;
+}
+
+.testimonial-block__carousel {
+  position: relative;
+  z-index: 2;
+  isolation: isolate;
+  min-height: 360px;
 }
 
 .testimonial-carousel-viewport {
   position: relative;
   z-index: 1;
   min-height: 360px;
+}
+
+.testimonial-block__aggregate {
+  position: relative;
+  z-index: 2;
+}
+
+.testimonial-block__aggregate-inner {
+  position: relative;
+  z-index: 1;
+  padding: 0rem max(1.25rem, calc((100vw - 1100px) / 2)) 3.35rem;
+  text-align: center;
+}
+
+.testimonial-block__aggregate-eyebrow {
+  margin: 0 0 0.35rem;
+  color: #4a0d2f;
+  font-family: "JostLocal", "Jost", Arial, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+}
+
+.testimonial-block__aggregate-brand {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem 1.15rem;
+  margin: 0.1rem auto 0.4rem;
+}
+
+.testimonial-block__aggregate-dots {
+  display: block;
+  height: 1.2rem;
+  width: auto;
+}
+
+.testimonial-block__aggregate-logo {
+  display: block;
+  height: clamp(1.2rem, 2.6vw, 1.65rem);
+  width: auto;
+  max-width: min(17.5rem, 90vw);
+}
+
+.testimonial-block__aggregate-score-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.5rem 1rem;
+  margin-bottom: 0.35rem;
+}
+
+.testimonial-block__aggregate-score {
+  margin: 0;
+  color: #4a0d2f;
+  font-family: "JostLocal", "Jost", Arial, sans-serif;
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+.testimonial-block__aggregate-score span {
+  font-size: 0.45em;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.testimonial-block__aggregate-stars {
+  display: flex;
+  gap: 0.12rem;
+  font-size: 1.15rem;
+  line-height: 1;
+  color: #4a0d2f;
+  letter-spacing: 0.02em;
+}
+
+.testimonial-block__aggregate-stars span {
+  opacity: 0.92;
+}
+
+.testimonial-block__aggregate-stars span:last-child {
+  opacity: 0.55;
+}
+
+.testimonial-block__aggregate-meta {
+  margin: 0.5rem auto 0.65rem;
+  max-width: 28rem;
+  color: #4a0d2f;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.testimonial-block__aggregate-link {
+  display: inline-block;
+  margin-top: 0.15rem;
+  color: #4a0d2f;
+  font-family: "JostLocal", "Jost", Arial, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-transform: uppercase;
+  text-underline-offset: 0.25em;
+}
+
+.testimonial-block__aggregate-link:hover,
+.testimonial-block__aggregate-link:focus-visible {
+  color: #2b0b1c;
 }
 
 .testimonial-slide {
@@ -748,7 +923,7 @@ body.lightbox-open {
 .testimonial-nav {
   position: absolute;
   top: 50%;
-  z-index: 2;
+  z-index: 5;
   transform: translateY(-50%);
   border: 0;
   background: transparent;
@@ -834,12 +1009,9 @@ body.lightbox-open {
   text-wrap: balance;
 }
 
-.embed-shell--heading-center .embed-shell-heading {
+/* `BookingEmbed`: title always centered above the widget (narrow aside included). */
+.booking-embed .embed-shell-heading {
   text-align: center;
-}
-
-.embed-shell--heading-left .embed-shell-heading {
-  text-align: left;
 }
 
 .page-layout-with-aside__aside .embed-shell {
@@ -864,12 +1036,8 @@ body.lightbox-open {
   text-underline-offset: 0.2em;
 }
 
-.embed-shell--heading-center .booking-embed-contact {
+.booking-embed .booking-embed-contact {
   text-align: center;
-}
-
-.embed-shell--heading-left .booking-embed-contact {
-  text-align: left;
 }
 
 .embed-shell-no-frame {
@@ -886,6 +1054,30 @@ body.lightbox-open {
   margin-right: -50vw;
 }
 
+/* `VideoEmbed` loaded state: no framed shell, padding, or margin (parent controls layout). */
+.video-embed {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.video-embed .embed-shell-video {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+
+.video-embed .embed-frame-video {
+  display: block;
+  width: 100% !important;
+  max-width: none !important;
+  min-height: 0;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  border: 0;
+}
+
 .embed-frame {
   width: 100%;
   min-height: 260px;
@@ -897,22 +1089,6 @@ body.lightbox-open {
   color: #3b3b3b;
 }
 
-.embed-shell-video {
-  width: 100vw;
-  max-width: none;
-  margin: 0;
-}
-
-.embed-frame-video {
-  display: block;
-  width: 100vw !important;
-  max-width: none !important;
-  min-height: 0;
-  aspect-ratio: 16 / 9;
-  height: auto;
-  border: 0;
-}
-
 @media (max-width: 900px) {
   .gallery-section {
     width: 100vw;
@@ -920,7 +1096,7 @@ body.lightbox-open {
     padding: 0 10px;
   }
 
-  .testimonial-carousel {
+  .testimonial-block__carousel {
     min-height: 320px;
   }
 
@@ -939,7 +1115,7 @@ body.lightbox-open {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .testimonial-carousel {
+  .testimonial-block__carousel {
     min-height: 280px;
   }
 
@@ -1001,8 +1177,473 @@ body.lightbox-open {
     grid-row: 2;
   }
 
-  .optisk-fibertextil-grid > .optisk-fibertextil-figure:last-of-type {
+  .optisk-fibertextil-grid >   .optisk-fibertextil-figure:last-of-type {
     grid-column: 3 / 4;
     grid-row: 2;
+  }
+}
+
+/* Swedish Stockholm home (`StockholmHomeSv.astro`, legacy `index.html` wp-page 2). */
+.page-stockholm-home__lead-eyebrow {
+  margin-top: 0;
+  margin-bottom: 1.25rem;
+}
+
+.page-stockholm-home__lead-eyebrow h3 {
+  margin-bottom: 0;
+}
+
+/* Own row, centered; CTA width stays content-sized (see `.link-cta-*`). */
+.page-stockholm-home__hitta-row {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 0.75rem;
+}
+
+.page-stockholm-home__intro-figure {
+  margin: 0;
+}
+
+.page-stockholm-home__intro-figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+}
+
+.page-stockholm-home__loc-mobile {
+  margin-top: 1.5rem;
+}
+
+.page-stockholm-home__loc-mobile-text {
+  text-align: center;
+  margin: 0 0 0.75rem;
+}
+
+@media (min-width: 901px) {
+  .page-stockholm-home__loc-mobile {
+    display: none;
+  }
+}
+
+.page-stockholm-home__loc-desktop {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  margin: 1.5rem 0 2rem;
+  text-align: center;
+}
+
+.page-stockholm-home__loc-desktop-text {
+  margin: 0;
+}
+
+.page-stockholm-home__loc-desktop .page-stockholm-home__hitta-row {
+  margin-top: 0.75rem;
+}
+
+@media (min-width: 901px) {
+  .page-stockholm-home__loc-desktop {
+    display: flex;
+  }
+}
+
+.page-stockholm-home__tickets-columns {
+  display: grid;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+@media (min-width: 768px) {
+  .page-stockholm-home__tickets-columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+}
+
+/* Wider slot so the booking title fits; heading needs room for Jost uppercase + 0.3em tracking. */
+.page-stockholm-home .component-hero-slot:has(.page-stockholm-home__book-hero-heading) {
+  max-width: min(60rem, 100%);
+}
+
+/*
+ * Must beat `.component-hero :is(h1, h2)` (large `font-size`) and `.component-hero :is(h1, h2, h3)`
+ * (`text-wrap: balance`), which both outrank a single class and were forcing wrap + oversized type.
+ */
+.component-hero.is-cover h2.page-stockholm-home__book-hero-heading {
+  margin: 0 0 1rem;
+  text-align: center;
+  /* Below default cover `h2` max (2.25rem) so one line fits; large enough to read comfortably. */
+  font-size: clamp(1rem, 2.35vw, 1.42rem);
+  white-space: nowrap;
+  text-wrap: nowrap;
+}
+
+.page-stockholm-home__book-hero-heading-full {
+  white-space: nowrap;
+}
+
+.page-stockholm-home__book-hero-heading-short {
+  display: none;
+}
+
+@media (max-width: 639px) {
+  .page-stockholm-home__book-hero-heading-full {
+    display: none;
+  }
+
+  .page-stockholm-home__book-hero-heading-short {
+    display: inline;
+  }
+}
+
+.page-stockholm-home__video-band {
+  background: var(--component-surface);
+  margin-top: 2.25rem;
+  margin-bottom: 2.25rem;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.page-stockholm-home__press-grid {
+  display: grid;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+@media (min-width: 768px) {
+  .page-stockholm-home__press-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+}
+
+.page-stockholm-home__cta-secondary-band {
+  background: var(--component-accent);
+  margin: 2.25rem calc(50% - 50vw);
+  padding: 2rem 1.25rem;
+}
+
+/* Band padding defines vertical rhythm; strip nested CTA margins (`.page-migrated-cta` is `0.5rem 0 2rem` elsewhere). */
+.page-stockholm-home__cta-secondary-band .page-migrated-cta {
+  margin: 3rem;
+}
+
+.page-stockholm-home__cta-secondary-band .button-group {
+  margin: 0;
+}
+
+/* Swedish music page (`MusikSv.astro`, legacy `musik.html` wp-page 2162). */
+.page-musik-sv__spotify-frame {
+  display: block;
+  border-radius: 12px;
+  max-width: 100%;
+}
+
+.page-stockholm-home__map {
+  scroll-margin-top: 6rem;
+}
+
+.page-stockholm-home__map-grid {
+  display: grid;
+  gap: 1.5rem 2rem;
+  align-items: start;
+}
+
+/* BaskervvilleLocal has no bold master; Jost 700 matches heading chrome and reads as real bold. */
+.page-stockholm-home__map-copy strong {
+  font-family: "JostLocal", "Jost", Arial, sans-serif;
+  font-weight: 700;
+}
+
+.page-stockholm-home__map-frame .embed-shell {
+  margin: 0;
+}
+
+.page-stockholm-home__map-frame .embed-frame {
+  width: 100%;
+  min-height: 280px;
+  display: block;
+  border: 0;
+  border-radius: 10px;
+}
+
+@media (min-width: 768px) {
+  .page-stockholm-home__map-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+
+/* `OmKonstnarernaSv.astro` (wp-page 2627). Lead row uses `.two-col-align-top` for column tops. */
+.page-om-konstnarerna-sv__lead-grid {
+  display: grid;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .page-om-konstnarerna-sv__lead-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+
+.page-om-konstnarerna-sv__lead-grid .content-section {
+  margin-bottom: 0;
+}
+
+.page-om-konstnarerna-sv__lead-aside {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.page-om-konstnarerna-sv__lead-link {
+  margin: 0;
+}
+
+/* Same as `.content-section-body a` (aside sits outside `ContentSection`). */
+.page-om-konstnarerna-sv__lead-link a {
+  color: var(--component-link);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  font-weight: 400;
+}
+
+.page-om-konstnarerna-sv__figure {
+  margin: 0;
+}
+
+.page-om-konstnarerna-sv__figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.page-om-konstnarerna-sv__figure--hero {
+  max-width: 100%;
+}
+
+.page-om-konstnarerna-sv__figure--hero img {
+  border-radius: 4px;
+}
+
+/* Circular crop: square box + overflow; image fills with object-fit. */
+.page-om-konstnarerna-sv__figure--portrait {
+  margin: 0;
+  width: clamp(15rem, 52vw, 22rem);
+  height: clamp(15rem, 52vw, 22rem);
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.page-om-konstnarerna-sv__figure--portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+/* Portrait column | prose column (matches “left / right” on each row). */
+.page-om-konstnarerna-sv__duo-col {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 1.25rem 1.5rem;
+  align-items: start;
+}
+
+@media (max-width: 599px) {
+  .page-om-konstnarerna-sv__duo-col {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+
+  .page-om-konstnarerna-sv__duo-col .content-section-body {
+    justify-self: stretch;
+    width: 100%;
+  }
+}
+
+/* Stacked artist rows: each `.duo-col` is full width (portrait left, bio right). */
+.page-om-konstnarerna-sv__duo-grid {
+  display: grid;
+  gap: 2.5rem;
+  margin-top: 0;
+  margin-bottom: 2.5rem;
+}
+
+/* `HittaHitSv.astro` (wp-page 2826). DOM: title, body, map (stacked mobile). Desktop: h1 + map share top row. */
+.page-hitta-hit-sv__grid {
+  display: grid;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.page-hitta-hit-sv__grid .content-section {
+  margin-top: 0;
+}
+
+.page-hitta-hit-sv__title-section {
+  margin-bottom: 0;
+}
+
+/* BaskervvilleLocal has no bold master; matches source `<strong>` emphasis and home map copy. */
+.page-hitta-hit-sv__grid .content-section-body strong {
+  font-family: "JostLocal", "Jost", Arial, sans-serif;
+  font-weight: 700;
+}
+
+.page-hitta-hit-sv__map-frame .embed-shell {
+  margin: 0;
+}
+
+.page-hitta-hit-sv__map-frame .embed-frame {
+  display: block;
+  width: 100%;
+  min-height: 0;
+  aspect-ratio: 1 / 1;
+  border: 0;
+  border-radius: 10px;
+}
+
+.page-hitta-hit-sv__footer-line {
+  margin-top: 2rem;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .page-hitta-hit-sv__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      "title map"
+      "body map";
+    gap: 1.5rem 2rem;
+    align-items: start;
+  }
+
+  .page-hitta-hit-sv__title-cell {
+    grid-area: title;
+  }
+
+  .page-hitta-hit-sv__body-cell {
+    grid-area: body;
+  }
+
+  .page-hitta-hit-sv__map-cell {
+    grid-area: map;
+    align-self: start;
+    min-width: 0;
+  }
+}
+
+/* `OppettiderSv.astro` (wp-page 2754). */
+.page-oppettider-sv__top {
+  display: grid;
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (min-width: 900px) {
+  .page-oppettider-sv__top {
+    grid-template-columns: minmax(220px, 320px) minmax(0, 1fr);
+  }
+}
+
+.page-oppettider-sv__hours .info-frame {
+  height: 100%;
+}
+
+/* `PresentkortSv.astro` (wp-page 2213). */
+.page-presentkort-sv__grid {
+  display: grid;
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .page-presentkort-sv__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.page-presentkort-sv__col .button-group {
+  margin-top: 1rem;
+}
+
+.page-presentkort-sv__bottom {
+  display: grid;
+  gap: 2rem;
+  margin-top: 2rem;
+  align-items: start;
+}
+
+@media (min-width: 768px) {
+  .page-presentkort-sv__bottom {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* `SasongskortSv.astro` (wp-page 2804). */
+.page-sasongskort-sv__two-col {
+  display: grid;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+@media (min-width: 768px) {
+  .page-sasongskort-sv__two-col {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* `NpfStockholmSv.astro` (wp-page 4384). */
+.page-npf-stockholm-sv__cta {
+  margin: 1.5rem 0;
+}
+
+.page-npf-stockholm-sv__practical {
+  margin-top: 2rem;
+}
+
+/* `VilkenTypAvUpplevelseSv.astro` (wp-page 2930). */
+.page-vilken-typ-sv__intro {
+  display: grid;
+  gap: 1.5rem;
+  align-items: start;
+  margin-top: 1rem;
+}
+
+@media (min-width: 768px) {
+  .page-vilken-typ-sv__intro {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+
+.page-vilken-typ-sv__hero-figure {
+  margin: 0;
+}
+
+.page-vilken-typ-sv__hero-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.page-vilken-typ-sv__lists {
+  display: grid;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+@media (min-width: 768px) {
+  .page-vilken-typ-sv__lists {
+    grid-template-columns: 1fr 1fr;
   }
 }

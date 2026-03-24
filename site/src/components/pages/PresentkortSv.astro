@@ -1,0 +1,62 @@
+---
+import ButtonGroup from "../content/ButtonGroup.astro";
+import ContentSection from "../content/ContentSection.astro";
+import InfoFrame from "../content/InfoFrame.astro";
+
+/** `site-html/stockholm-presentkort.html` wp-page **2213**. */
+const heroMarkdown =
+  "<h2>Ge bort <span class=\"brand-wordmark\">ANDETAG</span></h2>" +
+  "<p>En gåva behöver inte vara ett föremål.<br />Den kan vara en stund.</p>" +
+  "<p><span class=\"brand-wordmark\">ANDETAG</span> är en omslutande konstupplevelse där ljus, textil och musik rör sig i takt med ett gemensamt andetag.<br />En stillsam plats mitt i staden. En paus från tempo och intryck.</p>" +
+  "<p>Att ge bort <span class=\"brand-wordmark\">ANDETAG</span> är att bjuda in någon till närvaro.<br />Till att stanna upp, om så bara för en stund.</p>";
+
+const twoWaysMarkdown = "<h3>Två sätt att ge bort <span class=\"brand-wordmark\">ANDETAG</span></h3>";
+
+const giftCardMarkdown =
+  "<p><strong>Presentkort</strong></p>" +
+  "<p>Ett öppet sätt att ge. Mottagaren väljer själv när upplevelsen ska äga rum. Presentkortet levereras digitalt och gäller för alla publika visningar i Stockholm.</p>";
+
+const ticketGiftMarkdown =
+  "<p><strong>Biljett som gåva</strong></p>" +
+  "<p>Ett mer bestämt ögonblick.<br />Du väljer datum och ger bort upplevelsen direkt.</p>";
+
+const whenMarkdown =
+  "<h4>När <span class=\"brand-wordmark\">ANDETAG</span> ges bort</h4>" +
+  "<p>Ofta till någon som redan har det mesta.<br />Till någon som uppskattar konst, ljus och musik.<br />Till någon som behöver en paus.</p>" +
+  "<p>Ibland som födelsedagspresent.<br />Ibland utan anledning alls.</p>";
+
+const practicalFrameHtml =
+  "<p>Centrala Stockholm, vid Hötorget.</p>" +
+  "<p>Upplevelsen varar cirka en timme</p>" +
+  "<p>Begränsat antal platser per visning</p>";
+---
+
+<div class="page-migrated page-presentkort-sv">
+  <ContentSection markdown={heroMarkdown} />
+  <ContentSection markdown={twoWaysMarkdown} />
+  <div class="page-presentkort-sv__grid">
+    <div class="page-presentkort-sv__col">
+      <ContentSection markdown={giftCardMarkdown} />
+      <ButtonGroup
+        buttons={[
+          {
+            label: "Köp presentkort",
+            href: "https://andetag.understory.io/giftcards",
+            variant: "secondary",
+            external: true,
+          },
+        ]}
+      />
+    </div>
+    <div class="page-presentkort-sv__col">
+      <ContentSection markdown={ticketGiftMarkdown} />
+      <ButtonGroup
+        buttons={[{ label: "Boka biljett", href: "/sv/stockholm/biljetter/#book", variant: "secondary" }]}
+      />
+    </div>
+  </div>
+  <div class="page-presentkort-sv__bottom">
+    <ContentSection markdown={whenMarkdown} />
+    <InfoFrame heading="Praktisk information" headingLevel="h3" bodyHtml={practicalFrameHtml} />
+  </div>
+</div>

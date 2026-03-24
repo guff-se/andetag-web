@@ -1,6 +1,7 @@
 ---
 import type { PageLayoutModel } from "../../lib/layout/page-layout";
 import { getSwedishHeroHeaderModel } from "../../lib/layout/hero-sv";
+import AndetagHeaderLogo from "./AndetagHeaderLogo.astro";
 import { HEADER_SMALL_SV_ASSETS, HERO_SV_ASSETS } from "../../lib/layout/assets";
 import { isHeaderSmallSv } from "../../lib/layout/header-small-sv";
 
@@ -42,12 +43,8 @@ sharedSvHeader ? (
 
   <div class="shared-hero-content">
     <div class="shared-hero-top">
-      <a class="shared-hero-logo-link" href="/sv/stockholm/" aria-label="Go to homepage">
-        <img
-          class="shared-hero-logo"
-          src={HERO_SV_ASSETS.logo}
-          alt="ANDETAG"
-        />
+      <a class="shared-hero-logo-link andetag-logo" href="/sv/stockholm/" aria-label="Go to homepage">
+        <AndetagHeaderLogo class="shared-hero-logo" />
       </a>
 
       <div class="shared-hero-top-right">

@@ -1,0 +1,46 @@
+---
+import AccordionSection from "../content/AccordionSection.astro";
+import ContentSection from "../content/ContentSection.astro";
+import InfoFrame from "../content/InfoFrame.astro";
+
+/** `site-html/stockholm-oppettider.html` wp-page **2754**. */
+const hoursHtml =
+  "<p><b>Måndag: </b>Stängt</p>" +
+  "<p><b>Tisdag: </b>12.00 – 20.00</p>" +
+  "<p><b>Onsdag: </b>12.00 – 20.00</p>" +
+  "<p><b>Torsdag: </b>12.00 – 20.00</p>" +
+  "<p><b>Fredag: </b>12.00 – 20.00</p>" +
+  "<p><b>Lördag: </b>12.00 – 20.00</p>" +
+  "<p><b>Söndag:</b> 12.00 – 17.00</p>" +
+  "<p>För öppettider helgdagar, se vår bokningskalender.</p>" +
+  "<p>Dagtidspris gäller vardagar 12.00 – 17.00</p>";
+
+const introMarkdown =
+  "<p>För att skapa ett lungt publikflöde har ANDETAG i Stockholm har fasta starttider. Du får sedan ta dig igenom utställningen i din egen takt.</p>" +
+  "<p>Du är välkommen att anlända före utsatt tid, förutsatt att vanlig öppettid råder. Besökare stannar i genomsnitt 45 minuter, men du är välkommen att<strong> stanna så länge du vill.</strong></p>" +
+  "<p>Vi använder tidsbokning för att se till att inte för många anländer samtidigt, men det går också att köpa biljett i dörren.</p>";
+
+const accordionItems = [
+  {
+    title: "Hur tidigt kan jag komma?",
+    bodyHtml: "<p>Du är välkommen att komma lite före din tid, så länge ordinarie öppettid råder. Det är ofta skönt att landa en stund innan.</p>",
+  },
+  {
+    title: "Vad händer om jag blir sen?",
+    bodyHtml:
+      "<p>Oroa dig inte. Vi gör alltid vårt bästa för att alla skall få uppleva <span class=\"brand-wordmark\">ANDETAG</span> i sin egen takt.</p>",
+  },
+];
+---
+
+<div class="page-migrated page-oppettider-sv">
+  <div class="page-oppettider-sv__top">
+    <div class="page-oppettider-sv__hours">
+      <InfoFrame bodyHtml={hoursHtml} />
+    </div>
+    <div class="page-oppettider-sv__main">
+      <ContentSection heading="Öppettider" headingLevel="h2" markdown={introMarkdown} />
+      <AccordionSection items={accordionItems} initialOpenIndex={0} />
+    </div>
+  </div>
+</div>

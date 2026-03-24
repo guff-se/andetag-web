@@ -1,12 +1,28 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
 import ArtYogaSv from "../components/pages/ArtYogaSv.astro";
+import BesokaromdomenSv from "../components/pages/BesokaromdomenSv.astro";
 import BiljetterSv from "../components/pages/BiljetterSv.astro";
 import DejtSv from "../components/pages/DejtSv.astro";
 import FragorSvarSv from "../components/pages/FragorSvarSv.astro";
 import ForetagseventSv from "../components/pages/ForetagseventSv.astro";
 import GruppbokningSv from "../components/pages/GruppbokningSv.astro";
+import HittaHitSv from "../components/pages/HittaHitSv.astro";
+import MusikSv from "../components/pages/MusikSv.astro";
+import NpfStockholmSv from "../components/pages/NpfStockholmSv.astro";
+import OmAndetagSv from "../components/pages/OmAndetagSv.astro";
+import OmKonstnarernaSv from "../components/pages/OmKonstnarernaSv.astro";
+import OppettiderSv from "../components/pages/OppettiderSv.astro";
 import OptiskFibertextilSv from "../components/pages/OptiskFibertextilSv.astro";
+import PresentkortSv from "../components/pages/PresentkortSv.astro";
+import SasongskortSv from "../components/pages/SasongskortSv.astro";
+import StockholmAktivitetInomhusSv from "../components/pages/StockholmAktivitetInomhusSv.astro";
+import StockholmAttGoraSv from "../components/pages/StockholmAttGoraSv.astro";
+import StockholmHomeSv from "../components/pages/StockholmHomeSv.astro";
+import StockholmMuseumSv from "../components/pages/StockholmMuseumSv.astro";
+import StockholmUtstallningSv from "../components/pages/StockholmUtstallningSv.astro";
+import TillganglighetSv from "../components/pages/TillganglighetSv.astro";
+import VilkenTypAvUpplevelseSv from "../components/pages/VilkenTypAvUpplevelseSv.astro";
 import {
   getPageShellRoute,
   PAGE_SHELL_PATHS,
@@ -24,26 +40,33 @@ const segments = slug.split("/").filter(Boolean);
 const canonicalPath = `/${segments.join("/")}/`;
 const shell = getPageShellRoute(canonicalPath);
 
+type ShellPageBody = typeof MusikSv;
+
 /** Keep keys aligned with `PAGE_CUSTOM_BODY_PATHS` in `lib/pages/page-body-registry.ts`. */
-const pageBodies: Partial<
-  Record<
-    string,
-    | typeof GruppbokningSv
-    | typeof ForetagseventSv
-    | typeof OptiskFibertextilSv
-    | typeof ArtYogaSv
-    | typeof BiljetterSv
-    | typeof DejtSv
-    | typeof FragorSvarSv
-  >
-> = {
-  "/sv/stockholm/gruppbokning/": GruppbokningSv,
-  "/sv/stockholm/foretagsevent/": ForetagseventSv,
+const pageBodies: Partial<Record<string, ShellPageBody>> = {
+  "/sv/musik/": MusikSv,
+  "/sv/om-andetag/": OmAndetagSv,
+  "/sv/om-konstnarerna-malin-gustaf-tadaa/": OmKonstnarernaSv,
   "/sv/optisk-fibertextil/": OptiskFibertextilSv,
+  "/sv/stockholm/": StockholmHomeSv,
+  "/sv/stockholm/aktivitet-inomhus-stockholm/": StockholmAktivitetInomhusSv,
   "/sv/stockholm/art-yoga/": ArtYogaSv,
+  "/sv/stockholm/att-gora-stockholm/": StockholmAttGoraSv,
+  "/sv/stockholm/besokaromdomen/": BesokaromdomenSv,
   "/sv/stockholm/biljetter/": BiljetterSv,
   "/sv/stockholm/dejt/": DejtSv,
+  "/sv/stockholm/foretagsevent/": ForetagseventSv,
   "/sv/stockholm/fragor-svar/": FragorSvarSv,
+  "/sv/stockholm/gruppbokning/": GruppbokningSv,
+  "/sv/stockholm/hitta-hit/": HittaHitSv,
+  "/sv/stockholm/museum-stockholm/": StockholmMuseumSv,
+  "/sv/stockholm/npf-stockholm/": NpfStockholmSv,
+  "/sv/stockholm/oppettider/": OppettiderSv,
+  "/sv/stockholm/presentkort/": PresentkortSv,
+  "/sv/stockholm/sasongskort/": SasongskortSv,
+  "/sv/stockholm/tillganglighet/": TillganglighetSv,
+  "/sv/stockholm/utstallning-stockholm/": StockholmUtstallningSv,
+  "/sv/stockholm/vilken-typ-av-upplevelse/": VilkenTypAvUpplevelseSv,
 };
 const PageBody = pageBodies[canonicalPath];
 ---

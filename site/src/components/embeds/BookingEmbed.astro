@@ -18,8 +18,6 @@ type Props = {
   /** When set, rendered as the first child inside the embed shell (before widget or fallback). */
   heading?: string;
   headingLevel?: HeadingLevel;
-  /** Title alignment when `heading` is set. */
-  headingAlign?: "left" | "center";
   /** When true, no border, fill, or padding (widget sits flush in the layout). */
   unframed?: boolean;
   /** When false, omits the standard contact line below the widget (`info@andetag.museum`). Default true. */
@@ -34,19 +32,13 @@ const {
   unavailable = false,
   heading,
   headingLevel = "h2",
-  headingAlign = "center",
   unframed = false,
   showContact = true,
 } = Astro.props as Props;
 const widget = getUnderstoryWidgetConfig(companyId, language);
 const contactHtml = showContact ? getBookingEmbedContactHtml(language) : null;
 const HeadingTag = getHeadingTag(headingLevel, "h2");
-const shellClass = [
-  "embed-shell",
-  unframed ? "embed-shell--unframed" : "",
-  heading && headingAlign === "center" ? "embed-shell--heading-center" : "",
-  heading && headingAlign === "left" ? "embed-shell--heading-left" : "",
-]
+const shellClass = ["embed-shell", "booking-embed", unframed ? "embed-shell--unframed" : ""]
   .filter(Boolean)
   .join(" ");
 ---

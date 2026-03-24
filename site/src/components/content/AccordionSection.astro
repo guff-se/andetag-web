@@ -2,7 +2,10 @@
 import { randomUUID } from "node:crypto";
 
 type AccordionItem = {
+  /** Plain label (always set for source clarity; used when `titleHtml` is omitted). */
   title: string;
+  /** Trusted HTML for the question when it includes `.brand-wordmark` or other inline markup. */
+  titleHtml?: string;
   /** Plain text body (single paragraph). */
   body?: string;
   /** Trusted HTML when the source has links or multiple blocks (for example FAQ). */
@@ -11,9 +14,11 @@ type AccordionItem = {
 
 type Props = {
   items: AccordionItem[];
+  /** Panel open on first paint; `null` means all closed (legacy home nested accordion default). */
+  initialOpenIndex?: number | null;
 };
 
-const { items } = Astro.props as Props;
+const { items, initialOpenIndex = 0 } = Astro.props as Props;
 /** Stable per section instance for `aria-controls` / `id` (avoids clashes when two accordions sit on one page). */
 const accUid = randomUUID().replace(/-/g, "").slice(0, 10);
 ---
@@ -22,7 +27,7 @@ const accUid = randomUUID().replace(/-/g, "").slice(0, 10);
   {items.map((item, index) => {
     const headerId = `acc-h-${accUid}-${index}`;
     const panelId = `acc-p-${accUid}-${index}`;
-    const isOpen = index === 0;
+        const isOpen = initialOpenIndex !== null && index === initialOpenIndex;
     return (
       <div class:list={["accordion-item", isOpen && "is-open"]}>
         <button
@@ -32,7 +37,11 @@ const accUid = randomUUID().replace(/-/g, "").slice(0, 10);
           aria-expanded={isOpen}
           aria-controls={panelId}
         >
-          {item.title}
+          {item.titleHtml ? (
+            <span class="accordion-item-toggle-label" set:html={item.titleHtml} />
+          ) : (
+            item.title
+          )}
         </button>
         <div
           class="accordion-item-expand"

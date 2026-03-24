@@ -1,0 +1,45 @@
+---
+import ContentSection from "../content/ContentSection.astro";
+
+/** `site-html/stockholm-sasongskort.html` wp-page **2804**. */
+const h1Html =
+  "<h1>Säsongskort till <span class=\"brand-wordmark\">ANDETAG</span></h1>";
+
+const subMarkdown = "<h3>Kom tillbaka till ditt andetag</h3>";
+
+const bodyMarkdown =
+  "<p>För vissa blir <span class=\"brand-wordmark\">ANDETAG</span> mer än ett enskilt besök. Det blir en vana. Ett stilla återvändande till samma rum, samma ljus, samma långsamma rytm.</p>" +
+  "<p>Säsongskortet är för dig som vill göra <span class=\"brand-wordmark\">ANDETAG</span> till en del av din vardag. En plats att komma tillbaka till, utan att planera. Utan att skynda.</p>" +
+  "<p>Varje besök är likt, men aldrig identiskt. Ljus och musik rör sig i takt med ett gemensamt andetag, i ständigt föränderliga variationer. Du kommer när du behöver. Du stannar så länge du vill.</p>";
+
+const givesMarkdown =
+  "<h3>Vad säsongskortet ger</h3>" +
+  "<p>Med säsongskortet har du fri tillgång till <span class=\"brand-wordmark\">ANDETAG</span> i <strong>sex månader</strong>.</p>" +
+  "<p>Du kan boka tider som vanligt, i mån av plats, och använda kortet så ofta du vill under perioden.</p>" +
+  "<p>Många använder det som en veckovis paus. Andra kommer oftare. Det finns inget rätt sätt.</p>";
+
+const priceMarkdown =
+  "<h3>Pris och villkor</h3>" +
+  "<p><strong>Säsongskort köpes i kassan.</strong></p>" +
+  "<p><strong>Pris: 950 kr</strong><br />Gäller i 6 månader från inköpsdatum.</p>" +
+  "<p>Om du redan har köpt en ordinarie biljett kan dess värde dras av vid köp av säsongskort i entrén. Visa upp din biljett i kassan.</p>" +
+  "<p>Säsongskortet är personligt.</p>";
+
+const calmMarkdown =
+  "<h3>Ett lugnt åtagande</h3>" +
+  "<p>Säsongskortet är inte ett löfte om förändring. Det är ett erbjudande om kontinuitet. En plats som finns där, när du behöver den.</p>" +
+  "<p>Ett andetag. Om och om igen.</p>";
+---
+
+<div class="page-migrated page-sasongskort-sv">
+  <section class="content-section align-left" aria-labelledby="sasongskort-h1">
+    <div id="sasongskort-h1" class="content-section-body" set:html={h1Html} />
+  </section>
+  <ContentSection markdown={subMarkdown} />
+  <ContentSection markdown={bodyMarkdown} />
+  <div class="page-sasongskort-sv__two-col">
+    <ContentSection markdown={givesMarkdown} />
+    <ContentSection markdown={priceMarkdown} />
+  </div>
+  <ContentSection markdown={calmMarkdown} />
+</div>

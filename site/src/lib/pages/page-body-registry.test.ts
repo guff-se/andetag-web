@@ -9,14 +9,8 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const slugPath = join(__dirname, "../../pages/[...slug].astro");
 
 describe("page body registry", () => {
-  it("lists expected migrated paths", () => {
-    expect(PAGE_CUSTOM_BODY_PATHS.has("/sv/stockholm/gruppbokning/")).toBe(true);
-    expect(PAGE_CUSTOM_BODY_PATHS.has("/sv/stockholm/foretagsevent/")).toBe(true);
-    expect(PAGE_CUSTOM_BODY_PATHS.has("/sv/optisk-fibertextil/")).toBe(true);
-    expect(PAGE_CUSTOM_BODY_PATHS.has("/sv/stockholm/art-yoga/")).toBe(true);
-    expect(PAGE_CUSTOM_BODY_PATHS.has("/sv/stockholm/biljetter/")).toBe(true);
-    expect(PAGE_CUSTOM_BODY_PATHS.has("/sv/stockholm/dejt/")).toBe(true);
-    expect(PAGE_CUSTOM_BODY_PATHS.has("/sv/stockholm/fragor-svar/")).toBe(true);
+  it("lists every migrated path in the slug map", () => {
+    expect(PAGE_CUSTOM_BODY_PATHS.size).toBe(23);
   });
 
   it("stays aligned with pageBodies map in [...slug].astro", () => {

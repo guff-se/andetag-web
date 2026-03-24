@@ -1,0 +1,39 @@
+---
+/**
+ * Internal preview: three mock quotes + jQuery autoplay/slide transitions via `TestimonialCarousel`
+ * (`js-testimonial-carousel` in `TestimonialCarousel.astro`).
+ */
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import TestimonialCarousel from "../../components/content/TestimonialCarousel.astro";
+import { testimonialMockupItems } from "../../lib/content/testimonial-mockup-items";
+---
+
+<SiteLayout
+  title="Förhandsvisning: omdömeskarusell (mock) | ANDETAG"
+  description="Intern layouttest med fiktiva citat. Indexeras inte."
+  language="sv"
+  destination="stockholm"
+  headerVariantId="header-2223"
+  footerVariantId="footer-207"
+  canonicalPath="/preview/testimonial-mock-quotes/"
+  hreflang={{ sv: "/preview/testimonial-mock-quotes/", en: null, de: null }}
+  xDefaultPath="/sv/stockholm/"
+  robots="noindex,nofollow"
+  fullWidthMain={true}
+>
+  <div
+    class="page-migrated"
+    style="padding: 0 max(1rem, calc((100% - 42rem) / 2)) 3rem; max-width: none;"
+  >
+    <h1
+      style="font-family: JostLocal, Jost, Arial, sans-serif; font-size: 0.85rem; letter-spacing: 0.28em; text-transform: uppercase; color: #4a0d2f; margin: 0 0 0.75rem;"
+    >
+      Mock · omdömeskarusell
+    </h1>
+    <p style="margin: 0 0 1.5rem; color: #2b2b2b; line-height: 1.5; max-width: 40rem;">
+      Tre <strong>fiktiva</strong> citat (se <code>testimonial-mockup-items.ts</code>). Rotation: inbyggd klient i
+      <code>TestimonialCarousel.astro</code> (<code>setupTestimonialCarousel</code>, autoplay och pilknappar).
+    </p>
+    <TestimonialCarousel items={[...testimonialMockupItems]} autoplayMs={5000} />
+  </div>
+</SiteLayout>

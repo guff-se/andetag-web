@@ -1,0 +1,34 @@
+---
+import ContentSection from "../content/ContentSection.astro";
+
+/** `site-html/stockholm-tillganglighet.html` wp-page **2850**. */
+const block1 =
+  "<h3>En plats med omtanke</h3>" +
+  "<p><span class=\"brand-wordmark\">ANDETAG</span> är utformad som en stillsam och tillgänglig upplevelse. Vårt mål är att så många som möjligt ska kunna ta del av platsen, i sin egen takt och på sina egna villkor.</p>" +
+  "<p>Nedan hittar du praktisk information om tillgänglighet. Om något är oklart är du alltid välkommen att höra av dig.</p>" +
+  "<h3>Att ta sig hit</h3>" +
+  "<p>Det finns <strong>hiss från tunnelbanans plattform</strong> samt <strong>hiss från gatuplan vid Kungsgatan 39</strong>.</p>" +
+  "<p>Hela utställningen ligger på ett plan och är <strong>rullstolsanpassad</strong>.</p>" +
+  "<h3>Rullstol och toalett</h3>" +
+  "<p>Själva upplevelsen är tillgänglig för rullstol.</p>" +
+  "<p>Tyvärr har vi i nuläget <strong>inte en fullt utrustad rullstolsanpassad toalett</strong>. Kontakta oss gärna i förväg om du vill diskutera praktiska lösningar.</p>";
+
+const block2 =
+  "<h3>Ljus, mörker och orientering</h3>" +
+  "<p>Vissa delar av utställningen är mörka. Rummet är dock utformat för att vara lätt att orientera sig i, med tydliga flöden och lugna övergångar.</p>" +
+  "<p><strong>Ledhundar är välkomna.</strong></p>" +
+  "<h3>Ljud och hörsel</h3>" +
+  "<p>Det finns <strong>ingen hörslinga</strong> i lokalen.</p>" +
+  "<p>Musiken som används i upplevelsen finns tillgänglig online. Om du använder hörapparat eller annan personlig utrustning kan du lyssna via egen enhet.</p>" +
+  "<h3>Ledsagare och assistans</h3>" +
+  "<p>Ledsagare eller personliga assistenter går in utan kostnad.</p>" +
+  "<p>Säg gärna till i entrén.</p>" +
+  "<h3>Grupper och verksamheter</h3>" +
+  "<p>Vi tar emot grupper med rullstolsburna besökare, till exempel <strong>skolklasser</strong> eller <strong>daglig verksamhet</strong>.</p>" +
+  "<p>För gruppbokning och frågor, kontakta:<br /><strong>info@tadaa.se</strong></p>";
+---
+
+<div class="page-migrated page-tillganglighet-sv">
+  <ContentSection heading="Tillgänglighet" headingLevel="h1" markdown={block1} />
+  <ContentSection markdown={block2} />
+</div>

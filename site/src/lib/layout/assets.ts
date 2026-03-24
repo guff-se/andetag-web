@@ -1,5 +1,4 @@
 export const HERO_SV_ASSETS = {
-  logo: "/wp-content/uploads/2024/11/andetag-logo-white-shadow.png",
   poster: "/wp-content/uploads/2024/11/Desktop.00_00_00_00.Still002.jpg",
   video: "/wp-content/uploads/2024/12/Desktop.mp4",
 } as const;

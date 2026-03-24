@@ -73,7 +73,7 @@ Reference docs before implementation:
 | `docs/phase-2-todo.md` | Execution checklist for Phase 2 shared layout system deliverables and approvals. |
 | `docs/phase-3-todo.md` | Execution checklist for Phase 3 component library, showcase approval, and verification gates. |
 | `docs/phase-4-todo.md` | Execution checklist for Phase 4 routing, redirects, canonical or hreflang wiring, and URL coverage validation. |
-| `docs/phase-5-todo.md` | Execution checklist for Phase 5 page migration, entry static targets, Worker staging or production enable, and Swedish-first approval gates. |
+| `docs/phase-5-todo.md` | Execution checklist for Phase 5 page migration, entry static targets, Worker staging or production enable, and Swedish-first approval gates (first wave complete; **alphabetical `/sv/` remainder** table and batch approval exception). |
 | `docs/phase-5-verification-record.md` | Phase 5 evidence, per-page design approval log, Lighthouse or QA summary, and stakeholder sign-off (open while Phase 5 is in progress). |
 | `docs/phase-7-todo.md` | Execution checklist for Phase 7 scripts, consent, analytics, favicon, sharing metadata, schema.org, sitemap, and launch hardening. |
 | `docs/phase-4-route-coverage.md` | URL matrix to Astro shell and `_redirects` mapping for Phase 4 route coverage. |
@@ -95,6 +95,7 @@ Reference docs before implementation:
 | `docs/definition-of-done.md` | Measurable exit checks for each delivery phase. |
 | `docs/tracking-and-consent-requirements.md` | GTM, Brevo, and consent category requirements for compliant tracking. |
 | `docs/migration-exceptions.md` | Exception log format and approval workflow for source parity deviations. |
+| `docs/testimonials-reimplementation-options.md` | Research and strategic options for customer testimonials and social proof (discussion before implementation). |
 | `docs/design-extraction-method.md` | Reproducible method for extracting design tokens and component patterns from all CSS sources. |
 | `docs/phase-1-analysis-schema.md` | Structured tables for Phase 1 variant, widget, and integration analysis. |
 | `docs/decisions/README.md` | ADR template, naming convention, and decision lifecycle process. |

@@ -18,8 +18,8 @@ Status: approved for implementation.
 | `ButtonGroup` | `button.default`, nav/footer CTA patterns | high | Three CTA tokens: `primary` (any surface), `secondary` (light only), `outline` (photo backgrounds); see `docs/Visual Identity.md` |
 | `HeroSection` | Hero header and hero content patterns | high | Optional default **slot** (`.component-hero-slot`); cover **`backgroundImage`** loads **`hero-cover-parallax.ts`** from the component |
 | `ContentSection` | `heading.default` + `text-editor.default` blocks | high | Base wrapper for structured content areas |
-| `AccordionSection` | `nested-accordion.default` on FAQ pages | high | Optional **`bodyHtml`**; **`button`** + **`.is-open`** panel (not **`<details>`**); one open row per **`accordion-section`** (**`accordion-section-exclusive.ts`**); **`FragorSvarSv.astro`** twin columns (**`.page-faq-accordions`**) |
-| `BookingEmbed` | `html.default` Understory widget | high | Primary conversion path; **standard:** fixed-width **`page-layout-with-aside__aside`** (**`420px`**), main column variable; see **`docs/phase-3-component-usage.md`** |
+| `AccordionSection` | `nested-accordion.default` on FAQ pages | high | Optional **`titleHtml`** (wordmark in question); optional **`bodyHtml`**; optional **`initialOpenIndex`** (**`null`** = all closed on load, Swedish home); **`button`** + **`.is-open`** panel (not **`<details>`**); one open row per **`accordion-section`** (**`accordion-section-exclusive.ts`**); **`FragorSvarSv.astro`** twin columns (**`.page-faq-accordions`**) |
+| `BookingEmbed` | `html.default` Understory widget | high | Primary conversion path; **standard:** fixed-width **`page-layout-with-aside__aside`** (**`420px`**), main column variable; embed heading always centered (**`.booking-embed`**); see **`docs/phase-3-component-usage.md`** |
 | `WaitlistFormEmbed` | `html.default` Brevo form (DE flow) | high | Lead capture and Berlin pre-launch flow |
 | `MapEmbed` | `google_maps.default` | medium | Consent-aware embed surface |
 | `VideoEmbed` | `video.default` Vimeo embeds | medium | Consent-aware media surface |
@@ -64,7 +64,8 @@ type ContentSectionProps = {
 };
 
 type AccordionSectionProps = {
-  items: Array<{ title: string; body?: string; bodyHtml?: string }>;
+  items: Array<{ title: string; titleHtml?: string; body?: string; bodyHtml?: string }>;
+  initialOpenIndex?: number | null;
 };
 
 type BookingEmbedProps = {
@@ -75,7 +76,6 @@ type BookingEmbedProps = {
   unavailable?: boolean;
   heading?: string;
   headingLevel?: "h1" | "h2" | "h3";
-  headingAlign?: "left" | "center";
   unframed?: boolean;
   showContact?: boolean;
 };
@@ -90,6 +90,8 @@ type MapEmbedProps = {
   title: string;
   src: string;
   fallbackText: string;
+  unavailable?: boolean;
+  unframed?: boolean;
 };
 
 type VideoEmbedProps = {
@@ -102,6 +104,15 @@ type TestimonialCarouselProps = {
   items: Array<{ quote: string; author?: string }>;
   backgroundImage?: string;
   autoplayMs?: number;
+  aggregate?: {
+    eyebrow: string;
+    score: string;
+    scoreCaption: string;
+    meta: string;
+    linkHref: string;
+    linkLabel: string;
+    regionAriaLabel?: string;
+  };
 };
 
 type GallerySectionProps = {

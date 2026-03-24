@@ -4,115 +4,201 @@ type TestimonialItem = {
   author?: string;
 };
 
+/** Optional aggregate strip below quotes; background image spans carousel + aggregate. */
+type TestimonialAggregate = {
+  eyebrow: string;
+  score: string;
+  scoreCaption: string;
+  meta: string;
+  linkHref: string;
+  linkLabel: string;
+  /** Optional; use when visible `linkLabel` omits the destination name (for example Tripadvisor wordmark nearby). */
+  linkAriaLabel?: string;
+  regionAriaLabel?: string;
+  /** When false, hide self-hosted Tripadvisor dots + wordmark and show Unicode stars in the score row instead. */
+  showTripAdvisorBrand?: boolean;
+};
+
+const tripadvisorDotsSrc = "/assets/tripadvisor/tripadvisor-5dots.png";
+const tripadvisorLogoSrc = "/assets/tripadvisor/tripadvisor-logo.svg";
+
 type Props = {
   items: TestimonialItem[];
   backgroundImage?: string;
   autoplayMs?: number;
+  aggregate?: TestimonialAggregate;
 };
 
 const {
   items,
   backgroundImage = "/wp-content/uploads/2024/11/Andetag-27-037-copy-scaled.jpg",
   autoplayMs = 6000,
+  aggregate,
 } = Astro.props as Props;
+
+const regionLabel = aggregate?.regionAriaLabel ?? "Sammanfattning av omdömen";
+const showTripAdvisorBrand = aggregate ? aggregate.showTripAdvisorBrand !== false : false;
 ---
 
 <section
-  class="testimonial-carousel js-testimonial-carousel"
+  class="testimonial-block"
   style={`--testimonial-background-image: url('${backgroundImage}')`}
-  data-autoplay-ms={autoplayMs}
 >
-  <div class="testimonial-carousel-overlay" aria-hidden="true"></div>
-  <div class="testimonial-carousel-viewport" aria-live="polite">
-    {items.map((item, index) => (
-      <blockquote
-        class={`testimonial-slide${index === 0 ? " is-active" : ""}`}
-        data-slide-index={index}
-        aria-hidden={index === 0 ? "false" : "true"}
-      >
-        <p>{item.quote}</p>
-        {item.author ? <cite>{item.author}</cite> : null}
-      </blockquote>
-    ))}
+  <div class="testimonial-block__bg" aria-hidden="true"></div>
+  <div class="testimonial-block__overlay" aria-hidden="true"></div>
+  <div class="testimonial-block__carousel js-testimonial-carousel" data-autoplay-ms={autoplayMs}>
+    <div class="testimonial-carousel-viewport" aria-live="polite">
+      {items.map((item, index) => (
+        <blockquote
+          class={`testimonial-slide${index === 0 ? " is-active" : ""}`}
+          data-slide-index={index}
+          aria-hidden={index === 0 ? "false" : "true"}
+        >
+          <p>{item.quote}</p>
+          {item.author ? <cite>{item.author}</cite> : null}
+        </blockquote>
+      ))}
+    </div>
+    {
+      items.length > 1 ? (
+        <>
+          <button class="testimonial-nav testimonial-nav-prev" type="button" aria-label="Previous testimonial">
+            <span aria-hidden="true">‹</span>
+          </button>
+          <button class="testimonial-nav testimonial-nav-next" type="button" aria-label="Next testimonial">
+            <span aria-hidden="true">›</span>
+          </button>
+        </>
+      ) : null
+    }
   </div>
   {
-    items.length > 1 ? (
-      <>
-        <button class="testimonial-nav testimonial-nav-prev" type="button" aria-label="Previous testimonial">
-          <span aria-hidden="true">‹</span>
-        </button>
-        <button class="testimonial-nav testimonial-nav-next" type="button" aria-label="Next testimonial">
-          <span aria-hidden="true">›</span>
-        </button>
-      </>
+    aggregate ? (
+      <div class="testimonial-block__aggregate">
+        <div class="testimonial-block__aggregate-inner" role="region" aria-label={regionLabel}>
+          <p class="testimonial-block__aggregate-eyebrow">{aggregate.eyebrow}</p>
+          {
+            showTripAdvisorBrand ? (
+              <div class="testimonial-block__aggregate-brand">
+                <img
+                  class="testimonial-block__aggregate-dots"
+                  src={tripadvisorDotsSrc}
+                  alt=""
+                  width="512"
+                  height="96"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <img
+                  class="testimonial-block__aggregate-logo"
+                  src={tripadvisorLogoSrc}
+                  alt="Tripadvisor"
+                  width="561"
+                  height="86"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            ) : null
+          }
+          <div class="testimonial-block__aggregate-score-row">
+            <p class="testimonial-block__aggregate-score">
+              {aggregate.score}
+              <span>{aggregate.scoreCaption}</span>
+            </p>
+            {
+              !showTripAdvisorBrand ? (
+                <div class="testimonial-block__aggregate-stars" aria-hidden="true">
+                  <span>★</span>
+                  <span>★</span>
+                  <span>★</span>
+                  <span>★</span>
+                  <span>★</span>
+                </div>
+              ) : null
+            }
+          </div>
+          <p class="testimonial-block__aggregate-meta">{aggregate.meta}</p>
+          <a
+            class="testimonial-block__aggregate-link"
+            href={aggregate.linkHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={aggregate.linkAriaLabel}
+          >
+            {aggregate.linkLabel}
+          </a>
+        </div>
+      </div>
     ) : null
   }
 </section>
 
 <script>
-  import $ from "jquery";
   import { getWrappedIndex } from "../../lib/components/testimonial-carousel";
 
-  const setupTestimonialCarousel = (root) => {
-    const $root = $(root);
-    if ($root.data("carouselInitialized")) return;
-    $root.data("carouselInitialized", true);
+  const isTransformProperty = (name: string) =>
+    name === "transform" || name === "-webkit-transform";
 
-    const $slides = $root.find(".testimonial-slide");
-    const total = $slides.length;
+  const setupTestimonialCarousel = (root: HTMLElement) => {
+    if (root.dataset.carouselInitialized === "true") return;
+    root.dataset.carouselInitialized = "true";
+
+    const slides = root.querySelectorAll<HTMLElement>(".testimonial-slide");
+    const total = slides.length;
     if (total === 0) return;
 
     let activeIndex = getWrappedIndex(0, total);
-    const autoplayMs = Number($root.attr("data-autoplay-ms")) || 6000;
+    const autoplayMs = Number(root.getAttribute("data-autoplay-ms")) || 6000;
     const transitionMs = 550;
-    let intervalId = null;
+    let intervalId: ReturnType<typeof setInterval> | null = null;
 
-    const setActiveSlide = (requestedIndex, direction) => {
+    const setActiveSlide = (requestedIndex: number, direction: "forward" | "backward") => {
       const nextIndex = getWrappedIndex(requestedIndex, total);
       if (nextIndex === activeIndex) return;
-      if ($root.data("testimonialTransitioning")) return;
+      if (root.dataset.testimonialTransitioning === "true") return;
 
       const forward = direction === "forward";
-      const $current = $slides.eq(activeIndex);
-      const $next = $slides.eq(nextIndex);
+      const current = slides[activeIndex];
+      const next = slides[nextIndex];
 
-      $root.data("testimonialTransitioning", true);
+      root.dataset.testimonialTransitioning = "true";
 
-      $next.css({
-        visibility: "visible",
-        opacity: 1,
-        zIndex: 2,
-        transform: forward ? "translateX(100%)" : "translateX(-100%)",
-      });
-      $current.css({ zIndex: 1 });
+      next.style.visibility = "visible";
+      next.style.opacity = "1";
+      next.style.zIndex = "2";
+      next.style.transform = forward ? "translateX(100%)" : "translateX(-100%)";
+      current.style.zIndex = "1";
 
-      void $next[0]?.offsetHeight;
+      void next.offsetHeight;
 
-      $current.css({
-        transform: forward ? "translateX(-100%)" : "translateX(100%)",
-        opacity: 0,
-      });
-      $next.css({ transform: "translateX(0)" });
+      current.style.transform = forward ? "translateX(-100%)" : "translateX(100%)";
+      current.style.opacity = "0";
+      next.style.transform = "translateX(0)";
 
       let finished = false;
       const finish = () => {
         if (finished) return;
         finished = true;
-        $next.off("transitionend", onTransitionEnd);
+        next.removeEventListener("transitionend", onTransitionEnd);
         window.clearTimeout(fallbackTimer);
-        $current.removeClass("is-active").attr("aria-hidden", "true").removeAttr("style");
-        $next.addClass("is-active").attr("aria-hidden", "false").removeAttr("style");
+        current.classList.remove("is-active");
+        current.setAttribute("aria-hidden", "true");
+        current.removeAttribute("style");
+        next.classList.add("is-active");
+        next.setAttribute("aria-hidden", "false");
+        next.removeAttribute("style");
         activeIndex = nextIndex;
-        $root.removeData("testimonialTransitioning");
+        delete root.dataset.testimonialTransitioning;
       };
 
-      const onTransitionEnd = (event) => {
-        const prop = event.originalEvent?.propertyName;
-        if (prop && prop !== "transform") return;
+      const onTransitionEnd = (event: TransitionEvent) => {
+        if (event.target !== next) return;
+        if (!isTransformProperty(event.propertyName)) return;
         finish();
       };
 
-      $next.on("transitionend", onTransitionEnd);
+      next.addEventListener("transitionend", onTransitionEnd);
       const fallbackTimer = window.setTimeout(finish, transitionMs + 100);
     };
 
@@ -129,28 +215,30 @@ const {
       intervalId = null;
     };
 
-    $root.find(".testimonial-nav-prev").on("click", () => {
+    root.querySelector<HTMLButtonElement>(".testimonial-nav-prev")?.addEventListener("click", () => {
       setActiveSlide(activeIndex - 1, "backward");
       stopAutoplay();
       startAutoplay();
     });
 
-    $root.find(".testimonial-nav-next").on("click", () => {
+    root.querySelector<HTMLButtonElement>(".testimonial-nav-next")?.addEventListener("click", () => {
       setActiveSlide(activeIndex + 1, "forward");
       stopAutoplay();
       startAutoplay();
     });
 
-    $root.on("mouseenter focusin", stopAutoplay);
-    $root.on("mouseleave focusout", () => {
-      startAutoplay();
-    });
+    root.addEventListener("mouseenter", stopAutoplay);
+    root.addEventListener("focusin", stopAutoplay);
+    root.addEventListener("mouseleave", startAutoplay);
+    root.addEventListener("focusout", startAutoplay);
 
     startAutoplay();
   };
 
   const initializeAll = () => {
-    document.querySelectorAll(".js-testimonial-carousel").forEach(setupTestimonialCarousel);
+    document.querySelectorAll<HTMLElement>(".js-testimonial-carousel").forEach((el) => {
+      setupTestimonialCarousel(el);
+    });
   };
 
   if (document.readyState === "loading") {
