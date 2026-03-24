@@ -1,0 +1,51 @@
+---
+import ContentSection from "../content/ContentSection.astro";
+import MapEmbed from "../embeds/MapEmbed.astro";
+
+/** `site-html/en-stockholm-how-to-find-us.html` wp-page. */
+const mapSrc =
+  "https://maps.google.com/maps?q=Andetag%2C%20Kungsgatan%2039%2C%20111%2056%20Stockholm&t=m&z=15&output=embed&iwloc=near";
+
+const directionsMarkdown = [
+  "<h3>In the middle of the city. Just below the surface.</h3>",
+  "<p><span class=\"brand-wordmark\">ANDETAG</span> is located in the <strong>central entrance of Hötorget metro station</strong>, in the heart of Stockholm. One step down from the pace of the city.</p>",
+  "<h4>By metro</h4>",
+  "<p>Take the metro to <strong>Hötorget</strong>.</p>",
+  "<p>Exit in the middle of the platform and follow signs for <strong>Kungsgatan exit</strong>.</p>",
+  "<p>Continue towards <strong>Stureplan / Sveavägen mot Sergels torg</strong>.</p>",
+  "<p><span class=\"brand-wordmark\">ANDETAG</span> is located directly by the entrance.</p>",
+  "<h4>From street level</h4>",
+  "<p>The entrance is <strong>just below the stairs</strong> leading down to the metro at <strong>Kungsgatan 39, Stockholm</strong>.</p>",
+  "<h3>Accessibility</h3>",
+  "<p>Elevators are available both from the metro platform and at the entrance on Kungsgatan 39. The experience is wheelchair accessible.</p>",
+  '<p><a href="/en/stockholm/accessibility/">Read more about accessibility at <span class="brand-wordmark">ANDETAG</span></a></p>',
+].join("");
+---
+
+<div class="page-migrated page-hitta-hit-sv">
+  <div class="page-hitta-hit-sv__grid">
+    <div class="page-hitta-hit-sv__title-cell">
+      <section class="content-section align-left page-hitta-hit-sv__title-section" aria-labelledby="hitta-hit-h1-en">
+        <h1 id="hitta-hit-h1-en">
+          How to find <span class="brand-wordmark">ANDETAG</span>
+        </h1>
+      </section>
+    </div>
+    <div class="page-hitta-hit-sv__body-cell">
+      <ContentSection markdown={directionsMarkdown} />
+    </div>
+    <div class="page-hitta-hit-sv__map-cell">
+      <div class="page-hitta-hit-sv__map-frame">
+        <MapEmbed
+          title="Andetag, Kungsgatan 39, 111 56 Stockholm"
+          src={mapSrc}
+          unframed
+          fallbackText="The map could not load. Search for Andetag, Kungsgatan 39 in your maps app."
+        />
+      </div>
+    </div>
+  </div>
+  <p class="page-hitta-hit-sv__footer-line content-section align-center" aria-label="Address">
+    <span class="brand-wordmark">ANDETAG-</span>Kungsgatan&nbsp;39, Hötorget&nbsp;metro&nbsp;station,&nbsp;Stockholm
+  </p>
+</div>

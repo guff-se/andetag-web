@@ -1,0 +1,245 @@
+---
+/**
+ * English Stockholm SEO landing bodies: same structure as `StockholmSeoLandingSv.astro`.
+ * Copy translated from Swedish `site-html/stockholm-*-stockholm.html` wp-page sources.
+ */
+import AccordionSection from "../content/AccordionSection.astro";
+import BookingEmbed from "../embeds/BookingEmbed.astro";
+import ButtonGroup from "../content/ButtonGroup.astro";
+import ContentSection from "../content/ContentSection.astro";
+import GallerySection from "../content/GallerySection.astro";
+import InfoFrame from "../content/InfoFrame.astro";
+import MapEmbed from "../embeds/MapEmbed.astro";
+import StyledLink from "../ui/StyledLink.astro";
+import TestimonialCarousel from "../content/TestimonialCarousel.astro";
+import VideoEmbed from "../embeds/VideoEmbed.astro";
+import { stockholmTestimonialAggregateEn } from "../../lib/content/stockholm-testimonial-aggregate";
+import { stockholmMarketingFaqEn } from "../../lib/pages/stockholm-marketing-faq-en";
+
+export interface Props {
+  galleryId: string;
+  h1Text?: string;
+  h1Html?: string;
+  introMarkdown: string;
+}
+
+const { galleryId, h1Text, h1Html, introMarkdown } = Astro.props as Props;
+
+const understoryCompanyId = "3b3aa7a7c2cd455b8f3a56cd81033110";
+
+const introAsideImage = {
+  src: "/wp-content/uploads/2024/11/Andetag-18-058-copy2-1024x683.jpg",
+  width: 1024,
+  height: 683,
+  alt: "Immersive light and textile art installation, ANDETAG Stockholm",
+} as const;
+
+const galleryImages = [
+  {
+    src: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-6074-scaled.jpg",
+    fullSrc: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-6074-scaled.jpg",
+    alt: "Contemporary fine art installation in Stockholm",
+  },
+  {
+    src: "/wp-content/uploads/2024/11/Andetag-13-35-copy-2.jpg",
+    fullSrc: "/wp-content/uploads/2024/11/Andetag-13-35-copy-2.jpg",
+    alt: "Optical fibre textile art installation",
+  },
+  {
+    src: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-5983-scaled.jpg",
+    fullSrc: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-5983-scaled.jpg",
+    alt: "A calm date idea in central Stockholm",
+  },
+  {
+    src: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-6038-scaled.jpg",
+    fullSrc: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-6038-scaled.jpg",
+    alt: "Quiet space to slow down in Stockholm",
+  },
+  {
+    src: "/wp-content/uploads/2024/11/Andetag-10-53-copy-2.jpg",
+    fullSrc: "/wp-content/uploads/2024/11/Andetag-10-53-copy-2.jpg",
+    alt: "Light-based art installation Stockholm",
+  },
+  {
+    src: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-59311-scaled.jpg",
+    fullSrc: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-59311-scaled.jpg",
+    alt: "Meditative art experience in Stockholm",
+  },
+  {
+    src: "/wp-content/uploads/2024/11/Andetag-19-508-copy.jpg",
+    fullSrc: "/wp-content/uploads/2024/11/Andetag-19-508-copy.jpg",
+    alt: "Mindful exhibition environment Stockholm",
+  },
+  {
+    src: "/wp-content/uploads/2024/11/Andetag-10-69-copy.jpg",
+    fullSrc: "/wp-content/uploads/2024/11/Andetag-10-69-copy.jpg",
+    alt: "Things to do in Stockholm indoors",
+  },
+] as const;
+
+const ticketsIntroHtml = [
+  "<p><span class=\"brand-wordmark\">ANDETAG</span> is an experience that takes you from everyday stress into a calm, magical space.</p>",
+  "<p>You are welcome to arrive before your booked time when we are open as usual. You move through the exhibition at your own pace and stay until you feel ready to leave.</p>",
+  "<p>We use timed entry so that not too many people arrive at once. Slots fill quickly, so book ahead when you can.</p>",
+].join("");
+
+const homePriceFrameHtml = [
+  "<p><strong>Standard ticket:</strong> 240 SEK (190 SEK daytime)</p>",
+  "<p><strong>Student / senior:</strong> 200 SEK (150 SEK daytime)</p>",
+  "<p><strong>Youth (8–17):</strong> 125 SEK</p>",
+  "<p>Daytime price applies weekdays 12:00–17:00</p>",
+].join("");
+
+const seasonMarkdown = [
+  "<p>Want to make <span class=\"brand-wordmark\">ANDETAG</span> a habit? Many visitors come weekly for their <span class=\"brand-wordmark\">ANDETAG</span>.<br />For 950 SEK you get unlimited visits for six months.</p>",
+  '<p><a href="/en/stockholm/season-pass/">Season passes</a> are sold at the desk. Show your ticket for a discount on a season pass.</p>',
+].join("");
+
+const privateMarkdown = [
+  "<p><span class=\"brand-wordmark\">ANDETAG</span> offers tailored events mornings, afternoons, evenings, and weekends, ideal for <a href=\"/en/stockholm/corporate-events/\">companies</a>, <a href=\"/en/stockholm/group-bookings/\">groups</a>, or special occasions. Group rates are available.</p>",
+  '<p>Email <a href="mailto:info@tadaa.se">info@tadaa.se</a> and we will help you.</p>',
+].join("");
+
+const testimonialItems = [
+  {
+    quote:
+      "The installation is incredibly immersive, with light, sound and textile art blending into a unique experience. It invites you to slow down, breathe and simply be present. Truly one of a kind.",
+    author: "Edwin",
+  },
+  {
+    quote:
+      "A calming and meditative experience that feels like a deep breath for the whole body. The movement of light and color creates a soothing atmosphere. You leave feeling grounded, rested and quietly moved.",
+    author: "Therese",
+  },
+  {
+    quote:
+      "The artwork is stunning, with intricate textures and glowing fibers that feel alive. The experience engages many senses at once, creating a rare sense of wonder. Beautiful, thoughtful and unforgettable.",
+    author: "Gabrielle",
+  },
+] as const;
+
+const mapSrc =
+  "https://maps.google.com/maps?q=Andetag%2C%20Kungsgatan%2039%2C%20111%2056%20Stockholm&t=m&z=15&output=embed&iwloc=near";
+
+const mapLocationMarkdown =
+  "<p>You will find <span class=\"brand-wordmark\">ANDETAG</span> in the central entrance area of Hötorget metro station.</p><p><strong>From the metro:</strong> Kungsgatan exit (middle of the platform), then the Kungsgatan exit toward Stureplan, or Sveavägen toward Sergels torg.</p><p><strong>From the street:</strong> just below the stairs at the metro entrance on Kungsgatan 39.</p>";
+
+const vimeoSrc = "https://player.vimeo.com/video/1077937338";
+
+const faqItems = [...stockholmMarketingFaqEn];
+---
+
+<div class="page-migrated page-stockholm-home page-stockholm-seo-landing">
+  <section class="content-section align-left page-stockholm-seo-landing__h1" aria-labelledby="seo-landing-h1">
+    {
+      h1Html ? (
+        <div id="seo-landing-h1" class="content-section-body" set:html={h1Html} />
+      ) : (
+        <h1 id="seo-landing-h1">{h1Text}</h1>
+      )
+    }
+  </section>
+
+  <div class="page-layout-with-aside page-stockholm-home__intro-booking">
+    <div class="page-layout-with-aside__main">
+      <ContentSection markdown={introMarkdown} />
+      <AccordionSection items={faqItems} initialOpenIndex={null} />
+      <figure class="page-stockholm-home__intro-figure">
+        <img
+          src={introAsideImage.src}
+          width={introAsideImage.width}
+          height={introAsideImage.height}
+          alt={introAsideImage.alt}
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+      <div class="page-stockholm-home__loc-mobile" aria-label="Address">
+        <p class="page-stockholm-home__loc-mobile-text">
+          <span class="brand-wordmark">ANDETAG</span><br />
+          Kungsgatan 39, Hötorget metro,<br /> Stockholm
+        </p>
+        <div class="page-stockholm-home__hitta-row">
+          <StyledLink label="How to find us" href="#hitta" styleVariant="cta-primary" />
+        </div>
+      </div>
+    </div>
+    <aside class="page-layout-with-aside__aside" aria-label="Booking">
+      <BookingEmbed
+        companyId={understoryCompanyId}
+        language="en"
+        anchorId="book"
+        heading="Book now"
+        unframed
+        showContact={false}
+        fallbackText="The booking calendar could not load. Please refresh the page or contact us if the problem continues."
+      />
+      <div class="content-section-body page-stockholm-seo-landing__booking-aside-note">
+        <p>
+          Please email <a href="mailto:info@tadaa.se">info@tadaa.se</a> if you have any questions.
+        </p>
+      </div>
+    </aside>
+  </div>
+
+  <div class="page-stockholm-home__loc-desktop" aria-label="Address">
+    <p class="page-stockholm-home__loc-desktop-text">
+      <span class="brand-wordmark">ANDETAG</span>, Kungsgatan 39, Hötorget metro, Stockholm
+    </p>
+    <div class="page-stockholm-home__hitta-row">
+      <StyledLink label="How to find us" href="#hitta" styleVariant="cta-primary" />
+    </div>
+  </div>
+
+  <GallerySection images={[...galleryImages]} mobileMode="carousel" galleryId={galleryId} />
+
+  <div class="page-stockholm-home__tickets-columns">
+    <div class="page-stockholm-home__tickets-col">
+      <ContentSection heading="Tickets" headingLevel="h2" markdown={ticketsIntroHtml} />
+      <InfoFrame heading="Prices" headingLevel="h3" bodyHtml={homePriceFrameHtml} />
+    </div>
+    <div class="page-stockholm-home__tickets-col">
+      <ContentSection heading="Season pass" headingLevel="h2" markdown={seasonMarkdown} />
+      <ContentSection heading="Private experience" headingLevel="h2" markdown={privateMarkdown} />
+    </div>
+  </div>
+
+  <TestimonialCarousel items={[...testimonialItems]} aggregate={{ ...stockholmTestimonialAggregateEn }} />
+
+  <div class="page-migrated-cta page-stockholm-home__cta-after-testimonials">
+    <ButtonGroup buttons={[{ label: "Experience ANDETAG", href: "#book", variant: "secondary" }]} />
+  </div>
+
+  <div class="page-stockholm-home__video-band">
+    <VideoEmbed
+      title="ANDETAG on Vimeo"
+      src={vimeoSrc}
+      fallbackText="The video could not load. Please try again later."
+    />
+  </div>
+
+  <div class="page-stockholm-home__cta-secondary-band">
+    <div class="page-migrated-cta">
+      <ButtonGroup buttons={[{ label: "Book tickets now", href: "#book", variant: "secondary" }]} />
+    </div>
+  </div>
+
+  <section
+    class="content-section page-stockholm-home__map"
+    id="hitta"
+    aria-labelledby="seo-landing-map-heading"
+  >
+    <h2 id="seo-landing-map-heading">Where is ANDETAG?</h2>
+    <div class="page-stockholm-home__map-grid">
+      <div class="content-section-body page-stockholm-home__map-copy" set:html={mapLocationMarkdown} />
+      <div class="page-stockholm-home__map-frame">
+        <MapEmbed
+          title="Andetag, Kungsgatan 39, 111 56 Stockholm"
+          src={mapSrc}
+          unframed
+          fallbackText="The map could not load. Search for Andetag, Kungsgatan 39 in your maps app."
+        />
+      </div>
+    </div>
+  </section>
+</div>

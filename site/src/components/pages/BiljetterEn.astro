@@ -1,0 +1,61 @@
+---
+import BookingEmbed from "../embeds/BookingEmbed.astro";
+import ButtonGroup from "../content/ButtonGroup.astro";
+import ContentSection from "../content/ContentSection.astro";
+import InfoFrame from "../content/InfoFrame.astro";
+
+/**
+ * Body from `site-html/en-stockholm-tickets.html` wp-page **2789**.
+ */
+const understoryCompanyId = "3b3aa7a7c2cd455b8f3a56cd81033110";
+
+const introHtml = [
+  "<h1>Tickets</h1>",
+  '<p><span class="brand-wordmark">ANDETAG</span> is a quiet art experience in central Stockholm.<br />A place to step out of the pace of everyday life and take a shared breath.</p>',
+  "<p>Timed booking is used to maintain a calm flow of visitors, ensuring that too many people do not arrive at the same time.</p>",
+  '<p>You are welcome to arrive before your booked time, as long as <a href="/en/stockholm/opening-hours/">regular opening hours</a> apply. Tickets can also be purchased on site, subject to availability.</p>',
+  '<p>At selected times, <a href="/en/stockholm/art-yoga/">Art Yoga</a> is offered, a gentle yoga class that can also be booked through the booking calendar.</p>',
+].join("");
+
+const priceFrameHtml = [
+  "<p><strong>Regular ticket:</strong> 240 SEK (190 SEK daytime)</p>",
+  "<p><strong>Student/senior:</strong> 200 SEK (150 SEK daytime)</p>",
+  "<p><strong>Youth (8–17 years):</strong> 125 SEK</p>",
+  "<p><strong>Art Yoga</strong> (Tuesdays 17.00–18.00): 320 kr</p>",
+  "<p><strong>Daytime pricing:</strong> weekdays 12.00 – 17.00</p>",
+].join("");
+
+const seasonHtml = [
+  "<p>Would you like to return often?<br />",
+  '<span class="brand-wordmark">ANDETAG</span> offers a season pass for those who wish to make the experience a regular part of their routine.</p>',
+].join("");
+---
+
+<div class="page-migrated page-layout-with-aside">
+  <div class="page-layout-with-aside__main">
+    <ContentSection markdown={introHtml} />
+    <InfoFrame heading="Prices" headingLevel="h3" bodyHtml={priceFrameHtml} />
+    <ContentSection heading="Season Pass" headingLevel="h2" markdown={seasonHtml} />
+    <div class="page-migrated-cta">
+      <ButtonGroup
+        buttons={[
+          {
+            label: "More about Season Pass",
+            href: "/en/stockholm/season-pass/",
+            variant: "primary",
+          },
+        ]}
+      />
+    </div>
+  </div>
+  <aside class="page-layout-with-aside__aside">
+    <BookingEmbed
+      companyId={understoryCompanyId}
+      language="en"
+      anchorId="book"
+      heading="Available times"
+      unframed
+      fallbackText="The booking calendar could not load. Reload the page or contact us if the problem persists."
+    />
+  </aside>
+</div>

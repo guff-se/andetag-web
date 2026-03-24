@@ -13,27 +13,35 @@ import { buildCanonicalUrl, buildHreflangLinks } from "./seo";
 import { NAVIGATION_FIXTURES, SELECTOR_FIXTURES } from "./fixtures";
 
 describe("layout variant contracts", () => {
-  it("contains all validated header variants from phase 1", () => {
+  it("contains Phase 6 stable chrome header variants", () => {
     expect(Object.keys(HEADER_VARIANTS)).toEqual(
       expect.arrayContaining([
-        "header-192",
-        "header-918",
-        "header-4344",
-        "header-2223",
-        "header-3305",
-        "header-4287",
+        "chrome-hdr-sv-stockholm-hero",
+        "chrome-hdr-sv-stockholm-small",
+        "chrome-hdr-en-stockholm-hero",
+        "chrome-hdr-en-stockholm-small",
+        "chrome-hdr-en-stockholm-brand",
+        "chrome-hdr-en-berlin-hero",
+        "chrome-hdr-en-berlin-small",
+        "chrome-hdr-de-berlin-hero",
+        "chrome-hdr-de-berlin-small",
       ]),
     );
   });
 
-  it("contains all validated footer variants from phase 1", () => {
+  it("contains Phase 6 stable chrome footer variants", () => {
     expect(Object.keys(FOOTER_VARIANTS)).toEqual(
-      expect.arrayContaining(["footer-207", "footer-3100", "footer-4229"]),
+      expect.arrayContaining([
+        "chrome-ftr-sv-stockholm",
+        "chrome-ftr-en-stockholm",
+        "chrome-ftr-en-berlin",
+        "chrome-ftr-de-berlin",
+      ]),
     );
   });
 
-  it("resolves legacy header-4136 to the main english hero variant", () => {
-    expect(getResolvedHeaderVariantId("header-4136")).toBe("header-918");
+  it("resolves legacy header-4136 to English Berlin hero chrome id (EX-0005)", () => {
+    expect(getResolvedHeaderVariantId("header-4136")).toBe("chrome-hdr-en-berlin-hero");
   });
 });
 
@@ -56,15 +64,18 @@ describe("navigation behavior", () => {
       const languageOptions = getLanguageSelectorOptions({
         language: fixture.language,
         destination: fixture.destination,
+        canonicalPath: fixture.canonicalPath,
       });
       const destinationOptions = getDestinationSelectorOptions({
         language: fixture.language,
         destination: fixture.destination,
+        canonicalPath: fixture.canonicalPath,
       });
 
       expect(languageOptions.map((option) => option.value)).toEqual(
         expect.arrayContaining(fixture.expectedLanguages),
       );
+      expect(languageOptions).toHaveLength(fixture.expectedLanguages.length);
       expect(destinationOptions.map((option) => option.value)).toEqual(
         expect.arrayContaining(fixture.expectedDestinations),
       );

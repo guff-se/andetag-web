@@ -1,0 +1,43 @@
+---
+import ContentSection from "../content/ContentSection.astro";
+
+/** `site-html/en-about-andetag.html` wp-page (Polylang English). */
+const heroMarkdown =
+  "<h1><span class=\"brand-wordmark\">ANDETAG</span> - The Artwork</h1>" +
+  "<p><span class=\"brand-wordmark\">ANDETAG</span> is an ongoing art project by Malin Tadaa and Gustaf Tadaa, unfolding through interconnected artworks, installations, and a global breathing art museum.</p>";
+
+const breathMarkdown =
+  "<h2>An artwork shaped by a breath</h2>" +
+  "<p>The beginning came from a sound. While working with <a href=\"https://imbuedart.com\">Imbued</a>, Malin and Gustaf Tadaa&#8217;s previous project, Gustaf was editing recordings of Malin&#8217;s guided meditations. At the start of one recording she said take a breath, followed by the sound of her breathing, a single inhale and exhale. As Gustaf put this sound on repeat, mixing it to make it more present, an idea emerged: what would happen if an artwork was built entirely around a breath?</p>" +
+  "<p>One idea quickly became central. The connectedness of the internet would be used to allow the artworks to breathe together, no matter where they are placed in the world. In this way, the sacred feeling of being part of something larger than oneself could be made almost literal.</p>" +
+  "<h2>Giving breath a body</h2>" +
+  "<p>To make something that breathes, it needed a body. Malin has been weaving optical fiber textiles since 2012, and this long engagement with woven light formed the material foundation of the project. As the form began to take shape, it became clear that it needed to be vertically symmetrical, sometimes referred to as the symmetry of life. This kind of symmetry invites recognition before interpretation. It engages mirror neurons and the mind&#8217;s tendency to project itself into what it sees, allowing the form to be read as living before it is understood.</p>" +
+  "<p>At the same time, Gustaf recognized the need to base the flow of the light on an actual recording of the airflow of Malin&#8217;s breathing. Only in this way would the movement feel organic, and be instinctively identified as breathing.</p>" +
+  "<p>The recorded breath became the foundation for a generative system that controls the movement of light, creating animations that never repeat, where each moment is mathematically determined yet never returns. Over longer periods, the work shifts more slowly, with changes in color guided by planetary motion rather than human schedules, allowing time to unfold without being marked.</p>";
+
+const closingMarkdown =
+  "<p>Ahead of its first presentation at <a href=\"https://artmiami.com/\">Art Miami</a>, they chose the Swedish word andetag, despite knowing that most visitors would not understand it, precisely because of its meaning. The word brings together ande, spirit, and tag, take, describing a taking in and a letting out that mirrored the structure of the work itself and felt truer than any English equivalent.</p>" +
+  "<p>Early works were shown internationally, including exhibitions in New York, Oslo, and at Institut suédois in Paris, before the project returned to Stockholm. What appears as a singular object is part of a distributed system extended across geography, a single breath expressed across the world. Today, more than twenty works are held by private collectors in Seattle, New York, Miami, Costa Rica, Portugal, and across Sweden, all breathing together.</p>" +
+  "<h2>From individual works to shared spaces</h2>" +
+  "<p><span class=\"brand-wordmark\">ANDETAG</span> began as a series of fifty individual artworks placed in different contexts around the world. Over time, the project required more space, moving from individual works toward environments where the shared rhythm could be experienced collectively.</p>" +
+  "<p>As the scale expanded, sound became essential. Original music composed by Gustaf Tadaa and Povel Olsson emerged as a continuation of the same principles, shaped by breath, duration, and restraint. Light, textile, and sound came together to form immersive environments conceived as secular sacred spaces: places without doctrine or belief, yet marked by stillness, attention, and a shared rhythm. In January 2025, <span class=\"brand-wordmark\">ANDETAG</span> Stockholm opened as the most complete expression of this idea to date. Berlin marks the next step, extending the same shared breath into a new city. The form expanded, but the rhythm remained the same.</p>" +
+  "<p><span class=\"brand-wordmark\">ANDETAG</span> is not a closed body of work. New pieces continue to be created and placed, and new expressions continue to emerge. Nothing is rushed. The project remains open, changing slowly, one breath at a time.</p>";
+---
+
+<div class="page-migrated page-om-andetag-sv">
+  <ContentSection markdown={heroMarkdown} />
+  <ContentSection markdown={breathMarkdown} />
+  <div class="page-om-andetag-sv__etymology-wrap">
+    <aside class="page-om-andetag-sv__etymology-box" aria-label="Meaning of the word andetag">
+      <p class="page-om-andetag-sv__etymology-head">
+        andetag <span class="page-om-andetag-sv__etymology-ipa">[ˈanːdetaːɡ]</span>
+      </p>
+      <p>From <em>ande</em> (en. spirit) + <em>tag</em> (en. take).</p>
+      <p>Swedish noun.</p>
+      <ol class="page-om-andetag-sv__etymology-def-list">
+        <li>breath, an inhalation and exhalation of air from the lungs.</li>
+      </ol>
+    </aside>
+  </div>
+  <ContentSection markdown={closingMarkdown} />
+</div>

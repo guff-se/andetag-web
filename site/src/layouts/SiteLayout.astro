@@ -2,7 +2,13 @@
 import SiteFooter from "../components/layout/SiteFooter.astro";
 import SiteHeader from "../components/layout/SiteHeader.astro";
 import { createPageLayoutModel } from "../lib/layout/page-layout";
-import type { Destination, FooterVariantId, Language } from "../lib/layout/types";
+import type {
+  Destination,
+  FooterVariantId,
+  HeaderVariantId,
+  Language,
+  LegacyHeaderAliasId,
+} from "../lib/layout/types";
 import "../styles/fonts.css";
 import "../styles/layout.css";
 import "../styles/components.css";
@@ -12,14 +18,7 @@ type Props = {
   description?: string;
   language: Language;
   destination: Destination;
-  headerVariantId:
-    | "header-192"
-    | "header-918"
-    | "header-4344"
-    | "header-2223"
-    | "header-3305"
-    | "header-4287"
-    | "header-4136";
+  headerVariantId: HeaderVariantId | LegacyHeaderAliasId;
   footerVariantId: FooterVariantId;
   canonicalPath: string;
   hreflang: Record<Language, string | null>;

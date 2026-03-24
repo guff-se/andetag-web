@@ -41,10 +41,10 @@ This strategy covers:
 
 | area | fixture id or set | source rationale | current status |
 |------|-------------------|------------------|----------------|
-| navigation mapping | `sv-small-header-desktop` | `header-2223` maps to `sv-main` in variant registry | implemented |
-| navigation mapping | `en-brand-desktop` | `header-4287` desktop maps to `en-brand` | implemented |
-| mobile fallback mapping | `en-brand-mobile-fallback` | `header-4287` mobile fallback maps to `en-main` | implemented |
-| legacy header alias mapping | `legacy-berlin-alias-header` | `header-4136` resolves via approved Phase 2 mapping | implemented |
+| navigation mapping | `sv-small-header-desktop` | `chrome-hdr-sv-stockholm-small` maps to `sv-main` in variant registry | implemented |
+| navigation mapping | `en-brand-desktop` | `chrome-hdr-en-stockholm-brand` desktop maps to `en-brand` | implemented |
+| mobile fallback mapping | `en-brand-mobile-fallback` | `chrome-hdr-en-stockholm-brand` mobile fallback maps to `en-main` | implemented |
+| legacy header alias mapping | `legacy-berlin-alias-header` | `header-4136` resolves to `chrome-hdr-en-berlin-hero` (**EX-0005**) | implemented |
 | selector independence | `english-stockholm-selectors` | destination and language controls stay independent | implemented |
 | canonical and hreflang model | `stockholm-en-tickets` | canonical and language-link hooks for core route | implemented |
 | legacy route model | `legacy-berlin-alias-route` | alias reconciliation behavior for Berlin EN route | implemented |

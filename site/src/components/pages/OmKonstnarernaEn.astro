@@ -1,0 +1,34 @@
+---
+import ContentSection from "../content/ContentSection.astro";
+
+/** `site-html/en-about-the-artists-malin-gustaf-tadaa.html` wp-page (Polylang English). */
+const introMarkdown =
+  "<h1>Malin and Gustaf Tadaa</h1>" +
+  "<p>Malin and Gustaf Tadaa are the artists behind <span class=\"brand-wordmark\">ANDETAG</span>. Their work spans optical fiber textiles, generative light, sound, and immersive environments, developed over more than a decade of shared practice.</p>";
+
+const malinMarkdown =
+  "<h2>Malin Tadaa</h2>" +
+  "<p>Malin Tadaa is a Swedish artist working with optical fiber textiles, light, and immersive environments. Her practice is rooted in long-form material research and slow, deliberate making, where textile, light, and space are treated as a single medium rather than separate layers.</p>" +
+  "<p>She has woven with optical fiber since 2012, developing techniques that allow light to move through textile in ways that feel organic rather than mechanical. This material foundation forms the core of <span class=\"brand-wordmark\">ANDETAG</span>, where woven structure, recorded breath, and generative light are inseparable from one another.</p>" +
+  "<p>Malin&#8217;s work has been presented internationally, including exhibitions in New York, Miami, Oslo, and at Institut suédois in Paris, as well as installations across Sweden. Her approach emphasizes duration, restraint, and presence, allowing environments to unfold slowly rather than demand immediate interpretation.</p>" +
+  "<p>Alongside her artistic practice, Malin has worked extensively with mindfulness and guided meditation, disciplines that inform the temporal and emotional rhythm of her work. She is also the founder of <a href=\"https://imbuedart.com\">Imbued</a>, a previous long-term project exploring art, awareness, and collective experience.</p>";
+
+const gustafMarkdown =
+  "<h2>Gustaf Tadaa</h2>" +
+  "<p>Gustaf Tadaa is a Swedish artist and composer whose work spans generative systems, sound, light, and immersive installation. His practice focuses on how rhythm, duration, and mathematical structure can produce experiences that feel alive without imitating life.</p>" +
+  "<p>Within <span class=\"brand-wordmark\">ANDETAG</span>, Gustaf develops the generative systems that translate recorded breath into light, ensuring that movement remains organic, non-repeating, and mathematically coherent over long periods of time. He also composes the original music that accompanies the installations, extending the same principles of breath, slowness, and restraint into sound.</p>" +
+  "<p>Gustaf&#8217;s background includes work in software, sound design, and systems thinking, disciplines that inform his approach to art as something that must function quietly and reliably over time. His compositions are not illustrative; they operate in parallel with the visual work, shaping atmosphere and attention without asserting narrative.</p>" +
+  "<p>Together with Malin, Gustaf has been central to the conceptual and technical development of <span class=\"brand-wordmark\">ANDETAG</span> from its earliest stages, including its first international presentations and the evolution of the project from individual artworks toward shared, immersive environments.</p>";
+
+const togetherMarkdown =
+  "<h2>Shared practice</h2>" +
+  "<p>Malin and Gustaf Tadaa have worked together for many years, developing projects that require both material mastery and systemic thinking. <span class=\"brand-wordmark\">ANDETAG</span> emerged from this collaboration, combining Malin&#8217;s long engagement with woven light and Gustaf&#8217;s work with generative systems and sound.</p>" +
+  "<p>Their practice is deliberately slow, emphasizing continuity over novelty. New works, compositions, and installations are added over time, allowing the project to grow without resetting itself. This continuity is central to how <span class=\"brand-wordmark\">ANDETAG</span> is experienced: not as a finished statement, but as an ongoing rhythm that continues to unfold.</p>";
+---
+
+<div class="page-migrated page-om-konstnarerna-sv">
+  <ContentSection markdown={introMarkdown} />
+  <ContentSection markdown={malinMarkdown} />
+  <ContentSection markdown={gustafMarkdown} />
+  <ContentSection markdown={togetherMarkdown} />
+</div>

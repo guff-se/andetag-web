@@ -1,6 +1,10 @@
 ---
 import type { PageLayoutModel } from "../../lib/layout/page-layout";
 import { getSwedishHeroHeaderModel } from "../../lib/layout/hero-sv";
+import {
+  getEnglishStockholmHeroHeaderModel,
+  isEnglishStockholmSharedHeroHeader,
+} from "../../lib/layout/hero-en-stockholm";
 import AndetagHeaderLogo from "./AndetagHeaderLogo.astro";
 import { HEADER_SMALL_SV_ASSETS, HERO_SV_ASSETS } from "../../lib/layout/assets";
 import { isHeaderSmallSv } from "../../lib/layout/header-small-sv";
@@ -9,18 +13,29 @@ const { model, currentPath } = Astro.props as { model: PageLayoutModel; currentP
 
 const desktopNav = model.navigation;
 const mobileNav = model.navigationMobile;
-const sharedSvHeader = (model.header.id === "header-192" || isHeaderSmallSv(model.header.id))
-  ? getSwedishHeroHeaderModel(currentPath)
+const sharedSvHeader =
+  model.header.id === "chrome-hdr-sv-stockholm-hero" || isHeaderSmallSv(model.header.id)
+    ? getSwedishHeroHeaderModel(currentPath)
+    : null;
+const sharedEnHeader = isEnglishStockholmSharedHeroHeader(model.header.id)
+  ? getEnglishStockholmHeroHeaderModel(currentPath)
   : null;
-const isSmallSvHeader = isHeaderSmallSv(model.header.id);
+const sharedHero = sharedSvHeader ?? sharedEnHeader;
+const heroLocale = sharedSvHeader ? "sv" : sharedEnHeader ? "en" : null;
+const isSmallHero = Boolean(sharedHero && model.header.kind === "small");
+const navAria = heroLocale === "en" ? "Menu" : "Meny";
+const navMobileAria = heroLocale === "en" ? "Mobile menu" : "Mobil meny";
+const destAria = heroLocale === "en" ? "Location" : "Plats";
+const menuToggleAria = heroLocale === "en" ? "Open or close menu" : "Slå på eller av meny";
+const logoHomeAria = heroLocale === "en" ? "Go to homepage" : "Till startsidan";
 ---
 
 {
-sharedSvHeader ? (
-<header class={`shared-hero-header${isSmallSvHeader ? " is-small" : ""}`} id="andetag-header">
+sharedHero ? (
+<header class={`shared-hero-header${isSmallHero ? " is-small" : ""}`} id="andetag-header">
   <div class="shared-hero-media-layer">
     {
-      isSmallSvHeader ? (
+      isSmallHero ? (
         <picture class="shared-hero-static-picture">
           <source media="(max-width: 767px)" srcset={HEADER_SMALL_SV_ASSETS.mobileBackground} />
           <img class="shared-hero-static-image" src={HEADER_SMALL_SV_ASSETS.desktopBackground} alt="" aria-hidden="true" />
@@ -45,7 +60,7 @@ sharedSvHeader ? (
 
   <div class="shared-hero-content">
     <div class="shared-hero-top">
-      <a class="shared-hero-logo-link andetag-logo" href="/sv/stockholm/" aria-label="Go to homepage">
+      <a class="shared-hero-logo-link andetag-logo" href={sharedHero.logoHomeHref} aria-label={logoHomeAria}>
         <AndetagHeaderLogo class="shared-hero-logo" />
       </a>
 
@@ -62,23 +77,36 @@ sharedSvHeader ? (
           </a>
         </div>
         <div class="shared-hero-lang-top">
-          {sharedSvHeader.topLanguages.map((language) => <a href={language.href}>{language.label}</a>)}
+          {sharedHero.topLanguages.map((language) => <a href={language.href}>{language.label}</a>)}
+        </div>
+        <div class="shared-hero-dest-top" aria-label={destAria}>
+          {
+            sharedHero.destinationOptions.map((opt) => (
+              <a
+                href={opt.href}
+                class={opt.active ? "is-active" : undefined}
+                aria-current={opt.active ? "page" : undefined}
+              >
+                {opt.label}
+              </a>
+            ))
+          }
         </div>
       </div>
     </div>
 
-    {!isSmallSvHeader && (
+    {!isSmallHero && (
       <div class="shared-hero-center">
-        <a class="shared-hero-cta" href="#book">Hitta biljetter</a>
+        <a class="shared-hero-cta" href={model.header.ctaHref}>{model.header.ctaLabel}</a>
       </div>
     )}
   </div>
 
   <div class="shared-hero-nav-shell" data-hero-nav-shell>
-    <nav class="shared-hero-nav" aria-label="Meny">
+    <nav class="shared-hero-nav" aria-label={navAria}>
       <ul class="shared-hero-menu">
         {
-          sharedSvHeader.menuItems.map((item) => (
+          sharedHero.menuItems.map((item) => (
             <li class={`shared-hero-menu-item${item.active ? " is-active" : ""}`}>
               <a href={item.href}>{item.label}</a>
               <ul class="shared-hero-submenu">
@@ -88,14 +116,17 @@ sharedSvHeader ? (
           ))
         }
         <li class="shared-hero-menu-item shared-hero-ticket-item">
-          <a href={sharedSvHeader.ticketItem.href}>{sharedSvHeader.ticketItem.label}</a>
+          <a href={sharedHero.ticketItem.href}>{sharedHero.ticketItem.label}</a>
         </li>
         <li class="shared-hero-menu-item shared-hero-flag-item">
-          <a href={sharedSvHeader.languageFlags.find((flag) => flag.active)?.href ?? "/sv/stockholm/"} aria-label="Språk">
-            {sharedSvHeader.languageFlags.find((flag) => flag.active)?.flag ?? "🇸🇪"}
+          <a
+            href={sharedHero.languageFlags.find((flag) => flag.active)?.href ?? sharedHero.logoHomeHref}
+            aria-label={heroLocale === "en" ? "Language" : "Språk"}
+          >
+            {sharedHero.languageFlags.find((flag) => flag.active)?.flag ?? "🇸🇪"}
           </a>
           <ul class="shared-hero-submenu shared-hero-flag-submenu">
-            {sharedSvHeader.languageFlags.map((flag) => <li><a href={flag.href} aria-label={flag.label}>{flag.flag}</a></li>)}
+            {sharedHero.languageFlags.map((flag) => <li><a href={flag.href} aria-label={flag.label}>{flag.flag}</a></li>)}
           </ul>
         </li>
       </ul>
@@ -107,7 +138,7 @@ sharedSvHeader ? (
       <button
         class="shared-hero-menu-toggle"
         type="button"
-        aria-label="Slå på eller av meny"
+        aria-label={menuToggleAria}
         aria-expanded="false"
         aria-haspopup="true"
         aria-controls="shared-hero-mobile-menu"
@@ -117,10 +148,10 @@ sharedSvHeader ? (
         <span class="shared-hero-menu-icon-close" aria-hidden="true">✕</span>
       </button>
     </div>
-    <nav id="shared-hero-mobile-menu" class="shared-hero-mobile-menu" aria-label="Mobil meny" hidden>
+    <nav id="shared-hero-mobile-menu" class="shared-hero-mobile-menu" aria-label={navMobileAria} hidden>
       <ul class="shared-hero-mobile-menu-list">
         {
-          sharedSvHeader.menuItems.map((item) => (
+          sharedHero.menuItems.map((item) => (
             <li class="shared-hero-mobile-menu-item">
               {item.subMenu.length > 0 ? (
                 <details>
@@ -136,7 +167,7 @@ sharedSvHeader ? (
           ))
         }
         <li class="shared-hero-mobile-menu-item shared-hero-ticket-item">
-          <a href={sharedSvHeader.ticketItem.href}>{sharedSvHeader.ticketItem.label}</a>
+          <a href={sharedHero.ticketItem.href}>{sharedHero.ticketItem.label}</a>
         </li>
       </ul>
     </nav>

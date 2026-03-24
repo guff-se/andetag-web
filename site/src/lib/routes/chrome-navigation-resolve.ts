@@ -1,0 +1,193 @@
+import type { Destination, Language } from "../layout/types";
+import { STOCKHOLM_SV_EN_PAIRS } from "./page-shell-registry";
+
+/**
+ * Phase 6 site chrome: single resolver for language and destination controls.
+ * Normative coupling rules: docs/phase-4-routing-reopen.md (Decided: site chrome switcher).
+ */
+
+type TopicSlots = {
+  svStockholm?: string;
+  enStockholm?: string;
+  englishBerlin?: string;
+  germanBerlin?: string;
+};
+
+function normalizeTrailingSlash(path: string): string {
+  if (path === "/" || path === "") return "/sv/stockholm/";
+  const withSlash = path.endsWith("/") ? path : `${path}/`;
+  return withSlash;
+}
+
+/** Legacy English hub path aliases to the Stockholm home shell path. */
+const INPUT_PATH_ALIASES: Record<string, string> = {
+  "/en/": "/en/stockholm/",
+};
+
+function normalizePathForLookup(canonicalPath: string): string {
+  const n = normalizeTrailingSlash(canonicalPath);
+  return INPUT_PATH_ALIASES[n] ?? n;
+}
+
+function normalizeEnStockholmPeer(enPath: string): string {
+  return enPath === "/en/" ? "/en/stockholm/" : enPath;
+}
+
+function buildStockholmBilingualTopics(): TopicSlots[] {
+  return STOCKHOLM_SV_EN_PAIRS.map(([sv, en]) => ({
+    svStockholm: sv,
+    enStockholm: normalizeEnStockholmPeer(en),
+  }));
+}
+
+const GLOBAL_TRILINGUAL_TOPICS: TopicSlots[] = [
+  {
+    svStockholm: "/sv/om-andetag/",
+    enStockholm: "/en/about-andetag/",
+    germanBerlin: "/de/ueber-andetag/",
+  },
+  {
+    svStockholm: "/sv/om-konstnarerna-malin-gustaf-tadaa/",
+    enStockholm: "/en/about-the-artists-malin-gustaf-tadaa/",
+    germanBerlin: "/de/die-kuenstler-malin-gustaf-tadaa/",
+  },
+  {
+    svStockholm: "/sv/musik/",
+    enStockholm: "/en/music/",
+    germanBerlin: "/de/musik-von-andetag/",
+  },
+  {
+    svStockholm: "/sv/optisk-fibertextil/",
+    enStockholm: "/en/optical-fibre-textile/",
+    germanBerlin: "/de/optische-fasertextil/",
+  },
+];
+
+const BERLIN_HOME_TOPIC: TopicSlots = {
+  englishBerlin: "/en/berlin/",
+  germanBerlin: "/de/berlin/",
+};
+
+const PRIVACY_TOPIC: TopicSlots = {
+  svStockholm: "/privacy/",
+  enStockholm: "/privacy/",
+  englishBerlin: "/privacy/",
+  germanBerlin: "/privacy/",
+};
+
+const ALL_TOPICS: TopicSlots[] = [
+  ...buildStockholmBilingualTopics(),
+  ...GLOBAL_TRILINGUAL_TOPICS,
+  BERLIN_HOME_TOPIC,
+  PRIVACY_TOPIC,
+];
+
+const TOPIC_PATH_INDEX = new Map<string, TopicSlots>();
+for (const topic of ALL_TOPICS) {
+  for (const p of Object.values(topic)) {
+    if (p) TOPIC_PATH_INDEX.set(p, topic);
+  }
+}
+
+export function inferChromePathContext(canonicalPath: string): {
+  language: Language;
+  destination: Destination;
+} {
+  const path = normalizeTrailingSlash(canonicalPath);
+  if (path.startsWith("/de/")) {
+    return { language: "de", destination: "berlin" };
+  }
+  if (path.startsWith("/en/")) {
+    if (path.startsWith("/en/berlin")) {
+      return { language: "en", destination: "berlin" };
+    }
+    return { language: "en", destination: "stockholm" };
+  }
+  if (path === "/privacy/") {
+    return { language: "sv", destination: "stockholm" };
+  }
+  if (path.startsWith("/sv/")) {
+    return { language: "sv", destination: "stockholm" };
+  }
+  return { language: "sv", destination: "stockholm" };
+}
+
+function slotFor(lang: Language, dest: Destination): keyof TopicSlots | null {
+  if (dest === "stockholm") {
+    if (lang === "sv") return "svStockholm";
+    if (lang === "en") return "enStockholm";
+    return null;
+  }
+  if (lang === "en") return "englishBerlin";
+  if (lang === "de") return "germanBerlin";
+  return null;
+}
+
+function pickFromTopic(topic: TopicSlots, lang: Language, dest: Destination): string | null {
+  const slot = slotFor(lang, dest);
+  if (!slot) return null;
+  const value = topic[slot];
+  return value ?? null;
+}
+
+function findTopicForPath(canonicalPath: string): TopicSlots | undefined {
+  return TOPIC_PATH_INDEX.get(normalizePathForLookup(canonicalPath));
+}
+
+export function defaultChromeHome(lang: Language, dest: Destination): string {
+  if (dest === "stockholm") {
+    return lang === "sv" ? "/sv/stockholm/" : "/en/stockholm/";
+  }
+  return lang === "de" ? "/de/berlin/" : "/en/berlin/";
+}
+
+/**
+ * Resolve the target URL for chrome language or destination controls.
+ * Pass exactly one of `language` or `destination` when simulating a single control change
+ * (the implementation accepts both for tests and future combined updates).
+ */
+export function resolveChromeNavigationHref(
+  canonicalPath: string,
+  intent: Partial<{ language: Language; destination: Destination }>,
+): string {
+  const path = normalizeTrailingSlash(canonicalPath);
+  const { language: curLang, destination: curDest } = inferChromePathContext(path);
+
+  let lang = intent.language ?? curLang;
+  let dest = intent.destination ?? curDest;
+
+  if (intent.language !== undefined) {
+    lang = intent.language;
+    if (intent.language === "sv" && curDest === "berlin") {
+      dest = "stockholm";
+    }
+    if (intent.language === "de" && curDest === "stockholm") {
+      dest = "berlin";
+    }
+  }
+
+  if (intent.destination !== undefined) {
+    dest = intent.destination;
+    if (dest === "stockholm" && lang === "de") {
+      lang = "en";
+    }
+    if (dest === "berlin" && lang === "sv") {
+      lang = "en";
+    }
+  }
+
+  if (dest === "stockholm" && lang === "de") {
+    lang = "en";
+  }
+  if (dest === "berlin" && lang === "sv") {
+    lang = "en";
+  }
+
+  const topic = findTopicForPath(path);
+  if (topic) {
+    const hit = pickFromTopic(topic, lang, dest);
+    if (hit) return hit;
+  }
+
+  return defaultChromeHome(lang, dest);
+}

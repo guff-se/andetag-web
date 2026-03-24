@@ -1,0 +1,19 @@
+---
+import StockholmSeoLandingEn from "./StockholmSeoLandingEn.astro";
+
+/** English peer of `StockholmAttGoraSv.astro`; Swedish source `stockholm-att-gora-stockholm.html`. */
+const introMarkdown = [
+  "<p>Looking for things to do in Stockholm?</p>",
+  "<p>Something that does not need heavy planning, big-event tickets, or perfect weather?</p>",
+  "<p><span class=\"brand-wordmark\">ANDETAG</span> is a place to do one thing: stay.</p>",
+  "<p>Let your eyes rest in slow light.</p>",
+  "<p>Breathe.</p>",
+  "<p>That is enough.</p>",
+].join("");
+---
+
+<StockholmSeoLandingEn
+  galleryId="stockholm-en-things-to-do"
+  h1Text="Something calm to do in Stockholm"
+  introMarkdown={introMarkdown}
+/>

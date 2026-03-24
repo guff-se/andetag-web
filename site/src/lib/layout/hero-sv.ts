@@ -1,3 +1,8 @@
+import {
+  inferChromePathContext,
+  resolveChromeNavigationHref,
+} from "../routes/chrome-navigation-resolve";
+
 type HeroSubMenuItem = {
   label: string;
   href: string;
@@ -98,6 +103,8 @@ function pathMatches(pathname: string, prefixes: string[]): boolean {
 }
 
 export function getSwedishHeroHeaderModel(pathname: string) {
+  const chromeCtx = inferChromePathContext(pathname);
+
   const menuItems: HeroMenuItem[] = MENU_DEFINITION.map((item) => ({
     label: item.label,
     href: item.href,
@@ -108,19 +115,44 @@ export function getSwedishHeroHeaderModel(pathname: string) {
   const languageFlags: FlagItem[] = [
     {
       code: "sv",
-      href: "/sv/stockholm/",
-      active: pathname.startsWith("/sv/"),
+      href: resolveChromeNavigationHref(pathname, { language: "sv" }),
+      active: chromeCtx.language === "sv",
       label: "Svenska",
       flag: "🇸🇪",
     },
-    { code: "en", href: "/en/", active: pathname.startsWith("/en/"), label: "English", flag: "🇬🇧" },
-    { code: "de", href: "/de/berlin/", active: pathname.startsWith("/de/"), label: "Deutsch", flag: "🇩🇪" },
+    {
+      code: "en",
+      href: resolveChromeNavigationHref(pathname, { language: "en" }),
+      active: chromeCtx.language === "en",
+      label: "English",
+      flag: "🇬🇧",
+    },
+    {
+      code: "de",
+      href: resolveChromeNavigationHref(pathname, { language: "de" }),
+      active: chromeCtx.language === "de",
+      label: "Deutsch",
+      flag: "🇩🇪",
+    },
   ];
 
   return {
+    logoHomeHref: "/sv/stockholm/",
     topLanguages: [
-      { label: "English", href: "/en/" },
-      { label: "Deutsch", href: "/de/berlin/" },
+      { label: "English", href: resolveChromeNavigationHref(pathname, { language: "en" }) },
+      { label: "Deutsch", href: resolveChromeNavigationHref(pathname, { language: "de" }) },
+    ],
+    destinationOptions: [
+      {
+        label: "Stockholm",
+        href: resolveChromeNavigationHref(pathname, { destination: "stockholm" }),
+        active: chromeCtx.destination === "stockholm",
+      },
+      {
+        label: "Berlin",
+        href: resolveChromeNavigationHref(pathname, { destination: "berlin" }),
+        active: chromeCtx.destination === "berlin",
+      },
     ],
     menuItems,
     ticketItem: {

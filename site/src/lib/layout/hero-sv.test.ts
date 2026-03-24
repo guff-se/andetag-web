@@ -8,6 +8,7 @@ describe("swedish hero header model", () => {
 
     expect(besok?.active).toBe(true);
     expect(model.ticketItem.highlight).toBe(true);
+    expect(model.logoHomeHref).toBe("/sv/stockholm/");
   });
 
   it("marks grouped page active for subgroup path", () => {

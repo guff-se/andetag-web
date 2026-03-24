@@ -16,3 +16,15 @@ export const stockholmTestimonialAggregateSv = {
   linkAriaLabel: "Läs alla recensioner på Tripadvisor",
   regionAriaLabel: "Sammanfattning av omdömen",
 } as const;
+
+/** Same figures as Swedish aggregate; English labels for `/en/stockholm/` home band. */
+export const stockholmTestimonialAggregateEn = {
+  eyebrow: "Visitor reviews",
+  score: "4.9",
+  scoreCaption: "out of 5",
+  meta: "165 reviews",
+  linkHref: stockholmTripadvisorReviewsUrl,
+  linkLabel: "Read all reviews",
+  linkAriaLabel: "Read all reviews on Tripadvisor",
+  regionAriaLabel: "Review summary",
+} as const;

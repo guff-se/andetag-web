@@ -3,11 +3,12 @@ import type {
   FooterVariantId,
   HeaderVariant,
   HeaderVariantId,
+  LegacyHeaderAliasId,
 } from "./types";
 
 export const HEADER_VARIANTS: Record<HeaderVariantId, HeaderVariant> = {
-  "header-192": {
-    id: "header-192",
+  "chrome-hdr-sv-stockholm-hero": {
+    id: "chrome-hdr-sv-stockholm-hero",
     language: "sv",
     kind: "hero",
     navVariantDesktop: "sv-main",
@@ -15,26 +16,8 @@ export const HEADER_VARIANTS: Record<HeaderVariantId, HeaderVariant> = {
     ctaLabel: "Hitta biljetter",
     ctaHref: "#book",
   },
-  "header-918": {
-    id: "header-918",
-    language: "en",
-    kind: "hero",
-    navVariantDesktop: "en-main",
-    navVariantMobile: "en-main",
-    ctaLabel: "Find Tickets",
-    ctaHref: "#book",
-  },
-  "header-4344": {
-    id: "header-4344",
-    language: "de",
-    kind: "hero",
-    navVariantDesktop: "de-main",
-    navVariantMobile: "de-main",
-    ctaLabel: "FUR FRUHBUCHER-TICKETS ANMELDEN",
-    ctaHref: "#book",
-  },
-  "header-2223": {
-    id: "header-2223",
+  "chrome-hdr-sv-stockholm-small": {
+    id: "chrome-hdr-sv-stockholm-small",
     language: "sv",
     kind: "small",
     navVariantDesktop: "sv-main",
@@ -42,8 +25,17 @@ export const HEADER_VARIANTS: Record<HeaderVariantId, HeaderVariant> = {
     ctaLabel: "Hitta biljetter",
     ctaHref: "/sv/stockholm/biljetter/",
   },
-  "header-3305": {
-    id: "header-3305",
+  "chrome-hdr-en-stockholm-hero": {
+    id: "chrome-hdr-en-stockholm-hero",
+    language: "en",
+    kind: "hero",
+    navVariantDesktop: "en-main",
+    navVariantMobile: "en-main",
+    ctaLabel: "Find Tickets",
+    ctaHref: "#book",
+  },
+  "chrome-hdr-en-stockholm-small": {
+    id: "chrome-hdr-en-stockholm-small",
     language: "en",
     kind: "small",
     navVariantDesktop: "en-main",
@@ -51,8 +43,8 @@ export const HEADER_VARIANTS: Record<HeaderVariantId, HeaderVariant> = {
     ctaLabel: "Tickets",
     ctaHref: "/en/stockholm/tickets/",
   },
-  "header-4287": {
-    id: "header-4287",
+  "chrome-hdr-en-stockholm-brand": {
+    id: "chrome-hdr-en-stockholm-brand",
     language: "en",
     kind: "brand",
     navVariantDesktop: "en-brand",
@@ -60,38 +52,85 @@ export const HEADER_VARIANTS: Record<HeaderVariantId, HeaderVariant> = {
     ctaLabel: "Tickets",
     ctaHref: "/en/stockholm/tickets/",
   },
+  "chrome-hdr-en-berlin-hero": {
+    id: "chrome-hdr-en-berlin-hero",
+    language: "en",
+    kind: "hero",
+    navVariantDesktop: "en-main",
+    navVariantMobile: "en-main",
+    ctaLabel: "Find Tickets",
+    ctaHref: "#book",
+  },
+  "chrome-hdr-en-berlin-small": {
+    id: "chrome-hdr-en-berlin-small",
+    language: "en",
+    kind: "small",
+    navVariantDesktop: "en-main",
+    navVariantMobile: "en-main",
+    ctaLabel: "Tickets",
+    ctaHref: "/en/stockholm/tickets/",
+  },
+  "chrome-hdr-de-berlin-hero": {
+    id: "chrome-hdr-de-berlin-hero",
+    language: "de",
+    kind: "hero",
+    navVariantDesktop: "de-main",
+    navVariantMobile: "de-main",
+    ctaLabel: "FUR FRUHBUCHER-TICKETS ANMELDEN",
+    ctaHref: "#book",
+  },
+  "chrome-hdr-de-berlin-small": {
+    id: "chrome-hdr-de-berlin-small",
+    language: "de",
+    kind: "small",
+    navVariantDesktop: "de-main",
+    navVariantMobile: "de-main",
+    ctaLabel: "Anmelden",
+    ctaHref: "/de/berlin/",
+  },
 };
 
 export const FOOTER_VARIANTS: Record<FooterVariantId, FooterVariant> = {
-  "footer-207": {
-    id: "footer-207",
+  "chrome-ftr-sv-stockholm": {
+    id: "chrome-ftr-sv-stockholm",
     language: "sv",
     legalLinks: [{ label: "Integritetspolicy", href: "/privacy/" }],
     socialLinks: [
       { label: "Instagram", href: "https://www.instagram.com/andetag.museum/" },
-      { label: "Facebook", href: "https://www.facebook.com/andetagmuseum/" },
+      { label: "Facebook", href: "https://www.facebook.com/andetag.museum/" },
       { label: "Pinterest", href: "https://www.pinterest.com/andetagmuseum/" },
       { label: "Spotify", href: "https://open.spotify.com/" },
     ],
   },
-  "footer-3100": {
-    id: "footer-3100",
+  "chrome-ftr-en-stockholm": {
+    id: "chrome-ftr-en-stockholm",
     language: "en",
     legalLinks: [{ label: "Privacy Policy", href: "/privacy/" }],
     socialLinks: [
       { label: "Instagram", href: "https://www.instagram.com/andetag.museum/" },
-      { label: "Facebook", href: "https://www.facebook.com/andetagmuseum/" },
+      { label: "Facebook", href: "https://www.facebook.com/andetag.museum/" },
       { label: "Pinterest", href: "https://www.pinterest.com/andetagmuseum/" },
       { label: "Spotify", href: "https://open.spotify.com/" },
     ],
   },
-  "footer-4229": {
-    id: "footer-4229",
+  "chrome-ftr-en-berlin": {
+    id: "chrome-ftr-en-berlin",
+    language: "en",
+    legalLinks: [{ label: "Privacy Policy", href: "/privacy/" }],
+    socialLinks: [
+      { label: "Instagram", href: "https://www.instagram.com/andetag.museum/" },
+      { label: "Facebook", href: "https://www.facebook.com/andetag.museum/" },
+      { label: "Pinterest", href: "https://www.pinterest.com/andetagmuseum/" },
+      { label: "Spotify", href: "https://open.spotify.com/" },
+    ],
+  },
+  "chrome-ftr-de-berlin": {
+    id: "chrome-ftr-de-berlin",
     language: "de",
     legalLinks: [{ label: "Datenschutz", href: "/privacy/" }],
     socialLinks: [
       { label: "Instagram", href: "https://www.instagram.com/andetag.museum/" },
-      { label: "Facebook", href: "https://www.facebook.com/andetagmuseum/" },
+      { label: "Facebook", href: "https://www.facebook.com/andetag.museum/" },
       { label: "Pinterest", href: "https://www.pinterest.com/andetagmuseum/" },
       { label: "Spotify", href: "https://open.spotify.com/" },
     ],
@@ -99,12 +138,10 @@ export const FOOTER_VARIANTS: Record<FooterVariantId, FooterVariant> = {
 };
 
 export function getResolvedHeaderVariantId(
-  headerVariantId: HeaderVariantId | "header-4136",
+  headerVariantId: HeaderVariantId | LegacyHeaderAliasId,
 ): HeaderVariantId {
   if (headerVariantId === "header-4136") {
-    // GAP-002 resolution: treat legacy en-berlin alias header as the main
-    // English hero header in the unified static layout.
-    return "header-918";
+    return "chrome-hdr-en-berlin-hero";
   }
 
   return headerVariantId;

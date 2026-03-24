@@ -1,0 +1,36 @@
+---
+import ButtonGroup from "../content/ButtonGroup.astro";
+
+/**
+ * English entry hub (`/en/`). Phase 6 minimal hub: city choice + essentials only.
+ *
+ * On-page copy follows **`docs/Andetag SEO Manual.md`** §1 (canonical description) and §1.1
+ * (**breathing museum** keyword), destination-neutral for the Stockholm | Berlin chooser.
+ * **`page-shell-meta.json`** **`/en/`** title and description match this page (see **EX-0015**).
+ */
+const h1Html =
+  "<h1><span class=\"brand-wordmark\">ANDETAG</span> | The Breathing Museum</h1>";
+
+const leadText =
+  "ANDETAG is the breathing museum: a calm, light-based art museum offering an immersive experience centered on stillness, presence, and breath. Choose Stockholm or Berlin below.";
+---
+
+<div class="page-migrated page-english-hub-en">
+  <section
+    class="content-section align-center page-english-hub-en__section"
+    aria-labelledby="english-hub-h1"
+  >
+    <div id="english-hub-h1" class="content-section-body" set:html={h1Html} />
+    <p class="content-section-body page-english-hub-en__lead">{leadText}</p>
+    <p class="visually-hidden" id="english-hub-locations-label">Choose a location</p>
+    <div role="group" aria-labelledby="english-hub-locations-label">
+      <ButtonGroup
+        className="page-english-hub-en__destinations"
+        buttons={[
+          { label: "Stockholm", href: "/en/stockholm/", variant: "primary" },
+          { label: "Berlin", href: "/en/berlin/", variant: "secondary" },
+        ]}
+      />
+    </div>
+  </section>
+</div>

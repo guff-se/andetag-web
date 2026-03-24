@@ -27,8 +27,8 @@ canonicalUrl: string             # absolute canonical URL
 pageType: content | landing | legal | utility
 destination: stockholm | berlin | shared
 headerType: hero | small | brand
-headerVariantId: string
-footerVariantId: string
+headerVariantId: string                 # Phase 6: stable `chrome-hdr-*` ids (see Chrome variant ids below)
+footerVariantId: string                 # Phase 6: stable `chrome-ftr-*` ids
 pageElementorId: integer
 ogImage: string | null           # local asset filename
 hreflang:
@@ -114,6 +114,32 @@ tracking:
   }
 }
 ```
+
+## 2.5) Chrome variant ids (Phase 6)
+
+Site shell uses **stable** ids (not WordPress Elementor post ids). Source of truth: **`site/src/lib/layout/types.ts`**, **`variants.ts`**, **`page-shell-registry.ts`** **`layoutVariantsForPath`**.
+
+**Headers (`headerVariantId`):**
+
+| Id | Role |
+|----|------|
+| `chrome-hdr-sv-stockholm-hero` | Swedish Stockholm full hero (video) |
+| `chrome-hdr-sv-stockholm-small` | Swedish Stockholm small hero |
+| `chrome-hdr-en-stockholm-hero` | English Stockholm hub hero |
+| `chrome-hdr-en-stockholm-small` | English Stockholm small header |
+| `chrome-hdr-en-stockholm-brand` | English global story pages (brand desktop nav) |
+| `chrome-hdr-en-berlin-hero` | English Berlin hub hero |
+| `chrome-hdr-en-berlin-small` | English Berlin small header (reserved for future routes) |
+| `chrome-hdr-de-berlin-hero` | German Berlin hero |
+| `chrome-hdr-de-berlin-small` | German Berlin small header (reserved for future routes) |
+
+**Footers (`footerVariantId`):** `chrome-ftr-sv-stockholm`, `chrome-ftr-en-stockholm`, `chrome-ftr-en-berlin`, `chrome-ftr-de-berlin`.
+
+**Implementation (labels and internal URLs):** Swedish Stockholm chrome menu and footer columns live in **`site/src/lib/layout/hero-sv.ts`** and **`footer-sv.ts`**. English Stockholm shared hero and footer (for **`chrome-hdr-en-stockholm-hero`**, **`chrome-hdr-en-stockholm-small`**, **`chrome-ftr-en-stockholm`**) live in **`hero-en-stockholm.ts`** and **`footer-en-stockholm.ts`**, aligned with **`docs/url-matrix.csv`** and **`navigation.ts`** **`en-main`**. **`STOCKHOLM_SV_EN_PAIRS`** in **`page-shell-registry.ts`** includes NPF and the four Swedish SEO landings with their English canonical paths (for example **`/sv/stockholm/npf-stockholm/`** ↔ **`/en/stockholm/npf-visitors/`**). **`chrome-hdr-en-stockholm-brand`** still uses the simplified **`header-root`** shell in **`SiteHeader.astro`**.
+
+**Legacy alias (tests / EX-0005 only):** `header-4136` → resolves to `chrome-hdr-en-berlin-hero` via **`getResolvedHeaderVariantId`**.
+
+**Old WordPress ids (retired as contracts):** `header-192`, `header-918`, `header-4344`, `header-2223`, `header-3305`, `header-4287`, `footer-207`, `footer-3100`, `footer-4229`.
 
 ## 3) Component Prop Contracts
 
@@ -202,8 +228,8 @@ canonicalUrl: https://www.andetag.museum/en/stockholm/faq/
 pageType: content
 destination: stockholm
 headerType: small
-headerVariantId: header-3305
-footerVariantId: footer-3100
+headerVariantId: chrome-hdr-en-stockholm-small
+footerVariantId: chrome-ftr-en-stockholm
 pageElementorId: 3729
 ogImage: andetag-faq-og.jpg
 hreflang:

@@ -1,3 +1,5 @@
-export function isHeaderSmallSv(headerId: string): boolean {
-  return headerId === "header-2223";
+import type { HeaderVariantId } from "./types";
+
+export function isHeaderSmallSv(headerId: HeaderVariantId): boolean {
+  return headerId === "chrome-hdr-sv-stockholm-small";
 }

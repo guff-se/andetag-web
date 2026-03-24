@@ -1,0 +1,28 @@
+---
+import ContentSection from "../content/ContentSection.astro";
+import ButtonGroup from "../content/ButtonGroup.astro";
+
+/** `site-html/en-stockholm-group-bookings.html` wp-post **2567**. */
+const bodyHtml = [
+  "<p><span class=\"brand-wordmark\">ANDETAG</span> welcomes groups and private parties who wish to experience the exhibition together.<br />A quiet place to meet, in the middle of Stockholm.</p>",
+  "<p>Groups can visit <span class=\"brand-wordmark\">ANDETAG</span> during regular opening hours, or book an exclusive visit where the space is reserved for your party alone. Both options allow time to share the experience at your own pace.</p>",
+  "<p>The experience consists of light, woven textile and music moving in rhythm with a shared breath.<br />It invites presence, conversation and silence, without demands or interpretation.</p>",
+  "<p>Many groups visit as part of a celebration, a shared day in the city, or as an alternative to more intensive activities. <span class=\"brand-wordmark\">ANDETAG</span> is not a traditional event, but an experience to be shared.</p>",
+  "<p>For exclusive bookings, the visit can be adapted to the size and needs of the group, with time and tempo as guiding principles. Groups visiting during regular opening hours follow the same conditions as other visitors.</p>",
+  "<p><span class=\"brand-wordmark\">ANDETAG</span> is centrally located in Stockholm and easy to combine with dinner or other plans in the city.</p>",
+  "<p>Contact us to book for your group or to discuss an exclusive visit.</p>",
+].join("");
+---
+
+<div class="page-migrated">
+  <ContentSection
+    heading="For groups and private parties"
+    headingLevel="h1"
+    markdown={bodyHtml}
+  />
+  <div class="page-migrated-cta">
+    <ButtonGroup
+      buttons={[{ label: "Send request", href: "mailto:info@tadaa.se", variant: "primary" }]}
+    />
+  </div>
+</div>

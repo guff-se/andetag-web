@@ -1,0 +1,44 @@
+---
+import ContentSection from "../content/ContentSection.astro";
+
+/** `site-html/en-stockholm-season-pass.html` wp-page. */
+const h1Html = "<h1>Season Pass for <span class=\"brand-wordmark\">ANDETAG</span></h1>";
+
+const subMarkdown = "<h3>Return to your breathing</h3>";
+
+const bodyMarkdown =
+  "<p>For some, <span class=\"brand-wordmark\">ANDETAG</span> becomes more than a single visit. It becomes a habit. A quiet return to the same space, the same light, the same slow rhythm.</p>" +
+  "<p>The season pass is for those who want to make <span class=\"brand-wordmark\">ANDETAG</span> part of everyday life. A place to come back to, without planning. Without rushing.</p>" +
+  "<p>Each visit is familiar, but never identical. Light and music move in sync with a shared breath, unfolding in subtle variations. You arrive when you need to. You stay as long as you wish.</p>";
+
+const givesMarkdown =
+  "<h3>What the season pass includes</h3>" +
+  "<p>The season pass gives you <strong>unlimited access for six months</strong>.</p>" +
+  "<p>You book time slots as usual, subject to availability, and can visit as often as you like during the period.</p>" +
+  "<p>Some come once a week. Others more often. There is no right way.</p>";
+
+const priceMarkdown =
+  "<h3>Price and conditions</h3>" +
+  "<p><strong>Season passes are purchased at the entrance.</strong></p>" +
+  "<p><strong>Season pass: 950 SEK</strong><br />Valid for 6 months from the date of purchase.</p>" +
+  "<p>If you have already purchased a standard ticket, its value can be deducted when buying a season pass at the entrance. Simply show your ticket at the desk.</p>" +
+  "<p>The season pass is personal and non-transferable.</p>";
+
+const calmMarkdown =
+  "<h3>A quiet commitment</h3>" +
+  "<p>The season pass is not a promise of transformation. It is an invitation to continuity. A place that remains, ready when you are.</p>" +
+  "<p>One breath. Again and again.</p>";
+---
+
+<div class="page-migrated page-sasongskort-sv">
+  <section class="content-section align-left" aria-labelledby="sasongskort-h1-en">
+    <div id="sasongskort-h1-en" class="content-section-body" set:html={h1Html} />
+  </section>
+  <ContentSection markdown={subMarkdown} />
+  <ContentSection markdown={bodyMarkdown} />
+  <div class="page-sasongskort-sv__two-col">
+    <ContentSection markdown={givesMarkdown} />
+    <ContentSection markdown={priceMarkdown} />
+  </div>
+  <ContentSection markdown={calmMarkdown} />
+</div>

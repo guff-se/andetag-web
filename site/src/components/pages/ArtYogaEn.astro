@@ -1,0 +1,42 @@
+---
+import ButtonGroup from "../content/ButtonGroup.astro";
+import ContentSection from "../content/ContentSection.astro";
+
+/**
+ * English Art Yoga body from `site-html/en-stockholm-art-yoga-en.html` wp-page.
+ * `page-shell-meta.json` lists `en-stockholm-art-yoga.html` for `/en/stockholm/art-yoga/`, but that
+ * artifact&#8217;s main copy is Swedish; this page uses the English alias scrape.
+ */
+const introMarkdown = [
+  "<h1>Art Yoga at <span class=\"brand-wordmark\">ANDETAG</span></h1>",
+  "<h2>Yoga in Stockholm every Tuesday at 17:00</h2>",
+  "<p>Art Yoga is a slow yoga class held inside Andetag&#8217;s immersive art environment in central Stockholm.<br />A place to move, breathe, and settle, in the middle of the city.</p>",
+  "<p>Surrounded by glowing textile art and living light, the class is guided by yoga teacher <strong>Fabian Macklin</strong>.<br />Movement and breath unfold at a gentle pace, with attention on presence rather than performance.</p>",
+  "<p>The class is open to both beginners and experienced practitioners.<br />No prior experience is required.</p>",
+].join("");
+
+const practicalMarkdown = [
+  "<h3>Practical information</h3>",
+  "<p><strong>Time:</strong> Tuesdays at 17:00</p>",
+  "<p><strong>Book your slot online</strong> before arriving</p>",
+  "<p><strong>Location:</strong> Andetag, Stockholm</p>",
+  "<p>Doors close at 17:00. Please arrive on time.</p>",
+  "<p>You are welcome to arrive 20 minutes early and stay after the class.</p>",
+  "<p>Bring your own yoga mat if you wish. Practicing without a mat is also possible.</p>",
+  "<p>There are no changing rooms or showers. Lockers are available for personal belongings.</p>",
+  "<p>Art Yoga at Andetag is a quiet meeting between body and art.<br />One shared breath each week.</p>",
+].join("");
+
+const bookingHref =
+  "https://andetag.understory.io/experience/cc2f4ed4e1709b93a454a1e5abad6595";
+---
+
+<div class="page-migrated">
+  <ContentSection markdown={introMarkdown} />
+  <div class="page-migrated-cta">
+    <ButtonGroup
+      buttons={[{ label: "Book Art Yoga", href: bookingHref, variant: "primary", external: true }]}
+    />
+  </div>
+  <ContentSection markdown={practicalMarkdown} />
+</div>

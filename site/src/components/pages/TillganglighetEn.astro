@@ -1,0 +1,34 @@
+---
+import ContentSection from "../content/ContentSection.astro";
+
+/** `site-html/en-stockholm-accessibility.html` wp-page. */
+const block1 =
+  "<h3>A place designed with care</h3>" +
+  "<p><span class=\"brand-wordmark\">ANDETAG</span> is created as a calm and accessible experience. Our intention is to make the space welcoming to as many people as possible, at their own pace and on their own terms.</p>" +
+  "<p>Below you&#8217;ll find practical accessibility information. If anything is unclear, you are always welcome to contact us.</p>" +
+  "<h3>Getting here</h3>" +
+  "<p>There are <strong>elevators from the metro platform</strong> as well as <strong>an elevator from street level at Kungsgatan 39</strong>.</p>" +
+  "<p>The entire exhibition is on one level and is <strong>wheelchair accessible</strong>.</p>" +
+  "<h3>Wheelchairs and restrooms</h3>" +
+  "<p>The exhibition itself is accessible for wheelchairs.</p>" +
+  "<p>Unfortunately, we do <strong>not have a fully equipped wheelchair-accessible restroom</strong> at this time. Please feel free to contact us in advance if you would like to discuss practical arrangements.</p>";
+
+const block2 =
+  "<h3>Light, darkness, and navigation</h3>" +
+  "<p>Some parts of the exhibition are dark. However, the space is designed to be easy to navigate, with clear paths and gentle transitions.</p>" +
+  "<p><strong>Guide dogs are welcome.</strong></p>" +
+  "<h3>Sound and hearing</h3>" +
+  "<p>There is <strong>no hearing loop</strong> available in the space.</p>" +
+  "<p>The music used in the experience is available online. If you use a hearing aid or other personal listening equipment, you are welcome to play the music on your own device.</p>" +
+  "<h3>Caregivers and assistance</h3>" +
+  "<p>Caregivers or personal assistants are admitted free of charge.</p>" +
+  "<p>Please inform staff at the entrance.</p>" +
+  "<h3>Groups and organizations</h3>" +
+  "<p>We welcome groups of wheelchair users, such as <strong>school classes</strong> or <strong>day activity programs</strong>.</p>" +
+  "<p>For group bookings and questions, please contact:<br /><strong>info@tadaa.se</strong></p>";
+---
+
+<div class="page-migrated page-tillganglighet-sv">
+  <ContentSection heading="Accessibility" headingLevel="h1" markdown={block1} />
+  <ContentSection markdown={block2} />
+</div>

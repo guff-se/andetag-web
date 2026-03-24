@@ -19,7 +19,7 @@ Purpose: provide implementation-facing usage guidance for approved Phase 3 compo
 
 - **`SiteLayout`** renders **`<main id="main-content" class="main-content">`**. Vertical space from the **bottom edge of the Swedish shared hero** (including the desktop nav strip) to the **first page block** is **`padding-top`** on **`.main-content`**, driven by **`--page-shell-main-top-gap`** in **`site/src/styles/layout.css`**. Prefer tuning that token over page-level **`margin-top`** on the first row.
 - **`site/src/styles/components.css`** sets **`.main-content > :first-child > *:first-child { margin-top: 0 }`** so **`.content-section`**, **`.component-hero`**, and similar blocks do not add an extra top margin above that padding.
-- **Small Swedish hero** (**`header-2223`**): **`.shared-hero-header.is-small`** has no **`margin-bottom`**; spacing after the nav comes only from **`.main-content`** padding so subpages align with the full-hero home gap.
+- **Small Swedish hero** (**`chrome-hdr-sv-stockholm-small`**): **`.shared-hero-header.is-small`** has no **`margin-bottom`**; spacing after the nav comes only from **`.main-content`** padding so subpages align with the full-hero home gap.
 
 ## Components
 

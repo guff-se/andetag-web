@@ -1,56 +1,66 @@
 ---
 import type { PageLayoutModel } from "../../lib/layout/page-layout";
 import { getSwedishFooterModel } from "../../lib/layout/footer-sv";
+import { getEnglishStockholmFooterModel } from "../../lib/layout/footer-en-stockholm";
+
 const { model } = Astro.props as { model: PageLayoutModel };
-const swedishFooter = model.footer.id === "footer-207" ? getSwedishFooterModel() : null;
+
+const detailedFooter =
+  model.footer.id === "chrome-ftr-sv-stockholm"
+    ? getSwedishFooterModel()
+    : model.footer.id === "chrome-ftr-en-stockholm"
+      ? getEnglishStockholmFooterModel()
+      : null;
 ---
 
 {
-  swedishFooter ? (
+  detailedFooter ? (
     <footer class="shared-footer-root">
       <div class="shared-footer-container">
         <div class="shared-footer-grid">
           <section class="shared-footer-col">
-            <p>{swedishFooter.sections[0]?.title}</p>
+            <p>{detailedFooter.sections[0]?.title}</p>
             <ul>
-              {swedishFooter.sections[0]?.links.map((link) => <li><a href={link.href}>{link.label}</a></li>)}
+              {detailedFooter.sections[0]?.links.map((link) => <li><a href={link.href}>{link.label}</a></li>)}
             </ul>
           </section>
           <section class="shared-footer-col">
-            <p>{swedishFooter.sections[1]?.title}</p>
+            <p>{detailedFooter.sections[1]?.title}</p>
             <ul>
-              {swedishFooter.sections[1]?.links.map((link) => <li><a href={link.href}>{link.label}</a></li>)}
+              {detailedFooter.sections[1]?.links.map((link) => <li><a href={link.href}>{link.label}</a></li>)}
             </ul>
           </section>
           <section class="shared-footer-col">
-            <p>{swedishFooter.groupedSections[0]?.title}</p>
+            <p>{detailedFooter.groupedSections[0]?.title}</p>
             <ul>
-              {swedishFooter.groupedSections[0]?.links.map((link) => <li><a href={link.href}>{link.label}</a></li>)}
+              {detailedFooter.groupedSections[0]?.links.map((link) => <li><a href={link.href}>{link.label}</a></li>)}
             </ul>
-            <p>{swedishFooter.groupedSections[1]?.title}</p>
+            <p>{detailedFooter.groupedSections[1]?.title}</p>
             <ul>
-              {swedishFooter.groupedSections[1]?.links.map((link) => <li><a href={link.href}>{link.label}</a></li>)}
+              {detailedFooter.groupedSections[1]?.links.map((link) => <li><a href={link.href}>{link.label}</a></li>)}
             </ul>
           </section>
         </div>
 
-        <p class="shared-footer-seo-links">
-          {
-            swedishFooter.seoLinks.map((link, index) => (
-              <span>
-                {index > 0 && <span> / </span>}
-                <a href={link.href}>{link.label}</a>
-              </span>
-            ))
-          }
-        </p>
+        {detailedFooter.seoLinks.length > 0 ? (
+          <p class="shared-footer-seo-links">
+            {
+              detailedFooter.seoLinks.map((link, index) => (
+                <span>
+                  {index > 0 && <span> / </span>}
+                  <a href={link.href}>{link.label}</a>
+                </span>
+              ))
+            }
+          </p>
+        ) : null}
 
         <div class="shared-footer-bottom">
-          <div class="shared-footer-copyright">{swedishFooter.copyright}</div>
-          <div class="shared-footer-privacy"><a href={swedishFooter.privacyLink.href}>{swedishFooter.privacyLink.label}</a></div>
+          <div class="shared-footer-copyright">{detailedFooter.copyright}</div>
+          <div class="shared-footer-privacy"><a href={detailedFooter.privacyLink.href}>{detailedFooter.privacyLink.label}</a></div>
           <div class="shared-footer-socials" aria-label="Social links">
             {
-              swedishFooter.socialLinks.map((link) => (
+              detailedFooter.socialLinks.map((link) => (
                 <a href={link.href} aria-label={link.label} rel={link.href.startsWith("http") ? "noreferrer" : undefined} target={link.href.startsWith("http") ? "_blank" : undefined}>
                   {
                     link.icon === "instagram" ? (

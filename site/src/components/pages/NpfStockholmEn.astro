@@ -1,0 +1,56 @@
+---
+import ButtonGroup from "../content/ButtonGroup.astro";
+import ContentSection from "../content/ContentSection.astro";
+import InfoFrame from "../content/InfoFrame.astro";
+
+/** English peer of `NpfStockholmSv.astro`; Swedish source `site-html/stockholm-npf-stockholm.html` wp-page **4384**. */
+const leadMarkdown =
+  "<p><span class=\"brand-wordmark\">ANDETAG</span> is designed as a calm, low-stimulation experience.</p>" +
+  "<p>If you are autistic, ADHD, or have another neurodevelopmental profile (often called NPF in Swedish), or sensory sensitivity, it can help to know what to expect before you visit.</p>" +
+  "<p>Here is information to help you plan.</p>";
+
+const expectMarkdown =
+  "<p>The exhibition has four rooms with light-based textile art and original music. The works move to a shared breath: slowly, predictably, without sudden changes. No flashing lights. No interactive screens. Nothing that demands a response.</p>" +
+  "<p>Sound is quiet. Music plays at low volume and follows the same rhythm as the light. You can also listen on your own device if you want more control.</p>" +
+  "<p>Many neurodivergent visitors describe being drawn into the light. The predictable rhythm gives your attention somewhere to rest—a focus that regulates without asking for a reply. You can lose yourself in it, or simply let the breath carry you.</p>" +
+  "<p>The rooms move from darker to lighter. In the last room there are blankets and cushions where you can sit or lie down. Stay as long as you need.</p>";
+
+const tempoMarkdown =
+  "<p>A quiet museum, not a noisy one. Groups are small. You move through at your own pace. No guide talking over you. No time limits. You stay as long as you wish. Low demand: nothing requires your answer. Most people spend around 50 minutes, but you are free to stay longer.</p>" +
+  "<p>The experience is on one level. Clear flow, calm transitions. A place to exhale when input feels like too much. The whole exhibition is wheelchair accessible. Carers or personal assistants enter free of charge—let us know at the entrance.</p>";
+
+const advanceMarkdown =
+  "<p><strong>Location:</strong> Kungsgatan 39, Stockholm (Hötorget metro). Lifts from the platform and from street level.</p>" +
+  "<p><strong>Light:</strong> Soft, from the works. Some areas are dark. No fluorescent lighting. No flashing or sudden light signals.</p>" +
+  "<p><strong>Sound:</strong> Music at low volume, synced with the light. No hearing loop. Guide dogs welcome.</p>" +
+  "<p><strong>Toilet:</strong> We do not currently have a fully accessible toilet. Contact us in advance if you want to discuss practical options.</p>" +
+  "<p><strong>Groups:</strong> We welcome groups from day services and schools. For group bookings, contact <a href=\"mailto:info@tadaa.se\">info@tadaa.se</a>.</p>";
+
+const practicalFrameHtml =
+  "<p><strong>Address:</strong> Kungsgatan 39, Stockholm (Hötorget metro)</p>" +
+  "<p><strong>Opening hours:</strong> Tuesday–Saturday 12:00–20:00, Sunday 12:00–17:00. Closed Mondays.</p>" +
+  "<p><strong>Prices:</strong><br />Standard 240 SEK (190 SEK daytime weekdays 12–17).<br />Student / senior 200 SEK (150 daytime).<br />Youth 8–17: 125 SEK.</p>" +
+  "<p><strong>Duration:</strong> Most visitors stay 45–50 minutes. You may stay as long as you like.</p>" +
+  "<p><strong>Age:</strong> Suitable for all ages. Children are welcome.</p>";
+---
+
+<div class="page-migrated page-npf-stockholm-sv">
+  <ContentSection
+    heading="Neurodiversity-friendly exhibition in Stockholm—calm, predictable, low stimulus"
+    headingLevel="h1"
+    markdown={leadMarkdown}
+  />
+  <ContentSection heading="What to expect" headingLevel="h2" markdown={expectMarkdown} />
+  <ContentSection
+    heading="Low stimulus, small groups, quiet pace"
+    headingLevel="h2"
+    markdown={tempoMarkdown}
+  />
+  <div class="page-npf-stockholm-sv__cta">
+    <ButtonGroup buttons={[{ label: "Book tickets now", href: "/en/stockholm/tickets/#book", variant: "secondary" }]} />
+  </div>
+  <ContentSection heading="Information in advance" headingLevel="h2" markdown={advanceMarkdown} />
+  <div class="page-npf-stockholm-sv__practical">
+    <InfoFrame heading="Practical information" headingLevel="h3" bodyHtml={practicalFrameHtml} />
+  </div>
+</div>

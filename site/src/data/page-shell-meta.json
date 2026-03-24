@@ -1,7 +1,7 @@
 {
   "_meta": {
     "source": "site-html/*.html via extract-page-shell-meta.mjs",
-    "notes": "Swedish canonical paths use /sv/; legacy unprefixed URLs redirect via site/public/_redirects. /en/stockholm/: en-stockholm.html and live site mis-set Yoast; shell uses en.html until EX-0007 is resolved in Phase 5."
+    "notes": "Swedish canonical paths use /sv/; legacy unprefixed URLs redirect via site/public/_redirects. /en/stockholm/: en-stockholm.html and live site mis-set Yoast; shell uses en.html until EX-0007 is resolved in Phase 5. /en/: title and description overridden for minimal hub (EX-0015); re-extract may need a guard for this path."
   },
   "pages": {
     "/sv/stockholm/": {
@@ -36,8 +36,8 @@
     },
     "/en/": {
       "sourceFile": "en.html",
-      "title": "ANDETAG | The Breathing Museum in Stockholm",
-      "description": "ANDETAG is a breathing museum in Stockholm—a calm, art experience where light, breath, and music meet. Visit the breathing art museum near Hötorget."
+      "title": "ANDETAG | The Breathing Museum",
+      "description": "ANDETAG is the breathing museum—a calm, light-based art experience. Choose Stockholm or Berlin to plan your visit."
     },
     "/en/about-andetag/": {
       "sourceFile": "en-about-andetag.html",
@@ -89,6 +89,11 @@
       "title": "Date in Stockholm | A Quiet Place to Be Together | ANDETAG Stockholm",
       "description": "A still, immersive art experience in central Stockholm. A calm date where you can be close, be quiet, and share an hour together. Suitable for first dates and couples."
     },
+    "/en/stockholm/exhibition-stockholm/": {
+      "sourceFile": "stockholm-utstallning-stockholm.html",
+      "title": "ANDETAG | A calm art exhibition in Stockholm | ANDETAG Stockholm",
+      "description": "A calm art exhibition in Stockholm at Hötorget. Light-based textile art and music at the breathing museum. Open year-round in central Stockholm."
+    },
     "/en/stockholm/faq/": {
       "sourceFile": "en-stockholm-faq.html",
       "title": "Frequently Asked Questions about ANDETAG Stockholm | (FAQ)​ | ANDETAG Stockholm",
@@ -109,6 +114,21 @@
       "title": "How to Find ANDETAG Stockholm | Hötorget Metro Station | ANDETAG Stockholm",
       "description": "ANDETAG is located in the central entrance of Hötorget metro station in Stockholm. Easy to reach, right beneath the city’s rhythm."
     },
+    "/en/stockholm/indoor-activity-stockholm/": {
+      "sourceFile": "stockholm-aktivitet-inomhus-stockholm.html",
+      "title": "ANDETAG | A calm indoor activity in Stockholm | ANDETAG Stockholm",
+      "description": "Indoor activity in Stockholm. ANDETAG, the breathing museum, is a calm experience for presence. Light, textile, and music in one breath. Ideal in any weather."
+    },
+    "/en/stockholm/museum-stockholm/": {
+      "sourceFile": "stockholm-museum-stockholm.html",
+      "title": "ANDETAG | A calm museum in Stockholm | ANDETAG Stockholm",
+      "description": "A calm art museum in Stockholm near Hötorget. ANDETAG: light-based art, presence, and breath. Evening hours in central Stockholm."
+    },
+    "/en/stockholm/npf-visitors/": {
+      "sourceFile": "stockholm-npf-stockholm.html",
+      "title": "Neurodiversity-friendly visit at ANDETAG Stockholm | Calm, low-stimulus exhibition | ANDETAG Stockholm",
+      "description": "Visitor information for autistic, ADHD, and sensory-sensitive guests. ANDETAG in Stockholm: predictable light, small groups, quiet music at Hötorget."
+    },
     "/en/stockholm/opening-hours/": {
       "sourceFile": "en-stockholm-opening-hours.html",
       "title": "Opening Hours | ANDETAG Stockholm",
@@ -123,6 +143,11 @@
       "sourceFile": "en-stockholm-tickets.html",
       "title": "Tickets | ANDETAG Stockholm",
       "description": "Book tickets to ANDETAG in Stockholm. A calm art experience with timed entry and limited availability."
+    },
+    "/en/stockholm/things-to-do-stockholm/": {
+      "sourceFile": "stockholm-att-gora-stockholm.html",
+      "title": "ANDETAG | Something calm to do in Stockholm | ANDETAG Stockholm",
+      "description": "Things to do in Stockholm today? ANDETAG, the breathing museum, is a calm art experience in central Stockholm. Light, breath, and presence. Open year-round at Hötorget."
     },
     "/en/stockholm/visitor-reviews/": {
       "sourceFile": "en-stockholm-visitor-reviews.html",

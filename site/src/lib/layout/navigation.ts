@@ -1,11 +1,14 @@
 import type {
   Destination,
+  HeaderVariantId,
   Language,
+  LegacyHeaderAliasId,
   NavigationVariant,
   SelectorOption,
   ViewportBucket,
 } from "./types";
 import { HEADER_VARIANTS, getResolvedHeaderVariantId } from "./variants";
+import { resolveChromeNavigationHref } from "../routes/chrome-navigation-resolve";
 
 const DESTINATION_LABELS: Record<Destination, string> = {
   stockholm: "Stockholm",
@@ -16,16 +19,6 @@ const LANGUAGE_LABELS: Record<Language, string> = {
   sv: "Svenska",
   en: "English",
   de: "Deutsch",
-};
-
-const DESTINATION_DEFAULT_LANGUAGE: Record<Destination, Language> = {
-  stockholm: "sv",
-  berlin: "en",
-};
-
-const DESTINATION_LANGUAGE_SUPPORT: Record<Destination, Language[]> = {
-  stockholm: ["sv", "en"],
-  berlin: ["en", "de"],
 };
 
 const DESTINATION_HOME_PATHS: Record<Destination, Record<Language, string | null>> = {
@@ -93,30 +86,34 @@ const NAVIGATION_VARIANTS: Record<NavigationVariant["id"], NavigationVariant> = 
     items: [
       {
         label: "Visit",
-        href: "/en/stockholm/tickets/",
+        href: "/en/stockholm/",
         children: [
           { label: "Tickets", href: "/en/stockholm/tickets/" },
-          { label: "Season Pass", href: "/en/stockholm/season-pass/" },
-          { label: "Gift Cards", href: "/en/stockholm/gift-cards/" },
-          { label: "Opening Hours", href: "/en/stockholm/opening-hours/" },
-          { label: "How to Find Us", href: "/en/stockholm/how-to-find-us/" },
+          { label: "Season pass", href: "/en/stockholm/season-pass/" },
+          { label: "Gift cards", href: "/en/stockholm/giftcard/" },
+          { label: "Opening hours", href: "/en/stockholm/opening-hours/" },
+          { label: "How to find us", href: "/en/stockholm/how-to-find-us/" },
           { label: "Accessibility", href: "/en/stockholm/accessibility/" },
           { label: "FAQ", href: "/en/stockholm/faq/" },
         ],
       },
       {
         label: "The Experience",
-        href: "/en/stockholm/romantic-date/",
+        href: "/en/stockholm/what-kind-of-experience/",
         children: [
-          { label: "Romantic Date", href: "/en/stockholm/romantic-date/" },
+          { label: "Romantic date", href: "/en/stockholm/date/" },
+          { label: "NPF visitors", href: "/en/stockholm/npf-visitors/" },
           { label: "Art Yoga", href: "/en/stockholm/art-yoga/" },
           { label: "The Music", href: "/en/music/" },
         ],
       },
       {
         label: "Groups",
-        href: "/en/stockholm/corporate-events/",
-        children: [{ label: "Corporate Events", href: "/en/stockholm/corporate-events/" }],
+        href: "/en/stockholm/group-bookings/",
+        children: [
+          { label: "Group bookings / private events", href: "/en/stockholm/group-bookings/" },
+          { label: "Corporate events", href: "/en/stockholm/corporate-events/" },
+        ],
       },
       {
         label: "About ANDETAG",
@@ -175,14 +172,7 @@ const NAVIGATION_VARIANTS: Record<NavigationVariant["id"], NavigationVariant> = 
 type NavSelectionInput = {
   language: Language;
   destination: Destination;
-  headerVariantId:
-    | "header-192"
-    | "header-918"
-    | "header-4344"
-    | "header-2223"
-    | "header-3305"
-    | "header-4287"
-    | "header-4136";
+  headerVariantId: HeaderVariantId | LegacyHeaderAliasId;
   viewport?: ViewportBucket;
 };
 
@@ -204,13 +194,12 @@ export function getBrandHomeHref(language: Language, destination: Destination): 
 export function getLanguageSelectorOptions(input: {
   language: Language;
   destination: Destination;
+  canonicalPath: string;
 }): SelectorOption<Language>[] {
-  const supportedLanguages = DESTINATION_LANGUAGE_SUPPORT[input.destination];
-
-  return supportedLanguages.map((language) => ({
+  return (["sv", "en", "de"] as const).map((language) => ({
     value: language,
     label: LANGUAGE_LABELS[language],
-    href: DESTINATION_HOME_PATHS[input.destination][language] ?? "/sv/stockholm/",
+    href: resolveChromeNavigationHref(input.canonicalPath, { language }),
     active: language === input.language,
   }));
 }
@@ -218,20 +207,12 @@ export function getLanguageSelectorOptions(input: {
 export function getDestinationSelectorOptions(input: {
   language: Language;
   destination: Destination;
+  canonicalPath: string;
 }): SelectorOption<Destination>[] {
-  return (Object.keys(DESTINATION_LABELS) as Destination[]).map((destination) => {
-    const currentLanguageSupported = DESTINATION_LANGUAGE_SUPPORT[destination].includes(
-      input.language,
-    );
-    const destinationLanguage = currentLanguageSupported
-      ? input.language
-      : DESTINATION_DEFAULT_LANGUAGE[destination];
-
-    return {
-      value: destination,
-      label: DESTINATION_LABELS[destination],
-      href: DESTINATION_HOME_PATHS[destination][destinationLanguage] ?? "/sv/stockholm/",
-      active: destination === input.destination,
-    };
-  });
+  return (Object.keys(DESTINATION_LABELS) as Destination[]).map((destination) => ({
+    value: destination,
+    label: DESTINATION_LABELS[destination],
+    href: resolveChromeNavigationHref(input.canonicalPath, { destination }),
+    active: destination === input.destination,
+  }));
 }

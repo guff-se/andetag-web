@@ -1,0 +1,16 @@
+---
+import StockholmSeoLandingEn from "./StockholmSeoLandingEn.astro";
+
+/** English peer of `StockholmUtstallningSv.astro`; Swedish source `stockholm-utstallning-stockholm.html`. */
+const introMarkdown = [
+  "<p>An exhibition can be many things.<br /><span class=\"brand-wordmark\">ANDETAG</span> is a place to stay.</p>",
+  "<p>The exhibition is in central Stockholm, at Hötorget. Four rooms of light-based textile art and music written for the journey. The works move to a shared breath: slow, quiet, unhurried.</p>",
+  "<p>You are invited to sit down.<br />To breathe.<br />To take the time you need.</p>",
+].join("");
+---
+
+<StockholmSeoLandingEn
+  galleryId="stockholm-en-exhibition"
+  h1Text="A calm art exhibition in Stockholm"
+  introMarkdown={introMarkdown}
+/>

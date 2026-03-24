@@ -215,6 +215,8 @@ Acceptance checks:
 
 ### Phase 6, Localization Rollout (After Swedish Completion)
 
+**Status (2026-03-24):** **P6-00** **closed** (Gustaf sign-off): Swedish **`sv` / Stockholm** chrome package (stable ids, **`resolveChromeNavigationHref`**, selectors, hero destination row) approved with existing **`/sv/...`** bodies. Evidence: **`docs/phase-6-verification-record.md`**. **P6-01** (English Stockholm + English global): **implementation complete** (**47** **`PAGE_CUSTOM_BODY_PATHS`**, all Wave 1 routes except **`/en/berlin/`**); **ready for Gustaf package inspection**; stakeholder sign-off still open per **`docs/phase-6-todo.md`**.
+
 Goal: localize approved Swedish structures and content into planned non-Swedish locales after Phase 5 sign-off.
 
 Deliverables:

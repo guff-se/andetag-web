@@ -1,27 +1,51 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
+import ArtYogaEn from "../components/pages/ArtYogaEn.astro";
 import ArtYogaSv from "../components/pages/ArtYogaSv.astro";
+import BesokaromdomenEn from "../components/pages/BesokaromdomenEn.astro";
 import BesokaromdomenSv from "../components/pages/BesokaromdomenSv.astro";
+import BiljetterEn from "../components/pages/BiljetterEn.astro";
 import BiljetterSv from "../components/pages/BiljetterSv.astro";
+import DejtEn from "../components/pages/DejtEn.astro";
 import DejtSv from "../components/pages/DejtSv.astro";
-import FragorSvarSv from "../components/pages/FragorSvarSv.astro";
+import EnglishHubEn from "../components/pages/EnglishHubEn.astro";
+import ForetagseventEn from "../components/pages/ForetagseventEn.astro";
 import ForetagseventSv from "../components/pages/ForetagseventSv.astro";
+import FragorSvarEn from "../components/pages/FragorSvarEn.astro";
+import FragorSvarSv from "../components/pages/FragorSvarSv.astro";
+import GruppbokningEn from "../components/pages/GruppbokningEn.astro";
 import GruppbokningSv from "../components/pages/GruppbokningSv.astro";
+import HittaHitEn from "../components/pages/HittaHitEn.astro";
 import HittaHitSv from "../components/pages/HittaHitSv.astro";
+import MusikEn from "../components/pages/MusikEn.astro";
 import MusikSv from "../components/pages/MusikSv.astro";
+import NpfStockholmEn from "../components/pages/NpfStockholmEn.astro";
 import NpfStockholmSv from "../components/pages/NpfStockholmSv.astro";
+import OmAndetagEn from "../components/pages/OmAndetagEn.astro";
 import OmAndetagSv from "../components/pages/OmAndetagSv.astro";
+import OmKonstnarernaEn from "../components/pages/OmKonstnarernaEn.astro";
 import OmKonstnarernaSv from "../components/pages/OmKonstnarernaSv.astro";
+import OppettiderEn from "../components/pages/OppettiderEn.astro";
 import OppettiderSv from "../components/pages/OppettiderSv.astro";
+import OpticalFibreTextileEn from "../components/pages/OpticalFibreTextileEn.astro";
 import OptiskFibertextilSv from "../components/pages/OptiskFibertextilSv.astro";
+import PresentkortEn from "../components/pages/PresentkortEn.astro";
 import PresentkortSv from "../components/pages/PresentkortSv.astro";
+import SasongskortEn from "../components/pages/SasongskortEn.astro";
 import SasongskortSv from "../components/pages/SasongskortSv.astro";
 import StockholmAktivitetInomhusSv from "../components/pages/StockholmAktivitetInomhusSv.astro";
 import StockholmAttGoraSv from "../components/pages/StockholmAttGoraSv.astro";
+import StockholmExhibitionEn from "../components/pages/StockholmExhibitionEn.astro";
+import StockholmHomeEn from "../components/pages/StockholmHomeEn.astro";
 import StockholmHomeSv from "../components/pages/StockholmHomeSv.astro";
+import StockholmIndoorActivityEn from "../components/pages/StockholmIndoorActivityEn.astro";
+import StockholmMuseumEn from "../components/pages/StockholmMuseumEn.astro";
 import StockholmMuseumSv from "../components/pages/StockholmMuseumSv.astro";
+import StockholmThingsToDoEn from "../components/pages/StockholmThingsToDoEn.astro";
 import StockholmUtstallningSv from "../components/pages/StockholmUtstallningSv.astro";
+import TillganglighetEn from "../components/pages/TillganglighetEn.astro";
 import TillganglighetSv from "../components/pages/TillganglighetSv.astro";
+import VilkenTypAvUpplevelseEn from "../components/pages/VilkenTypAvUpplevelseEn.astro";
 import VilkenTypAvUpplevelseSv from "../components/pages/VilkenTypAvUpplevelseSv.astro";
 import { HERO_SV_ASSETS } from "../lib/layout/assets";
 import {
@@ -45,6 +69,30 @@ type ShellPageBody = typeof MusikSv;
 
 /** Keep keys aligned with `PAGE_CUSTOM_BODY_PATHS` in `lib/pages/page-body-registry.ts`. */
 const pageBodies: Partial<Record<string, ShellPageBody>> = {
+  "/en/": EnglishHubEn,
+  "/en/about-andetag/": OmAndetagEn,
+  "/en/about-the-artists-malin-gustaf-tadaa/": OmKonstnarernaEn,
+  "/en/music/": MusikEn,
+  "/en/optical-fibre-textile/": OpticalFibreTextileEn,
+  "/en/stockholm/": StockholmHomeEn,
+  "/en/stockholm/accessibility/": TillganglighetEn,
+  "/en/stockholm/art-yoga/": ArtYogaEn,
+  "/en/stockholm/corporate-events/": ForetagseventEn,
+  "/en/stockholm/date/": DejtEn,
+  "/en/stockholm/exhibition-stockholm/": StockholmExhibitionEn,
+  "/en/stockholm/faq/": FragorSvarEn,
+  "/en/stockholm/giftcard/": PresentkortEn,
+  "/en/stockholm/group-bookings/": GruppbokningEn,
+  "/en/stockholm/how-to-find-us/": HittaHitEn,
+  "/en/stockholm/indoor-activity-stockholm/": StockholmIndoorActivityEn,
+  "/en/stockholm/museum-stockholm/": StockholmMuseumEn,
+  "/en/stockholm/npf-visitors/": NpfStockholmEn,
+  "/en/stockholm/opening-hours/": OppettiderEn,
+  "/en/stockholm/season-pass/": SasongskortEn,
+  "/en/stockholm/tickets/": BiljetterEn,
+  "/en/stockholm/things-to-do-stockholm/": StockholmThingsToDoEn,
+  "/en/stockholm/visitor-reviews/": BesokaromdomenEn,
+  "/en/stockholm/what-kind-of-experience/": VilkenTypAvUpplevelseEn,
   "/sv/musik/": MusikSv,
   "/sv/om-andetag/": OmAndetagSv,
   "/sv/om-konstnarerna-malin-gustaf-tadaa/": OmKonstnarernaSv,
@@ -73,9 +121,9 @@ const PageBody = pageBodies[canonicalPath];
 
 /** Full-bleed video hero (`SiteHeader.astro`): preload poster + Jost 500 for earlier paint (all breakpoints use video). */
 const heroVideoHeaderIds = new Set<typeof shell.headerVariantId>([
-  "header-192",
-  "header-918",
-  "header-4344",
+  "chrome-hdr-sv-stockholm-hero",
+  "chrome-hdr-en-stockholm-hero",
+  "chrome-hdr-de-berlin-hero",
 ]);
 const lcpImagePreloadHref = heroVideoHeaderIds.has(shell.headerVariantId)
   ? HERO_SV_ASSETS.poster

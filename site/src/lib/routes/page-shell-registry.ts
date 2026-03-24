@@ -11,7 +11,7 @@ export type PageShellRoute = {
   canonicalPath: string;
   language: Language;
   destination: Destination;
-  headerVariantId: HeaderVariantId | "header-4136";
+  headerVariantId: HeaderVariantId;
   footerVariantId: FooterVariantId;
   hreflang: Record<Language, string | null>;
   xDefaultPath: string | null;
@@ -22,7 +22,7 @@ export type PageShellRoute = {
 const metaPages = pageShellMeta.pages as Record<string, PageShellSourceMeta>;
 
 /** Stockholm (and shared Swedish) pages with Swedish + English equivalents. Order: [sv, en]. */
-const SV_EN_PAIRS: Array<[string, string]> = [
+export const STOCKHOLM_SV_EN_PAIRS: ReadonlyArray<readonly [string, string]> = [
   ["/sv/stockholm/", "/en/"],
   ["/sv/musik/", "/en/music/"],
   ["/sv/om-andetag/", "/en/about-andetag/"],
@@ -41,15 +41,12 @@ const SV_EN_PAIRS: Array<[string, string]> = [
   ["/sv/stockholm/sasongskort/", "/en/stockholm/season-pass/"],
   ["/sv/stockholm/tillganglighet/", "/en/stockholm/accessibility/"],
   ["/sv/stockholm/vilken-typ-av-upplevelse/", "/en/stockholm/what-kind-of-experience/"],
+  ["/sv/stockholm/aktivitet-inomhus-stockholm/", "/en/stockholm/indoor-activity-stockholm/"],
+  ["/sv/stockholm/att-gora-stockholm/", "/en/stockholm/things-to-do-stockholm/"],
+  ["/sv/stockholm/museum-stockholm/", "/en/stockholm/museum-stockholm/"],
+  ["/sv/stockholm/npf-stockholm/", "/en/stockholm/npf-visitors/"],
+  ["/sv/stockholm/utstallning-stockholm/", "/en/stockholm/exhibition-stockholm/"],
 ];
-
-const SV_ONLY_STOCKHOLM = new Set<string>([
-  "/sv/stockholm/aktivitet-inomhus-stockholm/",
-  "/sv/stockholm/att-gora-stockholm/",
-  "/sv/stockholm/museum-stockholm/",
-  "/sv/stockholm/npf-stockholm/",
-  "/sv/stockholm/utstallning-stockholm/",
-]);
 
 const EN_BRAND_PATHS = new Set<string>([
   "/en/about-andetag/",
@@ -60,7 +57,7 @@ const EN_BRAND_PATHS = new Set<string>([
 
 const svByEn = new Map<string, string>();
 const enBySv = new Map<string, string>();
-for (const [sv, en] of SV_EN_PAIRS) {
+for (const [sv, en] of STOCKHOLM_SV_EN_PAIRS) {
   svByEn.set(en, sv);
   enBySv.set(sv, en);
 }
@@ -69,42 +66,62 @@ function layoutVariantsForPath(
   canonicalPath: string,
   language: Language,
   destination: Destination,
-): { headerVariantId: HeaderVariantId | "header-4136"; footerVariantId: FooterVariantId } {
-  if (canonicalPath === "/sv/stockholm/" || canonicalPath === "/en/" || canonicalPath === "/de/berlin/") {
-    const header: HeaderVariantId =
+): { headerVariantId: HeaderVariantId; footerVariantId: FooterVariantId } {
+  if (
+    canonicalPath === "/sv/stockholm/" ||
+    canonicalPath === "/en/" ||
+    canonicalPath === "/en/stockholm/" ||
+    canonicalPath === "/de/berlin/"
+  ) {
+    const headerVariantId: HeaderVariantId =
       canonicalPath === "/sv/stockholm/"
-        ? "header-192"
-        : canonicalPath === "/en/"
-          ? "header-918"
-          : "header-4344";
+        ? "chrome-hdr-sv-stockholm-hero"
+        : canonicalPath === "/de/berlin/"
+          ? "chrome-hdr-de-berlin-hero"
+          : "chrome-hdr-en-stockholm-hero";
     return {
-      headerVariantId: header,
+      headerVariantId,
       footerVariantId:
         canonicalPath === "/sv/stockholm/"
-          ? "footer-207"
-          : canonicalPath === "/en/"
-            ? "footer-3100"
-            : "footer-4229",
+          ? "chrome-ftr-sv-stockholm"
+          : canonicalPath === "/de/berlin/"
+            ? "chrome-ftr-de-berlin"
+            : "chrome-ftr-en-stockholm",
     };
   }
 
   if (canonicalPath === "/en/berlin/") {
-    return { headerVariantId: "header-4136", footerVariantId: "footer-3100" };
+    return {
+      headerVariantId: "chrome-hdr-en-berlin-hero",
+      footerVariantId: "chrome-ftr-en-berlin",
+    };
   }
 
   if (language === "de" && destination === "berlin") {
-    return { headerVariantId: "header-4344", footerVariantId: "footer-4229" };
+    return {
+      headerVariantId: "chrome-hdr-de-berlin-hero",
+      footerVariantId: "chrome-ftr-de-berlin",
+    };
   }
 
   if (language === "en" && EN_BRAND_PATHS.has(canonicalPath)) {
-    return { headerVariantId: "header-4287", footerVariantId: "footer-3100" };
+    return {
+      headerVariantId: "chrome-hdr-en-stockholm-brand",
+      footerVariantId: "chrome-ftr-en-stockholm",
+    };
   }
 
   if (language === "en") {
-    return { headerVariantId: "header-3305", footerVariantId: "footer-3100" };
+    return {
+      headerVariantId: "chrome-hdr-en-stockholm-small",
+      footerVariantId: "chrome-ftr-en-stockholm",
+    };
   }
 
-  return { headerVariantId: "header-2223", footerVariantId: "footer-207" };
+  return {
+    headerVariantId: "chrome-hdr-sv-stockholm-small",
+    footerVariantId: "chrome-ftr-sv-stockholm",
+  };
 }
 
 function resolveSeo(canonicalPath: string): {
@@ -142,13 +159,6 @@ function resolveSeo(canonicalPath: string): {
     return {
       hreflang: { sv: svPeer, en: canonicalPath, de: null },
       xDefaultPath: svPeer,
-    };
-  }
-
-  if (SV_ONLY_STOCKHOLM.has(canonicalPath)) {
-    return {
-      hreflang: { sv: canonicalPath, en: null, de: null },
-      xDefaultPath: canonicalPath,
     };
   }
 

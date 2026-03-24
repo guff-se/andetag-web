@@ -1,0 +1,97 @@
+---
+import AccordionSection from "../content/AccordionSection.astro";
+import BookingEmbed from "../embeds/BookingEmbed.astro";
+import ContentSection from "../content/ContentSection.astro";
+import HeroSection from "../content/HeroSection.astro";
+import InfoFrame from "../content/InfoFrame.astro";
+
+/**
+ * `site-html/en-stockholm-date.html` wp-page **2738**.
+ */
+const understoryCompanyId = "3b3aa7a7c2cd455b8f3a56cd81033110";
+
+const testimonialHeroImageSrc =
+  "/wp-content/uploads/2026/01/TADAA-LONG-V1.00_07_29_05.Still009-2-2.jpg";
+
+const introTextHtml = [
+  "<h1>Date night at <span class=\"brand-wordmark\">ANDETAG</span></h1>",
+  "<h2>A quiet place to be together</h2>",
+  '<p><span class="brand-wordmark">ANDETAG</span> is a still, immersive art experience in the heart of Stockholm.<br />A place where two people can be close, be quiet, and share a moment without demands.<br />The experience lasts about one hour and suits both first dates and couples.</p>',
+  "<p>You sit on cushions and blankets on the floor, surrounded by light, textile, and slow music.<br />The gaze rests forward. The tempo softens.</p>",
+  "<p>There is nothing to perform.<br />No pace to keep.<br />Just time to be together.</p>",
+  '<p><span class="brand-wordmark">ANDETAG</span> is centrally located in Stockholm, with easy access to the metro and the movement of the city. It is easy to meet here after work or as a pause in the middle of the week.<br />A place that requires no planning. Just presence.</p>',
+].join("");
+
+const quotesHtml = [
+  "<blockquote><p>&#8220;We were completely hypnotized by the beautiful colors.&#8221;<br /><em>Leona</em></p></blockquote>",
+  "<blockquote><p>&#8220;We had our first date at ANDETAG and just came back for our anniversary.&#8221;<br /><em>Ella &amp; John</em></p></blockquote>",
+  "<blockquote><p>&#8220;It was a lovely and peaceful experience to lie on the floor with pillows under our heads. Time ceased to exist.&#8221;<br /><em>Michael</em></p></blockquote>",
+].join("");
+
+const practicalBodyHtml =
+  "<p>Easily accessible by the Hötorget subway<br />The experience lasts about one hour<br />You sit, lie or cuddle with cushions and blankets on a soft carpet<br />No alcohol is served<br />Open year-round</p>";
+
+const accordionItems = [
+  {
+    title: "Is ANDETAG suitable for a first date?",
+    titleHtml:
+      'Is <span class="brand-wordmark">ANDETAG</span> suitable for a first date?',
+    body: "Many people experience it that way. It is a calm environment where silence and presence are welcome.",
+  },
+  {
+    title: "Are you allowed to talk?",
+    body: "In the final room, you are encouraged to be quiet together, but you may whisper to each other under the cover of the music.",
+  },
+  {
+    title: "Can you sit together?",
+    body: "Yes. The final room is designed for sitting or lying together on the floor. Cushions and blankets are available to create your own quiet corner.",
+  },
+  {
+    title: "Is anything served?",
+    body: "No, but you are welcome to bring your own water bottle.",
+  },
+  {
+    title: "Is it romantic?",
+    body: "It is still. What it becomes is left open.",
+  },
+] as const;
+---
+
+<div class="page-migrated page-dejt">
+  <div class="page-dejt-intro page-layout-with-aside">
+    <div class="page-layout-with-aside__main">
+      <ContentSection markdown={introTextHtml} />
+    </div>
+    <aside class="page-layout-with-aside__aside" aria-label="Illustration">
+      <figure class="page-dejt-intro__figure">
+        <img
+          src="/wp-content/uploads/2026/01/date1-copy-e1769692334982.jpeg"
+          width="1024"
+          height="1024"
+          alt=""
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+    </aside>
+  </div>
+  <HeroSection backgroundImage={testimonialHeroImageSrc} ariaLabel="Visitor quotes">
+    <div set:html={quotesHtml} />
+  </HeroSection>
+  <div class="page-layout-with-aside">
+    <div class="page-layout-with-aside__main">
+      <InfoFrame heading="Practical information" headingLevel="h3" bodyHtml={practicalBodyHtml} />
+      <AccordionSection items={[...accordionItems]} />
+    </div>
+    <aside class="page-layout-with-aside__aside" aria-label="Booking">
+      <BookingEmbed
+        companyId={understoryCompanyId}
+        language="en"
+        anchorId="book"
+        heading="Available times"
+        unframed
+        fallbackText="The booking calendar could not load. Reload the page or contact us if the problem persists."
+      />
+    </aside>
+  </div>
+</div>

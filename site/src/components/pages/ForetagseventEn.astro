@@ -1,0 +1,28 @@
+---
+import ContentSection from "../content/ContentSection.astro";
+import ButtonGroup from "../content/ButtonGroup.astro";
+
+/** `site-html/en-stockholm-corporate-events.html` wp-page **2666**. */
+const bodyHtml = [
+  "<h2>Corporate events at ANDETAG, Stockholm</h2>",
+  "<p><span class=\"brand-wordmark\">ANDETAG</span> welcomes organizations looking for a calm and considered corporate event in Stockholm.<br />A pause from pace, in the middle of the city.</p>",
+  "<p>This works well for kickoffs, team building and smaller conference contexts when you want to share something together without a high-energy program. Light, woven textile and music move in rhythm with a shared breath, creating space for presence, conversation and silence.</p>",
+  "<p>Visits can happen during regular opening hours, or as an exclusive booking where the space is reserved for your organization. For exclusive bookings, timing and format can be adapted to your group.</p>",
+  "<p><span class=\"brand-wordmark\">ANDETAG</span> is not a traditional corporate event.<br />It is a shared experience that often works as an opening, a closing, or a moment of pause during a working day.</p>",
+  "<p><span class=\"brand-wordmark\">ANDETAG</span> is centrally located in Stockholm and easy to combine with meetings, conferences or dinner.</p>",
+  "<p>Contact us to discuss your corporate event.</p>",
+].join("");
+---
+
+<div class="page-migrated">
+  <ContentSection
+    heading="Need a breath at work?"
+    headingLevel="h1"
+    markdown={bodyHtml}
+  />
+  <div class="page-migrated-cta">
+    <ButtonGroup
+      buttons={[{ label: "Send request", href: "mailto:info@tadaa.se", variant: "primary" }]}
+    />
+  </div>
+</div>

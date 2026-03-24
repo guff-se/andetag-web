@@ -10,13 +10,14 @@ import type {
   FooterVariantId,
   HeaderVariantId,
   Language,
+  LegacyHeaderAliasId,
 } from "./types";
 import { FOOTER_VARIANTS, HEADER_VARIANTS, getResolvedHeaderVariantId } from "./variants";
 
 type LayoutModelInput = {
   language: Language;
   destination: Destination;
-  headerVariantId: HeaderVariantId | "header-4136";
+  headerVariantId: HeaderVariantId | LegacyHeaderAliasId;
   footerVariantId: FooterVariantId;
   canonicalPath: string;
   hreflang: Record<Language, string | null>;
@@ -45,10 +46,12 @@ export function createPageLayoutModel(input: LayoutModelInput) {
     languageSelector: getLanguageSelectorOptions({
       language: input.language,
       destination: input.destination,
+      canonicalPath: input.canonicalPath,
     }),
     destinationSelector: getDestinationSelectorOptions({
       language: input.language,
       destination: input.destination,
+      canonicalPath: input.canonicalPath,
     }),
     canonicalUrl: buildCanonicalUrl(input.canonicalPath),
     hreflangLinks: buildHreflangLinks(input.hreflang, input.xDefaultPath),
