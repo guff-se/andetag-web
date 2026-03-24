@@ -175,7 +175,8 @@ Source: `docs/phase-4-routing-reopen.md` and `docs/url-migration-policy.md`. Thi
 | Deliverable | Phase | Rationale |
 |-------------|-------|-----------|
 | **`url-matrix.csv`**, `phase-4-route-coverage.md`, and registry updates for **`/sv/stockholm/`**, legacy **`/`** Swedish home handling, and **Berlin or Stockholm parity paths** (shells first) | **Phase 5, early** | Edge logic must not **302** to missing routes. Add or adjust static Astro routes and documented redirects before turning on production Worker behavior. |
-| **English hub** page at **`/en/`** (chooser content and layout) and **Swedish Stockholm home** at **`/sv/stockholm/`** (migrated content, not placeholder-only) | **Phase 5, early-to-mid** | Humans and bots depend on real **200** responses at hub and bot landing targets. |
+| **Swedish Stockholm home** at **`/sv/stockholm/`** (migrated content, not placeholder-only) | **Phase 5, early-to-mid** | Humans and bots depend on a real **200** Swedish home; completed for Swedish. |
+| **English hub** at **`/en/`** and **English locale page bodies** (including **`/en/stockholm/`**), with **localized header and footer** content | **Phase 6** | Stakeholder decision 2026-03-24: ship English **main content** together with **localized chrome** after Swedish Phase 5; **`/en/`** may stay shell-only **200** in Phase 5 where policy allows until Phase 6. |
 | **Berlin parity**: new routes and migrated **English Berlin** pages needed for launch | **Phase 5, mid** (continue as needed) | Parity is content plus routing; prioritize after core Swedish Stockholm migration wave is underway, unless business gates launch on Berlin sooner. |
 | **Berlin parity**: **German** Berlin pages and locale QA | **Phase 6** | Matches existing rule: non-Swedish locale rollout after Swedish Phase 5 completion; English Berlin can precede or overlap per launch plan. |
 | **Cloudflare Worker** (or equivalent edge) implementing **`/`**, **`/en/`**, cookie **set or read**, **`Accept-Language`** parsing, **verified-bot** branch | **Phase 5, late** | Ship when static targets above are **200** in production builds and staging tests pass; avoids redirecting into empty shells. |
@@ -184,13 +185,13 @@ Source: `docs/phase-4-routing-reopen.md` and `docs/url-migration-policy.md`. Thi
 | **Sitemap and `robots.txt`** including new canonical entry URLs | **Phase 7** | Sitemap is already a Phase 7 deliverable; ensure **`/sv/stockholm/`**, hub, and parity URLs appear only as canonical **keep** rows. |
 | **`docs/Andetag SEO Manual.md`** and hreflang or **`x-default`** examples for new entry behavior | **Phase 5 late or Phase 6** (content) **and Phase 7** (final audit) | Update when routes go live; revalidate in launch hardening. |
 
-**Dependency rule:** do not point production **`/`** or **`/en/`** entry traffic through the Worker until the **minimum static targets** for that configuration return **200** (at least **`/en/`**, **`/en/stockholm/`**, **`/sv/stockholm/`**, **`/de/berlin/`**, **`/en/berlin/`**).
+**Dependency rule:** do not point production **`/`** or **`/en/`** entry traffic through the Worker until the **minimum static targets** for that configuration return **200**. After the English deferral (2026-03-24), **`/en/`** and **`/en/stockholm/`** may remain **placeholder main** with valid **200** shells until Phase 6 fills bodies; confirm the exact matrix against **`docs/url-migration-policy.md`** before Worker enable.
 
 ### Phase 5, Page Migration and Iterative Approval
 
 Goal: migrate page content in controlled batches with design review feedback loops.
-Status: **in progress** (2026-03-23; evidence and approval log in `docs/phase-5-verification-record.md`).
-Execution checklist: `docs/phase-5-todo.md`
+Status: **complete (Swedish migration milestone, 2026-03-24)**. Evidence: `docs/phase-5-verification-record.md`. **Scope:** all **`/sv/...`** shells in `page-shell-meta.json` carry migrated, design-approved bodies (**23** paths). **`/privacy/`** remains shell-only (locale-neutral; body migration not in this milestone). English page bodies deferred to Phase 6 (2026-03-24). **Carry-forward** (not blocking Phase 6 localization start): Cloudflare **Worker** entry routing (**`P5-05`**, **`P5-06`**), **SEO manual** live entry examples after Worker (**`P5-07`**), optional **Berlin English body** parity beyond **200** shells (**`P5-04`**, launch scope). See **`docs/phase-6-todo.md`**.
+Execution checklist: `docs/phase-5-todo.md` (historical; closure recorded there).
 
 Carry-forward: complete **static routes and real pages** required by the **Entry routing and URL expansion schedule** (above) before or in parallel with the first migration wave, so entry **`302`** targets never 404.
 
@@ -217,8 +218,8 @@ Acceptance checks:
 Goal: localize approved Swedish structures and content into planned non-Swedish locales after Phase 5 sign-off.
 
 Deliverables:
-- Localized page-content rollout for approved routes in `en` and `de`, based on Swedish-approved components and page structures.
-- Localized header and navigation content rollout using the shared design system and approved variant mappings.
+- Localized page-content rollout for approved routes in `en` and `de`, based on Swedish-approved components and page structures (includes **`/en/`** hub, **`/en/stockholm/`**, and remaining **`/en/...`** bodies deferred from Phase 5).
+- Localized header, **footer**, and navigation content rollout using the shared design system and approved variant mappings (required before or alongside English page bodies per 2026-03-24 deferral).
 - Locale-level metadata and copy QA pass to confirm source intent and tone alignment.
 - Localization exception tracking where source parity or market adaptation requires approved divergence.
 

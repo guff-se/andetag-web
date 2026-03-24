@@ -42,6 +42,19 @@ Source of truth: **`docs/url-migration-policy.md`**, section **Entry routing, `A
 
 **Swedish Stockholm home (target):** **`/sv/stockholm/`** (introduces `/sv/`; legacy **`/`** and **`/stockholm/...`** need matrix-driven redirects when implemented).
 
+## Decided: site chrome switcher (Phase 6, 2026-03-24)
+
+Applies to **header** (and any mirrored controls): **edge** entry routing stays in **`docs/url-migration-policy.md`**; this section is the **in-site** language and destination control.
+
+| Rule | Behavior |
+|------|----------|
+| Visibility | **All three** languages (**`sv`**, **`en`**, **`de`**) and **both** destinations (**Stockholm**, **Berlin**) are **always** available in the chrome. |
+| Pick **`sv`** on a **Berlin** path | Navigate to **Stockholm** in Swedish: same **global** or **location** topic when a mapped path exists, otherwise **`/sv/stockholm/`** or agreed fallback from the matrix. |
+| Pick **`de`** on a **Stockholm** path | Navigate to **Berlin** in German: same topic rule, otherwise **`/de/berlin/`** or agreed fallback. |
+| Pick **Stockholm** while language is **`de`** | Set language to **`en`** and navigate to the **English Stockholm** equivalent path (Stockholm has no German site tree). |
+| Pick **Berlin** while language is **`sv`** | Set language to **`en`** and navigate to the **English Berlin** equivalent path. |
+| Implementation | **One** shared resolver (current path or page key + target language + target destination) so header, mobile nav, and tests do not duplicate special cases. |
+
 ## Historical baseline (superseded for entry URLs when `/sv/` ships)
 
 - **`docs/ia-language-destination-options.md`** now records explicit **`/sv/`** as the Swedish language prefix; legacy unprefixed paths **`301`** to **`/sv/...`** (matrix + **`_redirects`**).
@@ -125,3 +138,4 @@ Answer inline in this doc or in thread; numbered for reference.
 |------|----------|--------|
 | 2026-03-23 | English entry: hub + preference cookie (proposed) | Evolved into full `andetag_entry` spec. |
 | 2026-03-23 | Cookie + `/` + `/en/` routing | **`andetag_entry`**, **`necessary`** consent, **`Accept-Language`** on `/`, English hub when no signal for **humans**; **verified bots** on **`/`** (and typically **`/en/`**) → **`/en/stockholm/`**. Policy: `docs/url-migration-policy.md`. Consent table: `docs/tracking-and-consent-requirements.md`. |
+| 2026-03-24 | Site chrome: language + destination switcher | **Always** show **`sv`**, **`en`**, **`de`** and **Stockholm**, **Berlin**. Coupling: **`sv`** on Berlin → Stockholm; **`de`** on Stockholm → Berlin; Stockholm while **`de`** → **`en`** + Stockholm; Berlin while **`sv`** → **`en`** + Berlin. One shared URL resolver. See **Decided: site chrome switcher**; Phase 6: **`docs/phase-6-todo.md`**. |

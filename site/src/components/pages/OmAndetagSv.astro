@@ -18,9 +18,6 @@ const breathMarkdown = [
   "<p>Det inspelade andetaget blev grunden för ett generativt system som styr ljusets rörelse och skapar animationer som aldrig upprepar sig. Varje ögonblick är matematiskt bestämt men återkommer aldrig. Över längre tidsförlopp förändras verket långsammare, med färgskiften som styrs av planeternas rörelser snarare än mänskliga scheman, vilket låter tiden passera utan att markeras.</p>",
 ].join("");
 
-const etymologyMarkdown =
-  "<p><span style=\"font-size: 1.2em;\">andetag [ˈanːdetaːɡ]</span></p><p><span style=\"font-weight: 400;\">Från </span><i><span style=\"font-weight: 400;\">ande</span></i><span style=\"font-weight: 400;\"> + </span><i><span style=\"font-weight: 400;\">tag</span></i><span style=\"font-weight: 400;\">.</span><span style=\"font-weight: 400;\"><br /></span><span style=\"font-weight: 400;\">Svenskt substantiv.</span></p><ol><li><span style=\"font-weight: 400;\">en fullständnig inandning och utandning av luft ur lungorna.</span></li></ol>";
-
 const closingMarkdown = [
   "<p>Inför den första presentationen på <a href=\"https://artmiami.com/\">Art Miami</a> valdes det svenska ordet andetag, trots att de flesta besökare inte skulle förstå det. Just därför. Ordet förenar ande och tag, att ta in anden, vilket kändes sannare än någon engelsk motsvarighet för att beskriva verket.</p>",
   "<p>Tidiga verk visades internationellt, bland annat i New York, Oslo och på Institut suédois i Paris, innan projektet återvände till Stockholm. Det som framstår som ett enskilt objekt är del av ett distribuerat system som sträcker sig över geografin, ett enda andetag uttryckt på många platser samtidigt. I dag finns över tjugo verk hos privata samlare i Seattle, New York, Miami, Costa Rica, Portugal och runt om i Sverige, alla andandes tillsammans.</p>",
@@ -34,6 +31,19 @@ const closingMarkdown = [
 <div class="page-migrated page-om-andetag-sv">
   <ContentSection markdown={heroMarkdown} />
   <ContentSection markdown={breathMarkdown} />
-  <ContentSection markdown={etymologyMarkdown} />
+  <div class="page-om-andetag-sv__etymology-wrap">
+    <aside class="page-om-andetag-sv__etymology-box" aria-label="Betydelse av ordet andetag">
+      <p class="page-om-andetag-sv__etymology-head">
+        andetag <span class="page-om-andetag-sv__etymology-ipa">[ˈanːdetaːɡ]</span>
+      </p>
+      <p>Från <em>ande</em> + <em>tag</em>.</p>
+      <p>Svenskt substantiv.</p>
+      <ol class="page-om-andetag-sv__etymology-def-list">
+        <li>
+          en fullständnig inandning och utandning av luft ur lungorna.
+        </li>
+      </ol>
+    </aside>
+  </div>
   <ContentSection markdown={closingMarkdown} />
 </div>

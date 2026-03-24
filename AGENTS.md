@@ -73,8 +73,9 @@ Reference docs before implementation:
 | `docs/phase-2-todo.md` | Execution checklist for Phase 2 shared layout system deliverables and approvals. |
 | `docs/phase-3-todo.md` | Execution checklist for Phase 3 component library, showcase approval, and verification gates. |
 | `docs/phase-4-todo.md` | Execution checklist for Phase 4 routing, redirects, canonical or hreflang wiring, and URL coverage validation. |
-| `docs/phase-5-todo.md` | Execution checklist for Phase 5 page migration, entry static targets, Worker staging or production enable, and Swedish-first approval gates (first wave complete; **alphabetical `/sv/` remainder** table and batch approval exception). |
-| `docs/phase-5-verification-record.md` | Phase 5 evidence, per-page design approval log, Lighthouse or QA summary, and stakeholder sign-off (open while Phase 5 is in progress). |
+| `docs/phase-5-todo.md` | Historical Phase 5 execution checklist; **status complete** (2026-03-24, Swedish `/sv/` migration). Carry-forward items **`P5-05`–`P5-07`** in **`docs/phase-6-todo.md`**. |
+| `docs/phase-5-verification-record.md` | Phase 5 evidence, per-page design approvals, P5-01 static target note, Lighthouse summary, **EX-0014**, stakeholder sign-off (**closed** 2026-03-24). |
+| `docs/phase-6-todo.md` | Localization (**`en`**, **`de`**) and Phase 5 carry-forward (Worker, SEO manual live entry, optional Berlin bodies). |
 | `docs/phase-7-todo.md` | Execution checklist for Phase 7 scripts, consent, analytics, favicon, sharing metadata, schema.org, sitemap, and launch hardening. |
 | `docs/phase-4-route-coverage.md` | URL matrix to Astro shell and `_redirects` mapping for Phase 4 route coverage. |
 | `docs/phase-4-routing-reopen.md` | Post-closure routing revisit: location and language matrix, Berlin or Stockholm parity, global pages and navigation. |

@@ -55,7 +55,7 @@ All phases must keep these baseline checks in scope:
 
 ## Phase 5, Page Migration and Iterative Approval
 
-- Performance: migrated conversion-priority pages score at least 85 in Lighthouse Performance on mobile profile, and do not exceed one blocking redirect hop.
+- Performance: migrated conversion-priority pages score at least 85 in Lighthouse Performance on mobile profile, and do not exceed one blocking redirect hop. **Closure 2026-03-24:** **EX-0014** documents approved variance when **simulated** mobile Lighthouse stays below 85 while **provided** throttling and production-oriented checks pass; revalidate after deploy and in Phase 7.
 - SEO: each migrated page has title, description, canonical, hreflang, and indexability set.
 - Accessibility: no unresolved high-severity issues on approved migrated pages.
 - Visual parity: per-page approval is explicitly recorded before next migration batch.

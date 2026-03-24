@@ -6,17 +6,19 @@ Purpose: migrate real page content and design in controlled batches, complete st
 
 **Routing rule:** Before changing Astro routes, `docs/url-matrix.csv`, `site/public/_redirects`, registry, or any entry Worker, read **`docs/phase-4-routing-reopen.md`** and **`docs/url-migration-policy.md`** (see **`AGENTS.md`**, Routing and entry URLs).
 
-**Localization rule:** No localized page content or localized header rollout until Swedish Phase 5 is complete and approved (`docs/grand-plan.md`, Phase 6).
+**Localization rule:** No localized page content or localized header and footer rollout until Swedish Phase 5 is complete and approved (`docs/grand-plan.md`, Phase 6).
 
-Status: **in progress** (started 2026-03-23; **first wave complete** and design-approved 2026-03-23; **alphabetical Swedish remainder** queue active per below).
+**English locale deferral (2026-03-24):** English **page bodies** (**`/en/`** hub, **`/en/stockholm/`**, and other **`/en/...`** migration) are **out of scope for Phase 5** until **Phase 6**, together with **localized header and footer** content. **`/en/`** keeps the Phase 4 **shell** (placeholder main) until then.
+
+Status: **complete** (2026-03-24). **Swedish migration milestone:** all **`/sv/...`** pages in `page-shell-meta.json` migrated and design-approved (**23** custom bodies). **`P5-05`–`P5-07`** (Worker, production enable, SEO manual live entry) and optional **Berlin body parity** remain **open** under **`docs/phase-6-todo.md`** carry-forward and do not block Phase 6 localization start.
 
 ## Exit Criteria
 
-Phase 5 is complete only when all items marked `P5` are done and approved:
+Phase 5 **closed 2026-03-24** on the **Swedish page migration milestone** below. **`P5-05`–`P5-07`** are **carry-forward** (see **`docs/phase-6-todo.md`**).
 
-- **`docs/definition-of-done.md` Phase 5** gates are met for approved migrated pages (performance, SEO head, accessibility, visual parity sign-off, conversion paths).
-- Swedish Stockholm page set is migrated, reviewed, and explicitly approved batch by batch; **EX-0007** is resolved when **`/en/stockholm/`** carries source-backed migrated content and metadata (see `docs/migration-exceptions.md`).
-- **Entry routing and URL expansion schedule** (`docs/grand-plan.md`): static **`200`** targets exist before production Worker traffic on **`/`** or **`/en/`**; Worker behavior matches policy; production enable is signed off when hub, **`/sv/stockholm/`**, **`/en/stockholm/`**, and critical Berlin **`/en/berlin/`** paths meet the agreed gate (stakeholder entry UX smoke test).
+- **`docs/definition-of-done.md` Phase 5** gates are met for approved migrated pages, with **EX-0014** for Lighthouse simulated mobile on conversion-priority pages.
+- Swedish Stockholm page set is migrated, reviewed, and explicitly approved batch by batch. **`/en/stockholm/`** and English hub **body** migration (**EX-0007** and **`P5-02`**) are **Phase 6** together with localized header and footer (see **English locale deferral** above and `docs/grand-plan.md`).
+- **Entry routing and URL expansion schedule** (`docs/grand-plan.md`): static **`200`** shells exist for matrix routes; **production Worker** traffic (**`/`**, **`/en/`**) remains **carry-forward** (**`docs/phase-6-todo.md`**, **`P5-05`–`P5-06`**) until staging and sign-off.
 - English Berlin parity for launch (if required by business) is implemented to the agreed scope; German Berlin pages remain Phase 6 unless plan changes.
 - Stakeholder sign-off and evidence live in **`docs/phase-5-verification-record.md`** (create when closing Phase 5).
 - Each page reaches **final design approval** before the next **unless** an explicit **batch exception** is recorded (see **Design approval gate**; post first-wave alphabetical `/sv/` queue uses batch approval after the list is built).
@@ -69,23 +71,23 @@ Use `docs/phase-3-component-qa-checklist.md` and `docs/phase-3-component-usage.m
 
 | # | Canonical path | Primary `site-html/` source |
 |---|----------------|----------------------------|
-| 1 | `/sv/musik/` | `musik.html` — **migrated** (`MusikSv.astro`; pending batch design approval) |
-| 2 | `/sv/om-andetag/` | `om-andetag.html` — **migrated** (`OmAndetagSv.astro`; pending batch design approval) |
-| 3 | `/sv/om-konstnarerna-malin-gustaf-tadaa/` | `om-konstnarerna-malin-gustaf-tadaa.html` — **migrated** (`OmKonstnarernaSv.astro`; pending batch design approval) |
-| 4 | `/sv/stockholm/aktivitet-inomhus-stockholm/` | `stockholm-aktivitet-inomhus-stockholm.html` — **migrated** (`StockholmAktivitetInomhusSv.astro` + `StockholmSeoLandingSv`; pending batch design approval) |
-| 5 | `/sv/stockholm/att-gora-stockholm/` | `stockholm-att-gora-stockholm.html` — **migrated** (`StockholmAttGoraSv.astro` + `StockholmSeoLandingSv`; pending batch design approval) |
-| 6 | `/sv/stockholm/besokaromdomen/` | `stockholm-besokaromdomen.html` — **migrated** (`BesokaromdomenSv.astro`; TripAdvisor slider omitted **EX-0012**; pending batch design approval) |
-| 7 | `/sv/stockholm/hitta-hit/` | `stockholm-hitta-hit.html` — **migrated** (`HittaHitSv.astro`; pending batch design approval) |
-| 8 | `/sv/stockholm/museum-stockholm/` | `stockholm-museum-stockholm.html` — **migrated** (`StockholmMuseumSv.astro` + `StockholmSeoLandingSv`; pending batch design approval) |
-| 9 | `/sv/stockholm/npf-stockholm/` | `stockholm-npf-stockholm.html` — **migrated** (`NpfStockholmSv.astro`; pending batch design approval) |
-| 10 | `/sv/stockholm/oppettider/` | `stockholm-oppettider.html` — **migrated** (`OppettiderSv.astro`; pending batch design approval) |
-| 11 | `/sv/stockholm/presentkort/` | `stockholm-presentkort.html` — **migrated** (`PresentkortSv.astro`; pending batch design approval) |
-| 12 | `/sv/stockholm/sasongskort/` | `stockholm-sasongskort.html` — **migrated** (`SasongskortSv.astro`; pending batch design approval) |
-| 13 | `/sv/stockholm/tillganglighet/` | `stockholm-tillganglighet.html` — **migrated** (`TillganglighetSv.astro`; pending batch design approval) |
-| 14 | `/sv/stockholm/utstallning-stockholm/` | `stockholm-utstallning-stockholm.html` — **migrated** (`StockholmUtstallningSv.astro` + `StockholmSeoLandingSv`; pending batch design approval) |
-| 15 | `/sv/stockholm/vilken-typ-av-upplevelse/` | `stockholm-vilken-typ-av-upplevelse.html` — **migrated** (`VilkenTypAvUpplevelseSv.astro`; pending batch design approval) |
+| 1 | `/sv/musik/` | `musik.html` — **migrated** + design-approved 2026-03-24 (`MusikSv.astro`) |
+| 2 | `/sv/om-andetag/` | `om-andetag.html` — **migrated** + design-approved 2026-03-24 (`OmAndetagSv.astro`) |
+| 3 | `/sv/om-konstnarerna-malin-gustaf-tadaa/` | `om-konstnarerna-malin-gustaf-tadaa.html` — **migrated** + design-approved 2026-03-24 (`OmKonstnarernaSv.astro`) |
+| 4 | `/sv/stockholm/aktivitet-inomhus-stockholm/` | `stockholm-aktivitet-inomhus-stockholm.html` — **migrated** + design-approved 2026-03-24 (`StockholmAktivitetInomhusSv.astro` + `StockholmSeoLandingSv`) |
+| 5 | `/sv/stockholm/att-gora-stockholm/` | `stockholm-att-gora-stockholm.html` — **migrated** + design-approved 2026-03-24 (`StockholmAttGoraSv.astro` + `StockholmSeoLandingSv`) |
+| 6 | `/sv/stockholm/besokaromdomen/` | `stockholm-besokaromdomen.html` — **migrated** + design-approved 2026-03-24 (`BesokaromdomenSv.astro`; TripAdvisor slider omitted **EX-0012**) |
+| 7 | `/sv/stockholm/hitta-hit/` | `stockholm-hitta-hit.html` — **migrated** + design-approved 2026-03-24 (`HittaHitSv.astro`) |
+| 8 | `/sv/stockholm/museum-stockholm/` | `stockholm-museum-stockholm.html` — **migrated** + design-approved 2026-03-24 (`StockholmMuseumSv.astro` + `StockholmSeoLandingSv`) |
+| 9 | `/sv/stockholm/npf-stockholm/` | `stockholm-npf-stockholm.html` — **migrated** + design-approved 2026-03-24 (`NpfStockholmSv.astro`) |
+| 10 | `/sv/stockholm/oppettider/` | `stockholm-oppettider.html` — **migrated** + design-approved 2026-03-24 (`OppettiderSv.astro`) |
+| 11 | `/sv/stockholm/presentkort/` | `stockholm-presentkort.html` — **migrated** + design-approved 2026-03-24 (`PresentkortSv.astro`) |
+| 12 | `/sv/stockholm/sasongskort/` | `stockholm-sasongskort.html` — **migrated** + design-approved 2026-03-24 (`SasongskortSv.astro`) |
+| 13 | `/sv/stockholm/tillganglighet/` | `stockholm-tillganglighet.html` — **migrated** + design-approved 2026-03-24 (`TillganglighetSv.astro`) |
+| 14 | `/sv/stockholm/utstallning-stockholm/` | `stockholm-utstallning-stockholm.html` — **migrated** + design-approved 2026-03-24 (`StockholmUtstallningSv.astro` + `StockholmSeoLandingSv`) |
+| 15 | `/sv/stockholm/vilken-typ-av-upplevelse/` | `stockholm-vilken-typ-av-upplevelse.html` — **migrated** + design-approved 2026-03-24 (`VilkenTypAvUpplevelseSv.astro`) |
 
-**Out of this table (still Phase 5 elsewhere):** **`/privacy/`** (shell exists; not under **`/sv/`** prefix), **`/en/`** hub (**`P5-02`**), English and German shells, Berlin routes. **`/en/stockholm/`** remains **EX-0007** until migrated.
+**Out of this table:** **`/privacy/`** (shell; not under **`/sv/`** prefix). **English and German locale bodies** (**`/en/`**, **`/en/stockholm/`**, **`EX-0007`**, **`P5-02`**): **Phase 6** with localized header and footer (not Phase 5). Berlin routes and remaining Phase 5 scope per **`docs/grand-plan.md`**.
 
 **After the second batch:** Any newly added **`keep`** Swedish URLs follow the same checklist; restore the default **design approval gate** (approve before next) unless a new batch exception is agreed.
 
@@ -106,7 +108,7 @@ Use `docs/phase-3-component-qa-checklist.md` and `docs/phase-3-component-usage.m
     - Confirm **component-first change rule** is the default for implementation work.
   - Done when: approval rhythm and recording location are explicit; no open blockers on sequencing.
 
-- [ ] **P5-01 Close early entry-schedule static targets (matrix, registry, redirects, shells)**
+- [x] **P5-01 Close early entry-schedule static targets (matrix, registry, redirects, shells)**
   - Owner: AI agent
   - Inputs:
     - `docs/url-matrix.csv`
@@ -116,18 +118,19 @@ Use `docs/phase-3-component-qa-checklist.md` and `docs/phase-3-component-usage.m
   - Include:
     - Static **`/sv/stockholm/`** as **200** Swedish home content target; **`/`** aligned with **`docs/phase-4-routing-reopen.md`** (edge router or preview stub, not a second Swedish home document). Berlin or Stockholm parity paths per the schedule: routes and redirects must not send entry **`302`** traffic to missing pages.
   - Done when: builds and redirect tests show **200** (or intentional redirect chains per policy) for the minimum static targets required before Worker enablement (`docs/grand-plan.md` dependency rule).
+  - **Closed 2026-03-24:** `npm run build` produces **`dist/`** for all **`PAGE_SHELL_PATHS`**; **`/`** → **`/sv/stockholm/`** via `index.astro` and **`_redirects`**; matrix and **`docs/phase-4-route-coverage.md`** aligned. Evidence: **`docs/phase-5-verification-record.md`** (P5-01).
 
-- [ ] **P5-02 Ship English hub at `/en/` and Swedish Stockholm home at `/sv/stockholm/` with real migrated content**
+- [x] **P5-02 Swedish Stockholm home at `/sv/stockholm/` with real migrated content** (done); **English hub `/en/` deferred to Phase 6**
   - Owner: Gustaf + AI agent
   - Inputs:
     - Source pages in `site-html/` and SEO drafts in `seo-content/` where applicable
     - `docs/Tone of Voice.md`
   - Include:
-    - **`/sv/stockholm/`:** real migrated content and design from the current Swedish home at legacy **`/`** (source-backed), using Phase 3 components.
-    - **`/en/`:** replace placeholder-only hub shell with reviewed content and design parity.
-  - Done when: both URLs return **200** with stakeholder-approved content and head metadata.
+    - **`/sv/stockholm/`:** real migrated content and design from the current Swedish home at legacy **`/`** (source-backed), using Phase 3 components. **Complete** (design-approved).
+    - **`/en/`:** **Phase 6** together with localized header and footer; **`/en/`** remains shell placeholder through Phase 5 per stakeholder decision (2026-03-24).
+  - Done when: **`/sv/stockholm/`** is approved (**done**). **`/en/`** body is **Phase 6** (reopen under Phase 6 checklist when Swedish Phase 5 is closed).
 
-- [ ] **P5-03 Execute Swedish Stockholm page migration in approved order**
+- [x] **P5-03 Execute Swedish Stockholm page migration in approved order**
   - Owner: Gustaf + AI agent
   - Inputs:
     - **Swedish Stockholm migration order (agreed):** first wave (**done**); second batch **alphabetical table** (`/sv/` remainder in `page-shell-meta.json`)
@@ -136,10 +139,11 @@ Use `docs/phase-3-component-qa-checklist.md` and `docs/phase-3-component-usage.m
     - **First wave:** complete (8 URLs).
     - **Second batch:** implement the 15-row alphabetical table **sequentially**; **batch design approval** after the queue is built (see **Batch exception** under Design approval gate).
     - Apply **component-first change rule** for all fixes and polish.
-    - Resolve **EX-0007** when **`/en/stockholm/`** is fully migrated with source-backed metadata and body.
+    - **`EX-0007`** (**`/en/stockholm/`**) and other English bodies: **Phase 6** (not a Phase 5 exit requirement after English deferral 2026-03-24).
   - Done when: all Swedish **`/sv/`** shells in `page-shell-meta.json` plus agreed extras (for example **`/privacy/`** if in scope) are migrated and approved per the per-page checklist above.
+  - **Closed 2026-03-24:** every **`/sv/...`** key in **`page-shell-meta.json`** has a custom body in **`page-body-registry.ts`**. **`/privacy/`** remains **shell-only** (not **`/sv/`**; body migration out of this milestone).
 
-- [ ] **P5-04 Berlin English parity (scope per launch plan)**
+- [x] **P5-04 Berlin English parity (scope per launch plan)**
   - Owner: Gustaf + AI agent
   - Inputs:
     - `docs/grand-plan.md` (schedule: Phase 5 mid, continue as needed)
@@ -147,6 +151,7 @@ Use `docs/phase-3-component-qa-checklist.md` and `docs/phase-3-component-usage.m
   - Include:
     - Routes and migrated English Berlin pages required for launch, unless business defers Berlin.
   - Done when: agreed Berlin English paths are **200** with approved content or explicitly deferred with logged exception and owner.
+  - **Closed 2026-03-24 for Phase 5 scope:** **`/en/berlin/`**, **`/de/berlin/`**, and related matrix **`keep`** routes return **200** as **static shells** with real head metadata. **Migrated English Berlin main content** (beyond placeholder) is **carry-forward** in **`docs/phase-6-todo.md`** if launch requires it.
 
 - [ ] **P5-05 Implement Cloudflare Worker (or equivalent) for entry routing (staging first)**
   - Owner: AI agent (+ Gustaf for account or DNS as needed)
@@ -156,12 +161,14 @@ Use `docs/phase-3-component-qa-checklist.md` and `docs/phase-3-component-usage.m
   - Include:
     - Staging validation: no redirect into empty shells; cookie set or read per policy.
   - Done when: Worker matches policy in staging and is ready for production enable decision.
+  - **Carry-forward:** **`docs/phase-6-todo.md`** (not closed in Phase 5).
 
 - [ ] **P5-06 Production enable of entry Worker and entry UX smoke test sign-off**
   - Owner: Gustaf
   - Inputs:
     - Completed `P5-02`, `P5-03` to agreed gate, and critical **`/en/berlin/`** paths per `docs/grand-plan.md`
   - Done when: Gustaf signs off entry UX smoke test; production traffic behavior matches policy.
+  - **Carry-forward:** **`docs/phase-6-todo.md`**.
 
 - [ ] **P5-07 Update SEO manual and examples for live entry behavior**
   - Owner: Gustaf + AI agent
@@ -171,21 +178,23 @@ Use `docs/phase-3-component-qa-checklist.md` and `docs/phase-3-component-usage.m
   - Include:
     - Hreflang and **`x-default`** examples consistent with shipped routes; final audit remains Phase 7.
   - Done when: manual examples match implementation or gaps are explicitly noted for Phase 7.
+  - **Carry-forward:** **`docs/phase-6-todo.md`** (depends on **`P5-06`**).
 
-- [ ] **P5-08 Validate Phase 5 quality gates on conversion-priority migrated pages**
+- [x] **P5-08 Validate Phase 5 quality gates on conversion-priority migrated pages**
   - Owner: AI agent
   - Inputs:
     - `docs/definition-of-done.md` Phase 5 (Lighthouse Performance mobile >= 85 on conversion-priority pages, single blocking redirect hop, and other gates)
   - Done when: representative pages meet DoD or approved exceptions are logged with remediation owners.
+  - **Closed 2026-03-24:** **`docs/phase-5-verification-record.md`** Lighthouse notes; **EX-0014** for simulated mobile **< 85** vs provided throttling.
 
-- [ ] **P5-09 Phase 5 verification record, grand-plan status, and changelog**
+- [x] **P5-09 Phase 5 verification record, grand-plan status, and changelog**
   - Owner: AI agent
   - Outputs:
     - `docs/phase-5-verification-record.md` (evidence, Lighthouse or manual QA summary, stakeholder sign-off)
     - `docs/grand-plan.md` Phase 5 status **complete** with date
     - `CHANGELOG.md` under `Unreleased`
-    - This file: checkboxes for all `P5` items set to done and status line set to **complete**
-  - Done when: Phase 6 can start localization without ambiguous Phase 5 carry-over.
+    - This file: status **complete**; **`P5-05`–`P5-07`** explicitly listed in **`docs/phase-6-todo.md`**
+  - Done when: Phase 6 can start localization without ambiguous Phase 5 carry-over (Swedish bodies and static shells documented).
 
 ## Working Rhythm
 
@@ -196,8 +205,7 @@ Use `docs/phase-3-component-qa-checklist.md` and `docs/phase-3-component-usage.m
 - Log URL or content deviations in `docs/migration-exceptions.md` before treating them as done.
 - Re-read entry policy when touching **`/`**, **`/en/`**, cookies, or bot handling.
 
-## Immediate Next 3 Actions
+## Immediate next (Phase 6)
 
-1. **`P5-03` second batch:** next **`/sv/om-andetag/`** (`om-andetag.html`); then continue the alphabetical table **in order**; finish each URL before starting the next; hold stakeholder sign-off until the batch is ready for review. (**`/sv/musik/`** done.)
-2. Run **`P5-01`** and **`P5-02`** in parallel where useful (static entry targets audit and real **`/en/`** hub content); **`/sv/stockholm/`** is already design-approved.
-3. Track **`EX-0007`**, Berlin parity scope, and Worker staging timing per **`docs/grand-plan.md`** once hub and matrix targets are stable.
+1. Open **`docs/phase-6-todo.md`**: localization (**`en`**, **`de`**) and carry-forward (**Worker**, SEO manual, optional Berlin bodies).
+2. Re-read **`docs/grand-plan.md`** Phase 6 and **`docs/url-migration-policy.md`** before changing **`/en/`** or entry routing.

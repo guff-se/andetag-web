@@ -1379,6 +1379,65 @@ body.lightbox-open {
   }
 }
 
+/* `OmAndetagSv.astro` (wp-page 2945): dictionary-style gloss, centered framed block. */
+.page-om-andetag-sv__etymology-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 2.25rem 0;
+}
+
+.page-om-andetag-sv__etymology-box {
+  max-width: min(34rem, 100%);
+  width: 100%;
+  text-align: left;
+  padding: 1.5rem 1.5rem;
+  border: 1px solid #d0a4cc;
+  border-radius: 12px;
+  background: #f8f0f5;
+  font-family: "BaskervvilleLocal", "Baskervville", Georgia, serif;
+  font-size: clamp(0.95rem, 2.5vw, 1.05rem);
+  line-height: 1.55;
+  color: #4a0d2f;
+}
+
+.page-om-andetag-sv__etymology-box p {
+  margin: 0 0 0.65rem;
+}
+
+.page-om-andetag-sv__etymology-box p:last-of-type {
+  margin-bottom: 0;
+}
+
+.page-om-andetag-sv__etymology-head {
+  font-size: 1.35em;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+.page-om-andetag-sv__etymology-ipa {
+  font-family: "JostLocal", "Jost", Arial, sans-serif;
+  font-size: 0.78em;
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: 0.04em;
+}
+
+.page-om-andetag-sv__etymology-def-list {
+  margin: 0.65rem 0 0;
+  padding: 0 0 0 1.75rem;
+  list-style-type: decimal;
+  list-style-position: outside;
+}
+
+.page-om-andetag-sv__etymology-def-list li {
+  margin: 0;
+  padding-left: 0.5rem;
+}
+
+.page-om-andetag-sv__etymology-box em {
+  font-style: italic;
+}
+
 /* `OmKonstnarernaSv.astro` (wp-page 2627). Lead row uses `.two-col-align-top` for column tops. */
 .page-om-konstnarerna-sv__lead-grid {
   display: grid;

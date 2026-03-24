@@ -72,12 +72,17 @@ const pageBodies: Partial<Record<string, ShellPageBody>> = {
 const PageBody = pageBodies[canonicalPath];
 
 /** Full-bleed video hero (`SiteHeader.astro`): preload poster + Jost 500 for earlier paint (all breakpoints use video). */
-const lcpImagePreloadHref =
-  shell.headerVariantId === "header-192" ? HERO_SV_ASSETS.poster : null;
-const lcpFontPreloadHref =
-  shell.headerVariantId === "header-192"
-    ? "/fonts/jost/jost-500-normal-latin.woff2"
-    : null;
+const heroVideoHeaderIds = new Set<typeof shell.headerVariantId>([
+  "header-192",
+  "header-918",
+  "header-4344",
+]);
+const lcpImagePreloadHref = heroVideoHeaderIds.has(shell.headerVariantId)
+  ? HERO_SV_ASSETS.poster
+  : null;
+const lcpFontPreloadHref = heroVideoHeaderIds.has(shell.headerVariantId)
+  ? "/fonts/jost/jost-500-normal-latin.woff2"
+  : null;
 ---
 
 <SiteLayout
