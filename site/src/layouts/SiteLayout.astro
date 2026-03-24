@@ -27,6 +27,10 @@ type Props = {
   robots?: "index,follow" | "noindex,nofollow";
   fullWidthMain?: boolean;
   bodyClass?: string;
+  /** When set, emits an early high-priority image preload (LCP: Swedish home hero poster, etc.). */
+  lcpImagePreloadHref?: string | null;
+  /** Optional WOFF2 preload for above-the-fold UI using that face (Jost 500 on Swedish video hero). */
+  lcpFontPreloadHref?: string | null;
 };
 
 const props = Astro.props as Props;
@@ -46,6 +50,22 @@ const model = createPageLayoutModel({
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
+    {
+      props.lcpImagePreloadHref ? (
+        <link rel="preload" as="image" href={props.lcpImagePreloadHref} fetchpriority="high" />
+      ) : null
+    }
+    {
+      props.lcpFontPreloadHref ? (
+        <link
+          rel="preload"
+          href={props.lcpFontPreloadHref}
+          as="font"
+          type="font/woff2"
+          crossorigin="anonymous"
+        />
+      ) : null
+    }
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
@@ -60,7 +80,7 @@ const model = createPageLayoutModel({
     }
   </head>
   <body class={props.bodyClass}>
-    <a class="skip-link" href="#main-content">Hoppa till innehall</a>
+    <a class="skip-link" href="#main-content">Hoppa till innehåll</a>
     <div class="page-shell">
       <SiteHeader model={model} currentPath={Astro.url.pathname} />
       <main

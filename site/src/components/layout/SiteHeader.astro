@@ -32,8 +32,10 @@ sharedSvHeader ? (
           muted
           playsinline
           loop
+          preload="none"
           poster={HERO_SV_ASSETS.poster}
         >
+          <source src={HERO_SV_ASSETS.videoMobile} type="video/mp4" media="(max-width: 900px)" />
           <source src={HERO_SV_ASSETS.video} type="video/mp4" />
         </video>
       )

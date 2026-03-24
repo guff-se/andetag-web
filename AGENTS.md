@@ -237,7 +237,7 @@ Astro workspace (`site/`): `npm test` and `npm run build` (also run on `push` to
 ### Cloudflare (Astro `site/`)
 
 - **Pages (recommended):** Project root directory `site`, build command `npm run build`, build output directory `dist`, and **leave the deploy command empty** so Pages publishes `dist` after the build.
-- **Workers static assets:** If the pipeline runs `npx wrangler deploy`, run it with working directory `site` so `wrangler.jsonc` applies. That file points `assets.directory` at `./dist` (Astro static output, includes `public/_redirects`).
+- **Workers static assets:** If the pipeline runs `npx wrangler deploy`, run it with working directory `site` so `wrangler.jsonc` applies. That file points `assets.directory` at `./dist` (Astro static output, includes `public/_redirects` and `public/_headers`). **`_headers`** sets `Cache-Control` (and optional `X-Robots-Tag` on `*.workers.dev`) per [Workers static asset headers](https://developers.cloudflare.com/workers/static-assets/headers/); without it, the default is `max-age=0, must-revalidate` on every file.
 
 ---
 

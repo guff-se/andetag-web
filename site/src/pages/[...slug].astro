@@ -23,6 +23,7 @@ import StockholmMuseumSv from "../components/pages/StockholmMuseumSv.astro";
 import StockholmUtstallningSv from "../components/pages/StockholmUtstallningSv.astro";
 import TillganglighetSv from "../components/pages/TillganglighetSv.astro";
 import VilkenTypAvUpplevelseSv from "../components/pages/VilkenTypAvUpplevelseSv.astro";
+import { HERO_SV_ASSETS } from "../lib/layout/assets";
 import {
   getPageShellRoute,
   PAGE_SHELL_PATHS,
@@ -69,6 +70,14 @@ const pageBodies: Partial<Record<string, ShellPageBody>> = {
   "/sv/stockholm/vilken-typ-av-upplevelse/": VilkenTypAvUpplevelseSv,
 };
 const PageBody = pageBodies[canonicalPath];
+
+/** Full-bleed video hero (`SiteHeader.astro`): preload poster + Jost 500 for earlier paint (all breakpoints use video). */
+const lcpImagePreloadHref =
+  shell.headerVariantId === "header-192" ? HERO_SV_ASSETS.poster : null;
+const lcpFontPreloadHref =
+  shell.headerVariantId === "header-192"
+    ? "/fonts/jost/jost-500-normal-latin.woff2"
+    : null;
 ---
 
 <SiteLayout
@@ -81,6 +90,8 @@ const PageBody = pageBodies[canonicalPath];
   canonicalPath={shell.canonicalPath}
   hreflang={shell.hreflang}
   xDefaultPath={shell.xDefaultPath}
+  lcpImagePreloadHref={lcpImagePreloadHref}
+  lcpFontPreloadHref={lcpFontPreloadHref}
 >
   {PageBody ? <PageBody /> : <div class="page-shell-placeholder" aria-hidden="true"></div>}
 </SiteLayout>

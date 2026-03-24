@@ -54,6 +54,12 @@ Recorded 2026-03-23:
 
 Deferred until enough conversion-priority pages are migrated (`P5-08`).
 
+### Lighthouse / LCP notes (local, 2026-03-24)
+
+- **Observed:** CLI Lighthouse 12, **`/sv/stockholm/`**, mobile profile with **simulated** throttling (`npm run build` + `astro preview`): LCP ~**9s** with the **hero CTA** as LCP node and almost all time in **render-delay** phase. The same URL with **`--throttling-method=provided`** (no CPU/network slowdown) scored **~100** performance with **sub-second** LCP, so lab **simulated** mobile is a harsh stress case; production and field data still matter (`P5-08`, Phase 7 CWV).
+- **Changes applied (hero + head):** For **`header-192`** only (`[...slug].astro`): **preload** hero poster JPEG and **Jost 500** Latin WOFF2 (`SiteLayout` **`lcpImagePreloadHref`** / **`lcpFontPreloadHref`**). **`SiteHeader`:** hero **autoplay video** on **all** breakpoints with **`preload="none"`** and **`poster`**; **`(max-width: 900px)`** loads **`stockholm-hero-mobile.mp4`**, wider viewports **`stockholm-hero-desktop.mp4`** (H.264 faststart, re-encoded 2026-03-24; **`site/scripts/encode-stockholm-hero-videos.sh`**). **Why:** smaller transfers than legacy **`Desktop.mp4`**, earlier poster fetch and CTA font when fonts exist under **`site/public/fonts/`** (run **`npm run fonts:sync`** if preloads 404 locally).
+- **Follow-up:** Re-check PageSpeed Insights after deploy; third-party embeds and Phase 7 script/consent work remain the main lever for staging **`workers.dev`** scores.
+
 ## Stakeholder sign-off
 
 Pending Phase 5 closure.

@@ -9,6 +9,10 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ### Added
 
+- **Cloudflare edge / browser caching (`site/public/_headers`):** Strong **`Cache-Control`** for **`/_astro/*`** (immutable, 1y), **`/fonts/*`**, **`/assets/*`**, and **`/wp-content/uploads/*`** (SWR, no `immutable` on uploads). **`X-Robots-Tag: noindex`** on **`https://:version.:subdomain.workers.dev/*`** per Cloudflare docs. Copied to **`dist/`** with Astro build; applies to **Workers static assets** (`wrangler.jsonc`). **Why:** replaces Workers default **`max-age=0, must-revalidate`** on all assets so repeat visits and CDN behavior improve without stale HTML (HTML paths unmatched).
+
+- **Stockholm full hero video (optimized delivery):** **`stockholm-hero-desktop.mp4`** (~1080p, H.264, ~3.5 Mbps cap, faststart) and **`stockholm-hero-mobile.mp4`** (~960×540, ~1.6 Mbps cap) under **`site/public/wp-content/uploads/2024/12/`**, re-encoded from the legacy **`Desktop.mp4`** master. **`HERO_SV_ASSETS.video`** / **`videoMobile`** in **`assets.ts`**; **`SiteHeader.astro`** uses **`<source media="(max-width: 900px)">`** then desktop fallback. **`site/scripts/encode-stockholm-hero-videos.sh`** reproduces encodes from any source file (requires **ffmpeg**). **Why:** ~86% less bytes on typical phones (~1.6 MB vs ~12 MB), ~55% smaller desktop file, same loop and poster.
+
 - **Tripadvisor brand assets in testimonial aggregate:** **`site/public/assets/tripadvisor/tripadvisor-5dots.png`** and **`tripadvisor-logo.svg`** (from repo root sources), shown in **`TestimonialCarousel`** when **`aggregate`** is set and **`showTripAdvisorBrand`** is not false. **Why:** summary row matches Tripadvisor visual language while keeping figures in text.
 
 - **Preview · mock testimonial carousel:** **`/preview/testimonial-mock-quotes/`** (`noindex`) uses three fictional quotes from **`testimonial-mockup-items.ts`**; slide rotation is the **`TestimonialCarousel.astro`** client script (**`js-testimonial-carousel`**). **Why:** layout QA without sourcing copy as real reviews.
@@ -25,9 +29,15 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ### Removed
 
+- **`site/public/wp-content/uploads/2024/12/Desktop.mp4`:** replaced by **`stockholm-hero-desktop.mp4`** and **`stockholm-hero-mobile.mp4`**. Restore from git history or production if a higher-bitrate master is needed for re-encoding.
+
 - **`site/src/pages/preview/testimonials-mockups-sv.astro`** and **`site/src/styles/testimonial-mockups-preview.css`:** testimonial mockup preview route and styles (superseded by production **`testimonial-block`**).
 
 ### Changed
+
+- **Hero LCP / Swedish Stockholm home (`header-192`):** **`SiteLayout`** accepts optional **`lcpImagePreloadHref`** (hero poster JPEG) and **`lcpFontPreloadHref`** (Jost 500 Latin WOFF2). **`[...slug].astro`** sets both for **`header-192`** (`/sv/stockholm/`). **`SiteHeader`:** full hero **autoplay video** on **all** breakpoints with **`preload="none"`** and **`poster`** (no mobile-only still swap; video is required for brand look). **`docs/phase-5-verification-record.md`:** Lighthouse / LCP notes (simulated vs provided throttling). **Why:** earlier poster fetch and CTA font when fonts exist under **`site/public/fonts/`**, without dropping mobile video.
+
+- **Swedish site copy (spelling, grammar, consistency):** Skip link **innehåll**; footer **Utställning**; FAQ **cykelställen**, **ANDETAG** in accordion `title`, period after **fri entré**; home/SEO **tills du**, **säljs i kassan**, **mejl**, **Innehållssamarbeten** / **innehållsskapare**, **Kontakt** heading, en dash in intro; **Hitta hit** hiss sentence and street paragraph period; **Säsongskort** **säljs i kassan**; **Dejt** **Lättillgängligt**. **Why:** reader-facing correctness.
 
 - **`components.css`:** **`page-stockholm-home__cta-after-testimonials`** top margin **`1rem` → `4rem`** (Upplev Andetag! below testimonials). **`docs/phase-3-component-usage.md`** updated.
 

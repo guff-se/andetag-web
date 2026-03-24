@@ -1,0 +1,23 @@
+# Cloudflare Workers static assets (wrangler `assets.directory` → dist).
+# Overrides default `Cache-Control: public, max-age=0, must-revalidate` on matched paths.
+# Ref: https://developers.cloudflare.com/workers/static-assets/headers/
+
+# Astro build fingerprints filenames; safe for long browser cache.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# First-party SVG/PNGs under /assets (not content-hashed); refresh within a week if replaced.
+/assets/*
+  Cache-Control: public, max-age=604800, stale-while-revalidate=2592000
+
+# Self-hosted fonts (stable paths; run fonts:sync when updating files).
+/fonts/*
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
+
+# Media under wp-style paths: URLs can be reused when files are replaced; no `immutable`.
+/wp-content/uploads/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+# Staging hosts: avoid indexing *.workers.dev (pattern from Cloudflare docs).
+https://:version.:subdomain.workers.dev/*
+  X-Robots-Tag: noindex
