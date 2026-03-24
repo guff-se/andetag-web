@@ -49,9 +49,9 @@ Phase 2 is complete only when all items marked `P2` are done and approved:
     - Explicit resolution path for `GAP-002` (`header-4136` on `en-berlin-en.html`).
   - Done when: every active header/footer variant has a deterministic static mapping and unresolved variants are tracked with owner and target phase.
   - Implementation evidence:
-    - `site/src/lib/layout/variants.ts`
-    - `site/src/lib/layout/page-layout.ts`
-    - `site/src/lib/layout/layout.test.ts`
+    - `site/src/lib/chrome/variants.ts`
+    - `site/src/lib/chrome/page-layout.ts`
+    - `site/src/lib/chrome/layout.test.ts`
 
 - [x] **P2-02 Implement header/footer layout variants with shared render primitives**
   - Owner: AI agent
@@ -65,8 +65,8 @@ Phase 2 is complete only when all items marked `P2` are done and approved:
     - Footer legal/social/schema slots with language-aware variant support.
   - Done when: all required layout variants render from structured data, not page-local hardcoding.
   - Implementation evidence:
-    - `site/src/components/layout/SiteHeader.astro`
-    - `site/src/components/layout/SiteFooter.astro`
+    - `site/src/components/chrome/SiteHeader.astro`
+    - `site/src/components/chrome/SiteFooter.astro`
     - `site/src/layouts/SiteLayout.astro`
     - Historical Phase 2 grid preview `site/src/pages/layout-preview.astro` (removed after parity sign-off; Phase 4 matrix shells cover ongoing checks)
 
@@ -83,9 +83,9 @@ Phase 2 is complete only when all items marked `P2` are done and approved:
     - Separate language selector and destination selector controls (intentional divergence from old combined behavior to support future IA).
   - Done when: all approved nav variants render from shared data contracts and produce expected destination links.
   - Implementation evidence:
-    - `site/src/lib/layout/navigation.ts`
-    - `site/src/lib/layout/page-layout.ts`
-    - `site/src/lib/layout/layout.test.ts`
+    - `site/src/lib/chrome/navigation.ts`
+    - `site/src/lib/chrome/page-layout.ts`
+    - `site/src/lib/chrome/layout.test.ts`
 
 - [x] **P2-04 Wire layout-level SEO hooks**
   - Owner: AI agent
@@ -99,9 +99,9 @@ Phase 2 is complete only when all items marked `P2` are done and approved:
     - Footer and nav link normalization to canonical path policy.
   - Done when: layout foundation supports Phase 4 route-level canonical/hreflang generation without contract changes.
   - Implementation evidence:
-    - `site/src/lib/layout/seo.ts`
+    - `site/src/lib/chrome/seo.ts`
     - `site/src/layouts/SiteLayout.astro`
-    - `site/src/lib/layout/page-layout.test.ts`
+    - `site/src/lib/chrome/page-layout.test.ts`
 
 - [x] **P2-05 Validate accessibility and keyboard navigation for shared layout**
   - Owner: AI agent
@@ -150,7 +150,7 @@ Phase 2 is complete only when all items marked `P2` are done and approved:
   - Owner: AI agent
   - Output: source-backed fixtures that can be used for deterministic nav/footer rendering tests.
   - Done when: nav/footer regressions can be detected in CI after Phase 3 test expansion.
-  - Resolution: delivered in Phase 3 as `docs/phase-3-fixture-strategy.md` and `site/src/lib/layout/fixtures.ts` (see `docs/phase-3-todo.md` **P3-02**).
+  - Resolution: delivered in Phase 3 as `docs/phase-3-fixture-strategy.md` and `site/src/lib/chrome/fixtures.ts` (see `docs/phase-3-todo.md` **P3-02**).
 
 ## Clarification Queue (Ask Early)
 

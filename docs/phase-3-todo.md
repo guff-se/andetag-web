@@ -45,15 +45,15 @@ Phase 3 is complete only when all items marked `P3` are done and approved:
   - Carry-forward source: `P3-02` from `docs/phase-2-todo.md`
   - Inputs:
     - `docs/phase-1-analysis-schema.md`
-    - Phase 2 layout data artifacts in `site/src/lib/layout/`
+    - Phase 2 layout data artifacts in `site/src/lib/chrome/`
   - Include:
     - Source-backed fixture samples for nav and footer regressions.
     - Fixture strategy for component variant/state regression tests.
   - Done when: deterministic fixtures exist for CI-facing regression checks used by layout and component tests.
   - Outputs delivered:
     - `docs/phase-3-fixture-strategy.md`
-    - `site/src/lib/layout/fixtures.ts`
-    - Fixture wiring in layout tests under `site/src/lib/layout/`
+    - `site/src/lib/chrome/fixtures.ts`
+    - Fixture wiring in layout tests under `site/src/lib/chrome/`
 
 - [x] **P3-03 Finalize Phase 3 component inventory and API contracts**
   - Owner: AI agent

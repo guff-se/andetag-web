@@ -11,15 +11,14 @@ import PartnersSection from "../content/PartnersSection.astro";
 import StyledLink from "../ui/StyledLink.astro";
 import TestimonialCarousel from "../content/TestimonialCarousel.astro";
 import VideoEmbed from "../embeds/VideoEmbed.astro";
-import { stockholmTestimonialAggregateSv } from "../../lib/content/stockholm-testimonial-aggregate";
-import { stockholmMarketingFaqSv } from "../../lib/pages/stockholm-marketing-faq-sv";
+import { stockholmTestimonialAggregateEn } from "../../lib/content/stockholm-testimonial-aggregate";
+import { stockholmMarketingFaqEn } from "../../lib/page-registry/stockholm-marketing-faq-en";
 
 /**
- * Swedish Stockholm home: body from `site-html/index.html`
- * (`data-elementor-type="wp-page"` post id 2). Head from `page-shell-meta.json`.
- * Aside photo: `Andetag-18-058-copy2-1024x683.jpg` under `site/public/wp-content/uploads/2024/11/`.
- * TripAdvisor shortcode: removed per **EX-0002**; English quotes in `TestimonialCarousel` with Swedish aggregate row (figures from besökaromdömen source).
- * Booking contact below widget: **EX-0010** (`info@andetag.museum`).
+ * English Stockholm home: body from `site-html/en.html`
+ * (`data-elementor-type="wp-page"` post id **907**). Canonical URL in legacy Yoast is `/en/`;
+ * rebuilt route is **`/en/stockholm/`** with head from `page-shell-meta.json` (**EX-0007**).
+ * TripAdvisor shortcode removed per **EX-0002**; carousel quotes match Swedish home (English copy).
  */
 const understoryCompanyId = "3b3aa7a7c2cd455b8f3a56cd81033110";
 
@@ -36,13 +35,14 @@ const introAsideImage = {
 } as const;
 
 const introMarkdown = [
-  "<p>Inne i <span class=\"brand-wordmark\">ANDETAG</span> står tiden stilla.</p>",
-  "<p><span class=\"brand-wordmark\">ANDETAG</span> är en immersiv konstupplevelse i centrala Stockholm, där ljus, andning och musik möts i ett stilla museum nära Hötorget.</p>",
-  "<p>I en tid där tempot ständigt ökar, får du en möjlighet att stilla din andning och låta dig svepas in i en förtrollande väv av former, ljus och ljud.</p>",
-  "<p>Välkommen till <span class=\"brand-wordmark\">ANDETAG</span> – en plats för stillhet och förundran.</p>",
+  "<h1>The Breathing Art Museum in Stockholm</h1>",
+  "<p>Inside <span class=\"brand-wordmark\">ANDETAG</span>, time stands still.</p>",
+  "<p><span class=\"brand-wordmark\">ANDETAG</span> is an immersive art experience in central Stockholm, where light, breath, and music meet in a quiet museum near Hötorget.</p>",
+  "<p>In a world where the pace is constantly accelerating, You are invited to slow your breath and be enveloped in an enchanting tapestry of shapes, light, and sound.</p>",
+  "<p>Welcome to <span class=\"brand-wordmark\">ANDETAG</span> – a place of stillness and wonder.</p>",
 ].join("");
 
-const homeAccordionItems = [...stockholmMarketingFaqSv];
+const homeAccordionItems = [...stockholmMarketingFaqEn];
 
 const galleryImages = [
   {
@@ -88,32 +88,33 @@ const galleryImages = [
 ] as const;
 
 const biljetterIntroHtml = [
-  "<p><span class=\"brand-wordmark\">ANDETAG</span> är en upplevelse som tar dig från vardagens stress in i en fridfull magisk värld.</p>",
-  "<p>Du är välkommen att anlända före utsatt tid, förutsatt att vanlig öppettid råder. Du går igenom utställningen i din egen takt, och stannar tills du känner dig klar.</p>",
-  "<p>Vi använder tidsbokning för att se till att inte för många anländer samtidigt. Platserna fylls snabbt, så se till att boka i tid.</p>",
+  "<p><span class=\"brand-wordmark\">ANDETAG</span> is an experience that takes you from the stress of everyday life into a peaceful, magical world.</p>",
+  "<p>You are welcome to arrive before your scheduled time, providing we are open normally. Explore the exhibition at your own pace and stay until you feel ready to leave.</p>",
+  "<p>We use time slots to ensure that too many people don&#8217;t arrive at the same time. Spots fill up quickly, so make sure to book in advance.</p>",
 ].join("");
 
 const homePriceFrameHtml = [
-  "<p><strong>Ordinarie biljett:</strong> 240 kr (190 kr dagtid)</p>",
-  "<p><strong>Student/pensionär:</strong> 200 kr (150 kr dagtid)</p>",
-  "<p><strong>Ungdom (8-17 år):</strong> 125 kr</p>",
-  "<p>Dagtidspris gäller vardagar 12.00 – 17.00</p>",
+  "<p><strong>Regular ticket:</strong> 240 SEK (190 SEK daytime)</p>",
+  "<p><strong>Student/senior:</strong> 200 SEK (150 SEK daytime)</p>",
+  "<p><strong>Youth (8–17 years):</strong> 125 SEK</p>",
+  "<p><strong>Art Yoga</strong> (Tuesdays 17.00–18.00): 320 kr</p>",
+  "<p>Daytime pricing: weekdays 12.00 – 17.00</p>",
 ].join("");
 
 const seasonMarkdown = [
-  "<p>Vill du göra <span class=\"brand-wordmark\">ANDETAG</span> till en vana? Vi har många besökare som gjort det till sin veckorutin att ta ett <span class=\"brand-wordmark\">ANDETAG</span>.<br />För 950 kr får du fri tillgång till upplevelsen i 6 månader.</p>",
-  '<p><a href="/sv/stockholm/sasongskort/">Säsongskort</a> säljs i kassan. Om du visar din biljett får du dessutom avdrag på säsongskortet.</p>',
+  "<p>Want to make <span class=\"brand-wordmark\">ANDETAG</span> a habit? Buy a <a href=\"/en/stockholm/season-pass/\">season pass</a> that gives you free access to the experience for six months!</p>",
+  "<p>The <a href=\"/en/stockholm/season-pass/\">season pass</a> can be bought in the entrance. If you already purchased a ticket you can show it to get a discount on the season pass.</p>",
 ].join("");
 
 const privatMarkdown = [
-  "<p><span class=\"brand-wordmark\">ANDETAG</span> erbjuder skräddarsydda event morgon, dag, kväll och helg—perfekt för <a href=\"/sv/stockholm/foretagsevent/\">företag</a>, <a href=\"/sv/stockholm/gruppbokning/\">grupper</a> eller speciella tillfällen. Vi kan också erbjuda grupprabatter.</p>",
-  '<p>Skicka ett mejl till <a href="mailto:info@tadaa.se">info@tadaa.se</a>, så hjälper vi dig!</p>',
+  "<p><span class=\"brand-wordmark\">ANDETAG</span> offer tailored events in the morning, daytime, evening, or weekends—perfect for <a href=\"/en/stockholm/corporate-events/\">companies</a>, <a href=\"/en/stockholm/group-bookings/\">groups</a>, or special occasions. We can also offer group discounts.</p>",
+  '<p>Please send an email to <a href="mailto:info@tadaa.se">info@tadaa.se</a> and we will assist you!</p>',
 ].join("");
 
 const artYogaMarkdown = [
-  "<p>Art Yoga är en långsam yogaklass i Andetags omslutande konstmiljö i centrala Stockholm.<br />En plats att röra sig, andas och landa, mitt i staden.</p>",
-  "<p>Omgiven av glödande textilkonst och levande ljus leds klassen av yogaläraren <strong>Fabian Macklin</strong>.<br />Rörelse, andning och närvaro vävs samman i ett mjukt tempo.<br />Fokus ligger på att lyssna in kroppen snarare än att prestera.</p>",
-  "<p>Klassen är öppen för både nybörjare och erfarna yogautövare.<br />Inga förkunskaper krävs.</p>",
+  "<p>Art Yoga is a slow yoga class held inside Andetag&#8217;s immersive art environment in central Stockholm.<br />A place to move, breathe, and settle, in the middle of the city.</p>",
+  "<p>Surrounded by glowing textile art and living light, the class is guided by yoga teacher <strong>Fabian Macklin</strong>.<br />Movement and breath unfold at a gentle pace, with attention on presence rather than performance.</p>",
+  "<p>The class is open to both beginners and experienced practitioners.<br />No prior experience is required.</p>",
 ].join("");
 
 const testimonialItems = [
@@ -186,35 +187,32 @@ const partners = [
 ] as const;
 
 const kontaktMarkdown =
-  "<p>För frågor gällande biljetter, evenemangsbokning eller generell information, vänligen kontakta: <a href=\"mailto:info@tadaa.se\">info@tadaa.se</a></p>";
+  "<p>For questions regarding tickets, event bookings or general information, please contact: <a href=\"mailto:info@tadaa.se\">info@tadaa.se</a></p>";
 
 const pressMarkdown = [
   "<h3>Press</h3>",
-  "<p><strong>Presskontakt:</strong><br />Gustaf Tadaa<br />0709-854979<br />gustaf (a) tadaa.se</p>",
-  '<p><a href="https://andetag.museum/presskit" target="_blank" rel="noreferrer noopener">Länk till presskit</a></p>',
+  "<p><strong>Press Contact</strong><br />Gustaf Tadaa<br />0709-854979<br />gustaf (a) tadaa.se</p>",
+  '<p><a href="https://andetag.museum/presskit" target="_blank" rel="noreferrer noopener">Link to press kit</a></p>',
 ].join("");
 
 const contentsamarbetenMarkdown = [
-  "<h3>Innehållssamarbeten</h3>",
-  "<p>Är du en innehållsskapare, fotograf eller influencer som letar efter en unik och lysande bakgrund för ditt arbete? Vi vill gärna samarbeta!</p>",
-  "<p>Vårt utrymme är en oas av glödande konst, stillhet och inspiration – perfekt för att skapa innehåll som verkligen är unikt.</p>",
-  '<p>Skicka ett mejl till <a href="mailto:info@tadaa.se">info@tadaa.se</a> med din förfrågan.</p>',
-  "<p>Låt oss skapa något magiskt tillsammans.</p>",
+  "<h3>Content collaborations</h3>",
+  "<p>Are you a content creator, photographer, or influencer looking for a unique and luminous backdrop for your work? We&#8217;d love to collaborate!</p>",
+  "<p>Our space is a haven of glowing art, stillness, and inspiration – perfect for capturing truly one-of-a-kind content.</p>",
+  '<p>Send an email to <a href="mailto:info@tadaa.se">info@tadaa.se</a> for inquiries.</p>',
+  "<p>Let&#8217;s create something magical together.</p>",
 ].join("");
 
 const mapSrc =
   "https://maps.google.com/maps?q=Andetag%2C%20Kungsgatan%2039%2C%20111%2056%20Stockholm&t=m&z=15&output=embed&iwloc=near";
 
 const mapLocationMarkdown =
-  "<p>Du hittar <span class=\"brand-wordmark\">ANDETAG</span> i den centrala uppgången av Hötorgets Tunnelbanestation.</p><p><strong>Från tunnelbanan:</strong> Uppgång Kungsgatan (mitten av plattformen), sedan uppgång Kungsgatan mot Stureplan, Sveavägen mot Sergels torg.</p><p><strong>Från gatan:</strong> precis nedanför trappan i tunnelbanenedgången på Kungsgatan 39.</p>";
+  "<p>You&#8217;ll find <span class=\"brand-wordmark\">ANDETAG</span> in the central mezzanine of the Hötorget Subway Station.</p><p><strong>From the subway:</strong> Take the Kungsgatan escalator (middle of the platform), then the Kungsgatan exit towards Stureplan, and Sveavägen towards Sergels Torg.</p><p><strong>From the street:</strong> Just below the stairs of the subway entrance on Kungsgatan 39.</p>";
 
 const vimeoSrc = "https://player.vimeo.com/video/1077937338";
 ---
 
 <div class="page-migrated page-stockholm-home">
-  <section class="content-section align-center page-stockholm-home__lead-eyebrow" aria-label="Inledning">
-    <h3>Du har aldrig upplevt något liknande...</h3>
-  </section>
   <div class="page-layout-with-aside page-stockholm-home__intro-booking">
     <div class="page-layout-with-aside__main">
       <ContentSection markdown={introMarkdown} />
@@ -229,85 +227,85 @@ const vimeoSrc = "https://player.vimeo.com/video/1077937338";
           decoding="async"
         />
       </figure>
-      <div class="page-stockholm-home__loc-mobile" aria-label="Adress">
+      <div class="page-stockholm-home__loc-mobile" aria-label="Address">
         <p class="page-stockholm-home__loc-mobile-text">
           <span class="brand-wordmark">ANDETAG</span><br />
-          Kungsgatan 39, Hötorgets tunnelbana,<br /> Stockholm
+          Kungsgatan 39, Hötorget subway,<br /> Stockholm
         </p>
         <div class="page-stockholm-home__hitta-row">
-          <StyledLink label="Hitta hit" href="#hitta" styleVariant="cta-primary" />
+          <StyledLink label="Getting here" href="#hitta" styleVariant="cta-primary" />
         </div>
       </div>
     </div>
-    <aside class="page-layout-with-aside__aside" aria-label="Bokning">
+    <aside class="page-layout-with-aside__aside" aria-label="Booking">
       <BookingEmbed
         companyId={understoryCompanyId}
-        language="sv"
+        language="en"
         anchorId="book"
-        heading="Boka direkt"
+        heading="Book now"
         unframed
-        fallbackText="Bokningskalendern kunde inte laddas. Ladda om sidan eller kontakta oss om problemet kvarstår."
+        fallbackText="The booking calendar could not load. Reload the page or contact us if the problem persists."
       />
     </aside>
   </div>
 
-  <div class="page-stockholm-home__loc-desktop" aria-label="Adress">
+  <div class="page-stockholm-home__loc-desktop" aria-label="Address">
     <p class="page-stockholm-home__loc-desktop-text">
-      <span class="brand-wordmark">ANDETAG-</span>Kungsgatan 39, Hötorgets tunnelbana, Stockholm
+      <span class="brand-wordmark">ANDETAG-</span>Kungsgatan 39, Hötorget subway, Stockholm
     </p>
     <div class="page-stockholm-home__hitta-row">
-      <StyledLink label="Hitta hit" href="#hitta" styleVariant="cta-primary" />
+      <StyledLink label="Getting here" href="#hitta" styleVariant="cta-primary" />
     </div>
   </div>
 
-  <GallerySection images={[...galleryImages]} mobileMode="carousel" galleryId="stockholm-home" />
+  <GallerySection images={[...galleryImages]} mobileMode="carousel" galleryId="stockholm-home-en" />
 
   <div class="page-stockholm-home__tickets-columns">
     <div class="page-stockholm-home__tickets-col">
-      <ContentSection heading="Biljetter" headingLevel="h2" markdown={biljetterIntroHtml} />
-      <InfoFrame heading="Priser" headingLevel="h3" bodyHtml={homePriceFrameHtml} />
+      <ContentSection heading="Tickets" headingLevel="h2" markdown={biljetterIntroHtml} />
+      <InfoFrame heading="Pricing" headingLevel="h3" bodyHtml={homePriceFrameHtml} />
     </div>
     <div class="page-stockholm-home__tickets-col">
-      <ContentSection heading="Säsongskort" headingLevel="h2" markdown={seasonMarkdown} />
-      <ContentSection heading="Privat upplevelse" headingLevel="h2" markdown={privatMarkdown} />
+      <ContentSection heading="Season Pass" headingLevel="h2" markdown={seasonMarkdown} />
+      <ContentSection heading="Private experience" headingLevel="h2" markdown={privatMarkdown} />
     </div>
   </div>
 
   <HeroSection
     backgroundImage={heroBookBackground}
-    ariaLabel="Ta ett andetag, boka biljett"
-    ctas={[{ label: "Boka nu", href: "#book", variant: "outline" }]}
+    ariaLabel="Take a breath, book a ticket"
+    ctas={[{ label: "Book now", href: "#book", variant: "outline" }]}
   >
     <h2 class="page-stockholm-home__book-hero-heading">
-      <span class="page-stockholm-home__book-hero-heading-full">Ta Ett Andetag - Boka biljett</span>
-      <span class="page-stockholm-home__book-hero-heading-short">Ta Ett Andetag</span>
+      <span class="page-stockholm-home__book-hero-heading-full">Take a Breath – Book your ticket</span>
+      <span class="page-stockholm-home__book-hero-heading-short">Take a breath</span>
     </h2>
   </HeroSection>
 
-  <ContentSection heading="Art Yoga - varje tisdag kl. 17.00" headingLevel="h2" markdown={artYogaMarkdown} />
+  <ContentSection heading="Art Yoga - Every Tuesday at 17.00" headingLevel="h2" markdown={artYogaMarkdown} />
   <div class="page-migrated-cta">
     <ButtonGroup
-      buttons={[{ label: "Boka Yoga", href: artYogaBookingHref, variant: "primary", external: true }]}
+      buttons={[{ label: "Book Yoga", href: artYogaBookingHref, variant: "primary", external: true }]}
     />
   </div>
 
-  <TestimonialCarousel items={[...testimonialItems]} aggregate={{ ...stockholmTestimonialAggregateSv }} />
+  <TestimonialCarousel items={[...testimonialItems]} aggregate={{ ...stockholmTestimonialAggregateEn }} />
 
   <div class="page-migrated-cta page-stockholm-home__cta-after-testimonials">
-    <ButtonGroup buttons={[{ label: "Upplev Andetag!", href: "#book", variant: "secondary" }]} />
+    <ButtonGroup buttons={[{ label: "Experience Andetag!", href: "#book", variant: "secondary" }]} />
   </div>
 
   <div class="page-stockholm-home__video-band">
     <VideoEmbed
-      title="ANDETAG på Vimeo"
+      title="ANDETAG on Vimeo"
       src={vimeoSrc}
-      fallbackText="Videon kunde inte laddas. Försök igen senare."
+      fallbackText="The video could not load. Please try again later."
     />
   </div>
 
-  <PartnersSection heading="Våra partners" headingLevel="h3" partners={[...partners]} />
+  <PartnersSection heading="Our partners" headingLevel="h3" partners={[...partners]} />
 
-  <ContentSection heading="Kontakt" headingLevel="h3" markdown={kontaktMarkdown} />
+  <ContentSection heading="Contact" headingLevel="h3" markdown={kontaktMarkdown} />
 
   <div class="page-stockholm-home__press-grid">
     <ContentSection markdown={pressMarkdown} />
@@ -316,16 +314,16 @@ const vimeoSrc = "https://player.vimeo.com/video/1077937338";
 
   <div class="page-stockholm-home__cta-secondary-band">
     <div class="page-migrated-cta">
-      <ButtonGroup buttons={[{ label: "Boka biljetter nu!", href: "#book", variant: "secondary" }]} />
+      <ButtonGroup buttons={[{ label: "Book tickets now!", href: "#book", variant: "secondary" }]} />
     </div>
   </div>
 
   <section
     class="content-section page-stockholm-home__map"
     id="hitta"
-    aria-labelledby="stockholm-home-map-heading"
+    aria-labelledby="stockholm-home-map-heading-en"
   >
-    <h2 id="stockholm-home-map-heading">Var är ANDETAG?</h2>
+    <h2 id="stockholm-home-map-heading-en">Where is ANDETAG?</h2>
     <div class="page-stockholm-home__map-grid">
       <div class="content-section-body page-stockholm-home__map-copy" set:html={mapLocationMarkdown} />
       <div class="page-stockholm-home__map-frame">
@@ -333,7 +331,7 @@ const vimeoSrc = "https://player.vimeo.com/video/1077937338";
           title="Andetag, Kungsgatan 39, 111 56 Stockholm"
           src={mapSrc}
           unframed
-          fallbackText="Kartan kunde inte laddas. Sök på Andetag, Kungsgatan 39 i din kartapp."
+          fallbackText="The map could not load. Search for Andetag, Kungsgatan 39 in your maps app."
         />
       </div>
     </div>

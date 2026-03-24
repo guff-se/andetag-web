@@ -100,7 +100,7 @@ Reference docs before implementation:
 | `docs/testimonials-reimplementation-options.md` | Research and strategic options for customer testimonials and social proof (discussion before implementation). |
 | `docs/design-extraction-method.md` | Reproducible method for extracting design tokens and component patterns from all CSS sources. |
 | `docs/phase-1-analysis-schema.md` | Structured tables for Phase 1 variant, widget, and integration analysis. |
-| `docs/site-structure-refactor-plan.md` | Side phase: `site/src/` layout inventory, **locked** tree (ADR 0003), phased `git mv`, §6.1 stale-path `rg`, fixed CHANGELOG + **S7 skip** rules. **Executable by the maintainer agent alone** (no stakeholder input). **Status:** ready for execution until complete. |
+| `docs/site-structure-refactor-plan.md` | Side phase: `site/src/` layout (ADR 0003). **Status:** complete (2026-03-24). Historical execution notes, §6 verification, deferred follow-ups. |
 | `docs/phase-structure-todo.md` | Execution checklist for the site structure refactor (S0–S8); record baseline hash and check off phases. |
 | `docs/decisions/0003-site-src-structure.md` | **Accepted** ADR: final folder names (`chrome`, `page-bodies`, `page-registry`, `ui-logic`, `client-scripts`). |
 | `docs/decisions/README.md` | ADR template, naming convention, and decision lifecycle process. |
@@ -154,7 +154,28 @@ web/
 ├── docs/                     # Migration, SEO, tone, and site architecture specs
 ├── site-html/                # Scraped HTML pages and downloaded WP assets
 ├── site-md/                  # Markdown snapshots from crawler
-├── site/                     # Astro workspace (`npm test`, `npm run build`); see `docs/site-structure-refactor-plan.md` + `docs/phase-structure-todo.md` for src layout refactor (ADR 0003)
+├── site/                     # Astro workspace (`npm test`, `npm run build`); `docs/site-structure-refactor-plan.md`, ADR 0003
+│   ├── public/               # Static assets, `_redirects`, `_headers`
+│   ├── scripts/              # Node / shell tooling (meta, fonts, encoding); not browser bundles
+│   └── src/
+│       ├── client-scripts/    # Browser-oriented TS imported from Astro components
+│       ├── components/
+│       │   ├── chrome/       # Site chrome (header, footer, logo)
+│       │   ├── content/      # Section-level blocks (Hero, ContentSection, …)
+│       │   ├── embeds/
+│       │   ├── page-bodies/  # Per-route main-column bodies (`[...slug].astro` map)
+│       │   └── ui/
+│       ├── data/             # `page-shell-meta.json` (generated)
+│       ├── layouts/          # Astro document layout (`SiteLayout.astro`)
+│       ├── lib/
+│       │   ├── chrome/       # Chrome + SEO model (navigation, hero, footer, types, fixtures)
+│       │   ├── content/
+│       │   ├── fonts/
+│       │   ├── page-registry/  # `page-body-registry`, FAQ TS next to bodies
+│       │   ├── routes/       # `page-shell-registry`, URL / chrome navigation resolution
+│       │   └── ui-logic/     # TS-only helpers (carousel, booking HTML, presentation)
+│       ├── pages/            # File-based routes (`index`, `[...slug]`, `404`, previews)
+│       └── styles/
 └── seo-content/              # SEO content drafts (currently mostly Swedish)
 ```
 

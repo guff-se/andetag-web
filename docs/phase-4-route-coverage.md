@@ -14,7 +14,7 @@ Status: aligned with `site/` implementation. **2026-03-23:** Phase 4 shells clos
 | Matrix `redirect` rows covered by `_redirects` | 26 | All `redirect_type=301` rows in `url-matrix.csv` (Swedish legacy + existing de/en aliases) |
 | Policy-only redirect | 1 | `/privacy-policy/` (not a separate matrix row) |
 
-**Layout modules and `dist/`:** files under `site/src/lib/layout/` (for example `hero-sv.ts`, `footer-sv.ts`, `header-small-sv.ts`) are bundled into pages; only `site/src/pages/` produces URL directories in the static build output.
+**Layout modules and `dist/`:** files under `site/src/lib/chrome/` (for example `hero-sv.ts`, `footer-sv.ts`, `header-small-sv.ts`) are bundled into pages; only `site/src/pages/` produces URL directories in the static build output.
 
 ## Matrix rows (canonical paths)
 

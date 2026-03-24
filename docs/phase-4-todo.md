@@ -97,11 +97,11 @@ Phase 4 is complete only when all items marked `P4` are done and approved:
   - Inputs:
     - `docs/Andetag SEO Manual.md` (hreflang section)
     - `docs/content-model.md`
-    - `site/src/lib/layout/seo.ts`
+    - `site/src/lib/chrome/seo.ts`
   - Include:
     - Self-referencing hreflang where required.
     - `x-default` behavior per manual (typically Swedish default home or agreed default URL).
-    - Apply the BCP47 mapping from **Decisions (stakeholder approval, 2026-03-23)** in `site/src/lib/layout/seo.ts` (or successor); `href` values remain absolute.
+    - Apply the BCP47 mapping from **Decisions (stakeholder approval, 2026-03-23)** in `site/src/lib/chrome/seo.ts` (or successor); `href` values remain absolute.
   - Done when: sample pages for each language and destination pattern validate against the manual checklist and content model.
 
 - [x] **P4-06 Implement 404 strategy and language-aware fallback**
@@ -131,7 +131,7 @@ Phase 4 is complete only when all items marked `P4` are done and approved:
   - Owner: AI agent
   - Inputs:
     - `P4-03` and `P4-05` outputs
-    - Existing test patterns under `site/src/lib/layout/*.test.ts`
+    - Existing test patterns under `site/src/lib/chrome/*.test.ts`
   - Include:
     - Unit or integration tests for canonical URL builder, hreflang builder, and any new redirect map parsing.
     - Optional CI check that `docs/url-matrix.csv` rows have a corresponding route file or redirect entry when tooling is introduced (only if low-noise and deterministic).

@@ -21,7 +21,7 @@ Recorded 2026-03-23:
 
 | Canonical path | Source HTML | Design approved | Notes |
 |----------------|-------------|-----------------|-------|
-| `/sv/stockholm/gruppbokning/` | `site-html/stockholm-gruppbokning.html` (wp-post 393) | **Yes** (2026-03-23, Gustaf) | `site/src/components/pages/GruppbokningSv.astro`. |
+| `/sv/stockholm/gruppbokning/` | `site-html/stockholm-gruppbokning.html` (wp-post 393) | **Yes** (2026-03-23, Gustaf) | `site/src/components/page-bodies/GruppbokningSv.astro`. |
 | `/sv/stockholm/foretagsevent/` | `site-html/stockholm-foretagsevent.html` (wp-page 2651) | **Yes** (2026-03-23, Gustaf) | `ForetagseventSv.astro`. |
 | `/sv/musik/` | `site-html/musik.html` (wp-page 2162) | **Yes** (2026-03-24, Gustaf, second batch) | `MusikSv.astro`; **`content-section`** **`h1`** + prose; Spotify album **`iframe`** in **`embed-shell`** (same embed **`src`** as legacy). |
 | `/sv/optisk-fibertextil/` | `site-html/optisk-fibertextil.html` (wp-page 3637) | **Yes** (2026-03-23, Gustaf) | `OptiskFibertextilSv.astro`; weaving photos under `site/public/wp-content/uploads/2026/02/` (**EX-0008** resolved). |
@@ -51,7 +51,7 @@ Recorded 2026-03-23:
 - **`/privacy/`:** shell **200**, body not migrated in Phase 5.
 - **English and German page bodies, localized header/footer:** **`docs/phase-6-todo.md`** and **`docs/grand-plan.md`** Phase 6.
 - **Carry-forward:** Worker **`P5-05`**, **`P5-06`**, SEO manual **`P5-07`**, optional Berlin English bodies beyond shells (**`P5-04`**) in **`docs/phase-6-todo.md`**.
-- **Regression artifacts:** **`site/src/lib/pages/page-body-registry.test.ts`** (**23** paths), **`npm test`** / **`npm run build`** on **`site/`**.
+- **Regression artifacts:** **`site/src/lib/page-registry/page-body-registry.test.ts`** (**23** paths), **`npm test`** / **`npm run build`** on **`site/`**.
 
 ## Quality gates (representative pages)
 

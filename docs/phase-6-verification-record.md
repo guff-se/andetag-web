@@ -18,7 +18,7 @@ Status: **open** (**P6-00** closed; **P6-01** implementation complete, package s
 
 **Scope:** Wave 1 matrix shells with **`en` + Stockholm** chrome: **`/en/`** minimal hub, all **`/en/stockholm/...`** bodies, and English global **`/en/about-andetag/`**, **`/en/about-the-artists-malin-gustaf-tadaa/`**, **`/en/music/`**, **`/en/optical-fibre-textile/`**. Excluded: **`/en/berlin/...`** (**P6-02**).
 
-**Wiring:** **`site/src/lib/pages/page-body-registry.ts`** (**`PAGE_CUSTOM_BODY_PATHS`**, **47** paths = **24** English + **23** Swedish) and **`site/src/pages/[...slug].astro`** **`pageBodies`** map (keys must match exactly). **`page-body-registry.test.ts`** asserts set size and string presence in the slug page.
+**Wiring:** **`site/src/lib/page-registry/page-body-registry.ts`** (**`PAGE_CUSTOM_BODY_PATHS`**, **47** paths = **24** English + **23** Swedish) and **`site/src/pages/[...slug].astro`** **`pageBodies`** map (keys must match exactly). **`page-body-registry.test.ts`** asserts set size and string presence in the slug page.
 
 **Representative sources (see component file comments for wp-page / HTML file):**
 

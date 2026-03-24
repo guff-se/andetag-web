@@ -1,4 +1,4 @@
-import type { Destination, FooterVariantId, HeaderVariantId, Language } from "../layout/types";
+import type { Destination, FooterVariantId, HeaderVariantId, Language } from "../chrome/types";
 import pageShellMeta from "../../data/page-shell-meta.json";
 
 export type PageShellSourceMeta = {

@@ -8,24 +8,24 @@
 
 ## Baseline (S0, before S1)
 
-- [ ] Record baseline commit: run `git rev-parse HEAD` from the **repo root** and paste the full hash on the line below when executing.
-  - Baseline hash: *(agent fills on execution)*
-- [ ] `cd site && npm test && npm run build` (green)
+- [x] Record baseline commit: run `git rev-parse HEAD` from the **repo root** and paste the full hash on the line below when executing.
+  - Baseline hash: `9e187b65ee63db8a62183cf029740c527c329408`
+- [x] `cd site && npm test && npm run build` (green)
 
 ## Phases
 
-- [ ] **S1** — `git mv` `site/src/components/layout` → `site/src/components/chrome`; fix imports; test + build + stale grep
-- [ ] **S2** — `git mv` `site/src/lib/layout` → `site/src/lib/chrome`; fix imports + doc paths; test + build + stale grep
-- [ ] **S3** — `git mv` `site/src/components/pages` → `site/src/components/page-bodies`; fix `[...slug].astro` and cross-imports; test + build + stale grep
-- [ ] **S4** — `git mv` `site/src/lib/pages` → `site/src/lib/page-registry`; fix imports; test + build + stale grep
-- [ ] **S5** — `git mv` `site/src/lib/components` → `site/src/lib/ui-logic`; fix imports; test + build + stale grep
-- [ ] **S6** — `git mv` `site/src/scripts` → `site/src/client-scripts`; fix client imports; test + build + stale grep
-- [ ] **S7** — **N/A (default):** do not add `tsconfig` aliases or rename `lib/routes/` in this run (see plan §6 Phase S7)
-- [ ] **S8** — CI check (workflow paths), `npm test` + `npm run build`, final §6.1 `rg` on `site/src` + `docs` + `AGENTS.md`; Vitest registry parity; optional repo link script if defined
+- [x] **S1** — Renamed the chrome Astro folder under **`site/src/components/`** to **`chrome`**; imports updated; test + build + stale grep
+- [x] **S2** — Renamed chrome model TS under **`site/src/lib/`** to **`chrome`**; imports and docs updated; test + build + stale grep
+- [x] **S3** — Renamed per-route body Astro folder to **`page-bodies`** under **`site/src/components/`**; **`[...slug].astro`** and cross-imports updated; test + build + stale grep
+- [x] **S4** — Renamed body registry TS folder under **`site/src/lib/`** to **`page-registry`**; imports updated; test + build + stale grep
+- [x] **S5** — Renamed TS UI helpers folder under **`site/src/lib/`** to **`ui-logic`**; imports updated; test + build + stale grep
+- [x] **S6** — Renamed client-side TS folder under **`site/src/`** to **`client-scripts`**; Astro imports updated; test + build + stale grep
+- [x] **S7** — **N/A (default):** do not add `tsconfig` aliases or rename `lib/routes/` in this run (see plan §6 Phase S7)
+- [x] **S8** — CI check (workflow paths), `npm test` + `npm run build`, final §6.1 verification on `site/src` + `docs` + `AGENTS.md`; Vitest registry parity; optional repo link script if defined
 
 ## Closure
 
-- [ ] `docs/site-structure-refactor-plan.md`: status **complete**, completion date, link to ADR 0003
-- [ ] `CHANGELOG.md` **Unreleased**: historical-paths note + maintainer-facing path summary (do not rewrite old changelog bullets)
-- [ ] `AGENTS.md`: Code Layout tree and doc table rows match final paths
-- [ ] Grep: zero stale old-path strings in `docs/` and `AGENTS.md` (per plan; `CHANGELOG` history exempt)
+- [x] `docs/site-structure-refactor-plan.md`: status **complete**, completion date, link to ADR 0003
+- [x] `CHANGELOG.md` **Unreleased**: historical-paths note + maintainer-facing path summary (do not rewrite old changelog bullets)
+- [x] `AGENTS.md`: Code Layout tree and doc table rows match final paths
+- [x] Grep: zero stale old-path strings in `docs/` and `AGENTS.md` (per plan; `CHANGELOG` history exempt)

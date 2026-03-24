@@ -25,7 +25,7 @@ Validated with `curl -sI` on deployed Workers static assets:
 
 ## Hreflang and canonical
 
-- BCP47 attribute mapping (`sv-SE`, `en`, `de-DE`) and optional `x-default` via `site/src/lib/layout/seo.ts` and `page-shell-registry.ts`.
+- BCP47 attribute mapping (`sv-SE`, `en`, `de-DE`) and optional `x-default` via `site/src/lib/chrome/seo.ts` and `page-shell-registry.ts`.
 - Spot-check: view source on **`/sv/stockholm/`**, **`/en/stockholm/tickets/`**, **`/de/berlin/`** for `link rel="canonical"` and `alternate` tags (and that **`/`** responds with **`301`** to **`/sv/stockholm/`** where redirects apply).
 
 ## Known exception

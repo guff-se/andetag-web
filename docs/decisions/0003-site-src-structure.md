@@ -11,20 +11,20 @@ Related docs:
 
 ## Context
 
-`site/src/` overloaded the words **layout**, **pages**, and **components** across Astro framework folders, chrome UI, route bodies, and TypeScript helpers. The same vocabulary pointed at different layers, which raises cognitive load and error rates for maintainers (including AI agents). A dual **`scripts/`** name (`site/scripts/` vs `site/src/scripts/`) added recurring confusion.
+`site/src/` overloaded the words **layout**, **pages**, and **components** across Astro framework folders, chrome UI, route bodies, and TypeScript helpers. The same vocabulary pointed at different layers, which raises cognitive load and error rates for maintainers (including AI agents). Tooling lived under **`site/scripts/`** while browser-oriented TypeScript lived under a different folder under **`site/src/`**, both often called “scripts,” which caused recurring confusion.
 
 ## Decision
 
-Execute the phased renames in `docs/site-structure-refactor-plan.md` with these **locked** target names:
+Execute the phased renames in `docs/site-structure-refactor-plan.md` with these **locked** target names (see refactor plan for rationale):
 
-| Current | Target |
-|---------|--------|
-| `components/layout/` | `components/chrome/` |
-| `lib/layout/` | `lib/chrome/` |
-| `components/pages/` | `components/page-bodies/` |
-| `lib/pages/` | `lib/page-registry/` |
-| `lib/components/` | `lib/ui-logic/` |
-| `site/src/scripts/` | `site/src/client-scripts/` |
+| Role | Path under `site/src/` |
+|------|-------------------------|
+| Chrome partials (header, footer, logo) | `components/chrome/` |
+| Chrome and document model (navigation, hero, footer, SEO, types, fixtures) | `lib/chrome/` |
+| Per-route **body** Astro components | `components/page-bodies/` |
+| Body path registry and body-adjacent TS (FAQ modules, `page-body-registry.ts`) | `lib/page-registry/` |
+| TypeScript-only UI helpers (not `*.astro` mirrors) | `lib/ui-logic/` |
+| Client-bundled behavior modules (accordion, hero parallax) | `client-scripts/` |
 
 **Keep unchanged (this pass):**
 
@@ -48,10 +48,10 @@ Execute the phased renames in `docs/site-structure-refactor-plan.md` with these 
 - Pros: Scales if the app grows into many vertical features.
 - Cons: High churn for a migration codebase; registries and `[...slug].astro` already centralize routing.
 
-### Option B: Rename `lib/pages/` → `lib/page-bodies/` (mirror Astro folder)
+### Option B: Name the registry folder **`page-bodies`** under **`lib/`** (mirror Astro)
 
 - Pros: Symmetric naming with `components/page-bodies/`.
-- Cons: Two trees named `page-bodies` invite wrong imports from agents and humans; **`lib/page-registry/`** keeps TS registry + body-adjacent modules (`page-body-registry.ts`, FAQ TS) under one unambiguous label.
+- Cons: Two trees named **page-bodies** invite wrong imports from agents and humans; **`lib/page-registry/`** keeps TS registry + body-adjacent modules (`page-body-registry.ts`, FAQ TS) under one unambiguous label.
 
 ### Option C: `shell` instead of `chrome` for header/footer folders
 
@@ -74,7 +74,7 @@ Execute the phased renames in `docs/site-structure-refactor-plan.md` with these 
 ### Negative
 
 - Large import and documentation churn in one side phase.
-- Agents must run **stale-path grep** (see refactor plan) after each slice; build alone may not catch string-based paths.
+- Agents must run **stale-path checks** (see refactor plan) after each slice; build alone may not catch string-based paths.
 
 ### Operational notes
 
@@ -91,6 +91,6 @@ Execute the phased renames in `docs/site-structure-refactor-plan.md` with these 
 
 ## Follow-up actions
 
-- [ ] Execute phases S1–S8 per `docs/phase-structure-todo.md`.
-- [ ] Mark `docs/site-structure-refactor-plan.md` **complete** with date and link to this ADR.
-- [ ] Optional: add `npm run` script for stale-path detection if manual `rg` proves error-prone.
+- [x] Execute phases S1–S8 per `docs/phase-structure-todo.md`.
+- [x] Mark `docs/site-structure-refactor-plan.md` **complete** with date and link to this ADR.
+- [ ] Optional: add `npm run` script for stale-path detection if manual search proves error-prone.

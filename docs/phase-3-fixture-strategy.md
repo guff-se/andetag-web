@@ -20,7 +20,7 @@ This strategy covers:
 
 ## Implemented Fixture Artifacts (P3-02)
 
-- `site/src/lib/layout/fixtures.ts`
+- `site/src/lib/chrome/fixtures.ts`
   - `NAVIGATION_FIXTURES`
   - `SELECTOR_FIXTURES`
   - `PAGE_LAYOUT_FIXTURES`
@@ -30,11 +30,11 @@ This strategy covers:
 
 ## Tests Wired to Fixture Inputs
 
-- `site/src/lib/layout/layout.test.ts`
+- `site/src/lib/chrome/layout.test.ts`
   - Uses `NAVIGATION_FIXTURES` and `SELECTOR_FIXTURES`
-- `site/src/lib/layout/page-layout.test.ts`
+- `site/src/lib/chrome/page-layout.test.ts`
   - Uses `PAGE_LAYOUT_FIXTURES`
-- `site/src/lib/layout/footer-sv.test.ts`
+- `site/src/lib/chrome/footer-sv.test.ts`
   - Uses footer fixture expectations
 
 ## Fixture Coverage Matrix

@@ -1,4 +1,4 @@
-import type { Destination, Language } from "../layout/types";
+import type { Destination, Language } from "../chrome/types";
 import { STOCKHOLM_SV_EN_PAIRS } from "./page-shell-registry";
 
 /**

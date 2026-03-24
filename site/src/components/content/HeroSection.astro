@@ -1,6 +1,6 @@
 ---
-import { getHeadingTag } from "../../lib/components/presentation";
-import type { HeadingLevel, Cta } from "../../lib/components/types";
+import { getHeadingTag } from "../../lib/ui-logic/presentation";
+import type { HeadingLevel, Cta } from "../../lib/ui-logic/types";
 import ButtonGroup from "./ButtonGroup.astro";
 
 type Props = {
@@ -56,6 +56,6 @@ const hasDefaultSlot = Astro.slots.has("default");
 </section>
 {hasImage ? (
   <script>
-    import "../../scripts/hero-cover-parallax.ts";
+    import "../../client-scripts/hero-cover-parallax.ts";
   </script>
 ) : null}

@@ -1,13 +1,13 @@
 ---
-import type { PageLayoutModel } from "../../lib/layout/page-layout";
-import { getSwedishHeroHeaderModel } from "../../lib/layout/hero-sv";
+import type { PageLayoutModel } from "../../lib/chrome/page-layout";
+import { getSwedishHeroHeaderModel } from "../../lib/chrome/hero-sv";
 import {
   getEnglishStockholmHeroHeaderModel,
   isEnglishStockholmSharedHeroHeader,
-} from "../../lib/layout/hero-en-stockholm";
+} from "../../lib/chrome/hero-en-stockholm";
 import AndetagHeaderLogo from "./AndetagHeaderLogo.astro";
-import { HEADER_SMALL_SV_ASSETS, HERO_SV_ASSETS } from "../../lib/layout/assets";
-import { isHeaderSmallSv } from "../../lib/layout/header-small-sv";
+import { HEADER_SMALL_SV_ASSETS, HERO_SV_ASSETS } from "../../lib/chrome/assets";
+import { isHeaderSmallSv } from "../../lib/chrome/header-small-sv";
 
 const { model, currentPath } = Astro.props as { model: PageLayoutModel; currentPath: string };
 
