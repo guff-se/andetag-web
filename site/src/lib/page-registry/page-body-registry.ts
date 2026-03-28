@@ -3,7 +3,6 @@
  * All other shells keep the Phase 4 placeholder until migrated.
  */
 export const PAGE_CUSTOM_BODY_PATHS: ReadonlySet<string> = new Set([
-  "/en/",
   "/en/about-andetag/",
   "/en/about-the-artists-malin-gustaf-tadaa/",
   "/en/music/",

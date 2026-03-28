@@ -10,7 +10,7 @@ const slugPath = join(__dirname, "../../pages/[...slug].astro");
 
 describe("page body registry", () => {
   it("lists every migrated path in the slug map", () => {
-    expect(PAGE_CUSTOM_BODY_PATHS.size).toBe(47);
+    expect(PAGE_CUSTOM_BODY_PATHS.size).toBe(46);
   });
 
   it("stays aligned with pageBodies map in [...slug].astro", () => {

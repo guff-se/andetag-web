@@ -185,7 +185,7 @@ Source: `docs/phase-4-routing-reopen.md` and `docs/url-migration-policy.md`. Thi
 | **Sitemap and `robots.txt`** including new canonical entry URLs | **Phase 7** | Sitemap is already a Phase 7 deliverable; ensure **`/sv/stockholm/`**, hub, and parity URLs appear only as canonical **keep** rows. |
 | **`docs/Andetag SEO Manual.md`** and hreflang or **`x-default`** examples for new entry behavior | **Phase 5 late or Phase 6** (content) **and Phase 7** (final audit) | Update when routes go live; revalidate in launch hardening. |
 
-**Dependency rule:** do not point production **`/`** or **`/en/`** entry traffic through the Worker until the **minimum static targets** for that configuration return **200**. After the English deferral (2026-03-24), **`/en/`** and **`/en/stockholm/`** may remain **placeholder main** with valid **200** shells until Phase 6 fills bodies; confirm the exact matrix against **`docs/url-migration-policy.md`** before Worker enable.
+**Dependency rule:** do not point production **`/`** or **`/en/`** entry traffic through the Worker until the **minimum static targets** for that configuration return **200**. Phase 6 **P6-01** ships real English bodies for **`/en/stockholm/...`** and English global routes (**`PAGE_CUSTOM_BODY_PATHS`**); **`/en/berlin/...`** and other waves follow **`docs/phase-6-todo.md`**. Confirm the matrix against **`docs/url-migration-policy.md`** before Worker production enable.
 
 ### Phase 5, Page Migration and Iterative Approval
 
@@ -215,7 +215,7 @@ Acceptance checks:
 
 ### Phase 6, Localization Rollout (After Swedish Completion)
 
-**Status (2026-03-24):** **P6-00** **closed** (Gustaf sign-off): Swedish **`sv` / Stockholm** chrome package (stable ids, **`resolveChromeNavigationHref`**, selectors, hero destination row) approved with existing **`/sv/...`** bodies. Evidence: **`docs/phase-6-verification-record.md`**. **P6-01** (English Stockholm + English global): **implementation complete** (**47** **`PAGE_CUSTOM_BODY_PATHS`**, all Wave 1 routes except **`/en/berlin/`**); **ready for Gustaf package inspection**; stakeholder sign-off still open per **`docs/phase-6-todo.md`**.
+**Status (2026-03-24):** **P6-00** **closed** (Gustaf sign-off): Swedish **`sv` / Stockholm** chrome package (stable ids, **`resolveChromeNavigationHref`**, selectors, hero destination row) approved with existing **`/sv/...`** bodies. Evidence: **`docs/phase-6-verification-record.md`**. **P6-01** (English Stockholm + English global): **implementation complete** (**46** custom body paths in **`PAGE_CUSTOM_BODY_PATHS`**; **`/en/`** hub is a header-selector shell and is not in that set; Wave 1 excludes **`/en/berlin/`**, **P6-02**); **ready for Gustaf package inspection**; stakeholder sign-off still open. **Next:** **`docs/phase-6-todo.md`** (**Current position and what is next**).
 
 Goal: localize approved Swedish structures and content into planned non-Swedish locales after Phase 5 sign-off.
 

@@ -67,9 +67,15 @@ function layoutVariantsForPath(
   language: Language,
   destination: Destination,
 ): { headerVariantId: HeaderVariantId; footerVariantId: FooterVariantId } {
+  if (canonicalPath === "/en/") {
+    return {
+      headerVariantId: "chrome-hdr-en-header-selector",
+      footerVariantId: "chrome-ftr-en-stockholm",
+    };
+  }
+
   if (
     canonicalPath === "/sv/stockholm/" ||
-    canonicalPath === "/en/" ||
     canonicalPath === "/en/stockholm/" ||
     canonicalPath === "/de/berlin/"
   ) {

@@ -8,7 +8,6 @@ import BiljetterEn from "../components/page-bodies/BiljetterEn.astro";
 import BiljetterSv from "../components/page-bodies/BiljetterSv.astro";
 import DejtEn from "../components/page-bodies/DejtEn.astro";
 import DejtSv from "../components/page-bodies/DejtSv.astro";
-import EnglishHubEn from "../components/page-bodies/EnglishHubEn.astro";
 import ForetagseventEn from "../components/page-bodies/ForetagseventEn.astro";
 import ForetagseventSv from "../components/page-bodies/ForetagseventSv.astro";
 import FragorSvarEn from "../components/page-bodies/FragorSvarEn.astro";
@@ -69,7 +68,6 @@ type ShellPageBody = typeof MusikSv;
 
 /** Keep keys aligned with `PAGE_CUSTOM_BODY_PATHS` in `lib/page-registry/page-body-registry.ts`. */
 const pageBodies: Partial<Record<string, ShellPageBody>> = {
-  "/en/": EnglishHubEn,
   "/en/about-andetag/": OmAndetagEn,
   "/en/about-the-artists-malin-gustaf-tadaa/": OmKonstnarernaEn,
   "/en/music/": MusikEn,
@@ -118,11 +116,13 @@ const pageBodies: Partial<Record<string, ShellPageBody>> = {
   "/sv/stockholm/vilken-typ-av-upplevelse/": VilkenTypAvUpplevelseSv,
 };
 const PageBody = pageBodies[canonicalPath];
+const headerSelectorOnly = canonicalPath === "/en/";
 
 /** Full-bleed video hero (`SiteHeader.astro`): preload poster + Jost 500 for earlier paint (all breakpoints use video). */
 const heroVideoHeaderIds = new Set<typeof shell.headerVariantId>([
   "chrome-hdr-sv-stockholm-hero",
   "chrome-hdr-en-stockholm-hero",
+  "chrome-hdr-en-header-selector",
   "chrome-hdr-de-berlin-hero",
 ]);
 const lcpImagePreloadHref = heroVideoHeaderIds.has(shell.headerVariantId)
@@ -145,6 +145,13 @@ const lcpFontPreloadHref = heroVideoHeaderIds.has(shell.headerVariantId)
   xDefaultPath={shell.xDefaultPath}
   lcpImagePreloadHref={lcpImagePreloadHref}
   lcpFontPreloadHref={lcpFontPreloadHref}
+  headerSelectorOnly={headerSelectorOnly}
 >
-  {PageBody ? <PageBody /> : <div class="page-shell-placeholder" aria-hidden="true"></div>}
+  {
+    headerSelectorOnly ? null : PageBody ? (
+      <PageBody />
+    ) : (
+      <div class="page-shell-placeholder" aria-hidden="true"></div>
+    )
+  }
 </SiteLayout>

@@ -1204,6 +1204,10 @@ body.lightbox-open {
   margin-bottom: 0;
 }
 
+.page-stockholm-home__lead-eyebrow--page-title h1 {
+  margin-bottom: 0;
+}
+
 /* Own row, centered; CTA width stays content-sized (see `.link-cta-*`). */
 .page-stockholm-home__hitta-row {
   display: flex;

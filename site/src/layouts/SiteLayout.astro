@@ -30,6 +30,8 @@ type Props = {
   lcpImagePreloadHref?: string | null;
   /** Optional WOFF2 preload for above-the-fold UI using that face (Jost 500 on Swedish video hero). */
   lcpFontPreloadHref?: string | null;
+  /** `/en/` hub: only the header-selector hero, no main column or footer. */
+  headerSelectorOnly?: boolean;
 };
 
 const props = Astro.props as Props;
@@ -78,24 +80,36 @@ const model = createPageLayoutModel({
       ))
     }
   </head>
-  <body class={props.bodyClass}>
-    <a class="skip-link" href="#main-content">
-      {props.language === "en"
-        ? "Skip to content"
-        : props.language === "de"
-          ? "Zum Inhalt springen"
-          : "Hoppa till innehåll"}
-    </a>
-    <div class="page-shell">
+  <body
+    class={`${props.bodyClass ?? ""}${props.headerSelectorOnly ? " page-en-selector-only" : ""}`.trim()}
+  >
+    {
+      props.headerSelectorOnly ? (
+        <a class="skip-link" href="#en-selector-actions">Skip to location choice</a>
+      ) : (
+        <a class="skip-link" href="#main-content">
+          {props.language === "en"
+            ? "Skip to content"
+            : props.language === "de"
+              ? "Zum Inhalt springen"
+              : "Hoppa till innehåll"}
+        </a>
+      )
+    }
+    <div class={`page-shell${props.headerSelectorOnly ? " page-shell--en-selector-only" : ""}`.trim()}>
       <SiteHeader model={model} currentPath={Astro.url.pathname} />
-      <main
-        id="main-content"
-        class={`main-content ${props.fullWidthMain ? "main-content-wide" : ""}`.trim()}
-        tabindex="-1"
-      >
-        <slot />
-      </main>
-      <SiteFooter model={model} />
+      {
+        props.headerSelectorOnly ? null : (
+          <main
+            id="main-content"
+            class={`main-content ${props.fullWidthMain ? "main-content-wide" : ""}`.trim()}
+            tabindex="-1"
+          >
+            <slot />
+          </main>
+        )
+      }
+      {props.headerSelectorOnly ? null : <SiteFooter model={model} />}
     </div>
   </body>
 </html>

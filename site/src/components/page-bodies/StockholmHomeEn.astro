@@ -35,7 +35,6 @@ const introAsideImage = {
 } as const;
 
 const introMarkdown = [
-  "<h1>The Breathing Art Museum in Stockholm</h1>",
   "<p>Inside <span class=\"brand-wordmark\">ANDETAG</span>, time stands still.</p>",
   "<p><span class=\"brand-wordmark\">ANDETAG</span> is an immersive art experience in central Stockholm, where light, breath, and music meet in a quiet museum near Hötorget.</p>",
   "<p>In a world where the pace is constantly accelerating, You are invited to slow your breath and be enveloped in an enchanting tapestry of shapes, light, and sound.</p>",
@@ -213,6 +212,12 @@ const vimeoSrc = "https://player.vimeo.com/video/1077937338";
 ---
 
 <div class="page-migrated page-stockholm-home">
+  <section
+    class="content-section align-center page-stockholm-home__lead-eyebrow page-stockholm-home__lead-eyebrow--page-title"
+    aria-label="Introduction"
+  >
+    <h1>The Breathing Art Museum in Stockholm</h1>
+  </section>
   <div class="page-layout-with-aside page-stockholm-home__intro-booking">
     <div class="page-layout-with-aside__main">
       <ContentSection markdown={introMarkdown} />

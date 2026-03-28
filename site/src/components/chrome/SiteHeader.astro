@@ -11,15 +11,18 @@ import { isHeaderSmallSv } from "../../lib/chrome/header-small-sv";
 
 const { model, currentPath } = Astro.props as { model: PageLayoutModel; currentPath: string };
 
+const isEnHeaderSelector = model.header.id === "chrome-hdr-en-header-selector";
+
 const desktopNav = model.navigation;
 const mobileNav = model.navigationMobile;
 const sharedSvHeader =
   model.header.id === "chrome-hdr-sv-stockholm-hero" || isHeaderSmallSv(model.header.id)
     ? getSwedishHeroHeaderModel(currentPath)
     : null;
-const sharedEnHeader = isEnglishStockholmSharedHeroHeader(model.header.id)
-  ? getEnglishStockholmHeroHeaderModel(currentPath)
-  : null;
+const sharedEnHeader =
+  isEnglishStockholmSharedHeroHeader(model.header.id) || isEnHeaderSelector
+    ? getEnglishStockholmHeroHeaderModel(currentPath)
+    : null;
 const sharedHero = sharedSvHeader ?? sharedEnHeader;
 const heroLocale = sharedSvHeader ? "sv" : sharedEnHeader ? "en" : null;
 const isSmallHero = Boolean(sharedHero && model.header.kind === "small");
@@ -32,7 +35,10 @@ const logoHomeAria = heroLocale === "en" ? "Go to homepage" : "Till startsidan";
 
 {
 sharedHero ? (
-<header class={`shared-hero-header${isSmallHero ? " is-small" : ""}`} id="andetag-header">
+<header
+  class={`shared-hero-header${isSmallHero ? " is-small" : ""}${isEnHeaderSelector ? " shared-hero-header--selector" : ""}`}
+  id="andetag-header"
+>
   <div class="shared-hero-media-layer">
     {
       isSmallHero ? (
@@ -79,29 +85,53 @@ sharedHero ? (
         <div class="shared-hero-lang-top">
           {sharedHero.topLanguages.map((language) => <a href={language.href}>{language.label}</a>)}
         </div>
-        <div class="shared-hero-dest-top" aria-label={destAria}>
-          {
-            sharedHero.destinationOptions.map((opt) => (
-              <a
-                href={opt.href}
-                class={opt.active ? "is-active" : undefined}
-                aria-current={opt.active ? "page" : undefined}
-              >
-                {opt.label}
-              </a>
-            ))
-          }
-        </div>
+        {
+          !isEnHeaderSelector ? (
+            <div class="shared-hero-dest-top" aria-label={destAria}>
+              {
+                sharedHero.destinationOptions.map((opt) => (
+                  <a
+                    href={opt.href}
+                    class={opt.active ? "is-active" : undefined}
+                    aria-current={opt.active ? "page" : undefined}
+                  >
+                    {opt.label}
+                  </a>
+                ))
+              }
+            </div>
+          ) : null
+        }
       </div>
     </div>
 
     {!isSmallHero && (
       <div class="shared-hero-center">
-        <a class="shared-hero-cta" href={model.header.ctaHref}>{model.header.ctaLabel}</a>
+        {
+          isEnHeaderSelector ? (
+            <div
+              class="shared-hero-selector-ctas"
+              id="en-selector-actions"
+              role="group"
+              aria-label="Choose a location"
+            >
+              <a class="shared-hero-cta shared-hero-cta--selector-primary" href="/en/stockholm/">
+                Stockholm
+              </a>
+              <a class="shared-hero-cta shared-hero-cta--selector-secondary" href="/en/berlin/">
+                Berlin
+              </a>
+            </div>
+          ) : (
+            <a class="shared-hero-cta" href={model.header.ctaHref}>{model.header.ctaLabel}</a>
+          )
+        }
       </div>
     )}
   </div>
 
+  {!isEnHeaderSelector ? (
+    <>
   <div class="shared-hero-nav-shell" data-hero-nav-shell>
     <nav class="shared-hero-nav" aria-label={navAria}>
       <ul class="shared-hero-menu">
@@ -172,6 +202,8 @@ sharedHero ? (
       </ul>
     </nav>
   </div>
+    </>
+  ) : null}
 </header>
 ) : (
 <header class="header-root" id="andetag-header">

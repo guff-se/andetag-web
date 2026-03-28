@@ -75,11 +75,12 @@ Reference docs before implementation:
 | `docs/phase-4-todo.md` | Execution checklist for Phase 4 routing, redirects, canonical or hreflang wiring, and URL coverage validation. |
 | `docs/phase-5-todo.md` | Historical Phase 5 execution checklist; **status complete** (2026-03-24, Swedish `/sv/` migration). Carry-forward items **`P5-05`–`P5-07`** in **`docs/phase-6-todo.md`**. |
 | `docs/phase-5-verification-record.md` | Phase 5 evidence, per-page design approvals, P5-01 static target note, Lighthouse summary, **EX-0014**, stakeholder sign-off (**closed** 2026-03-24). |
-| `docs/phase-6-todo.md` | Localization (**`en`**, **`de`**) and Phase 5 carry-forward (Worker, SEO manual live entry, optional Berlin bodies). |
+| `docs/phase-6-todo.md` | Localization (**`en`**, **`de`**) and Phase 5 carry-forward. Start with **Current position and what is next** for wave status (**P6-01**–**P6-03**). |
 | `docs/phase-6-verification-record.md` | Phase 6 evidence and Gustaf sign-off per slice (**P6-00** chrome package, later waves). |
 | `docs/phase-7-todo.md` | Execution checklist for Phase 7 scripts, consent, analytics, favicon, sharing metadata, schema.org, sitemap, and launch hardening. |
 | `docs/phase-4-route-coverage.md` | URL matrix to Astro shell and `_redirects` mapping for Phase 4 route coverage. |
 | `docs/phase-4-routing-reopen.md` | Post-closure routing revisit: location and language matrix, Berlin or Stockholm parity, global pages and navigation. |
+| `docs/routing-location-scoped-global-pages-plan.md` | Execution plan: move story or global pages under location-prefixed routes, redirects, canonical, chrome, and docs (when approved). |
 | `docs/phase-4-redirect-tests.md` | Redirect test table and execution log for Cloudflare Pages `public/_redirects`. |
 | `docs/phase-4-404.md` | Phase 4 global `404` behavior and accessibility notes. |
 | `docs/phase-4-verification-record.md` | Phase 4 verification evidence and stakeholder sign-off (parallel to Phase 3 record). |
@@ -198,7 +199,10 @@ web/
 ```bash
 python3 -m py_compile spider.py
 python3 spider.py
+python3 -m unittest tests.test_spider_versioning
 ```
+
+**`spider.py`:** By default each run writes **`crawl-versions/<id>/`**, diffs against the prior run, and writes **`MIGRATION_CHANGELOG.md`** in that folder before promoting to **`site-html/`** and **`site-md/`**. Use **`python3 spider.py --legacy`** for a simple refresh with no archive or changelog (large disk use on repeated full crawls: consider pruning old **`crawl-versions/*`** manually or via git ignore if you do not commit archives).
 
 Astro workspace (`site/`): `npm test` and `npm run build` (also run on `push` to `main` via `.github/workflows/ci.yml`).
 

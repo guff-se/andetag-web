@@ -6,6 +6,8 @@ export type HeaderVariantId =
   | "chrome-hdr-sv-stockholm-hero"
   | "chrome-hdr-sv-stockholm-small"
   | "chrome-hdr-en-stockholm-hero"
+  /** English hub `/en/`: full-viewport hero, Stockholm and Berlin CTAs, no nav strip. */
+  | "chrome-hdr-en-header-selector"
   | "chrome-hdr-en-stockholm-small"
   /** English global story pages: same small shell as `chrome-hdr-en-stockholm-small`, `en-brand` desktop nav. */
   | "chrome-hdr-en-stockholm-brand"

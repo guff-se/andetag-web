@@ -34,6 +34,15 @@ export const HEADER_VARIANTS: Record<HeaderVariantId, HeaderVariant> = {
     ctaLabel: "Find Tickets",
     ctaHref: "#book",
   },
+  "chrome-hdr-en-header-selector": {
+    id: "chrome-hdr-en-header-selector",
+    language: "en",
+    kind: "hero",
+    navVariantDesktop: "en-main",
+    navVariantMobile: "en-main",
+    ctaLabel: "",
+    ctaHref: "/en/stockholm/",
+  },
   "chrome-hdr-en-stockholm-small": {
     id: "chrome-hdr-en-stockholm-small",
     language: "en",

@@ -7,13 +7,31 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ## [Unreleased]
 
+### Added
+
+- **`docs/routing-location-scoped-global-pages-plan.md`:** Step-by-step plan for location-prefixed story routes, redirects, SEO canonical split, chrome or nav changes, internal links, tests, and doc updates. **`AGENTS.md`** documentation table entry. **Why:** approved execution checklist before implementing dual English paths and retiring the English global menu.
+
+- **`docs/routing-location-scoped-global-pages-plan.md` (update):** **Locked decisions** table (location in all paths except entry home, **`hreflang`** same-location only, **`x-default`** by city, **`en-brand`** removal, single-wave rollout). **Redirect scope:** **`301`** only for URLs that existed on the **original** site sitemap; no redirects for never-published paths (e.g. migration-only German slugs). **Why:** freeze spec and avoid fictitious redirect rows.
+
+- **`docs/routing-location-scoped-global-pages-plan.md` (update):** Slug rule (old slugs + location only); exceptions **`/`** and **`/en/`**; **privacy** as **four** location pages with Berlin copy rewrite; **single-hop** **`301`** only (no chains); **`hreflang`** vs Berlin English **canonical** ship now and **revisit** after GSC. **Why:** close clarifications before implementation.
+
+- **`spider.py` versioned crawls:** Default run archives each crawl under **`crawl-versions/<UTC-id>/`** (`html/`, `md/`), diffs against the previous snapshot, writes **`MIGRATION_CHANGELOG.md`** (summary tables plus truncated unified diffs for text files), updates **`crawl-versions/manifest.json`**, then copies the new snapshot to **`site-html/`** and **`site-md/`**. **`--legacy`** keeps the old wipe-and-crawl-only behavior. **`--base-url`**, **`--versions-dir`**, **`--html-dir`**, **`--md-dir`** are available. Unit tests in **`tests/test_spider_versioning.py`**. **Why:** track live-site changes and feed a concrete checklist for updating the Astro migration.
+
+### Fixed
+
+- **`/en/stockholm/`:** Page **h1** is full width above the intro and booking columns (was inside the main column next to the embed). **`StockholmHomeEn.astro`**, **`components.css`**.
+
 ### Changed
+
+- **Docs · Phase 6 process clarity:** **`docs/phase-6-todo.md`** adds **Current position and what is next** (status table and immediate actions). **`docs/phase-6-verification-record.md`**, **`docs/grand-plan.md`**, **`docs/definition-of-done.md`**, **`AGENTS.md`** (`phase-6-todo` row) point to it. **Why:** single entry point for where the migration is and what happens after **P6-01** sign-off.
+
+- **English `/en/` entry:** Replaced the minimal hub body (**`EnglishHubEn.astro`**, removed) with **`chrome-hdr-en-header-selector`**: same full-viewport video hero as English Stockholm, **Stockholm** and **Berlin** CTAs in place of **Find Tickets**, desktop and mobile menu strips removed, no **`<main>`** and no footer (**`SiteLayout.astro`** **`headerSelectorOnly`**). Registry (**`page-shell-registry.ts`**), **`layout.css`**, **`content-model.md`**, **`docs/phase-6-verification-record.md`**. **`PAGE_CUSTOM_BODY_PATHS`** is **46** entries. **Why:** hub is location choice only, hero-parity shell.
 
 - **Site structure refactor (complete, 2026-03-24):** **`site/src/`** folders renamed per **`docs/decisions/0003-site-src-structure.md`**: **`components/chrome`**, **`lib/chrome`**, **`components/page-bodies`**, **`lib/page-registry`**, **`lib/ui-logic`**, **`client-scripts/`** (under **`site/src/`**). Imports, Vitest, and **`npm run build`** updated; **`docs/`**, **`AGENTS.md`** Code Layout tree, **`docs/site-structure-refactor-plan.md`** (status **complete**), **`docs/phase-structure-todo.md`** (S0–S8 checked). **Why:** disambiguate layout, pages, and components; align docs with the Astro workspace.
 
 - **Changelog historical paths:** Entries dated **before 2026-03-24** may still name pre-refactor **`site/src/`** paths verbatim; do not rewrite old bullets. Current paths are summarized in the bullet above and in **`AGENTS.md`**.
 
-- **Phase 6 · P6-01 · English Wave 1 bodies wired:** All in-scope **`/en/stockholm/...`** and English global routes (except **`/en/berlin/`**, **P6-02**) render migrated **`*En.astro`** bodies via **`PAGE_CUSTOM_BODY_PATHS`** (**47** entries with **`/sv/...`**) and **`[...slug].astro`**. Includes **`StockholmHomeEn`** (**EX-0007** resolved in **`docs/migration-exceptions.md`**), **`OmAndetagEn`**, **`OmKonstnarernaEn`**, **`BesokaromdomenEn`** (static Tripadvisor excerpts; slider still omitted per **EX-0012**), and the remaining English page components from **`site-html/`** English sources. **`page-body-registry.test.ts`** updated. **`docs/phase-6-todo.md`**, **`docs/phase-6-verification-record.md`**, **`docs/grand-plan.md`**. **`npm test`** and **`npm run build`** verified. **Why:** Wave 1 ready for Gustaf package inspection before sign-off.
+- **Phase 6 · P6-01 · English Wave 1 bodies wired:** All in-scope **`/en/stockholm/...`** and English global routes (except **`/en/berlin/`**, **P6-02**) render migrated **`*En.astro`** bodies via **`PAGE_CUSTOM_BODY_PATHS`** (**46** entries with **`/sv/...`**; **`/en/`** is header-only) and **`[...slug].astro`**. Includes **`StockholmHomeEn`** (**EX-0007** resolved in **`docs/migration-exceptions.md`**), **`OmAndetagEn`**, **`OmKonstnarernaEn`**, **`BesokaromdomenEn`** (static Tripadvisor excerpts; slider still omitted per **EX-0012**), and the remaining English page components from **`site-html/`** English sources. **`page-body-registry.test.ts`** updated. **`docs/phase-6-todo.md`**, **`docs/phase-6-verification-record.md`**, **`docs/grand-plan.md`**. **`npm test`** and **`npm run build`** verified. **Why:** Wave 1 ready for Gustaf package inspection before sign-off.
 
 - **`navigation.ts`** **`en-main`:** Visit parent **`/en/stockholm/`**; matrix-backed paths (**`/en/stockholm/giftcard/`**, **`date/`**, **`group-bookings/`**, **`what-kind-of-experience/`**); Groups submenu lists group bookings and corporate events. Matches **`docs/url-matrix.csv`** and **`STOCKHOLM_SV_EN_PAIRS`**. **Why:** hero, footer, and desktop nav must not point at non-canonical English slugs.
 

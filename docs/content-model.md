@@ -126,6 +126,7 @@ Site shell uses **stable** ids (not WordPress Elementor post ids). Source of tru
 | `chrome-hdr-sv-stockholm-hero` | Swedish Stockholm full hero (video) |
 | `chrome-hdr-sv-stockholm-small` | Swedish Stockholm small hero |
 | `chrome-hdr-en-stockholm-hero` | English Stockholm hub hero |
+| `chrome-hdr-en-header-selector` | English entry **`/en/`**: full-viewport video hero, Stockholm and Berlin CTAs only (no nav strip, no main/footer) |
 | `chrome-hdr-en-stockholm-small` | English Stockholm small header |
 | `chrome-hdr-en-stockholm-brand` | English global story pages (brand desktop nav) |
 | `chrome-hdr-en-berlin-hero` | English Berlin hub hero |
@@ -135,7 +136,7 @@ Site shell uses **stable** ids (not WordPress Elementor post ids). Source of tru
 
 **Footers (`footerVariantId`):** `chrome-ftr-sv-stockholm`, `chrome-ftr-en-stockholm`, `chrome-ftr-en-berlin`, `chrome-ftr-de-berlin`.
 
-**Implementation (labels and internal URLs):** Swedish Stockholm chrome menu and footer columns live in **`site/src/lib/chrome/hero-sv.ts`** and **`footer-sv.ts`**. English Stockholm shared hero and footer (for **`chrome-hdr-en-stockholm-hero`**, **`chrome-hdr-en-stockholm-small`**, **`chrome-ftr-en-stockholm`**) live in **`hero-en-stockholm.ts`** and **`footer-en-stockholm.ts`**, aligned with **`docs/url-matrix.csv`** and **`navigation.ts`** **`en-main`**. **`STOCKHOLM_SV_EN_PAIRS`** in **`page-shell-registry.ts`** includes NPF and the four Swedish SEO landings with their English canonical paths (for example **`/sv/stockholm/npf-stockholm/`** ↔ **`/en/stockholm/npf-visitors/`**). **`chrome-hdr-en-stockholm-brand`** still uses the simplified **`header-root`** shell in **`SiteHeader.astro`**.
+**Implementation (labels and internal URLs):** Swedish Stockholm chrome menu and footer columns live in **`site/src/lib/chrome/hero-sv.ts`** and **`footer-sv.ts`**. English Stockholm shared hero and footer (for **`chrome-hdr-en-stockholm-hero`**, **`chrome-hdr-en-stockholm-small`**, **`chrome-ftr-en-stockholm`**) live in **`hero-en-stockholm.ts`** and **`footer-en-stockholm.ts`**, aligned with **`docs/url-matrix.csv`** and **`navigation.ts`** **`en-main`**. **`chrome-hdr-en-header-selector`** (**`/en/`**) reuses the English hero media and top bar in **`SiteHeader.astro`**, omits the menu strips, and uses **`SiteLayout.astro`** **`headerSelectorOnly`** so there is no **`<main>`** or footer. **`STOCKHOLM_SV_EN_PAIRS`** in **`page-shell-registry.ts`** includes NPF and the four Swedish SEO landings with their English canonical paths (for example **`/sv/stockholm/npf-stockholm/`** ↔ **`/en/stockholm/npf-visitors/`**). **`chrome-hdr-en-stockholm-brand`** still uses the simplified **`header-root`** shell in **`SiteHeader.astro`**.
 
 **Legacy alias (tests / EX-0005 only):** `header-4136` → resolves to `chrome-hdr-en-berlin-hero` via **`getResolvedHeaderVariantId`**.
 
