@@ -23,7 +23,7 @@ describe("swedish hero header model", () => {
 
     expect(model.languageFlags[0]?.code).toBe("sv");
     expect(model.languageFlags[0]?.active).toBe(true);
-    expect(model.languageFlags.map((flag) => flag.code)).toEqual(["sv", "en", "de"]);
+    expect(model.languageFlags.map((flag) => flag.code)).toEqual(["sv", "en"]);
   });
 
   it("keeps Swedish characters in labels", () => {

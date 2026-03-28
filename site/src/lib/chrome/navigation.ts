@@ -15,7 +15,7 @@ const DESTINATION_LABELS: Record<Destination, string> = {
   berlin: "Berlin",
 };
 
-const LANGUAGE_LABELS: Record<Language, string> = {
+export const CHROME_LANGUAGE_LABELS: Record<Language, string> = {
   sv: "Svenska",
   en: "English",
   de: "Deutsch",
@@ -34,6 +34,26 @@ const DESTINATION_HOME_PATHS: Record<Destination, Record<Language, string | null
   },
 };
 
+/** Languages with a real home (and chrome) for this destination; excludes impossible pairs (e.g. German Stockholm). */
+export function getLanguagesAvailableForDestination(destination: Destination): Language[] {
+  return (["sv", "en", "de"] as const).filter(
+    (lang) => DESTINATION_HOME_PATHS[destination][lang] != null,
+  );
+}
+
+export function getChromeTopLanguageAlternates(input: {
+  canonicalPath: string;
+  language: Language;
+  destination: Destination;
+}): Array<{ label: string; href: string }> {
+  return getLanguagesAvailableForDestination(input.destination)
+    .filter((lang) => lang !== input.language)
+    .map((lang) => ({
+      label: CHROME_LANGUAGE_LABELS[lang],
+      href: resolveChromeNavigationHref(input.canonicalPath, { language: lang }),
+    }));
+}
+
 const NAVIGATION_VARIANTS: Record<NavigationVariant["id"], NavigationVariant> = {
   "sv-main": {
     id: "sv-main",
@@ -41,39 +61,40 @@ const NAVIGATION_VARIANTS: Record<NavigationVariant["id"], NavigationVariant> = 
     destination: "stockholm",
     items: [
       {
-        label: "Besok",
-        href: "/sv/stockholm/biljetter/",
+        label: "Besök",
         children: [
           { label: "Biljetter", href: "/sv/stockholm/biljetter/" },
-          { label: "Sasongskort", href: "/sv/stockholm/sasongskort/" },
+          { label: "Säsongskort", href: "/sv/stockholm/sasongskort/" },
           { label: "Presentkort", href: "/sv/stockholm/presentkort/" },
-          { label: "Oppettider", href: "/sv/stockholm/oppettider/" },
+          { label: "Öppettider", href: "/sv/stockholm/oppettider/" },
+          { label: "Tillgänglighet", href: "/sv/stockholm/tillganglighet/" },
           { label: "Hitta till oss", href: "/sv/stockholm/hitta-hit/" },
-          { label: "Tillganglighet", href: "/sv/stockholm/tillganglighet/" },
-          { label: "Vanliga fragor", href: "/sv/stockholm/fragor-svar/" },
+          { label: "Vanliga frågor", href: "/sv/stockholm/fragor-svar/" },
         ],
       },
       {
         label: "Upplevelsen",
-        href: "/sv/stockholm/dejt/",
         children: [
-          { label: "Dejt pa ANDETAG", href: "/sv/stockholm/dejt/" },
+          { label: "Hur är ANDETAG?", href: "/sv/stockholm/vilken-typ-av-upplevelse/" },
           { label: "Art Yoga", href: "/sv/stockholm/art-yoga/" },
-          { label: "Musiken", href: "/sv/stockholm/musik/" },
+          { label: "Dejt på ANDETAG", href: "/sv/stockholm/dejt/" },
+          { label: "NPF-besökare", href: "/sv/stockholm/npf-stockholm/" },
         ],
       },
       {
         label: "Grupper",
-        href: "/sv/stockholm/foretagsevent/",
-        children: [{ label: "Foretagsevent", href: "/sv/stockholm/foretagsevent/" }],
+        children: [
+          { label: "Gruppbokningar", href: "/sv/stockholm/gruppbokning/" },
+          { label: "Företagsevent", href: "/sv/stockholm/foretagsevent/" },
+        ],
       },
       {
-        label: "Om ANDETAG",
-        href: "/sv/stockholm/om-andetag/",
+        label: "Om",
         children: [
+          { label: "Om ANDETAG", href: "/sv/stockholm/om-andetag/" },
           { label: "Textilen", href: "/sv/stockholm/optisk-fibertextil/" },
-          { label: "Om konstnarerna", href: "/sv/stockholm/om-konstnarerna-malin-gustaf-tadaa/" },
-          { label: "ANDETAG Berlin", href: "/de/berlin/" },
+          { label: "Musiken", href: "/sv/stockholm/musik/" },
+          { label: "Om konstnärerna", href: "/sv/stockholm/om-konstnarerna-malin-gustaf-tadaa/" },
         ],
       },
       { label: "Biljetter", href: "/sv/stockholm/biljetter/", cta: true },
@@ -86,42 +107,39 @@ const NAVIGATION_VARIANTS: Record<NavigationVariant["id"], NavigationVariant> = 
     items: [
       {
         label: "Visit",
-        href: "/en/stockholm/",
         children: [
           { label: "Tickets", href: "/en/stockholm/tickets/" },
           { label: "Season pass", href: "/en/stockholm/season-pass/" },
           { label: "Gift cards", href: "/en/stockholm/giftcard/" },
           { label: "Opening hours", href: "/en/stockholm/opening-hours/" },
-          { label: "How to find us", href: "/en/stockholm/how-to-find-us/" },
           { label: "Accessibility", href: "/en/stockholm/accessibility/" },
+          { label: "How to find us", href: "/en/stockholm/how-to-find-us/" },
           { label: "FAQ", href: "/en/stockholm/faq/" },
         ],
       },
       {
         label: "The Experience",
-        href: "/en/stockholm/what-kind-of-experience/",
         children: [
+          { label: "What is it", href: "/en/stockholm/what-kind-of-experience/" },
+          { label: "Art Yoga", href: "/en/stockholm/art-yoga/" },
           { label: "Romantic date", href: "/en/stockholm/date/" },
           { label: "NPF visitors", href: "/en/stockholm/npf-visitors/" },
-          { label: "Art Yoga", href: "/en/stockholm/art-yoga/" },
-          { label: "The Music", href: "/en/stockholm/music/" },
         ],
       },
       {
         label: "Groups",
-        href: "/en/stockholm/group-bookings/",
         children: [
-          { label: "Group bookings / private events", href: "/en/stockholm/group-bookings/" },
-          { label: "Corporate events", href: "/en/stockholm/corporate-events/" },
+          { label: "Group bookings", href: "/en/stockholm/group-bookings/" },
+          { label: "Events", href: "/en/stockholm/corporate-events/" },
         ],
       },
       {
-        label: "About ANDETAG",
-        href: "/en/stockholm/about-andetag/",
+        label: "About",
         children: [
+          { label: "About ANDETAG", href: "/en/stockholm/about-andetag/" },
           { label: "The Textile", href: "/en/stockholm/optical-fibre-textile/" },
-          { label: "About the Artists", href: "/en/stockholm/about-the-artists-malin-gustaf-tadaa/" },
-          { label: "ANDETAG Berlin", href: "/en/berlin/" },
+          { label: "The Music", href: "/en/stockholm/music/" },
+          { label: "The Artists", href: "/en/stockholm/about-the-artists-malin-gustaf-tadaa/" },
         ],
       },
       { label: "Tickets", href: "/en/stockholm/tickets/", cta: true },
@@ -196,9 +214,9 @@ export function getLanguageSelectorOptions(input: {
   destination: Destination;
   canonicalPath: string;
 }): SelectorOption<Language>[] {
-  return (["sv", "en", "de"] as const).map((language) => ({
+  return getLanguagesAvailableForDestination(input.destination).map((language) => ({
     value: language,
-    label: LANGUAGE_LABELS[language],
+    label: CHROME_LANGUAGE_LABELS[language],
     href: resolveChromeNavigationHref(input.canonicalPath, { language }),
     active: language === input.language,
   }));

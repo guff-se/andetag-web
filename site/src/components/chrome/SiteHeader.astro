@@ -138,7 +138,11 @@ sharedHero ? (
         {
           sharedHero.menuItems.map((item) => (
             <li class={`shared-hero-menu-item${item.active ? " is-active" : ""}`}>
-              <a href={item.href}>{item.label}</a>
+              {item.href ? (
+                <a href={item.href}>{item.label}</a>
+              ) : (
+                <span class="shared-hero-menu-heading">{item.label}</span>
+              )}
               <ul class="shared-hero-submenu">
                 {item.subMenu.map((subItem) => <li><a href={subItem.href}>{subItem.label}</a></li>)}
               </ul>
@@ -190,8 +194,10 @@ sharedHero ? (
                     {item.subMenu.map((subItem) => <li><a href={subItem.href}>{subItem.label}</a></li>)}
                   </ul>
                 </details>
-              ) : (
+              ) : item.href ? (
                 <a href={item.href}>{item.label}</a>
+              ) : (
+                <span class="shared-hero-mobile-menu-heading">{item.label}</span>
               )}
             </li>
           ))
@@ -242,9 +248,13 @@ sharedHero ? (
         {
           desktopNav.items.map((item) => (
             <li class="nav-item">
-              <a class={`nav-link${item.cta ? " is-cta" : ""}`} href={item.href}>
-                {item.label}
-              </a>
+              {item.href ? (
+                <a class={`nav-link${item.cta ? " is-cta" : ""}`} href={item.href}>
+                  {item.label}
+                </a>
+              ) : (
+                <span class="nav-link nav-link--section">{item.label}</span>
+              )}
               {
                 item.children && (
                   <ul class="sub-nav">
@@ -300,9 +310,13 @@ sharedHero ? (
         {
           mobileNav.items.map((item) => (
             <li class="nav-item">
-              <a class={`nav-link${item.cta ? " is-cta" : ""}`} href={item.href}>
-                {item.label}
-              </a>
+              {item.href ? (
+                <a class={`nav-link${item.cta ? " is-cta" : ""}`} href={item.href}>
+                  {item.label}
+                </a>
+              ) : (
+                <span class="nav-link nav-link--section">{item.label}</span>
+              )}
             </li>
           ))
         }

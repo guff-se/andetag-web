@@ -1,4 +1,9 @@
-import type { HeaderVariantId } from "./types";
+import type { HeaderVariantId, Language } from "./types";
+import {
+  CHROME_LANGUAGE_LABELS,
+  getChromeTopLanguageAlternates,
+  getLanguagesAvailableForDestination,
+} from "./navigation";
 import {
   inferChromePathContext,
   resolveChromeNavigationHref,
@@ -11,28 +16,34 @@ type HeroSubMenuItem = {
 
 type HeroMenuItem = {
   label: string;
-  href: string;
+  /** `null` when the top row is a non-link section heading. */
+  href: string | null;
   active: boolean;
   subMenu: HeroSubMenuItem[];
 };
 
 type FlagItem = {
-  code: "sv" | "en" | "de";
+  code: Language;
   href: string;
   active: boolean;
   label: string;
   flag: string;
 };
 
+const FLAG_BY_LANGUAGE: Record<Language, string> = {
+  sv: "🇸🇪",
+  en: "🇬🇧",
+  de: "🇩🇪",
+};
+
 const MENU_DEFINITION: Array<{
   label: string;
-  href: string;
+  href?: string;
   matchPrefixes: string[];
   subMenu: HeroSubMenuItem[];
 }> = [
   {
     label: "Visit",
-    href: "/en/stockholm/",
     matchPrefixes: [
       "/en/",
       "/en/stockholm/",
@@ -49,14 +60,13 @@ const MENU_DEFINITION: Array<{
       { label: "Season pass", href: "/en/stockholm/season-pass/" },
       { label: "Gift cards", href: "/en/stockholm/giftcard/" },
       { label: "Opening hours", href: "/en/stockholm/opening-hours/" },
-      { label: "How to find us", href: "/en/stockholm/how-to-find-us/" },
       { label: "Accessibility", href: "/en/stockholm/accessibility/" },
+      { label: "How to find us", href: "/en/stockholm/how-to-find-us/" },
       { label: "FAQ", href: "/en/stockholm/faq/" },
     ],
   },
   {
     label: "The Experience",
-    href: "/en/stockholm/what-kind-of-experience/",
     matchPrefixes: [
       "/en/stockholm/what-kind-of-experience/",
       "/en/stockholm/date/",
@@ -67,36 +77,35 @@ const MENU_DEFINITION: Array<{
       "/en/stockholm/exhibition-stockholm/",
       "/en/stockholm/art-yoga/",
       "/en/stockholm/visitor-reviews/",
-      "/en/stockholm/music/",
     ],
     subMenu: [
+      { label: "What is it", href: "/en/stockholm/what-kind-of-experience/" },
+      { label: "Art Yoga", href: "/en/stockholm/art-yoga/" },
       { label: "Romantic date", href: "/en/stockholm/date/" },
       { label: "NPF visitors", href: "/en/stockholm/npf-visitors/" },
-      { label: "Art Yoga", href: "/en/stockholm/art-yoga/" },
-      { label: "The Music", href: "/en/stockholm/music/" },
     ],
   },
   {
     label: "Groups",
-    href: "/en/stockholm/group-bookings/",
     matchPrefixes: ["/en/stockholm/group-bookings/", "/en/stockholm/corporate-events/"],
     subMenu: [
-      { label: "Group bookings / private events", href: "/en/stockholm/group-bookings/" },
-      { label: "Corporate events", href: "/en/stockholm/corporate-events/" },
+      { label: "Group bookings", href: "/en/stockholm/group-bookings/" },
+      { label: "Events", href: "/en/stockholm/corporate-events/" },
     ],
   },
   {
-    label: "About ANDETAG",
-    href: "/en/stockholm/about-andetag/",
+    label: "About",
     matchPrefixes: [
       "/en/stockholm/about-andetag/",
       "/en/stockholm/optical-fibre-textile/",
       "/en/stockholm/about-the-artists-malin-gustaf-tadaa/",
+      "/en/stockholm/music/",
     ],
     subMenu: [
+      { label: "About ANDETAG", href: "/en/stockholm/about-andetag/" },
       { label: "The Textile", href: "/en/stockholm/optical-fibre-textile/" },
-      { label: "About the Artists", href: "/en/stockholm/about-the-artists-malin-gustaf-tadaa/" },
-      { label: "ANDETAG Berlin", href: "/en/berlin/" },
+      { label: "The Music", href: "/en/stockholm/music/" },
+      { label: "The Artists", href: "/en/stockholm/about-the-artists-malin-gustaf-tadaa/" },
     ],
   },
 ];
@@ -122,41 +131,28 @@ export function getEnglishStockholmHeroHeaderModel(pathname: string) {
 
   const menuItems: HeroMenuItem[] = MENU_DEFINITION.map((item) => ({
     label: item.label,
-    href: item.href,
+    href: item.href ?? null,
     active: pathMatches(pathname, item.matchPrefixes),
     subMenu: item.subMenu,
   }));
 
-  const languageFlags: FlagItem[] = [
-    {
-      code: "sv",
-      href: resolveChromeNavigationHref(pathname, { language: "sv" }),
-      active: chromeCtx.language === "sv",
-      label: "Svenska",
-      flag: "🇸🇪",
-    },
-    {
-      code: "en",
-      href: resolveChromeNavigationHref(pathname, { language: "en" }),
-      active: chromeCtx.language === "en",
-      label: "English",
-      flag: "🇬🇧",
-    },
-    {
-      code: "de",
-      href: resolveChromeNavigationHref(pathname, { language: "de" }),
-      active: chromeCtx.language === "de",
-      label: "Deutsch",
-      flag: "🇩🇪",
-    },
-  ];
+  const languageFlags: FlagItem[] = getLanguagesAvailableForDestination(chromeCtx.destination).map(
+    (code) => ({
+      code,
+      href: resolveChromeNavigationHref(pathname, { language: code }),
+      active: chromeCtx.language === code,
+      label: CHROME_LANGUAGE_LABELS[code],
+      flag: FLAG_BY_LANGUAGE[code],
+    }),
+  );
 
   return {
     logoHomeHref: pathname === "/en/" ? "/en/" : "/en/stockholm/",
-    topLanguages: [
-      { label: "Svenska", href: resolveChromeNavigationHref(pathname, { language: "sv" }) },
-      { label: "Deutsch", href: resolveChromeNavigationHref(pathname, { language: "de" }) },
-    ],
+    topLanguages: getChromeTopLanguageAlternates({
+      canonicalPath: pathname,
+      language: chromeCtx.language,
+      destination: chromeCtx.destination,
+    }),
     destinationOptions: [
       {
         label: "Stockholm",

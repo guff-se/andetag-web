@@ -118,8 +118,8 @@ const privatMarkdown = [
 ].join("");
 
 const artYogaMarkdown = [
-  "<p>Art Yoga är en långsam yogaklass i Andetags omslutande konstmiljö i centrala Stockholm.<br />En plats att röra sig, andas och landa, mitt i staden.</p>",
-  "<p>Omgiven av glödande textilkonst och levande ljus leds klassen av yogaläraren <strong>Fabian Macklin</strong>.<br />Rörelse, andning och närvaro vävs samman i ett mjukt tempo.<br />Fokus ligger på att lyssna in kroppen snarare än att prestera.</p>",
+  "<p>Art Yoga är en långsam yogaklass i Andetags omslutande konstmiljö i centrala Stockholm. En plats att röra sig, andas och landa, mitt i staden.</p>",
+  "<p>Omgiven av glödande textilkonst och levande ljus leds klassen av yogaläraren <strong>Fabian Macklin</strong>. Rörelse, andning och närvaro vävs samman i ett mjukt tempo. Fokus ligger på att lyssna in kroppen snarare än att prestera.</p>",
   "<p>Klassen är öppen för både nybörjare och erfarna yogautövare.<br />Inga förkunskaper krävs.</p>",
 ].join("");
 
@@ -300,6 +300,11 @@ const vimeoSrc = "https://player.vimeo.com/video/1077937338";
   <div class="page-layout-with-aside page-stockholm-home__art-yoga">
     <div class="page-layout-with-aside__main">
       <ContentSection heading="Art Yoga - varje tisdag kl. 17.00" headingLevel="h2" markdown={artYogaMarkdown} />
+      <div class="page-stockholm-home__art-yoga-cta">
+        <ButtonGroup
+          buttons={[{ label: "Boka Yoga", href: artYogaBookingHref, variant: "primary", external: true }]}
+        />
+      </div>
     </div>
     <aside class="page-layout-with-aside__aside" aria-label="Art Yoga, foto">
       <figure class="page-stockholm-home__art-yoga-figure">
@@ -313,11 +318,6 @@ const vimeoSrc = "https://player.vimeo.com/video/1077937338";
         />
       </figure>
     </aside>
-  </div>
-  <div class="page-migrated-cta">
-    <ButtonGroup
-      buttons={[{ label: "Boka Yoga", href: artYogaBookingHref, variant: "primary", external: true }]}
-    />
   </div>
 
   <TestimonialCarousel items={[...testimonialItems]} aggregate={{ ...stockholmTestimonialAggregateSv }} />

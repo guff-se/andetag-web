@@ -333,7 +333,8 @@ select:focus-visible {
   position: relative;
 }
 
-.shared-hero-menu-item > a {
+.shared-hero-menu-item > a,
+.shared-hero-menu-item > .shared-hero-menu-heading {
   display: block;
   padding: 12px 22px;
   font-family: "JostLocal", "Jost", sans-serif;
@@ -346,8 +347,14 @@ select:focus-visible {
   color: #fafafa;
 }
 
+.shared-hero-menu-item > .shared-hero-menu-heading {
+  cursor: default;
+}
+
 .shared-hero-menu-item.is-active > a,
-.shared-hero-menu-item > a:hover {
+.shared-hero-menu-item > a:hover,
+.shared-hero-menu-item.is-active > .shared-hero-menu-heading,
+.shared-hero-menu-item:hover > .shared-hero-menu-heading {
   color: #d0a4cc;
 }
 
@@ -359,12 +366,19 @@ select:focus-visible {
   position: absolute;
   top: 100%;
   left: 0;
+  right: auto;
   min-width: 190px;
   display: none;
   background: #f7dceae8;
   border: 1px solid #4a0d2f;
   box-shadow: 18px 18px 10px rgba(0, 0, 0, 0.5);
   z-index: 5;
+  box-sizing: border-box;
+}
+
+/* Match dropdown width to the parent tab so the panel lines up horizontally */
+.shared-hero-menu-item:not(.shared-hero-flag-item) > .shared-hero-submenu {
+  width: 100%;
 }
 
 .shared-hero-submenu a {
@@ -603,15 +617,33 @@ select:focus-visible {
   font-weight: 700;
 }
 
-.sub-nav {
+span.nav-link.nav-link--section {
+  cursor: default;
+  border-color: transparent;
+  background: transparent;
+  color: rgba(247, 247, 245, 0.88);
+}
+
+.header-root .sub-nav {
   list-style: none;
-  margin: 0.45rem 0 0;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  margin: 0.35rem 0 0;
   padding: 0.45rem;
-  display: grid;
+  display: none;
   gap: 0.35rem;
   border: 1px solid var(--color-border);
   border-radius: 0.5rem;
   background: var(--color-surface);
+  z-index: 25;
+  min-width: max(12.5rem, 100%);
+  box-sizing: border-box;
+}
+
+.header-root .nav-item:hover > .sub-nav,
+.header-root .nav-item:focus-within > .sub-nav {
+  display: grid;
 }
 
 .hero-note {
@@ -840,14 +872,10 @@ select:focus-visible {
     flex-wrap: wrap;
   }
 
-  .shared-hero-menu-item > a {
+  .shared-hero-menu-item > a,
+  .shared-hero-menu-item > .shared-hero-menu-heading {
     padding: 10px;
     font-size: 0.78rem;
-  }
-
-  .shared-hero-submenu {
-    left: auto;
-    right: 0;
   }
 
   .shared-hero-nav-shell {

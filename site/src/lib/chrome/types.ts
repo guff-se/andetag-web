@@ -34,7 +34,8 @@ export type SelectorOption<T extends string> = {
 
 export type NavigationItem = {
   label: string;
-  href: string;
+  /** Omit for a section heading row that only expands children (not a destination link). */
+  href?: string;
   cta?: boolean;
   children?: NavigationItem[];
 };

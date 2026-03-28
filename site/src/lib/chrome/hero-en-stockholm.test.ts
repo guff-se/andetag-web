@@ -16,10 +16,15 @@ describe("english stockholm hero header model", () => {
     expect(tickets.menuItems[0]?.label).toBe("Visit");
   });
 
-  it("marks The Experience active on English music shell", () => {
+  it("lists only Stockholm-available languages in the flag strip", () => {
+    const tickets = getEnglishStockholmHeroHeaderModel("/en/stockholm/tickets/");
+    expect(tickets.languageFlags.map((f) => f.code)).toEqual(["sv", "en"]);
+  });
+
+  it("marks About active on English music shell", () => {
     const music = getEnglishStockholmHeroHeaderModel("/en/stockholm/music/");
-    const experience = music.menuItems.find((item) => item.label === "The Experience");
-    expect(experience?.active).toBe(true);
+    const about = music.menuItems.find((item) => item.label === "About");
+    expect(about?.active).toBe(true);
   });
 
   it("marks The Experience active on NPF and SEO landing paths", () => {

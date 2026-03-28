@@ -1,4 +1,10 @@
 import {
+  CHROME_LANGUAGE_LABELS,
+  getChromeTopLanguageAlternates,
+  getLanguagesAvailableForDestination,
+} from "./navigation";
+import type { Language } from "./types";
+import {
   inferChromePathContext,
   resolveChromeNavigationHref,
 } from "../routes/chrome-navigation-resolve";
@@ -10,28 +16,34 @@ type HeroSubMenuItem = {
 
 type HeroMenuItem = {
   label: string;
-  href: string;
+  /** `null` when the top row is a non-link section heading. */
+  href: string | null;
   active: boolean;
   subMenu: HeroSubMenuItem[];
 };
 
 type FlagItem = {
-  code: "sv" | "en" | "de";
+  code: Language;
   href: string;
   active: boolean;
   label: string;
   flag: string;
 };
 
+const FLAG_BY_LANGUAGE: Record<Language, string> = {
+  sv: "🇸🇪",
+  en: "🇬🇧",
+  de: "🇩🇪",
+};
+
 const MENU_DEFINITION: Array<{
   label: string;
-  href: string;
+  href?: string;
   matchPrefixes: string[];
   subMenu: HeroSubMenuItem[];
 }> = [
   {
     label: "Besök",
-    href: "/sv/stockholm/",
     matchPrefixes: [
       "/",
       "/sv/stockholm/",
@@ -48,44 +60,47 @@ const MENU_DEFINITION: Array<{
       { label: "Säsongskort", href: "/sv/stockholm/sasongskort/" },
       { label: "Presentkort", href: "/sv/stockholm/presentkort/" },
       { label: "Öppettider", href: "/sv/stockholm/oppettider/" },
-      { label: "Hitta till oss", href: "/sv/stockholm/hitta-hit/" },
       { label: "Tillgänglighet", href: "/sv/stockholm/tillganglighet/" },
+      { label: "Hitta till oss", href: "/sv/stockholm/hitta-hit/" },
       { label: "Vanliga frågor", href: "/sv/stockholm/fragor-svar/" },
     ],
   },
   {
     label: "Upplevelsen",
-    href: "/sv/stockholm/vilken-typ-av-upplevelse/",
     matchPrefixes: [
       "/sv/stockholm/vilken-typ-av-upplevelse/",
       "/sv/stockholm/dejt/",
       "/sv/stockholm/art-yoga/",
-      "/sv/stockholm/musik/",
+      "/sv/stockholm/npf-stockholm/",
     ],
     subMenu: [
-      { label: "Dejt på ANDETAG", href: "/sv/stockholm/dejt/" },
+      { label: "Hur är ANDETAG?", href: "/sv/stockholm/vilken-typ-av-upplevelse/" },
       { label: "Art Yoga", href: "/sv/stockholm/art-yoga/" },
-      { label: "Musiken", href: "/sv/stockholm/musik/" },
+      { label: "Dejt på ANDETAG", href: "/sv/stockholm/dejt/" },
+      { label: "NPF-besökare", href: "/sv/stockholm/npf-stockholm/" },
     ],
   },
   {
     label: "Grupper",
-    href: "/sv/stockholm/gruppbokning/",
     matchPrefixes: ["/sv/stockholm/gruppbokning/", "/sv/stockholm/foretagsevent/"],
-    subMenu: [{ label: "Företagsevent", href: "/sv/stockholm/foretagsevent/" }],
+    subMenu: [
+      { label: "Gruppbokningar", href: "/sv/stockholm/gruppbokning/" },
+      { label: "Företagsevent", href: "/sv/stockholm/foretagsevent/" },
+    ],
   },
   {
-    label: "Om ANDETAG",
-    href: "/sv/stockholm/om-andetag/",
+    label: "Om",
     matchPrefixes: [
       "/sv/stockholm/om-andetag/",
       "/sv/stockholm/optisk-fibertextil/",
+      "/sv/stockholm/musik/",
       "/sv/stockholm/om-konstnarerna-malin-gustaf-tadaa/",
     ],
     subMenu: [
+      { label: "Om ANDETAG", href: "/sv/stockholm/om-andetag/" },
       { label: "Textilen", href: "/sv/stockholm/optisk-fibertextil/" },
+      { label: "Musiken", href: "/sv/stockholm/musik/" },
       { label: "Om konstnärerna", href: "/sv/stockholm/om-konstnarerna-malin-gustaf-tadaa/" },
-      { label: "ANDETAG Berlin", href: "/en/berlin/" },
     ],
   },
 ];
@@ -107,41 +122,28 @@ export function getSwedishHeroHeaderModel(pathname: string) {
 
   const menuItems: HeroMenuItem[] = MENU_DEFINITION.map((item) => ({
     label: item.label,
-    href: item.href,
+    href: item.href ?? null,
     active: pathMatches(pathname, item.matchPrefixes),
     subMenu: item.subMenu,
   }));
 
-  const languageFlags: FlagItem[] = [
-    {
-      code: "sv",
-      href: resolveChromeNavigationHref(pathname, { language: "sv" }),
-      active: chromeCtx.language === "sv",
-      label: "Svenska",
-      flag: "🇸🇪",
-    },
-    {
-      code: "en",
-      href: resolveChromeNavigationHref(pathname, { language: "en" }),
-      active: chromeCtx.language === "en",
-      label: "English",
-      flag: "🇬🇧",
-    },
-    {
-      code: "de",
-      href: resolveChromeNavigationHref(pathname, { language: "de" }),
-      active: chromeCtx.language === "de",
-      label: "Deutsch",
-      flag: "🇩🇪",
-    },
-  ];
+  const languageFlags: FlagItem[] = getLanguagesAvailableForDestination(chromeCtx.destination).map(
+    (code) => ({
+      code,
+      href: resolveChromeNavigationHref(pathname, { language: code }),
+      active: chromeCtx.language === code,
+      label: CHROME_LANGUAGE_LABELS[code],
+      flag: FLAG_BY_LANGUAGE[code],
+    }),
+  );
 
   return {
     logoHomeHref: "/sv/stockholm/",
-    topLanguages: [
-      { label: "English", href: resolveChromeNavigationHref(pathname, { language: "en" }) },
-      { label: "Deutsch", href: resolveChromeNavigationHref(pathname, { language: "de" }) },
-    ],
+    topLanguages: getChromeTopLanguageAlternates({
+      canonicalPath: pathname,
+      language: chromeCtx.language,
+      destination: chromeCtx.destination,
+    }),
     destinationOptions: [
       {
         label: "Stockholm",

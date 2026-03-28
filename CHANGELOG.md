@@ -7,6 +7,22 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ## [Unreleased]
 
+### Changed
+
+- **Hero header language UI:** Flag dropdown and top-row language links only list languages that have a **home URL for the current destination** (Stockholm: **sv** + **en**; Berlin: **en** + **de**). **`getLanguagesAvailableForDestination`**, **`getChromeTopLanguageAlternates`**, **`getLanguageSelectorOptions`** in **`navigation.ts`**; **`hero-sv.ts`**, **`hero-en-stockholm.ts`**; **`CHROME_LANGUAGE_LABELS`** export; selector fixtures in **`fixtures.ts`**. **Why:** German is not a Stockholm locale; Swedish is not a Berlin locale.
+
+- **Stockholm header nav (`/sv/stockholm/`, `/en/stockholm/`):** Top-level rows are **section headings** (not links); children reordered and regrouped (**Visit** practical info, **The Experience** / **Upplevelsen** without music, **Groups** / **Grupper**, **About** / **Om** with music and artists). **`navigation.ts`**, **`hero-sv.ts`**, **`hero-en-stockholm.ts`**, **`SiteHeader.astro`**, **`layout.css`**, **`NavigationItem`** optional **`href`** in **`types.ts`**. **Why:** match approved IA and avoid misleading parent links.
+
+- **`TestimonialCarousel` (`.testimonial-block`):** More space **above** the band (**`margin-top`** **`2.25rem`**, was **`1rem`** via shorthand); bottom stays **`1rem`**. **`components.css`**.
+
+- **English Art Yoga copy:** First paragraph second sentence now begins **It is a place to move** (was **A place to move**). **`StockholmHomeEn.astro`**, **`ArtYogaEn.astro`**.
+
+- **Stockholm home Art Yoga CTA:** **Boka Yoga** / **Book Yoga** is **centered** in the main column. **`components.css`**.
+
+- **Stockholm home Art Yoga intro copy:** First two paragraphs no longer use **`<br />`** between sentences (continuous flow). **`StockholmHomeSv.astro`**, **`StockholmHomeEn.astro`**, **`StockholmHomeSharedBody.astro`**.
+
+- **Stockholm home (`/sv/stockholm/`, `/en/stockholm/`) Art Yoga:** **Boka Yoga** / **Book Yoga** sits in the **main column under the copy**, not full-width below the two-column row. **`StockholmHomeSv.astro`**, **`StockholmHomeEn.astro`**, **`components.css`**.
+
 ### Added
 
 - **`docs/routing-location-scoped-global-pages-plan.md`:** Step-by-step plan for location-prefixed story routes, redirects, SEO canonical split, chrome or nav changes, internal links, tests, and doc updates. **`AGENTS.md`** documentation table entry. **Why:** approved execution checklist before implementing dual English paths and retiring the English global menu.
@@ -30,6 +46,8 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 - **Stockholm home intro lead image** (`andrum-looking.jpg`): **`page-stockholm-home__intro-figure`** is centered with **`max-width: min(52rem, 88%)`** and extra **`margin-block`** so the photo sits smaller with more air on **`/sv/stockholm/`** and **`/en/stockholm/`**. **`components.css`**.
 
 ### Fixed
+
+- **Header dropdown alignment:** Shared hero submenus use the same horizontal span as their parent tab (**`width: 100%`**, **`right: auto`**, **`box-sizing`**) so the panel lines up with the top label; language flag submenu unchanged. **`header-root`** submenus are **absolutely** positioned under **`nav-item`** with **hover/focus-within** (no in-flow flex shift). **`layout.css`**.
 
 - **`GallerySection` mobile carousel:** autoplay and prev/next used **`scrollIntoView()`** on each slide, which also scrolled the **page vertically** to the gallery on every advance. **`gallery-section-carousel.ts`** now uses **`section.scrollTo({ left })`** on the horizontal strip only.
 

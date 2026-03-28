@@ -119,8 +119,8 @@ const privatMarkdown = [
 ].join("");
 
 const artYogaMarkdown = [
-  "<p>Art Yoga is a slow yoga class held inside Andetag&#8217;s immersive art environment in central Stockholm.<br />A place to move, breathe, and settle, in the middle of the city.</p>",
-  "<p>Surrounded by glowing textile art and living light, the class is guided by yoga teacher <strong>Fabian Macklin</strong>.<br />Movement and breath unfold at a gentle pace, with attention on presence rather than performance.</p>",
+  "<p>Art Yoga is a slow yoga class held inside Andetag&#8217;s immersive art environment in central Stockholm. It is a place to move, breathe, and settle, in the middle of the city.</p>",
+  "<p>Surrounded by glowing textile art and living light, the class is guided by yoga teacher <strong>Fabian Macklin</strong>. Movement and breath unfold at a gentle pace, with attention on presence rather than performance.</p>",
   "<p>The class is open to both beginners and experienced practitioners.<br />No prior experience is required.</p>",
 ].join("");
 
@@ -304,6 +304,11 @@ const vimeoSrc = "https://player.vimeo.com/video/1077937338";
   <div class="page-layout-with-aside page-stockholm-home__art-yoga">
     <div class="page-layout-with-aside__main">
       <ContentSection heading="Art Yoga - Every Tuesday at 17.00" headingLevel="h2" markdown={artYogaMarkdown} />
+      <div class="page-stockholm-home__art-yoga-cta">
+        <ButtonGroup
+          buttons={[{ label: "Book Yoga", href: artYogaBookingHref, variant: "primary", external: true }]}
+        />
+      </div>
     </div>
     <aside class="page-layout-with-aside__aside" aria-label="Art Yoga, photo">
       <figure class="page-stockholm-home__art-yoga-figure">
@@ -317,11 +322,6 @@ const vimeoSrc = "https://player.vimeo.com/video/1077937338";
         />
       </figure>
     </aside>
-  </div>
-  <div class="page-migrated-cta">
-    <ButtonGroup
-      buttons={[{ label: "Book Yoga", href: artYogaBookingHref, variant: "primary", external: true }]}
-    />
   </div>
 
   <TestimonialCarousel items={[...testimonialItems]} aggregate={{ ...stockholmTestimonialAggregateEn }} />

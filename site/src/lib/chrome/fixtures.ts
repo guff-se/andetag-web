@@ -61,7 +61,15 @@ export const SELECTOR_FIXTURES: SelectorFixture[] = [
     language: "en",
     destination: "stockholm",
     canonicalPath: "/en/stockholm/tickets/",
-    expectedLanguages: ["sv", "en", "de"],
+    expectedLanguages: ["sv", "en"],
+    expectedDestinations: ["stockholm", "berlin"],
+  },
+  {
+    id: "english-berlin-selectors",
+    language: "en",
+    destination: "berlin",
+    canonicalPath: "/en/berlin/",
+    expectedLanguages: ["en", "de"],
     expectedDestinations: ["stockholm", "berlin"],
   },
 ];

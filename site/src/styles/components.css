@@ -800,7 +800,7 @@ body.lightbox-open {
   position: relative;
   overflow: hidden;
   border-radius: 0;
-  margin: 1rem 0;
+  margin: 4rem 0 1rem;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
   width: 100vw;
@@ -1326,6 +1326,18 @@ body.lightbox-open {
   height: auto;
   display: block;
   border-radius: 12px;
+}
+
+.page-stockholm-home__art-yoga-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+}
+
+.page-stockholm-home__art-yoga-cta .button-group {
+  margin: 0;
+  justify-content: center;
 }
 
 .page-stockholm-home__loc-mobile {
