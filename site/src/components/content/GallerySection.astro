@@ -10,26 +10,81 @@ type Props = {
   images: GalleryImage[];
   mobileMode: "carousel" | "grid";
   galleryId?: string;
+  /** `aria-label` on the gallery region when `mobileMode` is `carousel`. */
+  carouselAriaLabel?: string;
+  /** Localized prev/next labels and slide counts for `mobileMode` `carousel`. */
+  galleryNavLocale?: "sv" | "en";
 };
 
-const { images, mobileMode, galleryId = "phase3-gallery" } = Astro.props as Props;
+const {
+  images,
+  mobileMode,
+  galleryId = "phase3-gallery",
+  carouselAriaLabel = "Image gallery",
+  galleryNavLocale = "en",
+} = Astro.props as Props;
+
+const navPrevLabel = galleryNavLocale === "sv" ? "Föregående bild" : "Previous image";
+const navNextLabel = galleryNavLocale === "sv" ? "Nästa bild" : "Next image";
+
+const slideCountLabel = (index: number) =>
+  galleryNavLocale === "sv"
+    ? `${index + 1} av ${images.length}`
+    : `${index + 1} of ${images.length}`;
+
+const sectionClass =
+  mobileMode === "carousel"
+    ? "gallery-section mobile-carousel js-gallery-mobile-carousel"
+    : "gallery-section mobile-grid";
 ---
 
-<section class={`gallery-section mobile-${mobileMode}`} data-gallery-id={galleryId}>
-  {images.map((image) => (
-    <figure class="gallery-tile">
-      <a
-        href={image.fullSrc ?? image.src}
-        class="gallery-lightbox-link js-gallery-lightbox"
-        data-gallery={galleryId}
-        aria-label={image.alt}
+<section
+  class={sectionClass}
+  data-gallery-id={galleryId}
+  role="region"
+  aria-label={carouselAriaLabel}
+>
+  {
+    images.map((image, index) => (
+      <figure
+        class="gallery-tile"
+        role={mobileMode === "carousel" ? "group" : undefined}
+        aria-roledescription={mobileMode === "carousel" ? "slide" : undefined}
+        aria-label={mobileMode === "carousel" ? slideCountLabel(index) : undefined}
       >
-        <img src={image.src} alt={image.alt} loading="lazy" />
-        <span class="gallery-hover-overlay" aria-hidden="true"></span>
-      </a>
-      {image.caption ? <figcaption>{image.caption}</figcaption> : null}
-    </figure>
-  ))}
+        <a
+          href={image.fullSrc ?? image.src}
+          class="gallery-lightbox-link js-gallery-lightbox"
+          data-gallery={galleryId}
+          aria-label={image.alt}
+        >
+          <img src={image.src} alt={image.alt} loading="lazy" />
+          <span class="gallery-hover-overlay" aria-hidden="true" />
+        </a>
+        {image.caption ? <figcaption>{image.caption}</figcaption> : null}
+      </figure>
+    ))
+  }
+  {
+    mobileMode === "carousel" && images.length > 1 ? (
+      <>
+        <button
+          type="button"
+          class="gallery-carousel-btn gallery-carousel-btn-prev"
+          aria-label={navPrevLabel}
+        >
+          <span aria-hidden="true">‹</span>
+        </button>
+        <button
+          type="button"
+          class="gallery-carousel-btn gallery-carousel-btn-next"
+          aria-label={navNextLabel}
+        >
+          <span aria-hidden="true">›</span>
+        </button>
+      </>
+    ) : null
+  }
 </section>
 
 <script>
@@ -86,4 +141,8 @@ const { images, mobileMode, galleryId = "phase3-gallery" } = Astro.props as Prop
       document.body.classList.remove("lightbox-open");
     }
   });
+</script>
+
+<script>
+  import "../../client-scripts/gallery-section-carousel.ts";
 </script>

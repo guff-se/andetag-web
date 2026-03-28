@@ -113,10 +113,12 @@ Purpose: provide implementation-facing usage guidance for approved Phase 3 compo
 - Key props:
   - `images: Array<{ src: string; alt: string; caption?: string; fullSrc?: string }>`
   - `mobileMode: "carousel" | "grid"`
+  - `carouselAriaLabel?: string` (default **`Image gallery`**) and **`galleryNavLocale?: "sv" | "en"`** (default **`en`**) when **`mobileMode`** is **`carousel`** (pass both explicitly on Swedish and English page bodies so **sv** and **en** stay aligned and reviewable)
 - Notes:
-  - Use `mobileMode: "carousel"` by default, aligned with approved source behavior.
-  - Showcase parity implementation uses source-backed 8-image dataset in a 4x2 full-width grid.
-  - Hover overlay and click lightbox behavior is implemented with `glightbox`.
+  - Use **`mobileMode: "carousel"`** by default, aligned with **`site-html/index.html`**: **four-column grid** from **`1025px`** up; at **`1024px`** and below, a **horizontal slider** (scroll-snap, prev/next, autoplay unless **`prefers-reduced-motion`**) like the legacy Elementor **image carousel** (desktop-only grid + **`elementor-hidden-desktop`** carousel).
+  - **`mobileMode: "grid"`** keeps the **grid** at all breakpoints (no slider).
+  - Showcase parity implementation uses source-backed 8-image dataset in a **4-column** full-bleed grid on wide viewports.
+  - Hover overlay and click open a **jQuery**-bound full-screen lightbox (**`GallerySection.astro`** script); **`gallery-section-carousel.ts`** handles the mobile carousel only.
 
 ### `PartnersSection`
 

@@ -191,7 +191,13 @@ const faqItems = [...stockholmMarketingFaqEn];
     </div>
   </div>
 
-  <GallerySection images={[...galleryImages]} mobileMode="carousel" galleryId={galleryId} />
+  <GallerySection
+    images={[...galleryImages]}
+    mobileMode="carousel"
+    galleryId={galleryId}
+    carouselAriaLabel="Image gallery"
+    galleryNavLocale="en"
+  />
 
   <div class="page-stockholm-home__tickets-columns">
     <div class="page-stockholm-home__tickets-col">

@@ -128,10 +128,8 @@ Update `docs/Andetag SEO Manual.md` and hreflang examples when **`/sv/stockholm/
 
 **Decision:** All **canonical** Swedish HTML pages use an explicit **`/sv/`** language prefix, symmetric with **`/en/...`** and **`/de/...`**.
 
-- **Stockholm Swedish** content lives under **`/sv/stockholm/...`** (home **`/sv/stockholm/`**, trailing slash).
-- **Shared Swedish** brand pages (for example music, about, artists, optical-fibre textile) use **`/sv/<slug>/`** at the site root segment (for example **`/sv/musik/`**, **`/sv/om-andetag/`**).
-- **Legacy** unprefixed URLs from the live WordPress site (**`/`**, **`/stockholm/...`**, **`/musik/`**, **`/om-andetag/`**, and similar) are **not** canonical: the URL matrix lists them as **`redirect`** rows with **`301`** to the matching **`/sv/...`** path. Repo rules live in **`site/public/_redirects`**; keep matrix and redirects aligned.
-- **Privacy** remains **`/privacy/`** for all locales (unchanged).
+- **Stockholm Swedish** content lives under **`/sv/stockholm/...`** (home **`/sv/stockholm/`**, trailing slash), **including** the four story topics (music, about ANDETAG, artists, optical fibre textile) at **`/sv/stockholm/{slug}/`**.
+- **Legacy** **`/sv/musik/`**-style paths (without **`/stockholm/`**) and **unprefixed** URLs from the live WordPress site (**`/`**, **`/stockholm/...`**, **`/musik/`**, **`/om-andetag/`**, and similar) are **not** canonical: the URL matrix lists them as **`redirect`** rows with **`301`** straight to the matching **`/sv/stockholm/...`** path. Repo rules live in **`site/public/_redirects`**; keep matrix and redirects aligned.
 
 Canonical Swedish Stockholm **home:** **`/sv/stockholm/`**.
 
@@ -158,8 +156,8 @@ Policy notes:
 
 ## Privacy URL Policy
 
-- Canonical privacy URL remains `/privacy/` for migration continuity.
-- Optional alias `/privacy-policy/` should redirect to `/privacy/` (`301`) if introduced.
+- **Canonical** privacy pages are **per location and language**: **`/sv/stockholm/privacy/`**, **`/en/stockholm/privacy/`**, **`/de/berlin/privacy/`**, **`/en/berlin/privacy/`** (see **`docs/url-matrix.csv`** **`keep`** rows and **Location-scoped story URLs and privacy** above).
+- **Legacy** **`/privacy/`** and **`/privacy-policy/`** **`301`** to **`/sv/stockholm/privacy/`** (single hop) per matrix and **`site/public/_redirects`**.
 
 ## Query Parameter Policy
 

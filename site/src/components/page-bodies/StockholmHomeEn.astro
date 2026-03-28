@@ -19,6 +19,7 @@ import { stockholmMarketingFaqEn } from "../../lib/page-registry/stockholm-marke
  * (`data-elementor-type="wp-page"` post id **907**). Canonical URL in legacy Yoast is `/en/`;
  * rebuilt route is **`/en/stockholm/`** with head from `page-shell-meta.json` (**EX-0007**).
  * TripAdvisor shortcode removed per **EX-0002**; carousel quotes match Swedish home (English copy).
+ * Intro lead photo and Art Yoga aside: `andrum-looking.jpg`, `andrum-meditation.jpg` under `site/public/wp-content/uploads/2026/03/`.
  */
 const understoryCompanyId = "3b3aa7a7c2cd455b8f3a56cd81033110";
 
@@ -27,11 +28,18 @@ const artYogaBookingHref =
 
 const heroBookBackground = "/wp-content/uploads/2024/11/Andetag-21-399-scaled.jpg";
 
-const introAsideImage = {
-  src: "/wp-content/uploads/2024/11/Andetag-18-058-copy2-1024x683.jpg",
-  width: 1024,
-  height: 683,
-  alt: "immersive art installation stockholm andetag",
+const introLeadImage = {
+  src: "/wp-content/uploads/2026/03/andrum-looking.jpg",
+  width: 1920,
+  height: 1080,
+  alt: "Silhouette of a visitor looking up at luminous art at ANDETAG",
+} as const;
+
+const artYogaAsideImage = {
+  src: "/wp-content/uploads/2026/03/andrum-meditation.jpg",
+  width: 1924,
+  height: 1443,
+  alt: "Person meditating surrounded by light and textile art during Art Yoga at ANDETAG",
 } as const;
 
 const introMarkdown = [
@@ -221,17 +229,17 @@ const vimeoSrc = "https://player.vimeo.com/video/1077937338";
   <div class="page-layout-with-aside page-stockholm-home__intro-booking">
     <div class="page-layout-with-aside__main">
       <ContentSection markdown={introMarkdown} />
-      <AccordionSection items={[...homeAccordionItems]} initialOpenIndex={null} />
       <figure class="page-stockholm-home__intro-figure">
         <img
-          src={introAsideImage.src}
-          width={introAsideImage.width}
-          height={introAsideImage.height}
-          alt={introAsideImage.alt}
+          src={introLeadImage.src}
+          width={introLeadImage.width}
+          height={introLeadImage.height}
+          alt={introLeadImage.alt}
           loading="lazy"
           decoding="async"
         />
       </figure>
+      <AccordionSection items={[...homeAccordionItems]} initialOpenIndex={null} />
       <div class="page-stockholm-home__loc-mobile" aria-label="Address">
         <p class="page-stockholm-home__loc-mobile-text">
           <span class="brand-wordmark">ANDETAG</span><br />
@@ -263,7 +271,13 @@ const vimeoSrc = "https://player.vimeo.com/video/1077937338";
     </div>
   </div>
 
-  <GallerySection images={[...galleryImages]} mobileMode="carousel" galleryId="stockholm-home-en" />
+  <GallerySection
+    images={[...galleryImages]}
+    mobileMode="carousel"
+    galleryId="stockholm-home-en"
+    carouselAriaLabel="Image gallery"
+    galleryNavLocale="en"
+  />
 
   <div class="page-stockholm-home__tickets-columns">
     <div class="page-stockholm-home__tickets-col">
@@ -287,7 +301,23 @@ const vimeoSrc = "https://player.vimeo.com/video/1077937338";
     </h2>
   </HeroSection>
 
-  <ContentSection heading="Art Yoga - Every Tuesday at 17.00" headingLevel="h2" markdown={artYogaMarkdown} />
+  <div class="page-layout-with-aside page-stockholm-home__art-yoga">
+    <div class="page-layout-with-aside__main">
+      <ContentSection heading="Art Yoga - Every Tuesday at 17.00" headingLevel="h2" markdown={artYogaMarkdown} />
+    </div>
+    <aside class="page-layout-with-aside__aside" aria-label="Art Yoga, photo">
+      <figure class="page-stockholm-home__art-yoga-figure">
+        <img
+          src={artYogaAsideImage.src}
+          width={artYogaAsideImage.width}
+          height={artYogaAsideImage.height}
+          alt={artYogaAsideImage.alt}
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+    </aside>
+  </div>
   <div class="page-migrated-cta">
     <ButtonGroup
       buttons={[{ label: "Book Yoga", href: artYogaBookingHref, variant: "primary", external: true }]}

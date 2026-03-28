@@ -115,6 +115,12 @@ const heroImage = {
     <ContentSection markdown={forYouMarkdown} />
     <ContentSection markdown={notForYouMarkdown} />
   </div>
-  <GallerySection images={[...galleryImages]} mobileMode="carousel" galleryId="vilken-typ-upplevelse" />
+  <GallerySection
+    images={[...galleryImages]}
+    mobileMode="carousel"
+    galleryId="vilken-typ-upplevelse"
+    carouselAriaLabel="Bildgalleri"
+    galleryNavLocale="sv"
+  />
   <ContentSection markdown={concreteMarkdown} />
 </div>

@@ -647,6 +647,82 @@
   font-size: 0.9rem;
 }
 
+/* `mobile-carousel`: desktop 4-col grid; <=1024px horizontal slider (see `site-html/index.html` gallery + image-carousel). */
+.gallery-carousel-btn {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .gallery-section.mobile-carousel {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    /* Edge-to-edge slider on small viewports (no `10px` gutter from grid layout). */
+    gap: 0;
+    padding: 0 max(0px, env(safe-area-inset-left, 0px)) 0 max(0px, env(safe-area-inset-right, 0px));
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: max(0px, env(safe-area-inset-left, 0px));
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    position: relative;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gallery-section.mobile-carousel {
+      scroll-behavior: auto;
+    }
+  }
+
+  .gallery-section.mobile-carousel > .gallery-tile {
+    flex: 0 0 100%;
+    width: 100%;
+    min-width: 0;
+    scroll-snap-align: start;
+    box-sizing: border-box;
+  }
+
+  .gallery-carousel-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    z-index: 4;
+    transform: translateY(-50%);
+    width: 2.25rem;
+    height: 2.25rem;
+    padding: 0;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(17, 17, 17, 0.35);
+    color: #fafafa;
+    font-size: 1.75rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .gallery-carousel-btn:hover,
+  .gallery-carousel-btn:focus-visible {
+    background: rgba(17, 17, 17, 0.55);
+    color: #ffffff;
+    outline: none;
+  }
+
+  .gallery-carousel-btn:focus-visible {
+    box-shadow: 0 0 0 2px #fafafa;
+  }
+
+  .gallery-carousel-btn-prev {
+    left: max(6px, env(safe-area-inset-left, 0px));
+  }
+
+  .gallery-carousel-btn-next {
+    right: max(6px, env(safe-area-inset-right, 0px));
+  }
+}
+
 body.lightbox-open {
   overflow: hidden;
 }
@@ -703,9 +779,19 @@ body.lightbox-open {
   padding: 0.25rem 0.5rem;
 }
 
+/* Block-level link avoids inline-box quirks with SVG-as-img intrinsic sizing. */
+.partners-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
 .partners-link img {
   max-width: 100%;
   max-height: 42px;
+  width: auto;
+  height: auto;
   display: block;
 }
 
@@ -1101,18 +1187,17 @@ body.lightbox-open {
 }
 
 @media (max-width: 900px) {
-  .gallery-section {
+  /* Slider uses full width; grid galleries keep side inset. */
+  .gallery-section:not(.mobile-carousel) {
     width: 100vw;
     max-width: 100vw;
     padding: 0 10px;
   }
 
-  .testimonial-block__carousel {
-    min-height: 320px;
-  }
-
+  /* Narrower lines wrap more; keep enough height so long quotes are not clipped (absolute slides use viewport height). */
+  .testimonial-block__carousel,
   .testimonial-carousel-viewport {
-    min-height: 320px;
+    min-height: clamp(380px, 56vh, 560px);
   }
 
   .testimonial-slide {
@@ -1126,12 +1211,9 @@ body.lightbox-open {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .testimonial-block__carousel {
-    min-height: 280px;
-  }
-
+  .testimonial-block__carousel,
   .testimonial-carousel-viewport {
-    min-height: 280px;
+    min-height: clamp(420px, 60vh, 620px);
   }
 
   .testimonial-slide {
@@ -1217,10 +1299,29 @@ body.lightbox-open {
 }
 
 .page-stockholm-home__intro-figure {
-  margin: 0;
+  margin-block: 1.25rem 1.5rem;
+  margin-inline: auto;
+  /* Inset lead photo (`andrum-looking.jpg`) so it reads smaller than full main-column width. */
+  max-width: min(52rem, 88%);
 }
 
 .page-stockholm-home__intro-figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+}
+
+/* Art Yoga: copy column + photo aside (same grid as intro/booking; stacks under 900px). */
+.page-stockholm-home__art-yoga.page-layout-with-aside {
+  --page-aside-width: min(42vw, 520px);
+}
+
+.page-stockholm-home__art-yoga-figure {
+  margin: 0;
+}
+
+.page-stockholm-home__art-yoga-figure img {
   width: 100%;
   height: auto;
   display: block;
@@ -1347,6 +1448,18 @@ body.lightbox-open {
 /* Band padding defines vertical rhythm; strip nested CTA margins (`.page-migrated-cta` is `0.5rem 0 2rem` elsewhere). */
 .page-stockholm-home__cta-secondary-band .page-migrated-cta {
   margin: 3rem;
+}
+
+/* Narrow viewports: `margin: 3rem` on all sides plus band padding left almost no width for long uppercase CTAs ("Book tickets now!"). */
+@media (max-width: 640px) {
+  .page-stockholm-home__cta-secondary-band {
+    padding: 1.75rem max(0.5rem, env(safe-area-inset-left, 0px)) 1.75rem
+      max(0.5rem, env(safe-area-inset-right, 0px));
+  }
+
+  .page-stockholm-home__cta-secondary-band .page-migrated-cta {
+    margin: 1.75rem 0;
+  }
 }
 
 .page-stockholm-home__cta-secondary-band .button-group {

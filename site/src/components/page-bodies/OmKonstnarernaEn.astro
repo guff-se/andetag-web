@@ -1,34 +1,74 @@
 ---
 import ContentSection from "../content/ContentSection.astro";
 
-/** `site-html/en-about-the-artists-malin-gustaf-tadaa.html` wp-page (Polylang English). */
-const introMarkdown =
-  "<h1>Malin and Gustaf Tadaa</h1>" +
-  "<p>Malin and Gustaf Tadaa are the artists behind <span class=\"brand-wordmark\">ANDETAG</span>. Their work spans optical fiber textiles, generative light, sound, and immersive environments, developed over more than a decade of shared practice.</p>";
+/**
+ * `site-html/en-about-the-artists-malin-gustaf-tadaa.html` wp-page (Polylang English).
+ * Layout mirrors `OmKonstnarernaSv.astro` (same grids, figures, and CSS scope).
+ * Bio HTML lives in the frontmatter so `<` in strings is not parsed as Astro markup on `set:html`.
+ */
+const openingMarkdown = [
+  "<h1>Malin &amp; Gustaf Tadaa</h1>",
+  "<p>Malin and Gustaf Tadaa are an artist duo based in Stockholm, working at the intersection of art, technology, and human presence. They have collaborated since 2011 and have been married since 2017. Their shared practice moves between light, textile, code, and interaction, inviting visitors to step into the work as participants rather than observers.</p>",
+  "<p>In 2019, their exhibition <a href=\"https://tadaa.se/portfolio/emerging-sensation/\"><strong>Emerging Sensation</strong></a> was presented in the former nuclear reactor hall R1 in Stockholm. The exhibition sold out, welcoming more than 4,000 visitors over two weeks. Through optical fiber, light, interactive technology, and augmented reality, the work explored life's evolution and humanity's place within a technological context. The boundary between art and technology dissolved, leaving space for reflection, presence, and participation.</p>",
+].join("");
 
-const malinMarkdown =
-  "<h2>Malin Tadaa</h2>" +
-  "<p>Malin Tadaa is a Swedish artist working with optical fiber textiles, light, and immersive environments. Her practice is rooted in long-form material research and slow, deliberate making, where textile, light, and space are treated as a single medium rather than separate layers.</p>" +
-  "<p>She has woven with optical fiber since 2012, developing techniques that allow light to move through textile in ways that feel organic rather than mechanical. This material foundation forms the core of <span class=\"brand-wordmark\">ANDETAG</span>, where woven structure, recorded breath, and generative light are inseparable from one another.</p>" +
-  "<p>Malin&#8217;s work has been presented internationally, including exhibitions in New York, Miami, Oslo, and at Institut suédois in Paris, as well as installations across Sweden. Her approach emphasizes duration, restraint, and presence, allowing environments to unfold slowly rather than demand immediate interpretation.</p>" +
-  "<p>Alongside her artistic practice, Malin has worked extensively with mindfulness and guided meditation, disciplines that inform the temporal and emotional rhythm of her work. She is also the founder of <a href=\"https://imbuedart.com\">Imbued</a>, a previous long-term project exploring art, awareness, and collective experience.</p>";
+const malinBioHtml =
+  "<p><strong>Malin Bobeck Tadaa</strong> is an award-winning textile artist based in Stockholm. Through a self-developed method, she weaves optical fiber, light, sensors, and electronics into textile structures. The resulting works combine materiality, light, and touch, often inviting the visitor into an active role.</p><p>Her artistic practice is inspired by the human imagination, the deep sea, outer space, and worlds that lie beyond everyday perception. Through spatial installations, she creates shifted perspectives and a quiet sense of being somewhere else.</p>";
 
-const gustafMarkdown =
-  "<h2>Gustaf Tadaa</h2>" +
-  "<p>Gustaf Tadaa is a Swedish artist and composer whose work spans generative systems, sound, light, and immersive installation. His practice focuses on how rhythm, duration, and mathematical structure can produce experiences that feel alive without imitating life.</p>" +
-  "<p>Within <span class=\"brand-wordmark\">ANDETAG</span>, Gustaf develops the generative systems that translate recorded breath into light, ensuring that movement remains organic, non-repeating, and mathematically coherent over long periods of time. He also composes the original music that accompanies the installations, extending the same principles of breath, slowness, and restraint into sound.</p>" +
-  "<p>Gustaf&#8217;s background includes work in software, sound design, and systems thinking, disciplines that inform his approach to art as something that must function quietly and reliably over time. His compositions are not illustrative; they operate in parallel with the visual work, shaping atmosphere and attention without asserting narrative.</p>" +
-  "<p>Together with Malin, Gustaf has been central to the conceptual and technical development of <span class=\"brand-wordmark\">ANDETAG</span> from its earliest stages, including its first international presentations and the evolution of the project from individual artworks toward shared, immersive environments.</p>";
+const gustafBioHtml =
+  "<p><strong>Gustaf Josefsson Tadaa</strong> is an artist, serial entrepreneur, and speaker with over 25 years of experience in participatory culture and interactive art.</p><p>His artistic exploration is rooted in the idea that technology is profoundly human, and that through our interaction with it, we can better understand ourselves.</p><p>Gustaf is a self-taught programmer and has worked with art, technology, and spatial experiences for more than two decades. In parallel, he has been active as a speaker on future and societal issues, with a consistent focus on the human dimension of technology.</p>";
 
-const togetherMarkdown =
-  "<h2>Shared practice</h2>" +
-  "<p>Malin and Gustaf Tadaa have worked together for many years, developing projects that require both material mastery and systemic thinking. <span class=\"brand-wordmark\">ANDETAG</span> emerged from this collaboration, combining Malin&#8217;s long engagement with woven light and Gustaf&#8217;s work with generative systems and sound.</p>" +
-  "<p>Their practice is deliberately slow, emphasizing continuity over novelty. New works, compositions, and installations are added over time, allowing the project to grow without resetting itself. This continuity is central to how <span class=\"brand-wordmark\">ANDETAG</span> is experienced: not as a finished statement, but as an ongoing rhythm that continues to unfold.</p>";
+const teamMarkdown =
+  "<h2>The Team Behind Andetag</h2>" +
+  "<p><strong>Artists:</strong> Malin &amp; Gustaf Tadaa</p><p><strong>Art Production:</strong> Cecilia Pfaff</p><p><strong>Exhibition Production:</strong> Linnéa Appert.</p><p><strong>Original Music and Sound Production:</strong> <a href=\"https://povelolsson.com/\">Povel Olsson</a> and Gustaf Tadaa.</p><p><strong>Museum Manager:</strong> Fabian Macklin</p>";
 ---
 
 <div class="page-migrated page-om-konstnarerna-sv">
-  <ContentSection markdown={introMarkdown} />
-  <ContentSection markdown={malinMarkdown} />
-  <ContentSection markdown={gustafMarkdown} />
-  <ContentSection markdown={togetherMarkdown} />
+  <div class="page-om-konstnarerna-sv__lead-grid two-col-align-top">
+    <ContentSection markdown={openingMarkdown} />
+    <aside class="page-om-konstnarerna-sv__lead-aside" aria-label="Image and link">
+      <figure class="page-om-konstnarerna-sv__figure page-om-konstnarerna-sv__figure--hero">
+        <img
+          src="/wp-content/uploads/2025/04/ANDETAG-Art-Week-Opening-2-photo-by-Gustaf-Tadaa-1024x683.jpg"
+          width={1024}
+          height={683}
+          alt=""
+          loading="eager"
+          decoding="async"
+        />
+      </figure>
+      <p class="page-om-konstnarerna-sv__lead-link">
+        <a href="https://tadaa.se">Read more at tadaa.se</a>
+      </p>
+    </aside>
+  </div>
+  <div class="page-om-konstnarerna-sv__duo-grid">
+    <div class="page-om-konstnarerna-sv__duo-col">
+      <figure class="page-om-konstnarerna-sv__figure page-om-konstnarerna-sv__figure--portrait">
+        <img
+          src="/wp-content/uploads/2024/12/Malin-Tadaa-Andetag-2025-face-1-1024x1024.jpg"
+          width={1024}
+          height={1024}
+          alt=""
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+      <div class="content-section-body" set:html={malinBioHtml}></div>
+    </div>
+    <div class="page-om-konstnarerna-sv__duo-col">
+      <figure class="page-om-konstnarerna-sv__figure page-om-konstnarerna-sv__figure--portrait">
+        <img
+          src="/wp-content/uploads/2024/12/Gustaf-Tadaa-Andetag-2025-face-1-1024x1024.jpg"
+          width={1024}
+          height={1024}
+          alt=""
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+      <div class="content-section-body" set:html={gustafBioHtml}></div>
+    </div>
+  </div>
+  <ContentSection markdown={teamMarkdown} />
 </div>

@@ -12,23 +12,27 @@ Environment: run against Cloudflare preview or production after deploy, or use `
 | 2 | `/de/?utm_source=test` | 301 | `/de/berlin/?utm_source=test` | yes |
 | 3 | `/en/berlin-en/` | 301 | `/en/berlin/` | yes |
 | 4 | `/en/stockholm/art-yoga-en/` | 301 | `/en/stockholm/art-yoga/` | yes |
-| 5 | `/privacy-policy/` | 301 | `/privacy/` | yes |
+| 5 | `/privacy-policy/` | 301 | `/sv/stockholm/privacy/` | yes |
+| 5b | `/privacy/` | 301 | `/sv/stockholm/privacy/` | yes |
 | 6 | `/` | 301 | `/sv/stockholm/` | yes |
 | 7 | `/?utm_source=test` | 301 | `/sv/stockholm/?utm_source=test` | yes |
 | 8 | `/stockholm/biljetter/` | 301 | `/sv/stockholm/biljetter/` | yes |
-| 9 | `/musik/` | 301 | `/sv/musik/` | yes |
-| 10 | `/optisk-fibertextil/` | 301 | `/sv/optisk-fibertextil/` | yes |
+| 9 | `/musik/` | 301 | `/sv/stockholm/musik/` | yes |
+| 10 | `/optisk-fibertextil/` | 301 | `/sv/stockholm/optisk-fibertextil/` | yes |
+| 11 | `/en/music/` | 301 | `/en/stockholm/music/` | yes |
+| 12 | `/sv/musik/` | 301 | `/sv/stockholm/musik/` | yes |
 
 ## Execution log
 
 | date | environment | operator | result |
 |------|-------------|----------|--------|
-| 2026-03-23 | `https://andetag-web.guff.workers.dev/` (Cloudflare Workers static assets) | automated `curl -sI` | **Pass** — cases 1–5: `301` and relative `location` paths match; `utm_source=test` preserved on cases 2, 3b, 4b, 5b. Spot checks: `/en/berlin-en/?utm_source=test`, `/en/stockholm/art-yoga-en/?utm_source=test`. Case 5 confirmed after deploy including `/privacy-policy/` → `/privacy/`. |
-| 2026-03-23 | Repo `site/public/_redirects` and `site/dist/_redirects` (post `/sv/` rollout) | review + `HEAD` probe | **Pass (rules)** — cases 6–10 each have a matching `301` rule with the expected target path (see Evidence below). **Live note:** `HEAD` against `andetag-web.guff.workers.dev` for `/`, `/stockholm/biljetter/`, `/musik/`, `/optisk-fibertextil/` returned `200` without `Location` (this host appears to serve static files without evaluating `_redirects`). Re-check with `curl -sI` on **Cloudflare Pages** (or any deploy that applies `public/_redirects`) after the next publish. |
+| 2026-03-23 | `https://andetag-web.guff.workers.dev/` (Cloudflare Workers static assets) | automated `curl -sI` | **Pass (historical)** — cases 1–5 as **then** defined; **`/privacy-policy/`** target was **`/privacy/`** before **2026-03-28** routing. |
+| 2026-03-23 | Repo `site/public/_redirects` and `site/dist/_redirects` (post `/sv/` rollout) | review + `HEAD` probe | **Pass (historical rules)** — see note below. |
+| 2026-03-28 | Repo `site/public/_redirects` | review | **Pending live re-run:** location-scoped story URLs and privacy (**`docs/routing-location-scoped-global-pages-plan.md`**). Required cases **5**, **5b**, **9**, **10** and new **11**–**12** targets updated in the table above. Re-execute **`curl -sI`** on the deploy that applies **`public/_redirects`** after publish. |
 
-### Evidence (2026-03-23)
+### Evidence (2026-03-23, historical)
 
-Base URL: `https://andetag-web.guff.workers.dev`
+Base URL: `https://andetag-web.guff.workers.dev`. Privacy and Swedish story targets in this block are **superseded** by **2026-03-28** (see **Required cases**).
 
 ```
 # 1 GET /de/
@@ -47,7 +51,7 @@ location: /en/berlin/
 HTTP/2 301
 location: /en/stockholm/art-yoga/
 
-# 5 GET /privacy-policy/
+# 5 GET /privacy-policy/  (before 2026-03-28)
 HTTP/2 301
 location: /privacy/
 
@@ -56,7 +60,7 @@ HTTP/2 301
 location: /privacy/?utm_source=test
 ```
 
-### Evidence: cases 6–10 (repo rules, 2026-03-23)
+### Evidence: cases 6–12 (repo rules, 2026-03-28)
 
 Rules in `site/public/_redirects` (copied to `site/dist/_redirects` on build):
 
@@ -65,10 +69,13 @@ Rules in `site/public/_redirects` (copied to `site/dist/_redirects` on build):
 | 6 | `/` → `/sv/stockholm/` `301` |
 | 7 | (same rule; query preserved by platform when supported) |
 | 8 | `/stockholm/*` → `/sv/stockholm/:splat` `301` |
-| 9 | `/musik/` → `/sv/musik/` `301` |
-| 10 | `/optisk-fibertextil/` → `/sv/optisk-fibertextil/` `301` |
+| 9 | `/musik/` → `/sv/stockholm/musik/` `301` |
+| 10 | `/optisk-fibertextil/` → `/sv/stockholm/optisk-fibertextil/` `301` |
+| 5, 5b | `/privacy-policy/`, `/privacy/` → `/sv/stockholm/privacy/` `301` |
+| 11 | `/en/music/` → `/en/stockholm/music/` `301` |
+| 12 | `/sv/musik/` → `/sv/stockholm/musik/` `301` |
 
-Related Swedish legacy aliases in the same file: `/om-andetag/`, `/om-konstnarerna-malin-gustaf-tadaa/` → matching `/sv/...` paths.
+Related rules in the same file: legacy English global story paths (`/en/about-andetag/`, …), flat German story paths (`/de/ueber-andetag/`, …), unprefixed Swedish (`/om-andetag/`, …). Full list: **`docs/url-matrix.csv`** **`redirect`** rows.
 
 Note: `location` is path-only (relative). Clients resolve it against the request host, which matches Cloudflare static asset redirect behavior.
 
@@ -82,9 +89,12 @@ curl -sI "$BASE/en/berlin-en/"
 curl -sI "$BASE/en/stockholm/art-yoga-en/"
 curl -sI "$BASE/privacy-policy/"
 curl -sI "$BASE/privacy-policy/?utm_source=test"
+curl -sI "$BASE/privacy/"
 curl -sI "$BASE/"
 curl -sI "$BASE/?utm_source=test"
 curl -sI "$BASE/stockholm/biljetter/"
 curl -sI "$BASE/musik/"
 curl -sI "$BASE/optisk-fibertextil/"
+curl -sI "$BASE/en/music/"
+curl -sI "$BASE/sv/musik/"
 ```

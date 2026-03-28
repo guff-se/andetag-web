@@ -63,7 +63,7 @@ All phases must keep these baseline checks in scope:
 
 ## Phase 6, Localization Rollout (After Swedish Completion)
 
-**Process status:** **`docs/phase-6-todo.md`** (**Current position and what is next**). **Evidence and sign-off:** **`docs/phase-6-verification-record.md`**.
+**Process status:** **`docs/phase-6-todo.md`** (**Current position and what is next**). **Evidence and sign-off:** **`docs/phase-6-verification-record.md`**. **Canonical URL model** for story topics and privacy: **`docs/routing-location-scoped-global-pages-plan.md`** (**implemented**) and **`docs/url-migration-policy.md`** (**Location-scoped story URLs and privacy**).
 
 - Performance: localized pages keep the same component-level performance profile as approved Swedish equivalents.
 - SEO: localized pages preserve canonical/hreflang integrity and locale-specific metadata correctness.

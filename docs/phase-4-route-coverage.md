@@ -2,37 +2,30 @@
 
 Purpose: map every `docs/url-matrix.csv` row to its static implementation (Astro page, redirect rule, or exception).
 
-Status: aligned with `site/` implementation. **2026-03-23:** Phase 4 shells closed. **Swedish `/sv/` prefix:** canonical Swedish paths and legacy **`301`** redirects applied in matrix, `_redirects`, registry, and metadata extractor.
+Status: aligned with `site/` implementation. **2026-03-23:** Phase 4 shells closed. **2026-03-28:** Location-scoped story URLs, four privacy shells, and matrix or **`_redirects`** refresh (**`docs/routing-location-scoped-global-pages-plan.md`**).
 
 ## Summary
 
 | Mechanism | Count | Notes |
 |-----------|------:|-------|
-| Static HTML shell (`index.astro` redirect + `[...slug].astro`) | 49 | Paths keyed in `site/src/data/page-shell-meta.json`; **`/`** → **`/sv/stockholm/`** (`301`) from `index.astro` plus **`_redirects`** |
-| Repo `public/_redirects` (Cloudflare Pages / Workers assets) | 10 | **`/de/`**, legacy EN aliases, **`/privacy-policy/`**, Swedish legacy paths, **`/stockholm/*`**, **`/`** (see `site/public/_redirects`) |
+| Static HTML shell (`index.astro` redirect + `[...slug].astro`) | 61 | Paths keyed in `site/src/data/page-shell-meta.json`; **`/`** → **`/sv/stockholm/`** (`301`) from `index.astro` plus **`_redirects`** |
+| Repo `public/_redirects` (Cloudflare Pages / Workers assets) | 23 | **`/de/`**, legacy EN or DE story paths, **`/privacy/`**, Swedish legacy paths, **`/stockholm/*`**, **`/`** (see `site/public/_redirects`; counts non-comment rules) |
 | Internal routes (not in URL matrix) | 1 | Global **`404`** (`404.html`) |
-| Matrix `redirect` rows covered by `_redirects` | 26 | All `redirect_type=301` rows in `url-matrix.csv` (Swedish legacy + existing de/en aliases) |
-| Policy-only redirect | 1 | `/privacy-policy/` (not a separate matrix row) |
+| Matrix `redirect` rows | 24 | `redirect` rows in `docs/url-matrix.csv` (legacy **`301`** sources); keep aligned with **`_redirects`** |
 
 **Layout modules and `dist/`:** files under `site/src/lib/chrome/` (for example `hero-sv.ts`, `footer-sv.ts`, `header-small-sv.ts`) are bundled into pages; only `site/src/pages/` produces URL directories in the static build output.
 
 ## Matrix rows (canonical paths)
 
-**English and German:** unchanged from previous coverage: **`/en/...`**, **`/de/...`** as in `docs/url-matrix.csv` **`keep`** rows.
+**English and German:** canonical **`keep`** paths are **location-prefixed** where product rules require: **`/en/stockholm/...`**, **`/en/berlin/...`**, **`/de/berlin/...`**, plus **`/en/`** hub. See `docs/url-matrix.csv`.
 
-**Swedish (canonical):** all **`keep`** Swedish content uses **`/sv/`**:
+**Swedish (canonical):** all **`keep`** Swedish content uses **`/sv/stockholm/...`** (home, utilities, story topics, privacy). Legacy **`/sv/musik/`**-style paths and unprefixed Swedish URLs are **`redirect`** rows to **`/sv/stockholm/...`**.
 
-- Home: **`/sv/stockholm/`**
-- Stockholm pages: **`/sv/stockholm/<slug>/`** (all former **`/stockholm/<slug>/`** paths)
-- Shared Swedish: **`/sv/musik/`**, **`/sv/om-andetag/`**, **`/sv/om-konstnarerna-malin-gustaf-tadaa/`**, **`/sv/optisk-fibertextil/`**
+**Swedish (legacy `redirect` rows):** **`source_url`** paths (for example **`/`**, **`/stockholm/biljetter/`**, **`/musik/`**, **`/sv/musik/`**) **`301`** straight to the **`canonical_url`** in the matrix; implemented in **`site/public/_redirects`** (and must stay aligned with matrix).
 
-**Swedish (legacy `redirect` rows):** **`source_url`** paths without **`/sv/`** (for example **`/`**, **`/stockholm/biljetter/`**, **`/musik/`**) **`301`** to the **`canonical_url`** in the matrix; implemented in **`site/public/_redirects`** (and must stay aligned with matrix).
-
-**Privacy:** **`/privacy/`** **`keep`**, locale-neutral path (unchanged).
+**Privacy:** four **`keep`** shells (**`/sv/stockholm/privacy/`**, **`/en/stockholm/privacy/`**, **`/de/berlin/privacy/`**, **`/en/berlin/privacy/`**). Legacy **`/privacy/`** and **`/privacy-policy/`** **`301`** to **`/sv/stockholm/privacy/`**.
 
 Host-level `http`/`https` and apex → `www` redirects are owned by Cloudflare (see `docs/phase-4-todo.md` decision block), not by `_redirects`.
-
-Optional alias **`/privacy-policy/`** → **`/privacy/`** (`301`) is defined in `_redirects` per `docs/url-migration-policy.md` (not listed as its own row in `url-matrix.csv`).
 
 ## Artifacts
 
