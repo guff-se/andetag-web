@@ -9,8 +9,6 @@ export type HeaderVariantId =
   /** English hub `/en/`: full-viewport hero, Stockholm and Berlin CTAs, no nav strip. */
   | "chrome-hdr-en-header-selector"
   | "chrome-hdr-en-stockholm-small"
-  /** English global story pages: same small shell as `chrome-hdr-en-stockholm-small`, `en-brand` desktop nav. */
-  | "chrome-hdr-en-stockholm-brand"
   | "chrome-hdr-en-berlin-hero"
   | "chrome-hdr-en-berlin-small"
   | "chrome-hdr-de-berlin-hero"
@@ -42,7 +40,7 @@ export type NavigationItem = {
 };
 
 export type NavigationVariant = {
-  id: "sv-main" | "en-main" | "en-brand" | "de-main";
+  id: "sv-main" | "en-main" | "en-main-berlin" | "de-main";
   language: Language;
   destination: Destination | "shared";
   items: NavigationItem[];
@@ -51,7 +49,7 @@ export type NavigationVariant = {
 export type HeaderVariant = {
   id: HeaderVariantId;
   language: Language;
-  kind: "hero" | "small" | "brand";
+  kind: "hero" | "small";
   navVariantDesktop: NavigationVariant["id"];
   navVariantMobile: NavigationVariant["id"];
   ctaLabel: string;

@@ -40,7 +40,7 @@ export function getSwedishFooterModel() {
         { label: "Dejt", href: "/sv/stockholm/dejt/" },
         { label: "NPF-besökare", href: "/sv/stockholm/npf-stockholm/" },
         { label: "Art Yoga", href: "/sv/stockholm/art-yoga/" },
-        { label: "Musiken", href: "/sv/musik/" },
+        { label: "Musiken", href: "/sv/stockholm/musik/" },
         { label: "Besökaromdömen", href: "/sv/stockholm/besokaromdomen/" },
       ],
     },
@@ -57,9 +57,9 @@ export function getSwedishFooterModel() {
     {
       title: "Om",
       links: [
-        { label: "Om Andetag", href: "/sv/om-andetag/" },
-        { label: "Textilen", href: "/sv/optisk-fibertextil/" },
-        { label: "Om konstnärerna", href: "/sv/om-konstnarerna-malin-gustaf-tadaa/" },
+        { label: "Om Andetag", href: "/sv/stockholm/om-andetag/" },
+        { label: "Textilen", href: "/sv/stockholm/optisk-fibertextil/" },
+        { label: "Om konstnärerna", href: "/sv/stockholm/om-konstnarerna-malin-gustaf-tadaa/" },
       ],
     },
   ];
@@ -83,7 +83,7 @@ export function getSwedishFooterModel() {
     groupedSections,
     seoLinks,
     copyright: "© 2026 Tadaa Art AB",
-    privacyLink: { label: "Integritetspolicy", href: "/privacy/" },
+    privacyLink: { label: "Integritetspolicy", href: "/sv/stockholm/privacy/" },
     socialLinks,
   };
 }

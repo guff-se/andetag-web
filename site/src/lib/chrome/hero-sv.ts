@@ -60,12 +60,12 @@ const MENU_DEFINITION: Array<{
       "/sv/stockholm/vilken-typ-av-upplevelse/",
       "/sv/stockholm/dejt/",
       "/sv/stockholm/art-yoga/",
-      "/sv/musik/",
+      "/sv/stockholm/musik/",
     ],
     subMenu: [
       { label: "Dejt på ANDETAG", href: "/sv/stockholm/dejt/" },
       { label: "Art Yoga", href: "/sv/stockholm/art-yoga/" },
-      { label: "Musiken", href: "/sv/musik/" },
+      { label: "Musiken", href: "/sv/stockholm/musik/" },
     ],
   },
   {
@@ -76,15 +76,15 @@ const MENU_DEFINITION: Array<{
   },
   {
     label: "Om ANDETAG",
-    href: "/sv/om-andetag/",
+    href: "/sv/stockholm/om-andetag/",
     matchPrefixes: [
-      "/sv/om-andetag/",
-      "/sv/optisk-fibertextil/",
-      "/sv/om-konstnarerna-malin-gustaf-tadaa/",
+      "/sv/stockholm/om-andetag/",
+      "/sv/stockholm/optisk-fibertextil/",
+      "/sv/stockholm/om-konstnarerna-malin-gustaf-tadaa/",
     ],
     subMenu: [
-      { label: "Textilen", href: "/sv/optisk-fibertextil/" },
-      { label: "Om konstnärerna", href: "/sv/om-konstnarerna-malin-gustaf-tadaa/" },
+      { label: "Textilen", href: "/sv/stockholm/optisk-fibertextil/" },
+      { label: "Om konstnärerna", href: "/sv/stockholm/om-konstnarerna-malin-gustaf-tadaa/" },
       { label: "ANDETAG Berlin", href: "/en/berlin/" },
     ],
   },

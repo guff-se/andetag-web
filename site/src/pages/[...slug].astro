@@ -45,6 +45,7 @@ import StockholmUtstallningSv from "../components/page-bodies/StockholmUtstallni
 import TillganglighetEn from "../components/page-bodies/TillganglighetEn.astro";
 import TillganglighetSv from "../components/page-bodies/TillganglighetSv.astro";
 import VilkenTypAvUpplevelseEn from "../components/page-bodies/VilkenTypAvUpplevelseEn.astro";
+import PrivacyPage from "../components/page-bodies/PrivacyPage.astro";
 import VilkenTypAvUpplevelseSv from "../components/page-bodies/VilkenTypAvUpplevelseSv.astro";
 import { HERO_SV_ASSETS } from "../lib/chrome/assets";
 import {
@@ -68,10 +69,14 @@ type ShellPageBody = typeof MusikSv;
 
 /** Keep keys aligned with `PAGE_CUSTOM_BODY_PATHS` in `lib/page-registry/page-body-registry.ts`. */
 const pageBodies: Partial<Record<string, ShellPageBody>> = {
-  "/en/about-andetag/": OmAndetagEn,
-  "/en/about-the-artists-malin-gustaf-tadaa/": OmKonstnarernaEn,
-  "/en/music/": MusikEn,
-  "/en/optical-fibre-textile/": OpticalFibreTextileEn,
+  "/en/stockholm/about-andetag/": OmAndetagEn,
+  "/en/stockholm/about-the-artists-malin-gustaf-tadaa/": OmKonstnarernaEn,
+  "/en/stockholm/music/": MusikEn,
+  "/en/stockholm/optical-fibre-textile/": OpticalFibreTextileEn,
+  "/en/berlin/about-andetag/": OmAndetagEn,
+  "/en/berlin/about-the-artists-malin-gustaf-tadaa/": OmKonstnarernaEn,
+  "/en/berlin/music/": MusikEn,
+  "/en/berlin/optical-fibre-textile/": OpticalFibreTextileEn,
   "/en/stockholm/": StockholmHomeEn,
   "/en/stockholm/accessibility/": TillganglighetEn,
   "/en/stockholm/art-yoga/": ArtYogaEn,
@@ -91,10 +96,14 @@ const pageBodies: Partial<Record<string, ShellPageBody>> = {
   "/en/stockholm/things-to-do-stockholm/": StockholmThingsToDoEn,
   "/en/stockholm/visitor-reviews/": BesokaromdomenEn,
   "/en/stockholm/what-kind-of-experience/": VilkenTypAvUpplevelseEn,
-  "/sv/musik/": MusikSv,
-  "/sv/om-andetag/": OmAndetagSv,
-  "/sv/om-konstnarerna-malin-gustaf-tadaa/": OmKonstnarernaSv,
-  "/sv/optisk-fibertextil/": OptiskFibertextilSv,
+  "/sv/stockholm/musik/": MusikSv,
+  "/sv/stockholm/om-andetag/": OmAndetagSv,
+  "/sv/stockholm/om-konstnarerna-malin-gustaf-tadaa/": OmKonstnarernaSv,
+  "/sv/stockholm/optisk-fibertextil/": OptiskFibertextilSv,
+  "/sv/stockholm/privacy/": PrivacyPage,
+  "/en/stockholm/privacy/": PrivacyPage,
+  "/de/berlin/privacy/": PrivacyPage,
+  "/en/berlin/privacy/": PrivacyPage,
   "/sv/stockholm/": StockholmHomeSv,
   "/sv/stockholm/aktivitet-inomhus-stockholm/": StockholmAktivitetInomhusSv,
   "/sv/stockholm/art-yoga/": ArtYogaSv,
@@ -141,6 +150,7 @@ const lcpFontPreloadHref = heroVideoHeaderIds.has(shell.headerVariantId)
   headerVariantId={shell.headerVariantId}
   footerVariantId={shell.footerVariantId}
   canonicalPath={shell.canonicalPath}
+  seoCanonicalPath={shell.seoCanonicalPath}
   hreflang={shell.hreflang}
   xDefaultPath={shell.xDefaultPath}
   lcpImagePreloadHref={lcpImagePreloadHref}

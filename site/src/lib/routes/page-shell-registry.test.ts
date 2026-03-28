@@ -3,7 +3,7 @@ import { getPageShellRoute, PAGE_SHELL_PATHS } from "./page-shell-registry";
 
 describe("page shell registry", () => {
   it("covers every path in page-shell-meta.json", () => {
-    expect(PAGE_SHELL_PATHS.length).toBe(54);
+    expect(PAGE_SHELL_PATHS.length).toBe(61);
     for (const path of PAGE_SHELL_PATHS) {
       expect(() => getPageShellRoute(path)).not.toThrow();
       const shell = getPageShellRoute(path);
@@ -16,5 +16,15 @@ describe("page shell registry", () => {
     const shell = getPageShellRoute("/en/berlin/");
     expect(shell.xDefaultPath).toBe("/de/berlin/");
     expect(shell.hreflang.de).toBe("/de/berlin/");
+  });
+
+  it("Berlin English story shells canonicalize to Stockholm English", () => {
+    const shell = getPageShellRoute("/en/berlin/music/");
+    expect(shell.seoCanonicalPath).toBe("/en/stockholm/music/");
+  });
+
+  it("Berlin English privacy is self-canonical", () => {
+    const shell = getPageShellRoute("/en/berlin/privacy/");
+    expect(shell.seoCanonicalPath).toBeNull();
   });
 });

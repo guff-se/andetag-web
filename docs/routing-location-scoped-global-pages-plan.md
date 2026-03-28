@@ -2,7 +2,7 @@
 
 Purpose: step-by-step migration from **English global paths** (for example `/en/music/`, `/en/about-andetag/`) to **dual location-prefixed English URLs** (for example `/en/stockholm/music/`, `/en/berlin/music/`), with **legacy redirects**, **SEO canonical** from Berlin English to Stockholm English, and **no separate English global chrome**. Extend the same **slug split** to **Swedish** and **German** where product rules require, and keep **one content source** per logical page.
 
-Status: **planning** (not implemented). When executed, update **`docs/url-migration-policy.md`**, **`docs/phase-4-routing-reopen.md`**, and related docs in the same delivery.
+Status: **implemented** (2026-03-28). **`docs/url-matrix.csv`**, **`docs/url-migration-policy.md`**, and **`docs/phase-4-routing-reopen.md`** updated in the same delivery; **`CHANGELOG.md`** records the routing slice.
 
 ---
 
@@ -211,4 +211,4 @@ Mark each when done:
 | **Privacy (four shells)** | Yes (section 2) |
 | **Single-hop legacy redirects** | Yes (**Locked decisions**) |
 
-**Residual risk:** until **`seoCanonicalPath`** exists, do not ship Berlin English **story** duplicates (they would self-canonicalize and split signals). **German and Swedish** path changes may require **additional** scraped shells or **exception-logged** meta before build passes. **Privacy:** Berlin copy is **new**; do not fabricate legal text (**docs/migration-exceptions.md** or stakeholder draft required).
+**Residual risk (post-ship):** monitor **Search Console** for Berlin English story URLs vs Stockholm canonicals (**Locked decisions**). **Privacy:** if Berlin legal copy is still duplicated from another shell, log in **`docs/migration-exceptions.md`** until market-specific text is approved.

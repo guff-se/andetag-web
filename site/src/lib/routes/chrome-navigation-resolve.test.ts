@@ -3,8 +3,8 @@ import { resolveChromeNavigationHref } from "./chrome-navigation-resolve";
 
 describe("resolveChromeNavigationHref (Phase 6 chrome)", () => {
   it("selecting Swedish from a Berlin path moves to Stockholm (same topic when mapped)", () => {
-    expect(resolveChromeNavigationHref("/de/ueber-andetag/", { language: "sv" })).toBe(
-      "/sv/om-andetag/",
+    expect(resolveChromeNavigationHref("/de/berlin/ueber-andetag/", { language: "sv" })).toBe(
+      "/sv/stockholm/om-andetag/",
     );
   });
 
@@ -13,8 +13,8 @@ describe("resolveChromeNavigationHref (Phase 6 chrome)", () => {
   });
 
   it("selecting German from a Stockholm path moves to Berlin (same topic when mapped)", () => {
-    expect(resolveChromeNavigationHref("/sv/musik/", { language: "de" })).toBe(
-      "/de/musik-von-andetag/",
+    expect(resolveChromeNavigationHref("/sv/stockholm/musik/", { language: "de" })).toBe(
+      "/de/berlin/musik-von-andetag/",
     );
   });
 
@@ -34,7 +34,12 @@ describe("resolveChromeNavigationHref (Phase 6 chrome)", () => {
     expect(resolveChromeNavigationHref("/en/", { language: "sv" })).toBe("/sv/stockholm/");
   });
 
-  it("privacy stays on /privacy/ for each language selection", () => {
-    expect(resolveChromeNavigationHref("/privacy/", { language: "de" })).toBe("/privacy/");
+  it("privacy maps to location-specific URLs per language", () => {
+    expect(resolveChromeNavigationHref("/sv/stockholm/privacy/", { language: "de" })).toBe(
+      "/de/berlin/privacy/",
+    );
+    expect(resolveChromeNavigationHref("/de/berlin/privacy/", { language: "sv" })).toBe(
+      "/sv/stockholm/privacy/",
+    );
   });
 });

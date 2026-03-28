@@ -11,6 +11,7 @@ describe("page layout model", () => {
         headerVariantId: fixture.headerVariantId,
         footerVariantId: fixture.footerVariantId,
         canonicalPath: fixture.canonicalPath,
+        seoCanonicalPath: fixture.seoCanonicalPath ?? null,
         hreflang: fixture.hreflang,
         xDefaultPath: fixture.xDefaultPath,
       });
@@ -21,5 +22,23 @@ describe("page layout model", () => {
       expect(model.hreflangLinks).toHaveLength(fixture.expectedHreflangCount);
       expect(model.brandHomeHref).toBe(fixture.expectedBrandHomeHref);
     });
+  });
+
+  it("uses seoCanonicalPath for canonical URL when set (Berlin English story)", () => {
+    const model = createPageLayoutModel({
+      language: "en",
+      destination: "berlin",
+      headerVariantId: "chrome-hdr-en-berlin-small",
+      footerVariantId: "chrome-ftr-en-berlin",
+      canonicalPath: "/en/berlin/music/",
+      seoCanonicalPath: "/en/stockholm/music/",
+      hreflang: {
+        sv: null,
+        en: "/en/berlin/music/",
+        de: "/de/berlin/musik-von-andetag/",
+      },
+      xDefaultPath: "/de/berlin/musik-von-andetag/",
+    });
+    expect(model.canonicalUrl).toBe("https://www.andetag.museum/en/stockholm/music/");
   });
 });

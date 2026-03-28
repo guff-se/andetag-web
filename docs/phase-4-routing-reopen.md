@@ -59,7 +59,7 @@ Applies to **header** (and any mirrored controls): **edge** entry routing stays 
 
 - **`docs/ia-language-destination-options.md`** now records explicit **`/sv/`** as the Swedish language prefix; legacy unprefixed paths **`301`** to **`/sv/...`** (matrix + **`_redirects`**).
 - **SEO:** `docs/Andetag SEO Manual.md` will need **`x-default`** and hreflang examples aligned with **`/sv/stockholm/`** and the English hub.
-- **Global pages** today sit outside `/stockholm/` and `/berlin/` trees (for example `/om-andetag/`, `/en/about-andetag/`, `/de/ueber-andetag/`).
+- **Story pages (four topics) and privacy:** as of **2026-03-28**, canonicals live under location trees (**`/sv/stockholm/...`**, **`/en/stockholm/...`**, **`/de/berlin/...`**, plus English Berlin duplicates with Stockholm canonical in HTML). Legacy global and flat URLs **`301`** to those paths per **`docs/url-matrix.csv`**. Spec: **`docs/routing-location-scoped-global-pages-plan.md`**.
 
 ## Global pages: navigation and routing options
 
@@ -84,9 +84,11 @@ Applies to **header** (and any mirrored controls): **edge** entry routing stays 
 
 **Working recommendation:** **Option 1** unless analytics or stakeholder input shows users cannot find global pages. Option 2 remains a later refactor if the split nav is insufficient.
 
+**Note (2026-03-28):** URL shape for the **four trilingual story topics** and **privacy** no longer matches “global paths unchanged”; those routes are **location-scoped** with **`301`** from old URLs. Navigation bands (primary = visit city, secondary = depth topics) still follow the Option 1 intent.
+
 ### Hreflang note for global pages (to confirm in SEO manual)
 
-Location pages: alternates are **same city, other languages** only. Global pages: alternates are likely **same topic, sv / en / de** (no Berlin/Stockholm pair because there is not two location variants). Confirm with `docs/Andetag SEO Manual.md` and update examples if we add explicit global-page rules.
+Location pages: alternates are **same city, other languages** only. The **four story topics** and **privacy** are now **location-scoped URLs**: alternates are **same location only** (Stockholm **sv**↔**en**, Berlin **de**↔**en**), not cross-city trilingual triples. Other depth pages may still follow the older “same topic across languages” pattern where the matrix says so. Confirm with `docs/Andetag SEO Manual.md` and update examples as needed.
 
 ## Berlin and Stockholm parity
 

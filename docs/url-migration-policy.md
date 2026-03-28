@@ -42,6 +42,17 @@ Purpose: preserve SEO value and inbound links while rebuilding `andetag.museum` 
   - Canonical target path: `/en/stockholm/art-yoga/`
   - Legacy alias: `/en/stockholm/art-yoga-en/` -> `/en/stockholm/art-yoga/` (`301`)
 
+### Location-scoped story URLs and privacy (static site, 2026-03-28)
+
+Normative path list: **`docs/url-matrix.csv`** and **`site/public/_redirects`** (single-hop **`301`** to final canonicals).
+
+- **Swedish story pages:** canonical **`/sv/stockholm/{slug}/`**; legacy **`/sv/{slug}/`** and unprefixed Swedish URLs redirect there where they were live URLs.
+- **English story pages:** SEO canonical **`/en/stockholm/{slug}/`**; **`/en/berlin/{slug}/`** duplicates use HTML **`rel="canonical"`** to the Stockholm English URL for the four scoped topics (see **`site/src/lib/routes/page-shell-registry.ts`**); legacy English **global** paths such as **`/en/music/`** redirect **`301`** to **`/en/stockholm/music/`**.
+- **German story pages:** canonical **`/de/berlin/{slug}/`**; legacy flat **`/de/...`** story URLs redirect where published.
+- **Privacy:** four shells (**`/sv/stockholm/privacy/`**, **`/en/stockholm/privacy/`**, **`/de/berlin/privacy/`**, **`/en/berlin/privacy/`**); legacy **`/privacy/`** and **`/privacy-policy/`** go to Swedish Stockholm privacy.
+
+Internal **`hreflang`** for these pages is **same location only** (Stockholm **sv**↔**en**, Berlin **de**↔**en**). Full rationale: **`docs/routing-location-scoped-global-pages-plan.md`**.
+
 ## Entry routing, `Accept-Language`, and the `andetag_entry` cookie
 
 Purpose: one **necessary** (strictly functional) first-party cookie plus edge logic so `/` and `/en/` can remember visitor choice and otherwise funnel by browser language. Implementation is expected on the **CDN or Worker** in front of static HTML (see `docs/phase-4-routing-reopen.md`). This section is the policy contract; redirect status codes here are for **entry routes** only.

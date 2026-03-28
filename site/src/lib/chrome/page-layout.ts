@@ -20,6 +20,8 @@ type LayoutModelInput = {
   headerVariantId: HeaderVariantId | LegacyHeaderAliasId;
   footerVariantId: FooterVariantId;
   canonicalPath: string;
+  /** When set, `<link rel="canonical">` targets this path instead of `canonicalPath`. */
+  seoCanonicalPath?: string | null;
   hreflang: Record<Language, string | null>;
   xDefaultPath: string | null;
 };
@@ -53,7 +55,7 @@ export function createPageLayoutModel(input: LayoutModelInput) {
       destination: input.destination,
       canonicalPath: input.canonicalPath,
     }),
-    canonicalUrl: buildCanonicalUrl(input.canonicalPath),
+    canonicalUrl: buildCanonicalUrl(input.seoCanonicalPath ?? input.canonicalPath),
     hreflangLinks: buildHreflangLinks(input.hreflang, input.xDefaultPath),
   };
 }

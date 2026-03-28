@@ -4,32 +4,32 @@
     "notes": "Swedish canonical paths use /sv/; legacy unprefixed URLs redirect via site/public/_redirects. /en/stockholm/: en-stockholm.html and live site mis-set Yoast; shell uses en.html until EX-0007 is resolved in Phase 5. /en/: title and description overridden for minimal hub (EX-0015); re-extract may need a guard for this path."
   },
   "pages": {
-    "/sv/stockholm/": {
-      "sourceFile": "index.html",
-      "title": "ANDETAG | En stillsam konstupplevelse i Stockholm",
-      "description": "Andetag är ett stillsamt konstmuseum i centrala Stockholm. En omslutande upplevelse av ljus, textil och musik, skapad för närvaro, vila och ett gemensamt andetag."
-    },
     "/de/berlin/": {
       "sourceFile": "de-berlin.html",
       "title": "ANDETAG Berlin | Das Atemmuseum | Stille, Licht und gemeinsamer Atem | ANDETAG Stockholm",
       "description": "ANDETAG eröffnet bald in Berlin, ein stilles Atemmuseum, in dem Licht, Textil und Musik sich im Rhythmus eines gemeinsamen Atemzugs bewegen."
     },
-    "/de/die-kuenstler-malin-gustaf-tadaa/": {
+    "/de/berlin/die-kuenstler-malin-gustaf-tadaa/": {
       "sourceFile": "de-die-kuenstler-malin-gustaf-tadaa.html",
       "title": "Malin & Gustaf Tadaa | Die Künstler hinter ANDETAG | ANDETAG Stockholm",
       "description": "Malin und Gustaf Tadaa sind das Künstlerpaar hinter dem Atemmuseum ANDETAG. Ihre gemeinsame Praxis bewegt sich zwischen Licht, Textil, Code und Interaktion."
     },
-    "/de/musik-von-andetag/": {
+    "/de/berlin/musik-von-andetag/": {
       "sourceFile": "de-musik-von-andetag.html",
       "title": "Musik von ANDETAG | Originalmusik zum Hören und Atmen | ANDETAG Stockholm",
       "description": "Zwölf Stücke. Gut eine Stunde zusammenhängendes Hören. Die Originalmusik von ANDETAG — komponiert für Stille und Gegenwärtigkeit, von Gustaf Tadaa und Povel Olsson."
     },
-    "/de/optische-fasertextil/": {
+    "/de/berlin/optische-fasertextil/": {
       "sourceFile": "de-optische-fasertextil.html",
       "title": "Die Textilkunst von ANDETAG | Optische Faser, Licht und Gewebe | ANDETAG Stockholm",
       "description": "Jedes ANDETAG-Werk beginnt mit einem Gewebe. Optische Faser, Baumwolle und Licht werden zu einer Textilkunst verwoben, die langsam leuchtet und sich nie wiederholt."
     },
-    "/de/ueber-andetag/": {
+    "/de/berlin/privacy/": {
+      "sourceFile": "privacy.html",
+      "title": "Datenschutz | ANDETAG Berlin",
+      "description": "This Privacy Policy, hereinafter referred to as the ”Policy,” pertains to the processing, collection, utilization, retention, and dissemination of personal data by Tadaa Art AB (”we,” ”us,” or ”our”) in the course of operations conducted through our website, ticketing systems, and associated digital or physical platforms. This Policy is instituted in accordance with the General […]"
+    },
+    "/de/berlin/ueber-andetag/": {
       "sourceFile": "de-ueber-andetag.html",
       "title": "ANDETAG – Das Kunstwerk | Ein gemeinsamer Atemzug als Kunst | ANDETAG Stockholm",
       "description": "ANDETAG — ein fortlaufendes Kunstprojekt, in dem Licht, Textil und Musik sich im Rhythmus eines gemeinsamen menschlichen Atemzugs bewegen. Nie abgeschlossen, immer in Bewegung."
@@ -39,35 +39,50 @@
       "title": "ANDETAG | The Breathing Museum",
       "description": "ANDETAG is the breathing museum—a calm, light-based art experience. Choose Stockholm or Berlin to plan your visit."
     },
-    "/en/about-andetag/": {
-      "sourceFile": "en-about-andetag.html",
-      "title": "About ANDETAG | A Breathing Art Project by Malin & Gustaf Tadaa | ANDETAG Stockholm",
-      "description": "ANDETAG is an ongoing art project by Malin and Gustaf Tadaa, built around a shared human breath and unfolding through light, textile, sound, and space."
-    },
-    "/en/about-the-artists-malin-gustaf-tadaa/": {
-      "sourceFile": "en-about-the-artists-malin-gustaf-tadaa.html",
-      "title": "Malin & Gustaf Tadaa | Artists Working with Light, Textile, and Technology in Stockholm | ANDETAG | ANDETAG Stockholm",
-      "description": "Malin and Gustaf Tadaa are a Stockholm-based artist duo working with light, textile, and technology in participatory and spatial art installations. They are the artists behind Andetag."
-    },
     "/en/berlin/": {
       "sourceFile": "en-berlin-en.html",
       "title": "ANDETAG Berlin | The Breathing Museum Opens Autumn 2026 | ANDETAG Stockholm",
       "description": "ANDETAG, the breathing museum, is coming to Berlin in autumn 2026. A calm, light-based art experience built for stillness and presence. Sign up for early bird tickets."
     },
-    "/en/music/": {
+    "/en/berlin/about-andetag/": {
+      "sourceFile": "en-about-andetag.html",
+      "title": "About ANDETAG | A Breathing Art Project by Malin & Gustaf Tadaa | ANDETAG Stockholm",
+      "description": "ANDETAG is an ongoing art project by Malin and Gustaf Tadaa, built around a shared human breath and unfolding through light, textile, sound, and space."
+    },
+    "/en/berlin/about-the-artists-malin-gustaf-tadaa/": {
+      "sourceFile": "en-about-the-artists-malin-gustaf-tadaa.html",
+      "title": "Malin & Gustaf Tadaa | Artists Working with Light, Textile, and Technology in Stockholm | ANDETAG | ANDETAG Stockholm",
+      "description": "Malin and Gustaf Tadaa are a Stockholm-based artist duo working with light, textile, and technology in participatory and spatial art installations. They are the artists behind Andetag."
+    },
+    "/en/berlin/music/": {
       "sourceFile": "en-music.html",
       "title": "The Music | ANDETAG Stockholm",
       "description": "The original music from ANDETAG. Twelve tracks in a slower rhythm. A shared breath to listen to, beyond the exhibition. By Gustaf Tadaa and Povel Olsson."
     },
-    "/en/optical-fibre-textile/": {
+    "/en/berlin/optical-fibre-textile/": {
       "sourceFile": "en-optical-fibre-textile.html",
       "title": "The Textile Behind the Art | ANDETAG Stockholm",
       "description": "About the weaving, materials, and craft behind ANDETAG. A deeper look at optical fiber textile and the textile that carries light and breath."
+    },
+    "/en/berlin/privacy/": {
+      "sourceFile": "privacy.html",
+      "title": "Privacy Policy | ANDETAG Berlin",
+      "description": "This Privacy Policy, hereinafter referred to as the ”Policy,” pertains to the processing, collection, utilization, retention, and dissemination of personal data by Tadaa Art AB (”we,” ”us,” or ”our”) in the course of operations conducted through our website, ticketing systems, and associated digital or physical platforms. This Policy is instituted in accordance with the General […]"
     },
     "/en/stockholm/": {
       "sourceFile": "en.html",
       "title": "ANDETAG | The Breathing Museum in Stockholm",
       "description": "ANDETAG is a breathing museum in Stockholm—a calm, art experience where light, breath, and music meet. Visit the breathing art museum near Hötorget."
+    },
+    "/en/stockholm/about-andetag/": {
+      "sourceFile": "en-about-andetag.html",
+      "title": "About ANDETAG | A Breathing Art Project by Malin & Gustaf Tadaa | ANDETAG Stockholm",
+      "description": "ANDETAG is an ongoing art project by Malin and Gustaf Tadaa, built around a shared human breath and unfolding through light, textile, sound, and space."
+    },
+    "/en/stockholm/about-the-artists-malin-gustaf-tadaa/": {
+      "sourceFile": "en-about-the-artists-malin-gustaf-tadaa.html",
+      "title": "Malin & Gustaf Tadaa | Artists Working with Light, Textile, and Technology in Stockholm | ANDETAG | ANDETAG Stockholm",
+      "description": "Malin and Gustaf Tadaa are a Stockholm-based artist duo working with light, textile, and technology in participatory and spatial art installations. They are the artists behind Andetag."
     },
     "/en/stockholm/accessibility/": {
       "sourceFile": "en-stockholm-accessibility.html",
@@ -124,6 +139,11 @@
       "title": "ANDETAG | A calm museum in Stockholm | ANDETAG Stockholm",
       "description": "A calm art museum in Stockholm near Hötorget. ANDETAG: light-based art, presence, and breath. Evening hours in central Stockholm."
     },
+    "/en/stockholm/music/": {
+      "sourceFile": "en-music.html",
+      "title": "The Music | ANDETAG Stockholm",
+      "description": "The original music from ANDETAG. Twelve tracks in a slower rhythm. A shared breath to listen to, beyond the exhibition. By Gustaf Tadaa and Povel Olsson."
+    },
     "/en/stockholm/npf-visitors/": {
       "sourceFile": "stockholm-npf-stockholm.html",
       "title": "Neurodiversity-friendly visit at ANDETAG Stockholm | Calm, low-stimulus exhibition | ANDETAG Stockholm",
@@ -134,20 +154,30 @@
       "title": "Opening Hours | ANDETAG Stockholm",
       "description": "Opening hours for ANDETAG in Stockholm. An immersive art experience with fixed start times and limited capacity."
     },
+    "/en/stockholm/optical-fibre-textile/": {
+      "sourceFile": "en-optical-fibre-textile.html",
+      "title": "The Textile Behind the Art | ANDETAG Stockholm",
+      "description": "About the weaving, materials, and craft behind ANDETAG. A deeper look at optical fiber textile and the textile that carries light and breath."
+    },
+    "/en/stockholm/privacy/": {
+      "sourceFile": "privacy.html",
+      "title": "Privacy Policy | ANDETAG Stockholm",
+      "description": "This Privacy Policy, hereinafter referred to as the ”Policy,” pertains to the processing, collection, utilization, retention, and dissemination of personal data by Tadaa Art AB (”we,” ”us,” or ”our”) in the course of operations conducted through our website, ticketing systems, and associated digital or physical platforms. This Policy is instituted in accordance with the General […]"
+    },
     "/en/stockholm/season-pass/": {
       "sourceFile": "en-stockholm-season-pass.html",
       "title": "Season Pass ANDETAG Stockholm | Unlimited Access to the Experience | ANDETAG Stockholm",
       "description": "The ANDETAG season pass in Stockholm gives you unlimited access over time. A calm art experience to return to, whenever you need a pause."
     },
-    "/en/stockholm/tickets/": {
-      "sourceFile": "en-stockholm-tickets.html",
-      "title": "Tickets | ANDETAG Stockholm",
-      "description": "Book tickets to ANDETAG in Stockholm. A calm art experience with timed entry and limited availability."
-    },
     "/en/stockholm/things-to-do-stockholm/": {
       "sourceFile": "stockholm-att-gora-stockholm.html",
       "title": "ANDETAG | Something calm to do in Stockholm | ANDETAG Stockholm",
       "description": "Things to do in Stockholm today? ANDETAG, the breathing museum, is a calm art experience in central Stockholm. Light, breath, and presence. Open year-round at Hötorget."
+    },
+    "/en/stockholm/tickets/": {
+      "sourceFile": "en-stockholm-tickets.html",
+      "title": "Tickets | ANDETAG Stockholm",
+      "description": "Book tickets to ANDETAG in Stockholm. A calm art experience with timed entry and limited availability."
     },
     "/en/stockholm/visitor-reviews/": {
       "sourceFile": "en-stockholm-visitor-reviews.html",
@@ -159,30 +189,10 @@
       "title": "What kind of experience is ANDETAG? A breathing museum experience | ANDETAG Stockholm",
       "description": "ANDETAG is a calm, immersive art experience shaped by stillness, presence, and a shared breathing rhythm. A clear description of what to expect before you visit."
     },
-    "/sv/musik/": {
-      "sourceFile": "musik.html",
-      "title": "Musiken | ANDETAG Stockholm",
-      "description": "Originalmusiken från ANDETAG. Tolv spår i långsam takt. Ett gemensamt andetag att lyssna till, även utanför utställningen. Av Gustaf Tadaa och Povel Olsson."
-    },
-    "/sv/om-andetag/": {
-      "sourceFile": "om-andetag.html",
-      "title": "Om ANDETAG | Ett konstprojekt format av ett gemensamt andetag | ANDETAG Stockholm",
-      "description": "ANDETAG är ett pågående konstprojekt av Malin och Gustaf Tadaa, byggt kring ett gemensamt mänskligt andetag och uttryckt genom ljus, textil, ljud och rum."
-    },
-    "/sv/om-konstnarerna-malin-gustaf-tadaa/": {
-      "sourceFile": "om-konstnarerna-malin-gustaf-tadaa.html",
-      "title": "Malin & Gustaf Tadaa | Konstnärspar som arbetar med ljus, textil och teknologi | ANDETAG Stockholm",
-      "description": "Malin och Gustaf Tadaa är ett konstnärspar baserat i Stockholm som arbetar med ljus, textil och teknologi i deltagarbaserade och rumsliga konstverk. De står bakom Andetag och flera uppmärksammade utställningar."
-    },
-    "/sv/optisk-fibertextil/": {
-      "sourceFile": "optisk-fibertextil.html",
-      "title": "Textilen bakom konsten | ANDETAG Stockholm",
-      "description": "Om vävningen, materialen och hantverket bakom ANDETAG. En fördjupning i den optiska fibertextil som bär ljuset och andetaget."
-    },
-    "/privacy/": {
-      "sourceFile": "privacy.html",
-      "title": "Privacy Policy | ANDETAG Stockholm",
-      "description": "This Privacy Policy, hereinafter referred to as the ”Policy,” pertains to the processing, collection, utilization, retention, and dissemination of personal data by Tadaa Art AB (”we,” ”us,” or ”our”) in the course of operations conducted through our website, ticketing systems, and associated digital or physical platforms. This Policy is instituted in accordance with the General […]"
+    "/sv/stockholm/": {
+      "sourceFile": "index.html",
+      "title": "ANDETAG | En stillsam konstupplevelse i Stockholm",
+      "description": "Andetag är ett stillsamt konstmuseum i centrala Stockholm. En omslutande upplevelse av ljus, textil och musik, skapad för närvaro, vila och ett gemensamt andetag."
     },
     "/sv/stockholm/aktivitet-inomhus-stockholm/": {
       "sourceFile": "stockholm-aktivitet-inomhus-stockholm.html",
@@ -239,20 +249,45 @@
       "title": "ANDETAG | En stillsamt museum i Stockholm​",
       "description": "Ett stillsamt konstmuseum i Stockholm. ANDETAG vid Hötorget – ljusbaserad konst, närvaro och andning. Kvällsöppet museum i centrala Stockholm."
     },
+    "/sv/stockholm/musik/": {
+      "sourceFile": "musik.html",
+      "title": "Musiken | ANDETAG Stockholm",
+      "description": "Originalmusiken från ANDETAG. Tolv spår i långsam takt. Ett gemensamt andetag att lyssna till, även utanför utställningen. Av Gustaf Tadaa och Povel Olsson."
+    },
     "/sv/stockholm/npf-stockholm/": {
       "sourceFile": "stockholm-npf-stockholm.html",
       "title": "NPF-vänlig utställning Stockholm | Sensoriskt vänlig museum i lugn miljö vid Hötorget | ANDETAG Stockholm",
       "description": "En NPF-vänlig och sensoriskt vänlig museum i Stockholm. ANDETAG – lugnt museum med låg stimulus, förutsägbart ljus och små grupper. Autismvänlig. Vid Hötorget."
+    },
+    "/sv/stockholm/om-andetag/": {
+      "sourceFile": "om-andetag.html",
+      "title": "Om ANDETAG | Ett konstprojekt format av ett gemensamt andetag | ANDETAG Stockholm",
+      "description": "ANDETAG är ett pågående konstprojekt av Malin och Gustaf Tadaa, byggt kring ett gemensamt mänskligt andetag och uttryckt genom ljus, textil, ljud och rum."
+    },
+    "/sv/stockholm/om-konstnarerna-malin-gustaf-tadaa/": {
+      "sourceFile": "om-konstnarerna-malin-gustaf-tadaa.html",
+      "title": "Malin & Gustaf Tadaa | Konstnärspar som arbetar med ljus, textil och teknologi | ANDETAG Stockholm",
+      "description": "Malin och Gustaf Tadaa är ett konstnärspar baserat i Stockholm som arbetar med ljus, textil och teknologi i deltagarbaserade och rumsliga konstverk. De står bakom Andetag och flera uppmärksammade utställningar."
     },
     "/sv/stockholm/oppettider/": {
       "sourceFile": "stockholm-oppettider.html",
       "title": "Öppettider ANDETAG Stockholm | ANDETAG Stockholm",
       "description": "Se aktuella öppettider för ANDETAG i Stockholm. En stillsam konstupplevelse med fasta starttider och begränsat antal platser."
     },
+    "/sv/stockholm/optisk-fibertextil/": {
+      "sourceFile": "optisk-fibertextil.html",
+      "title": "Textilen bakom konsten | ANDETAG Stockholm",
+      "description": "Om vävningen, materialen och hantverket bakom ANDETAG. En fördjupning i den optiska fibertextil som bär ljuset och andetaget."
+    },
     "/sv/stockholm/presentkort/": {
       "sourceFile": "stockholm-presentkort.html",
       "title": "Ge bort ANDETAG i Stockholm | Presentkort & biljetter till konstupplevelse | ANDETAG Stockholm",
       "description": "En gåva som inte ska behållas, utan upplevas. ANDETAG kan ges som presentkort eller biljett. En stund att andas i, mitt i Stockholm."
+    },
+    "/sv/stockholm/privacy/": {
+      "sourceFile": "privacy.html",
+      "title": "Integritetspolicy | ANDETAG Stockholm",
+      "description": "This Privacy Policy, hereinafter referred to as the ”Policy,” pertains to the processing, collection, utilization, retention, and dissemination of personal data by Tadaa Art AB (”we,” ”us,” or ”our”) in the course of operations conducted through our website, ticketing systems, and associated digital or physical platforms. This Policy is instituted in accordance with the General […]"
     },
     "/sv/stockholm/sasongskort/": {
       "sourceFile": "stockholm-sasongskort.html",

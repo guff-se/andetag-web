@@ -17,7 +17,7 @@ describe("english stockholm hero header model", () => {
   });
 
   it("marks The Experience active on English music shell", () => {
-    const music = getEnglishStockholmHeroHeaderModel("/en/music/");
+    const music = getEnglishStockholmHeroHeaderModel("/en/stockholm/music/");
     const experience = music.menuItems.find((item) => item.label === "The Experience");
     expect(experience?.active).toBe(true);
   });

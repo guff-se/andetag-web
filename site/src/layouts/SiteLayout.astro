@@ -21,6 +21,8 @@ type Props = {
   headerVariantId: HeaderVariantId | LegacyHeaderAliasId;
   footerVariantId: FooterVariantId;
   canonicalPath: string;
+  /** Optional SEO canonical path (Berlin English story pages → Stockholm English). */
+  seoCanonicalPath?: string | null;
   hreflang: Record<Language, string | null>;
   xDefaultPath?: string | null;
   robots?: "index,follow" | "noindex,nofollow";
@@ -41,6 +43,7 @@ const model = createPageLayoutModel({
   headerVariantId: props.headerVariantId,
   footerVariantId: props.footerVariantId,
   canonicalPath: props.canonicalPath,
+  seoCanonicalPath: props.seoCanonicalPath ?? null,
   hreflang: props.hreflang,
   xDefaultPath: props.xDefaultPath ?? null,
 });

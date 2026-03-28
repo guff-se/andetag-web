@@ -21,7 +21,6 @@ describe("layout variant contracts", () => {
         "chrome-hdr-en-stockholm-hero",
         "chrome-hdr-en-header-selector",
         "chrome-hdr-en-stockholm-small",
-        "chrome-hdr-en-stockholm-brand",
         "chrome-hdr-en-berlin-hero",
         "chrome-hdr-en-berlin-small",
         "chrome-hdr-de-berlin-hero",

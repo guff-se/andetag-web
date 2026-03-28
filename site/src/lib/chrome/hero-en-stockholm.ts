@@ -67,13 +67,13 @@ const MENU_DEFINITION: Array<{
       "/en/stockholm/exhibition-stockholm/",
       "/en/stockholm/art-yoga/",
       "/en/stockholm/visitor-reviews/",
-      "/en/music/",
+      "/en/stockholm/music/",
     ],
     subMenu: [
       { label: "Romantic date", href: "/en/stockholm/date/" },
       { label: "NPF visitors", href: "/en/stockholm/npf-visitors/" },
       { label: "Art Yoga", href: "/en/stockholm/art-yoga/" },
-      { label: "The Music", href: "/en/music/" },
+      { label: "The Music", href: "/en/stockholm/music/" },
     ],
   },
   {
@@ -87,15 +87,15 @@ const MENU_DEFINITION: Array<{
   },
   {
     label: "About ANDETAG",
-    href: "/en/about-andetag/",
+    href: "/en/stockholm/about-andetag/",
     matchPrefixes: [
-      "/en/about-andetag/",
-      "/en/optical-fibre-textile/",
-      "/en/about-the-artists-malin-gustaf-tadaa/",
+      "/en/stockholm/about-andetag/",
+      "/en/stockholm/optical-fibre-textile/",
+      "/en/stockholm/about-the-artists-malin-gustaf-tadaa/",
     ],
     subMenu: [
-      { label: "The Textile", href: "/en/optical-fibre-textile/" },
-      { label: "About the Artists", href: "/en/about-the-artists-malin-gustaf-tadaa/" },
+      { label: "The Textile", href: "/en/stockholm/optical-fibre-textile/" },
+      { label: "About the Artists", href: "/en/stockholm/about-the-artists-malin-gustaf-tadaa/" },
       { label: "ANDETAG Berlin", href: "/en/berlin/" },
     ],
   },

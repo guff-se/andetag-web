@@ -42,24 +42,28 @@ function buildStockholmBilingualTopics(): TopicSlots[] {
 
 const GLOBAL_TRILINGUAL_TOPICS: TopicSlots[] = [
   {
-    svStockholm: "/sv/om-andetag/",
-    enStockholm: "/en/about-andetag/",
-    germanBerlin: "/de/ueber-andetag/",
+    svStockholm: "/sv/stockholm/om-andetag/",
+    enStockholm: "/en/stockholm/about-andetag/",
+    englishBerlin: "/en/berlin/about-andetag/",
+    germanBerlin: "/de/berlin/ueber-andetag/",
   },
   {
-    svStockholm: "/sv/om-konstnarerna-malin-gustaf-tadaa/",
-    enStockholm: "/en/about-the-artists-malin-gustaf-tadaa/",
-    germanBerlin: "/de/die-kuenstler-malin-gustaf-tadaa/",
+    svStockholm: "/sv/stockholm/om-konstnarerna-malin-gustaf-tadaa/",
+    enStockholm: "/en/stockholm/about-the-artists-malin-gustaf-tadaa/",
+    englishBerlin: "/en/berlin/about-the-artists-malin-gustaf-tadaa/",
+    germanBerlin: "/de/berlin/die-kuenstler-malin-gustaf-tadaa/",
   },
   {
-    svStockholm: "/sv/musik/",
-    enStockholm: "/en/music/",
-    germanBerlin: "/de/musik-von-andetag/",
+    svStockholm: "/sv/stockholm/musik/",
+    enStockholm: "/en/stockholm/music/",
+    englishBerlin: "/en/berlin/music/",
+    germanBerlin: "/de/berlin/musik-von-andetag/",
   },
   {
-    svStockholm: "/sv/optisk-fibertextil/",
-    enStockholm: "/en/optical-fibre-textile/",
-    germanBerlin: "/de/optische-fasertextil/",
+    svStockholm: "/sv/stockholm/optisk-fibertextil/",
+    enStockholm: "/en/stockholm/optical-fibre-textile/",
+    englishBerlin: "/en/berlin/optical-fibre-textile/",
+    germanBerlin: "/de/berlin/optische-fasertextil/",
   },
 ];
 
@@ -69,10 +73,10 @@ const BERLIN_HOME_TOPIC: TopicSlots = {
 };
 
 const PRIVACY_TOPIC: TopicSlots = {
-  svStockholm: "/privacy/",
-  enStockholm: "/privacy/",
-  englishBerlin: "/privacy/",
-  germanBerlin: "/privacy/",
+  svStockholm: "/sv/stockholm/privacy/",
+  enStockholm: "/en/stockholm/privacy/",
+  englishBerlin: "/en/berlin/privacy/",
+  germanBerlin: "/de/berlin/privacy/",
 };
 
 const ALL_TOPICS: TopicSlots[] = [
@@ -102,9 +106,6 @@ export function inferChromePathContext(canonicalPath: string): {
       return { language: "en", destination: "berlin" };
     }
     return { language: "en", destination: "stockholm" };
-  }
-  if (path === "/privacy/") {
-    return { language: "sv", destination: "stockholm" };
   }
   if (path.startsWith("/sv/")) {
     return { language: "sv", destination: "stockholm" };

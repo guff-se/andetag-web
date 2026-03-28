@@ -52,21 +52,12 @@ export const HEADER_VARIANTS: Record<HeaderVariantId, HeaderVariant> = {
     ctaLabel: "Tickets",
     ctaHref: "/en/stockholm/tickets/",
   },
-  "chrome-hdr-en-stockholm-brand": {
-    id: "chrome-hdr-en-stockholm-brand",
-    language: "en",
-    kind: "brand",
-    navVariantDesktop: "en-brand",
-    navVariantMobile: "en-main",
-    ctaLabel: "Tickets",
-    ctaHref: "/en/stockholm/tickets/",
-  },
   "chrome-hdr-en-berlin-hero": {
     id: "chrome-hdr-en-berlin-hero",
     language: "en",
     kind: "hero",
-    navVariantDesktop: "en-main",
-    navVariantMobile: "en-main",
+    navVariantDesktop: "en-main-berlin",
+    navVariantMobile: "en-main-berlin",
     ctaLabel: "Find Tickets",
     ctaHref: "#book",
   },
@@ -74,10 +65,10 @@ export const HEADER_VARIANTS: Record<HeaderVariantId, HeaderVariant> = {
     id: "chrome-hdr-en-berlin-small",
     language: "en",
     kind: "small",
-    navVariantDesktop: "en-main",
-    navVariantMobile: "en-main",
-    ctaLabel: "Tickets",
-    ctaHref: "/en/stockholm/tickets/",
+    navVariantDesktop: "en-main-berlin",
+    navVariantMobile: "en-main-berlin",
+    ctaLabel: "Berlin",
+    ctaHref: "/en/berlin/",
   },
   "chrome-hdr-de-berlin-hero": {
     id: "chrome-hdr-de-berlin-hero",
@@ -103,7 +94,7 @@ export const FOOTER_VARIANTS: Record<FooterVariantId, FooterVariant> = {
   "chrome-ftr-sv-stockholm": {
     id: "chrome-ftr-sv-stockholm",
     language: "sv",
-    legalLinks: [{ label: "Integritetspolicy", href: "/privacy/" }],
+    legalLinks: [{ label: "Integritetspolicy", href: "/sv/stockholm/privacy/" }],
     socialLinks: [
       { label: "Instagram", href: "https://www.instagram.com/andetag.museum/" },
       { label: "Facebook", href: "https://www.facebook.com/andetag.museum/" },
@@ -114,7 +105,7 @@ export const FOOTER_VARIANTS: Record<FooterVariantId, FooterVariant> = {
   "chrome-ftr-en-stockholm": {
     id: "chrome-ftr-en-stockholm",
     language: "en",
-    legalLinks: [{ label: "Privacy Policy", href: "/privacy/" }],
+    legalLinks: [{ label: "Privacy Policy", href: "/en/stockholm/privacy/" }],
     socialLinks: [
       { label: "Instagram", href: "https://www.instagram.com/andetag.museum/" },
       { label: "Facebook", href: "https://www.facebook.com/andetag.museum/" },
@@ -125,7 +116,7 @@ export const FOOTER_VARIANTS: Record<FooterVariantId, FooterVariant> = {
   "chrome-ftr-en-berlin": {
     id: "chrome-ftr-en-berlin",
     language: "en",
-    legalLinks: [{ label: "Privacy Policy", href: "/privacy/" }],
+    legalLinks: [{ label: "Privacy Policy", href: "/en/berlin/privacy/" }],
     socialLinks: [
       { label: "Instagram", href: "https://www.instagram.com/andetag.museum/" },
       { label: "Facebook", href: "https://www.facebook.com/andetag.museum/" },
@@ -136,7 +127,7 @@ export const FOOTER_VARIANTS: Record<FooterVariantId, FooterVariant> = {
   "chrome-ftr-de-berlin": {
     id: "chrome-ftr-de-berlin",
     language: "de",
-    legalLinks: [{ label: "Datenschutz", href: "/privacy/" }],
+    legalLinks: [{ label: "Datenschutz", href: "/de/berlin/privacy/" }],
     socialLinks: [
       { label: "Instagram", href: "https://www.instagram.com/andetag.museum/" },
       { label: "Facebook", href: "https://www.facebook.com/andetag.museum/" },

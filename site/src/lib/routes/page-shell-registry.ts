@@ -9,6 +9,8 @@ export type PageShellSourceMeta = {
 
 export type PageShellRoute = {
   canonicalPath: string;
+  /** When set, `<link rel="canonical">` uses this path; URL bar stays `canonicalPath`. */
+  seoCanonicalPath: string | null;
   language: Language;
   destination: Destination;
   headerVariantId: HeaderVariantId;
@@ -21,13 +23,16 @@ export type PageShellRoute = {
 
 const metaPages = pageShellMeta.pages as Record<string, PageShellSourceMeta>;
 
-/** Stockholm (and shared Swedish) pages with Swedish + English equivalents. Order: [sv, en]. */
+/** Stockholm Swedish + English pairs. Order: [sv, en]. */
 export const STOCKHOLM_SV_EN_PAIRS: ReadonlyArray<readonly [string, string]> = [
-  ["/sv/stockholm/", "/en/"],
-  ["/sv/musik/", "/en/music/"],
-  ["/sv/om-andetag/", "/en/about-andetag/"],
-  ["/sv/om-konstnarerna-malin-gustaf-tadaa/", "/en/about-the-artists-malin-gustaf-tadaa/"],
-  ["/sv/optisk-fibertextil/", "/en/optical-fibre-textile/"],
+  ["/sv/stockholm/", "/en/stockholm/"],
+  ["/sv/stockholm/musik/", "/en/stockholm/music/"],
+  ["/sv/stockholm/om-andetag/", "/en/stockholm/about-andetag/"],
+  [
+    "/sv/stockholm/om-konstnarerna-malin-gustaf-tadaa/",
+    "/en/stockholm/about-the-artists-malin-gustaf-tadaa/",
+  ],
+  ["/sv/stockholm/optisk-fibertextil/", "/en/stockholm/optical-fibre-textile/"],
   ["/sv/stockholm/art-yoga/", "/en/stockholm/art-yoga/"],
   ["/sv/stockholm/besokaromdomen/", "/en/stockholm/visitor-reviews/"],
   ["/sv/stockholm/biljetter/", "/en/stockholm/tickets/"],
@@ -48,18 +53,39 @@ export const STOCKHOLM_SV_EN_PAIRS: ReadonlyArray<readonly [string, string]> = [
   ["/sv/stockholm/utstallning-stockholm/", "/en/stockholm/exhibition-stockholm/"],
 ];
 
-const EN_BRAND_PATHS = new Set<string>([
-  "/en/about-andetag/",
-  "/en/about-the-artists-malin-gustaf-tadaa/",
-  "/en/music/",
-  "/en/optical-fibre-textile/",
-]);
+/** Berlin German story page ↔ Berlin English (same topic, different slug). Order: [de, en]. */
+export const BERLIN_DE_EN_STORY_PAIRS: ReadonlyArray<readonly [string, string]> = [
+  ["/de/berlin/ueber-andetag/", "/en/berlin/about-andetag/"],
+  ["/de/berlin/die-kuenstler-malin-gustaf-tadaa/", "/en/berlin/about-the-artists-malin-gustaf-tadaa/"],
+  ["/de/berlin/musik-von-andetag/", "/en/berlin/music/"],
+  ["/de/berlin/optische-fasertextil/", "/en/berlin/optical-fibre-textile/"],
+];
+
+const PRIVACY_STOCKHOLM_SV = "/sv/stockholm/privacy/";
+const PRIVACY_STOCKHOLM_EN = "/en/stockholm/privacy/";
+const PRIVACY_BERLIN_DE = "/de/berlin/privacy/";
+const PRIVACY_BERLIN_EN = "/en/berlin/privacy/";
+
+/** Berlin English story URLs: canonical tag points at Stockholm English. */
+const BERLIN_EN_STORY_SEO_CANONICAL: Readonly<Record<string, string>> = {
+  "/en/berlin/about-andetag/": "/en/stockholm/about-andetag/",
+  "/en/berlin/about-the-artists-malin-gustaf-tadaa/": "/en/stockholm/about-the-artists-malin-gustaf-tadaa/",
+  "/en/berlin/music/": "/en/stockholm/music/",
+  "/en/berlin/optical-fibre-textile/": "/en/stockholm/optical-fibre-textile/",
+};
 
 const svByEn = new Map<string, string>();
 const enBySv = new Map<string, string>();
 for (const [sv, en] of STOCKHOLM_SV_EN_PAIRS) {
   svByEn.set(en, sv);
   enBySv.set(sv, en);
+}
+
+const deBerlinByEnBerlin = new Map<string, string>();
+const enBerlinByDeBerlin = new Map<string, string>();
+for (const [de, en] of BERLIN_DE_EN_STORY_PAIRS) {
+  deBerlinByEnBerlin.set(en, de);
+  enBerlinByDeBerlin.set(de, en);
 }
 
 function layoutVariantsForPath(
@@ -103,17 +129,17 @@ function layoutVariantsForPath(
     };
   }
 
+  if (canonicalPath.startsWith("/en/berlin/") && canonicalPath !== "/en/berlin/") {
+    return {
+      headerVariantId: "chrome-hdr-en-berlin-small",
+      footerVariantId: "chrome-ftr-en-berlin",
+    };
+  }
+
   if (language === "de" && destination === "berlin") {
     return {
       headerVariantId: "chrome-hdr-de-berlin-hero",
       footerVariantId: "chrome-ftr-de-berlin",
-    };
-  }
-
-  if (language === "en" && EN_BRAND_PATHS.has(canonicalPath)) {
-    return {
-      headerVariantId: "chrome-hdr-en-stockholm-brand",
-      footerVariantId: "chrome-ftr-en-stockholm",
     };
   }
 
@@ -134,10 +160,35 @@ function resolveSeo(canonicalPath: string): {
   hreflang: Record<Language, string | null>;
   xDefaultPath: string | null;
 } {
-  if (canonicalPath === "/privacy/") {
+  if (canonicalPath === "/en/") {
     return {
-      hreflang: { sv: "/privacy/", en: "/privacy/", de: "/privacy/" },
-      xDefaultPath: "/privacy/",
+      hreflang: { sv: "/sv/stockholm/", en: "/en/", de: null },
+      xDefaultPath: "/sv/stockholm/",
+    };
+  }
+
+  if (canonicalPath === PRIVACY_STOCKHOLM_SV) {
+    return {
+      hreflang: { sv: PRIVACY_STOCKHOLM_SV, en: PRIVACY_STOCKHOLM_EN, de: null },
+      xDefaultPath: PRIVACY_STOCKHOLM_SV,
+    };
+  }
+  if (canonicalPath === PRIVACY_STOCKHOLM_EN) {
+    return {
+      hreflang: { sv: PRIVACY_STOCKHOLM_SV, en: PRIVACY_STOCKHOLM_EN, de: null },
+      xDefaultPath: PRIVACY_STOCKHOLM_SV,
+    };
+  }
+  if (canonicalPath === PRIVACY_BERLIN_DE) {
+    return {
+      hreflang: { sv: null, en: PRIVACY_BERLIN_EN, de: PRIVACY_BERLIN_DE },
+      xDefaultPath: PRIVACY_BERLIN_DE,
+    };
+  }
+  if (canonicalPath === PRIVACY_BERLIN_EN) {
+    return {
+      hreflang: { sv: null, en: PRIVACY_BERLIN_EN, de: PRIVACY_BERLIN_DE },
+      xDefaultPath: PRIVACY_BERLIN_DE,
     };
   }
 
@@ -152,10 +203,10 @@ function resolveSeo(canonicalPath: string): {
     };
   }
 
-  const enPeer = enBySv.get(canonicalPath);
-  if (enPeer) {
+  const enPeerStockholm = enBySv.get(canonicalPath);
+  if (enPeerStockholm) {
     return {
-      hreflang: { sv: canonicalPath, en: enPeer, de: null },
+      hreflang: { sv: canonicalPath, en: enPeerStockholm, de: null },
       xDefaultPath: canonicalPath,
     };
   }
@@ -168,17 +219,19 @@ function resolveSeo(canonicalPath: string): {
     };
   }
 
-  if (canonicalPath === "/en/stockholm/") {
+  const enPeerBerlin = enBerlinByDeBerlin.get(canonicalPath);
+  if (enPeerBerlin) {
     return {
-      hreflang: { sv: "/sv/stockholm/", en: "/en/stockholm/", de: null },
-      xDefaultPath: "/sv/stockholm/",
+      hreflang: { sv: null, en: enPeerBerlin, de: canonicalPath },
+      xDefaultPath: canonicalPath,
     };
   }
 
-  if (canonicalPath.startsWith("/de/") && canonicalPath !== "/de/berlin/") {
+  const dePeer = deBerlinByEnBerlin.get(canonicalPath);
+  if (dePeer) {
     return {
-      hreflang: { sv: null, en: null, de: canonicalPath },
-      xDefaultPath: "/de/berlin/",
+      hreflang: { sv: null, en: canonicalPath, de: dePeer },
+      xDefaultPath: dePeer,
     };
   }
 
@@ -197,9 +250,6 @@ function languageAndDestinationForPath(canonicalPath: string): {
       return { language: "en", destination: "berlin" };
     }
     return { language: "en", destination: "stockholm" };
-  }
-  if (canonicalPath === "/privacy/") {
-    return { language: "sv", destination: "stockholm" };
   }
   if (canonicalPath.startsWith("/sv/")) {
     return { language: "sv", destination: "stockholm" };
@@ -222,9 +272,11 @@ export function getPageShellRoute(canonicalPath: string): PageShellRoute {
     destination,
   );
   const { hreflang, xDefaultPath } = resolveSeo(canonicalPath);
+  const seoCanonicalPath = BERLIN_EN_STORY_SEO_CANONICAL[canonicalPath] ?? null;
 
   return {
     canonicalPath,
+    seoCanonicalPath,
     language,
     destination,
     headerVariantId,

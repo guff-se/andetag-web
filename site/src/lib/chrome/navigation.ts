@@ -59,7 +59,7 @@ const NAVIGATION_VARIANTS: Record<NavigationVariant["id"], NavigationVariant> = 
         children: [
           { label: "Dejt pa ANDETAG", href: "/sv/stockholm/dejt/" },
           { label: "Art Yoga", href: "/sv/stockholm/art-yoga/" },
-          { label: "Musiken", href: "/sv/musik/" },
+          { label: "Musiken", href: "/sv/stockholm/musik/" },
         ],
       },
       {
@@ -69,10 +69,10 @@ const NAVIGATION_VARIANTS: Record<NavigationVariant["id"], NavigationVariant> = 
       },
       {
         label: "Om ANDETAG",
-        href: "/sv/om-andetag/",
+        href: "/sv/stockholm/om-andetag/",
         children: [
-          { label: "Textilen", href: "/sv/optisk-fibertextil/" },
-          { label: "Om konstnarerna", href: "/sv/om-konstnarerna-malin-gustaf-tadaa/" },
+          { label: "Textilen", href: "/sv/stockholm/optisk-fibertextil/" },
+          { label: "Om konstnarerna", href: "/sv/stockholm/om-konstnarerna-malin-gustaf-tadaa/" },
           { label: "ANDETAG Berlin", href: "/de/berlin/" },
         ],
       },
@@ -104,7 +104,7 @@ const NAVIGATION_VARIANTS: Record<NavigationVariant["id"], NavigationVariant> = 
           { label: "Romantic date", href: "/en/stockholm/date/" },
           { label: "NPF visitors", href: "/en/stockholm/npf-visitors/" },
           { label: "Art Yoga", href: "/en/stockholm/art-yoga/" },
-          { label: "The Music", href: "/en/music/" },
+          { label: "The Music", href: "/en/stockholm/music/" },
         ],
       },
       {
@@ -117,33 +117,33 @@ const NAVIGATION_VARIANTS: Record<NavigationVariant["id"], NavigationVariant> = 
       },
       {
         label: "About ANDETAG",
-        href: "/en/about-andetag/",
+        href: "/en/stockholm/about-andetag/",
         children: [
-          { label: "The Textile", href: "/en/optical-fibre-textile/" },
-          { label: "About the Artists", href: "/en/about-the-artists-malin-gustaf-tadaa/" },
+          { label: "The Textile", href: "/en/stockholm/optical-fibre-textile/" },
+          { label: "About the Artists", href: "/en/stockholm/about-the-artists-malin-gustaf-tadaa/" },
           { label: "ANDETAG Berlin", href: "/en/berlin/" },
         ],
       },
       { label: "Tickets", href: "/en/stockholm/tickets/", cta: true },
     ],
   },
-  "en-brand": {
-    id: "en-brand",
+  "en-main-berlin": {
+    id: "en-main-berlin",
     language: "en",
-    destination: "shared",
+    destination: "berlin",
     items: [
-      { label: "About ANDETAG", href: "/en/about-andetag/" },
-      { label: "The Artists", href: "/en/about-the-artists-malin-gustaf-tadaa/" },
-      { label: "The Music", href: "/en/music/" },
-      { label: "The Textile", href: "/en/optical-fibre-textile/" },
       {
-        label: "Locations",
-        href: "/en/",
+        label: "About ANDETAG",
+        href: "/en/berlin/about-andetag/",
         children: [
-          { label: "ANDETAG Stockholm", href: "/en/" },
-          { label: "ANDETAG Berlin", href: "/en/berlin/" },
+          { label: "About ANDETAG", href: "/en/berlin/about-andetag/" },
+          { label: "About the Artists", href: "/en/berlin/about-the-artists-malin-gustaf-tadaa/" },
+          { label: "The Music", href: "/en/berlin/music/" },
+          { label: "The Textile", href: "/en/berlin/optical-fibre-textile/" },
+          { label: "ANDETAG Stockholm", href: "/en/stockholm/" },
         ],
       },
+      { label: "Berlin", href: "/en/berlin/", cta: true },
     ],
   },
   "de-main": {
@@ -154,12 +154,12 @@ const NAVIGATION_VARIANTS: Record<NavigationVariant["id"], NavigationVariant> = 
       {
         label: "ANDETAG Berlin",
         href: "/de/berlin/",
-        children: [{ label: "ANDETAG Stockholm", href: "/en/" }],
+        children: [{ label: "ANDETAG Stockholm", href: "/sv/stockholm/" }],
       },
-      { label: "Kunst", href: "/de/kunst/" },
-      { label: "Musik", href: "/de/musik/" },
-      { label: "Textil", href: "/de/textil/" },
-      { label: "Kunstler", href: "/de/kunstler/" },
+      { label: "Über ANDETAG", href: "/de/berlin/ueber-andetag/" },
+      { label: "Die Künstler", href: "/de/berlin/die-kuenstler-malin-gustaf-tadaa/" },
+      { label: "Musik", href: "/de/berlin/musik-von-andetag/" },
+      { label: "Textil", href: "/de/berlin/optische-fasertextil/" },
       {
         label: "Anmelden",
         href: "/de/berlin/",

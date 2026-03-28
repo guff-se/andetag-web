@@ -8,7 +8,7 @@ export type NavigationFixture = {
   destination: "stockholm" | "berlin";
   headerVariantId: HeaderVariantId | LegacyHeaderAliasId;
   viewport: "desktop-tablet" | "mobile";
-  expectedVariantId: "sv-main" | "en-main" | "en-brand" | "de-main";
+  expectedVariantId: "sv-main" | "en-main" | "en-main-berlin" | "de-main";
 };
 
 export const NAVIGATION_FIXTURES: NavigationFixture[] = [
@@ -21,20 +21,20 @@ export const NAVIGATION_FIXTURES: NavigationFixture[] = [
     expectedVariantId: "sv-main",
   },
   {
-    id: "en-brand-desktop",
+    id: "en-stockholm-small-desktop",
     language: "en",
     destination: "stockholm",
-    headerVariantId: "chrome-hdr-en-stockholm-brand",
+    headerVariantId: "chrome-hdr-en-stockholm-small",
     viewport: "desktop-tablet",
-    expectedVariantId: "en-brand",
+    expectedVariantId: "en-main",
   },
   {
-    id: "en-brand-mobile-fallback",
+    id: "en-berlin-small-desktop",
     language: "en",
-    destination: "stockholm",
-    headerVariantId: "chrome-hdr-en-stockholm-brand",
-    viewport: "mobile",
-    expectedVariantId: "en-main",
+    destination: "berlin",
+    headerVariantId: "chrome-hdr-en-berlin-small",
+    viewport: "desktop-tablet",
+    expectedVariantId: "en-main-berlin",
   },
   {
     id: "legacy-berlin-alias-header",
@@ -42,7 +42,7 @@ export const NAVIGATION_FIXTURES: NavigationFixture[] = [
     destination: "berlin",
     headerVariantId: "header-4136",
     viewport: "desktop-tablet",
-    expectedVariantId: "en-main",
+    expectedVariantId: "en-main-berlin",
   },
 ];
 
@@ -76,10 +76,11 @@ export type PageLayoutFixture = {
   hreflang: HreflangMap;
   xDefaultPath: string | null;
   expectedHeaderId: HeaderVariantId;
-  expectedNavDesktop: "sv-main" | "en-main" | "en-brand" | "de-main";
+  expectedNavDesktop: "sv-main" | "en-main" | "en-main-berlin" | "de-main";
   expectedCanonicalUrl: string;
   expectedHreflangCount: number;
   expectedBrandHomeHref: string;
+  seoCanonicalPath?: string | null;
 };
 
 export const PAGE_LAYOUT_FIXTURES: PageLayoutFixture[] = [
@@ -116,7 +117,7 @@ export const PAGE_LAYOUT_FIXTURES: PageLayoutFixture[] = [
     },
     xDefaultPath: "/de/berlin/",
     expectedHeaderId: "chrome-hdr-en-berlin-hero",
-    expectedNavDesktop: "en-main",
+    expectedNavDesktop: "en-main-berlin",
     expectedCanonicalUrl: "https://www.andetag.museum/en/berlin/",
     expectedHreflangCount: 3,
     expectedBrandHomeHref: "/en/berlin/",
