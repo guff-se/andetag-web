@@ -99,10 +99,40 @@ select:focus-visible {
   z-index: 0;
 }
 
-.shared-hero-video {
+.shared-hero-video-stack {
+  position: absolute;
+  inset: 0;
+}
+
+.shared-hero-video-poster {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  margin: 0;
+  pointer-events: none;
+}
+
+.shared-hero-video-poster-img {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+/* Poster shows until playback starts; avoids a second full-size JPEG in `poster=""`. */
+.shared-hero-video {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+
+.shared-hero-video.shared-hero-video--visible {
+  opacity: 1;
 }
 
 .shared-hero-static-picture,

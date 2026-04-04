@@ -148,7 +148,7 @@ const heroVideoHeaderIds = new Set<typeof shell.headerVariantId>([
   "chrome-hdr-de-berlin-hero",
 ]);
 const lcpImagePreloadHref = heroVideoHeaderIds.has(shell.headerVariantId)
-  ? HERO_SV_ASSETS.poster
+  ? HERO_SV_ASSETS.posterPreload
   : null;
 const lcpFontPreloadHref = heroVideoHeaderIds.has(shell.headerVariantId)
   ? "/fonts/jost/jost-500-normal-latin.woff2"

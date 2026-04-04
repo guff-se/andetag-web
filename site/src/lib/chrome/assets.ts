@@ -1,5 +1,17 @@
+/** Responsive hero still (AVIF/WebP/JPEG). Source frame: `Desktop.00_00_00_00.Still002.jpg` (ImageMagick). */
+const HERO_POSTER_BASE = "/wp-content/uploads/2024/11/stockholm-hero-poster";
+
 export const HERO_SV_ASSETS = {
-  poster: "/wp-content/uploads/2024/11/Desktop.00_00_00_00.Still002.jpg",
+  /** Default OG / JSON-LD image URL (JPEG, 1920w). */
+  poster: `${HERO_POSTER_BASE}-1920w.jpg`,
+  /** Preload for LCP: mobile-first WebP (matches `(max-width: 900px)` poster sources). */
+  posterPreload: `${HERO_POSTER_BASE}-960w.webp`,
+  posterAvif960: `${HERO_POSTER_BASE}-960w.avif`,
+  posterWebp960: `${HERO_POSTER_BASE}-960w.webp`,
+  posterJpeg960: `${HERO_POSTER_BASE}-960w.jpg`,
+  posterAvif1920: `${HERO_POSTER_BASE}-1920w.avif`,
+  posterWebp1920: `${HERO_POSTER_BASE}-1920w.webp`,
+  posterJpeg1920: `${HERO_POSTER_BASE}-1920w.jpg`,
   /** 1080p H.264, CRF ~26, capped ~3.5 Mbps, faststart (re-encoded from legacy Desktop.mp4). */
   video: "/wp-content/uploads/2024/12/stockholm-hero-desktop.mp4",
   /** 540p H.264 for narrow viewports; matches hero layout breakpoint 900px. */

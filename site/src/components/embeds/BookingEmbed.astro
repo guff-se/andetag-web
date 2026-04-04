@@ -49,7 +49,7 @@ const shellClass = ["embed-shell", "booking-embed", unframed ? "embed-shell--unf
     <p class="embed-fallback" role="status">{fallbackText}</p>
   ) : (
     <>
-      <script src={widget.scriptSrc}></script>
+      <script defer src={widget.scriptSrc}></script>
       <div class={widget.className} data-company-id={widget.companyId} data-language={widget.language}></div>
     </>
   )}

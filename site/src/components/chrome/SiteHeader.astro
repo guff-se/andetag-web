@@ -83,18 +83,46 @@ sharedHero ? (
           <img class="shared-hero-static-image" src={HEADER_SMALL_SV_ASSETS.desktopBackground} alt="" aria-hidden="true" />
         </picture>
       ) : (
-        <video
-          class="shared-hero-video"
-          autoplay
-          muted
-          playsinline
-          loop
-          preload="none"
-          poster={HERO_SV_ASSETS.poster}
-        >
-          <source src={HERO_SV_ASSETS.videoMobile} type="video/mp4" media="(max-width: 900px)" />
-          <source src={HERO_SV_ASSETS.video} type="video/mp4" />
-        </video>
+        <div class="shared-hero-video-stack">
+          <picture class="shared-hero-video-poster">
+            <source
+              media="(max-width: 900px)"
+              srcset={HERO_SV_ASSETS.posterAvif960}
+              type="image/avif"
+            />
+            <source
+              media="(max-width: 900px)"
+              srcset={HERO_SV_ASSETS.posterWebp960}
+              type="image/webp"
+            />
+            <source srcset={HERO_SV_ASSETS.posterAvif1920} type="image/avif" />
+            <source srcset={HERO_SV_ASSETS.posterWebp1920} type="image/webp" />
+            <img
+              class="shared-hero-video-poster-img"
+              src={HERO_SV_ASSETS.posterJpeg960}
+              srcset={`${HERO_SV_ASSETS.posterJpeg960} 960w, ${HERO_SV_ASSETS.posterJpeg1920} 1920w`}
+              sizes="100vw"
+              width="1920"
+              height="1080"
+              alt=""
+              aria-hidden="true"
+              fetchpriority="high"
+              decoding="async"
+            />
+          </picture>
+          <video
+            class="shared-hero-video"
+            autoplay
+            muted
+            playsinline
+            loop
+            preload="none"
+            onplaying="this.classList.add('shared-hero-video--visible')"
+          >
+            <source src={HERO_SV_ASSETS.videoMobile} type="video/mp4" media="(max-width: 900px)" />
+            <source src={HERO_SV_ASSETS.video} type="video/mp4" />
+          </video>
+        </div>
       )
     }
     <div class="shared-hero-overlay"></div>

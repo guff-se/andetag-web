@@ -45,7 +45,7 @@ describe("seo helpers", () => {
 
   it("emits absolute default og:image for hero poster path", () => {
     expect(defaultOgImageAbsoluteUrl()).toBe(
-      "https://www.andetag.museum/wp-content/uploads/2024/11/Desktop.00_00_00_00.Still002.jpg",
+      "https://www.andetag.museum/wp-content/uploads/2024/11/stockholm-hero-poster-1920w.jpg",
     );
   });
 });
