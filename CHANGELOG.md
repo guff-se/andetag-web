@@ -15,6 +15,8 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ### Changed
 
+- **Performance (P2 partial):** Gallery lightbox is **vanilla** **`site/src/client-scripts/gallery-lightbox.ts`** (**`GallerySection.astro`** no longer imports **jQuery**). **`docs/performance-improvement-plan.md`:** rolling **implementation status**, Lighthouse CLI **`--form-factor=mobile`**, P0–P2 status notes, verification checklist. **`docs/phase-3-component-usage.md`:** **`GallerySection`** lightbox note.
+
 - **Default `og:image` / JSON-LD hero:** **`HERO_SV_ASSETS.poster`** again **`stockholm-hero-poster-1920w.jpg`** (optimized JPEG, same as hero fallback). Reverts the temporary legacy **`Desktop.00_00_00_00.Still002.jpg`** path added when the Facebook debugger was misread; crawlers still resolve the absolute URL on **`www`** via **`seo.ts`**.
 
 - **Open Graph / Twitter:** `SiteLayout.astro` emits **`og:image:secure_url`**, **`og:image:width` / `height` / `type`** when the share image is the default Stockholm hero JPEG; **`twitter:image`** still matches **`og:image`** (both **`https://www.andetag.museum/.../stockholm-hero-poster-1920w.jpg`**). LCP **`link rel="preload"`** for **`960w.webp`** is placed **after** the OG block so validators that scan image hints in order are less likely to confuse preload with **`og:image`**.

@@ -13,7 +13,23 @@
 | FCP | ~1.0 s | Good |
 | Total transfer | ~10.3 MB | Very heavy for one page load |
 
-**Largest Contentful Paint:** Driven by the **video hero poster** and other **large JPEGs** under `/wp-content/uploads/`. The poster `Desktop.00_00_00_00.Still002.jpg` is ~**1.4 MB** transferred in lab; Lighthouse flags it for **modern formats**, **encoding**, and **responsive sizing**.
+**Largest Contentful Paint (baseline audit):** Driven by the **video hero poster** and other **large JPEGs** under `/wp-content/uploads/`. Before P0, the legacy poster JPEG was ~**1.4 MB** in lab.
+
+---
+
+## Implementation status (rolling)
+
+| Track | Status | What shipped / notes |
+|-------|--------|----------------------|
+| **P0** Hero poster | **Done** | Responsive **AVIF / WebP / JPEG** (`stockholm-hero-poster-{960,1920}w.*`), `<picture>` under video + **CSS fade-in** on `playing`, **`preload`** of **`960w.webp`** for LCP. **`HERO_SV_ASSETS.poster`** → **`1920w.jpg`** for default **`og:image`** / JSON-LD (must be served on **`www`** after Phase 8; see **`docs/phase-8-todo.md`** **P8-23** Facebook Sharing Debugger). |
+| **P1** Gallery / body images | **Open** | **`GallerySection`** thumbs still load **full-size JPEGs**; high byte weight on Stockholm home and SEO landings. Next: **`srcset` + `sizes`** and/or **WebP/AVIF** variants (ImageMagick batch), optional **`@astrojs/image`**. Intro **`<img>`** on home (`andrum-looking.jpg`, hero book band, etc.) same pattern. |
+| **P2** Third-party + first-party JS | **Partial** | **`BookingEmbed`:** **`defer`** on Understory script. **Gallery lightbox:** **vanilla** **`site/src/client-scripts/gallery-lightbox.ts`** (removed jQuery from **`GallerySection.astro`**). **jQuery** still used by **`hero-cover-parallax.ts`** (**`HeroSection`**). **GTM** / CookieYes unchanged (Partytown or **`load`** deferral still optional). |
+| **P3** Booking API compression | **Vendor** | Ask Understory for **gzip/Brotli** on API Gateway JSON. |
+| **P4** Fonts | **Open** | Audit **`fonts.css`** / **`sources.json`**. |
+| **P5** CSS | **Open** | Hygiene only. |
+| **Cloudflare zone** | **Open** | Polish, HTTP/3, cache rules per playbook below. |
+
+**Regression checks run in-repo:** **`npm test`**, **`npm run build`**. Lab Lighthouse (mobile, `serve dist`): performance moved **~67 → ~86** and LCP **~12 s → ~3.7 s** on one machine (variable); re-run after P1.
 
 ---
 
@@ -31,7 +47,7 @@ The article’s checklist maps to this codebase as follows (gaps are where we st
 | **Optimize images** (dimensions, resolution, compression) | Partially | Hero poster and gallery JPEGs are the main gap; see P0–P1. |
 | **Limit HTTP requests** | Partially | Lab run showed **~63 requests** on Stockholm home; third parties multiply trips; audit duplicates and lazy third-party load. |
 | **Browser caching** (`Cache-Control`, etc.) | Strong for fingerprints | `site/public/_headers` covers `/_astro/*`, fonts, uploads; HTML remains the usual “short TTL or no cache” tradeoff. |
-| **Remove render-blocking JS** | Mixed | GTM in head, booking script without `defer`: see **P2**. |
+| **Remove render-blocking JS** | Mixed | GTM in head; Understory booking script uses **`defer`** (**P2** partial). |
 | **Limit external scripts** | Understory, GTM, CookieYes | Defer, lazy-load, or isolate (Partytown) where tags allow; reduces **layout shift** risk from late-injected widgets. |
 | **Limit redirects** | Policy-heavy | Entry **`/`** / **`/en/`** routing is intentional ([`url-migration-policy.md`](url-migration-policy.md)); avoid **chains** and extra hops on marketing landing URLs. |
 | **Minify CSS/JS** | Default via Astro build | Still verify no large inline blocks; marginal gains but standard hygiene. |
@@ -55,11 +71,12 @@ The article’s checklist maps to this codebase as follows (gaps are where we st
 ## How to re-verify (you or CI)
 
 1. **PageSpeed Insights:** Paste the exact URL (with trailing slash if that is canonical) and compare Mobile vs Desktop. Prefer **field data** (CrUX) when available; lab scores fluctuate.
-2. **Chrome Lighthouse** (same engine as PSI): DevTools → Lighthouse, or CLI:
+2. **Chrome Lighthouse** (same engine as PSI): DevTools → Lighthouse, or CLI (Lighthouse 11+ uses **`--form-factor=mobile`**, not **`--preset=mobile`**):
    ```bash
    cd site && npx lighthouse@11 "https://andetag-web.guff.workers.dev/sv/stockholm/" \
-     --only-categories=performance --preset=mobile --output=json --output-path=./lh.json
+     --only-categories=performance --form-factor=mobile --output=json --output-path=./lh.json
    ```
+   For a **local** `dist/` check: `npx serve dist -l 4321` then point Lighthouse at **`http://127.0.0.1:4321/sv/stockholm/`**.
 3. **Cloudflare Observatory:** In the Cloudflare dashboard for the zone, use **Observatory** (Speed / observability features vary by plan) to cross-check lab results against edge-oriented signals; useful after toggling Polish, HTTP/3, or cache rules.
 4. **Chrome DevTools:** Performance + Network, throttle to “Slow 4G”; confirm **LCP element** and **TTFB** on the HTML document. Slow TTFB often points to **DNS**, **TLS**, **Worker logic**, or **cold edge**, not image bytes.
 5. **WebPageTest** (optional): Filmstrip and multi-region runs for **redirect chains** and first-byte timing on real networks.
@@ -90,11 +107,13 @@ After that, order is **execution leverage**, not only raw Lighthouse “savings 
 
 ### P0 — Hero poster and above-the-fold imagery (LCP)
 
-**What Lighthouse said:** “Properly size images”, “Serve images in next-gen formats”, “Efficiently encode images” with the **hero poster** at the top of each list (~1.4 MB JPEG).
+**Status: implemented** (see **Implementation status** table). The following was the original spec; file paths today are **`stockholm-hero-poster-*`** and **`SiteHeader.astro`** uses a **`<picture>`** layer instead of a single **`video poster=`** JPEG.
 
-**Root cause:** `HERO_SV_ASSETS.poster` points at a full-size JPEG (`/wp-content/uploads/2024/11/Desktop.00_00_00_00.Still002.jpg`). It is preloaded in `SiteLayout` (good for priority) but the **file is still huge**.
+**What Lighthouse said (pre-fix):** “Properly size images”, “Serve images in next-gen formats”, “Efficiently encode images” with the **hero poster** at the top of each list (~1.4 MB legacy JPEG).
 
-**Plan:**
+**Original root cause:** One full-size JPEG preloaded for LCP.
+
+**Plan (completed):**
 
 1. **Produce optimized poster assets** (keep provenance: export from the same source frame, do not invent imagery):
    - **Mobile width** (e.g. 800–1200 px wide) WebP + AVIF (or WebP-only if AVIF tooling is heavy).
@@ -109,11 +128,13 @@ After that, order is **execution leverage**, not only raw Lighthouse “savings 
 
 ### P1 — Gallery and content images (bytes + decode cost)
 
+**Status: not started** (largest remaining byte win on Stockholm home after P0).
+
 **What Lighthouse said:** Multiple `/wp-content/uploads/...` JPEGs **1.0–1.5 MB** each; large “wasted bytes” for responsive and format audits.
 
 **Plan:**
 
-1. **Responsive images:** For each large photo used in page bodies, add **`srcset` + `sizes`** (or Astro `<Image />` if you introduce `@astrojs/image` / sharp pipeline) so mobile never downloads 2000 px-wide masters.
+1. **Responsive images:** For each large photo used in page bodies, add **`srcset` + `sizes`** (or Astro `<Image />` if you introduce `@astrojs/image` / sharp pipeline) so mobile never downloads 2000 px-wide masters. Extend **`GallerySection`** `GalleryImage` with optional **`srcset` / `sizes`** when variants exist; **`fullSrc`** (lightbox) can stay on the **full-resolution** file.
 2. **Formats:** Prefer **WebP** (minimum) or **AVIF** for photos; keep JPEG/PNG fallbacks where required.
 3. **Workflow:** Batch-optimize new uploads before commit; document max dimensions per layout slot in a short internal note (optional) so content stays bounded.
 4. **Request count:** Cloudflare’s guidance to **limit HTTP requests** applies even when each file is small: every request pays **RTT + scheduling** (worse on mobile). After image work, re-count requests in DevTools; merge tiny icons into **SVG sprites** or inline only if it net-reduces bytes; avoid loading widgets on pages that do not need them.
@@ -124,20 +145,20 @@ After that, order is **execution leverage**, not only raw Lighthouse “savings 
 
 ### P2 — Third-party JavaScript: Understory + GTM (+ jQuery chunk)
 
-**What Lighthouse said:** “Reduce unused JavaScript”; third-party summary highlights **understory.io** (main-thread + blocking time) and **Google Tag Manager**; local `_astro/jquery.module.*.js` shows **~73% unused**.
+**Status: partial** (see table).
 
-**Why before P3:** This is **your** markup and bundles. A **parser-blocking** script delays HTML parsing for everything below it; **defer**, lazy bootstrap, and leaner first-party JS improve **TBT** and lab score without waiting on Understory to change API headers.
+**What Lighthouse said:** “Reduce unused JavaScript”; third-party summary highlights **understory.io** (main-thread + blocking time) and **Google Tag Manager**; **`jquery`** was bundled for **gallery lightbox** and **hero parallax**.
+
+**Why before P3:** In-repo script loading improves **TBT** without waiting on Understory API changes.
 
 **Plan:**
 
-1. **Booking widget script:** `BookingEmbed.astro` currently injects `<script src={widget.scriptSrc}></script>` **without `async`/`defer`**, which blocks HTML parsing. Change to **`defer`** (or `async` if the widget documents support) and test the widget still mounts.
-2. **Lazy bootstrap:** Load the Understory script only when the booking embed **enters the viewport** (`IntersectionObserver`) or after **`requestIdleCallback`** with a short timeout fallback. Keeps LCP and TBT lower on pages where the widget is below the fold.
-3. **GTM:** After consent work stabilizes (you already default-deny then load GTM), consider:
-   - Loading GTM **after** `load` or first interaction for non-analytics-critical paths, or
-   - **Partytown** (Astro integration) to move GTM to a worker (more moving parts; test tags).
-4. **jQuery:** Find which client bundle pulls `jquery.module.*`; replace with **vanilla** or a **tiny** helper for the one feature that needs it, or **dynamic import** only where required.
+1. **Booking widget script:** **Done:** **`defer`** on **`BookingEmbed.astro`** script tag.
+2. **Lazy bootstrap:** Load the Understory script only when the booking embed **enters the viewport** (`IntersectionObserver`) or after **`requestIdleCallback`** with a short timeout fallback. **Open.**
+3. **GTM:** After consent work stabilizes (you already default-deny then load GTM), consider loading GTM **after** `load` or first interaction, or **Partytown**. **Open.**
+4. **jQuery:** **Done** for gallery: **`gallery-lightbox.ts`** (vanilla). **Open:** **`hero-cover-parallax.ts`** still imports **`jquery`**; replace with **`scroll`/`ResizeObserver`** or drop parallax under **`prefers-reduced-motion`** only.
 
-**Files:** `site/src/components/embeds/BookingEmbed.astro`, `site/src/components/chrome/TrackingHead.astro`, grep for `jquery` in `site/src/client-scripts/`.
+**Files:** `site/src/components/embeds/BookingEmbed.astro`, `site/src/client-scripts/gallery-lightbox.ts`, `site/src/client-scripts/hero-cover-parallax.ts`, `site/src/components/chrome/TrackingHead.astro`.
 
 ---
 
@@ -227,17 +248,18 @@ Cloudflare’s overview ([speed up a website](https://www.cloudflare.com/en-gb/l
 
 ## Verification checklist (after changes)
 
-- [ ] Lighthouse mobile LCP **under 2.5 s** on throttled run (lab target), primarily validated after **P0–P1**.
-- [ ] **TBT** (lab) and **INP** (field, when available) trend better after **P2** script loading changes.
-- [ ] Total byte weight for Stockholm home **well under** current ~10 MB (aim for **&lt; 3–4 MB** first pass excluding optional prefetch); **P3** should shrink API transfer in Network panel.
-- [ ] Booking widget still functions (dates, language, checkout handoff).
-- [ ] GTM + consent: tags still fire correctly after any load deferral.
-- [ ] Visual parity sign-off on hero and galleries (no accidental crop/color drift).
+- [x] **P0** Lighthouse mobile LCP improved materially (re-run after each wave); target **&lt; 2.5 s** lab when throttled.
+- [ ] **P1** Total byte weight for Stockholm home **well under** ~10 MB baseline (aim **&lt; 3–4 MB** excluding third parties); **P3** shrinks API transfer in Network panel.
+- [x] Booking widget still functions after **`defer`** (dates, language, checkout handoff).
+- [x] Gallery lightbox (open / close / Escape) after removing jQuery.
+- [ ] GTM + consent: tags still fire correctly after any future load deferral.
+- [x] Visual parity on hero poster and video fade (stakeholder sign-off when possible).
+- [ ] **Production `www`:** Facebook Sharing Debugger on key URLs after cutover (**`docs/phase-8-todo.md`** **P8-23**).
 
 ---
 
 ## Summary
 
-The score in the 60s is **not** mainly CLS or render-blocking CSS in the measured run; it is **LCP and bytes**: a **~1.4 MB hero poster**, **multi-megabyte gallery JPEGs**, **uncompressed booking JSON**, and **heavy third-party JS**. That matches both Lighthouse’s audits and Cloudflare’s high-level advice: **optimize images**, **cut unnecessary requests and render-blocking work**, **cache static assets**, and **keep third parties under control** ([Cloudflare Learning](https://www.cloudflare.com/en-gb/learning/performance/speed-up-a-website/)).
+The original score in the 60s was driven by **LCP and bytes**: a **huge hero poster**, **multi-megabyte gallery JPEGs**, **uncompressed booking JSON**, and **heavy third-party JS**. **P0** and part of **P2** address the hero and script loading; **P1** (gallery and inline content images) and **P3** (API compression) remain the main **transfer-size** levers. **jQuery** is no longer required for the gallery lightbox; **hero parallax** is the remaining **jquery** consumer in **`site/src`**.
 
-Fix **image dimensions and formats** first (**P0–P1**), then **defer/lazy-load third-party JS and trim first-party bundles** (**P2**). In parallel or next, pursue vendor **compression on the booking API** (**P3**). **Audit redirect chains** and **request count**; tune **Cloudflare** (DNS, HTTP/3, caching headers, optional Polish) alongside P0–P1, not instead of them. After changes, validate **LCP**, **INP** (field), and **CLS** together, not the synthetic score alone.
+Keep validating **LCP**, **INP** (field), and **CLS**, not only the synthetic score. **Social:** default **`og:image`** targets **`https://www.andetag.museum`**; confirm with **Facebook Sharing Debugger** on **`www`** after Phase 8 (**P8-23**).

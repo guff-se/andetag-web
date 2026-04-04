@@ -118,7 +118,7 @@ Purpose: provide implementation-facing usage guidance for approved Phase 3 compo
   - Use **`mobileMode: "carousel"`** by default, aligned with **`site-html/index.html`**: **four-column grid** from **`1025px`** up; at **`1024px`** and below, a **horizontal slider** (scroll-snap, prev/next, autoplay unless **`prefers-reduced-motion`**) like the legacy Elementor **image carousel** (desktop-only grid + **`elementor-hidden-desktop`** carousel).
   - **`mobileMode: "grid"`** keeps the **grid** at all breakpoints (no slider).
   - Showcase parity implementation uses source-backed 8-image dataset in a **4-column** full-bleed grid on wide viewports.
-  - Hover overlay and click open a **jQuery**-bound full-screen lightbox (**`GallerySection.astro`** script); **`gallery-section-carousel.ts`** handles the mobile carousel only.
+  - Hover overlay and click open a full-screen lightbox (**`site/src/client-scripts/gallery-lightbox.ts`**, no jQuery); **`gallery-section-carousel.ts`** handles the mobile carousel only.
 
 ### `PartnersSection`
 
