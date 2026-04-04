@@ -7,6 +7,10 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ## [Unreleased]
 
+### Added
+
+- **Phase 7 (initial):** **`@astrojs/sitemap`** and **`site/public/robots.txt`**; sitemap filter drops **`/404`** and root **`/`** (301-only). **JSON-LD** via **`site/src/lib/chrome/schema-org.ts`** (Stockholm **Museum** + **TouristAttraction**, Berlin **Place** pre-opening, privacy minimal graph); Vitest **`schema-org.test.ts`**. **GTM** + Consent Mode v2 defaults and optional **CookieYes** (**`TrackingHead.astro`**, **`TrackingBody.astro`**); **`PUBLIC_*`** documented in **`site/.env.example`**. **OG image** optional field **`ogImage`** on **`page-shell-meta.json`** / **`PageShellRoute`**. Self-hosted **favicon** JPEG (live WP shortcut), **logo** PNG under **`site/public/wp-content/uploads/2024/11/`**. **`docs/url-migration-policy.md`**, **`docs/content-model.md`**, **`docs/phase-7-todo.md`** updated.
+
 ### Changed
 
 - **Testimonial preview removed:** Deleted **`site/src/pages/preview/testimonial-mock-quotes.astro`** and **`site/src/lib/content/testimonial-mockup-items.ts`** before go-live. **`docs/content-model.md`**, **`docs/phase-7-todo.md`** (dropped **P7-17**), **`docs/testimonials-reimplementation-options.md`**, **`AGENTS.md`** updated.

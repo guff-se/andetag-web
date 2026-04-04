@@ -1,9 +1,13 @@
 ---
 import SiteFooter from "../components/chrome/SiteFooter.astro";
 import SiteHeader from "../components/chrome/SiteHeader.astro";
+import TrackingBody from "../components/chrome/TrackingBody.astro";
+import TrackingHead from "../components/chrome/TrackingHead.astro";
 import { createPageLayoutModel } from "../lib/chrome/page-layout";
+import { buildSchemaJsonLd } from "../lib/chrome/schema-org";
 import {
   OG_SITE_NAME,
+  canonicalUrlForSitePath,
   defaultOgImageAbsoluteUrl,
   languageToOgLocale,
   ogLocaleAlternates,
@@ -40,6 +44,10 @@ type Props = {
   lcpFontPreloadHref?: string | null;
   /** `/en/` hub: only the header-selector hero, no main column or footer. */
   headerSelectorOnly?: boolean;
+  /** Root-relative image path for `og:image` / Twitter when set. */
+  ogImagePublicPath?: string | null;
+  /** Emit JSON-LD (off for `404` and similar). Default true. */
+  includeStructuredData?: boolean;
 };
 
 const props = Astro.props as Props;
@@ -54,9 +62,23 @@ const model = createPageLayoutModel({
   xDefaultPath: props.xDefaultPath ?? null,
 });
 
-const ogImageUrl = defaultOgImageAbsoluteUrl();
+const ogImageUrl =
+  props.ogImagePublicPath && props.ogImagePublicPath.length > 0
+    ? canonicalUrlForSitePath(props.ogImagePublicPath)
+    : defaultOgImageAbsoluteUrl();
 const ogPrimaryLocale = languageToOgLocale(props.language);
 const ogAlternateLocales = ogLocaleAlternates(props.language, props.hreflang);
+const includeStructuredData = props.includeStructuredData !== false;
+const jsonLd = includeStructuredData
+  ? buildSchemaJsonLd({
+      pageUrl: model.canonicalUrl,
+      pageTitle: props.title,
+      pageDescription: props.description ?? "",
+      language: props.language,
+      destination: props.destination,
+      canonicalPath: props.canonicalPath,
+    })
+  : null;
 ---
 
 <!doctype html>
@@ -64,6 +86,7 @@ const ogAlternateLocales = ogLocaleAlternates(props.language, props.hreflang);
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
+    <TrackingHead />
     {
       props.lcpImagePreloadHref ? (
         <link rel="preload" as="image" href={props.lcpImagePreloadHref} fetchpriority="high" />
@@ -81,7 +104,7 @@ const ogAlternateLocales = ogLocaleAlternates(props.language, props.hreflang);
       ) : null
     }
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" type="image/jpeg" href="/favicon.jpg" sizes="150x150" />
     <meta name="generator" content={Astro.generator} />
     <title>{props.title}</title>
     {props.description ? <meta name="description" content={props.description} /> : null}
@@ -116,10 +139,16 @@ const ogAlternateLocales = ogLocaleAlternates(props.language, props.hreflang);
       ) : null
     }
     <meta name="twitter:image" content={ogImageUrl} />
+    {
+      jsonLd ? (
+        <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+      ) : null
+    }
   </head>
   <body
     class={`${props.bodyClass ?? ""}${props.headerSelectorOnly ? " page-en-selector-only" : ""}`.trim()}
   >
+    <TrackingBody />
     {
       props.headerSelectorOnly ? (
         <a class="skip-link" href="#en-selector-actions">Skip to location choice</a>

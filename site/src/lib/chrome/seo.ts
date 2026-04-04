@@ -26,6 +26,12 @@ export function buildCanonicalUrl(canonicalPath: string): string {
   return `${CANONICAL_HOST}${canonicalPath}`;
 }
 
+/** Absolute URL for a root-relative public path (e.g. `/wp-content/...`). */
+export function canonicalUrlForSitePath(rootRelativePath: string): string {
+  const p = rootRelativePath.startsWith("/") ? rootRelativePath : `/${rootRelativePath}`;
+  return buildCanonicalUrl(p);
+}
+
 /** Default share image: Stockholm hero still (self-hosted; `HERO_SV_ASSETS.poster`). */
 export function defaultOgImageAbsoluteUrl(): string {
   return buildCanonicalUrl(HERO_SV_ASSETS.poster);

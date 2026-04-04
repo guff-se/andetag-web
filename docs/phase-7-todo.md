@@ -6,29 +6,29 @@ Purpose: track Scripts, Consent, Analytics, and Launch Hardening deliverables. N
 
 ## Identity and sharing (head markup)
 
-- [ ] **P7-01 Favicon:** Add `favicon.ico` and/or `icon.svg` (and optional PNG sizes) under `site/public/`, referenced from the root layout. No remote icon URLs.
+- [x] **P7-01 Favicon:** `site/public/favicon.svg` retained; **`/favicon.jpg`** added (JPEG is the current live **`/favicon.ico`** redirect target from WordPress, 150×150, self-hosted). Layout references both; no remote icon URLs.
 - [ ] **P7-02 Touch or mask icons (optional):** If brand guidelines require them, add `apple-touch-icon` and any mask-icon link; keep assets self-hosted.
-- [ ] **P7-03 Sharing policy:** Record chosen default `og:image` asset (path under `site/public/`, target aspect ratio, min size). Confirm `twitter:card` strategy (`summary_large_image` versus `summary`). Align `og:locale` and optional `og:locale:alternate` with `docs/Andetag SEO Manual.md` and BCP47 hreflang usage.
-- [ ] **P7-04 Implement meta tags:** Wire title and description plus `og:*` and Twitter tags from page model; resolve `og:image` and `og:url` to absolute production URLs. Use shared defaults from `docs/content-model.md` (`seo.defaultOgImage`, `siteName`, `canonicalHost`); use per-page `ogImage` when a distinct preview is required.
+- [x] **P7-03 Sharing policy (baseline):** Default **`og:image`** / Twitter image: Stockholm hero still **`HERO_SV_ASSETS.poster`** (`site/src/lib/chrome/assets.ts`), large enough for **`summary_large_image`**. **`twitter:card`:** **`summary_large_image`**. **`og:locale` / `og:locale:alternate`:** unchanged from Phase 6 (`site/src/lib/chrome/seo.ts`), aligned with hreflang siblings.
+- [x] **P7-04 Implement meta tags:** Title, description, full **`og:*`** and Twitter set from shell; **`og:url`** matches canonical. Optional per-shell **`ogImage`** in **`page-shell-meta.json`** (see **`docs/content-model.md`**).
 - [ ] **P7-05 Validate previews:** Spot-check major hubs and one deep page per locale with a sharing debugger or card validator; confirm fallback when `ogImage` is null.
 
 ## Schema.org
 
-- [ ] **P7-06 JSON-LD plan:** List which types appear globally (for example Organization) versus per destination (Place, Museum, TouristAttraction for Stockholm per `docs/Andetag SEO Manual.md` section 6).
-- [ ] **P7-07 Implement JSON-LD:** Emit valid JSON-LD from Astro layouts or data modules; avoid duplicate conflicting entities on one URL.
-- [ ] **P7-08 Berlin rules:** Pre-opening Berlin pages use Place only; switch to Museum (and parallel Stockholm structure) only when the Berlin opening protocol in the SEO manual is triggered.
+- [x] **P7-06 JSON-LD plan (implemented shape):** **`@graph`** per page: **WebSite**, **WebPage**, **Organization**, **logo** **ImageObject**; Stockholm adds **Museum** + **TouristAttraction** (address, geo, hours, `sameAs` from legacy footer JSON-LD in **`site-html/`**); Berlin pre-opening adds **Place** only (SEO manual §11); privacy routes use minimal graph (no venue entity).
+- [x] **P7-07 Implement JSON-LD:** **`site/src/lib/chrome/schema-org.ts`**, one **`application/ld+json`** script from **`SiteLayout.astro`** (off on **`404`**).
+- [x] **P7-08 Berlin rules:** Berlin **`destination`** shells use **Place** only until opening protocol; flip to Museum when SEO manual §11 phase 2 is triggered (code comment / future edit in **`schema-org.ts`**).
 - [ ] **P7-09 Validate structured data:** Run Rich Results Test or equivalent on representative URLs; fix errors before sign-off.
 
 ## Scripts, consent, analytics (existing Phase 7 scope)
 
-- [ ] **P7-10 Tracking:** GTM and related tags per `docs/tracking-and-consent-requirements.md` and `docs/kpi-measurement-map.md`; category gating verified.
-- [ ] **P7-11 CookieYes:** Banner and preference center behavior validated by category.
+- [x] **P7-10 Tracking (initial wiring):** GTM loader + Google Consent Mode v2 **default denied** in **`TrackingHead.astro`**; container **`GTM-KXJGBL5W`** (legacy) with optional **`PUBLIC_GTM_CONTAINER_ID`**. **Remaining:** map **`docs/kpi-measurement-map.md`** events in GTM, verify gating in preview and staging.
+- [ ] **P7-11 CookieYes:** Optional script when **`PUBLIC_COOKIEYES_CLIENT_ID`** is set (**`site/.env.example`**). **Remaining:** configure CMP, categories, and GTM integration; validate by category on staging.
 - [ ] **P7-12 Widgets:** Understory, Brevo (if retained), and other approved embeds finalized with consent classification documented.
 
 ## Sitemap, robots, launch
 
-- [ ] **P7-13 XML sitemap:** Implement per **`docs/url-migration-policy.md`** (**Sitemap, canonicalization, and inbound links**): canonical indexable HTML only, matrix or registry-aligned, exclude aliases and non-HTML; preserve inbound-link intent (no silent **404** on legacy paths that had **`301`** / **`keep`**).
-- [ ] **P7-14 robots.txt:** References sitemap; matches crawl policy.
+- [x] **P7-13 XML sitemap:** **`@astrojs/sitemap`** in **`site/astro.config.mjs`**: shell pages only, excludes **`/404`** and root **`/`** (redirect-only). Aligns with **`docs/url-migration-policy.md`** (note on root exclusion added there).
+- [x] **P7-14 robots.txt:** **`site/public/robots.txt`** → **`sitemap-index.xml`**.
 - [ ] **P7-15 Final SEO pass:** Metadata parity, hreflang, CWV targets; showcase performance follow-up **EX-0006** after lazy or consent-gated embed patterns if still open.
 - [ ] **P7-16 Sign-off:** Pre-launch checklist complete; update `docs/grand-plan.md` or a Phase 7 verification record when the phase closes.
 **Production host:** Checks that require **`https://www.andetag.museum`** (for example sitemap fetch at the canonical origin, live GTM validation) are completed or repeated in **`docs/phase-8-todo.md`** after cutover.

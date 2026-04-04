@@ -1,0 +1,44 @@
+---
+/**
+ * GTM bootstrap, Google Consent Mode v2 defaults, optional CookieYes.
+ * Container id: legacy WP / `docs/existing-site-structure.md` (`GTM-KXJGBL5W`).
+ * Override with `PUBLIC_GTM_CONTAINER_ID`. CookieYes: `PUBLIC_COOKIEYES_CLIENT_ID` (dashboard client id for cdn-cookieyes.com).
+ */
+const gtmId = import.meta.env.PUBLIC_GTM_CONTAINER_ID ?? "GTM-KXJGBL5W";
+const cookieYesId = import.meta.env.PUBLIC_COOKIEYES_CLIENT_ID as string | undefined;
+const cookieYesSrc =
+  cookieYesId && cookieYesId.length > 0
+    ? `https://cdn-cookieyes.com/client_data/${cookieYesId}/script.js`
+    : null;
+---
+
+<!-- Consent defaults before GTM (CookieYes updates these when configured in the CMP). -->
+<script is:inline>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+  gtag("consent", "default", {
+    ad_storage: "denied",
+    ad_user_data: "denied",
+    ad_personalization: "denied",
+    analytics_storage: "denied",
+    functionality_storage: "denied",
+    personalization_storage: "denied",
+    security_storage: "granted",
+    wait_for_update: 500,
+  });
+</script>
+{cookieYesSrc ? <script async id="cookieyes" type="text/javascript" src={cookieYesSrc} /> : null}
+<script is:inline define:vars={{ gtmId }}>
+  (function (w, d, s, l, i) {
+    w[l] = w[l] || [];
+    w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+    var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s),
+      dl = l != "dataLayer" ? "&l=" + l : "";
+    j.async = true;
+    j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+    f.parentNode.insertBefore(j, f);
+  })(window, document, "script", "dataLayer", gtmId);
+</script>

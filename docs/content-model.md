@@ -100,14 +100,14 @@ tracking:
 }
 ```
 
-**Emitted head tags (Phase 6):** `SiteLayout.astro` outputs canonical, hreflang alternates, and a baseline Open Graph and Twitter card set (`og:title`, `og:description` when present, `og:url`, `og:type`, `og:site_name`, `og:locale`, `og:locale:alternate`, `og:image`, `twitter:card`). The live default share image path is the Stockholm hero poster (`site/src/lib/chrome/assets.ts` `HERO_SV_ASSETS.poster`, absolute URL via `site/src/lib/chrome/seo.ts`). Per-page `og:image` from frontmatter remains a Phase 7 extension.
+**Emitted head tags (Phase 6–7):** `SiteLayout.astro` outputs canonical, hreflang alternates, Open Graph and Twitter (`og:title`, `og:description` when present, `og:url`, `og:type`, `og:site_name`, `og:locale`, `og:locale:alternate`, `og:image`, `twitter:card` as **`summary_large_image`**). Default share image: Stockholm hero still (`HERO_SV_ASSETS.poster`, absolute URL via `site/src/lib/chrome/seo.ts`). Optional per-shell override: `page-shell-meta.json` field **`ogImage`** (root-relative path, same contract as frontmatter `ogImage`), wired through **`page-shell-registry.ts`** as **`ogImage`** on the shell route.
 
 ### `tracking` contract
 
 ```json
 {
   "contractVersion": "1.0.0",
-  "gtmContainerId": "GTM-XXXXXXX",
+  "gtmContainerId": "GTM-KXJGBL5W",
   "consentCategories": ["necessary", "analytics", "marketing"],
   "tagsByCategory": {
     "necessary": ["site-core"],

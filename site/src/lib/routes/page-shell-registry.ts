@@ -5,6 +5,8 @@ export type PageShellSourceMeta = {
   sourceFile: string;
   title: string;
   description: string;
+  /** Optional root-relative share image (`/wp-content/...`). See `docs/content-model.md` `ogImage`. */
+  ogImage?: string;
 };
 
 export type PageShellRoute = {
@@ -19,6 +21,8 @@ export type PageShellRoute = {
   xDefaultPath: string | null;
   title: string;
   description: string;
+  /** Root-relative OG image path, or null to use site default (Phase 7). */
+  ogImage: string | null;
 };
 
 const metaPages = pageShellMeta.pages as Record<string, PageShellSourceMeta>;
@@ -285,6 +289,7 @@ export function getPageShellRoute(canonicalPath: string): PageShellRoute {
     xDefaultPath,
     title: meta.title,
     description: meta.description,
+    ogImage: meta.ogImage ?? null,
   };
 }
 
