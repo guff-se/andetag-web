@@ -2,9 +2,9 @@
 
 Purpose: evidence and stakeholder sign-off for Phase 6 slices per **`docs/phase-6-todo.md`** and **`docs/definition-of-done.md`** Phase 6.
 
-**Where we are:** **P6-00** signed off. **P6-01** is **implemented** and **awaiting Gustaf package sign-off** (chrome + **`/en/`** hub + English Stockholm bodies + location-scoped story URLs). **Next after P6-01 sign-off:** **P6-02** (**`en` + Berlin** chrome package and **remaining** **`/en/berlin/...`** body work). **Resume context:** **2026-03-28** routing slice (**`docs/routing-location-scoped-global-pages-plan.md`**, **implemented**): matrix **61** shells, **`PAGE_CUSTOM_BODY_PATHS` = 54**, four privacy routes, legacy **`301`** in **`site/public/_redirects`**, **`en-brand`** removed.
+**Where we are:** **P6-00**, **P6-01**, and **P6-02** signed off. **P6-02** (**`en` + Berlin**): **`/en/berlin/`** migrated home (**`BerlinHomeEn.astro`**, source **`site-html/en-berlin-en.html`**), **`hero-en-berlin.ts`** (**`chrome-hdr-en-berlin-*`**), **`footer-en-berlin.ts`** / **`footer-de-berlin.ts`**, **`FooterSocialLinks`**, Brevo waitlist via **`WaitlistFormEmbed`**, LCP preload on Berlin hero, self-hosted After Hours JPEG under **`site/public/wp-content/uploads/2025/04/`**. **`PAGE_CUSTOM_BODY_PATHS` = 55** (includes **`/en/berlin/`**, story topics, **`/en/berlin/privacy/`**; Berlin English story shells reuse Stockholm English bodies where wired). **Resume context:** **2026-03-28** routing slice (**`docs/routing-location-scoped-global-pages-plan.md`**): matrix **61** shells, legacy **`301`**, **`en-brand`** removed.
 
-Status: **open** (**P6-00** closed; **P6-01** implementation complete, package sign-off pending; **P6-02**–**P6-03** and **P6-04**–**P6-06** pending).
+Status: **open** (**P6-00**–**P6-02** closed; **P6-03**–**P6-06** pending).
 
 ## P6-00 · Swedish chrome package (`sv` / Stockholm)
 
@@ -16,9 +16,9 @@ Status: **open** (**P6-00** closed; **P6-01** implementation complete, package s
 
 **Follow-up:** Optional **`page-shell-meta`** extractor documentation if the pipeline should mention chrome ids explicitly (not blocking **P6-01**).
 
-## P6-01 · English Stockholm + location-scoped story URLs (implementation complete, sign-off open)
+## P6-01 · English Stockholm + location-scoped story URLs
 
-**Scope:** Wave 1 matrix shells with **`en` + Stockholm** chrome: **`/en/`** header-selector shell (Stockholm \| Berlin CTAs only; not in **`PAGE_CUSTOM_BODY_PATHS`**), all **`/en/stockholm/...`** marketing and utility bodies, and the **four** former “global” story topics at **`/en/stockholm/about-andetag/`**, **`.../about-the-artists-malin-gustaf-tadaa/`**, **`.../music/`**, **`.../optical-fibre-textile/`** (legacy **`/en/music/`**-style URLs **`301`** to these paths). **Privacy:** **`/en/stockholm/privacy/`** (and three other locale or location shells per matrix). Swedish story and privacy paths are **`/sv/stockholm/...`**. **`/en/berlin/...`** story and privacy shells exist for **hreflang** and Berlin chrome; **Wave 2** (**P6-02**) still owns the **full Berlin English package** sign-off (some Berlin bodies already reuse Stockholm English components after the **2026-03-28** routing delivery).
+**Scope:** Wave 1 matrix shells with **`en` + Stockholm** chrome: **`/en/`** header-selector shell (Stockholm \| Berlin CTAs only; not in **`PAGE_CUSTOM_BODY_PATHS`**), all **`/en/stockholm/...`** marketing and utility bodies, and the **four** former “global” story topics at **`/en/stockholm/about-andetag/`**, **`.../about-the-artists-malin-gustaf-tadaa/`**, **`.../music/`**, **`.../optical-fibre-textile/`** (legacy **`/en/music/`**-style URLs **`301`** to these paths). **Privacy:** **`/en/stockholm/privacy/`** (and three other locale or location shells per matrix). Swedish story and privacy paths are **`/sv/stockholm/...`**. **`/en/berlin/...`** story and privacy shells exist for **hreflang** and Berlin chrome; **Wave 2** (**P6-02**) **closed** **2026-04-04** (see §P6-02; some Berlin bodies reuse Stockholm English components after the **2026-03-28** routing delivery).
 
 **Wiring:** **`site/src/lib/page-registry/page-body-registry.ts`** (**`PAGE_CUSTOM_BODY_PATHS`**, **54** paths: **29** English + **24** Swedish + **1** German privacy; **`/en/`** has no body component) and **`site/src/pages/[...slug].astro`** **`pageBodies`** map (keys must match exactly). **`page-body-registry.test.ts`** asserts set size and string presence in the slug page.
 
@@ -37,10 +37,17 @@ Status: **open** (**P6-00** closed; **P6-01** implementation complete, package s
 
 **Technical verification:** **`npm test`**, **`npm run build`** in **`site/`** green (re-verified after **2026-03-28** routing slice).
 
-**Package sign-off (chrome + hub + bodies):** **Pending** (Gustaf).
+**Package sign-off (chrome + hub + bodies):** **Yes** (2026-04-02, Gustaf).
+
+## P6-02 · English Berlin (`en` + Berlin)
+
+**Scope:** **`en` + Berlin** chrome (**`hero-en-berlin.ts`**, **`chrome-hdr-en-berlin-hero`** / **`chrome-hdr-en-berlin-small`**, **`navigation.ts`** **`en-main-berlin`**, **`footer-en-berlin.ts`** with **`FooterSocialLinks`**, **`SiteHeader`** / **`SiteFooter`**); German Berlin footer model (**`footer-de-berlin.ts`**) for **`chrome-ftr-de-berlin`**. **Bodies:** **`/en/berlin/`** (**`BerlinHomeEn.astro`**, waitlist, testimonials, video band, Stockholm teaser); **`/en/berlin/{story-slug}/`** and **`/en/berlin/privacy/`** per **`PAGE_CUSTOM_BODY_PATHS`** (story and privacy reuse Stockholm English components where matrix wiring matches **2026-03-28** routing). **`PAGE_CUSTOM_BODY_PATHS` = 55**.
+
+**Technical verification:** **`npm test`** and **`npm run build`** in **`site/`** green at closure.
+
+**Package sign-off (chrome + bodies):** **Yes** (2026-04-04, Gustaf).
 
 ## Next
 
-1. **Gustaf:** Inspect Wave 1 English; update §P6-01 **Package sign-off** to **Yes** with date when approving.
-2. **Maintainer:** Mark **P6-01** complete in **`docs/phase-6-todo.md`**; begin **P6-02** (**`/en/berlin/...`** and **`en` + Berlin** chrome), one route at a time.
-3. **Later waves:** **P6-03** (German), then **P6-04**–**P6-06** (metadata, exceptions, grand-plan/CHANGELOG closure for Phase 6).
+1. **Maintainer:** Execute **P6-03** (**`de` + Berlin** chrome and **`/de/berlin/...`** bodies), one route at a time (**`npm test`** / **`npm run build`** green between pages); seek Gustaf **Wave 3** package sign-off when complete.
+2. **Later:** **P6-04**–**P6-06** (metadata, exceptions, grand-plan/CHANGELOG closure for Phase 6).

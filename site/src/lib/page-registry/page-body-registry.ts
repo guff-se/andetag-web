@@ -11,6 +11,7 @@ export const PAGE_CUSTOM_BODY_PATHS: ReadonlySet<string> = new Set([
   "/en/berlin/about-the-artists-malin-gustaf-tadaa/",
   "/en/berlin/music/",
   "/en/berlin/optical-fibre-textile/",
+  "/en/berlin/",
   "/en/stockholm/",
   "/en/stockholm/accessibility/",
   "/en/stockholm/art-yoga/",

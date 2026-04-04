@@ -5,6 +5,7 @@ import type {
   HeaderVariantId,
   LegacyHeaderAliasId,
 } from "./types";
+import { BERLIN_SOCIAL_FACEBOOK_HREF, BERLIN_SOCIAL_INSTAGRAM_HREF } from "./footer-en-berlin";
 
 export const HEADER_VARIANTS: Record<HeaderVariantId, HeaderVariant> = {
   "chrome-hdr-sv-stockholm-hero": {
@@ -58,8 +59,8 @@ export const HEADER_VARIANTS: Record<HeaderVariantId, HeaderVariant> = {
     kind: "hero",
     navVariantDesktop: "en-main-berlin",
     navVariantMobile: "en-main-berlin",
-    ctaLabel: "Find Tickets",
-    ctaHref: "#book",
+    ctaLabel: "Sign up for early bird tickets",
+    ctaHref: "#signup",
   },
   "chrome-hdr-en-berlin-small": {
     id: "chrome-hdr-en-berlin-small",
@@ -67,7 +68,7 @@ export const HEADER_VARIANTS: Record<HeaderVariantId, HeaderVariant> = {
     kind: "small",
     navVariantDesktop: "en-main-berlin",
     navVariantMobile: "en-main-berlin",
-    ctaLabel: "Berlin",
+    ctaLabel: "berlin",
     ctaHref: "/en/berlin/",
   },
   "chrome-hdr-de-berlin-hero": {
@@ -118,8 +119,8 @@ export const FOOTER_VARIANTS: Record<FooterVariantId, FooterVariant> = {
     language: "en",
     legalLinks: [{ label: "Privacy Policy", href: "/en/berlin/privacy/" }],
     socialLinks: [
-      { label: "Instagram", href: "https://www.instagram.com/andetag.museum/" },
-      { label: "Facebook", href: "https://www.facebook.com/andetag.museum/" },
+      { label: "Instagram", href: BERLIN_SOCIAL_INSTAGRAM_HREF },
+      { label: "Facebook", href: BERLIN_SOCIAL_FACEBOOK_HREF },
       { label: "Pinterest", href: "https://www.pinterest.com/andetagmuseum/" },
       { label: "Spotify", href: "https://open.spotify.com/" },
     ],
@@ -129,8 +130,8 @@ export const FOOTER_VARIANTS: Record<FooterVariantId, FooterVariant> = {
     language: "de",
     legalLinks: [{ label: "Datenschutz", href: "/de/berlin/privacy/" }],
     socialLinks: [
-      { label: "Instagram", href: "https://www.instagram.com/andetag.museum/" },
-      { label: "Facebook", href: "https://www.facebook.com/andetag.museum/" },
+      { label: "Instagram", href: BERLIN_SOCIAL_INSTAGRAM_HREF },
+      { label: "Facebook", href: BERLIN_SOCIAL_FACEBOOK_HREF },
       { label: "Pinterest", href: "https://www.pinterest.com/andetagmuseum/" },
       { label: "Spotify", href: "https://open.spotify.com/" },
     ],

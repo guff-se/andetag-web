@@ -35,6 +35,7 @@ import SasongskortSv from "../components/page-bodies/SasongskortSv.astro";
 import StockholmAktivitetInomhusSv from "../components/page-bodies/StockholmAktivitetInomhusSv.astro";
 import StockholmAttGoraSv from "../components/page-bodies/StockholmAttGoraSv.astro";
 import StockholmExhibitionEn from "../components/page-bodies/StockholmExhibitionEn.astro";
+import BerlinHomeEn from "../components/page-bodies/BerlinHomeEn.astro";
 import StockholmHomeEn from "../components/page-bodies/StockholmHomeEn.astro";
 import StockholmHomeSv from "../components/page-bodies/StockholmHomeSv.astro";
 import StockholmIndoorActivityEn from "../components/page-bodies/StockholmIndoorActivityEn.astro";
@@ -77,6 +78,7 @@ const pageBodies: Partial<Record<string, ShellPageBody>> = {
   "/en/berlin/about-the-artists-malin-gustaf-tadaa/": OmKonstnarernaEn,
   "/en/berlin/music/": MusikEn,
   "/en/berlin/optical-fibre-textile/": OpticalFibreTextileEn,
+  "/en/berlin/": BerlinHomeEn,
   "/en/stockholm/": StockholmHomeEn,
   "/en/stockholm/accessibility/": TillganglighetEn,
   "/en/stockholm/art-yoga/": ArtYogaEn,
@@ -132,6 +134,7 @@ const heroVideoHeaderIds = new Set<typeof shell.headerVariantId>([
   "chrome-hdr-sv-stockholm-hero",
   "chrome-hdr-en-stockholm-hero",
   "chrome-hdr-en-header-selector",
+  "chrome-hdr-en-berlin-hero",
   "chrome-hdr-de-berlin-hero",
 ]);
 const lcpImagePreloadHref = heroVideoHeaderIds.has(shell.headerVariantId)

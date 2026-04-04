@@ -1,0 +1,88 @@
+/*
+ * ANDETAG overrides for Brevo (Sendinblue) waitlist markup (`WaitlistFormEmbed.astro`).
+ * Load after `vendor/brevo-sib-styles.css` (import order in that component).
+ * Scope with `.waitlist-embed` so rules do not leak to other pages.
+ */
+
+.waitlist-embed #sib-container input:-ms-input-placeholder {
+  text-align: left;
+  font-family: "Baskervville", Georgia, serif;
+  color: var(--waitlist-placeholder-color, #d0a4cc);
+}
+
+.waitlist-embed #sib-container input::placeholder {
+  text-align: left;
+  font-family: "Baskervville", Georgia, serif;
+  color: var(--waitlist-placeholder-color, #d0a4cc);
+}
+
+.waitlist-embed #sib-container a {
+  text-decoration: underline;
+  color: #4a0d2f;
+}
+
+/* site-html/en-berlin-en.html Brevo head block: transparent wrappers (beats vendor white on `.entry__field`). */
+.waitlist-embed #sib-container .entry__field,
+.waitlist-embed #sib-container .form__entry,
+.waitlist-embed #sib-container .form__label-row,
+.waitlist-embed #sib-container .sib-input {
+  background-color: transparent !important;
+  border: none !important;
+  border-radius: 12px;
+}
+
+/* Vendor `sib-styles.css`: `.sib-form-block { padding: 0 16px }`, `#sib-container { padding: 17px }` (and breakpoints). */
+.waitlist-embed .sib-form,
+.waitlist-embed .sib-form #sib-container,
+.waitlist-embed .sib-form #sib-form {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.waitlist-embed .sib-form .sib-form-block {
+  padding: 0 !important;
+}
+
+/*
+ * Full-width row: Brevo uses `inline-flex` on `.entry__field`; without a definite width,
+ * `width: 100%` on the inner `.input` can collapse. Stretch the field row like the live WP page.
+ * Do not set `box-sizing` / `appearance` on `#EMAIL`: inline + `brevo-sib-styles.css` `.input`
+ * rules must stay aligned (source: `site-html/en-berlin-en.html`).
+ */
+.waitlist-embed .sib-form #sib-container .form__label-row {
+  width: 100%;
+  align-items: stretch;
+}
+
+.waitlist-embed .sib-form #sib-container .entry__field,
+.waitlist-embed .sib-form #sib-container .entry__field:focus-within {
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 12px !important;
+  box-shadow: none !important;
+}
+
+.waitlist-embed .sib-form #sib-container #EMAIL.input {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+}
+
+/*
+ * Brevo draws the tick with `.checkbox_tick_positive::before` even when unchecked (white on any bg).
+ * Hide the pseudo-element until `:checked`; checked state keeps vendor green fill + tick.
+ */
+.waitlist-embed .sib-form #sib-container .input_replaced:not(:checked) + .checkbox {
+  background: transparent !important;
+  border-color: #4a0d2f !important;
+}
+
+.waitlist-embed .sib-form #sib-container .input_replaced:not(:checked) + .checkbox.checkbox_tick_positive::before {
+  content: none !important;
+  display: none !important;
+}

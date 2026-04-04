@@ -17,7 +17,7 @@
     "/de/berlin/musik-von-andetag/": {
       "sourceFile": "de-musik-von-andetag.html",
       "title": "Musik von ANDETAG | Originalmusik zum Hören und Atmen | ANDETAG Stockholm",
-      "description": "Zwölf Stücke. Gut eine Stunde zusammenhängendes Hören. Die Originalmusik von ANDETAG — komponiert für Stille und Gegenwärtigkeit, von Gustaf Tadaa und Povel Olsson."
+      "description": "Zwölf Stücke. Gut eine Stunde zusammenhängendes Hören. Die Originalmusik von ANDETAG, komponiert für Stille und Gegenwärtigkeit, von Gustaf Tadaa und Povel Olsson."
     },
     "/de/berlin/optische-fasertextil/": {
       "sourceFile": "de-optische-fasertextil.html",
@@ -32,12 +32,12 @@
     "/de/berlin/ueber-andetag/": {
       "sourceFile": "de-ueber-andetag.html",
       "title": "ANDETAG – Das Kunstwerk | Ein gemeinsamer Atemzug als Kunst | ANDETAG Stockholm",
-      "description": "ANDETAG — ein fortlaufendes Kunstprojekt, in dem Licht, Textil und Musik sich im Rhythmus eines gemeinsamen menschlichen Atemzugs bewegen. Nie abgeschlossen, immer in Bewegung."
+      "description": "ANDETAG: ein fortlaufendes Kunstprojekt, in dem Licht, Textil und Musik sich im Rhythmus eines gemeinsamen menschlichen Atemzugs bewegen. Nie abgeschlossen, immer in Bewegung."
     },
     "/en/": {
       "sourceFile": "en.html",
       "title": "ANDETAG | The Breathing Museum",
-      "description": "ANDETAG is the breathing museum—a calm, light-based art experience. Choose Stockholm or Berlin to plan your visit."
+      "description": "ANDETAG is the breathing museum: a calm, light-based art experience. Choose Stockholm or Berlin to plan your visit."
     },
     "/en/berlin/": {
       "sourceFile": "en-berlin-en.html",
@@ -72,7 +72,7 @@
     "/en/stockholm/": {
       "sourceFile": "en.html",
       "title": "ANDETAG | The Breathing Museum in Stockholm",
-      "description": "ANDETAG is a breathing museum in Stockholm—a calm, art experience where light, breath, and music meet. Visit the breathing art museum near Hötorget."
+      "description": "ANDETAG is a breathing museum in Stockholm: a calm, art experience where light, breath, and music meet. Visit the breathing art museum near Hötorget."
     },
     "/en/stockholm/about-andetag/": {
       "sourceFile": "en-about-andetag.html",

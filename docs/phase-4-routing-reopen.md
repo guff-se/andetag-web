@@ -63,20 +63,20 @@ Applies to **header** (and any mirrored controls): **edge** entry routing stays 
 
 ## Global pages: navigation and routing options
 
-### Option 1 — Keep canonical URLs, split navigation bands (recommended starting point)
+### Option 1: Keep canonical URLs, split navigation bands (recommended starting point)
 
 - **Routing:** No path change; preserve inbound links and matrix rows.
 - **Navigation:** Primary nav = **Visit Stockholm** and **Visit Berlin** (labels TBD) with location-scoped links. Secondary band (footer, mega-menu section, or “About the work”) holds global pages in the **current** language only.
 - **Pros:** Minimal SEO and redirect risk; fastest to align with ticket-first goals; matches existing trilingual global URLs.
 - **Cons:** Users must learn that some items are “whole brand” vs “this city” (mitigate with labels).
 
-### Option 2 — Dedicated global prefix (e.g. `/global/` or `/andetag/`)
+### Option 2: Dedicated global prefix (e.g. `/global/` or `/andetag/`)
 
 - **Routing:** New path family with redirects from legacy URLs.
 - **Pros:** Very explicit information architecture; one place for “non-destination” content.
 - **Cons:** Large redirect surface; hreflang and matrix churn; higher implementation and verification cost before launch.
 
-### Option 3 — Duplicate global pages under each destination
+### Option 3: Duplicate global pages under each destination
 
 - **Routing:** e.g. `/stockholm/om-andetag/` and `/berlin/...` with duplicated or synced content.
 - **Pros:** Everything lives under one destination tree.
@@ -98,13 +98,13 @@ Location pages: alternates are **same city, other languages** only. The **four s
 
 ## Impacts on other docs (when decisions are final)
 
-- `docs/phase-4-todo.md` — reopen status and new exit criteria for this slice.
-- `docs/phase-4-route-coverage.md` — new rows, Worker-owned routes, hreflang notes.
-- `docs/url-matrix.csv` — legacy `/`, `/sv/stockholm/`, and any new paths.
-- `docs/ia-language-destination-options.md` — `/sv/` and entry routers vs Option A wording.
-- `docs/content-model.md` — nav variants, `header` / `footer` ids, or page “scope” (`location` | `global`).
-- `docs/Andetag SEO Manual.md` — `x-default`, hub, and bot-stable defaults.
-- `CHANGELOG.md` — record approved routing or policy changes.
+- `docs/phase-4-todo.md`: reopen status and new exit criteria for this slice.
+- `docs/phase-4-route-coverage.md`: new rows, Worker-owned routes, hreflang notes.
+- `docs/url-matrix.csv`: legacy `/`, `/sv/stockholm/`, and any new paths.
+- `docs/ia-language-destination-options.md`: `/sv/` and entry routers vs Option A wording.
+- `docs/content-model.md`: nav variants, `header` / `footer` ids, or page “scope” (`location` | `global`).
+- `docs/Andetag SEO Manual.md`: `x-default`, hub, and bot-stable defaults.
+- `CHANGELOG.md`: record approved routing or policy changes.
 
 ## Phase 4 implementation delta (when entry routing ships)
 

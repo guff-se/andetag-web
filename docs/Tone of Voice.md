@@ -97,15 +97,15 @@ Reading ANDETAG copy should feel like slowing down.
 
 ## Punctuation
 
-**The em dash (–) is absolutely prohibited under all circumstances.** Use commas, colons, or parentheses instead.
+**The em dash (U+2014) is absolutely prohibited under all circumstances.** Use commas, colons, or parentheses instead.
 
 ## Language Nuance: Swedish, English, German
 
-The Swedish tone is slightly more restrained, inward, and minimal. The name *Andetag* speaks for itself — it means *breath* — so the language can stay close to the experience without explanation.
+The Swedish tone is slightly more restrained, inward, and minimal. The name *Andetag* speaks for itself: it means *breath*, so the language can stay close to the experience without explanation.
 
 The English tone is a touch more explanatory, but never louder.
 
-The German tone sits between the two. German allows for precision and compound expression, and has a natural affinity for the philosophical register ANDETAG inhabits. The tone should feel considered and still — not stiff, not overly warm. Think quiet clarity, not formality.
+The German tone sits between the two. German allows for precision and compound expression, and has a natural affinity for the philosophical register ANDETAG inhabits. The tone should feel considered and still: not stiff, not overly warm. Think quiet clarity, not formality.
 
 No language should feel translated. Each should feel native and considered in its own right.
 
@@ -113,7 +113,7 @@ No language should feel translated. Each should feel native and considered in it
 
 In Swedish, *andetag* literally means *a breath*. The name is immediately understood and felt.
 
-In all other languages, the name requires a bridge. Readers and audiences who encounter "ANDETAG" for the first time will not know what it means. Copy in non-Swedish languages should naturally weave in a clarifying phrase early — not as a dictionary definition, but as part of the invitation.
+In all other languages, the name requires a bridge. Readers and audiences who encounter "ANDETAG" for the first time will not know what it means. Copy in non-Swedish languages should naturally weave in a clarifying phrase early: not as a dictionary definition, but as part of the invitation.
 
 **Key phrases by language:**
 
@@ -124,8 +124,8 @@ In all other languages, the name requires a bridge. Readers and audiences who en
 
 These phrases serve two purposes:
 
-1. **Comprehension** — they tell the reader what ANDETAG is, since the Swedish name alone does not.
-2. **Discoverability** — they align with how people actually search (e.g. "breathing museum Stockholm").
+1. **Comprehension**: they tell the reader what ANDETAG is, since the Swedish name alone does not.
+2. **Discoverability**: they align with how people actually search (e.g. "breathing museum Stockholm").
 
 **How to use them:**
 
@@ -135,13 +135,13 @@ These phrases serve two purposes:
 
 **Good examples:**
 
-- "Andetag — a breathing museum in Stockholm."
-- "Andetag ist ein Atemmuseum in Stockholm — ein Ort der Stille, des Lichts und des gemeinsamen Atems."
+- "Andetag: a breathing museum in Stockholm."
+- "Andetag ist ein Atemmuseum in Stockholm: ein Ort der Stille, des Lichts und des gemeinsamen Atems."
 
 **Avoid:**
 
-- "Andetag (which means breath in Swedish) is a museum…" — too clinical.
-- Using "breathing museum" or "Atemmuseum" repeatedly throughout a text — once is enough.
+- "Andetag (which means breath in Swedish) is a museum…": too clinical.
+- Using "breathing museum" or "Atemmuseum" repeatedly throughout a text: once is enough.
 
 ## Words We Like
 
@@ -183,7 +183,7 @@ Mind-blowing, magical (when used casually), healing, transformative, life-changi
 
 **German**
 
-> Andetag ist ein Atemmuseum — eine umfassende Kunsterfahrung, in der Licht, Textil und Musik sich im Rhythmus eines gemeinsamen Atemzugs bewegen. Ein stiller Ort für Gegenwärtigkeit, inmitten des städtischen Tempos.
+> Andetag ist ein Atemmuseum: eine umfassende Kunsterfahrung, in der Licht, Textil und Musik sich im Rhythmus eines gemeinsamen Atemzugs bewegen. Ein stiller Ort für Gegenwärtigkeit, inmitten des städtischen Tempos.
 
 ## Example Copy – Longer (Editorial / PR)
 

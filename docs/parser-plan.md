@@ -6,8 +6,8 @@ This document describes what the parser will extract from the scraped HTML and C
 
 ## Inputs
 
-- `site-html/*.html` — 47 scraped page files
-- `site-html/wp-content/uploads/elementor/css/post-*.css` — 68 Elementor CSS files
+- `site-html/*.html`: 47 scraped page files
+- `site-html/wp-content/uploads/elementor/css/post-*.css`: 68 Elementor CSS files
 - The live site at `andetag.museum` for downloading images
 
 ## Outputs
@@ -47,7 +47,7 @@ understory:                    # null if not present on this page
 Clean Markdown extracted from the `data-elementor-type="wp-page"` section only. This means:
 - Headings (`# h1`, `## h2`, etc.) from `elementor-widget-heading`
 - Paragraphs and rich text from `elementor-widget-text-editor` (preserving bold, italic, links)
-- Images as `![alt](filename.jpg)` — local filename, not WordPress URL
+- Images as `![alt](filename.jpg)`: local filename, not WordPress URL
 - Accordion/FAQ blocks as `<details><summary>` HTML in Markdown
 - Buttons as Markdown links with a marker: `[Button text](url){.cta-button}`
 - Blockquotes preserved as `> quote text`
@@ -94,10 +94,10 @@ The parser will download all images and media to `parsed/images/`, renaming them
 
 One JSON file per navigation variant:
 
-- `parsed/nav/sv-main.json` — Swedish full site nav
-- `parsed/nav/en-main.json` — English full site nav
-- `parsed/nav/en-brand.json` — English brand menu
-- `parsed/nav/de-main.json` — German nav
+- `parsed/nav/sv-main.json`: Swedish full site nav
+- `parsed/nav/en-main.json`: English full site nav
+- `parsed/nav/en-brand.json`: English brand menu
+- `parsed/nav/de-main.json`: German nav
 
 Format:
 
@@ -127,7 +127,7 @@ Extracted from the `<nav>` elements inside each header template.
 
 ### 4. Design reference (`parsed/design/`)
 
-**`parsed/design/tokens.json`** — extracted from all relevant Elementor CSS sources across pages and templates (for example page/post CSS files and shared template CSS), then normalized into one token set:
+**`parsed/design/tokens.json`**: extracted from all relevant Elementor CSS sources across pages and templates (for example page/post CSS files and shared template CSS), then normalized into one token set:
 
 ```json
 {
@@ -201,20 +201,20 @@ Extracted from the `<nav>` elements inside each header template.
 }
 ```
 
-**`parsed/design/section-patterns.md`** — a human-readable reference of recurring layout patterns observed across pages, with notes on which pages use them. NOT CSS to import, but a description:
+**`parsed/design/section-patterns.md`**: a human-readable reference of recurring layout patterns observed across pages, with notes on which pages use them. NOT CSS to import, but a description:
 
 - Full-width section with background image + dark overlay + centered white text (used for: "Boka nu" CTA sections)
 - Two-column layout: text left, pricing box right with `#D0A4CC` background and `25px` border-radius (used for: tickets page)
 - Accordion FAQ pattern: nested `<details>` elements with `1rem` title font size
 - Partner logo grid: 8 columns at 12% width each, wrapping on mobile
 - Testimonial carousel on background image with `0.78` overlay opacity
-- Image with SVG mask shape (`Andetag-6-1.svg`) — decorative blob shape applied to photos
+- Image with SVG mask shape (`Andetag-6-1.svg`): decorative blob shape applied to photos
 - etc.
 
 ### 5. Structured data (`parsed/schema/`)
 
-- `parsed/schema/en.json` — Schema.org JSON-LD from English footer
-- `parsed/schema/de.json` — Schema.org JSON-LD from German footer
+- `parsed/schema/en.json`: Schema.org JSON-LD from English footer
+- `parsed/schema/de.json`: Schema.org JSON-LD from German footer
 
 Extracted as-is from the `elementor-widget-html` widgets in the footers.
 

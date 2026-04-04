@@ -1,10 +1,20 @@
 ---
+/**
+ * Brevo waitlist: markup matches the source embed; styles are split for maintainability:
+ * 1. `vendor/brevo-sib-styles.css` — pinned copy of Brevo’s `sib-styles.css` (see file header for URL + patches).
+ * 2. `waitlist-brevo-overrides.css` — ANDETAG-only rules, imported after vendor so cascade is deterministic.
+ */
+import "../../styles/vendor/brevo-sib-styles.css";
+import "../../styles/waitlist-brevo-overrides.css";
+
 type Props = {
   formId: string;
   locale: "sv" | "en" | "de";
   fallbackText: string;
   unavailable?: boolean;
   formAction?: string;
+  /** Privacy policy path for the opt-in checkbox (locale-specific). */
+  privacyHref?: string;
 };
 
 const {
@@ -13,6 +23,7 @@ const {
   fallbackText,
   unavailable = false,
   formAction = "https://e25384f2.sibforms.com/serve/MUIFAIE_B025Xt2_dvCh6azEBOnH0kzPxiBea2f7jUViDLsDx-pRy5dD1jIAMONyecpQcwONReLIxoslmfauUfbwRwT-nS1PrkUgU3b75XFYC0zaiUMAWHfT4JEjCcr-z8evDEZI67AjDSWgznc1r03Yn-Z08v3nly6HA0qj7gt8bAVfpMU8Dixy5tlmby7y79jV4ZXfnt0RqgiH",
+  privacyHref = "/en/stockholm/privacy/",
 } = Astro.props as Props;
 ---
 
@@ -21,36 +32,6 @@ const {
     <p class="embed-fallback" role="status">{fallbackText}</p>
   ) : (
     <div class="waitlist-embed" data-form-id={formId} data-locale={locale}>
-      <style is:global>
-        {`
-          #sib-container input:-ms-input-placeholder {
-            text-align: left;
-            font-family: "Baskervville", Georgia, serif;
-            color: #d0a4cc;
-          }
-
-          #sib-container input::placeholder {
-            text-align: left;
-            font-family: "Baskervville", Georgia, serif;
-            color: #d0a4cc;
-          }
-
-          #sib-container a {
-            text-decoration: underline;
-            color: #4a0d2f;
-          }
-
-          #sib-container .entry__field,
-          #sib-container .form__entry,
-          #sib-container .form__label-row,
-          #sib-container .sib-input {
-            background-color: transparent !important;
-            border: none !important;
-            border-radius: 12px;
-          }
-        `}
-      </style>
-      <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css" />
       <div class="sib-form" style="text-align: center; background-color: transparent;">
         <div id="sib-form-container" class="sib-form-container">
           <div
@@ -98,7 +79,7 @@ const {
                           >
                             <p>
                               I agree to receive emails and accept the
-                              <a href="/en/stockholm/privacy/" style="color: #4A0D2F;">Privacy Policy</a>.
+                              <a href={privacyHref} style="color: #4A0D2F;">Privacy Policy</a>.
                             </p>
                             <span data-required="*" style="display: inline;" class="entry__label entry__label_optin"></span>
                           </span>

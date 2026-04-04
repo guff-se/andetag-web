@@ -7,7 +7,66 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ## [Unreleased]
 
+### Added
+
+- **English Berlin home (`/en/berlin/`):** migrated body from **`site-html/en-berlin-en.html`** (intro, Stockholm teaser with **`ANDETAG-After-Hours-1-photo-Pekka-Paakko.jpg`** self-hosted under **`site/public/wp-content/uploads/2025/04/`**), Vimeo band, Berlin copy, Brevo waitlist via **`WaitlistFormEmbed`** with **`/en/berlin/privacy/`** opt-in link. **`BerlinHomeEn.astro`**, **`PAGE_CUSTOM_BODY_PATHS`**, **`[...slug].astro`**.
+
+- **`hero-en-berlin.ts`:** shared hero header for **`chrome-hdr-en-berlin-hero`** and **`chrome-hdr-en-berlin-small`** (same media shell as other locales, **`en-main-berlin`** menu in **`SiteHeader.astro`**).
+
+- **`footer-de-berlin.ts`:** German Berlin footer model for **`chrome-ftr-de-berlin`** (exhaustive Berlin DE page list, same shape as English Berlin).
+
+- **Berlin footers (EN/DE):** Two **`shared-footer-col`** columns (ANDETAG Berlin + ANDETAG Stockholm → **`/en/stockholm/`** | remaining Berlin pages), same link styling as Stockholm (**`shared-footer-grid--berlin-cols`**). Social icons via **`FooterSocialLinks.astro`**. **`SiteFooter.astro`**, **`layout.css`**, **`footer-en-berlin.ts`**, **`footer-de-berlin.ts`**, Vitest **`footer-*-berlin.test.ts`**.
+
 ### Changed
+
+- **Phase 6 P6-02 closed:** Gustaf package sign-off for Wave 2 (**English Berlin** chrome, **`/en/berlin/...`** bodies, **`PAGE_CUSTOM_BODY_PATHS`** **55**). **`docs/phase-6-verification-record.md`** §P6-02, **`docs/phase-6-todo.md`**, **`docs/grand-plan.md`**. **Next:** **P6-03** (German Berlin).
+
+- **Berlin chrome (EN/DE):** Instagram and Facebook in header hero socials and footer models point to **`andetag.berlin`** profiles, not **`andetag.museum`**. **`footer-en-berlin.ts`** (shared constants), **`footer-de-berlin.ts`**, **`variants.ts`**, **`SiteHeader.astro`**.
+
+- **English Berlin signup waitlist:** **`.page-berlin-home__signup .embed-shell`** keeps **`padding: 1rem`** on the lavender band (unframed shell). **`components.css`**.
+- **Brevo waitlist embed:** **`WaitlistFormEmbed`** loads **`site/src/styles/vendor/brevo-sib-styles.css`** (pinned Brevo **`sib-styles`**, patched) then **`site/src/styles/waitlist-brevo-overrides.css`** via Vite **`import`** (deterministic cascade, no CDN `<link>`, no giant inline `<style>`). Overrides scoped with **`.waitlist-embed`**. Maintenance: **`site/src/styles/vendor/README.md`**. **`docs/phase-3-component-usage.md`**.
+
+- **English Berlin home:** **`brand-wordmark`** styling for **ANDETAG** only inside body **`<p>`** copy (hero, nav, footer, buttons, image **`alt`**, and iframe **`title`** stay plain text). **`BerlinHomeEn.astro`**.
+
+- **English Berlin home:** **Already open in Stockholm** row and **Be the first to know** (`#signup`) sit on full-bleed lavender **`#d0a4cc`** bands, matching **`site-html/wp-content/uploads/elementor/css/post-4064.css`** (Elementor **`--e-global-color-secondary`**). **`layout.css`** (`--color-bg-secondary`), **`components.css`**, **`BerlinHomeEn.astro`**.
+
+- **English Berlin home layout:** Stockholm teaser **1:1** columns; **The same breath, a new city** gets extra vertical padding; waitlist **`.embed-shell`** unframed on signup; no primary-bg gap above testimonials after Stockholm band or below signup before footer (**`main-content:has(.page-berlin-home)`**). **`BerlinHomeEn.astro`**, **`components.css`**.
+
+- **English Berlin signup (“Be the first to know”):** centered copy; placeholder via **`--waitlist-placeholder-color`** (**`#d0a4cc`**, same as Brevo head block in **`site-html/en-berlin-en.html`**); footnote smaller aubergine (**`.page-berlin-home__signup-footnote`**). **`WaitlistFormEmbed.astro`**, **`BerlinHomeEn.astro`**, **`components.css`**.
+
+- **Brevo waitlist field:** **`waitlist-brevo-overrides.css`** no longer forces **`box-sizing`** / **`appearance`** on **`#EMAIL`** (restores parity with **`brevo-sib-styles.css`** + inline **`input`** styles). **`.entry__field`** uses **`display: flex`** and **`width: 100%`** so the email row stays full width inside **`#sib-container`**. **`components.css`**, **`waitlist-brevo-overrides.css`**.
+
+- **Punctuation:** removed Unicode em dashes (U+2014) from authored **`site/`** copy, **`page-shell-meta.json`**, **`spider.py`** crawl changelog headings, and **`docs/**`** (commas or colons instead). **`docs/Tone of Voice.md`** now cites **U+2014** in the prohibition line. **`site-html/`** and **`site-md/`** crawler mirrors are unchanged.
+
+- **English Berlin nav:** **ANDETAG Stockholm** under **ANDETAG Berlin** links to **`/en/stockholm/`** (was **`/en/`**). **`hero-en-berlin.ts`**, **`navigation.ts`**.
+
+- **English Berlin home (`/en/berlin/`):** first **`ContentSection`** heading is **There is nothing like this** (was **A place to breathe**). **`BerlinHomeEn.astro`**.
+
+- **English Berlin home:** lead section and Stockholm teaser photo share **`max-width: min(52rem, 100%)`** and a common left edge (lead heading left-aligned). **`components.css`**.
+
+- **English Berlin home:** **`#signup`** heading **Be the first to know** uses a larger **`h2`** scale. **`components.css`**.
+
+- **English Berlin shared hero nav:** removed the extra trailing **berlin** link (hero ticket slot); menu ends with **About the Artists**, then the language flag. **`hero-en-berlin.ts`**, **`SiteHeader.astro`** (optional **`ticketItem`** for other locales).
+
+- **English Berlin home:** **`TestimonialCarousel`** + post-band CTA (same quotes and Tripadvisor aggregate as **`StockholmHomeEn`**, CTA **Follow us** → **`#signup`**). **`BerlinHomeEn.astro`**, **`components.css`** (shared **`page-*-home__cta-after-testimonials`** margins).
+
+- **English Berlin home video:** **`VideoEmbed`** uses the same full-bleed **`page-*-home__video-band`** treatment as Stockholm (**`components.css`**, **`BerlinHomeEn.astro`**).
+
+- **English Berlin nav:** structure from **`site-html/en-berlin-en.html`** (~231–239): **ANDETAG Berlin** (`/en/berlin/`) with **ANDETAG Stockholm** (`/en/stockholm/`), then **Art**, **Music**, **Textile**, **About the Artists** (content hrefs **`/en/berlin/...`**). **`hero-en-berlin.ts`**, **`navigation.ts`**.
+
+- **English Berlin hero CTA:** center button targets **`#signup`** with label **Sign up for early bird tickets** (was **`#book`** / Find Tickets). **`variants.ts`**.
+
+- **English Berlin hero:** center stack matches **`site-html/en-berlin-en.html`** (**ANDETAG is coming / to Berlin**, **The Breathing Museum. / Opening autumn 2026.**) above the early-bird CTA. **`hero-en-berlin.ts`**, **`SiteHeader.astro`**, **`layout.css`**, **`hero-en-berlin.test.ts`**.
+
+- **English Berlin hero headings:** **`h1` / `h2`** use the same Jost scale and letter-spacing as **`.component-hero.is-cover`** and **`.content-section`** (primary title **`0.3em`**, secondary **`0.2em`**). Subtitle (**`h2`**) is **`#ffffff`**; lines **The Breathing Museum** / **Opening autumn 2026** omit terminal periods. **`components.css`**, **`hero-en-berlin.ts`**, **`SiteHeader.astro`** (plain semantic headings), **`layout.css`** (layout-only Berlin center).
+
+- **`WaitlistFormEmbed`:** optional **`privacyHref`** (default **`/en/stockholm/privacy/`**) for locale-correct policy links.
+
+- **LCP preload on `/en/berlin/`:** hero video poster + Jost preload aligned with other full-bleed hero shells. **`[...slug].astro`**.
+
+- **Phase 6 P6-01 closed:** Gustaf package sign-off for Wave 1 (**English Stockholm**, **`/en/`** hub, location-scoped story URLs, in-scope bodies). **`docs/phase-6-verification-record.md`**, **`docs/phase-6-todo.md`**, **`docs/grand-plan.md`**. **Why:** stakeholder approval recorded; **P6-02** (English Berlin) is the active wave.
+
+- **Stockholm Visit / Besök submenu:** First link **ANDETAG** points to the locale home (**`/sv/stockholm/`**, **`/en/stockholm/`**). **`navigation.ts`**, **`hero-sv.ts`**, **`hero-en-stockholm.ts`**.
 
 - **Hero header language UI:** Flag dropdown and top-row language links only list languages that have a **home URL for the current destination** (Stockholm: **sv** + **en**; Berlin: **en** + **de**). **`getLanguagesAvailableForDestination`**, **`getChromeTopLanguageAlternates`**, **`getLanguageSelectorOptions`** in **`navigation.ts`**; **`hero-sv.ts`**, **`hero-en-stockholm.ts`**; **`CHROME_LANGUAGE_LABELS`** export; selector fixtures in **`fixtures.ts`**. **Why:** German is not a Stockholm locale; Swedish is not a Berlin locale.
 

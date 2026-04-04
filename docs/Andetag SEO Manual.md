@@ -26,7 +26,7 @@ Apply consistently in:
 
 ### 1.1 English positioning (international readiness)
 
-The brand Andetag (Swedish for “a breath”) is used globally. For English markets, the primary discoverability phrase is **breathing museum**—how visitors recall and search for the experience. This prepares for expansion: when launching in Germany, parallel SEO will target “Atem museum”, “atmendes Museum”, etc., all tying back to the Andetag brand.
+The brand Andetag (Swedish for “a breath”) is used globally. For English markets, the primary discoverability phrase is **breathing museum**: how visitors recall and search for the experience. This prepares for expansion: when launching in Germany, parallel SEO will target “Atem museum”, “atmendes Museum”, etc., all tying back to the Andetag brand.
 
 English-specific rules:
 
@@ -350,7 +350,7 @@ For each page, the keyword line lists conceptual coverage, not terms to stuff.
 English root (Stockholm landing)
 
 * EN: /en/
-* Keywords: **breathing museum** (primary—must appear in title and meta description), breathing art museum, Andetag Stockholm, breathing light art
+* Keywords: **breathing museum** (primary: must appear in title and meta description), breathing art museum, Andetag Stockholm, breathing light art
 
 About Andetag
 

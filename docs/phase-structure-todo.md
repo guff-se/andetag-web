@@ -14,14 +14,14 @@
 
 ## Phases
 
-- [x] **S1** — Renamed the chrome Astro folder under **`site/src/components/`** to **`chrome`**; imports updated; test + build + stale grep
-- [x] **S2** — Renamed chrome model TS under **`site/src/lib/`** to **`chrome`**; imports and docs updated; test + build + stale grep
-- [x] **S3** — Renamed per-route body Astro folder to **`page-bodies`** under **`site/src/components/`**; **`[...slug].astro`** and cross-imports updated; test + build + stale grep
-- [x] **S4** — Renamed body registry TS folder under **`site/src/lib/`** to **`page-registry`**; imports updated; test + build + stale grep
-- [x] **S5** — Renamed TS UI helpers folder under **`site/src/lib/`** to **`ui-logic`**; imports updated; test + build + stale grep
-- [x] **S6** — Renamed client-side TS folder under **`site/src/`** to **`client-scripts`**; Astro imports updated; test + build + stale grep
-- [x] **S7** — **N/A (default):** do not add `tsconfig` aliases or rename `lib/routes/` in this run (see plan §6 Phase S7)
-- [x] **S8** — CI check (workflow paths), `npm test` + `npm run build`, final §6.1 verification on `site/src` + `docs` + `AGENTS.md`; Vitest registry parity; optional repo link script if defined
+- [x] **S1**: Renamed the chrome Astro folder under **`site/src/components/`** to **`chrome`**; imports updated; test + build + stale grep
+- [x] **S2**: Renamed chrome model TS under **`site/src/lib/`** to **`chrome`**; imports and docs updated; test + build + stale grep
+- [x] **S3**: Renamed per-route body Astro folder to **`page-bodies`** under **`site/src/components/`**; **`[...slug].astro`** and cross-imports updated; test + build + stale grep
+- [x] **S4**: Renamed body registry TS folder under **`site/src/lib/`** to **`page-registry`**; imports updated; test + build + stale grep
+- [x] **S5**: Renamed TS UI helpers folder under **`site/src/lib/`** to **`ui-logic`**; imports updated; test + build + stale grep
+- [x] **S6**: Renamed client-side TS folder under **`site/src/`** to **`client-scripts`**; Astro imports updated; test + build + stale grep
+- [x] **S7**: **N/A (default):** do not add `tsconfig` aliases or rename `lib/routes/` in this run (see plan §6 Phase S7)
+- [x] **S8**: CI check (workflow paths), `npm test` + `npm run build`, final §6.1 verification on `site/src` + `docs` + `AGENTS.md`; Vitest registry parity; optional repo link script if defined
 
 ## Closure
 

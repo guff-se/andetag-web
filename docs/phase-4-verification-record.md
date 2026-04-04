@@ -16,7 +16,7 @@ Validated with `curl -sI` on deployed Workers static assets:
 
 | Environment | Date | Result |
 |-------------|------|--------|
-| `https://andetag-web.guff.workers.dev/` | 2026-03-23 | Pass — matrix redirects (cases 1–4) and policy `/privacy-policy/` → `/privacy/` (case 5); see `docs/phase-4-redirect-tests.md`. |
+| `https://andetag-web.guff.workers.dev/` | 2026-03-23 | Pass: matrix redirects (cases 1–4) and policy `/privacy-policy/` → `/privacy/` (case 5); see `docs/phase-4-redirect-tests.md`. |
 
 ## Static route shells
 

@@ -56,7 +56,7 @@ Use `docs/phase-3-component-qa-checklist.md` and `docs/phase-3-component-usage.m
 
 **Swedish home URL:** **`/sv/stockholm/`** is the canonical Swedish Stockholm home (content from legacy **`/`** in `site-html/`). **`/`** **`301`**s to **`/sv/stockholm/`** in static deploys; production **`/`** is also the **edge entry router** per **`docs/url-migration-policy.md`** and **`docs/phase-4-routing-reopen.md`**.
 
-**First wave (strict order) — complete (migrated + design-approved, 2026-03-23, Gustaf):**
+**First wave (strict order): complete (migrated + design-approved, 2026-03-23, Gustaf):**
 
 1. ~~`/sv/stockholm/gruppbokning/`~~ (group bookings; legacy **`/stockholm/gruppbokning/`** **`301`**s here)
 2. ~~`/sv/stockholm/foretagsevent/`~~
@@ -65,27 +65,27 @@ Use `docs/phase-3-component-qa-checklist.md` and `docs/phase-3-component-usage.m
 5. ~~`/sv/stockholm/biljetter/`~~
 6. ~~`/sv/stockholm/dejt/`~~
 7. ~~`/sv/stockholm/fragor-svar/`~~
-8. ~~**`/sv/stockholm/`**~~ — Swedish Stockholm home. Static **`/`** redirects to this path.
+8. ~~**`/sv/stockholm/`**~~: Swedish Stockholm home. Static **`/`** redirects to this path.
 
 **Second batch (alphabetical, all remaining `/sv/` shells in `site/src/data/page-shell-meta.json`):** Canonical paths below are the full set of **defined and routed** Swedish locale pages not yet wired to custom body content in `site/src/lib/page-registry/page-body-registry.ts`. **Order is strict A–Z by path string.** Use **`docs/phase-3-component-usage.md`**, **`docs/phase-3-component-inventory.md`**, and the same patterns as the first eight pages (`ContentSection`, `HeroSection`, `AccordionSection`, `BookingEmbed`, `ButtonGroup`, `GallerySection`, grids in `components.css`, and so on). **One page at a time:** complete migration for URL *n* before editing URL *n+1*. **Do not** pause between URLs for stakeholder sign-off; record approvals in **`docs/phase-5-verification-record.md`** when Gustaf finishes the batch review.
 
 | # | Canonical path | Primary `site-html/` source |
 |---|----------------|----------------------------|
-| 1 | `/sv/musik/` | `musik.html` — **migrated** + design-approved 2026-03-24 (`MusikSv.astro`) |
-| 2 | `/sv/om-andetag/` | `om-andetag.html` — **migrated** + design-approved 2026-03-24 (`OmAndetagSv.astro`) |
-| 3 | `/sv/om-konstnarerna-malin-gustaf-tadaa/` | `om-konstnarerna-malin-gustaf-tadaa.html` — **migrated** + design-approved 2026-03-24 (`OmKonstnarernaSv.astro`) |
-| 4 | `/sv/stockholm/aktivitet-inomhus-stockholm/` | `stockholm-aktivitet-inomhus-stockholm.html` — **migrated** + design-approved 2026-03-24 (`StockholmAktivitetInomhusSv.astro` + `StockholmSeoLandingSv`) |
-| 5 | `/sv/stockholm/att-gora-stockholm/` | `stockholm-att-gora-stockholm.html` — **migrated** + design-approved 2026-03-24 (`StockholmAttGoraSv.astro` + `StockholmSeoLandingSv`) |
-| 6 | `/sv/stockholm/besokaromdomen/` | `stockholm-besokaromdomen.html` — **migrated** + design-approved 2026-03-24 (`BesokaromdomenSv.astro`; TripAdvisor slider omitted **EX-0012**) |
-| 7 | `/sv/stockholm/hitta-hit/` | `stockholm-hitta-hit.html` — **migrated** + design-approved 2026-03-24 (`HittaHitSv.astro`) |
-| 8 | `/sv/stockholm/museum-stockholm/` | `stockholm-museum-stockholm.html` — **migrated** + design-approved 2026-03-24 (`StockholmMuseumSv.astro` + `StockholmSeoLandingSv`) |
-| 9 | `/sv/stockholm/npf-stockholm/` | `stockholm-npf-stockholm.html` — **migrated** + design-approved 2026-03-24 (`NpfStockholmSv.astro`) |
-| 10 | `/sv/stockholm/oppettider/` | `stockholm-oppettider.html` — **migrated** + design-approved 2026-03-24 (`OppettiderSv.astro`) |
-| 11 | `/sv/stockholm/presentkort/` | `stockholm-presentkort.html` — **migrated** + design-approved 2026-03-24 (`PresentkortSv.astro`) |
-| 12 | `/sv/stockholm/sasongskort/` | `stockholm-sasongskort.html` — **migrated** + design-approved 2026-03-24 (`SasongskortSv.astro`) |
-| 13 | `/sv/stockholm/tillganglighet/` | `stockholm-tillganglighet.html` — **migrated** + design-approved 2026-03-24 (`TillganglighetSv.astro`) |
-| 14 | `/sv/stockholm/utstallning-stockholm/` | `stockholm-utstallning-stockholm.html` — **migrated** + design-approved 2026-03-24 (`StockholmUtstallningSv.astro` + `StockholmSeoLandingSv`) |
-| 15 | `/sv/stockholm/vilken-typ-av-upplevelse/` | `stockholm-vilken-typ-av-upplevelse.html` — **migrated** + design-approved 2026-03-24 (`VilkenTypAvUpplevelseSv.astro`) |
+| 1 | `/sv/musik/` | `musik.html`: **migrated** + design-approved 2026-03-24 (`MusikSv.astro`) |
+| 2 | `/sv/om-andetag/` | `om-andetag.html`: **migrated** + design-approved 2026-03-24 (`OmAndetagSv.astro`) |
+| 3 | `/sv/om-konstnarerna-malin-gustaf-tadaa/` | `om-konstnarerna-malin-gustaf-tadaa.html`: **migrated** + design-approved 2026-03-24 (`OmKonstnarernaSv.astro`) |
+| 4 | `/sv/stockholm/aktivitet-inomhus-stockholm/` | `stockholm-aktivitet-inomhus-stockholm.html`: **migrated** + design-approved 2026-03-24 (`StockholmAktivitetInomhusSv.astro` + `StockholmSeoLandingSv`) |
+| 5 | `/sv/stockholm/att-gora-stockholm/` | `stockholm-att-gora-stockholm.html`: **migrated** + design-approved 2026-03-24 (`StockholmAttGoraSv.astro` + `StockholmSeoLandingSv`) |
+| 6 | `/sv/stockholm/besokaromdomen/` | `stockholm-besokaromdomen.html`: **migrated** + design-approved 2026-03-24 (`BesokaromdomenSv.astro`; TripAdvisor slider omitted **EX-0012**) |
+| 7 | `/sv/stockholm/hitta-hit/` | `stockholm-hitta-hit.html`: **migrated** + design-approved 2026-03-24 (`HittaHitSv.astro`) |
+| 8 | `/sv/stockholm/museum-stockholm/` | `stockholm-museum-stockholm.html`: **migrated** + design-approved 2026-03-24 (`StockholmMuseumSv.astro` + `StockholmSeoLandingSv`) |
+| 9 | `/sv/stockholm/npf-stockholm/` | `stockholm-npf-stockholm.html`: **migrated** + design-approved 2026-03-24 (`NpfStockholmSv.astro`) |
+| 10 | `/sv/stockholm/oppettider/` | `stockholm-oppettider.html`: **migrated** + design-approved 2026-03-24 (`OppettiderSv.astro`) |
+| 11 | `/sv/stockholm/presentkort/` | `stockholm-presentkort.html`: **migrated** + design-approved 2026-03-24 (`PresentkortSv.astro`) |
+| 12 | `/sv/stockholm/sasongskort/` | `stockholm-sasongskort.html`: **migrated** + design-approved 2026-03-24 (`SasongskortSv.astro`) |
+| 13 | `/sv/stockholm/tillganglighet/` | `stockholm-tillganglighet.html`: **migrated** + design-approved 2026-03-24 (`TillganglighetSv.astro`) |
+| 14 | `/sv/stockholm/utstallning-stockholm/` | `stockholm-utstallning-stockholm.html`: **migrated** + design-approved 2026-03-24 (`StockholmUtstallningSv.astro` + `StockholmSeoLandingSv`) |
+| 15 | `/sv/stockholm/vilken-typ-av-upplevelse/` | `stockholm-vilken-typ-av-upplevelse.html`: **migrated** + design-approved 2026-03-24 (`VilkenTypAvUpplevelseSv.astro`) |
 
 **Out of this table:** **`/privacy/`** (shell; not under **`/sv/`** prefix). **English and German locale bodies** (**`/en/`**, **`/en/stockholm/`**, **`EX-0007`**, **`P5-02`**): **Phase 6** with localized header and footer (not Phase 5). Berlin routes and remaining Phase 5 scope per **`docs/grand-plan.md`**.
 

@@ -1,0 +1,145 @@
+---
+import ButtonGroup from "../content/ButtonGroup.astro";
+import ContentSection from "../content/ContentSection.astro";
+import TestimonialCarousel from "../content/TestimonialCarousel.astro";
+import VideoEmbed from "../embeds/VideoEmbed.astro";
+import WaitlistFormEmbed from "../embeds/WaitlistFormEmbed.astro";
+import { stockholmTestimonialAggregateEn } from "../../lib/content/stockholm-testimonial-aggregate";
+
+/**
+ * English Berlin home: body from `site-html/en-berlin-en.html`
+ * (`data-elementor-type="wp-page"` post id **4064**). Canonical route **`/en/berlin/`**
+ * (legacy **`/en/berlin-en/`** **`301`** per **`site/public/_redirects`**).
+ * Visitor review carousel matches **`StockholmHomeEn.astro`** (English quotes, Tripadvisor aggregate for Stockholm).
+ */
+const afterHoursImage = {
+  src: "/wp-content/uploads/2025/04/ANDETAG-After-Hours-1-photo-Pekka-Paakko.jpg",
+  width: 1024,
+  height: 683,
+  alt: "Visitors in low light among luminous textile art at ANDETAG",
+} as const;
+
+const breatheMarkdown = [
+  '<p><span class="brand-wordmark">ANDETAG</span> is a calm, light-based art museum where textile, light, and music move in sync with a shared breath.</p>',
+  "<p>The artworks are woven from optical fiber and traditional textile materials. Light travels inside the fabric itself, shifting slowly and never repeating. Original music guides the experience inward. The rhythm is based on a real breath, recorded during meditation.</p>",
+  "<p>It is not a spectacle. Not an event.<br />It is a place to sit down, breathe, and stay for a while.</p>",
+].join("");
+
+const stockholmAsideMarkdown = [
+  '<p><span class="brand-wordmark">ANDETAG</span> Stockholm opened in January 2025, in the heart of the city at Hötorget.</p>',
+  "<p>Since then, thousands of visitors have come to sit with the light, breathe along with the rhythm, and find a quiet pause inside the pace of the city.</p>",
+  "<blockquote><p>“The installation is incredibly immersive, with light, sound and textile art blending into a unique experience. It invites you to slow down, breathe and simply be present.”</p><p><em>Edwin, visitor</em></p></blockquote>",
+].join("");
+
+const newCityMarkdown = [
+  '<p><span class="brand-wordmark">ANDETAG</span> Berlin will be the second home of the breathing museum: the same concept, built at a larger scale.</p>',
+  "<p>Woven optical fiber textiles. Living light. Original music. A space built for stillness and presence, inside the rhythm of Berlin.</p>",
+  '<p>The works will breathe in sync with Stockholm and with <span class="brand-wordmark">ANDETAG</span> artworks held by collectors around the world. A shared breath, connected across geography.</p>',
+  "<p>More details will follow as the opening approaches.</p>",
+].join("");
+
+const signupIntroMarkdown =
+  '<p>Sign up to receive early bird ticket discount and updates about <span class="brand-wordmark">ANDETAG</span> Berlin.</p>';
+
+const signupFootnoteMarkdown =
+  "<p>We will only contact you about the Berlin opening. No spam. You can unsubscribe at any time.</p>";
+
+const vimeoSrc = "https://player.vimeo.com/video/1077937338";
+
+const testimonialItems = [
+  {
+    quote:
+      "The installation is incredibly immersive, with light, sound and textile art blending into a unique experience. It invites you to slow down, breathe and simply be present. Truly one of a kind.",
+    author: "Edwin",
+  },
+  {
+    quote:
+      "A calming and meditative experience that feels like a deep breath for the whole body. The movement of light and color creates a soothing atmosphere. You leave feeling grounded, rested and quietly moved.",
+    author: "Therese",
+  },
+  {
+    quote:
+      "The artwork is stunning, with intricate textures and glowing fibers that feel alive. The experience engages many senses at once, creating a rare sense of wonder. Beautiful, thoughtful and unforgettable.",
+    author: "Gabrielle",
+  },
+] as const;
+---
+
+<main class="page-body page-berlin-home">
+  <ContentSection heading="There is nothing like this" markdown={breatheMarkdown} />
+
+  <div class="page-berlin-home__secondary-band page-berlin-home__secondary-band--stockholm">
+    <div class="page-berlin-home__secondary-band-inner">
+      <div class="page-layout-with-aside page-berlin-home__stockholm-teaser">
+        <div class="page-layout-with-aside__main">
+          <figure class="page-stockholm-home__intro-figure">
+            <img
+              src={afterHoursImage.src}
+              width={afterHoursImage.width}
+              height={afterHoursImage.height}
+              alt={afterHoursImage.alt}
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+          <div class="page-berlin-home__stockholm-cta">
+            <ButtonGroup
+              buttons={[
+                {
+                  label: "Visit ANDETAG Stockholm",
+                  href: "/en/stockholm/",
+                  variant: "primary",
+                },
+              ]}
+            />
+          </div>
+        </div>
+        <aside class="page-layout-with-aside__aside" aria-label="Stockholm">
+          <ContentSection heading="Already open in Stockholm" markdown={stockholmAsideMarkdown} />
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <TestimonialCarousel items={[...testimonialItems]} aggregate={{ ...stockholmTestimonialAggregateEn }} />
+
+  <div class="page-migrated-cta page-berlin-home__cta-after-testimonials">
+    <ButtonGroup
+      buttons={[
+        {
+          label: "Follow us",
+          href: "#signup",
+          variant: "secondary",
+        },
+      ]}
+    />
+  </div>
+
+  <div class="page-berlin-home__video-band">
+    <VideoEmbed
+      title="ANDETAG on Vimeo"
+      src={vimeoSrc}
+      fallbackText="The video could not load. Please try again later."
+    />
+  </div>
+
+  <div class="page-berlin-home__same-breath">
+    <ContentSection heading="The same breath, a new city" markdown={newCityMarkdown} />
+  </div>
+
+  <div class="page-berlin-home__secondary-band page-berlin-home__secondary-band--signup">
+    <div class="page-berlin-home__secondary-band-inner">
+      <section class="content-section page-berlin-home__signup" id="signup" aria-labelledby="berlin-signup-heading">
+        <h2 id="berlin-signup-heading">Be the first to know</h2>
+        <div class="content-section-body" set:html={signupIntroMarkdown} />
+        <WaitlistFormEmbed
+          formId="berlin-early-bird-waitlist"
+          locale="en"
+          fallbackText="The signup form is unavailable in this preview."
+          privacyHref="/en/berlin/privacy/"
+        />
+        <div class="content-section-body page-berlin-home__signup-footnote" set:html={signupFootnoteMarkdown} />
+      </section>
+    </div>
+  </div>
+</main>

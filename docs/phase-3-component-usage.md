@@ -192,10 +192,9 @@ Purpose: provide implementation-facing usage guidance for approved Phase 3 compo
   - `formAction?: string`
 - Notes:
   - Loaded-state implementation follows the provided Brevo embed structure:
-    - custom `#sib-container` style overrides
-    - Brevo stylesheet include `https://sibforms.com/forms/end-form/build/sib-styles.css`
-    - `<form method="POST">` with hidden locale/html fields
-  - Internal privacy link is normalized to local path `/privacy/`.
+    - **CSS:** pinned **`site/src/styles/vendor/brevo-sib-styles.css`** (upstream Brevo `sib-styles.css`, patched; see **`site/src/styles/vendor/README.md`**) plus **`site/src/styles/waitlist-brevo-overrides.css`**, both **`import`**ed in **`WaitlistFormEmbed.astro`** in that order so overrides always win. No runtime `<link>` to the Brevo CDN.
+    - **Markup:** `#sib-container` structure and `<form method="POST">` with hidden locale/html fields match the source embed.
+  - **`privacyHref`** prop sets the opt-in link target (per locale; not hardcoded to `/privacy/`).
 
 ### `MapEmbed`
 

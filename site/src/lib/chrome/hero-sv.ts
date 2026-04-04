@@ -56,6 +56,7 @@ const MENU_DEFINITION: Array<{
       "/sv/stockholm/fragor-svar/",
     ],
     subMenu: [
+      { label: "ANDETAG", href: "/sv/stockholm/" },
       { label: "Biljetter", href: "/sv/stockholm/biljetter/" },
       { label: "Säsongskort", href: "/sv/stockholm/sasongskort/" },
       { label: "Presentkort", href: "/sv/stockholm/presentkort/" },

@@ -63,6 +63,7 @@ const NAVIGATION_VARIANTS: Record<NavigationVariant["id"], NavigationVariant> = 
       {
         label: "Besök",
         children: [
+          { label: "ANDETAG", href: "/sv/stockholm/" },
           { label: "Biljetter", href: "/sv/stockholm/biljetter/" },
           { label: "Säsongskort", href: "/sv/stockholm/sasongskort/" },
           { label: "Presentkort", href: "/sv/stockholm/presentkort/" },
@@ -108,6 +109,7 @@ const NAVIGATION_VARIANTS: Record<NavigationVariant["id"], NavigationVariant> = 
       {
         label: "Visit",
         children: [
+          { label: "ANDETAG", href: "/en/stockholm/" },
           { label: "Tickets", href: "/en/stockholm/tickets/" },
           { label: "Season pass", href: "/en/stockholm/season-pass/" },
           { label: "Gift cards", href: "/en/stockholm/giftcard/" },
@@ -149,19 +151,17 @@ const NAVIGATION_VARIANTS: Record<NavigationVariant["id"], NavigationVariant> = 
     id: "en-main-berlin",
     language: "en",
     destination: "berlin",
+    /** Mirrors `site-html/en-berlin-en.html` nav (~231–239); Berlin paths are `/en/berlin/...` in the rebuild. */
     items: [
       {
-        label: "About ANDETAG",
-        href: "/en/berlin/about-andetag/",
-        children: [
-          { label: "About ANDETAG", href: "/en/berlin/about-andetag/" },
-          { label: "About the Artists", href: "/en/berlin/about-the-artists-malin-gustaf-tadaa/" },
-          { label: "The Music", href: "/en/berlin/music/" },
-          { label: "The Textile", href: "/en/berlin/optical-fibre-textile/" },
-          { label: "ANDETAG Stockholm", href: "/en/stockholm/" },
-        ],
+        label: "ANDETAG Berlin",
+        href: "/en/berlin/",
+        children: [{ label: "ANDETAG Stockholm", href: "/en/stockholm/" }],
       },
-      { label: "Berlin", href: "/en/berlin/", cta: true },
+      { label: "Art", href: "/en/berlin/about-andetag/" },
+      { label: "Music", href: "/en/berlin/music/" },
+      { label: "Textile", href: "/en/berlin/optical-fibre-textile/" },
+      { label: "About the Artists", href: "/en/berlin/about-the-artists-malin-gustaf-tadaa/" },
     ],
   },
   "de-main": {

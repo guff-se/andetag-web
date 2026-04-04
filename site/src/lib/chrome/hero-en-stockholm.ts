@@ -56,6 +56,7 @@ const MENU_DEFINITION: Array<{
       "/en/stockholm/faq/",
     ],
     subMenu: [
+      { label: "ANDETAG", href: "/en/stockholm/" },
       { label: "Tickets", href: "/en/stockholm/tickets/" },
       { label: "Season pass", href: "/en/stockholm/season-pass/" },
       { label: "Gift cards", href: "/en/stockholm/giftcard/" },

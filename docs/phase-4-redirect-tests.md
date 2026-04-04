@@ -26,8 +26,8 @@ Environment: run against Cloudflare preview or production after deploy, or use `
 
 | date | environment | operator | result |
 |------|-------------|----------|--------|
-| 2026-03-23 | `https://andetag-web.guff.workers.dev/` (Cloudflare Workers static assets) | automated `curl -sI` | **Pass (historical)** — cases 1–5 as **then** defined; **`/privacy-policy/`** target was **`/privacy/`** before **2026-03-28** routing. |
-| 2026-03-23 | Repo `site/public/_redirects` and `site/dist/_redirects` (post `/sv/` rollout) | review + `HEAD` probe | **Pass (historical rules)** — see note below. |
+| 2026-03-23 | `https://andetag-web.guff.workers.dev/` (Cloudflare Workers static assets) | automated `curl -sI` | **Pass (historical)**: cases 1–5 as **then** defined; **`/privacy-policy/`** target was **`/privacy/`** before **2026-03-28** routing. |
+| 2026-03-23 | Repo `site/public/_redirects` and `site/dist/_redirects` (post `/sv/` rollout) | review + `HEAD` probe | **Pass (historical rules)**: see note below. |
 | 2026-03-28 | Repo `site/public/_redirects` | review | **Pending live re-run:** location-scoped story URLs and privacy (**`docs/routing-location-scoped-global-pages-plan.md`**). Required cases **5**, **5b**, **9**, **10** and new **11**–**12** targets updated in the table above. Re-execute **`curl -sI`** on the deploy that applies **`public/_redirects`** after publish. |
 
 ### Evidence (2026-03-23, historical)

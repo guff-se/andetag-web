@@ -160,7 +160,7 @@ def format_migration_changelog(
         "# Crawl migration changelog",
         "",
         f"**New snapshot:** `{new_id}`",
-        f"**Previous snapshot:** `{previous_id or '(none — first archived crawl)'}`",
+        f"**Previous snapshot:** `{previous_id or '(none; first archived crawl)'}`",
         f"**Source:** `{base_url}`",
         f"**Generated (UTC):** {datetime.now(timezone.utc).isoformat()}",
         "",
@@ -197,14 +197,14 @@ def format_migration_changelog(
         lines.append("")
 
     lines.append("### HTML mirror paths")
-    section("HTML — added files", html_diff, "added")
-    section("HTML — removed files", html_diff, "removed")
-    section("HTML — modified files", html_diff, "modified")
+    section("HTML: added files", html_diff, "added")
+    section("HTML: removed files", html_diff, "removed")
+    section("HTML: modified files", html_diff, "modified")
 
     lines.append("### Markdown mirror paths")
-    section("Markdown — added files", md_diff, "added")
-    section("Markdown — removed files", md_diff, "removed")
-    section("Markdown — modified files", md_diff, "modified")
+    section("Markdown: added files", md_diff, "added")
+    section("Markdown: removed files", md_diff, "removed")
+    section("Markdown: modified files", md_diff, "modified")
 
     lines.append("## Unified diffs (text files, truncated)")
     lines.append("")

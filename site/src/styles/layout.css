@@ -1,13 +1,15 @@
 :root {
   /* Default page chrome: brand pink (see docs/Visual Identity.md). Dark grays are not the site default. */
   --color-bg: #f7dcea;
+  /* Lavender band surfaces (`elementor-kit-173` `--e-global-color-secondary`, Berlin wp-page 4064). */
+  --color-bg-secondary: #d0a4cc;
   --color-surface: #ffffff;
   --color-text: #111111;
   --color-muted: #4a4a4a;
   --color-accent: #f4d35e;
   --color-border: rgba(74, 13, 47, 0.28);
   /* Space from shared hero nav strip (header bottom) to first main column content; see `components.css` first-block margin reset. */
-  --page-shell-main-top-gap: 2.5rem;
+  --page-shell-main-top-gap: 4rem;
 }
 
 * {
@@ -240,6 +242,14 @@ select:focus-visible {
   margin-bottom: auto;
   display: flex;
   justify-content: center;
+}
+
+/* English Berlin home hero copy (`en-berlin-en.html` headings above early-bird CTA). */
+.shared-hero-center--berlin {
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(1rem, 3vh, 1.75rem);
+  text-align: center;
 }
 
 .shared-hero-cta {
@@ -666,6 +676,12 @@ span.nav-link.nav-link--section {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
+}
+
+/* Berlin EN/DE: two columns (destinations | Berlin pages); same `.shared-footer-col` rules as Stockholm. */
+.shared-footer-grid.shared-footer-grid--berlin-cols {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-bottom: 1.2rem;
 }
 
 /* Three-column menu: matches Elementor footer text-editor widgets in site-html/wp-content/uploads/elementor/css/post-207.css (3490b2e, 4defcba, ae07731) plus index.html `.elementor-location-footer ul li a` (Jost on links). */

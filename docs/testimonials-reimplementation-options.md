@@ -64,7 +64,7 @@ Stockholm is live in **sv/en/de**; Berlin is a separate track. Social proof copy
 
 Each option can mix elements later; they are framed as **primary** strategies for discussion.
 
-### Option A — **Curated first-party proof band (evolve the carousel)**
+### Option A: **Curated first-party proof band (evolve the carousel)**
 
 **Idea:** Keep a strong visual band on key pages, but treat it as **editorial curation**: 3–8 approved quotes in the carousel (or a reduced set), plus a **single calm line** of aggregate proof if sourced (e.g. “4.9 på TripAdvisor · baserat på X omdömen” with a footnote link).
 
@@ -84,7 +84,7 @@ Each option can mix elements later; they are framed as **primary** strategies fo
 
 ---
 
-### Option B — **Trust strip + optional single featured quote (minimal motion)**
+### Option B: **Trust strip + optional single featured quote (minimal motion)**
 
 **Idea:** Replace or complement the rotating carousel with:
 
@@ -106,7 +106,7 @@ Each option can mix elements later; they are framed as **primary** strategies fo
 
 ---
 
-### Option C — **Hub-first: dedicated reviews page as canonical depth**
+### Option C: **Hub-first: dedicated reviews page as canonical depth**
 
 **Idea:** Treat **`/sv/stockholm/besokaromdomen/`** (and en/de equivalents when they exist) as the **main** social proof destination: longer excerpts, categories of praise (optional), clear outbound links to TripAdvisor/Google/etc., maybe FAQ about how reviews are collected. On the homepage and other landings, use only a **light** inline element: trust strip (Option B) or **one** quote + link.
 
@@ -127,7 +127,7 @@ Each option can mix elements later; they are framed as **primary** strategies fo
 
 ## 4. Comparison matrix (quick reference)
 
-| Criterion | A — Evolved carousel | B — Trust strip + static quote | C — Hub-first |
+| Criterion | A: Evolved carousel | B: Trust strip + static quote | C: Hub-first |
 |-----------|----------------------|--------------------------------|---------------|
 | Emotional impact | High | Medium | Medium (on hub) |
 | Accessibility / motion risk | Higher | Lower | Lower on landings |
@@ -149,7 +149,7 @@ Each option can mix elements later; they are framed as **primary** strategies fo
 
 ## 6. Recommendation (for discussion, not a decision)
 
-A **pragmatic path** that respects tone and constraints: **combine B + C** as the default direction—**trust strip** (source-backed 4.9 + link) on high-traffic templates, **richer content on besökaromdömen**, and **retain the carousel only where** full-bleed emotion is still desired (or replace carousel slides with a **static** three-quote layout using the same visual shell). This keeps the strong number visible immediately while reducing motion and maintenance risk.
+A **pragmatic path** that respects tone and constraints: **combine B + C** as the default direction: **trust strip** (source-backed 4.9 + link) on high-traffic templates, **richer content on besökaromdömen**, and **retain the carousel only where** full-bleed emotion is still desired (or replace carousel slides with a **static** three-quote layout using the same visual shell). This keeps the strong number visible immediately while reducing motion and maintenance risk.
 
 You may prefer **Option A** if the full-bleed rotating quote is central to brand storytelling; the research mainly suggests **hardening** it (pause, slide counts, fewer slides, verified aggregates).
 
