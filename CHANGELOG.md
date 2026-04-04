@@ -15,7 +15,7 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ### Changed
 
-- **Facebook / `og:image` before `www` cutover:** Default **`og:image`** and JSON-LD hero image again use **`/wp-content/uploads/2024/11/Desktop.00_00_00_00.Still002.jpg`** (live WordPress serves **`image/jpeg`**). **`stockholm-hero-poster-*.jpg`** is only on Workers static deploy; **`www`** returned **404 HTML** for that path, so the debugger reported invalid content type. In-page LCP hero still uses optimized **`stockholm-hero-poster-*`** files. **`HERO_SV_ASSETS.poster`** comment documents switching to **`1920w.jpg`** after Phase 8 when **`www`** serves **`dist/`**.
+- **Default `og:image` / JSON-LD hero:** **`HERO_SV_ASSETS.poster`** again **`stockholm-hero-poster-1920w.jpg`** (optimized JPEG, same as hero fallback). Reverts the temporary legacy **`Desktop.00_00_00_00.Still002.jpg`** path added when the Facebook debugger was misread; crawlers still resolve the absolute URL on **`www`** via **`seo.ts`**.
 
 - **Open Graph / Twitter:** `SiteLayout.astro` emits **`og:image:secure_url`**, **`og:image:width` / `height` / `type`** when the share image is the default Stockholm hero JPEG; **`twitter:image`** still matches **`og:image`** (both **`https://www.andetag.museum/.../stockholm-hero-poster-1920w.jpg`**). LCP **`link rel="preload"`** for **`960w.webp`** is placed **after** the OG block so validators that scan image hints in order are less likely to confuse preload with **`og:image`**.
 

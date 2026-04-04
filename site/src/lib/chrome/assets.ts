@@ -1,16 +1,9 @@
 /** Responsive hero still (AVIF/WebP/JPEG). Source frame: `Desktop.00_00_00_00.Still002.jpg` (ImageMagick). */
 const HERO_POSTER_BASE = "/wp-content/uploads/2024/11/stockholm-hero-poster";
 
-/**
- * Default `og:image` / JSON-LD hero URL while **`www.andetag.museum`** is still legacy WordPress.
- * That host does not serve `stockholm-hero-poster-*.jpg` yet (404 HTML); crawlers need `image/jpeg`.
- * After Phase 8 static cutover on `www`, point this at `${HERO_POSTER_BASE}-1920w.jpg` (or keep this URL for share stability).
- */
-const HERO_POSTER_OG_SCHEMA_PATH = "/wp-content/uploads/2024/11/Desktop.00_00_00_00.Still002.jpg";
-
 export const HERO_SV_ASSETS = {
-  /** Default OG / JSON-LD image (must resolve on live `www` for Facebook and others). */
-  poster: HERO_POSTER_OG_SCHEMA_PATH,
+  /** Default OG / JSON-LD image: same 1920w JPEG as hero `<picture>` fallback (`seo.ts` → absolute `www` URL). */
+  poster: `${HERO_POSTER_BASE}-1920w.jpg`,
   /** Preload for LCP: mobile-first WebP (matches `(max-width: 900px)` poster sources). */
   posterPreload: `${HERO_POSTER_BASE}-960w.webp`,
   posterAvif960: `${HERO_POSTER_BASE}-960w.avif`,
