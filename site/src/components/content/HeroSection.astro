@@ -1,6 +1,8 @@
 ---
 import { getHeadingTag } from "../../lib/ui-logic/presentation";
 import type { HeadingLevel, Cta } from "../../lib/ui-logic/types";
+import type { HeroCoverImage } from "../../lib/ui-logic/hero-cover-image";
+import { isHeroCoverResponsive } from "../../lib/ui-logic/hero-cover-image";
 import ButtonGroup from "./ButtonGroup.astro";
 
 type Props = {
@@ -8,8 +10,8 @@ type Props = {
   heading?: string;
   body?: string;
   eyebrow?: string;
-  /** When set, hero is full-bleed image + overlay + light text. When omitted, hero is solid aubergine + light text only (no image strip). */
-  backgroundImage?: string;
+  /** Full-bleed cover: string URL or responsive WebP + JPEG (`HeroSection` parallax targets inner `img`). */
+  backgroundImage?: HeroCoverImage;
   headingLevel?: HeadingLevel | "h4";
   /** Optional; omit or pass `[]` when the band uses only the default slot (for example testimonials). */
   ctas?: Cta[];
@@ -30,32 +32,62 @@ const HeadingTag = getHeadingTag(headingLevel, "h1");
 const hasImage = Boolean(backgroundImage);
 const sectionAria = !heading && ariaLabel ? ariaLabel : undefined;
 const hasDefaultSlot = Astro.slots.has("default");
+const coverResponsive = isHeroCoverResponsive(backgroundImage);
 ---
 
 <section
   class={`component-hero ${hasImage ? "is-cover" : "is-solid"}`}
   aria-label={sectionAria}
 >
-  {hasImage ? (
-    <>
-      <img src={backgroundImage} alt="" class="component-hero-media" loading="lazy" />
-      <div class="component-hero-cover-overlay" aria-hidden="true"></div>
-    </>
-  ) : null}
+  {
+    hasImage ? (
+      <>
+        {coverResponsive ? (
+          <picture class="component-hero-cover-picture">
+            <source
+              type="image/webp"
+              srcset={`${backgroundImage.webp640} 640w, ${backgroundImage.webp960} 960w`}
+              sizes="100vw"
+            />
+            <img
+              src={backgroundImage.jpeg960}
+              alt=""
+              class="component-hero-media"
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
+        ) : (
+          <img
+            src={backgroundImage as string}
+            alt=""
+            class="component-hero-media"
+            loading="lazy"
+            decoding="async"
+          />
+        )}
+        <div class="component-hero-cover-overlay" aria-hidden="true" />
+      </>
+    ) : null
+  }
   <div class="component-hero-content">
     {eyebrow ? <p class="component-eyebrow">{eyebrow}</p> : null}
     {heading ? <HeadingTag>{heading}</HeadingTag> : null}
     {body ? <p class="component-lead">{body}</p> : null}
-    {hasDefaultSlot ? (
-      <div class="component-hero-slot">
-        <slot />
-      </div>
-    ) : null}
+    {
+      hasDefaultSlot ? (
+        <div class="component-hero-slot">
+          <slot />
+        </div>
+      ) : null
+    }
     {ctas.length > 0 ? <ButtonGroup buttons={ctas} /> : null}
   </div>
 </section>
-{hasImage ? (
-  <script>
-    import "../../client-scripts/hero-cover-parallax.ts";
-  </script>
-) : null}
+{
+  hasImage ? (
+    <script>
+      import "../../client-scripts/hero-cover-parallax.ts";
+    </script>
+  ) : null
+}

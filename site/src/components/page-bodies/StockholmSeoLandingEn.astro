@@ -13,6 +13,9 @@ import MapEmbed from "../embeds/MapEmbed.astro";
 import StyledLink from "../ui/StyledLink.astro";
 import TestimonialCarousel from "../content/TestimonialCarousel.astro";
 import VideoEmbed from "../embeds/VideoEmbed.astro";
+import ResponsiveInlinePicture from "../ui/ResponsiveInlinePicture.astro";
+import { introAside18_058Body } from "../../lib/content/stockholm-body-responsive-images";
+import { stockholmMarketingGallerySeoEn } from "../../lib/content/stockholm-marketing-gallery";
 import { stockholmTestimonialAggregateEn } from "../../lib/content/stockholm-testimonial-aggregate";
 import { stockholmMarketingFaqEn } from "../../lib/page-registry/stockholm-marketing-faq-en";
 
@@ -28,54 +31,10 @@ const { galleryId, h1Text, h1Html, introMarkdown } = Astro.props as Props;
 const understoryCompanyId = "3b3aa7a7c2cd455b8f3a56cd81033110";
 
 const introAsideImage = {
-  src: "/wp-content/uploads/2024/11/Andetag-18-058-copy2-1024x683.jpg",
   width: 1024,
   height: 683,
   alt: "Immersive light and textile art installation, ANDETAG Stockholm",
 } as const;
-
-const galleryImages = [
-  {
-    src: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-6074-scaled.jpg",
-    fullSrc: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-6074-scaled.jpg",
-    alt: "Contemporary fine art installation in Stockholm",
-  },
-  {
-    src: "/wp-content/uploads/2024/11/Andetag-13-35-copy-2.jpg",
-    fullSrc: "/wp-content/uploads/2024/11/Andetag-13-35-copy-2.jpg",
-    alt: "Optical fibre textile art installation",
-  },
-  {
-    src: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-5983-scaled.jpg",
-    fullSrc: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-5983-scaled.jpg",
-    alt: "A calm date idea in central Stockholm",
-  },
-  {
-    src: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-6038-scaled.jpg",
-    fullSrc: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-6038-scaled.jpg",
-    alt: "Quiet space to slow down in Stockholm",
-  },
-  {
-    src: "/wp-content/uploads/2024/11/Andetag-10-53-copy-2.jpg",
-    fullSrc: "/wp-content/uploads/2024/11/Andetag-10-53-copy-2.jpg",
-    alt: "Light-based art installation Stockholm",
-  },
-  {
-    src: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-59311-scaled.jpg",
-    fullSrc: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-59311-scaled.jpg",
-    alt: "Meditative art experience in Stockholm",
-  },
-  {
-    src: "/wp-content/uploads/2024/11/Andetag-19-508-copy.jpg",
-    fullSrc: "/wp-content/uploads/2024/11/Andetag-19-508-copy.jpg",
-    alt: "Mindful exhibition environment Stockholm",
-  },
-  {
-    src: "/wp-content/uploads/2024/11/Andetag-10-69-copy.jpg",
-    fullSrc: "/wp-content/uploads/2024/11/Andetag-10-69-copy.jpg",
-    alt: "Things to do in Stockholm indoors",
-  },
-] as const;
 
 const ticketsIntroHtml = [
   "<p><span class=\"brand-wordmark\">ANDETAG</span> is an experience that takes you from everyday stress into a calm, magical space.</p>",
@@ -145,13 +104,11 @@ const faqItems = [...stockholmMarketingFaqEn];
       <ContentSection markdown={introMarkdown} />
       <AccordionSection items={faqItems} initialOpenIndex={null} />
       <figure class="page-stockholm-home__intro-figure">
-        <img
-          src={introAsideImage.src}
+        <ResponsiveInlinePicture
+          sources={introAside18_058Body}
           width={introAsideImage.width}
           height={introAsideImage.height}
           alt={introAsideImage.alt}
-          loading="lazy"
-          decoding="async"
         />
       </figure>
       <div class="page-stockholm-home__loc-mobile" aria-label="Address">
@@ -192,7 +149,7 @@ const faqItems = [...stockholmMarketingFaqEn];
   </div>
 
   <GallerySection
-    images={[...galleryImages]}
+    images={[...stockholmMarketingGallerySeoEn]}
     mobileMode="carousel"
     galleryId={galleryId}
     carouselAriaLabel="Image gallery"

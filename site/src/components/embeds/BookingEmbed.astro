@@ -2,6 +2,7 @@
 /**
  * Understory booking widget. Standard page placement: `page-layout-with-aside` with this
  * component in `page-layout-with-aside__aside` (`unframed`), main column for copy beside it.
+ * Script loads via `booking-embed-lazy.ts` (viewport `IntersectionObserver`, `defer`) unless unavailable.
  * See `docs/phase-3-component-usage.md` → BookingEmbed.
  */
 import { getHeadingTag } from "../../lib/ui-logic/presentation";
@@ -43,17 +44,24 @@ const shellClass = ["embed-shell", "booking-embed", unframed ? "embed-shell--unf
   .join(" ");
 ---
 
-<section id={anchorId} class={shellClass}>
+<section
+  id={anchorId}
+  class={shellClass}
+  data-booking-embed-lazy={unavailable ? undefined : ""}
+  data-booking-script-src={unavailable ? undefined : widget.scriptSrc}
+>
   {heading ? <HeadingTag class="embed-shell-heading">{heading}</HeadingTag> : null}
   {unavailable ? (
     <p class="embed-fallback" role="status">{fallbackText}</p>
   ) : (
-    <>
-      <script defer src={widget.scriptSrc}></script>
-      <div class={widget.className} data-company-id={widget.companyId} data-language={widget.language}></div>
-    </>
+    <div class={widget.className} data-company-id={widget.companyId} data-language={widget.language} />
   )}
   {contactHtml ? (
     <div class="booking-embed-contact" set:html={contactHtml} />
   ) : null}
 </section>
+{!unavailable ? (
+  <script>
+    import "../../client-scripts/booking-embed-lazy.ts";
+  </script>
+) : null}

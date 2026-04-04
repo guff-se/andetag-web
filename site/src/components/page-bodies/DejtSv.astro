@@ -3,6 +3,7 @@ import AccordionSection from "../content/AccordionSection.astro";
 import BookingEmbed from "../embeds/BookingEmbed.astro";
 import ContentSection from "../content/ContentSection.astro";
 import HeroSection from "../content/HeroSection.astro";
+import { dejtTestimonialHeroCover } from "../../lib/content/stockholm-body-responsive-images";
 import InfoFrame from "../content/InfoFrame.astro";
 
 /**
@@ -16,10 +17,7 @@ import InfoFrame from "../content/InfoFrame.astro";
  */
 const understoryCompanyId = "3b3aa7a7c2cd455b8f3a56cd81033110";
 
-/** Legacy testimonial band background (`elementor-element-09c3d0a`, `post-2693.css`). */
-const testimonialHeroImageSrc =
-  "/wp-content/uploads/2026/01/TADAA-LONG-V1.00_07_29_05.Still009-2-2.jpg";
-
+/** Mid-page testimonial band: responsive cover via `dejtTestimonialHeroCover` (legacy full file `TADAA-LONG-…Still009-2-2.jpg`). */
 const introTextHtml = [
   "<h1>Dejt på <span class=\"brand-wordmark\">ANDETAG</span></h1>",
   "<h2>En lugn plats att vara tillsammans</h2>",
@@ -85,7 +83,7 @@ const bookingFooterHtml =
       </figure>
     </aside>
   </div>
-  <HeroSection backgroundImage={testimonialHeroImageSrc} ariaLabel="Besökaromdömen">
+  <HeroSection backgroundImage={dejtTestimonialHeroCover} ariaLabel="Besökaromdömen">
     <div set:html={quotesHtml} />
   </HeroSection>
   <div class="page-layout-with-aside">

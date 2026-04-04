@@ -3,15 +3,13 @@ import AccordionSection from "../content/AccordionSection.astro";
 import BookingEmbed from "../embeds/BookingEmbed.astro";
 import ContentSection from "../content/ContentSection.astro";
 import HeroSection from "../content/HeroSection.astro";
+import { dejtTestimonialHeroCover } from "../../lib/content/stockholm-body-responsive-images";
 import InfoFrame from "../content/InfoFrame.astro";
 
 /**
  * `site-html/en-stockholm-date.html` wp-page **2738**.
  */
 const understoryCompanyId = "3b3aa7a7c2cd455b8f3a56cd81033110";
-
-const testimonialHeroImageSrc =
-  "/wp-content/uploads/2026/01/TADAA-LONG-V1.00_07_29_05.Still009-2-2.jpg";
 
 const introTextHtml = [
   "<h1>Date night at <span class=\"brand-wordmark\">ANDETAG</span></h1>",
@@ -75,7 +73,7 @@ const accordionItems = [
       </figure>
     </aside>
   </div>
-  <HeroSection backgroundImage={testimonialHeroImageSrc} ariaLabel="Visitor quotes">
+  <HeroSection backgroundImage={dejtTestimonialHeroCover} ariaLabel="Visitor quotes">
     <div set:html={quotesHtml} />
   </HeroSection>
   <div class="page-layout-with-aside">

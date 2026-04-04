@@ -1,6 +1,7 @@
 ---
 import ContentSection from "../content/ContentSection.astro";
 import HeroSection from "../content/HeroSection.astro";
+import { artYogaHeroCover } from "../../lib/content/stockholm-body-responsive-images";
 
 /**
  * Body migrated from `site-html/stockholm-art-yoga.html`
@@ -11,9 +12,6 @@ import HeroSection from "../content/HeroSection.astro";
  */
 const bookingHref =
   "https://andetag.understory.io/experience/cc2f4ed4e1709b93a454a1e5abad6595";
-
-const heroImageSrc =
-  "/wp-content/uploads/2025/04/Art-Yoga-at-ANDETAG-photo-by-Johan-Eriksson-Terran-e1745929172557.jpeg";
 
 const introHtml = [
   '<h1>Art Yoga på <span class="brand-wordmark">ANDETAG</span></h1>',
@@ -41,7 +39,7 @@ const practicalHtml = [
 <div class="page-migrated">
   <ContentSection markdown={introHtml} />
   <HeroSection
-    backgroundImage={heroImageSrc}
+    backgroundImage={artYogaHeroCover}
     ariaLabel="Boka Art Yoga"
     ctas={[
       {

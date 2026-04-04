@@ -1,6 +1,7 @@
 ---
 import ContentSection from "../content/ContentSection.astro";
 import GallerySection from "../content/GallerySection.astro";
+import { stockholmMarketingGalleryHome } from "../../lib/content/stockholm-marketing-gallery";
 
 /**
  * `site-html/stockholm-vilken-typ-av-upplevelse.html` wp-page **2930**.
@@ -33,49 +34,6 @@ const notForYouMarkdown =
   "<li><p>Ett socialt sammanhang med högt tempo</p></li>" +
   "<li><p>En plats för rörelse och aktivitet</p></li>" +
   "</ul>";
-
-const galleryImages = [
-  {
-    src: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-6074-scaled.jpg",
-    fullSrc: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-6074-scaled.jpg",
-    alt: "fine art stockholm",
-  },
-  {
-    src: "/wp-content/uploads/2024/11/Andetag-13-35-copy-2.jpg",
-    fullSrc: "/wp-content/uploads/2024/11/Andetag-13-35-copy-2.jpg",
-    alt: "optical fiber art textile installation",
-  },
-  {
-    src: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-5983-scaled.jpg",
-    fullSrc: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-5983-scaled.jpg",
-    alt: "a perfect place for a date in stockholm",
-  },
-  {
-    src: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-6038-scaled.jpg",
-    fullSrc: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-6038-scaled.jpg",
-    alt: "calm down in stockholm",
-  },
-  {
-    src: "/wp-content/uploads/2024/11/Andetag-10-53-copy-2.jpg",
-    fullSrc: "/wp-content/uploads/2024/11/Andetag-10-53-copy-2.jpg",
-    alt: "unique light art stockholm",
-  },
-  {
-    src: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-59311-scaled.jpg",
-    fullSrc: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-59311-scaled.jpg",
-    alt: "a meditative experience in stockholm",
-  },
-  {
-    src: "/wp-content/uploads/2024/11/Andetag-19-508-copy.jpg",
-    fullSrc: "/wp-content/uploads/2024/11/Andetag-19-508-copy.jpg",
-    alt: "mindfulness exhibition stockholm",
-  },
-  {
-    src: "/wp-content/uploads/2024/11/Andetag-10-69-copy.jpg",
-    fullSrc: "/wp-content/uploads/2024/11/Andetag-10-69-copy.jpg",
-    alt: "things to do in stockholm",
-  },
-] as const;
 
 const concreteMarkdown =
   "<h2>Vad det är, konkret.</h2>" +
@@ -116,7 +74,7 @@ const heroImage = {
     <ContentSection markdown={notForYouMarkdown} />
   </div>
   <GallerySection
-    images={[...galleryImages]}
+    images={[...stockholmMarketingGalleryHome]}
     mobileMode="carousel"
     galleryId="vilken-typ-upplevelse"
     carouselAriaLabel="Bildgalleri"

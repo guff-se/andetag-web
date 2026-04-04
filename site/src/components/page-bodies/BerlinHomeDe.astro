@@ -2,8 +2,10 @@
 import ButtonGroup from "../content/ButtonGroup.astro";
 import ContentSection from "../content/ContentSection.astro";
 import TestimonialCarousel from "../content/TestimonialCarousel.astro";
+import ResponsiveInlinePicture from "../ui/ResponsiveInlinePicture.astro";
 import VideoEmbed from "../embeds/VideoEmbed.astro";
 import WaitlistFormEmbed from "../embeds/WaitlistFormEmbed.astro";
+import { berlinAfterHoursBody } from "../../lib/content/stockholm-body-responsive-images";
 import {
   stockholmTestimonialAggregateDe,
 } from "../../lib/content/stockholm-testimonial-aggregate";
@@ -16,7 +18,6 @@ import {
  * English Berlin home testimonials (**`BerlinHomeEn.astro`**) for structural parity.
  */
 const afterHoursImage = {
-  src: "/wp-content/uploads/2025/04/ANDETAG-After-Hours-1-photo-Pekka-Paakko.jpg",
   width: 1024,
   height: 683,
   alt: "Besucher in gedimmtem Licht zwischen leuchtender Textilkunst in ANDETAG",
@@ -79,13 +80,11 @@ const testimonialItems = [
       <div class="page-layout-with-aside page-berlin-home__stockholm-teaser">
         <div class="page-layout-with-aside__main">
           <figure class="page-stockholm-home__intro-figure">
-            <img
-              src={afterHoursImage.src}
+            <ResponsiveInlinePicture
+              sources={berlinAfterHoursBody}
               width={afterHoursImage.width}
               height={afterHoursImage.height}
               alt={afterHoursImage.alt}
-              loading="lazy"
-              decoding="async"
             />
           </figure>
           <div class="page-berlin-home__stockholm-cta">

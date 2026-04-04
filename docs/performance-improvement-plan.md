@@ -22,14 +22,14 @@
 | Track | Status | What shipped / notes |
 |-------|--------|----------------------|
 | **P0** Hero poster | **Done** | Responsive **AVIF / WebP / JPEG** (`stockholm-hero-poster-{960,1920}w.*`), `<picture>` under video + **CSS fade-in** on `playing`, **`preload`** of **`960w.webp`** for LCP. **`HERO_SV_ASSETS.poster`** → **`1920w.jpg`** for default **`og:image`** / JSON-LD (must be served on **`www`** after Phase 8; see **`docs/phase-8-todo.md`** **P8-23** Facebook Sharing Debugger). |
-| **P1** Gallery / body images | **Open** | **`GallerySection`** thumbs still load **full-size JPEGs**; high byte weight on Stockholm home and SEO landings. Next: **`srcset` + `sizes`** and/or **WebP/AVIF** variants (ImageMagick batch), optional **`@astrojs/image`**. Intro **`<img>`** on home (`andrum-looking.jpg`, hero book band, etc.) same pattern. |
-| **P2** Third-party + first-party JS | **Partial** | **`BookingEmbed`:** **`defer`** on Understory script. **Gallery lightbox:** **vanilla** **`site/src/client-scripts/gallery-lightbox.ts`** (removed jQuery from **`GallerySection.astro`**). **jQuery** still used by **`hero-cover-parallax.ts`** (**`HeroSection`**). **GTM** / CookieYes unchanged (Partytown or **`load`** deferral still optional). |
+| **P1** Gallery / body images | **Done** | **Gallery** (**`stockholm-marketing-gallery.ts`**). **Marketing bodies:** **`stockholm-body-responsive-images.ts`** (home, SEO, book **`HeroSection`**, **Art Yoga** / **Dejt** covers, **Berlin** After Hours teaser, default **`TestimonialCarousel`** band) with **`{640,960}w` WebP** + **`960w` JPEG** beside sources. **`ResponsiveInlinePicture`**, **`HeroSection`** / **`TestimonialCarousel`** responsive modes. **Follow-up (optional):** other routes still use **`1024x`-suffixed** or small assets (for example **Om konstnärerna**, optical-fibre pages); re-run Lighthouse if those pages matter for lab scores. |
+| **P2** Third-party + first-party JS | **Partial** | **`BookingEmbed`:** Understory script **`defer`** via **`booking-embed-lazy.ts`** (viewport **`IntersectionObserver`**, ~**`400px`** **`rootMargin`**). **Gallery lightbox:** vanilla **`gallery-lightbox.ts`**. **Hero parallax:** vanilla **`hero-cover-parallax.ts`**; **`jquery`** dependency **removed** from **`site/package.json`**. **GTM** / CookieYes unchanged (Partytown or **`load`** deferral still optional). |
 | **P3** Booking API compression | **Vendor** | Ask Understory for **gzip/Brotli** on API Gateway JSON. |
 | **P4** Fonts | **Open** | Audit **`fonts.css`** / **`sources.json`**. |
 | **P5** CSS | **Open** | Hygiene only. |
 | **Cloudflare zone** | **Open** | Polish, HTTP/3, cache rules per playbook below. |
 
-**Regression checks run in-repo:** **`npm test`**, **`npm run build`**. Lab Lighthouse (mobile, `serve dist`): performance moved **~67 → ~86** and LCP **~12 s → ~3.7 s** on one machine (variable); re-run after P1.
+**Regression checks run in-repo:** **`npm test`**, **`npm run build`**. Lab Lighthouse (mobile, `serve dist`): re-run after P1 closure on Stockholm home and any high-traffic secondary routes you care about.
 
 ---
 
@@ -44,7 +44,7 @@ The article’s checklist maps to this codebase as follows (gaps are where we st
 | Cloudflare recommendation | This stack | Notes / action |
 |---------------------------|------------|----------------|
 | **Measure first** (Core Web Vitals, TTFB, DNS, TTI) | Lighthouse / PSI + optional **Cloudflare Observatory** (dashboard) | Use the same canonical URL (staging vs `www`) when comparing runs. |
-| **Optimize images** (dimensions, resolution, compression) | Partially | Hero poster and gallery JPEGs are the main gap; see P0–P1. |
+| **Optimize images** (dimensions, resolution, compression) | Strong for P1 scope | Hero poster (P0), gallery, Stockholm/Berlin marketing **`picture`** / cover heroes, testimonial band (P1 **done**); optional pass remains for low-traffic **`1024x`-named** content pages if audits flag them. |
 | **Limit HTTP requests** | Partially | Lab run showed **~63 requests** on Stockholm home; third parties multiply trips; audit duplicates and lazy third-party load. |
 | **Browser caching** (`Cache-Control`, etc.) | Strong for fingerprints | `site/public/_headers` covers `/_astro/*`, fonts, uploads; HTML remains the usual “short TTL or no cache” tradeoff. |
 | **Remove render-blocking JS** | Mixed | GTM in head; Understory booking script uses **`defer`** (**P2** partial). |
@@ -128,18 +128,24 @@ After that, order is **execution leverage**, not only raw Lighthouse “savings 
 
 ### P1 — Gallery and content images (bytes + decode cost)
 
-**Status: not started** (largest remaining byte win on Stockholm home after P0).
+**Status: done** (exit criteria: marketing-critical **`wp-page`** bodies and shared components that used large full-frame JPEGs now ship responsive WebP + bounded JPEG; optional hygiene on **`1024x`-prefixed** editorial pages if Lighthouse later flags them).
 
 **What Lighthouse said:** Multiple `/wp-content/uploads/...` JPEGs **1.0–1.5 MB** each; large “wasted bytes” for responsive and format audits.
 
-**Plan:**
+**Shipped (gallery):**
 
-1. **Responsive images:** For each large photo used in page bodies, add **`srcset` + `sizes`** (or Astro `<Image />` if you introduce `@astrojs/image` / sharp pipeline) so mobile never downloads 2000 px-wide masters. Extend **`GallerySection`** `GalleryImage` with optional **`srcset` / `sizes`** when variants exist; **`fullSrc`** (lightbox) can stay on the **full-resolution** file.
-2. **Formats:** Prefer **WebP** (minimum) or **AVIF** for photos; keep JPEG/PNG fallbacks where required.
-3. **Workflow:** Batch-optimize new uploads before commit; document max dimensions per layout slot in a short internal note (optional) so content stays bounded.
-4. **Request count:** Cloudflare’s guidance to **limit HTTP requests** applies even when each file is small: every request pays **RTT + scheduling** (worse on mobile). After image work, re-count requests in DevTools; merge tiny icons into **SVG sprites** or inline only if it net-reduces bytes; avoid loading widgets on pages that do not need them.
+1. Eight marketing photos (Stockholm home, SEO landings, Vilken typ): **`.../*-gallery-{640,960}w.webp`**, **`*-gallery-960w.jpg`**.
+2. **`GallerySection`** + **`stockholm-marketing-gallery.ts`**.
 
-**Files:** Page bodies under `site/src/components/page-bodies/` that reference `/wp-content/uploads/...`, shared components like `GallerySection.astro`, `HeroSection.astro` (hero background uses `loading="lazy"` but still benefits from smaller files).
+**Shipped (bodies, covers, testimonial band):**
+
+1. **`stockholm-body-responsive-images.ts`:** **`andrumLookingBody`**, **`andrumMeditationBody`**, **`introAside18_058Body`**, **`artYogaHeroCover`**, **`dejtTestimonialHeroCover`**, **`berlinAfterHoursBody`**, **`testimonialCarouselDefaultBg`** (**`Andetag-27-037-copy-scaled`** derivatives). Book band: **`STOCKHOLM_BOOK_HERO_COVER`** in **`assets.ts`**.
+2. **`ResponsiveInlinePicture.astro`**; **`HeroSection`** + **`TestimonialCarousel`** accept **`BodyPictureSources`** or legacy string URLs.
+3. **`components.css`:** **`.component-hero-cover-picture`**, **`.testimonial-block__bg--picture`**, figure **`picture`** rules.
+
+**Ongoing workflow:** Batch-optimize new uploads before commit; add entries to **`stockholm-body-responsive-images.ts`** (or split module if it grows) when introducing new large marketing photos.
+
+**Files:** `site/src/components/ui/ResponsiveInlinePicture.astro`, `site/src/lib/content/stockholm-body-responsive-images.ts`, `site/src/components/content/HeroSection.astro`, `site/src/components/content/TestimonialCarousel.astro`, `site/src/lib/ui-logic/hero-cover-image.ts`, `site/src/lib/chrome/assets.ts`, `GallerySection` / gallery module as before, assets under `site/public/wp-content/uploads/...`.
 
 ---
 
@@ -147,18 +153,18 @@ After that, order is **execution leverage**, not only raw Lighthouse “savings 
 
 **Status: partial** (see table).
 
-**What Lighthouse said:** “Reduce unused JavaScript”; third-party summary highlights **understory.io** (main-thread + blocking time) and **Google Tag Manager**; **`jquery`** was bundled for **gallery lightbox** and **hero parallax**.
+**What Lighthouse said:** “Reduce unused JavaScript”; third-party summary highlights **understory.io** (main-thread + blocking time) and **Google Tag Manager**; **`jquery`** was previously bundled for **gallery lightbox** and **hero parallax** (removed **2026-04**).
 
 **Why before P3:** In-repo script loading improves **TBT** without waiting on Understory API changes.
 
 **Plan:**
 
-1. **Booking widget script:** **Done:** **`defer`** on **`BookingEmbed.astro`** script tag.
-2. **Lazy bootstrap:** Load the Understory script only when the booking embed **enters the viewport** (`IntersectionObserver`) or after **`requestIdleCallback`** with a short timeout fallback. **Open.**
+1. **Booking widget script:** **Done:** **`defer`** injection via **`booking-embed-lazy.ts`** when the embed nears the viewport (**`IntersectionObserver`**, **`rootMargin` ~400px**); without **`IntersectionObserver`**, load immediately. **`data-booking-embed-lazy`** on **`BookingEmbed`** **`section`**.
+2. **Lazy bootstrap:** **Done** (viewport-based as above). Optional later: **`requestIdleCallback`** for below-the-fold embeds only if metrics warrant it.
 3. **GTM:** After consent work stabilizes (you already default-deny then load GTM), consider loading GTM **after** `load` or first interaction, or **Partytown**. **Open.**
-4. **jQuery:** **Done** for gallery: **`gallery-lightbox.ts`** (vanilla). **Open:** **`hero-cover-parallax.ts`** still imports **`jquery`**; replace with **`scroll`/`ResizeObserver`** or drop parallax under **`prefers-reduced-motion`** only.
+4. **jQuery:** **Done:** **`gallery-lightbox.ts`** and **`hero-cover-parallax.ts`** are vanilla DOM; **`jquery`** removed from **`site/package.json`**.
 
-**Files:** `site/src/components/embeds/BookingEmbed.astro`, `site/src/client-scripts/gallery-lightbox.ts`, `site/src/client-scripts/hero-cover-parallax.ts`, `site/src/components/chrome/TrackingHead.astro`.
+**Files:** `site/src/components/embeds/BookingEmbed.astro`, `site/src/client-scripts/booking-embed-lazy.ts`, `site/src/client-scripts/gallery-lightbox.ts`, `site/src/client-scripts/hero-cover-parallax.ts`, `site/src/components/chrome/TrackingHead.astro`.
 
 ---
 

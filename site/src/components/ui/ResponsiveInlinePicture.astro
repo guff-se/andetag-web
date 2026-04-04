@@ -1,0 +1,33 @@
+---
+import type { BodyPictureSources } from "../../lib/content/stockholm-body-responsive-images";
+
+type Props = {
+  sources: BodyPictureSources;
+  alt: string;
+  width: number;
+  height: number;
+  loading?: "lazy" | "eager";
+  decoding?: "async" | "auto" | "sync";
+  /** Passed to `<source sizes>`; default suits inset intro/aside figures (~52rem cap). */
+  sizes?: string;
+};
+
+const {
+  sources,
+  alt,
+  width,
+  height,
+  loading = "lazy",
+  decoding = "async",
+  sizes = "(max-width: 1024px) 92vw, min(52rem, 48vw)",
+} = Astro.props as Props;
+---
+
+<picture>
+  <source
+    type="image/webp"
+    srcset={`${sources.webp640} 640w, ${sources.webp960} 960w`}
+    sizes={sizes}
+  />
+  <img src={sources.jpeg960} alt={alt} width={width} height={height} loading={loading} decoding={decoding} />
+</picture>

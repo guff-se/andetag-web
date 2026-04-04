@@ -16,6 +16,9 @@ import MapEmbed from "../embeds/MapEmbed.astro";
 import StyledLink from "../ui/StyledLink.astro";
 import TestimonialCarousel from "../content/TestimonialCarousel.astro";
 import VideoEmbed from "../embeds/VideoEmbed.astro";
+import ResponsiveInlinePicture from "../ui/ResponsiveInlinePicture.astro";
+import { introAside18_058Body } from "../../lib/content/stockholm-body-responsive-images";
+import { stockholmMarketingGalleryHome } from "../../lib/content/stockholm-marketing-gallery";
 import { stockholmTestimonialAggregateSv } from "../../lib/content/stockholm-testimonial-aggregate";
 import { stockholmMarketingFaqSv } from "../../lib/page-registry/stockholm-marketing-faq-sv";
 
@@ -35,54 +38,10 @@ const { galleryId, h1Text, h1Html, introMarkdown } = Astro.props as Props;
 const understoryCompanyId = "3b3aa7a7c2cd455b8f3a56cd81033110";
 
 const introAsideImage = {
-  src: "/wp-content/uploads/2024/11/Andetag-18-058-copy2-1024x683.jpg",
   width: 1024,
   height: 683,
   alt: "immersive art installation stockholm andetag",
 } as const;
-
-const galleryImages = [
-  {
-    src: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-6074-scaled.jpg",
-    fullSrc: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-6074-scaled.jpg",
-    alt: "fine art stockholm",
-  },
-  {
-    src: "/wp-content/uploads/2024/11/Andetag-13-35-copy-2.jpg",
-    fullSrc: "/wp-content/uploads/2024/11/Andetag-13-35-copy-2.jpg",
-    alt: "optical fiber art textile installation",
-  },
-  {
-    src: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-5983-scaled.jpg",
-    fullSrc: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-5983-scaled.jpg",
-    alt: "a perfect place for a date in stockholm",
-  },
-  {
-    src: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-6038-scaled.jpg",
-    fullSrc: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-6038-scaled.jpg",
-    alt: "calm down in stockholm",
-  },
-  {
-    src: "/wp-content/uploads/2024/11/Andetag-10-53-copy-2.jpg",
-    fullSrc: "/wp-content/uploads/2024/11/Andetag-10-53-copy-2.jpg",
-    alt: "unique light art stockholm",
-  },
-  {
-    src: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-59311-scaled.jpg",
-    fullSrc: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-59311-scaled.jpg",
-    alt: "a meditative experience in stockholm",
-  },
-  {
-    src: "/wp-content/uploads/2024/11/Andetag-19-508-copy.jpg",
-    fullSrc: "/wp-content/uploads/2024/11/Andetag-19-508-copy.jpg",
-    alt: "mindfulness exhibition stockholm",
-  },
-  {
-    src: "/wp-content/uploads/2024/11/Andetag-10-69-copy.jpg",
-    fullSrc: "/wp-content/uploads/2024/11/Andetag-10-69-copy.jpg",
-    alt: "things to do in stockholm",
-  },
-] as const;
 
 const biljetterIntroHtml = [
   "<p><span class=\"brand-wordmark\">ANDETAG</span> är en upplevelse som tar dig från vardagens stress in i en fridfull magisk värld.</p>",
@@ -152,13 +111,11 @@ const faqItems = [...stockholmMarketingFaqSv];
       <ContentSection markdown={introMarkdown} />
       <AccordionSection items={faqItems} initialOpenIndex={null} />
       <figure class="page-stockholm-home__intro-figure">
-        <img
-          src={introAsideImage.src}
+        <ResponsiveInlinePicture
+          sources={introAside18_058Body}
           width={introAsideImage.width}
           height={introAsideImage.height}
           alt={introAsideImage.alt}
-          loading="lazy"
-          decoding="async"
         />
       </figure>
       <div class="page-stockholm-home__loc-mobile" aria-label="Adress">
@@ -199,7 +156,7 @@ const faqItems = [...stockholmMarketingFaqSv];
   </div>
 
   <GallerySection
-    images={[...galleryImages]}
+    images={[...stockholmMarketingGalleryHome]}
     mobileMode="carousel"
     galleryId={galleryId}
     carouselAriaLabel="Bildgalleri"

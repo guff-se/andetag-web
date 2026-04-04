@@ -1,4 +1,7 @@
 ---
+import type { BodyPictureSources } from "../../lib/content/stockholm-body-responsive-images";
+import { testimonialCarouselDefaultBg } from "../../lib/content/stockholm-body-responsive-images";
+
 type TestimonialItem = {
   quote: string;
   author?: string;
@@ -24,17 +27,25 @@ const tripadvisorLogoSrc = "/assets/tripadvisor/tripadvisor-logo.svg";
 
 type Props = {
   items: TestimonialItem[];
-  backgroundImage?: string;
+  /** CSS `url()` string, or responsive WebP + JPEG (default: optimized testimonial band still). */
+  backgroundImage?: string | BodyPictureSources;
   autoplayMs?: number;
   aggregate?: TestimonialAggregate;
 };
 
 const {
   items,
-  backgroundImage = "/wp-content/uploads/2024/11/Andetag-27-037-copy-scaled.jpg",
+  backgroundImage: backgroundImageProp = testimonialCarouselDefaultBg,
   autoplayMs = 6000,
   aggregate,
 } = Astro.props as Props;
+
+const useResponsiveBg =
+  typeof backgroundImageProp === "object" &&
+  backgroundImageProp !== null &&
+  "jpeg960" in backgroundImageProp;
+const legacyBgUrl = typeof backgroundImageProp === "string" ? backgroundImageProp : null;
+const responsiveBg = useResponsiveBg ? (backgroundImageProp as BodyPictureSources) : null;
 
 const regionLabel = aggregate?.regionAriaLabel ?? "Sammanfattning av omdömen";
 const showTripAdvisorBrand = aggregate ? aggregate.showTripAdvisorBrand !== false : false;
@@ -42,9 +53,31 @@ const showTripAdvisorBrand = aggregate ? aggregate.showTripAdvisorBrand !== fals
 
 <section
   class="testimonial-block"
-  style={`--testimonial-background-image: url('${backgroundImage}')`}
+  style={legacyBgUrl ? `--testimonial-background-image: url('${legacyBgUrl}')` : undefined}
 >
-  <div class="testimonial-block__bg" aria-hidden="true"></div>
+  <div
+    class:list={["testimonial-block__bg", useResponsiveBg && "testimonial-block__bg--picture"]}
+    aria-hidden="true"
+  >
+    {
+      useResponsiveBg && responsiveBg ? (
+        <picture>
+          <source
+            type="image/webp"
+            srcset={`${responsiveBg.webp640} 640w, ${responsiveBg.webp960} 960w`}
+            sizes="100vw"
+          />
+          <img
+            src={responsiveBg.jpeg960}
+            alt=""
+            class="testimonial-block__bg-img"
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
+      ) : null
+    }
+  </div>
   <div class="testimonial-block__overlay" aria-hidden="true"></div>
   <div class="testimonial-block__carousel js-testimonial-carousel" data-autoplay-ms={autoplayMs}>
     <div class="testimonial-carousel-viewport" aria-live="polite">

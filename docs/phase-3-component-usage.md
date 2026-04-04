@@ -68,7 +68,7 @@ Purpose: provide implementation-facing usage guidance for approved Phase 3 compo
   - `heading?: string`
   - `body?: string`
   - `eyebrow?: string`
-  - `backgroundImage?: string`
+  - `backgroundImage?: string | { jpeg960: string; webp640: string; webp960: string }` (string = single **`img`** URL; object = **`<picture>`** WebP **`srcset`** + JPEG fallback, **`sizes="100vw"`**; parallax still targets **`.component-hero-media`**)
   - `headingLevel?: "h1" | "h2"`
   - `ctas?: Cta[]` (optional; supports **`external`** on each item via `ButtonGroup` / `StyledLink`; omit or **`[]`** when the band uses only the default **slot**)
   - `ariaLabel?: string` (set when `heading` is omitted so the band has an accessible name)
@@ -77,9 +77,14 @@ Purpose: provide implementation-facing usage guidance for approved Phase 3 compo
   - Use `h1` only when this is the page primary heading.
   - Use `h2` when the page already has a primary heading elsewhere.
   - When the real page title lives in a `ContentSection` above the band (for example Art Yoga), omit `heading` and pass **`ariaLabel`** plus **`backgroundImage`** and **`outline`** CTAs on the photo.
-  - **Cover parallax:** when **`backgroundImage`** is set, **`HeroSection`** emits a module script that loads **`site/src/client-scripts/hero-cover-parallax.ts`** (scroll-driven **`translateY`** + **`scale`** on **`.component-hero-media`**, **`prefers-reduced-motion`** clears transforms). The script binds listeners once per page (**`window.__andetagHeroCoverParallax`**). Pages without a cover **`HeroSection`** do not load it.
+  - **Cover parallax:** when **`backgroundImage`** is set, **`HeroSection`** emits a module script that loads **`site/src/client-scripts/hero-cover-parallax.ts`** (vanilla DOM; scroll-driven **`translateY`** + **`scale`** on **`.component-hero-media`**, **`prefers-reduced-motion`** clears transforms). The script binds listeners once per page (**`window.__andetagHeroCoverParallax`**). Pages without a cover **`HeroSection`** do not load it.
   - **Two mutually exclusive modes:** with `backgroundImage`, the hero is **full-bleed image + dark overlay + light text** (source-shaped band such as `site-html/index.html` container `b899d4f`). **Without** `backgroundImage`, the hero is **solid aubergine (`#4a0d2f`) with light text only** (no image strip above the same band).
   - Do not use dark body text on the aubergine or image-overlay hero; headings, eyebrow, and lead use light tones in `site/src/styles/components.css`.
+
+### `ResponsiveInlinePicture`
+
+- Purpose: small **`<picture>`** helper for lazy body stills (**WebP** **`640w`/`960w`** + **JPEG** **`img`** fallback). Used on Stockholm home intro / Art Yoga aside, shared home, SEO landings, and Berlin Stockholm teaser; paths live in **`site/src/lib/content/stockholm-body-responsive-images.ts`** (ImageMagick outputs next to each source under **`site/public/wp-content/uploads/`**).
+- Key props: **`sources`** (**`BodyPictureSources`**), **`alt`**, **`width`**, **`height`**, optional **`loading`**, **`decoding`**, **`sizes`** (default suits **`.page-stockholm-home__intro-figure`**; pass a tighter **`sizes`** for aside-column photos).
 
 ### `ContentSection`
 
@@ -111,13 +116,13 @@ Purpose: provide implementation-facing usage guidance for approved Phase 3 compo
 
 - Purpose: image gallery with responsive behavior.
 - Key props:
-  - `images: Array<{ src: string; alt: string; caption?: string; fullSrc?: string }>`
+  - `images: Array<{ src: string; alt: string; caption?: string; fullSrc?: string; thumbWebp640?: string; thumbWebp960?: string }>` (when **`thumbWebp640`** and **`thumbWebp960`** are both set, the tile renders **`<picture>`** with WebP **`srcset`** and **`src`** as JPEG fallback; **`fullSrc`** (or **`src`**) is still the lightbox target via the anchor **`href`**)
   - `mobileMode: "carousel" | "grid"`
   - `carouselAriaLabel?: string` (default **`Image gallery`**) and **`galleryNavLocale?: "sv" | "en"`** (default **`en`**) when **`mobileMode`** is **`carousel`** (pass both explicitly on Swedish and English page bodies so **sv** and **en** stay aligned and reviewable)
 - Notes:
   - Use **`mobileMode: "carousel"`** by default, aligned with **`site-html/index.html`**: **four-column grid** from **`1025px`** up; at **`1024px`** and below, a **horizontal slider** (scroll-snap, prev/next, autoplay unless **`prefers-reduced-motion`**) like the legacy Elementor **image carousel** (desktop-only grid + **`elementor-hidden-desktop`** carousel).
   - **`mobileMode: "grid"`** keeps the **grid** at all breakpoints (no slider).
-  - Showcase parity implementation uses source-backed 8-image dataset in a **4-column** full-bleed grid on wide viewports.
+  - The eight-image Stockholm marketing set lives in **`site/src/lib/content/stockholm-marketing-gallery.ts`** (**`stockholmMarketingGalleryHome`**, **`stockholmMarketingGallerySeoEn`** for English SEO landing alts); responsive thumbs are **`site/public/wp-content/uploads/.../*-gallery-*`** next to each full JPEG.
   - Hover overlay and click open a full-screen lightbox (**`site/src/client-scripts/gallery-lightbox.ts`**, no jQuery); **`gallery-section-carousel.ts`** handles the mobile carousel only.
 
 ### `PartnersSection`
@@ -137,14 +142,14 @@ Purpose: provide implementation-facing usage guidance for approved Phase 3 compo
 - Purpose: quote/testimonial presentation for social proof.
 - Key props:
   - `items: Array<{ quote: string; author?: string }>`
-  - `backgroundImage?: string`
+  - `backgroundImage?: string | BodyPictureSources` (**`BodyPictureSources`** in **`site/src/lib/content/stockholm-body-responsive-images.ts`**: string = single CSS **`url()`** on **`testimonial-block__bg`**; object = **`<picture>`** with WebP **`srcset`** + JPEG **`img`** inside **`testimonial-block__bg--picture`**, **`sizes="100vw"`**)
   - `autoplayMs?: number`
   - `aggregate?: { eyebrow, score, scoreCaption, meta, linkHref, linkLabel, linkAriaLabel?, regionAriaLabel?, showTripAdvisorBrand? }`: optional Tripadvisor (or similar) summary **below** the quotes; the **same** **`backgroundImage`** fills **`testimonial-block__bg`**, with a single **`testimonial-block__overlay`** (light veil) over the **whole** band (carousel + aggregate). Omit on pages that should show quotes only. By default (**`showTripAdvisorBrand`** omitted or true) the aggregate shows self-hosted **`/assets/tripadvisor/tripadvisor-5dots.png`** (decorative, **`alt=""`**) and **`/assets/tripadvisor/tripadvisor-logo.svg`** (**`alt="Tripadvisor"`**); keep **`meta`** and **`linkLabel`** free of repeating the numeric score or the word Tripadvisor when those are already clear from **`score`** / **`scoreCaption`** and the wordmark. Use **`linkAriaLabel`** when the visible link text is shortened (for example **`Läs alla recensioner`**) but assistive tech should name the destination (**`… på Tripadvisor`**). Set **`showTripAdvisorBrand: false`** to use the previous Unicode star row instead (non-Tripadvisor aggregates).
 - Notes:
   - Root element is **`testimonial-block`** (full-bleed band); carousel logic mounts on **`testimonial-block__carousel`** (class **`js-testimonial-carousel`**).
   - Include at least one item, support single-item fallback.
   - Client script (no jQuery): slide transitions (incoming from the side, outgoing opposite), previous/next controls, and autoplay; `transitionend` listens for **`transform`** (and **`-webkit-transform`**) with a timeout fallback; `prefers-reduced-motion` shortens the CSS transition.
-  - Default background image `/wp-content/uploads/2024/11/Andetag-27-037-copy-scaled.jpg`. Stockholm Swedish pages import aggregate copy from **`site/src/lib/content/stockholm-testimonial-aggregate.ts`** (figures aligned with **`BesokaromdomenSv`**).
+  - Default **`backgroundImage`** is **`testimonialCarouselDefaultBg`** in **`site/src/lib/content/stockholm-body-responsive-images.ts`** (responsive derivatives of **`Andetag-27-037-copy-scaled.jpg`**). Stockholm Swedish pages import aggregate copy from **`site/src/lib/content/stockholm-testimonial-aggregate.ts`** (figures aligned with **`BesokaromdomenSv`**).
 
 ### `InfoFrame`
 
@@ -174,7 +179,7 @@ Purpose: provide implementation-facing usage guidance for approved Phase 3 compo
   - With **`heading`**, **`.embed-shell-heading`** (**`margin-bottom: 1.1rem`**) is always **centered** above the widget (**`.booking-embed`** in **`components.css`**), including in the narrow aside column; **`.booking-embed-contact`** stays centered under the widget.
   - **Standard page layout:** Put **`BookingEmbed`** in the **fixed-width right column** of **`page-layout-with-aside`** (**`site/src/styles/components.css`**: **`--page-aside-width`** default **`420px`**, stacks to one column under **`900px`** with the widget **below** the main column). The **left column** (**`page-layout-with-aside__main`**) is **variable width** and holds the rest of the page flow that should sit beside the calendar (for example **`InfoFrame`**, **`AccordionSection`**). Place any **full-width** blocks **above** this grid when the design calls for it (for example hero, testimonials band); **`DejtSv.astro`** does this. In the aside, prefer **`unframed`** so the widget is not double-boxed and **`.page-layout-with-aside__aside .embed-shell`** can keep **`margin-top: 0`** aligned with the main column top.
   - Loaded-state implementation uses the Understory official embed snippet:
-    - script: `https://widgets.understory.io/widgets/understory-booking-widget.js`
+    - script: `https://widgets.understory.io/widgets/understory-booking-widget.js` (**`defer`**), injected by **`site/src/client-scripts/booking-embed-lazy.ts`** when the embed shell nears the viewport (**`IntersectionObserver`**, **`rootMargin` ~400px**; **`data-booking-embed-lazy`** / **`data-booking-script-src`** on **`section.embed-shell`**; one script load per URL via a module-level **`Set`**; **`window.__andetagBookingLazyInit`** avoids duplicate observers when multiple **`BookingEmbed`** instances each ship the same client module). Without **`IntersectionObserver`**, the script loads immediately.
     - widget container class: `understory-booking-widget`
     - required data attributes: `data-company-id`, `data-language`
   - Keep fallback text user-actionable when unavailable.

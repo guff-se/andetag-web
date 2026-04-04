@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { HEADER_SMALL_SV_ASSETS, HERO_SV_ASSETS } from "./assets";
+import { HEADER_SMALL_SV_ASSETS, HERO_SV_ASSETS, STOCKHOLM_BOOK_HERO_COVER } from "./assets";
 
 describe("layout asset paths", () => {
   it("keeps Swedish hero assets root-relative and local", () => {
@@ -12,6 +12,16 @@ describe("layout asset paths", () => {
       expect(path.startsWith("/")).toBe(true);
       expect(path.includes("://")).toBe(false);
       expect(path.startsWith("/wp-content/")).toBe(true);
+    });
+  });
+
+  it("keeps Stockholm book hero cover paths root-relative and under uploads", () => {
+    expect(STOCKHOLM_BOOK_HERO_COVER.jpeg960).toBe(
+      "/wp-content/uploads/2024/11/Andetag-21-399-scaled-hero-960w.jpg",
+    );
+    Object.values(STOCKHOLM_BOOK_HERO_COVER).forEach((path) => {
+      expect(path.startsWith("/wp-content/")).toBe(true);
+      expect(path.includes("://")).toBe(false);
     });
   });
 

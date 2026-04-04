@@ -4,6 +4,9 @@ type GalleryImage = {
   alt: string;
   caption?: string;
   fullSrc?: string;
+  /** With `thumbWebp960`, enables `<picture>` WebP thumbs; lightbox still uses `fullSrc ?? src`. */
+  thumbWebp640?: string;
+  thumbWebp960?: string;
 };
 
 type Props = {
@@ -58,7 +61,18 @@ const sectionClass =
           data-gallery={galleryId}
           aria-label={image.alt}
         >
-          <img src={image.src} alt={image.alt} loading="lazy" />
+          {image.thumbWebp640 && image.thumbWebp960 ? (
+            <picture>
+              <source
+                type="image/webp"
+                srcset={`${image.thumbWebp640} 640w, ${image.thumbWebp960} 960w`}
+                sizes="(max-width: 1024px) 100vw, 24vw"
+              />
+              <img src={image.src} alt={image.alt} loading="lazy" decoding="async" />
+            </picture>
+          ) : (
+            <img src={image.src} alt={image.alt} loading="lazy" decoding="async" />
+          )}
           <span class="gallery-hover-overlay" aria-hidden="true" />
         </a>
         {image.caption ? <figcaption>{image.caption}</figcaption> : null}

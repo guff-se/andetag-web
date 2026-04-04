@@ -11,6 +11,10 @@ import PartnersSection from "../content/PartnersSection.astro";
 import StyledLink from "../ui/StyledLink.astro";
 import TestimonialCarousel from "../content/TestimonialCarousel.astro";
 import VideoEmbed from "../embeds/VideoEmbed.astro";
+import ResponsiveInlinePicture from "../ui/ResponsiveInlinePicture.astro";
+import { STOCKHOLM_BOOK_HERO_COVER } from "../../lib/chrome/assets";
+import { andrumLookingBody, andrumMeditationBody } from "../../lib/content/stockholm-body-responsive-images";
+import { stockholmMarketingGalleryHome } from "../../lib/content/stockholm-marketing-gallery";
 import { stockholmTestimonialAggregateEn } from "../../lib/content/stockholm-testimonial-aggregate";
 import { stockholmMarketingFaqEn } from "../../lib/page-registry/stockholm-marketing-faq-en";
 
@@ -26,17 +30,13 @@ const understoryCompanyId = "3b3aa7a7c2cd455b8f3a56cd81033110";
 const artYogaBookingHref =
   "https://andetag.understory.io/experience/cc2f4ed4e1709b93a454a1e5abad6595";
 
-const heroBookBackground = "/wp-content/uploads/2024/11/Andetag-21-399-scaled.jpg";
-
 const introLeadImage = {
-  src: "/wp-content/uploads/2026/03/andrum-looking.jpg",
   width: 1920,
   height: 1080,
   alt: "Silhouette of a visitor looking up at luminous art at ANDETAG",
 } as const;
 
 const artYogaAsideImage = {
-  src: "/wp-content/uploads/2026/03/andrum-meditation.jpg",
   width: 1924,
   height: 1443,
   alt: "Person meditating surrounded by light and textile art during Art Yoga at ANDETAG",
@@ -50,49 +50,6 @@ const introMarkdown = [
 ].join("");
 
 const homeAccordionItems = [...stockholmMarketingFaqEn];
-
-const galleryImages = [
-  {
-    src: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-6074-scaled.jpg",
-    fullSrc: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-6074-scaled.jpg",
-    alt: "fine art stockholm",
-  },
-  {
-    src: "/wp-content/uploads/2024/11/Andetag-13-35-copy-2.jpg",
-    fullSrc: "/wp-content/uploads/2024/11/Andetag-13-35-copy-2.jpg",
-    alt: "optical fiber art textile installation",
-  },
-  {
-    src: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-5983-scaled.jpg",
-    fullSrc: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-5983-scaled.jpg",
-    alt: "a perfect place for a date in stockholm",
-  },
-  {
-    src: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-6038-scaled.jpg",
-    fullSrc: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-6038-scaled.jpg",
-    alt: "calm down in stockholm",
-  },
-  {
-    src: "/wp-content/uploads/2024/11/Andetag-10-53-copy-2.jpg",
-    fullSrc: "/wp-content/uploads/2024/11/Andetag-10-53-copy-2.jpg",
-    alt: "unique light art stockholm",
-  },
-  {
-    src: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-59311-scaled.jpg",
-    fullSrc: "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-59311-scaled.jpg",
-    alt: "a meditative experience in stockholm",
-  },
-  {
-    src: "/wp-content/uploads/2024/11/Andetag-19-508-copy.jpg",
-    fullSrc: "/wp-content/uploads/2024/11/Andetag-19-508-copy.jpg",
-    alt: "mindfulness exhibition stockholm",
-  },
-  {
-    src: "/wp-content/uploads/2024/11/Andetag-10-69-copy.jpg",
-    fullSrc: "/wp-content/uploads/2024/11/Andetag-10-69-copy.jpg",
-    alt: "things to do in stockholm",
-  },
-] as const;
 
 const biljetterIntroHtml = [
   "<p><span class=\"brand-wordmark\">ANDETAG</span> is an experience that takes you from the stress of everyday life into a peaceful, magical world.</p>",
@@ -230,13 +187,11 @@ const vimeoSrc = "https://player.vimeo.com/video/1077937338";
     <div class="page-layout-with-aside__main">
       <ContentSection markdown={introMarkdown} />
       <figure class="page-stockholm-home__intro-figure">
-        <img
-          src={introLeadImage.src}
+        <ResponsiveInlinePicture
+          sources={andrumLookingBody}
           width={introLeadImage.width}
           height={introLeadImage.height}
           alt={introLeadImage.alt}
-          loading="lazy"
-          decoding="async"
         />
       </figure>
       <AccordionSection items={[...homeAccordionItems]} initialOpenIndex={null} />
@@ -272,7 +227,7 @@ const vimeoSrc = "https://player.vimeo.com/video/1077937338";
   </div>
 
   <GallerySection
-    images={[...galleryImages]}
+    images={[...stockholmMarketingGalleryHome]}
     mobileMode="carousel"
     galleryId="stockholm-home-en"
     carouselAriaLabel="Image gallery"
@@ -291,7 +246,7 @@ const vimeoSrc = "https://player.vimeo.com/video/1077937338";
   </div>
 
   <HeroSection
-    backgroundImage={heroBookBackground}
+    backgroundImage={STOCKHOLM_BOOK_HERO_COVER}
     ariaLabel="Take a breath, book a ticket"
     ctas={[{ label: "Book now", href: "#book", variant: "outline" }]}
   >
@@ -312,13 +267,12 @@ const vimeoSrc = "https://player.vimeo.com/video/1077937338";
     </div>
     <aside class="page-layout-with-aside__aside" aria-label="Art Yoga, photo">
       <figure class="page-stockholm-home__art-yoga-figure">
-        <img
-          src={artYogaAsideImage.src}
+        <ResponsiveInlinePicture
+          sources={andrumMeditationBody}
           width={artYogaAsideImage.width}
           height={artYogaAsideImage.height}
           alt={artYogaAsideImage.alt}
-          loading="lazy"
-          decoding="async"
+          sizes="(max-width: 900px) 100vw, min(42vw, 520px)"
         />
       </figure>
     </aside>

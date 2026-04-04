@@ -342,7 +342,27 @@
   min-height: 336px;
 }
 
-.component-hero.is-cover .component-hero-media {
+/* Cover parallax: `HeroSection` uses either a lone `img` or `picture.component-hero-cover-picture > img`. */
+.component-hero.is-cover .component-hero-cover-picture {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  top: calc(-1 * var(--hero-parallax-max-shift));
+  height: calc(100% + 2 * var(--hero-parallax-max-shift));
+  max-height: none;
+  display: block;
+}
+
+.component-hero.is-cover .component-hero-cover-picture .component-hero-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+.component-hero.is-cover > .component-hero-media {
   position: absolute;
   left: 0;
   width: 100%;
@@ -652,6 +672,11 @@
   width: 100%;
 }
 
+.gallery-section picture {
+  display: block;
+  width: 100%;
+}
+
 .gallery-section img {
   width: 100%;
   aspect-ratio: 3 / 2;
@@ -855,6 +880,26 @@ body.lightbox-open {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+.testimonial-block__bg--picture {
+  background-image: none;
+}
+
+.testimonial-block__bg--picture picture {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.testimonial-block__bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
 }
 
 /* One light veil over photo for both quote row and aggregate (replaces split carousel + gradient scrim). */
@@ -1490,10 +1535,14 @@ body.lightbox-open {
   max-width: min(52rem, 88%);
 }
 
-.page-stockholm-home__intro-figure img {
+.page-stockholm-home__intro-figure :is(picture, img) {
   width: 100%;
   height: auto;
   display: block;
+  border-radius: 12px;
+}
+
+.page-stockholm-home__intro-figure picture img {
   border-radius: 12px;
 }
 
@@ -1506,10 +1555,14 @@ body.lightbox-open {
   margin: 0;
 }
 
-.page-stockholm-home__art-yoga-figure img {
+.page-stockholm-home__art-yoga-figure :is(picture, img) {
   width: 100%;
   height: auto;
   display: block;
+  border-radius: 12px;
+}
+
+.page-stockholm-home__art-yoga-figure picture img {
   border-radius: 12px;
 }
 

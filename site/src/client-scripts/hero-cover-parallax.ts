@@ -1,5 +1,3 @@
-import $ from "jquery";
-
 /** Strong enough to read on a ~336px-tall cover band while scrolling. */
 const INTENSITY = 0.28;
 /** Keep in sync with `--hero-parallax-max-shift` on `.component-hero.is-cover` (components.css).
@@ -12,14 +10,17 @@ function clamp(n: number, min: number, max: number): number {
 }
 
 function updateHeroCoverParallax(): void {
+  const mediaNodes = document.querySelectorAll<HTMLElement>(".component-hero.is-cover .component-hero-media");
+
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    $(".component-hero.is-cover .component-hero-media").css("transform", "");
+    mediaNodes.forEach((el) => {
+      el.style.transform = "";
+    });
     return;
   }
 
-  $(".component-hero.is-cover .component-hero-media").each(function (this: HTMLElement) {
-    const $img = $(this);
-    const section = $img.closest(".component-hero.is-cover").get(0);
+  mediaNodes.forEach((img) => {
+    const section = img.closest(".component-hero.is-cover");
     if (!section) return;
 
     const rect = section.getBoundingClientRect();
@@ -28,7 +29,7 @@ function updateHeroCoverParallax(): void {
     const viewportCenterY = vh / 2;
     const delta = bandCenterY - viewportCenterY;
     const translateY = clamp(-delta * INTENSITY, -MAX_SHIFT_PX, MAX_SHIFT_PX);
-    $img.css("transform", `translate3d(0, ${translateY}px, 0) scale(${SCALE})`);
+    img.style.transform = `translate3d(0, ${translateY}px, 0) scale(${SCALE})`;
   });
 }
 

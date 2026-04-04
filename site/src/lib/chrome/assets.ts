@@ -22,3 +22,12 @@ export const HEADER_SMALL_SV_ASSETS = {
   desktopBackground: "/wp-content/uploads/2025/10/Desktop.00_00_00_00.Still002.jpg",
   mobileBackground: "/wp-content/uploads/2025/10/Mobile-BG.00_00_00_00.Still002.jpg",
 } as const;
+
+const BOOK_HERO_BASE = "/wp-content/uploads/2024/11/Andetag-21-399-scaled";
+
+/** Mid-page “Boka” band (`HeroSection` cover) on Stockholm marketing pages. Source: `Andetag-21-399-scaled.jpg`. */
+export const STOCKHOLM_BOOK_HERO_COVER = {
+  jpeg960: `${BOOK_HERO_BASE}-hero-960w.jpg`,
+  webp640: `${BOOK_HERO_BASE}-hero-640w.webp`,
+  webp960: `${BOOK_HERO_BASE}-hero-960w.webp`,
+} as const;
