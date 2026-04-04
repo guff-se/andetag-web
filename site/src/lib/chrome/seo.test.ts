@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
+import { HERO_SV_ASSETS } from "./assets";
 import {
+  buildCanonicalUrl,
   defaultOgImageAbsoluteUrl,
   languageToOgLocale,
   languageToHreflangAttribute,
@@ -43,9 +45,7 @@ describe("seo helpers", () => {
     ).toEqual(["en_US"]);
   });
 
-  it("emits absolute default og:image for hero poster path", () => {
-    expect(defaultOgImageAbsoluteUrl()).toBe(
-      "https://www.andetag.museum/wp-content/uploads/2024/11/Desktop.00_00_00_00.Still002.jpg",
-    );
+  it("default og:image is canonical origin + poster path (not request host)", () => {
+    expect(defaultOgImageAbsoluteUrl()).toBe(buildCanonicalUrl(HERO_SV_ASSETS.poster));
   });
 });
