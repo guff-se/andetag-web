@@ -42,6 +42,7 @@ Normative rules: **`docs/url-migration-policy.md`**. Use **`curl -sI`**; send **
 
 | date | environment | operator | result |
 |------|-------------|----------|--------|
+| 2026-04-04 | `https://andetag-web.guff.workers.dev/` | AI agent: **`curl -sI`** (table **B** E1–E11) + **`npm run verify:staging-entry`** in **`site/`** | **Pass:** entry router **`302`**/**`301`**/**`200`** and **`Location`** match table **B**; E3/E4 **`Set-Cookie`** present. Static **`_redirects`** spot-check: **`/de/`**, **`/privacy/`**, **`/musik/`** → expected **`301`** targets. |
 | 2026-03-23 | `https://andetag-web.guff.workers.dev/` (Cloudflare Workers static assets) | automated `curl -sI` | **Pass (historical)**: cases 1–5 as **then** defined; **`/privacy-policy/`** target was **`/privacy/`** before **2026-03-28** routing. |
 | 2026-03-23 | Repo `site/public/_redirects` and `site/dist/_redirects` (post `/sv/` rollout) | review + `HEAD` probe | **Pass (historical rules)**: see note below. |
 | 2026-03-28 | Repo `site/public/_redirects` | review | **Pending live re-run:** location-scoped story URLs and privacy (**`docs/routing-location-scoped-global-pages-plan.md`**). Required cases **5**, **5b**, **9**, **10** and new **11**–**12** targets updated in the table above. Re-execute **`curl -sI`** on the deploy that applies **`public/_redirects`** after publish. |
@@ -115,4 +116,4 @@ curl -sI "$BASE/en/music/"
 curl -sI "$BASE/sv/musik/"
 ```
 
-**Entry router (table B):** on **staging**, set **`BASE="https://andetag-web.guff.workers.dev"`** and run the **`curl -sI`** cases from table **B** (vary **`User-Agent`** and **`Cookie`** as specified). Alternatively, from **`site/`** after **`npm run build`**, run **`npx wrangler dev`** and probe **`/`** and **`/en/`** locally.
+**Entry router (table B):** on **staging**, from **`site/`** run **`npm run verify:staging-entry`** (uses **`fetch`**; override host with **`STAGING_BASE=...`**). Or set **`BASE="https://andetag-web.guff.workers.dev"`** and run **`curl -sI`** per table **B** (vary **`User-Agent`** and **`Cookie`**). Locally: **`npx wrangler dev`** after **`npm run build`**.
