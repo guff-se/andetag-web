@@ -1,7 +1,7 @@
 {
   "_meta": {
     "source": "site-html/*.html via extract-page-shell-meta.mjs",
-    "notes": "Swedish canonical paths use /sv/; legacy unprefixed URLs redirect via site/public/_redirects. /en/stockholm/: en-stockholm.html and live site mis-set Yoast; shell uses en.html until EX-0007 is resolved in Phase 5. /en/: title and description overridden for minimal hub (EX-0015); re-extract may need a guard for this path."
+    "notes": "Swedish canonical paths use /sv/stockholm/…; legacy unprefixed URLs redirect via site/public/_redirects. /en/stockholm/ shell row uses en.html as source file for title or description (EX-0007 resolved in Phase 6 P6-01). /en/: title and description aligned with minimal hub (EX-0015); re-extract may need a guard for this path."
   },
   "pages": {
     "/de/berlin/": {

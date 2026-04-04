@@ -10,15 +10,15 @@ Purpose: migrate real page content and design in controlled batches, complete st
 
 **English locale deferral (2026-03-24):** English **page bodies** (**`/en/`** hub, **`/en/stockholm/`**, and other **`/en/...`** migration) are **out of scope for Phase 5** until **Phase 6**, together with **localized header and footer** content. **`/en/`** keeps the Phase 4 **shell** (placeholder main) until then.
 
-Status: **complete** (2026-03-24). **Swedish migration milestone:** all **`/sv/...`** pages in `page-shell-meta.json` migrated and design-approved (**23** custom bodies). **`P5-05`–`P5-07`** (Worker, production enable, SEO manual live entry) and optional **Berlin body parity** remain **open** under **`docs/phase-6-todo.md`** carry-forward and do not block Phase 6 localization start.
+Status: **complete** (2026-03-24). **Swedish migration milestone:** all **`/sv/...`** pages in `page-shell-meta.json` migrated and design-approved (**23** custom bodies). **`P5-05`–`P5-07`** (Worker, staging verification, SEO manual live entry) tracked under **`docs/phase-6-todo.md`**; **`P5-06`** **production** (**`www`** enable and table **B**) is **`docs/phase-8-todo.md`**. Optional **Berlin body parity** did not block Phase 6 localization start.
 
 ## Exit Criteria
 
-Phase 5 **closed 2026-03-24** on the **Swedish page migration milestone** below. **`P5-05`–`P5-07`** are **carry-forward** (see **`docs/phase-6-todo.md`**).
+Phase 5 **closed 2026-03-24** on the **Swedish page migration milestone** below. **`P5-05`–`P5-07`** are **carry-forward** (see **`docs/phase-6-todo.md`**); **`P5-06`** **production** is **`docs/phase-8-todo.md`**.
 
 - **`docs/definition-of-done.md` Phase 5** gates are met for approved migrated pages, with **EX-0014** for Lighthouse simulated mobile on conversion-priority pages.
 - Swedish Stockholm page set is migrated, reviewed, and explicitly approved batch by batch. **`/en/stockholm/`** and English hub **body** migration (**EX-0007** and **`P5-02`**) are **Phase 6** together with localized header and footer (see **English locale deferral** above and `docs/grand-plan.md`).
-- **Entry routing and URL expansion schedule** (`docs/grand-plan.md`): static **`200`** shells exist for matrix routes; **production Worker** traffic (**`/`**, **`/en/`**) remains **carry-forward** (**`docs/phase-6-todo.md`**, **`P5-05`–`P5-06`**) until staging and sign-off.
+- **Entry routing and URL expansion schedule** (`docs/grand-plan.md`): static **`200`** shells exist for matrix routes; **production Worker** on **`www`** is **Phase 8** (**`docs/phase-8-todo.md`**); staging verification is **`docs/phase-6-todo.md`** / **`P5-06`** staging.
 - English Berlin parity for launch (if required by business) is implemented to the agreed scope; German Berlin pages remain Phase 6 unless plan changes.
 - Stakeholder sign-off and evidence live in **`docs/phase-5-verification-record.md`** (create when closing Phase 5).
 - Each page reaches **final design approval** before the next **unless** an explicit **batch exception** is recorded (see **Design approval gate**; post first-wave alphabetical `/sv/` queue uses batch approval after the list is built).
@@ -67,7 +67,7 @@ Use `docs/phase-3-component-qa-checklist.md` and `docs/phase-3-component-usage.m
 7. ~~`/sv/stockholm/fragor-svar/`~~
 8. ~~**`/sv/stockholm/`**~~: Swedish Stockholm home. Static **`/`** redirects to this path.
 
-**Second batch (alphabetical, all remaining `/sv/` shells in `site/src/data/page-shell-meta.json`):** Canonical paths below are the full set of **defined and routed** Swedish locale pages not yet wired to custom body content in `site/src/lib/page-registry/page-body-registry.ts`. **Order is strict A–Z by path string.** Use **`docs/phase-3-component-usage.md`**, **`docs/phase-3-component-inventory.md`**, and the same patterns as the first eight pages (`ContentSection`, `HeroSection`, `AccordionSection`, `BookingEmbed`, `ButtonGroup`, `GallerySection`, grids in `components.css`, and so on). **One page at a time:** complete migration for URL *n* before editing URL *n+1*. **Do not** pause between URLs for stakeholder sign-off; record approvals in **`docs/phase-5-verification-record.md`** when Gustaf finishes the batch review.
+**Second batch (alphabetical, historical):** At Phase 5 continuation, the table below was the strict **A–Z** queue for remaining **`/sv/`** shells. **All listed paths were migrated and design-approved by 2026-03-24** ( **`docs/phase-5-verification-record.md`** ). The following paragraph describes **how** that batch was executed, not current backlog: use **`docs/phase-3-component-usage.md`**, **`docs/phase-3-component-inventory.md`**, and the same patterns as the first eight pages. **One page at a time** through the queue; batch design approval applied per **`docs/phase-5-verification-record.md`**.
 
 | # | Canonical path | Primary `site-html/` source |
 |---|----------------|----------------------------|
@@ -167,9 +167,9 @@ Use `docs/phase-3-component-qa-checklist.md` and `docs/phase-3-component-usage.m
   - Owner: Gustaf
   - Inputs:
     - Completed `P5-02`, `P5-03` to agreed gate, and critical **`/en/berlin/`** paths per `docs/grand-plan.md`
-  - **Staging (pre-`www` cutover):** Worker deploy at **`https://andetag-web.guff.workers.dev`** (push to **`main`**); run **`docs/phase-4-redirect-tests.md`** table **B** there and log results.
-  - **Production:** **`https://www.andetag.museum`** remains the legacy site until cutover; repeat table **B** on **`www`** when this stack replaces it, then sign off.
-  - **Carry-forward:** **`docs/phase-6-todo.md`**.
+  - **Staging (pre-`www` cutover):** Worker deploy at **`https://andetag-web.guff.workers.dev`** (push to **`main`**); run **`docs/phase-4-redirect-tests.md`** table **B** there and log results. **Done in repo 2026-04-04** (see **`docs/phase-4-redirect-tests.md`**).
+  - **Production:** **`docs/phase-8-todo.md`** (**P8-10**–**P8-24**): cutover **`www`** to this stack, table **B** on **`www`**, sign-off.
+  - **Carry-forward:** staging leg **`docs/phase-6-todo.md`**; production leg **`docs/phase-8-todo.md`**.
 
 - [ ] **P5-07 Update SEO manual and examples for live entry behavior**
   - Owner: Gustaf + AI agent

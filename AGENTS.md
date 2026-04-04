@@ -78,6 +78,8 @@ Reference docs before implementation:
 | `docs/phase-6-todo.md` | Localization (**`en`**, **`de`**) and Phase 5 carry-forward. **P6-00**–**P6-06** closed **2026-04-04**; Worker and SEO manual live-entry rows remain in the carry-forward table. |
 | `docs/phase-6-verification-record.md` | Phase 6 evidence and Gustaf sign-off per slice (**P6-00** chrome package, later waves). |
 | `docs/phase-7-todo.md` | Execution checklist for Phase 7 scripts, consent, analytics, favicon, sharing metadata, schema.org, sitemap, and launch hardening. |
+| `docs/phase-8-todo.md` | Execution checklist for Phase 8 deployment: dev and staging verification, URL parity vs legacy live site (Gustaf-approved exceptions), **`www.andetag.museum`** cutover, post-live checks (**`P5-06`** production closes here). |
+| `docs/phase-8-verification-record.md` | Phase 8 evidence and Gustaf sign-off for production cutover. |
 | `docs/phase-4-route-coverage.md` | URL matrix to Astro shell and `_redirects` mapping for Phase 4 route coverage. |
 | `docs/phase-4-routing-reopen.md` | Post-closure routing revisit: location and language matrix, Berlin or Stockholm parity, global pages and navigation. |
 | `docs/routing-location-scoped-global-pages-plan.md` | Execution plan: move story or global pages under location-prefixed routes, redirects, canonical, chrome, and docs (when approved). |
@@ -92,7 +94,7 @@ Reference docs before implementation:
 | `docs/phase-1-design-baseline.md` | Source-backed design token and component evidence baseline for Phase 1. |
 | `docs/ia-language-destination-options.md` | IA options and recommendation for language plus destination routing continuity. |
 | `docs/kpi-measurement-map.md` | KPI funnel event taxonomy for GTM and Phase 7 analytics implementation. |
-| `docs/url-migration-policy.md` | Canonical URL, redirect, alias, and sitemap policy for migration and launch. |
+| `docs/url-migration-policy.md` | Canonical URL, redirect, alias, entry routing (**`andetag_entry`**), **Current routing architecture**, and **Sitemap / inbound links** policy for migration and launch. |
 | `docs/url-matrix-schema.md` | URL matrix data contract for must-keep URLs and redirect status tracking. |
 | `docs/content-model.md` | Versioned contract for page frontmatter, shared data, and component props. |
 | `docs/definition-of-done.md` | Measurable exit checks for each delivery phase. |
@@ -103,6 +105,8 @@ Reference docs before implementation:
 | `docs/phase-1-analysis-schema.md` | Structured tables for Phase 1 variant, widget, and integration analysis. |
 | `docs/site-structure-refactor-plan.md` | Side phase: `site/src/` layout (ADR 0003). **Status:** complete (2026-03-24). Historical execution notes, §6 verification, deferred follow-ups. |
 | `docs/phase-structure-todo.md` | Execution checklist for the site structure refactor (S0–S8); record baseline hash and check off phases. |
+| `docs/decisions/0001-static-stack-selection.md` | **Accepted** ADR: Astro; Cloudflare hosting; deploy path is Workers + static assets from **`site/`** (see Cloudflare section below and **`site/wrangler.jsonc`**). |
+| `docs/decisions/0002-consent-platform-selection.md` | **Accepted** ADR: CookieYes replaces Complianz; category-based gating expectations for Phase 7. |
 | `docs/decisions/0003-site-src-structure.md` | **Accepted** ADR: final folder names (`chrome`, `page-bodies`, `page-registry`, `ui-logic`, `client-scripts`). |
 | `docs/decisions/README.md` | ADR template, naming convention, and decision lifecycle process. |
 
@@ -157,7 +161,9 @@ web/
 ├── site-md/                  # Markdown snapshots from crawler
 ├── site/                     # Astro workspace (`npm test`, `npm run build`); `docs/site-structure-refactor-plan.md`, ADR 0003
 │   ├── public/               # Static assets, `_redirects`, `_headers`
-│   ├── scripts/              # Node / shell tooling (meta, fonts, encoding); not browser bundles
+│   ├── scripts/              # Node / shell tooling (meta, fonts, `verify-staging-entry-routing.mjs`); not browser bundles
+│   ├── workers/              # Cloudflare entry router (`entry-router.ts`, `entry-routing-logic.ts`); policy: `docs/url-migration-policy.md`
+│   ├── wrangler.jsonc        # Workers + static `dist/` (`run_worker_first`, `ASSETS` binding)
 │   └── src/
 │       ├── client-scripts/    # Browser-oriented TS imported from Astro components
 │       ├── components/
@@ -175,7 +181,7 @@ web/
 │       │   ├── page-registry/  # `page-body-registry`, FAQ TS next to bodies
 │       │   ├── routes/       # `page-shell-registry`, URL / chrome navigation resolution
 │       │   └── ui-logic/     # TS-only helpers (carousel, booking HTML, presentation)
-│       ├── pages/            # File-based routes (`index`, `[...slug]`, `404`, previews)
+│       ├── pages/            # File-based routes (`index`, `[...slug]`, `404`)
 │       └── styles/
 └── seo-content/              # SEO content drafts (currently mostly Swedish)
 ```
@@ -267,8 +273,9 @@ Astro workspace (`site/`): `npm test` and `npm run build` (also run on `push` to
 
 ### Cloudflare (Astro `site/`)
 
+- **Astro build:** `site/astro.config.mjs` sets **`output: "static"`**, **`trailingSlash: "always"`**, and **`site: https://www.andetag.museum`**. There is **no** Cloudflare **adapter** in the config. The site is a **normal static export** (`dist/`). **Production** uses **Wrangler** to run the **entry Worker** and serve **`dist/`** as static assets. You only need **`@astrojs/cloudflare`** if you switch Astro to **SSR on Workers** (server-rendered pages). This project does not; adding that adapter without changing `output` would be unused weight.
 - **Pages (recommended):** Project root directory `site`, build command `npm run build`, build output directory `dist`. For **entry routing** at **`/`** and **`/en/`**, use **Workers + static assets** (below), not Pages-only static **`_redirects`** for **`/`** (that would skip the Worker).
-- **Workers static assets + entry router:** `site/wrangler.jsonc` sets **`main`** to **`workers/entry-router.ts`**, **`assets.directory`** to **`./dist`**, **`assets.binding`** **`ASSETS`**, and **`run_worker_first`** **`true`** so the Worker can refresh **`andetag_entry`** on lane **`200`** responses. Deploy from **`site/`**: **`npm run worker:deploy`**. **Staging:** **`https://andetag-web.guff.workers.dev`** (typical CI deploy on push to **`main`**). **Entry router checks:** **`npm run verify:staging-entry`** (table **B** against staging; optional **`STAGING_BASE`**). Local: **`npm run worker:dev`**. Policy: **`docs/url-migration-policy.md`**; evidence: **`docs/phase-4-redirect-tests.md`**.
+- **Workers static assets + entry router:** `site/wrangler.jsonc` sets **`main`** to **`workers/entry-router.ts`**, **`assets.directory`** to **`./dist`**, **`assets.binding`** **`ASSETS`**, and **`run_worker_first`** **`true`** so the Worker can refresh **`andetag_entry`** on lane **`200`** responses. Deploy from **`site/`**: **`npm run worker:deploy`**. **Staging:** **`https://andetag-web.guff.workers.dev`** (typical CI deploy on push to **`main`**). **Entry router checks:** **`npm run verify:staging-entry`** (table **B** against staging; optional **`STAGING_BASE`**). Local: **`npm run worker:dev`**. **Architecture summary:** **`docs/url-migration-policy.md`**, **Current routing architecture**. Policy detail and redirect evidence: **`docs/phase-4-redirect-tests.md`**.
 - **`_headers`** (in **`public/`**) sets `Cache-Control` (and optional `X-Robots-Tag` on `*.workers.dev`) per [Workers static asset headers](https://developers.cloudflare.com/workers/static-assets/headers/); without it, the default is `max-age=0, must-revalidate` on every file.
 
 ---

@@ -96,7 +96,7 @@ const out = {
   _meta: {
     source: "site-html/*.html via extract-page-shell-meta.mjs",
     notes:
-      "Swedish canonical paths use /sv/; legacy unprefixed URLs redirect via site/public/_redirects. /en/stockholm/: en-stockholm.html and live site mis-set Yoast; shell uses en.html until EX-0007 is resolved in Phase 5.",
+      "Swedish canonical paths use /sv/stockholm/…; legacy unprefixed URLs redirect via site/public/_redirects. /en/stockholm/ shell row uses en.html as source file for title or description (EX-0007 resolved in Phase 6 P6-01). /en/ hub row uses EX-0015 overrides when re-extracting; guard those paths if the script overwrites manual SEO rows.",
   },
   pages: {},
 };

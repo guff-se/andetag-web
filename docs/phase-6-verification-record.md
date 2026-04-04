@@ -6,7 +6,7 @@ Purpose: evidence and stakeholder sign-off for Phase 6 slices per **`docs/phase-
 
 **P6-02** recap: **`/en/berlin/`** (**`BerlinHomeEn.astro`**), **`hero-en-berlin.ts`**, **`footer-en-berlin.ts`** / **`footer-de-berlin.ts`**, **`FooterSocialLinks`**, Brevo waitlist, LCP preload on Berlin hero, After Hours JPEG **`site/public/wp-content/uploads/2025/04/`**. **Resume context:** **2026-03-28** routing slice: matrix **61** shells, legacy **`301`**, **`en-brand`** removed.
 
-Status: **closed** (Phase 6 localization waves and wrap-up tasks complete; **German** external language review remains **pre-launch** per **`docs/phase-6-todo.md`**).
+Status: **closed** (Phase 6 localization waves and wrap-up tasks complete). **Final locale copy sign-off** (**`sv`**, **`en`**, **`de`**) on staging before **`www`** is **Phase 8** (**`docs/phase-8-todo.md`**, **P8-06**); optional external input for **`de`** feeds **P8-06**.
 
 ## P6-00 · Swedish chrome package (`sv` / Stockholm)
 
@@ -75,4 +75,4 @@ Status: **closed** (Phase 6 localization waves and wrap-up tasks complete; **Ger
 
 **Scope:** This record (**§P6-04**–**§P6-06**), **`docs/phase-6-todo.md`** checklist, **`docs/grand-plan.md`** Phase 6 status, **`CHANGELOG.md`**, **`AGENTS.md`** documentation table.
 
-**Next (project):** **`docs/phase-7-todo.md`** (scripts, consent, analytics, sitemap, schema.org, launch hardening). **Carry-forward:** Worker source and SEO manual entry alignment shipped **2026-04-04**; **`P5-06`** staging: **`npm run verify:staging-entry`** (**`docs/phase-4-redirect-tests.md`** log **2026-04-04**, **pass**). Repeat on **`https://www.andetag.museum`** only when **`www`** cuts over to this site.
+**Next (project):** **`docs/phase-7-todo.md`** (scripts, consent, analytics, sitemap, schema.org, launch hardening), then **`docs/phase-8-todo.md`** (**`www`** cutover and **`P5-06`** production). **Carry-forward:** Worker source and SEO manual entry alignment shipped **2026-04-04**; **`P5-06`** staging: **`npm run verify:staging-entry`** (**`docs/phase-4-redirect-tests.md`** log **2026-04-04**, **pass**). Table **B** on **`https://www.andetag.museum`**: **`docs/phase-8-todo.md`**.

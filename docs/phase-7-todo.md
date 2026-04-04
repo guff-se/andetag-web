@@ -2,6 +2,8 @@
 
 Purpose: track Scripts, Consent, Analytics, and Launch Hardening deliverables. Normative phase summary: `docs/grand-plan.md` (Phase 7). Exit checks: `docs/definition-of-done.md` (Phase 7).
 
+**Position:** Phases **0–6** are **closed** (Phase 6 closure **2026-04-04**). Phase 7 is the **active** implementation phase before **`www`** cutover (**`docs/phase-8-todo.md`**).
+
 ## Identity and sharing (head markup)
 
 - [ ] **P7-01 Favicon:** Add `favicon.ico` and/or `icon.svg` (and optional PNG sizes) under `site/public/`, referenced from the root layout. No remote icon URLs.
@@ -25,14 +27,16 @@ Purpose: track Scripts, Consent, Analytics, and Launch Hardening deliverables. N
 
 ## Sitemap, robots, launch
 
-- [ ] **P7-13 XML sitemap:** Canonical URLs only, per `docs/url-migration-policy.md`; exclude `noindex` and non-HTML routes.
+- [ ] **P7-13 XML sitemap:** Implement per **`docs/url-migration-policy.md`** (**Sitemap, canonicalization, and inbound links**): canonical indexable HTML only, matrix or registry-aligned, exclude aliases and non-HTML; preserve inbound-link intent (no silent **404** on legacy paths that had **`301`** / **`keep`**).
 - [ ] **P7-14 robots.txt:** References sitemap; matches crawl policy.
 - [ ] **P7-15 Final SEO pass:** Metadata parity, hreflang, CWV targets; showcase performance follow-up **EX-0006** after lazy or consent-gated embed patterns if still open.
 - [ ] **P7-16 Sign-off:** Pre-launch checklist complete; update `docs/grand-plan.md` or a Phase 7 verification record when the phase closes.
+**Production host:** Checks that require **`https://www.andetag.museum`** (for example sitemap fetch at the canonical origin, live GTM validation) are completed or repeated in **`docs/phase-8-todo.md`** after cutover.
 
 ## References
 
 - `docs/grand-plan.md` (Phase 7 deliverables and acceptance checks)
+- `docs/phase-8-todo.md` (deployment and post-live **`www`** verification)
 - `docs/Andetag SEO Manual.md` (schema types, descriptions, Berlin protocol)
 - `docs/content-model.md` (frontmatter `ogImage`, shared `seo` contract)
 - `docs/tracking-and-consent-requirements.md`, `docs/kpi-measurement-map.md`

@@ -162,8 +162,6 @@ Phase 4 is complete only when all items marked `P4` are done and approved:
 - Change control: any URL behavior deviation is logged in `docs/migration-exceptions.md`.
 - Decision logging: platform-specific routing or redirect engine choices that affect portability belong in `docs/decisions/` when not already covered by ADR 0001.
 
-## Immediate Next 3 Actions
+## Immediate next actions (historical)
 
-1. Start Phase 5 Swedish Stockholm page migration using `docs/phase-3-component-usage.md`, `site/src/lib/routes/page-shell-registry.ts`, and approved component contracts.
-2. On `/en/stockholm/` (and any shell), replace head and body with source-backed migrated content; **EX-0007** follow-up remains until that page is migrated.
-3. Keep localization paused until Swedish Phase 5 completion per `docs/grand-plan.md`.
+Phase 4 is **closed** (2026-03-23). Phases **5** and **6** subsequently **closed** (2026-03-24 and 2026-04-04). For **current** execution, use **`docs/grand-plan.md`** (**Practical next steps**), **`docs/phase-7-todo.md`**, and **`docs/phase-8-todo.md`**.

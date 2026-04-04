@@ -195,8 +195,6 @@ Phase 3 is complete only when all items marked `P3` are done and approved:
 - Design consistency rule: component styling remains shared across `sv`, `en`, and `de`, language can change content, route targets, and shown elements only unless an approved exception exists.
 - Asset integrity rule: first-party assets remain local to `site/`, no absolute old-site internal asset URLs are allowed.
 
-## Immediate Next 3 Actions
+## Immediate next actions (historical)
 
-1. Phase 4 is closed (2026-03-23); continue from `docs/grand-plan.md` Practical Next Steps and `docs/phase-4-todo.md` carry-forward.
-2. Use `docs/phase-3-component-usage.md` and fixtures when wiring migrated pages in Phase 5.
-3. Track showcase performance follow-up under **EX-0006** for Phase 7 embed and script gating work.
+Phase 3 is **closed** (2026-03-22). For **current** execution, use **`docs/grand-plan.md`** (**Practical next steps**), **`docs/phase-7-todo.md`**, and **`docs/phase-8-todo.md`**. Showcase performance follow-up remains **EX-0006** for Phase 7 (**`docs/migration-exceptions.md`**).

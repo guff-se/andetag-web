@@ -143,6 +143,18 @@ Site shell uses **stable** ids (not WordPress Elementor post ids). Source of tru
 
 **Old WordPress ids (retired as contracts):** `header-192`, `header-918`, `header-4344`, `header-2223`, `header-3305`, `header-4287`, `footer-207`, `footer-3100`, `footer-4229`.
 
+### Site workspace: shells, bodies, and entry (as implemented)
+
+These counts match **`site/`** at Phase 6 closure; re-verify after large routing or registry edits.
+
+| Artifact | Role | Current scale |
+|----------|------|----------------|
+| **`site/src/data/page-shell-meta.json`** | Title or description source for shells (from **`site/scripts/extract-page-shell-meta.mjs`**) | **61** paths under **`pages`** |
+| **`site/src/lib/routes/page-shell-registry.ts`** | Shell layout, hreflang, **`seoCanonicalPath`** (Berlin English stories) | Aligned with matrix shells |
+| **`site/src/lib/page-registry/page-body-registry.ts`** **`PAGE_CUSTOM_BODY_PATHS`** | Routes with a dedicated page body component | **60** paths (**`/en/`** hub is **not** in the set) |
+| **`site/src/pages/[...slug].astro`** | Renders each shell and maps custom bodies | Single catch-all |
+| **`site/src/pages/index.astro`** | **`301`** → **`/sv/stockholm/`** for **local** static preview; production **`/`** uses **`site/workers/entry-router.ts`** | |
+
 ## 3) Component Prop Contracts
 
 ### `HeroSection`

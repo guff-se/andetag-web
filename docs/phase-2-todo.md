@@ -187,11 +187,9 @@ Phase 2 is complete only when all items marked `P2` are done and approved:
 - Use local asset and local font pipelines early, visual parity and typography tuning are faster after external dependencies are removed.
 - During active parity work, optional dedicated preview routes under `site/src/pages/` can shorten review cycles; **remove them when the owning phase closes** (see `AGENTS.md`, phase closure cleanup). Prefer matrix shell pages or documented fixtures for regression after sign-off.
 
-## Immediate Next 3 Actions
+## Immediate next actions (historical)
 
-1. Start Phase 3 component library work and produce `P3-01` layout QA checklist template.
-2. Build `P3-02` nav/footer structured fixture set for regression testing.
-3. Keep localization paused until Swedish content completion in Phase 5, then begin Phase 6 localization rollout.
+Phase 2 is **closed** (2026-03-22). For **current** execution, use **`docs/grand-plan.md`** (**Practical next steps**), **`docs/phase-7-todo.md`**, and **`docs/phase-8-todo.md`**. The sequencing rule above (Swedish through Phase 5 before localization) was satisfied; Phase 6 closed **2026-04-04**.
 
 ## Phase Closure Forward Audit Record
 

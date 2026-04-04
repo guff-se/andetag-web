@@ -9,6 +9,17 @@ Purpose: preserve SEO value and inbound links while rebuilding `andetag.museum` 
   - `site-html/sitemap.xml`
   - page inventory docs in `docs/`
 
+## Current routing architecture (authoritative)
+
+This is how the rebuilt site is **intended** to behave in **staging** and **production** (see **`site/wrangler.jsonc`**, **`site/workers/entry-router.ts`**, **`site/public/_redirects`**, **`docs/url-matrix.csv`**, and **`site/src/lib/routes/page-shell-registry.ts`**).
+
+- **Build output:** Astro produces static **`dist/`** (HTML, assets). No WordPress runtime.
+- **Edge:** **Cloudflare Workers** with **static assets** binding: **`run_worker_first`** is **`true`**, so the Worker runs before the asset handler on matching routes.
+- **Entry routes:** **`/`** and exact **`/en/`** are handled by the **Worker** ( **`302`** / **`301`**, **`Accept-Language`**, **`andetag_entry`** cookie refresh, **verified-bot** branch to **`/en/stockholm/`**). Policy contract: **Entry routing** (below). Do **not** serve **`/`** with a static **`_redirects`** rule that would **bypass** the Worker.
+- **Legacy HTML paths:** **`301`** (single hop where possible) via **`site/public/_redirects`** and matrix rules, to **canonical** location-prefixed URLs (**`/sv/stockholm/...`**, **`/en/stockholm/...`**, **`/en/berlin/...`**, **`/de/berlin/...`**) per **Language and Destination** and **Location-scoped story URLs** (below).
+- **Canonical HTML URLs** and **hreflang** come from the **page shell registry** and generated meta; **Berlin English story** URLs may use HTML **`rel="canonical"`** to **Stockholm English** for the same topic (**`EX-0016`**, registry).
+- **Verification:** **`docs/phase-4-redirect-tests.md`** table **A** (static redirects) and **B** (entry router); from **`site/`**, **`npm run verify:staging-entry`** against staging or production base URL.
+
 ## Canonical URL Rules
 
 - Canonical domain is `https://www.andetag.museum`.
@@ -185,13 +196,35 @@ Policy notes:
 - Berlin temporary prelaunch/waitlist content and live content should use the same stable destination URLs.
 - Replace content in place when business stage changes, avoid URL changes unless unavoidable.
 
-## Sitemap and Canonicalization Requirements
+## Sitemap, canonicalization, and inbound links
 
-- XML sitemap must list canonical URLs only.
-- Redirecting aliases must not be included in sitemap.
-- Every indexable page must have:
-  - self-referencing canonical tag
-  - hreflang tags where language equivalents exist
+**Stakeholder intent:** Preserve **inbound links** and **ranking signals** during and after migration. **URLs and redirects** stay conservative: every legacy URL that mattered must be a **`keep`** row or a documented **`301`** in **`docs/url-matrix.csv`** and **`site/public/_redirects`** (plus entry behavior). **Metadata and on-page SEO** may **improve** over time after launch (including AI-assisted content work); that must **not** silently drop routes or break asset URLs.
+
+### Per-page requirements (unchanged)
+
+- Every **indexable** HTML URL must have a **self-referencing** canonical tag and **hreflang** (and equivalents) where language alternates exist, per registry and **`docs/Andetag SEO Manual.md`**.
+
+### XML sitemap (Phase 7, maintainer-owned)
+
+**P7-13** implementation must follow these rules (normative for the **published** sitemap at **`https://www.andetag.museum`**, not for raw **`spider.py`** ingestion noise):
+
+1. **Include** only **canonical, indexable HTML** URLs: same conceptual set as **`keep`** indexable rows in **`docs/url-matrix.csv`** plus the shell registry (the implementation must build from one coherent source so nothing indexable is omitted by accident).
+2. **Exclude**:
+   - **`redirect`** / alias-only URLs (they are not canonical; crawlers follow **`301`** from inbound links).
+   - **`noindex`** pages, preview tools, and non-public routes.
+   - **Non-HTML** resources (PDFs, images, video files, feeds, **`xml`**, **`json`**). They are **not** listed as page URLs in the HTML sitemap.
+   - **Query-string variants** as separate sitemap entries: canonical URLs are **path-only**; **`utm_*`** and similar continue to work on requests but do not multiply sitemap rows (**Query Parameter Policy** above).
+3. **Pagination or filters:** if the static site ever exposes them, list only the **canonical** page URL unless a deliberate exception is logged in **`docs/migration-exceptions.md`**.
+4. **Entry URLs:** include **`/sv/stockholm/`**, hubs, and inner pages per matrix **`keep`** rules; **`/`** and **`/en/`** are **routing** URLs ( **`302`** / hub **`200`** per policy). The sitemap should reflect **policy** and **`docs/Andetag SEO Manual.md`** (for example whether the hub is indexable); align with Gustaf before **`www`** if ambiguous.
+5. **Media and deep links:** keep **stable** **`/wp-content/uploads/...`** (or agreed) paths in **`site/public/`** so bookmarks and external embeds keep working. If a media path must change, add a **`301`** and a matrix or exception note; do **not** leave old URLs **404** without approval.
+
+**Regression:** after sitemap ships, spot-check **legacy URLs** from Search Console or backlinks (sample) still **301** or **`200`** as expected, and that high-value paths appear once in the sitemap as **canonical**.
+
+## Sitemap and Canonicalization Requirements (summary)
+
+- XML sitemap lists **canonical** HTML URLs only.
+- Redirecting aliases are **not** in the sitemap; they remain valid **301** targets for inbound links.
+- Detailed rules: **XML sitemap (Phase 7, maintainer-owned)** above.
 
 ## Implementation Requirements
 

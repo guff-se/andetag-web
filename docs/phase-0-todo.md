@@ -138,11 +138,9 @@ Phase 0 is complete only when all items marked `P0` are done and approved:
 - Change control: any scope change is added to `docs/migration-exceptions.md`.
 - Execution mode: one agent context per phase. Gustaf manually initializes each next phase after explicit completion approval.
 
-## Immediate Next 3 Actions
+## Immediate next actions (historical)
 
-1. Populate `docs/phase-1-analysis-schema.md` directly from `docs/existing-site-structure.md` and `docs/parser-plan.md`.
-2. Build initial URL matrix data using `docs/url-matrix-schema.md` and `site-html/sitemap.xml`.
-3. Record any unresolved migration decisions in `docs/migration-exceptions.md` and open ADRs in `docs/decisions/`.
+Phase 0 is **closed** (2026-03-22). Original kickoff work (Phase 1 schema, URL matrix seed, ADRs) is **done** (see **Phase 0 Completion Record** below). For **current** execution, use **`docs/grand-plan.md`** (**Practical next steps**), **`docs/phase-7-todo.md`**, and **`docs/phase-8-todo.md`**.
 
 ## Phase 0 Completion Record
 

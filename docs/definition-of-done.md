@@ -78,3 +78,12 @@ All phases must keep these baseline checks in scope:
 - Accessibility: consent experience and script-driven UI remain accessible, with no unresolved critical accessibility issues.
 - Visual parity: final cross-device QA has no unresolved high-priority defects.
 - Functional conversion path: analytics and attribution coverage is validated end-to-end for purchase funnel events.
+
+## Phase 8, Deployment and production cutover
+
+- **Pre-cutover:** Dev and staging (**`https://andetag-web.guff.workers.dev`**) pass full functional QA (routing, scripts, cookies, consent, embeds, forms). Must-keep URLs from the legacy live site behave per **`docs/url-matrix.csv`** and **`docs/url-migration-policy.md`**; exceptions are approved and logged.
+- **Locale copy:** Gustaf has explicitly approved **final user-visible text** for **`sv`**, **`en`**, and **`de`** on **staging** (**`docs/phase-8-todo.md`**, **P8-06**); optional external **`de`** review completed before that sign-off if used.
+- **Cutover:** **`https://www.andetag.museum`** serves this stack (entry Worker + static assets); runbook executed; rollback path understood.
+- **Post-cutover:** **`docs/phase-4-redirect-tests.md`** table **B** (and agreed matrix checks) pass on **`www`**; live spot-checks for SEO, sharing, and conversion paths match Phase 7 expectations on the canonical host.
+- **Sign-off:** Gustaf approval recorded in **`docs/phase-8-verification-record.md`**.
+- **Post-cutover operations:** Routine changes ship via **PRs** with preview URLs; **merge to `main`** updates **`www`** (**`docs/phase-8-todo.md`**, **P8-25**).

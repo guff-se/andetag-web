@@ -2,7 +2,7 @@
 
 Purpose: manual or automated checks for **(A)** repo-owned path redirects in **`site/public/_redirects`** and **(B)** **`/`** and **`/en/`** entry routing in the Cloudflare Worker (**`site/workers/entry-router.ts`**, **`site/wrangler.jsonc`**).
 
-Environment: run **(A)** against any deploy that serves **`dist/_redirects`**. Run **(B)** when the Worker + static assets are deployed (**`site/wrangler.jsonc`**, **`run_worker_first`** **`true`**): use **`npx wrangler dev`** after **`npm run build`**, or the **staging** host **`https://andetag-web.guff.workers.dev`** (auto-deploy on push to **`main`**). **`https://www.andetag.museum`** remains the **legacy** live site until cutover; repeat table **B** on **`www`** only after production traffic points at this Worker. Local **`astro preview`** does not run the Worker or evaluate **`_redirects`**.
+Environment: run **(A)** against any deploy that serves **`dist/_redirects`**. Run **(B)** when the Worker + static assets are deployed (**`site/wrangler.jsonc`**, **`run_worker_first`** **`true`**): use **`npx wrangler dev`** after **`npm run build`**, or the **staging** host **`https://andetag-web.guff.workers.dev`** (auto-deploy on push to **`main`**). **`https://www.andetag.museum`** remains the **legacy** live site until **Phase 8** cutover (**`docs/phase-8-todo.md`**); repeat table **B** on **`www`** only after production traffic points at this Worker. Local **`astro preview`** does not run the Worker or evaluate **`_redirects`**.
 
 ## A) Static `_redirects` cases
 

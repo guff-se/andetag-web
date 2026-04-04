@@ -110,11 +110,9 @@ Phase 1 is complete only when all items marked `P1` are done and approved:
 - Change control: any source parity deviation is logged in `docs/migration-exceptions.md`.
 - Decision logging: architecture and platform decisions are captured as ADRs in `docs/decisions/`.
 
-## Immediate Next 3 Actions
+## Immediate next actions (historical)
 
-1. Start Phase 2 layout architecture using Astro project conventions and Cloudflare deployment constraints.
-2. Implement CookieYes consent category mapping and GTM Consent Mode v2 behavior in staging.
-3. Define first-wave Stockholm Swedish migration order in the Phase 2 execution checklist.
+Phase 1 is **closed** (2026-03-22). CookieYes and GTM consent work are **Phase 7** scope (**`docs/phase-7-todo.md`**). For **current** execution, use **`docs/grand-plan.md`** (**Practical next steps**), **`docs/phase-7-todo.md`**, and **`docs/phase-8-todo.md`**.
 
 ## Phase Closure Forward Audit Record
 

@@ -24,7 +24,7 @@ Purpose: rebuild `https://andetag.museum` as a lightweight static site with pres
 
 ### Business Context
 
-- ANDETAG is an immersive museum with current operations in Stockholm and Berlin opening in fall.
+- ANDETAG is an immersive museum with current operations in Stockholm and **Berlin opening in fall 2026**.
 - Ticket sales are the core business model, with regular admission representing 80 to 90 percent of revenue.
 - Events (Art Yoga now, Breathwork later) are recurring and use the same external ticketing platform.
 - Private and corporate event requests route to email (lead flow, not direct checkout).
@@ -166,11 +166,11 @@ Acceptance checks:
 - Route coverage report showing 100% mapping of known URLs.
 - Redirect test list validated.
 
-**Phase 4 follow-up (entry routing, `/sv/`, parity):** Original Phase 4 delivered static shells and repo redirects against the matrix at closure. The expanded model in `docs/url-migration-policy.md` ( **`andetag_entry`**, **`/`** and **`/en/`** edge routing, **`Accept-Language`**, verified bots to **`/en/stockholm/`**) and Berlin or Stockholm parity is **scheduled below** so it does not block Phase 5 start on Swedish pages.
+**Phase 4 follow-up (entry routing, `/sv/`, parity):** **As of 2026-04**, the expanded model is **implemented** in **`site/workers/`**, **`site/public/_redirects`**, **`docs/url-matrix.csv`**, and **`page-shell-registry`**. Live contracts: **`docs/url-migration-policy.md`** (**Current routing architecture** and **Entry routing**), **`site/workers/entry-router.ts`**, and **`docs/phase-4-redirect-tests.md`**.
 
-### Entry routing and URL expansion schedule (decided)
+### Entry routing and URL expansion schedule (historical delivery map)
 
-Source: `docs/phase-4-routing-reopen.md` and `docs/url-migration-policy.md`. This table is the implementation authority for *when* relative to phased delivery.
+Source: `docs/phase-4-routing-reopen.md` and `docs/url-migration-policy.md`. This table recorded **when** work landed relative to phased delivery; use it for audit context. For **current** behavior, read **`docs/url-migration-policy.md`** (**Current routing architecture**).
 
 | Deliverable | Phase | Rationale |
 |-------------|-------|-----------|
@@ -180,17 +180,17 @@ Source: `docs/phase-4-routing-reopen.md` and `docs/url-migration-policy.md`. Thi
 | **Berlin parity**: new routes and migrated **English Berlin** pages needed for launch | **Phase 5, mid** (continue as needed) | Parity is content plus routing; prioritize after core Swedish Stockholm migration wave is underway, unless business gates launch on Berlin sooner. |
 | **Berlin parity**: **German** Berlin pages and locale QA | **Phase 6** | Matches existing rule: non-Swedish locale rollout after Swedish Phase 5 completion; English Berlin can precede or overlap per launch plan. |
 | **Cloudflare Worker** (or equivalent edge) implementing **`/`**, **`/en/`**, cookie **set or read**, **`Accept-Language`** parsing, **verified-bot** branch | **In repo 2026-04-04** (**`site/workers/`**, **`wrangler deploy`**) | Staging or preview verification: **`docs/phase-4-redirect-tests.md`** table **B**. Static **200** targets were satisfied before enable (Phase 6 English or Berlin bodies closed). |
-| **Production enable** of entry Worker (if staged earlier) | **Phase 5 exit or Phase 6 open** | Prefer enabling when hub, **`/sv/stockholm/`**, and **`/en/stockholm/`** are content-approved and critical Berlin **`/en/berlin/`** paths exist; exact gate is Gustaf sign-off on entry UX smoke test. |
+| **Production enable** of entry Worker on **`www.andetag.museum`** (DNS or custom domain to this stack) | **Phase 8** | Staging verification (**`P5-06`** on **`andetag-web.guff.workers.dev`**) precedes cutover; **`www`** table **B** and Gustaf sign-off are **`docs/phase-8-todo.md`**. |
 | **CookieYes** listing for **`andetag_entry`** as **`necessary`** (essential or functional) | **Phase 7** | Aligns with consent platform go-live and audit checklist; cookie may already be set by the Worker in Phase 5 or 6. |
 | **Sitemap and `robots.txt`** including new canonical entry URLs | **Phase 7** | Sitemap is already a Phase 7 deliverable; ensure **`/sv/stockholm/`**, hub, and parity URLs appear only as canonical **keep** rows. |
 | **`docs/Andetag SEO Manual.md`** and hreflang or **`x-default`** examples for new entry behavior | **Shipped in repo 2026-04-04** (sections 12, 14, **`/`** and **`/en/`** live behavior table); **Phase 7** final audit remains | Examples match **`docs/url-migration-policy.md`** and **`site/workers/entry-router.ts`**. |
 
-**Dependency rule:** the **Worker implementation** (**`site/workers/entry-router.ts`**, **`site/wrangler.jsonc`**) is in-repo **2026-04-04**. **`P5-06`:** run table **B** on **staging** **`https://andetag-web.guff.workers.dev`** (auto-deploy on **`main`**); when **`https://www.andetag.museum`** is switched from the legacy site to this stack, run table **B** again on **`www`** and log sign-off. Minimum static **200** targets for **`/en/stockholm/`**, **`/en/`**, **`/en/berlin/`**, **`/sv/stockholm/`**, **`/de/berlin/`** are met in **`site/`** builds (Phase 6 closure).
+**Dependency rule:** the **Worker implementation** (**`site/workers/entry-router.ts`**, **`site/wrangler.jsonc`**) is in-repo **2026-04-04**. **`P5-06` staging:** run table **B** on **`https://andetag-web.guff.workers.dev`** (auto-deploy on **`main`**). **`P5-06` production** and **`www`** cutover: **`docs/phase-8-todo.md`**. Minimum static **200** targets for **`/en/stockholm/`**, **`/en/`**, **`/en/berlin/`**, **`/sv/stockholm/`**, **`/de/berlin/`** are met in **`site/`** builds (Phase 6 closure).
 
 ### Phase 5, Page Migration and Iterative Approval
 
 Goal: migrate page content in controlled batches with design review feedback loops.
-Status: **complete (Swedish migration milestone, 2026-03-24)**. Evidence: `docs/phase-5-verification-record.md`. **Scope:** at closure, all **`/sv/...`** shells in `page-shell-meta.json` carried migrated, design-approved bodies (**23** paths). **Later (Phase 6, 2026-03-28):** Swedish story and privacy canonicals moved under **`/sv/stockholm/...`** with **`301`** from legacy URLs; privacy gained a migrated body on four locale or location shells (see **`docs/url-matrix.csv`**). English and German localization completed per **`docs/phase-6-todo.md`**. **Carry-forward closed in repo (2026-04-04):** Cloudflare **Worker** entry routing source (**`P5-05`**); verify on **staging** **`https://andetag-web.guff.workers.dev`** (**`P5-06`** table **B**); **`P5-07`** SEO manual **`/`** and **`/en/`** alignment. **`P5-04`** (Berlin English bodies) superseded by Phase 6 Wave 2. **`P5-06`** **production** pass: deferred until **`www`** serves this Worker (legacy site remains on **`www`** until cutover).
+Status: **complete (Swedish migration milestone, 2026-03-24)**. Evidence: `docs/phase-5-verification-record.md`. **Scope:** at closure, all **`/sv/...`** shells in `page-shell-meta.json` carried migrated, design-approved bodies (**23** paths). **Later (Phase 6, 2026-03-28):** Swedish story and privacy canonicals moved under **`/sv/stockholm/...`** with **`301`** from legacy URLs; privacy gained a migrated body on four locale or location shells (see **`docs/url-matrix.csv`**). English and German localization completed per **`docs/phase-6-todo.md`**. **Carry-forward closed in repo (2026-04-04):** Cloudflare **Worker** entry routing source (**`P5-05`**); verify on **staging** **`https://andetag-web.guff.workers.dev`** (**`P5-06`** table **B**); **`P5-07`** SEO manual **`/`** and **`/en/`** alignment. **`P5-04`** (Berlin English bodies) superseded by Phase 6 Wave 2. **`P5-06`** **production** pass and **`www`** enable: **`docs/phase-8-todo.md`** (legacy site may remain on **`www`** until Phase 8 cutover).
 Execution checklist: `docs/phase-5-todo.md` (historical; closure recorded there).
 
 Carry-forward: complete **static routes and real pages** required by the **Entry routing and URL expansion schedule** (above) before or in parallel with the first migration wave, so entry **`302`** targets never 404.
@@ -215,7 +215,7 @@ Acceptance checks:
 
 ### Phase 6, Localization Rollout (After Swedish Completion)
 
-**Status (2026-04-04):** **P6-00** through **P6-06** **closed** (Gustaf sign-off on **P6-00**–**P6-03** packages; **P6-04**–**P6-06** maintainer closure: metadata, documented exceptions, records). Evidence: **`docs/phase-6-verification-record.md`**. **P6-00:** Swedish **`sv` / Stockholm** chrome package (stable ids, **`resolveChromeNavigationHref`**, selectors, hero destination row). **P6-01:** English Stockholm + location-scoped story URLs and privacy (**54** custom body paths in **`PAGE_CUSTOM_BODY_PATHS`** at P6-01 closure; **`/en/`** hub is a header-selector shell and is not in that set). **P6-02:** English Berlin chrome and **`/en/berlin/...`** bodies (**55** paths in **`PAGE_CUSTOM_BODY_PATHS`** at P6-02 closure). **P6-03:** German Berlin chrome and **`/de/berlin/...`** bodies (**60** paths in **`PAGE_CUSTOM_BODY_PATHS`** at P6-03 closure). **Routing alignment:** **`docs/routing-location-scoped-global-pages-plan.md`** **implemented** **2026-03-28** (matrix **61** shells, single-hop legacy **`301`**, Berlin English story **`seoCanonicalPath`**, **`en-brand`** removed). **P6-04**–**P6-06:** Baseline Open Graph and Twitter card tags in **`SiteLayout.astro`** ( **`og:url`** matches canonical; default **`og:image`** from Stockholm hero still); hreflang regression tests; **`docs/Andetag SEO Manual.md`** §5 Open Graph notes; **`EX-0016`** Berlin English story canonical consolidation in **`docs/migration-exceptions.md`**. **Next:** Phase 7 launch hardening (`docs/phase-7-todo.md`). See **`docs/phase-6-todo.md`**.
+**Status (2026-04-04):** **P6-00** through **P6-06** **closed** (Gustaf sign-off on **P6-00**–**P6-03** packages; **P6-04**–**P6-06** maintainer closure: metadata, documented exceptions, records). Evidence: **`docs/phase-6-verification-record.md`**. **P6-00:** Swedish **`sv` / Stockholm** chrome package (stable ids, **`resolveChromeNavigationHref`**, selectors, hero destination row). **P6-01:** English Stockholm + location-scoped story URLs and privacy (**54** custom body paths in **`PAGE_CUSTOM_BODY_PATHS`** at P6-01 closure; **`/en/`** hub is a header-selector shell and is not in that set). **P6-02:** English Berlin chrome and **`/en/berlin/...`** bodies (**55** paths in **`PAGE_CUSTOM_BODY_PATHS`** at P6-02 closure). **P6-03:** German Berlin chrome and **`/de/berlin/...`** bodies (**60** paths in **`PAGE_CUSTOM_BODY_PATHS`** at P6-03 closure). **Routing alignment:** **`docs/routing-location-scoped-global-pages-plan.md`** **implemented** **2026-03-28** (matrix **61** shells, single-hop legacy **`301`**, Berlin English story **`seoCanonicalPath`**, **`en-brand`** removed). **P6-04**–**P6-06:** Baseline Open Graph and Twitter card tags in **`SiteLayout.astro`** ( **`og:url`** matches canonical; default **`og:image`** from Stockholm hero still); hreflang regression tests; **`docs/Andetag SEO Manual.md`** §5 Open Graph notes; **`EX-0016`** Berlin English story canonical consolidation in **`docs/migration-exceptions.md`**. **Next:** Phase 7 launch hardening (`docs/phase-7-todo.md`), then Phase 8 deployment (`docs/phase-8-todo.md`). See **`docs/phase-6-todo.md`**.
 
 Goal: localize approved Swedish structures and content into planned non-Swedish locales after Phase 5 sign-off.
 
@@ -256,6 +256,27 @@ Acceptance checks:
 
 Task-level checklist: `docs/phase-7-todo.md`.
 
+### Phase 8, Deployment and production cutover
+
+Goal: verify the rebuilt site end-to-end on **dev** and **staging**, obtain **final locale copy approval** on staging, then cut over **`https://www.andetag.museum`** from the legacy host to this stack (**`andetag-web.guff.workers.dev`** equivalent in production), and re-verify everything on **live** **`www`**. After cutover, adopt **pull-request** releases with **per-PR preview URLs** (see deliverables).
+
+Deliverables:
+
+- **Pre-cutover:** Full QA on local dev and on **`https://andetag-web.guff.workers.dev`**: routing, scripts, cookies, consent, embeds, forms, and locale behavior. **URL parity:** every must-keep path from the legacy live site (per **`docs/url-matrix.csv`** and agreed inventory) resolves on dev and staging as expected (**200** or policy **301**). Any exception is recorded in **`docs/migration-exceptions.md`** and **confirmed with Gustaf**.
+- **Locale copy gate (staging):** Gustaf explicitly approves **final user-visible text** for **`sv`**, **`en`**, and **`de`** on staging before the stack is treated as **ready for `www`**. Optional: external reviewer for **`de`** before Gustaf signs German. Log evidence in **`docs/phase-8-verification-record.md`** (see **`docs/phase-8-todo.md`**, **P8-06**).
+- **Cutover:** DNS or Cloudflare configuration so **`www`** (and apex per policy) serves the Workers deployment with the entry Worker and static assets; documented runbook and rollback. **Promotion rule until cutover:** pushes to **`main`** redeploy **staging**; Gustaf approves **staging → production** when the maintainer reports Phase 7 + Phase 8 pre-cutover gates are met.
+- **Post-cutover:** Repeat automated and manual checks on **`https://www.andetag.museum`**, including **`docs/phase-4-redirect-tests.md`** table **B** (closes **`P5-06`** production), redirect matrix checks, live GTM or consent validation, and SEO or sharing spot-checks as in **`docs/phase-7-todo.md`** where they require the canonical host.
+- **Post-cutover release discipline:** Stop using **direct pushes to `main`** for day-to-day changes. Ship via **pull requests**; each PR gets a **Cloudflare preview URL** for review; **merging** the PR updates **`www`** (or the agreed production branch). Capture the exact wiring in the cutover runbook (**`docs/phase-8-todo.md`**, **P8-25**).
+
+Acceptance checks:
+
+- Staging entry verification (**`npm run verify:staging-entry`**) passes before cutover; production table **B** passes on **`www`** after cutover, logged in **`docs/phase-4-redirect-tests.md`** or the Phase 8 verification record.
+- **P8-06** complete: Gustaf has signed off **all three** locales on staging (and external **`de`** review if used).
+- No unapproved URL or behavior gaps vs the legacy site scope agreed for launch.
+- Gustaf sign-off on **`docs/phase-8-verification-record.md`**.
+
+Task-level checklist: `docs/phase-8-todo.md`.
+
 ## Cross-Cutting Best Practices
 
 - Keep content, routes, and component configuration in versioned source files, not in hidden CMS state.
@@ -283,9 +304,10 @@ Task-level checklist: `docs/phase-7-todo.md`.
 
 ### Platform and Delivery
 
-- Stack and hosting were decided after Phase 1 analysis and accepted in `docs/decisions/0001-static-stack-selection.md` (Astro + Cloudflare Pages).
-- Post-launch content operations are pull-request based, with one staging instance per PR for verification before merge.
-- Rollout order is fixed: Swedish Stockholm production first, then Phase 6 localization rollout, then final launch hardening.
+- Stack and hosting were decided after Phase 1 analysis and accepted in **`docs/decisions/0001-static-stack-selection.md`** (Astro + Cloudflare; **Workers + static assets** from **`site/`** for staging and production entry routing, see ADR operational notes and **`AGENTS.md`**).
+- **Until `www` cutover:** pushes to **`main`** redeploy **staging** (**`andetag-web.guff.workers.dev`**); Gustaf approves **staging → production** when the maintainer confirms readiness.
+- **After `www` cutover:** content and code changes ship via **pull requests** only; each PR gets a **Cloudflare preview URL**; merging to **`main`** updates **`www`** (document exact project settings in the Phase 8 runbook, **`docs/phase-8-todo.md`** **P8-25**).
+- Rollout order is fixed: Swedish Stockholm production first, then Phase 6 localization rollout, then Phase 7 launch hardening (scripts, consent, sitemap, schema), then Phase 8 cutover of **`www.andetag.museum`** to this stack.
 
 ### SEO and URL Policy
 
@@ -293,6 +315,8 @@ Task-level checklist: `docs/phase-7-todo.md`.
 - Trailing slash policy: use trailing slashes on canonical URLs for content pages (for example `/en/stockholm/faq/`), keep a single canonical form, and 301-redirect non-canonical variants.
 - Canonical policy: each indexable page points to its own canonical production URL, with hreflang links for `sv`, `en`, and `de` equivalents where available.
 - IA policy for future expansion: support both destination and language variants without changing published URL contracts.
+- **Post-migration SEO:** deliberate **improvements** to titles, structured data, and body copy are **in scope** after launch, including **AI-assisted** workflows in-repo. **URLs, redirects, and inbound media paths** stay **conservative** so external links and rankings are not broken; substantive URL moves need matrix updates, **`301`s**, and **`docs/migration-exceptions.md`** when needed.
+- **XML sitemap:** maintainer implements **`P7-13`** per **`docs/url-migration-policy.md`** (**Sitemap, canonicalization, and inbound links**): canonical HTML only, matrix-aligned, **no orphaning** of legacy entry points.
 
 ### Integrations and Compliance
 
@@ -308,47 +332,53 @@ Task-level checklist: `docs/phase-7-todo.md`.
 - Conversion UX should prioritize fast path to standard ticket booking and event ticket booking.
 - Component selection policy: evaluate patterns across all pages and keep only reusable components needed for the unified UI system.
 
-## Remaining Inputs Needed
+## Remaining inputs (open decisions)
 
-### Platform and Delivery
+These items are **still open** for governance nuance. **SEO evolution** (allow improvements, AI-assisted work) and **sitemap / inbound-link rules** are **resolved** in **Decisions captured** and **`docs/url-migration-policy.md`**. **Staging vs production promotion** and **post-`www` PR workflow** are decided in **Phase 8** (see **`docs/phase-8-todo.md`**). Items that Phase 1 or later already decided stay in **Resolved inputs** below for audit trail only.
 
-- Final static stack selection after Phase 1: resolved to Astro (see `docs/decisions/0001-static-stack-selection.md`).
-- Hosting/deployment target after Phase 1: resolved to Cloudflare Pages (see `docs/decisions/0001-static-stack-selection.md`).
-- Required environments (dev/stage/prod) and who approves promotions.
+### Platform and delivery
 
-### SEO and URL Policy
-
-- Which existing SEO tooling/output must be replicated exactly versus improved.
-- Sitemap ingestion policy details: how to treat query-string URLs, parameterized pages, and non-HTML endpoints.
+- **Resolved for this migration:** **dev** (local), **staging** (auto-deploy on **`main`** to **`andetag-web.guff.workers.dev`**), **production** (**`www`** after cutover). Gustaf approves promoting staging to **`www`** when the maintainer reports Phase 7 + Phase 8 pre-cutover checks and **P8-06** locale copy sign-off are met.
+- **Hosting note (Workers + static assets):** The site is still a **static `dist`** from Astro. The Worker runs **first** only for routes that need **entry logic** (**`/`**, **`/en/`**, cookie refresh, **`Accept-Language`**, verified bots). Static HTML, assets, and most paths are served from the **same deployment’s asset handler** at the edge, similar to Pages. On Cloudflare’s **free** tier, **Workers** includes a **daily request allowance** (see [Workers limits](https://developers.cloudflare.com/workers/platform/limits/) and [Workers pricing](https://workers.cloudflare.com/pricing)); a typical museum marketing site usually stays within it, but **monitor the dashboard** after launch. **Speed:** the entry Worker adds **small** CPU time per request it handles; static files behave like other edge-cached assets. **Maintenance:** you maintain **`site/workers/`**, **`wrangler.jsonc`**, and deploy commands (**`AGENTS.md`**); slightly more moving parts than **Pages-only**, but required for correct **`/`** and **`/en/`** behavior with **`andetag_entry`**.
 
 ### Design and UX
 
-- Priority pages for first migration wave.
 - Responsive baseline follows current source behavior with two layout buckets, desktop/tablet and mobile, with mobile-first QA support in iOS Safari and Chrome (iOS), plus desktop Chrome and Safari.
-- Destination and language selector UX pattern is resolved to separate controls for future multi-city rollout.
+- Destination and language selector UX is implemented as separate controls; any future multi-city expansion still needs product confirmation when new destinations ship.
 
-### Integrations and Compliance
+### Integrations and compliance
 
-- Consent/legal requirements by market.
-- Access to analytics/tag containers and verification process.
-- Preferred cookie platform replacement: resolved to CookieYes (see `docs/decisions/0002-consent-platform-selection.md`).
+- Consent and legal requirements by market (operational detail for Phase 7 go-live).
+- Access to analytics and tag containers and the verification process owners expect.
 
-### Content Operations
+### Content operations
 
 - Content ownership and review model (who signs off content and translations).
 - Translation policy for future updates (manual, agent-assisted, external reviewer).
 - Operational workflow for recurring event schedule updates (frequency, reviewer, and publish SLA).
 
-## Practical Next Steps
+## Resolved inputs (historical)
 
-1. Execute Phase 5 Swedish Stockholm page migration: define first-wave page order, then migrate and approve per page using `docs/phase-3-component-usage.md` and shells from `site/src/lib/routes/page-shell-registry.ts`.
-2. Address **EX-0007** when `/en/stockholm/` is migrated with correct English hub metadata (or earlier if live WordPress fixes Yoast output).
-3. Keep localization work paused until Swedish Phase 5 completion, then start Phase 6 localization rollout.
-4. Validate CookieYes and GTM consent behavior in staging ahead of Phase 7 launch hardening.
-5. Track showcase performance follow-up under **EX-0006** when consent-gated and lazy embed loading lands in Phase 7.
+- **Static stack:** Astro (ADR **`docs/decisions/0001-static-stack-selection.md`**).
+- **Hosting and edge delivery:** Cloudflare with static build output from **`site/`**; staging and production use **Workers + static assets** and the entry router described in **`AGENTS.md`** ( **`site/wrangler.jsonc`**, **`site/workers/entry-router.ts`** ). ADR 0001 operational notes align with this deploy path.
+- **Cookie and consent platform:** CookieYes replacing Complianz (**`docs/decisions/0002-consent-platform-selection.md`**).
+- **Swedish migration wave order and closure:** Phase 5 milestone 2026-03-24; evidence **`docs/phase-5-verification-record.md`**.
+- **Localization sequencing:** Phases 5 then 6; Phase 6 closed 2026-04-04 (**`docs/phase-6-verification-record.md`**).
+- **IA for language plus destination:** Decisions in **`docs/phase-4-routing-reopen.md`**, **`docs/phase-6-todo.md`**, and **`docs/url-migration-policy.md`**.
+- **SEO after migration:** Gustaf **allows ongoing improvement** (metadata, structured data, copy) and **AI-assisted** site work; no long-term lock to legacy Yoast parity. **URL and redirect discipline** remains strict (**`docs/url-migration-policy.md`**, matrix, **`migration-exceptions.md`**) to protect inbound links and rankings.
+- **Published XML sitemap:** rules and inbound-link safeguards are **maintainer-owned** in **`docs/url-migration-policy.md`** (**Sitemap, canonicalization, and inbound links**); **`P7-13`** implements them.
 
-Phase 3 closure (2026-03-22): component library, showcase, usage docs, and verification record are complete; see `docs/phase-3-todo.md` and `docs/phase-3-verification-record.md`.
+## Practical next steps (current)
 
-Phase 4 closure (2026-03-23): routing, shells, redirects, hreflang, 404, and CI are complete; stakeholder sign-off recorded in `docs/phase-4-verification-record.md` and `docs/phase-4-todo.md`. Artifacts: `docs/phase-4-redirect-tests.md`, `docs/phase-4-route-coverage.md`, `docs/phase-4-404.md`. CI runs `npm test` and `npm run build` in `site/` on `main`.
+As of **2026-04-04**, Phases **0 through 6** are closed. Default execution focus:
 
-Follow-up (routing): Phase 4 remains **closed**. `docs/phase-4-routing-reopen.md` tracks location versus language, Berlin and Stockholm page parity, and global (non-destination) pages. **Implementation timing** is fixed in the **Entry routing and URL expansion schedule** under Phase 4 in this document (Phase 5 through 7).
+1. **Phase 7:** Run **`docs/phase-7-todo.md`**: GTM, CookieYes, category gating, favicon and sharing metadata, JSON-LD, sitemap and **`robots.txt`**, final SEO pass, sign-off.
+2. **Phase 8:** Complete **`docs/phase-8-todo.md`**, including **P8-06** (Gustaf signs off **`sv`**, **`en`**, and **`de`** copy on **staging**). When Phase 7 items that must ship before **`www`** are complete or explicitly waived (**§P8-05**), cut over **`https://www.andetag.museum`**, run production table **B** (**`P5-06`** production), and close **`docs/phase-8-verification-record.md`**.
+3. **Routing hygiene:** Before changing **`docs/url-matrix.csv`**, **`site/public/_redirects`**, registry, or **`site/workers/`**, read **`docs/phase-4-routing-reopen.md`** and **`docs/url-migration-policy.md`**; after entry changes, run **`npm run verify:staging-entry`** from **`site/`** (see **`docs/phase-4-redirect-tests.md`**).
+4. **Carry-forward:** Lazy or consent-gated embed work may revisit showcase performance **EX-0006** in Phase 7 (**`docs/migration-exceptions.md`**). **German** external reviewer (if used) feeds **P8-06** before Gustaf approves **`de`** for production.
+
+### Phase closure references (historical)
+
+- **Phase 3** (2026-03-22): **`docs/phase-3-todo.md`**, **`docs/phase-3-verification-record.md`**.
+- **Phase 4** (2026-03-23): **`docs/phase-4-verification-record.md`**, **`docs/phase-4-todo.md`**, **`docs/phase-4-redirect-tests.md`**, **`docs/phase-4-route-coverage.md`**, **`docs/phase-4-404.md`**. CI runs **`npm test`** and **`npm run build`** in **`site/`** on **`main`**.
+- **Routing follow-up:** Phase 4 stays **closed**; location, language, and parity nuance live in **`docs/phase-4-routing-reopen.md`**. **Implementation timing** for entry URLs is in **Entry routing and URL expansion schedule** under Phase 4 above (through Phase 8 for production **`www`**).

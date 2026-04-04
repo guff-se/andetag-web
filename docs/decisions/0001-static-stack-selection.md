@@ -16,9 +16,10 @@ Phase 1 requires a selected static framework and hosting target before Phase 2 c
 ## Decision
 
 - Framework: Astro
-- Hosting: Cloudflare Pages
+- Hosting: Cloudflare, with static site build output from **`site/`** (**`npm run build`** → **`dist`**)
+- Edge delivery: **Workers + static assets** from **`site/wrangler.jsonc`** for staging and production so **`/`** and **`/en/`** entry routing is correct (not Pages-only **`_redirects`** for those paths)
 
-Decision accepted by Gustaf on 2026-03-22 after reviewing current route hierarchy, navigation complexity, media weight profile, and expected traffic envelope.
+The original choice was framed as **Cloudflare Pages**; operational reality matches **Workers with assets binding** (see **Operational notes**). Decision accepted by Gustaf on 2026-03-22 after reviewing current route hierarchy, navigation complexity, media weight profile, and expected traffic envelope.
 
 ## Options considered
 
@@ -62,7 +63,7 @@ Decision accepted by Gustaf on 2026-03-22 after reviewing current route hierarch
 ### Operational notes
 - Rollout implications: set up `dev`, `staging`, and `prod` environments with consistent redirect behavior.
 - Validation/check requirements: verify redirect policy, canonical emission, and hreflang output before Phase 4 completion.
-- Cloudflare Pages: use root `site`, build `npm run build`, output `dist`, and an empty deploy command unless you intentionally deploy via Workers (then use `site/wrangler.jsonc` and `wrangler deploy` from `site/`).
+- **Deploy path (authoritative today):** build from repo root **`site/`** with **`npm run build`**, output **`dist`**. **Staging and production** use **Cloudflare Workers with static assets** per **`site/wrangler.jsonc`**: **`wrangler deploy`** from **`site/`**, **`main`** **`site/workers/entry-router.ts`**, **`assets.directory`** **`./dist`**, **`run_worker_first`** **`true`** so **`/`** and **`/en/`** entry routing runs before the asset handler (see **`AGENTS.md`**, Cloudflare). A Cloudflare **Pages**-style project may still be configured with root **`site`**, build **`npm run build`**, output **`dist`**; entry behavior on **`www`** depends on this Worker + assets setup, not on static **`_redirects`** alone for **`/`**.
 
 ## SEO and migration impact
 
@@ -73,5 +74,5 @@ Decision accepted by Gustaf on 2026-03-22 after reviewing current route hierarch
 ## Follow-up actions
 
 - [x] Gustaf approves framework and hosting choice.
-- [ ] Create environment and redirect configuration plan in implementation docs.
-- [ ] Add stack-specific CI checks once framework repo structure is initialized.
+- [x] Create environment and redirect configuration plan in implementation docs (**`docs/url-migration-policy.md`**, **`docs/phase-4-redirect-tests.md`**, **`site/public/_redirects`**, **`site/workers/`**).
+- [x] Add stack-specific CI checks (**`.github/workflows/ci.yml`**, **`npm test`** and **`npm run build`** in **`site/`**).

@@ -18,7 +18,6 @@
     "verify:staging-entry": "node scripts/verify-staging-entry-routing.mjs"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^12.6.13",
     "astro": "^5.18.1",
     "glightbox": "^3.3.1",
     "jquery": "^4.0.0"

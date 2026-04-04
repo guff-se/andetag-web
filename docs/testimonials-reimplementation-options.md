@@ -1,6 +1,6 @@
 # Customer testimonials and social proof: research and options
 
-**Status:** Option A in production for Swedish Stockholm home and SEO landings: **`testimonial-block`** paints one **`backgroundImage`** behind quotes **and** aggregate, with one light overlay across the **entire** band. The aggregate uses self-hosted Tripadvisor **`tripadvisor-5dots.png`** and **`tripadvisor-logo.svg`** under **`/assets/tripadvisor/`** (see **`TestimonialCarousel`**). Internal **fictional** layout preview (same carousel client as production): **`/preview/testimonial-mock-quotes/`** (`testimonial-mockup-items.ts`).  
+**Status:** Option A in production for Swedish Stockholm home and SEO landings: **`testimonial-block`** paints one **`backgroundImage`** behind quotes **and** aggregate, with one light overlay across the **entire** band. The aggregate uses self-hosted Tripadvisor **`tripadvisor-5dots.png`** and **`tripadvisor-logo.svg`** under **`/assets/tripadvisor/`** (see **`TestimonialCarousel`**). The former internal **`/preview/testimonial-mock-quotes/`** route was removed before go-live; use **`TestimonialCarousel`** on real pages or fixtures for QA.  
 **Date:** 2026-03-24 (updated 2026-03-24)  
 **Objective:** Rethink how ANDETAG presents visitor feedback to support trust and conversion, using strong real reviews (including a ~4.9 average) without clashing with brand tone or migration constraints.
 
