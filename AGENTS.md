@@ -75,13 +75,13 @@ Reference docs before implementation:
 | `docs/phase-4-todo.md` | Execution checklist for Phase 4 routing, redirects, canonical or hreflang wiring, and URL coverage validation. |
 | `docs/phase-5-todo.md` | Historical Phase 5 execution checklist; **status complete** (2026-03-24, Swedish `/sv/` migration). Carry-forward items **`P5-05`–`P5-07`** in **`docs/phase-6-todo.md`**. |
 | `docs/phase-5-verification-record.md` | Phase 5 evidence, per-page design approvals, P5-01 static target note, Lighthouse summary, **EX-0014**, stakeholder sign-off (**closed** 2026-03-24). |
-| `docs/phase-6-todo.md` | Localization (**`en`**, **`de`**) and Phase 5 carry-forward. Start with **Current position and what is next** for wave status (**P6-04**–**P6-06** next; **P6-00**–**P6-03** closed **2026-04-04**). |
+| `docs/phase-6-todo.md` | Localization (**`en`**, **`de`**) and Phase 5 carry-forward. **P6-00**–**P6-06** closed **2026-04-04**; Worker and SEO manual live-entry rows remain in the carry-forward table. |
 | `docs/phase-6-verification-record.md` | Phase 6 evidence and Gustaf sign-off per slice (**P6-00** chrome package, later waves). |
 | `docs/phase-7-todo.md` | Execution checklist for Phase 7 scripts, consent, analytics, favicon, sharing metadata, schema.org, sitemap, and launch hardening. |
 | `docs/phase-4-route-coverage.md` | URL matrix to Astro shell and `_redirects` mapping for Phase 4 route coverage. |
 | `docs/phase-4-routing-reopen.md` | Post-closure routing revisit: location and language matrix, Berlin or Stockholm parity, global pages and navigation. |
 | `docs/routing-location-scoped-global-pages-plan.md` | Execution plan: move story or global pages under location-prefixed routes, redirects, canonical, chrome, and docs (when approved). |
-| `docs/phase-4-redirect-tests.md` | Redirect test table and execution log for Cloudflare Pages `public/_redirects`. |
+| `docs/phase-4-redirect-tests.md` | Redirect tests: static **`public/_redirects`** and Worker entry router (**`/`**, **`/en/`**); execution log. |
 | `docs/phase-4-404.md` | Phase 4 global `404` behavior and accessibility notes. |
 | `docs/phase-4-verification-record.md` | Phase 4 verification evidence and stakeholder sign-off (parallel to Phase 3 record). |
 | `docs/phase-3-component-qa-checklist.md` | Reusable QA checklist template for Phase 3 component verification and showcase sign-off. |
@@ -267,8 +267,9 @@ Astro workspace (`site/`): `npm test` and `npm run build` (also run on `push` to
 
 ### Cloudflare (Astro `site/`)
 
-- **Pages (recommended):** Project root directory `site`, build command `npm run build`, build output directory `dist`, and **leave the deploy command empty** so Pages publishes `dist` after the build.
-- **Workers static assets:** If the pipeline runs `npx wrangler deploy`, run it with working directory `site` so `wrangler.jsonc` applies. That file points `assets.directory` at `./dist` (Astro static output, includes `public/_redirects` and `public/_headers`). **`_headers`** sets `Cache-Control` (and optional `X-Robots-Tag` on `*.workers.dev`) per [Workers static asset headers](https://developers.cloudflare.com/workers/static-assets/headers/); without it, the default is `max-age=0, must-revalidate` on every file.
+- **Pages (recommended):** Project root directory `site`, build command `npm run build`, build output directory `dist`. For **entry routing** at **`/`** and **`/en/`**, use **Workers + static assets** (below), not Pages-only static **`_redirects`** for **`/`** (that would skip the Worker).
+- **Workers static assets + entry router:** `site/wrangler.jsonc` sets **`main`** to **`workers/entry-router.ts`**, **`assets.directory`** to **`./dist`**, **`assets.binding`** **`ASSETS`**, and **`run_worker_first`** **`true`** so the Worker can refresh **`andetag_entry`** on lane **`200`** responses. Deploy from **`site/`**: **`npm run worker:deploy`**. Local check: **`npm run worker:dev`**. Policy: **`docs/url-migration-policy.md`**; tests: **`docs/phase-4-redirect-tests.md`** table **B**.
+- **`_headers`** (in **`public/`**) sets `Cache-Control` (and optional `X-Robots-Tag` on `*.workers.dev`) per [Workers static asset headers](https://developers.cloudflare.com/workers/static-assets/headers/); without it, the default is `max-age=0, must-revalidate` on every file.
 
 ---
 

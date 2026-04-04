@@ -2,7 +2,10 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "andetag-web",
   "compatibility_date": "2026-03-01",
+  "main": "workers/entry-router.ts",
   "assets": {
-    "directory": "./dist"
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "run_worker_first": true
   }
 }

@@ -1,10 +1,10 @@
 # Phase 4 Redirect Test List
 
-Purpose: manual or automated checks for repo-owned path redirects (`site/public/_redirects`, deployed with static assets on Cloudflare Workers).
+Purpose: manual or automated checks for **(A)** repo-owned path redirects in **`site/public/_redirects`** and **(B)** **`/`** and **`/en/`** entry routing in the Cloudflare Worker (**`site/workers/entry-router.ts`**, **`site/wrangler.jsonc`**).
 
-Environment: run against Cloudflare preview or production after deploy, or use `wrangler pages dev` if configured. Local `astro preview` does not evaluate `_redirects`; use a Pages-like static server that applies the same rules if testing locally.
+Environment: run **(A)** against any deploy that serves **`dist/_redirects`**. Run **(B)** only when the Worker is deployed with **`assets.run_worker_first`** for **`/`** and **`/en/`** (see **`npx wrangler dev`** or production **`wrangler deploy`** after **`npm run build`**). Local **`astro preview`** does not run the Worker or evaluate **`_redirects`**.
 
-## Required cases
+## A) Static `_redirects` cases
 
 | # | Request path | Expected status | Expected location (path) | Query preservation |
 |---|----------------|-----------------|---------------------------|--------------------|
@@ -14,13 +14,29 @@ Environment: run against Cloudflare preview or production after deploy, or use `
 | 4 | `/en/stockholm/art-yoga-en/` | 301 | `/en/stockholm/art-yoga/` | yes |
 | 5 | `/privacy-policy/` | 301 | `/sv/stockholm/privacy/` | yes |
 | 5b | `/privacy/` | 301 | `/sv/stockholm/privacy/` | yes |
-| 6 | `/` | 301 | `/sv/stockholm/` | yes |
-| 7 | `/?utm_source=test` | 301 | `/sv/stockholm/?utm_source=test` | yes |
 | 8 | `/stockholm/biljetter/` | 301 | `/sv/stockholm/biljetter/` | yes |
 | 9 | `/musik/` | 301 | `/sv/stockholm/musik/` | yes |
 | 10 | `/optisk-fibertextil/` | 301 | `/sv/stockholm/optisk-fibertextil/` | yes |
 | 11 | `/en/music/` | 301 | `/en/stockholm/music/` | yes |
 | 12 | `/sv/musik/` | 301 | `/sv/stockholm/musik/` | yes |
+
+## B) Entry router (Worker) cases
+
+Normative rules: **`docs/url-migration-policy.md`**. Use **`curl -sI`**; send **`User-Agent`** as noted.
+
+| # | Request | Headers / notes | Expected status | Expected `Location` (path + query) |
+|---|---------|-----------------|-----------------|-------------------------------------|
+| E1 | `/` | `User-Agent: Googlebot` | 302 | `/en/stockholm/` |
+| E2 | `/` | Human UA, no `Cookie`, no `Accept-Language` | 302 | `/en/` |
+| E3 | `/` | Human UA, `Accept-Language: sv` | 302 | `/sv/stockholm/`; response includes **`Set-Cookie: andetag_entry=v1:sv`** |
+| E4 | `/` | Human UA, `Accept-Language: de` | 302 | `/de/berlin/`; **`Set-Cookie: andetag_entry=v1:de`** |
+| E5 | `/` | Human UA, `Accept-Language: fr` | 302 | `/en/` |
+| E6 | `/` | `Cookie: andetag_entry=v1:en-b` | 302 | `/en/berlin/` |
+| E7 | `/?utm_source=test` | Same as E2 | 302 | `/en/?utm_source=test` |
+| E8 | `/en` | Human UA | 301 | `/en/` |
+| E9 | `/en/` | `User-Agent: Googlebot` | 302 | `/en/stockholm/` |
+| E10 | `/en/` | Human UA, `Cookie: andetag_entry=v1:en-s` | 302 | `/en/stockholm/` |
+| E11 | `/en/` | Human UA, no routing cookie | 200 | (static English hub HTML) |
 
 ## Execution log
 
@@ -60,14 +76,12 @@ HTTP/2 301
 location: /privacy/?utm_source=test
 ```
 
-### Evidence: cases 6–12 (repo rules, 2026-03-28)
+### Evidence: static cases 8–12 (repo rules, 2026-03-28)
 
 Rules in `site/public/_redirects` (copied to `site/dist/_redirects` on build):
 
 | Case | Rule (source → target) |
 |------|-------------------------|
-| 6 | `/` → `/sv/stockholm/` `301` |
-| 7 | (same rule; query preserved by platform when supported) |
 | 8 | `/stockholm/*` → `/sv/stockholm/:splat` `301` |
 | 9 | `/musik/` → `/sv/stockholm/musik/` `301` |
 | 10 | `/optisk-fibertextil/` → `/sv/stockholm/optisk-fibertextil/` `301` |
@@ -75,11 +89,13 @@ Rules in `site/public/_redirects` (copied to `site/dist/_redirects` on build):
 | 11 | `/en/music/` → `/en/stockholm/music/` `301` |
 | 12 | `/sv/musik/` → `/sv/stockholm/musik/` `301` |
 
+**Note:** Entry routing for **`/`** is **not** in `_redirects` (comment in `site/public/_redirects`). **`/`** is handled by **`site/workers/entry-router.ts`**.
+
 Related rules in the same file: legacy English global story paths (`/en/about-andetag/`, …), flat German story paths (`/de/ueber-andetag/`, …), unprefixed Swedish (`/om-andetag/`, …). Full list: **`docs/url-matrix.csv`** **`redirect`** rows.
 
 Note: `location` is path-only (relative). Clients resolve it against the request host, which matches Cloudflare static asset redirect behavior.
 
-When re-running, use:
+When re-running **static** rules, use:
 
 ```bash
 BASE="https://andetag-web.guff.workers.dev"
@@ -90,11 +106,11 @@ curl -sI "$BASE/en/stockholm/art-yoga-en/"
 curl -sI "$BASE/privacy-policy/"
 curl -sI "$BASE/privacy-policy/?utm_source=test"
 curl -sI "$BASE/privacy/"
-curl -sI "$BASE/"
-curl -sI "$BASE/?utm_source=test"
 curl -sI "$BASE/stockholm/biljetter/"
 curl -sI "$BASE/musik/"
 curl -sI "$BASE/optisk-fibertextil/"
 curl -sI "$BASE/en/music/"
 curl -sI "$BASE/sv/musik/"
 ```
+
+**Entry router (after Worker deploy):** from `site/` after `npm run build`, run `npx wrangler dev` and probe **`/`** and **`/en/`** with **`curl -sI -A "Googlebot"`** and a normal browser UA (see table **B**).

@@ -2,11 +2,11 @@
 
 Purpose: evidence and stakeholder sign-off for Phase 6 slices per **`docs/phase-6-todo.md`** and **`docs/definition-of-done.md`** Phase 6.
 
-**Where we are:** **P6-00**–**P6-03** signed off. **P6-03** (**Wave 3**, German Berlin): **`/de/berlin/`** home (**`BerlinHomeDe.astro`**), **`hero-de-berlin.ts`**, subpages on **`chrome-hdr-de-berlin-small`**, **`WaitlistFormEmbed`** **`de`**, **`stockholmTestimonialAggregateDe`**, **`/de/berlin/privacy/`**, and **four** German story bodies (**`UeberAndetagDe`**, **`MusikVonAndetagDe`**, **`OptischeFasertextilDe`**, **`DieKuenstlerDe`**). **`PAGE_CUSTOM_BODY_PATHS` = 60**. Legacy flat **`/de/...`** story URLs **`301`** in **`public/_redirects`**. **Next:** **P6-04**–**P6-06**.
+**Where we are:** **P6-00**–**P6-06** closed (**2026-04-04**). **P6-03** (**Wave 3**, German Berlin): **`/de/berlin/`** home (**`BerlinHomeDe.astro`**), **`hero-de-berlin.ts`**, subpages on **`chrome-hdr-de-berlin-small`**, **`WaitlistFormEmbed`** **`de`**, **`stockholmTestimonialAggregateDe`**, **`/de/berlin/privacy/`**, and **four** German story bodies (**`UeberAndetagDe`**, **`MusikVonAndetagDe`**, **`OptischeFasertextilDe`**, **`DieKuenstlerDe`**). **`PAGE_CUSTOM_BODY_PATHS` = 60**. Legacy flat **`/de/...`** story URLs **`301`** in **`public/_redirects`**. **P6-04**–**P6-06:** see §P6-04–§P6-06 below.
 
 **P6-02** recap: **`/en/berlin/`** (**`BerlinHomeEn.astro`**), **`hero-en-berlin.ts`**, **`footer-en-berlin.ts`** / **`footer-de-berlin.ts`**, **`FooterSocialLinks`**, Brevo waitlist, LCP preload on Berlin hero, After Hours JPEG **`site/public/wp-content/uploads/2025/04/`**. **Resume context:** **2026-03-28** routing slice: matrix **61** shells, legacy **`301`**, **`en-brand`** removed.
 
-Status: **open** (**P6-00**–**P6-03** closed; **P6-04**–**P6-06** pending).
+Status: **closed** (Phase 6 localization waves and wrap-up tasks complete; **German** external language review remains **pre-launch** per **`docs/phase-6-todo.md`**).
 
 ## P6-00 · Swedish chrome package (`sv` / Stockholm)
 
@@ -57,6 +57,22 @@ Status: **open** (**P6-00**–**P6-03** closed; **P6-04**–**P6-06** pending).
 
 **Package sign-off (chrome + bodies):** **Yes** (2026-04-04, Gustaf).
 
-## Next
+**German external review:** **Approved** to run **once**, late **pre-launch** (Phase 7), per stakeholder (Gustaf, 2026-04-04). Not blocking shipped **`de`** routes in repo.
 
-1. **Maintainer:** **P6-04**–**P6-06** (metadata and SEO manual alignment, localization exceptions, Phase 6 wrap-up in grand plan and changelog).
+## P6-04 · Locale metadata, hreflang, Open Graph baseline
+
+**Scope:** **`SiteLayout.astro`** emits **`og:title`**, **`og:description`** (when shell has description), **`og:url`** (matches **`link rel="canonical"`** via **`createPageLayoutModel`**), **`og:type`**, **`og:site_name`**, **`og:locale`**, **`og:locale:alternate`**, **`og:image`** (absolute URL for Stockholm hero still **`HERO_SV_ASSETS.poster`**), **`twitter:card`** **`summary_large_image`** plus title, description, image. Helpers in **`site/src/lib/chrome/seo.ts`** (**`languageToOgLocale`**, **`ogLocaleAlternates`**, **`defaultOgImageAbsoluteUrl`**). **`docs/Andetag SEO Manual.md`** section 5 documents the baseline. **`docs/content-model.md`** `seo` contract notes emitted tags.
+
+**Hreflang regression:** **`page-shell-registry.test.ts`** asserts self-referencing hreflang per shell language and **no cross-location** hreflang (Stockholm versus Berlin).
+
+**Technical verification:** **`npm test`** and **`npm run build`** in **`site/`** green at closure.
+
+## P6-05 · Localization exceptions
+
+**Scope:** **`EX-0016`** in **`docs/migration-exceptions.md`** records Berlin English story URLs (**`<link rel="canonical">`** and **`og:url`** → Stockholm English per topic) with hreflang and user-visible URL behavior.
+
+## P6-06 · Phase 6 wrap-up
+
+**Scope:** This record (**§P6-04**–**§P6-06**), **`docs/phase-6-todo.md`** checklist, **`docs/grand-plan.md`** Phase 6 status, **`CHANGELOG.md`**, **`AGENTS.md`** documentation table.
+
+**Next (project):** **`docs/phase-7-todo.md`** (scripts, consent, analytics, sitemap, schema.org, launch hardening). **Carry-forward:** Worker source and SEO manual entry alignment shipped **2026-04-04**; **`P5-06`** production smoke test (**`docs/phase-4-redirect-tests.md`** table **B**) after deploy to **`www`**.

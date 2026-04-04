@@ -12,7 +12,9 @@
     "astro": "astro",
     "test": "vitest run",
     "fonts:sync": "node scripts/sync-fonts.mjs",
-    "page-shell:meta": "node scripts/extract-page-shell-meta.mjs"
+    "page-shell:meta": "node scripts/extract-page-shell-meta.mjs",
+    "worker:dev": "npm run build && wrangler dev",
+    "worker:deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.6.13",
@@ -21,6 +23,7 @@
     "jquery": "^4.0.0"
   },
   "devDependencies": {
-    "vitest": "^4.1.0"
+    "vitest": "^4.1.0",
+    "wrangler": "^4.80.0"
   }
 }

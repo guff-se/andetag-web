@@ -2,6 +2,12 @@
 import SiteFooter from "../components/chrome/SiteFooter.astro";
 import SiteHeader from "../components/chrome/SiteHeader.astro";
 import { createPageLayoutModel } from "../lib/chrome/page-layout";
+import {
+  OG_SITE_NAME,
+  defaultOgImageAbsoluteUrl,
+  languageToOgLocale,
+  ogLocaleAlternates,
+} from "../lib/chrome/seo";
 import type {
   Destination,
   FooterVariantId,
@@ -47,6 +53,10 @@ const model = createPageLayoutModel({
   hreflang: props.hreflang,
   xDefaultPath: props.xDefaultPath ?? null,
 });
+
+const ogImageUrl = defaultOgImageAbsoluteUrl();
+const ogPrimaryLocale = languageToOgLocale(props.language);
+const ogAlternateLocales = ogLocaleAlternates(props.language, props.hreflang);
 ---
 
 <!doctype html>
@@ -82,6 +92,30 @@ const model = createPageLayoutModel({
         <link rel="alternate" hreflang={link.hreflang} href={link.href} />
       ))
     }
+    <meta property="og:title" content={props.title} />
+    {
+      props.description ? (
+        <meta property="og:description" content={props.description} />
+      ) : null
+    }
+    <meta property="og:url" content={model.canonicalUrl} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={OG_SITE_NAME} />
+    <meta property="og:locale" content={ogPrimaryLocale} />
+    {
+      ogAlternateLocales.map((locale) => (
+        <meta property="og:locale:alternate" content={locale} />
+      ))
+    }
+    <meta property="og:image" content={ogImageUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={props.title} />
+    {
+      props.description ? (
+        <meta name="twitter:description" content={props.description} />
+      ) : null
+    }
+    <meta name="twitter:image" content={ogImageUrl} />
   </head>
   <body
     class={`${props.bodyClass ?? ""}${props.headerSelectorOnly ? " page-en-selector-only" : ""}`.trim()}

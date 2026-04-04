@@ -33,4 +33,5 @@
 /privacy/ /sv/stockholm/privacy/ 301
 
 /stockholm/* /sv/stockholm/:splat 301
-/ /sv/stockholm/ 301
+# `/` entry routing: Cloudflare Worker (`site/workers/entry-router.ts`), not static `_redirects`.
+# Local `astro preview` still serves `index.html` (meta refresh to `/sv/stockholm/`).

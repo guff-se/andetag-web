@@ -209,4 +209,4 @@ Policy notes:
 
 ## Policy Status
 
-Phase 0 baseline rules above remain in force. **Entry routing** (this document) extends the policy for Worker-backed behavior; implement redirects and matrix rows when `/sv/stockholm/` and edge routing ship.
+Phase 0 baseline rules above remain in force. **Entry routing** (this document) is implemented for **`/`** and **`/en/`** in **`site/workers/entry-router.ts`** with **`site/wrangler.jsonc`** (**`assets.run_worker_first`**). Static **`site/public/_redirects`** must **not** define **`/`** → Swedish home (that would bypass the Worker).

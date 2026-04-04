@@ -219,6 +219,13 @@ Rules:
 * No cross-location hreflang
 * Canonicals must be per-language page, not cross-language
 
+Open Graph baseline (static shells, `site/src/layouts/SiteLayout.astro`, Phase 6):
+
+* `og:url` matches `<link rel="canonical">` (absolute `https://www.andetag.museum` URL).
+* `og:title` and `og:description` use the same strings as `<title>` and `<meta name="description">` from `page-shell-meta.json` per shell.
+* `og:locale` uses underscore form: `sv_SE`, `en_US`, `de_DE`. Emit `og:locale:alternate` only for locales that have a non-null hreflang sibling URL on that shell.
+* Default `og:image` (and Twitter `summary_large_image`) uses the self-hosted Stockholm hero still frame (`HERO_SV_ASSETS.poster` in code). Per-page `og:image` overrides and card QA remain Phase 7 (`docs/grand-plan.md` Phase 7).
+
 ---
 
 ## 6. Schema Strategy (ENTITY FIRST)
@@ -273,7 +280,7 @@ Accessibility:
 * Physical access
 * Sensory considerations
 * Seating and rest
-* NPF pages (**`/sv/stockholm/npf-stockholm/`**, **`/en/stockholm/neurodivergent-friendly-stockholm/`**) expand pre-visit information for neurodivergent visitors
+* NPF pages (**`/sv/stockholm/npf-stockholm/`**, **`/en/stockholm/npf-visitors/`**) expand pre-visit information for neurodivergent visitors
 
 ---
 
@@ -345,32 +352,33 @@ Phase 2 (opening):
 
 For each page, the keyword line lists conceptual coverage, not terms to stuff.
 
-### 12.1 Global pages (all locations)
+### 12.1 English hub and location-scoped story topics
 
-English root (Stockholm landing)
+English hub (city chooser; static `200` for humans when edge routing applies)
 
-* EN: /en/
-* Keywords: **breathing museum** (primary: must appear in title and meta description), breathing art museum, Andetag Stockholm, breathing light art
+* EN: **`/en/`**
+* Keywords: **breathing museum** (primary: must appear in title and meta description where this hub is indexed), breathing art museum, Andetag Stockholm, Berlin, breathing light art
+* Entry: humans hitting **`/`** with no `sv` or `de` match in **`Accept-Language`** receive **`302`** to **`/en/`** (see section 14). Verified crawlers on **`/`** or **`/en/`** receive **`302`** to **`/en/stockholm/`** so the indexed English default is the full Stockholm home, not the hub.
 
-About Andetag
+About Andetag (canonical shells; legacy global URLs **`301`** to Stockholm English where applicable)
 
-* SV: /sv/om-andetag/
-* EN: /en/about-andetag/
-* DE: /de/ueber-andetag/
+* SV: **`/sv/stockholm/om-andetag/`**
+* EN: **`/en/stockholm/about-andetag/`** (Berlin English duplicate: **`/en/berlin/about-andetag/`** with HTML canonical to Stockholm English)
+* DE: **`/de/berlin/ueber-andetag/`**
 * Keywords: Andetag project, breathing museum concept, breathing art, concept, art, stillness
 
 About the artists
 
-* SV: /sv/om-konstnarerna-malin-gustaf-tadaa/
-* EN: /en/about-the-artists-malin-gustaf-tadaa/
-* DE: /de/die-kuenstler-malin-gustaf-tadaa/
+* SV: **`/sv/stockholm/om-konstnarerna-malin-gustaf-tadaa/`**
+* EN: **`/en/stockholm/about-the-artists-malin-gustaf-tadaa/`** (Berlin English duplicate under **`/en/berlin/...`**, canonical to Stockholm English)
+* DE: **`/de/berlin/die-kuenstler-malin-gustaf-tadaa/`**
 * Keywords: artists, creators, practice, collaboration
 
 The music from Andetag
 
-* SV: /sv/musik/
-* EN: /en/music/
-* DE: /de/musik-von-andetag/
+* SV: **`/sv/stockholm/musik/`**
+* EN: **`/en/stockholm/music/`** (legacy **`/en/music/`** **`301`** here; Berlin English duplicate under **`/en/berlin/music/`**, canonical to Stockholm English)
+* DE: **`/de/berlin/musik-von-andetag/`**
 * Keywords: music, soundscape, composition, listening
 
 ### 12.2 Location hub pages (Stockholm)
@@ -416,7 +424,7 @@ Accessibility
 NPF / neurodivergent audience
 
 * SV: /sv/stockholm/npf-stockholm/
-* EN: /en/stockholm/neurodivergent-friendly-stockholm/
+* EN: /en/stockholm/npf-visitors/
 * Keywords: NPF-vänlig, neurodivergent-friendly, sensory-friendly museum, low stimulation, autism-friendly, lugn miljö, low demand, what to expect
 * Content: Pre-visit information for visitors with autism, ADHD or sensory sensitivities. Sensory profile, predictable rhythm, small groups, decompress. Links to accessibility page.
 
@@ -480,9 +488,9 @@ Visitor voices and reviews
 
 The textile behind the art
 
-* SV: /sv/optisk-fibertextil/
-* EN: /en/optical-fibre-textile/
-* DE: /de/optische-fasertextil/
+* SV: **`/sv/stockholm/optisk-fibertextil/`**
+* EN: **`/en/stockholm/optical-fibre-textile/`** (legacy **`/en/optical-fibre-textile/`** **`301`** here; Berlin English duplicate under **`/en/berlin/optical-fibre-textile/`**, canonical to Stockholm English)
+* DE: **`/de/berlin/optische-fasertextil/`**
 * Keywords: weaving, textile, optical fibre, fabric, breathing light art
 
 ### 12.3 Location hub pages (Berlin)
@@ -495,7 +503,7 @@ Location hub
 * EN: /en/berlin/
 * Keywords: Andetag Berlin, breathing museum Berlin, breathing light art Berlin
 
-Note: Berlin shares the global pages (About, Artists, Music, Textile) listed in section 12.1. German translations are linked from the Berlin menu; English versions are the same global English pages.
+Note: Berlin shares the same story topics (About, Artists, Music, Textile) under **`/de/berlin/...`** and **`/en/berlin/...`**. English Berlin URLs are real addresses for users; HTML **`rel="canonical"`** for those four English topics points at the matching **`/en/stockholm/...`** URL (see **`docs/migration-exceptions.md`** **EX-0016**).
 
 ---
 
@@ -516,16 +524,16 @@ Primary navigation (Stockholm, SV default):
 
   * Romantic date -> /sv/stockholm/dejt/
   * Art Yoga -> /sv/stockholm/art-yoga/
-  * Music -> /sv/musik/
+  * Music -> /sv/stockholm/musik/
 
 * Groups and companies -> /sv/stockholm/gruppbokning/
 
   * Company events -> /sv/stockholm/foretagsevent/
 
-* About -> /sv/om-andetag/
+* About -> /sv/stockholm/om-andetag/
 
-  * About the artists -> /sv/om-konstnarerna-malin-gustaf-tadaa/
-  * Press -> /sv/stockholm/press/
+  * About the artists -> /sv/stockholm/om-konstnarerna-malin-gustaf-tadaa/
+  * Press kit: linked from the Stockholm home body (external press kit); a dedicated **`/sv/stockholm/press/`** shell is not in the current static matrix (add when the page ships).
 
 * Gifts -> /sv/stockholm/presentkort/
 
@@ -549,12 +557,31 @@ Rules:
 
 ## 14. Root and entry behavior (LOCKED)
 
-Normative rules live in **`docs/url-migration-policy.md`** and **`docs/phase-4-routing-reopen.md`**.
+Normative rules live in **`docs/url-migration-policy.md`** and **`docs/phase-4-routing-reopen.md`**. **Implementation:** Cloudflare Worker + static assets (**`site/workers/entry-router.ts`**, **`site/wrangler.jsonc`**, **`assets.run_worker_first`** for **`/`**, **`/en`**, **`/en/`**).
 
 Summary:
 
-* **`/`** is an **entry router** at the edge (not the Swedish home document). Canonical Swedish home is **`/sv/stockholm/`**.
-* **`/en/`** is the **English hub** when the visitor is in the English lane without a committed Stockholm or Berlin preference.
-* Legacy Swedish paths without **`/sv/`** **`301`** to **`/sv/...`** per the URL matrix and **`site/public/_redirects`**.
+* **`/`** is an **entry router** at the edge (not the Swedish home document). Canonical Swedish home for indexation and hreflang is **`/sv/stockholm/`**.
+* **`/en/`** is the **English hub** (static **`200`**) when the visitor is in the English lane without a committed Stockholm or Berlin preference and is not treated as a verified crawler on entry URLs.
+* Legacy Swedish paths without **`/sv/`** **`301`** to **`/sv/stockholm/...`** per the URL matrix and **`site/public/_redirects`**.
+* **Static `_redirects` does not define `/` → Swedish home**; that hop would bypass the Worker. Local **`astro preview`** still serves **`/`** as a client redirect stub to **`/sv/stockholm/`** (development convenience only).
+
+### 14.1 Live entry responses (aligned with policy, `302` unless noted)
+
+| Request | Condition | Response |
+|---------|-----------|----------|
+| **`/`** | Verified bot (Cloudflare **`verifiedBot`** when available, else conservative **`User-Agent`**) | **`302`** → **`/en/stockholm/`**, no **`Set-Cookie`** |
+| **`/`** | Human, no **`andetag_entry`**, no usable **`Accept-Language`** | **`302`** → **`/en/`**, no cookie |
+| **`/`** | Human, no cookie, **`Accept-Language`** first match **`sv`** | **`302`** → **`/sv/stockholm/`**, **`Set-Cookie`** **`andetag_entry=v1:sv`** |
+| **`/`** | Human, no cookie, **`Accept-Language`** first match **`de`** | **`302`** → **`/de/berlin/`**, **`Set-Cookie`** **`andetag_entry=v1:de`** |
+| **`/`** | Human, no cookie, languages exhausted without **`sv`** or **`de`** | **`302`** → **`/en/`** |
+| **`/`** | Valid **`andetag_entry`** | **`302`** to mapped path (**`/sv/stockholm/`**, **`/de/berlin/`**, **`/en/stockholm/`**, **`/en/berlin/`**) |
+| **`/en`** | Any | **`301`** → **`/en/`** (query preserved) |
+| **`/en/`** | Verified bot | **`302`** → **`/en/stockholm/`** |
+| **`/en/`** | Cookie **`v1:en-s`** or **`v1:sv`** | **`302`** → **`/en/stockholm/`** |
+| **`/en/`** | Cookie **`v1:en-b`** or **`v1:de`** | **`302`** → **`/en/berlin/`** |
+| **`/en/`** | Human, no routing cookie | **Static hub `200`** |
+
+Cookie shape and refresh rules: **`docs/url-migration-policy.md`** (**`andetag_entry`**). The Worker also appends **`Set-Cookie`** on **`200`** responses under **`/sv/...`**, **`/de/berlin...`**, **`/en/stockholm/...`**, and **`/en/berlin/...`** to match **When to set or refresh** (not on **`/en/`** hub alone). Redirect tests: **`docs/phase-4-redirect-tests.md`**.
 
 When Berlin opens and campaigns split by market, align ad landing URLs with the canonical location hubs (**`/sv/stockholm/`**, **`/en/stockholm/`**, **`/de/berlin/`**, **`/en/berlin/`**) and update this manual if examples change.

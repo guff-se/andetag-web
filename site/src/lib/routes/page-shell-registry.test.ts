@@ -33,4 +33,31 @@ describe("page shell registry", () => {
     expect(shell.headerVariantId).toBe("chrome-hdr-de-berlin-small");
     expect(shell.footerVariantId).toBe("chrome-ftr-de-berlin");
   });
+
+  it("keeps self-referencing hreflang for each shell language", () => {
+    for (const path of PAGE_SHELL_PATHS) {
+      const shell = getPageShellRoute(path);
+      expect(shell.hreflang[shell.language]).toBe(shell.canonicalPath);
+    }
+  });
+
+  it("avoids cross-location hreflang (Stockholm vs Berlin)", () => {
+    for (const path of PAGE_SHELL_PATHS) {
+      const shell = getPageShellRoute(path);
+      if (path.startsWith("/sv/") || path.startsWith("/en/stockholm")) {
+        expect(shell.hreflang.de).toBeNull();
+        if (shell.hreflang.en) {
+          expect(shell.hreflang.en.startsWith("/en/stockholm")).toBe(true);
+        }
+      }
+      if (path === "/en/") {
+        expect(shell.hreflang.de).toBeNull();
+        expect(shell.hreflang.sv).toBe("/sv/stockholm/");
+        expect(shell.hreflang.en).toBe("/en/");
+      }
+      if (path.startsWith("/en/berlin") || path.startsWith("/de/berlin")) {
+        expect(shell.hreflang.sv).toBeNull();
+      }
+    }
+  });
 });

@@ -10,11 +10,12 @@ Purpose: ship a **new header and navigation model** (destination and language as
 | **P6-00** (`sv` / Stockholm chrome: stable ids, destination + language chrome, resolver) | **Closed**, Gustaf package sign-off. Evidence: **`docs/phase-6-verification-record.md`** §P6-00. |
 | **P6-01** (English Stockholm + location-scoped English story URLs) | **Closed** (2026-04-02), Gustaf package sign-off. Evidence: **`docs/phase-6-verification-record.md`** §P6-01. Same technical scope as before: **`PAGE_CUSTOM_BODY_PATHS`** **54** routes; story topics under **`/en/stockholm/{slug}/`**; **`/en/`** header-selector shell; routing per **`docs/routing-location-scoped-global-pages-plan.md`**. |
 | **P6-02** (`en` + Berlin chrome and **`/en/berlin/...`** bodies) | **Closed** (2026-04-04), Gustaf package sign-off. Evidence: **`docs/phase-6-verification-record.md`** §P6-02. **`PAGE_CUSTOM_BODY_PATHS`** **55** routes (adds **`/en/berlin/`** and Berlin English utility paths; story bodies reuse Stockholm English where wired). |
-| **P6-03** (`de` + Berlin chrome and **`/de/berlin/...`** bodies) | **Closed** (2026-04-04), Gustaf package sign-off. Evidence: **`docs/phase-6-verification-record.md`** §P6-03. **`PAGE_CUSTOM_BODY_PATHS`** **60**. Flat **`/de/...`** story **`301`** rules in **`site/public/_redirects`**. **Next:** **P6-04**–**P6-06**. |
+| **P6-03** (`de` + Berlin chrome and **`/de/berlin/...`** bodies) | **Closed** (2026-04-04), Gustaf package sign-off. Evidence: **`docs/phase-6-verification-record.md`** §P6-03. **`PAGE_CUSTOM_BODY_PATHS`** **60**. Flat **`/de/...`** story **`301`** rules in **`site/public/_redirects`**. |
+| **P6-04**–**P6-06** (metadata and SEO alignment, localization exceptions log, Phase 6 wrap-up) | **Closed** (2026-04-04), maintainer closure. Evidence: **`docs/phase-6-verification-record.md`** §P6-04–§P6-06. |
 
-**Your next actions (Gustaf):** When **P6-04**–**P6-06** work is ready, review metadata, exceptions, and Phase 6 closure notes per **`docs/phase-6-todo.md`** checklist. **Maintainer next actions:** Execute **P6-04** onward per the checklist below.
+**Your next actions (Gustaf):** After the next **`wrangler deploy`** to production, run **`docs/phase-4-redirect-tests.md`** table **B** (entry router) and append the execution log (**`P5-06`** sign-off). Optional: spot-check Open Graph on sample URLs. German copy external review remains **pre-launch** per **Language review** above (**approved** to run in Phase 7).
 
-**Parallel (not wave-blocked):** Carry-forward table (**Worker** staging/production, SEO manual live entry) remains required before production entry routing; see table later in this doc.
+**Carry-forward (repo, 2026-04-04):** Worker entry router and SEO manual entry sections are implemented. Production routing verification is the remaining **`P5-06`** gate.
 
 **Prerequisites:** Phase 5 **complete** (2026-03-24, Swedish `/sv/...` bodies). See **`docs/phase-5-verification-record.md`** and **`docs/grand-plan.md`** (Phase 5 status and **Entry routing and URL expansion schedule**).
 
@@ -71,12 +72,12 @@ Align changes with **`AGENTS.md`** (Routing and entry URLs). **Dependency rule**
 
 Not required to **start** Phase 6, but required before production entry routing and final SEO examples (see grand-plan **Entry routing and URL expansion schedule**):
 
-| Item | Source | Owner | Done when |
-|------|--------|-------|-----------|
-| **Worker staging** | **`P5-05`** | AI agent + Gustaf | Worker matches **`docs/url-migration-policy.md`** in staging; no redirect into missing shells for configured targets |
-| **Worker production** | **`P5-06`** | Gustaf | Entry UX smoke test signed off; production matches policy; gate aligns with grand plan (prefer enable when hub, **`/sv/stockholm/`**, and **`/en/stockholm/`** are content-approved and critical Berlin **`/en/berlin/`** paths exist unless explicitly deferred) |
-| **SEO manual live entry** | **`P5-07`** | Gustaf + AI agent | **`docs/Andetag SEO Manual.md`** examples match shipped **`/`** and **`/en/`** behavior after Worker, or gaps noted for Phase 7 |
-| **Berlin English bodies** | **`P5-04`** | Gustaf + AI agent | Superseded in intent by **Phase 6 Wave 2** below; close this row when **`/en/berlin/`** paths are **200** with agreed content for launch |
+| Item | Source | Owner | Status |
+|------|--------|-------|--------|
+| **Worker implementation** | **`P5-05`** | AI agent | **Done (2026-04-04):** **`site/workers/entry-router.ts`**, **`site/workers/entry-routing-logic.ts`**, Vitest, **`site/wrangler.jsonc`** (**`main`** + **`ASSETS`** + **`run_worker_first`**). **Verify:** table **B** in **`docs/phase-4-redirect-tests.md`** on staging or **`npx wrangler dev`** after **`npm run build`**. |
+| **Worker production smoke test** | **`P5-06`** | Gustaf | **Pending deploy:** after production **`wrangler deploy`**, run table **B** on **`https://www.andetag.museum`** and log result in **`docs/phase-4-redirect-tests.md`**. |
+| **SEO manual live entry** | **`P5-07`** | Gustaf + AI agent | **Done (2026-04-04):** **`docs/Andetag SEO Manual.md`** §12.1, §12.2 fixes, §13 menu paths, §14 and §14.1 (behavior table + Worker pointer). |
+| **Berlin English bodies** | **`P5-04`** | (superseded) | **Closed:** Phase 6 **P6-02**; **`/en/berlin/`** shells **200** in **`site/`**. |
 
 ## Phase 6 core (execution checklist)
 
@@ -86,13 +87,13 @@ Aligned with **`docs/grand-plan.md`** Phase 6 and the **Decided** section above.
 - [x] **P6-01** **Wave 1: English Stockholm + location-scoped story URLs:** **Complete (2026-04-02).** Gustaf package sign-off: **`docs/phase-6-verification-record.md`** §P6-01. In-scope English Stockholm bodies and **four** story topics under **`/en/stockholm/{slug}/`** use **`site/src/lib/page-registry/page-body-registry.ts`** (**`PAGE_CUSTOM_BODY_PATHS`**, **54** paths) and **`site/src/pages/[...slug].astro`**. **`/en/`** hub uses **`chrome-hdr-en-header-selector`** (no entry in **`PAGE_CUSTOM_BODY_PATHS`**). Swedish counterparts are under **`/sv/stockholm/...`**. **`/en/stockholm/`** **`StockholmHomeEn.astro`** and shell metadata close **EX-0007**. **`npm test`** and **`npm run build`** in **`site/`** green. **Next:** **P6-02**.
 - [x] **P6-02** **Wave 2: English Berlin:** **Complete (2026-04-04).** Gustaf package sign-off: **`docs/phase-6-verification-record.md`** §P6-02. **`en` + Berlin** hero, small header, footers (**`footer-en-berlin.ts`**, **`footer-de-berlin.ts`**) **and** **`/en/berlin/...`** bodies including **`BerlinHomeEn.astro`**, **`/en/berlin/privacy/`**, and story routes reusing Stockholm English bodies where wired (**`PAGE_CUSTOM_BODY_PATHS`**, **55** paths). **`npm test`** and **`npm run build`** in **`site/`** green. **Next:** **P6-03**.
 - [x] **P6-03** **Wave 3: German Berlin:** **Complete (2026-04-04).** Gustaf package sign-off: **`docs/phase-6-verification-record.md`** §P6-03. **`de` + Berlin** hero, small header, footer (**`footer-de-berlin.ts`**) **and** **`/de/berlin/...`** bodies (home, privacy, four German story components). Flat legacy **`/de/...`** story URLs **`301`** to **`/de/berlin/...`**. **`PAGE_CUSTOM_BODY_PATHS`**, **60** paths. **`npm test`** and **`npm run build`** in **`site/`** green. **German:** external language reviewer **once**, late **pre-launch** (per **Language review** above). **Next:** **P6-04**.
-- [ ] **P6-04** Locale **metadata** (title, description, canonical, Open Graph where in scope), **hreflang** integrity, and **`docs/Andetag SEO Manual.md`** alignment; **link integrity** and copy QA against **`docs/Tone of Voice.md`** (per wave as pages ship).
-- [ ] **P6-05** **Localization exceptions:** log approved market or parity divergences in **`docs/migration-exceptions.md`**.
-- [ ] **P6-06** Phase 6 **verification record**, **`docs/grand-plan.md`** Phase 6 status update, **`CHANGELOG.md`** entry.
+- [x] **P6-04** Locale **metadata** (title, description, canonical, Open Graph baseline in **`SiteLayout.astro`**), **hreflang** integrity (registry tests for self-reference and no cross-location siblings), and **`docs/Andetag SEO Manual.md`** §5 alignment. **Closed 2026-04-04.**
+- [x] **P6-05** **Localization exceptions:** **`EX-0016`** documents Berlin English story **canonical** consolidation to Stockholm English (**`docs/migration-exceptions.md`**). **Closed 2026-04-04.**
+- [x] **P6-06** Phase 6 **verification record**, **`docs/grand-plan.md`** Phase 6 status, **`CHANGELOG.md`**, **`docs/content-model.md`**, **`AGENTS.md`** doc table. **Closed 2026-04-04.**
 
 ## Exit criteria (summary)
 
 - Swedish Phase 5 remains closed; no ambiguous regressions on **`/sv/...`** routes; Swedish chrome uses the **8 + 4** header/footer model, **stable** chrome ids (no reliance on legacy **`header-*`** / **`footer-*`** WordPress names as the contract), and the shared destination/language model.
 - Localized routes meet **`docs/definition-of-done.md`** Phase 6: performance profile vs Swedish equivalents, canonical/hreflang and locale metadata, accessibility, shared design system (only approved content/variant differences), CTAs and booking/lead flows to correct locale and destination.
 - Grand-plan Phase 6 acceptance: each shipped localization slice has **package-level design sign-off** (chrome + in-scope bodies); **language-content review** (English: Gustaf; German: external pre-launch); **link integrity**; **no unapproved design forks**; localized pages were landed **one at a time** with **tests and build passing** between pages.
-- Carry-forward table either completed or explicitly deferred with owner (log in **`docs/migration-exceptions.md`** if needed).
+- Carry-forward: **`P5-04`**, **`P5-05`** implementation, **`P5-07`** closed in repo **2026-04-04**; **`P5-06`** production verification logged when Gustaf runs table **B** on live **`www`** after deploy.
