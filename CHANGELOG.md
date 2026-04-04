@@ -15,6 +15,8 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ### Changed
 
+- **Open Graph / Twitter:** `SiteLayout.astro` emits **`og:image:secure_url`**, **`og:image:width` / `height` / `type`** when the share image is the default Stockholm hero JPEG; **`twitter:image`** still matches **`og:image`** (both **`https://www.andetag.museum/.../stockholm-hero-poster-1920w.jpg`**). LCP **`link rel="preload"`** for **`960w.webp`** is placed **after** the OG block so validators that scan image hints in order are less likely to confuse preload with **`og:image`**.
+
 - **Performance (P0 + P2 partial):** Stockholm video hero uses a **responsive poster** (`<picture>` AVIF/WebP + JPEG `srcset`) generated with ImageMagick under **`site/public/wp-content/uploads/2024/11/stockholm-hero-poster-*`**, **`preload`** of **`960w.webp`**, and a short **CSS fade-in** for the video on `playing` (no duplicate **`poster=""`** JPEG). Default **`og:image`** / schema hero URL → **`stockholm-hero-poster-1920w.jpg`**. **`BookingEmbed`:** **`defer`** on Understory script. **`site/src/lib/chrome/assets.ts`**, **`SiteHeader.astro`**, **`layout.css`**, **`[...slug].astro`**, tests. Local Lighthouse mobile (serve **`dist`**, same machine): performance **~67 → ~86**, LCP **~12.1 s → ~3.7 s** (lab, variable).
 
 - **`docs/performance-improvement-plan.md`:** Expanded with Cloudflare Learning “speed up a website” mapping table, static-site and JAMstack notes, Core Web Vitals (INP vs FID), TTFB/DNS, request budgets, security vs speed, and extra verification tools. **Prioritization:** explicit rationale table; **P2** = third-party JS (defer/lazy/GTM/jQuery), **P3** = booking API compression (vendor), so execution order matches LCP-first then shippable main-thread wins.
