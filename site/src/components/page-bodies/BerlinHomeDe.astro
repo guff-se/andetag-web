@@ -1,0 +1,152 @@
+---
+import ButtonGroup from "../content/ButtonGroup.astro";
+import ContentSection from "../content/ContentSection.astro";
+import TestimonialCarousel from "../content/TestimonialCarousel.astro";
+import VideoEmbed from "../embeds/VideoEmbed.astro";
+import WaitlistFormEmbed from "../embeds/WaitlistFormEmbed.astro";
+import {
+  stockholmTestimonialAggregateDe,
+} from "../../lib/content/stockholm-testimonial-aggregate";
+
+/**
+ * German Berlin home: body from **`site-html/de-berlin.html`**
+ * (`data-elementor-type="wp-page"` post id **4323**). Canonical route **`/de/berlin/`**.
+ * Layout matches **`BerlinHomeEn.astro`**; prose from the German **`wp-page`** region (~377–526).
+ * Carousel: first quote from **`de-berlin.html`**; additional items are German renderings of the
+ * English Berlin home testimonials (**`BerlinHomeEn.astro`**) for structural parity.
+ */
+const afterHoursImage = {
+  src: "/wp-content/uploads/2025/04/ANDETAG-After-Hours-1-photo-Pekka-Paakko.jpg",
+  width: 1024,
+  height: 683,
+  alt: "Besucher in gedimmtem Licht zwischen leuchtender Textilkunst in ANDETAG",
+} as const;
+
+const breatheMarkdown = [
+  '<p><span class="brand-wordmark">ANDETAG</span> ist ein stilles, lichtbasiertes Atemmuseum, in dem Textil, Licht und Musik sich im Rhythmus eines gemeinsamen Atemzugs bewegen.</p>',
+  "<p>Die Kunstwerke sind aus Glasfaser und traditionellen Textilmaterialien gewebt. Licht wandert im Gewebe selbst, verändert sich langsam und wiederholt sich nie. Originalmusik führt die Erfahrung nach innen. Der Rhythmus basiert auf einem echten Atemzug, aufgenommen während einer Meditation.</p>",
+  "<p>Es ist kein Spektakel. Kein Event.<br />Es ist ein Ort, um sich hinzusetzen, zu atmen und eine Weile zu bleiben.</p>",
+].join("");
+
+const stockholmAsideMarkdown = [
+  '<p><span class="brand-wordmark">ANDETAG</span> Stockholm eröffnete im Januar 2025, im Herzen der Stadt am Hötorget.</p>',
+  "<p>Seitdem sind Tausende gekommen, um im Licht zu sitzen, im Rhythmus mitzuatmen und eine stille Pause inmitten des städtischen Tempos zu finden.</p>",
+  "<blockquote><p>„Die Installation ist auf beeindruckende Weise einnehmend — Licht, Klang und Textilkunst fügen sich zu einem einzigartigen Erlebnis. Sie lädt dazu ein, zur Ruhe zu kommen, zu atmen und einfach da zu sein.“</p><p><em>Edwin, Besucher</em></p></blockquote>",
+].join("");
+
+const newCityMarkdown = [
+  '<p>Mit <span class="brand-wordmark">ANDETAG</span> Berlin entsteht ein zweiter Ort des Atems: vertraut im Wesen, großzügiger im Raum.</p>',
+  "<p>Gewebte Glasfasertextilien tragen Licht. Klang bewegt sich durch die Architektur. Ein stiller Raum öffnet sich, mitten in einer Stadt, die niemals stillsteht.</p>",
+  '<p>Die Werke atmen weiter mit Stockholm und mit <span class="brand-wordmark">ANDETAG</span>-Arbeiten in privaten Sammlungen weltweit. Ein geteilter Atemzug, der Städte verbindet und Menschen zusammenführt.</p>',
+  "<p>Mehr erfahren Sie, wenn Berlin beginnt zu atmen.</p>",
+].join("");
+
+const signupIntroMarkdown =
+  '<p>Melden Sie sich an, um Frühbucher-Rabatte und Neuigkeiten zu <span class="brand-wordmark">ANDETAG</span> Berlin zu erhalten.</p>';
+
+const signupFootnoteMarkdown =
+  "<p>Wir kontaktieren Sie ausschließlich zur Eröffnung in Berlin. Kein Spam. Sie können sich jederzeit abmelden.</p>";
+
+const vimeoSrc = "https://player.vimeo.com/video/1077937338";
+
+const BREVO_FORM_ACTION_DE =
+  "https://e25384f2.sibforms.com/serve/MUIFAAA8pxypiMKgAIzqZxeFGRDz4k_GZ4z7TuPHPchLyT4PaVt9ZU0QTiob9Tpe7TYoxddZgYEyI57Z1_Ky8EcBqVXEPNe4BfcqJB2Hwo5wVuZpERor-7UK36_XenHFVJrmDV3w4c45SDqW22rrTMKwcoEYVL9NRir1zSMnF4JqEw-suhV3vDWoa6jEFEEsH6fCA-GtG-OJPyIV" as const;
+
+const testimonialItems = [
+  {
+    quote:
+      "Die Installation ist auf beeindruckende Weise einnehmend — Licht, Klang und Textilkunst fügen sich zu einem einzigartigen Erlebnis. Sie lädt dazu ein, zur Ruhe zu kommen, zu atmen und einfach da zu sein.",
+    author: "Edwin",
+  },
+  {
+    quote:
+      "Eine beruhigende und meditative Erfahrung, die sich wie ein tiefer Atemzug für den ganzen Körper anfühlt. Die Bewegung von Licht und Farbe schafft eine einhüllende Atmosphäre. Man geht geerdet, erholt und leise berührt.",
+    author: "Therese",
+  },
+  {
+    quote:
+      "Das Kunstwerk ist atemberaubend, mit feinen Texturen und leuchtenden Fasern, die lebendig wirken. Das Erlebnis spricht viele Sinne zugleich an und weckt ein seltenes Staunen. Schön, achtsam und unvergesslich.",
+    author: "Gabrielle",
+  },
+] as const;
+---
+
+<main class="page-body page-berlin-home" lang="de">
+  <ContentSection heading="Ein Ort zum Atmen" markdown={breatheMarkdown} />
+
+  <div class="page-berlin-home__secondary-band page-berlin-home__secondary-band--stockholm">
+    <div class="page-berlin-home__secondary-band-inner">
+      <div class="page-layout-with-aside page-berlin-home__stockholm-teaser">
+        <div class="page-layout-with-aside__main">
+          <figure class="page-stockholm-home__intro-figure">
+            <img
+              src={afterHoursImage.src}
+              width={afterHoursImage.width}
+              height={afterHoursImage.height}
+              alt={afterHoursImage.alt}
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+          <div class="page-berlin-home__stockholm-cta">
+            <ButtonGroup
+              buttons={[
+                {
+                  label: "ANDETAG Stockholm besuchen",
+                  href: "/sv/stockholm/",
+                  variant: "primary",
+                },
+              ]}
+            />
+          </div>
+        </div>
+        <aside class="page-layout-with-aside__aside" aria-label="Stockholm">
+          <ContentSection heading="Bereits geöffnet in Stockholm" markdown={stockholmAsideMarkdown} />
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <TestimonialCarousel items={[...testimonialItems]} aggregate={{ ...stockholmTestimonialAggregateDe }} />
+
+  <div class="page-migrated-cta page-berlin-home__cta-after-testimonials">
+    <ButtonGroup
+      buttons={[
+        {
+          label: "Folgen Sie uns",
+          href: "#signup",
+          variant: "secondary",
+        },
+      ]}
+    />
+  </div>
+
+  <div class="page-berlin-home__video-band">
+    <VideoEmbed
+      title="ANDETAG auf Vimeo"
+      src={vimeoSrc}
+      fallbackText="Das Video konnte nicht geladen werden. Bitte versuchen Sie es später erneut."
+    />
+  </div>
+
+  <div class="page-berlin-home__same-breath">
+    <ContentSection heading="Derselbe Atem, eine neue Stadt" markdown={newCityMarkdown} />
+  </div>
+
+  <div class="page-berlin-home__secondary-band page-berlin-home__secondary-band--signup">
+    <div class="page-berlin-home__secondary-band-inner">
+      <section class="content-section page-berlin-home__signup" id="signup" aria-labelledby="berlin-signup-heading-de">
+        <h2 id="berlin-signup-heading-de">Erfahren Sie es zuerst</h2>
+        <div class="content-section-body" set:html={signupIntroMarkdown} />
+        <WaitlistFormEmbed
+          formId="berlin-early-bird-waitlist-de"
+          locale="de"
+          formAction={BREVO_FORM_ACTION_DE}
+          fallbackText="Das Anmeldeformular ist in dieser Vorschau nicht verfügbar."
+          privacyHref="/de/berlin/privacy/"
+        />
+        <div class="content-section-body page-berlin-home__signup-footnote" set:html={signupFootnoteMarkdown} />
+      </section>
+    </div>
+  </div>
+</main>

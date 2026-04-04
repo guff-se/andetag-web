@@ -44,6 +44,14 @@ export const NAVIGATION_FIXTURES: NavigationFixture[] = [
     viewport: "desktop-tablet",
     expectedVariantId: "en-main-berlin",
   },
+  {
+    id: "de-berlin-hero-desktop",
+    language: "de",
+    destination: "berlin",
+    headerVariantId: "chrome-hdr-de-berlin-hero",
+    viewport: "desktop-tablet",
+    expectedVariantId: "de-main",
+  },
 ];
 
 export type SelectorFixture = {

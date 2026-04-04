@@ -136,9 +136,9 @@ function layoutVariantsForPath(
     };
   }
 
-  if (language === "de" && destination === "berlin") {
+  if (canonicalPath.startsWith("/de/berlin/") && canonicalPath !== "/de/berlin/") {
     return {
-      headerVariantId: "chrome-hdr-de-berlin-hero",
+      headerVariantId: "chrome-hdr-de-berlin-small",
       footerVariantId: "chrome-ftr-de-berlin",
     };
   }

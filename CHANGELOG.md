@@ -9,6 +9,8 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ### Added
 
+- **Phase 6 P6-03 (German Berlin, Wave 3):** **`/de/berlin/`** home (**`BerlinHomeDe.astro`**, **`site-html/de-berlin.html`** **`wp-page`**), shared hero **`hero-de-berlin.ts`**, Tripadvisor band **`stockholmTestimonialAggregateDe`**, Brevo waitlist **`locale="de"`**. **Four German Berlin story bodies** from **`site-html/`** (**`UeberAndetagDe`**, **`MusikVonAndetagDe`**, **`OptischeFasertextilDe`**, **`DieKuenstlerDe`**) in **`PAGE_CUSTOM_BODY_PATHS`** and **`[...slug].astro`**. Internal textile link on über-page uses **`/de/berlin/optische-fasertextil/`**; music page source typo **och** → **und** before Bandcamp. **`PAGE_CUSTOM_BODY_PATHS`** **60**. Legacy flat **`/de/...`** story URLs **`301`** in **`public/_redirects`**. Gustaf **Wave 3** package sign-off **2026-04-04** (**`docs/phase-6-verification-record.md`** §P6-03).
+
 - **English Berlin home (`/en/berlin/`):** migrated body from **`site-html/en-berlin-en.html`** (intro, Stockholm teaser with **`ANDETAG-After-Hours-1-photo-Pekka-Paakko.jpg`** self-hosted under **`site/public/wp-content/uploads/2025/04/`**), Vimeo band, Berlin copy, Brevo waitlist via **`WaitlistFormEmbed`** with **`/en/berlin/privacy/`** opt-in link. **`BerlinHomeEn.astro`**, **`PAGE_CUSTOM_BODY_PATHS`**, **`[...slug].astro`**.
 
 - **`hero-en-berlin.ts`:** shared hero header for **`chrome-hdr-en-berlin-hero`** and **`chrome-hdr-en-berlin-small`** (same media shell as other locales, **`en-main-berlin`** menu in **`SiteHeader.astro`**).
@@ -18,6 +20,14 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 - **Berlin footers (EN/DE):** Two **`shared-footer-col`** columns (ANDETAG Berlin + ANDETAG Stockholm → **`/en/stockholm/`** | remaining Berlin pages), same link styling as Stockholm (**`shared-footer-grid--berlin-cols`**). Social icons via **`FooterSocialLinks.astro`**. **`SiteFooter.astro`**, **`layout.css`**, **`footer-en-berlin.ts`**, **`footer-de-berlin.ts`**, Vitest **`footer-*-berlin.test.ts`**.
 
 ### Changed
+
+- **Phase 6 P6-03 closed:** Gustaf package sign-off for Wave 3 (**German Berlin** chrome + **`/de/berlin/...`** bodies, **`PAGE_CUSTOM_BODY_PATHS`** **60**). **`docs/phase-6-verification-record.md`** §P6-03, **`docs/phase-6-todo.md`**, **`docs/grand-plan.md`**. **Next:** **P6-04**–**P6-06**.
+
+- **German Berlin header:** primary nav label for **`/de/berlin/ueber-andetag/`** is **Kunst** (**`navigation.ts`** **`de-main`**, **`hero-de-berlin.ts`**); footer link stays **Das Kunstwerk**.
+
+- **Berlin EN/DE footers:** column titles **Visit ANDETAG** and **Background**; **`/en/berlin/about-andetag/`** link label **The artwork**; **`/de/berlin/...`** footer column 2 order matches English (artwork, music, textile, artists). **`footer-en-berlin.ts`**, **`footer-de-berlin.ts`**, **`SiteFooter.astro`**, **`navigation.ts`** **`de-main`**, **`hero-de-berlin.ts`**.
+
+- **`layoutVariantsForPath`:** **`/de/berlin/...`** subpages (not home) use **`chrome-hdr-de-berlin-small`** (was incorrectly **`chrome-hdr-de-berlin-hero`**). **`chrome-hdr-de-berlin-hero`** CTA **`#signup`** and label spelling **FÜR FRÜHBUCHER-TICKETS ANMELDEN** (**`variants.ts`**).
 
 - **Phase 6 P6-02 closed:** Gustaf package sign-off for Wave 2 (**English Berlin** chrome, **`/en/berlin/...`** bodies, **`PAGE_CUSTOM_BODY_PATHS`** **55**). **`docs/phase-6-verification-record.md`** §P6-02, **`docs/phase-6-todo.md`**, **`docs/grand-plan.md`**. **Next:** **P6-03** (German Berlin).
 

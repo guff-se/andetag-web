@@ -8,11 +8,12 @@ import {
 
 export const DE_BERLIN_HOME_PATH = "/de/berlin/" as const;
 
+/** Same order as **`EN_BERLIN_FOOTER_COL2_PATHS`**: artwork, music, textile, artists. */
 export const DE_BERLIN_FOOTER_COL2_PATHS = [
   "/de/berlin/ueber-andetag/",
-  "/de/berlin/die-kuenstler-malin-gustaf-tadaa/",
   "/de/berlin/musik-von-andetag/",
   "/de/berlin/optische-fasertextil/",
+  "/de/berlin/die-kuenstler-malin-gustaf-tadaa/",
 ] as const;
 
 const DE_BERLIN_PRIVACY_PATH = "/de/berlin/privacy/" as const;
@@ -26,10 +27,10 @@ export const DE_BERLIN_FOOTER_NAV_PATHS = [
 export const DE_BERLIN_FOOTER_PATHS = [...DE_BERLIN_FOOTER_NAV_PATHS, DE_BERLIN_PRIVACY_PATH] as const;
 
 const DE_COL2_LABELS: Record<(typeof DE_BERLIN_FOOTER_COL2_PATHS)[number], string> = {
-  "/de/berlin/ueber-andetag/": "Über ANDETAG",
-  "/de/berlin/die-kuenstler-malin-gustaf-tadaa/": "Die Künstler",
+  "/de/berlin/ueber-andetag/": "Das Kunstwerk",
   "/de/berlin/musik-von-andetag/": "Musik",
   "/de/berlin/optische-fasertextil/": "Textil",
+  "/de/berlin/die-kuenstler-malin-gustaf-tadaa/": "Die Künstler",
 };
 
 /**
@@ -63,6 +64,7 @@ export function getGermanBerlinFooterModel(): BerlinLocationFooterModel {
 
   return {
     locationNavAriaLabel: "Seiten ANDETAG Berlin",
+    columnHeadings: ["Visit ANDETAG", "Background"] as const,
     locationLinkColumns: [column0, column1],
     copyright: "© 2026 Tadaa Art AB",
     privacyLink: { label: "Datenschutz", href: DE_BERLIN_PRIVACY_PATH },

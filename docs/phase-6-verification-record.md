@@ -2,9 +2,11 @@
 
 Purpose: evidence and stakeholder sign-off for Phase 6 slices per **`docs/phase-6-todo.md`** and **`docs/definition-of-done.md`** Phase 6.
 
-**Where we are:** **P6-00**, **P6-01**, and **P6-02** signed off. **P6-02** (**`en` + Berlin**): **`/en/berlin/`** migrated home (**`BerlinHomeEn.astro`**, source **`site-html/en-berlin-en.html`**), **`hero-en-berlin.ts`** (**`chrome-hdr-en-berlin-*`**), **`footer-en-berlin.ts`** / **`footer-de-berlin.ts`**, **`FooterSocialLinks`**, Brevo waitlist via **`WaitlistFormEmbed`**, LCP preload on Berlin hero, self-hosted After Hours JPEG under **`site/public/wp-content/uploads/2025/04/`**. **`PAGE_CUSTOM_BODY_PATHS` = 55** (includes **`/en/berlin/`**, story topics, **`/en/berlin/privacy/`**; Berlin English story shells reuse Stockholm English bodies where wired). **Resume context:** **2026-03-28** routing slice (**`docs/routing-location-scoped-global-pages-plan.md`**): matrix **61** shells, legacy **`301`**, **`en-brand`** removed.
+**Where we are:** **P6-00**–**P6-03** signed off. **P6-03** (**Wave 3**, German Berlin): **`/de/berlin/`** home (**`BerlinHomeDe.astro`**), **`hero-de-berlin.ts`**, subpages on **`chrome-hdr-de-berlin-small`**, **`WaitlistFormEmbed`** **`de`**, **`stockholmTestimonialAggregateDe`**, **`/de/berlin/privacy/`**, and **four** German story bodies (**`UeberAndetagDe`**, **`MusikVonAndetagDe`**, **`OptischeFasertextilDe`**, **`DieKuenstlerDe`**). **`PAGE_CUSTOM_BODY_PATHS` = 60**. Legacy flat **`/de/...`** story URLs **`301`** in **`public/_redirects`**. **Next:** **P6-04**–**P6-06**.
 
-Status: **open** (**P6-00**–**P6-02** closed; **P6-03**–**P6-06** pending).
+**P6-02** recap: **`/en/berlin/`** (**`BerlinHomeEn.astro`**), **`hero-en-berlin.ts`**, **`footer-en-berlin.ts`** / **`footer-de-berlin.ts`**, **`FooterSocialLinks`**, Brevo waitlist, LCP preload on Berlin hero, After Hours JPEG **`site/public/wp-content/uploads/2025/04/`**. **Resume context:** **2026-03-28** routing slice: matrix **61** shells, legacy **`301`**, **`en-brand`** removed.
+
+Status: **open** (**P6-00**–**P6-03** closed; **P6-04**–**P6-06** pending).
 
 ## P6-00 · Swedish chrome package (`sv` / Stockholm)
 
@@ -47,7 +49,14 @@ Status: **open** (**P6-00**–**P6-02** closed; **P6-03**–**P6-06** pending).
 
 **Package sign-off (chrome + bodies):** **Yes** (2026-04-04, Gustaf).
 
+## P6-03 · German Berlin (Wave 3)
+
+**Scope:** **`de` + Berlin** chrome (**`hero-de-berlin.ts`**, **`chrome-hdr-de-berlin-hero`** / **`chrome-hdr-de-berlin-small`**, **`navigation.ts`** **`de-main`**, **`footer-de-berlin.ts`**, **`SiteHeader`** / **`SiteFooter`**). **Bodies:** **`/de/berlin/`** (**`BerlinHomeDe.astro`**); **`/de/berlin/privacy/`** (**`PrivacyPage.astro`**); story routes **`/de/berlin/ueber-andetag/`**, **`.../musik-von-andetag/`**, **`.../optische-fasertextil/`**, **`.../die-kuenstler-malin-gustaf-tadaa/`** (**`UeberAndetagDe`**, **`MusikVonAndetagDe`**, **`OptischeFasertextilDe`**, **`DieKuenstlerDe`**; sources **`site-html/de-*.html`** **`wp-page`** regions). **`PAGE_CUSTOM_BODY_PATHS` = 60**. Legacy **`/de/{story}/`** → **`/de/berlin/...`** in **`public/_redirects`**.
+
+**Technical verification:** **`npm test`** and **`npm run build`** in **`site/`** green at closure.
+
+**Package sign-off (chrome + bodies):** **Yes** (2026-04-04, Gustaf).
+
 ## Next
 
-1. **Maintainer:** Execute **P6-03** (**`de` + Berlin** chrome and **`/de/berlin/...`** bodies), one route at a time (**`npm test`** / **`npm run build`** green between pages); seek Gustaf **Wave 3** package sign-off when complete.
-2. **Later:** **P6-04**–**P6-06** (metadata, exceptions, grand-plan/CHANGELOG closure for Phase 6).
+1. **Maintainer:** **P6-04**–**P6-06** (metadata and SEO manual alignment, localization exceptions, Phase 6 wrap-up in grand plan and changelog).

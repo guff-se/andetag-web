@@ -14,11 +14,16 @@ describe("english berlin footer model", () => {
   it("uses two columns: Berlin + Stockholm, then story links; privacy in bottom bar only", () => {
     const model = getEnglishBerlinFooterModel();
     expect(model.locationNavAriaLabel).toBe("Berlin pages");
+    expect(model.columnHeadings).toEqual(["Visit ANDETAG", "Background"]);
     expect(model.locationLinkColumns[0]).toEqual([
       { href: EN_BERLIN_HOME_PATH, label: "ANDETAG Berlin" },
       { href: EN_BERLIN_STOCKHOLM_FOOTER_PATH, label: "ANDETAG Stockholm" },
     ]);
     expect(model.locationLinkColumns[1].map((l) => l.href)).toEqual([...EN_BERLIN_FOOTER_COL2_PATHS]);
+    expect(model.locationLinkColumns[1][0]).toEqual({
+      href: "/en/berlin/about-andetag/",
+      label: "The artwork",
+    });
     const flatNav = [...model.locationLinkColumns[0], ...model.locationLinkColumns[1]];
     expect(flatNav.map((l) => l.href)).toEqual([...EN_BERLIN_FOOTER_NAV_PATHS]);
     expect(EN_BERLIN_FOOTER_PATHS).toContain("/en/berlin/privacy/");

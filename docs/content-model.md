@@ -131,7 +131,7 @@ Site shell uses **stable** ids (not WordPress Elementor post ids). Source of tru
 | `chrome-hdr-en-berlin-hero` | English Berlin hub hero |
 | `chrome-hdr-en-berlin-small` | English Berlin small header (non-hub **`/en/berlin/...`** pages) |
 | `chrome-hdr-de-berlin-hero` | German Berlin hero |
-| `chrome-hdr-de-berlin-small` | German Berlin small header (reserved for future routes) |
+| `chrome-hdr-de-berlin-small` | German Berlin small header (non-hub **`/de/berlin/...`** pages) |
 
 **Footers (`footerVariantId`):** `chrome-ftr-sv-stockholm`, `chrome-ftr-en-stockholm`, `chrome-ftr-en-berlin`, `chrome-ftr-de-berlin`.
 

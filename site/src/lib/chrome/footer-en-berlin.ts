@@ -43,6 +43,8 @@ export const EN_BERLIN_FOOTER_PATHS = [...EN_BERLIN_FOOTER_NAV_PATHS, EN_BERLIN_
 export type BerlinLocationFooterModel = {
   /** `aria-label` for the two-column location link nav. */
   locationNavAriaLabel: string;
+  /** Section titles above each column (visit destinations | background story links). */
+  columnHeadings: readonly [string, string];
   /** Column 1: Berlin + Stockholm; column 2: remaining Berlin pages. */
   locationLinkColumns: [FooterLink[], FooterLink[]];
   copyright: string;
@@ -51,7 +53,7 @@ export type BerlinLocationFooterModel = {
 };
 
 const EN_COL2_LABELS: Record<(typeof EN_BERLIN_FOOTER_COL2_PATHS)[number], string> = {
-  "/en/berlin/about-andetag/": "About ANDETAG",
+  "/en/berlin/about-andetag/": "The artwork",
   "/en/berlin/music/": "the music",
   "/en/berlin/optical-fibre-textile/": "the textile",
   "/en/berlin/about-the-artists-malin-gustaf-tadaa/": "About the Artists",
@@ -88,6 +90,7 @@ export function getEnglishBerlinFooterModel(): BerlinLocationFooterModel {
 
   return {
     locationNavAriaLabel: "Berlin pages",
+    columnHeadings: ["Visit ANDETAG", "Background"] as const,
     locationLinkColumns: [column0, column1],
     copyright: "© 2026 Tadaa Art AB",
     privacyLink: { label: "Privacy policy", href: EN_BERLIN_PRIVACY_PATH },

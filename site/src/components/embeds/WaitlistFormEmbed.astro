@@ -25,6 +25,16 @@ const {
   formAction = "https://e25384f2.sibforms.com/serve/MUIFAIE_B025Xt2_dvCh6azEBOnH0kzPxiBea2f7jUViDLsDx-pRy5dD1jIAMONyecpQcwONReLIxoslmfauUfbwRwT-nS1PrkUgU3b75XFYC0zaiUMAWHfT4JEjCcr-z8evDEZI67AjDSWgznc1r03Yn-Z08v3nly6HA0qj7gt8bAVfpMU8Dixy5tlmby7y79jV4ZXfnt0RqgiH",
   privacyHref = "/en/stockholm/privacy/",
 } = Astro.props as Props;
+
+const emailPlaceholder =
+  locale === "de" ? "Deine E-Mail-Adresse" : "Your email address";
+const optInBeforeLink =
+  locale === "de"
+    ? "Ich bin einverstanden, E-Mails zu erhalten, und akzeptiere die "
+    : "I agree to receive emails and accept the ";
+const optInAfterLink = locale === "de" ? "." : ".";
+const privacyLinkLabel = locale === "de" ? "Datenschutzerklärung" : "Privacy Policy";
+const submitLabel = locale === "de" ? "Anmelden" : "Sign up";
 ---
 
 <section class="embed-shell">
@@ -51,7 +61,7 @@ const {
                           id="EMAIL"
                           name="EMAIL"
                           autocomplete="off"
-                          placeholder="Your email address"
+                          placeholder={emailPlaceholder}
                           data-required="true"
                           required
                           style="font-family: 'Baskervville', Georgia, serif; font-size: 16px; color: #111111; border: 1px solid #4A0D2F !important; border-radius: 12px; background-color: #F7DCEA; padding: 0.8em 1em;"
@@ -78,8 +88,9 @@ const {
                             style="font-size: 14px; text-align: left; font-family: 'Baskervville', Georgia, serif; color: #4A0D2F; background-color: transparent;"
                           >
                             <p>
-                              I agree to receive emails and accept the
-                              <a href={privacyHref} style="color: #4A0D2F;">Privacy Policy</a>.
+                              {optInBeforeLink}
+                              <a href={privacyHref} style="color: #4A0D2F;">{privacyLinkLabel}</a>
+                              {optInAfterLink}
                             </p>
                             <span data-required="*" style="display: inline;" class="entry__label entry__label_optin"></span>
                           </span>
@@ -107,7 +118,7 @@ const {
                         d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z"
                       ></path>
                     </svg>
-                    Sign up
+                    {submitLabel}
                   </button>
                 </div>
               </div>

@@ -77,8 +77,8 @@ export const HEADER_VARIANTS: Record<HeaderVariantId, HeaderVariant> = {
     kind: "hero",
     navVariantDesktop: "de-main",
     navVariantMobile: "de-main",
-    ctaLabel: "FUR FRUHBUCHER-TICKETS ANMELDEN",
-    ctaHref: "#book",
+    ctaLabel: "FÜR FRÜHBUCHER-TICKETS ANMELDEN",
+    ctaHref: "#signup",
   },
   "chrome-hdr-de-berlin-small": {
     id: "chrome-hdr-de-berlin-small",

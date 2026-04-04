@@ -28,3 +28,15 @@ export const stockholmTestimonialAggregateEn = {
   linkAriaLabel: "Read all reviews on Tripadvisor",
   regionAriaLabel: "Review summary",
 } as const;
+
+/** German labels for Berlin home visitor band (figures match Stockholm Tripadvisor summary). */
+export const stockholmTestimonialAggregateDe = {
+  eyebrow: "Besucherbewertungen",
+  score: "4,9",
+  scoreCaption: "von 5",
+  meta: "165 Bewertungen",
+  linkHref: stockholmTripadvisorReviewsUrl,
+  linkLabel: "Alle Bewertungen lesen",
+  linkAriaLabel: "Alle Bewertungen auf Tripadvisor lesen",
+  regionAriaLabel: "Zusammenfassung der Bewertungen",
+} as const;

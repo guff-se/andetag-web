@@ -27,4 +27,10 @@ describe("page shell registry", () => {
     const shell = getPageShellRoute("/en/berlin/privacy/");
     expect(shell.seoCanonicalPath).toBeNull();
   });
+
+  it("uses small German Berlin header on German Berlin subpages", () => {
+    const shell = getPageShellRoute("/de/berlin/privacy/");
+    expect(shell.headerVariantId).toBe("chrome-hdr-de-berlin-small");
+    expect(shell.footerVariantId).toBe("chrome-ftr-de-berlin");
+  });
 });

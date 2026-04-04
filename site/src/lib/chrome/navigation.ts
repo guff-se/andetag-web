@@ -168,16 +168,17 @@ const NAVIGATION_VARIANTS: Record<NavigationVariant["id"], NavigationVariant> = 
     id: "de-main",
     language: "de",
     destination: "berlin",
+    /** Item order matches **`en-main-berlin`**: Kunst (**`/de/berlin/ueber-andetag/`**), music, textile, artists (then CTA). */
     items: [
       {
         label: "ANDETAG Berlin",
         href: "/de/berlin/",
         children: [{ label: "ANDETAG Stockholm", href: "/sv/stockholm/" }],
       },
-      { label: "Über ANDETAG", href: "/de/berlin/ueber-andetag/" },
-      { label: "Die Künstler", href: "/de/berlin/die-kuenstler-malin-gustaf-tadaa/" },
+      { label: "Kunst", href: "/de/berlin/ueber-andetag/" },
       { label: "Musik", href: "/de/berlin/musik-von-andetag/" },
       { label: "Textil", href: "/de/berlin/optische-fasertextil/" },
+      { label: "Die Künstler", href: "/de/berlin/die-kuenstler-malin-gustaf-tadaa/" },
       {
         label: "Anmelden",
         href: "/de/berlin/",

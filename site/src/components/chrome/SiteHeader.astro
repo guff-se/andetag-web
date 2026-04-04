@@ -9,6 +9,10 @@ import {
   getEnglishBerlinHeroHeaderModel,
   isEnglishBerlinSharedHeroHeader,
 } from "../../lib/chrome/hero-en-berlin";
+import {
+  getGermanBerlinHeroHeaderModel,
+  isGermanBerlinSharedHeroHeader,
+} from "../../lib/chrome/hero-de-berlin";
 import { BERLIN_SOCIAL_FACEBOOK_HREF, BERLIN_SOCIAL_INSTAGRAM_HREF } from "../../lib/chrome/footer-en-berlin";
 import AndetagHeaderLogo from "./AndetagHeaderLogo.astro";
 import { HEADER_SMALL_SV_ASSETS, HERO_SV_ASSETS } from "../../lib/chrome/assets";
@@ -31,16 +35,38 @@ const sharedEnHeader =
 const sharedEnBerlinHeader = isEnglishBerlinSharedHeroHeader(model.header.id)
   ? getEnglishBerlinHeroHeaderModel(currentPath)
   : null;
-const sharedHero = sharedSvHeader ?? sharedEnHeader ?? sharedEnBerlinHeader;
-const heroSocialInstagramHref = sharedEnBerlinHeader ? BERLIN_SOCIAL_INSTAGRAM_HREF : "https://www.instagram.com/andetag.museum/";
-const heroSocialFacebookHref = sharedEnBerlinHeader ? BERLIN_SOCIAL_FACEBOOK_HREF : "https://www.facebook.com/andetag.museum";
-const heroLocale = sharedSvHeader ? "sv" : sharedEnHeader || sharedEnBerlinHeader ? "en" : null;
+const sharedDeBerlinHeader = isGermanBerlinSharedHeroHeader(model.header.id)
+  ? getGermanBerlinHeroHeaderModel(currentPath)
+  : null;
+const sharedHero = sharedSvHeader ?? sharedEnHeader ?? sharedEnBerlinHeader ?? sharedDeBerlinHeader;
+const isSharedBerlinHero = Boolean(sharedEnBerlinHeader ?? sharedDeBerlinHeader);
+const berlinHeroCenterCopy = sharedEnBerlinHeader?.centerCopy ?? sharedDeBerlinHeader?.centerCopy;
+const heroSocialInstagramHref = isSharedBerlinHero
+  ? BERLIN_SOCIAL_INSTAGRAM_HREF
+  : "https://www.instagram.com/andetag.museum/";
+const heroSocialFacebookHref = isSharedBerlinHero
+  ? BERLIN_SOCIAL_FACEBOOK_HREF
+  : "https://www.facebook.com/andetag.museum";
+const heroLocale = sharedSvHeader
+  ? "sv"
+  : sharedEnHeader || sharedEnBerlinHeader
+    ? "en"
+    : sharedDeBerlinHeader
+      ? "de"
+      : null;
 const isSmallHero = Boolean(sharedHero && model.header.kind === "small");
-const navAria = heroLocale === "en" ? "Menu" : "Meny";
-const navMobileAria = heroLocale === "en" ? "Mobile menu" : "Mobil meny";
-const destAria = heroLocale === "en" ? "Location" : "Plats";
-const menuToggleAria = heroLocale === "en" ? "Open or close menu" : "Slå på eller av meny";
-const logoHomeAria = heroLocale === "en" ? "Go to homepage" : "Till startsidan";
+const navAria = heroLocale === "en" ? "Menu" : heroLocale === "de" ? "Menü" : "Meny";
+const navMobileAria =
+  heroLocale === "en" ? "Mobile menu" : heroLocale === "de" ? "Mobiles Menü" : "Mobil meny";
+const destAria = heroLocale === "en" ? "Location" : heroLocale === "de" ? "Standort" : "Plats";
+const menuToggleAria =
+  heroLocale === "en"
+    ? "Open or close menu"
+    : heroLocale === "de"
+      ? "Menü öffnen oder schließen"
+      : "Slå på eller av meny";
+const logoHomeAria =
+  heroLocale === "en" ? "Go to homepage" : heroLocale === "de" ? "Zur Startseite" : "Till startsidan";
 ---
 
 {
@@ -117,20 +143,20 @@ sharedHero ? (
 
     {!isSmallHero && (
       <div
-        class={`shared-hero-center${sharedEnBerlinHeader?.centerCopy ? " shared-hero-center--berlin" : ""}`}
+        class={`shared-hero-center${berlinHeroCenterCopy ? " shared-hero-center--berlin" : ""}`}
       >
         {
-          sharedEnBerlinHeader?.centerCopy ? (
+          berlinHeroCenterCopy ? (
             <div class="shared-hero-berlin-headings">
               <h1>
-                {sharedEnBerlinHeader.centerCopy.titleLines[0]}
+                {berlinHeroCenterCopy.titleLines[0]}
                 <br />
-                {sharedEnBerlinHeader.centerCopy.titleLines[1]}
+                {berlinHeroCenterCopy.titleLines[1]}
               </h1>
               <h2>
-                {sharedEnBerlinHeader.centerCopy.subtitleLines[0]}
+                {berlinHeroCenterCopy.subtitleLines[0]}
                 <br />
-                {sharedEnBerlinHeader.centerCopy.subtitleLines[1]}
+                {berlinHeroCenterCopy.subtitleLines[1]}
               </h2>
             </div>
           ) : null
@@ -189,7 +215,7 @@ sharedHero ? (
         <li class="shared-hero-menu-item shared-hero-flag-item">
           <a
             href={sharedHero.languageFlags.find((flag) => flag.active)?.href ?? sharedHero.logoHomeHref}
-            aria-label={heroLocale === "en" ? "Language" : "Språk"}
+            aria-label={heroLocale === "en" ? "Language" : heroLocale === "de" ? "Sprache" : "Språk"}
           >
             {sharedHero.languageFlags.find((flag) => flag.active)?.flag ?? "🇸🇪"}
           </a>
