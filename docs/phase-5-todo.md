@@ -167,7 +167,8 @@ Use `docs/phase-3-component-qa-checklist.md` and `docs/phase-3-component-usage.m
   - Owner: Gustaf
   - Inputs:
     - Completed `P5-02`, `P5-03` to agreed gate, and critical **`/en/berlin/`** paths per `docs/grand-plan.md`
-  - Done when: Gustaf signs off entry UX smoke test; production traffic behavior matches policy.
+  - **Staging (pre-`www` cutover):** Worker deploy at **`https://andetag-web.guff.workers.dev`** (push to **`main`**); run **`docs/phase-4-redirect-tests.md`** table **B** there and log results.
+  - **Production:** **`https://www.andetag.museum`** remains the legacy site until cutover; repeat table **B** on **`www`** when this stack replaces it, then sign off.
   - **Carry-forward:** **`docs/phase-6-todo.md`**.
 
 - [ ] **P5-07 Update SEO manual and examples for live entry behavior**

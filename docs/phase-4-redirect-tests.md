@@ -2,7 +2,7 @@
 
 Purpose: manual or automated checks for **(A)** repo-owned path redirects in **`site/public/_redirects`** and **(B)** **`/`** and **`/en/`** entry routing in the Cloudflare Worker (**`site/workers/entry-router.ts`**, **`site/wrangler.jsonc`**).
 
-Environment: run **(A)** against any deploy that serves **`dist/_redirects`**. Run **(B)** only when the Worker is deployed with **`assets.run_worker_first`** for **`/`** and **`/en/`** (see **`npx wrangler dev`** or production **`wrangler deploy`** after **`npm run build`**). Local **`astro preview`** does not run the Worker or evaluate **`_redirects`**.
+Environment: run **(A)** against any deploy that serves **`dist/_redirects`**. Run **(B)** when the Worker + static assets are deployed (**`site/wrangler.jsonc`**, **`run_worker_first`** **`true`**): use **`npx wrangler dev`** after **`npm run build`**, or the **staging** host **`https://andetag-web.guff.workers.dev`** (auto-deploy on push to **`main`**). **`https://www.andetag.museum`** remains the **legacy** live site until cutover; repeat table **B** on **`www`** only after production traffic points at this Worker. Local **`astro preview`** does not run the Worker or evaluate **`_redirects`**.
 
 ## A) Static `_redirects` cases
 
@@ -97,6 +97,8 @@ Note: `location` is path-only (relative). Clients resolve it against the request
 
 When re-running **static** rules, use:
 
+Default **`BASE`** for pre-production checks (same Worker build as CI deploy):
+
 ```bash
 BASE="https://andetag-web.guff.workers.dev"
 curl -sI "$BASE/de/"
@@ -113,4 +115,4 @@ curl -sI "$BASE/en/music/"
 curl -sI "$BASE/sv/musik/"
 ```
 
-**Entry router (after Worker deploy):** from `site/` after `npm run build`, run `npx wrangler dev` and probe **`/`** and **`/en/`** with **`curl -sI -A "Googlebot"`** and a normal browser UA (see table **B**).
+**Entry router (table B):** on **staging**, set **`BASE="https://andetag-web.guff.workers.dev"`** and run the **`curl -sI`** cases from table **B** (vary **`User-Agent`** and **`Cookie`** as specified). Alternatively, from **`site/`** after **`npm run build`**, run **`npx wrangler dev`** and probe **`/`** and **`/en/`** locally.

@@ -75,4 +75,4 @@ Status: **closed** (Phase 6 localization waves and wrap-up tasks complete; **Ger
 
 **Scope:** This record (**§P6-04**–**§P6-06**), **`docs/phase-6-todo.md`** checklist, **`docs/grand-plan.md`** Phase 6 status, **`CHANGELOG.md`**, **`AGENTS.md`** documentation table.
 
-**Next (project):** **`docs/phase-7-todo.md`** (scripts, consent, analytics, sitemap, schema.org, launch hardening). **Carry-forward:** Worker source and SEO manual entry alignment shipped **2026-04-04**; **`P5-06`** production smoke test (**`docs/phase-4-redirect-tests.md`** table **B**) after deploy to **`www`**.
+**Next (project):** **`docs/phase-7-todo.md`** (scripts, consent, analytics, sitemap, schema.org, launch hardening). **Carry-forward:** Worker source and SEO manual entry alignment shipped **2026-04-04**; **`P5-06`** table **B** on **staging** **`https://andetag-web.guff.workers.dev`** (push deploys); repeat on **`https://www.andetag.museum`** only when **`www`** cuts over to this site.

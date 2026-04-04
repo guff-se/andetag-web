@@ -13,9 +13,9 @@ Purpose: ship a **new header and navigation model** (destination and language as
 | **P6-03** (`de` + Berlin chrome and **`/de/berlin/...`** bodies) | **Closed** (2026-04-04), Gustaf package sign-off. Evidence: **`docs/phase-6-verification-record.md`** §P6-03. **`PAGE_CUSTOM_BODY_PATHS`** **60**. Flat **`/de/...`** story **`301`** rules in **`site/public/_redirects`**. |
 | **P6-04**–**P6-06** (metadata and SEO alignment, localization exceptions log, Phase 6 wrap-up) | **Closed** (2026-04-04), maintainer closure. Evidence: **`docs/phase-6-verification-record.md`** §P6-04–§P6-06. |
 
-**Your next actions (Gustaf):** After the next **`wrangler deploy`** to production, run **`docs/phase-4-redirect-tests.md`** table **B** (entry router) and append the execution log (**`P5-06`** sign-off). Optional: spot-check Open Graph on sample URLs. German copy external review remains **pre-launch** per **Language review** above (**approved** to run in Phase 7).
+**Your next actions (Gustaf):** On **staging** **`https://andetag-web.guff.workers.dev`** (deploys on every push to **`main`**), run **`docs/phase-4-redirect-tests.md`** table **B** (entry router) when convenient and append the execution log (**`P5-06`** staging sign-off). **`https://www.andetag.museum`** is still the **old** site; repeat table **B** on **`www`** only at **production cutover**. Optional: spot-check Open Graph on staging. German copy external review remains **pre-launch** per **Language review** above (**approved** to run in Phase 7).
 
-**Carry-forward (repo, 2026-04-04):** Worker entry router and SEO manual entry sections are implemented. Production routing verification is the remaining **`P5-06`** gate.
+**Carry-forward (repo, 2026-04-04):** Worker entry router and SEO manual entry sections are implemented. **`P5-06`** splits into **staging** verification (Workers preview host) now and **production** re-check when **`www`** serves this stack.
 
 **Prerequisites:** Phase 5 **complete** (2026-03-24, Swedish `/sv/...` bodies). See **`docs/phase-5-verification-record.md`** and **`docs/grand-plan.md`** (Phase 5 status and **Entry routing and URL expansion schedule**).
 
@@ -75,7 +75,7 @@ Not required to **start** Phase 6, but required before production entry routing 
 | Item | Source | Owner | Status |
 |------|--------|-------|--------|
 | **Worker implementation** | **`P5-05`** | AI agent | **Done (2026-04-04):** **`site/workers/entry-router.ts`**, **`site/workers/entry-routing-logic.ts`**, Vitest, **`site/wrangler.jsonc`** (**`main`** + **`ASSETS`** + **`run_worker_first`**). **Verify:** table **B** in **`docs/phase-4-redirect-tests.md`** on staging or **`npx wrangler dev`** after **`npm run build`**. |
-| **Worker production smoke test** | **`P5-06`** | Gustaf | **Pending deploy:** after production **`wrangler deploy`**, run table **B** on **`https://www.andetag.museum`** and log result in **`docs/phase-4-redirect-tests.md`**. |
+| **Worker entry smoke test** | **`P5-06`** | Gustaf | **Staging (now):** run table **B** on **`https://andetag-web.guff.workers.dev`** after CI deploy; log in **`docs/phase-4-redirect-tests.md`**. **Production (cutover):** repeat table **B** on **`https://www.andetag.museum`** when the canonical host serves this Worker (not the legacy WordPress site). |
 | **SEO manual live entry** | **`P5-07`** | Gustaf + AI agent | **Done (2026-04-04):** **`docs/Andetag SEO Manual.md`** §12.1, §12.2 fixes, §13 menu paths, §14 and §14.1 (behavior table + Worker pointer). |
 | **Berlin English bodies** | **`P5-04`** | (superseded) | **Closed:** Phase 6 **P6-02**; **`/en/berlin/`** shells **200** in **`site/`**. |
 
@@ -96,4 +96,4 @@ Aligned with **`docs/grand-plan.md`** Phase 6 and the **Decided** section above.
 - Swedish Phase 5 remains closed; no ambiguous regressions on **`/sv/...`** routes; Swedish chrome uses the **8 + 4** header/footer model, **stable** chrome ids (no reliance on legacy **`header-*`** / **`footer-*`** WordPress names as the contract), and the shared destination/language model.
 - Localized routes meet **`docs/definition-of-done.md`** Phase 6: performance profile vs Swedish equivalents, canonical/hreflang and locale metadata, accessibility, shared design system (only approved content/variant differences), CTAs and booking/lead flows to correct locale and destination.
 - Grand-plan Phase 6 acceptance: each shipped localization slice has **package-level design sign-off** (chrome + in-scope bodies); **language-content review** (English: Gustaf; German: external pre-launch); **link integrity**; **no unapproved design forks**; localized pages were landed **one at a time** with **tests and build passing** between pages.
-- Carry-forward: **`P5-04`**, **`P5-05`** implementation, **`P5-07`** closed in repo **2026-04-04**; **`P5-06`** production verification logged when Gustaf runs table **B** on live **`www`** after deploy.
+- Carry-forward: **`P5-04`**, **`P5-05`** implementation, **`P5-07`** closed in repo **2026-04-04**; **`P5-06`** staging log when table **B** is run on **`andetag-web.guff.workers.dev`**; production **`www`** pass logged at cutover.
