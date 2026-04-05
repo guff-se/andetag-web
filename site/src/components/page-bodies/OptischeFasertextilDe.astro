@@ -1,10 +1,15 @@
 ---
+import ResponsiveInlinePicture from "../ui/ResponsiveInlinePicture.astro";
+import {
+  malinVaver2OpticalFibertextil,
+  malinVaverOpticalFibertextil,
+} from "../../lib/content/stockholm-body-responsive-images";
+
 /**
  * German **`/de/berlin/optische-fasertextil/`** from **`site-html/de-optische-fasertextil.html`**
  * `data-elementor-type="wp-page"` post **4154**. Images: same paths as **`OpticalFibreTextileEn.astro`**.
  */
-const imgWeaver = "/wp-content/uploads/2026/02/malin-vaver-768x1024.jpg";
-const imgStudio = "/wp-content/uploads/2026/02/malin-vaver2-768x1024.jpg";
+const opticalFigureSizes = "(max-width: 1024px) 92vw, min(24rem, 31vw)";
 ---
 
 <div class="page-migrated" lang="de">
@@ -13,13 +18,14 @@ const imgStudio = "/wp-content/uploads/2026/02/malin-vaver2-768x1024.jpg";
       <h1>Die Textilkunst hinter <span class="brand-wordmark">ANDETAG</span></h1>
       <div class="optisk-fibertextil-grid">
         <figure class="optisk-fibertextil-figure">
-          <img
-            src={imgWeaver}
+          <ResponsiveInlinePicture
+            sources={malinVaverOpticalFibertextil}
             alt=""
-            width="768"
-            height="1024"
-            loading="lazy"
-            decoding="async"
+            width={768}
+            height={1024}
+            loading="eager"
+            fetchpriority="high"
+            sizes={opticalFigureSizes}
           />
         </figure>
         <div class="optisk-fibertextil-prose">
@@ -74,13 +80,12 @@ const imgStudio = "/wp-content/uploads/2026/02/malin-vaver2-768x1024.jpg";
           <p>Ein langsamer Prozess, gewoben aus Händen, Zeit und Licht.</p>
         </div>
         <figure class="optisk-fibertextil-figure">
-          <img
-            src={imgStudio}
+          <ResponsiveInlinePicture
+            sources={malinVaver2OpticalFibertextil}
             alt=""
-            width="768"
-            height="1024"
-            loading="lazy"
-            decoding="async"
+            width={768}
+            height={1024}
+            sizes={opticalFigureSizes}
           />
         </figure>
       </div>

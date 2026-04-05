@@ -53,3 +53,27 @@ export const introAside18_058Body: BodyPictureSources = {
   webp640: "/wp-content/uploads/2024/11/Andetag-18-058-copy2-1024x683-aside-640w.webp",
   webp960: "/wp-content/uploads/2024/11/Andetag-18-058-copy2-1024x683-aside-960w.webp",
 };
+
+/** About-the-artists lead aside (sv/en/de Berlin). Source: `ANDETAG-Art-Week-Opening-2-photo-by-Gustaf-Tadaa-1024x683.jpg`. */
+export const artWeekOpeningLeadAside: BodyPictureSources = {
+  jpeg960:
+    "/wp-content/uploads/2025/04/ANDETAG-Art-Week-Opening-2-photo-by-Gustaf-Tadaa-1024x683-aside-960w.jpg",
+  webp640:
+    "/wp-content/uploads/2025/04/ANDETAG-Art-Week-Opening-2-photo-by-Gustaf-Tadaa-1024x683-aside-640w.webp",
+  webp960:
+    "/wp-content/uploads/2025/04/ANDETAG-Art-Week-Opening-2-photo-by-Gustaf-Tadaa-1024x683-aside-960w.webp",
+};
+
+/** Optical-fibre textile page (sv/en/de). Source: `malin-vaver-768x1024.jpg`. */
+export const malinVaverOpticalFibertextil: BodyPictureSources = {
+  jpeg960: "/wp-content/uploads/2026/02/malin-vaver-768x1024-body-960w.jpg",
+  webp640: "/wp-content/uploads/2026/02/malin-vaver-768x1024-body-640w.webp",
+  webp960: "/wp-content/uploads/2026/02/malin-vaver-768x1024-body-960w.webp",
+};
+
+/** Optical-fibre textile page (sv/en/de). Source: `malin-vaver2-768x1024.jpg`. */
+export const malinVaver2OpticalFibertextil: BodyPictureSources = {
+  jpeg960: "/wp-content/uploads/2026/02/malin-vaver2-768x1024-body-960w.jpg",
+  webp640: "/wp-content/uploads/2026/02/malin-vaver2-768x1024-body-640w.webp",
+  webp960: "/wp-content/uploads/2026/02/malin-vaver2-768x1024-body-960w.webp",
+};

@@ -10,6 +10,8 @@ type Props = {
   decoding?: "async" | "auto" | "sync";
   /** Passed to `<source sizes>`; default suits inset intro/aside figures (~52rem cap). */
   sizes?: string;
+  /** Hint when this image is the LCP candidate (for example lead aside above the fold). */
+  fetchpriority?: "high" | "low" | "auto";
 };
 
 const {
@@ -20,6 +22,7 @@ const {
   loading = "lazy",
   decoding = "async",
   sizes = "(max-width: 1024px) 92vw, min(52rem, 48vw)",
+  fetchpriority,
 } = Astro.props as Props;
 ---
 
@@ -29,5 +32,13 @@ const {
     srcset={`${sources.webp640} 640w, ${sources.webp960} 960w`}
     sizes={sizes}
   />
-  <img src={sources.jpeg960} alt={alt} width={width} height={height} loading={loading} decoding={decoding} />
+  <img
+    src={sources.jpeg960}
+    alt={alt}
+    width={width}
+    height={height}
+    loading={loading}
+    decoding={decoding}
+    {...(fetchpriority ? { fetchpriority } : {})}
+  />
 </picture>

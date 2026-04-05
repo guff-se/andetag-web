@@ -1,14 +1,25 @@
 import { describe, expect, it } from "vitest";
 import {
+  artWeekOpeningLeadAside,
   artYogaHeroCover,
   berlinAfterHoursBody,
   dejtTestimonialHeroCover,
+  malinVaver2OpticalFibertextil,
+  malinVaverOpticalFibertextil,
   testimonialCarouselDefaultBg,
 } from "./stockholm-body-responsive-images";
 
 describe("stockholm-body-responsive-images", () => {
   it("keeps P1 marketing paths root-relative and local", () => {
-    const all = [testimonialCarouselDefaultBg, artYogaHeroCover, dejtTestimonialHeroCover, berlinAfterHoursBody];
+    const all = [
+      testimonialCarouselDefaultBg,
+      artYogaHeroCover,
+      dejtTestimonialHeroCover,
+      berlinAfterHoursBody,
+      artWeekOpeningLeadAside,
+      malinVaverOpticalFibertextil,
+      malinVaver2OpticalFibertextil,
+    ];
     for (const set of all) {
       Object.values(set).forEach((path) => {
         expect(path.startsWith("/wp-content/")).toBe(true);

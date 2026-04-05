@@ -212,7 +212,7 @@ python3 -m unittest tests.test_spider_versioning
 
 **`spider.py`:** By default each run writes **`crawl-versions/<id>/`**, diffs against the prior run, and writes **`MIGRATION_CHANGELOG.md`** in that folder before promoting to **`site-html/`** and **`site-md/`**. Use **`python3 spider.py --legacy`** for a simple refresh with no archive or changelog (large disk use on repeated full crawls: consider pruning old **`crawl-versions/*`** manually or via git ignore if you do not commit archives).
 
-Astro workspace (`site/`): `npm test` and `npm run build` (also run on `push` to `main` via `.github/workflows/ci.yml`).
+Astro workspace (`site/`): `npm test` and `npm run build` (also run on `push` to `main` via `.github/workflows/ci.yml`). Optional mobile performance sweep over every built route: **`npm run build`** then **`npm run lighthouse:all`** (writes **`site/reports/lighthouse-performance.json`**; see **`docs/performance-improvement-plan.md`** § re-verify).
 
 ### Rule
 - Use red/green TDD for non-trivial parser logic changes.

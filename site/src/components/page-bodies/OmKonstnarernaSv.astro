@@ -1,5 +1,7 @@
 ---
 import ContentSection from "../content/ContentSection.astro";
+import ResponsiveInlinePicture from "../ui/ResponsiveInlinePicture.astro";
+import { artWeekOpeningLeadAside } from "../../lib/content/stockholm-body-responsive-images";
 
 /**
  * `site-html/om-konstnarerna-malin-gustaf-tadaa.html` wp-page **2627**.
@@ -28,13 +30,13 @@ const teamMarkdown =
     <ContentSection markdown={openingMarkdown} />
     <aside class="page-om-konstnarerna-sv__lead-aside" aria-label="Bild och länk">
       <figure class="page-om-konstnarerna-sv__figure page-om-konstnarerna-sv__figure--hero">
-        <img
-          src="/wp-content/uploads/2025/04/ANDETAG-Art-Week-Opening-2-photo-by-Gustaf-Tadaa-1024x683.jpg"
+        <ResponsiveInlinePicture
+          sources={artWeekOpeningLeadAside}
+          alt=""
           width={1024}
           height={683}
-          alt=""
           loading="eager"
-          decoding="async"
+          fetchpriority="high"
         />
       </figure>
       <p class="page-om-konstnarerna-sv__lead-link">

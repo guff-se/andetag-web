@@ -1319,7 +1319,13 @@ body.lightbox-open {
   margin: 0;
 }
 
-.optisk-fibertextil-figure img {
+.optisk-fibertextil-figure picture {
+  display: block;
+  width: 100%;
+}
+
+.optisk-fibertextil-figure img,
+.optisk-fibertextil-figure picture img {
   width: 100%;
   height: auto;
   display: block;
@@ -1857,7 +1863,13 @@ body.lightbox-open {
   margin: 0;
 }
 
-.page-om-konstnarerna-sv__figure img {
+.page-om-konstnarerna-sv__figure picture {
+  display: block;
+  width: 100%;
+}
+
+.page-om-konstnarerna-sv__figure img,
+.page-om-konstnarerna-sv__figure picture img {
   display: block;
   width: 100%;
   height: auto;
@@ -1867,7 +1879,8 @@ body.lightbox-open {
   max-width: 100%;
 }
 
-.page-om-konstnarerna-sv__figure--hero img {
+.page-om-konstnarerna-sv__figure--hero img,
+.page-om-konstnarerna-sv__figure--hero picture img {
   border-radius: 4px;
 }
 

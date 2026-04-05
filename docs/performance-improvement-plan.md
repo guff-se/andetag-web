@@ -77,6 +77,7 @@ The article’s checklist maps to this codebase as follows (gaps are where we st
      --only-categories=performance --form-factor=mobile --output=json --output-path=./lh.json
    ```
    For a **local** `dist/` check: `npx serve dist -l 4321` then point Lighthouse at **`http://127.0.0.1:4321/sv/stockholm/`**.
+   **Batch (every built route):** `cd site && npm run build && npm run lighthouse:all`. Serves **`dist/`** on a random port, runs **mobile** performance-only Lighthouse per page, writes **`site/reports/lighthouse-performance.json`** (ignored by git via **`site/reports/lighthouse-*.json`**). Env: **`BASE_URL`** to hit staging or production instead; **`LIGHTHOUSE_PATHS=/de/berlin/foo/,/sv/stockholm/bar/`** for a subset; **`LIGHTHOUSE_MIN=85`** to exit **1** if any score is below the threshold (CI gate).
 3. **Cloudflare Observatory:** In the Cloudflare dashboard for the zone, use **Observatory** (Speed / observability features vary by plan) to cross-check lab results against edge-oriented signals; useful after toggling Polish, HTTP/3, or cache rules.
 4. **Chrome DevTools:** Performance + Network, throttle to “Slow 4G”; confirm **LCP element** and **TTFB** on the HTML document. Slow TTFB often points to **DNS**, **TLS**, **Worker logic**, or **cold edge**, not image bytes.
 5. **WebPageTest** (optional): Filmstrip and multi-region runs for **redirect chains** and first-byte timing on real networks.

@@ -83,8 +83,8 @@ Purpose: provide implementation-facing usage guidance for approved Phase 3 compo
 
 ### `ResponsiveInlinePicture`
 
-- Purpose: small **`<picture>`** helper for lazy body stills (**WebP** **`640w`/`960w`** + **JPEG** **`img`** fallback). Used on Stockholm home intro / Art Yoga aside, shared home, SEO landings, and Berlin Stockholm teaser; paths live in **`site/src/lib/content/stockholm-body-responsive-images.ts`** (ImageMagick outputs next to each source under **`site/public/wp-content/uploads/`**).
-- Key props: **`sources`** (**`BodyPictureSources`**), **`alt`**, **`width`**, **`height`**, optional **`loading`**, **`decoding`**, **`sizes`** (default suits **`.page-stockholm-home__intro-figure`**; pass a tighter **`sizes`** for aside-column photos).
+- Purpose: small **`<picture>`** helper for body stills (**WebP** **`640w`/`960w`** + **JPEG** **`img`** fallback). Used on Stockholm home intro / Art Yoga aside, shared home, SEO landings, Berlin Stockholm teaser, **about-the-artists** lead aside, and **optical-fibre** figures; paths live in **`site/src/lib/content/stockholm-body-responsive-images.ts`** (ImageMagick outputs next to each source under **`site/public/wp-content/uploads/`**).
+- Key props: **`sources`** (**`BodyPictureSources`**), **`alt`**, **`width`**, **`height`**, optional **`loading`**, **`decoding`**, **`sizes`** (default suits **`.page-stockholm-home__intro-figure`**; pass a tighter **`sizes`** for aside-column photos), optional **`fetchpriority`** (**`"high"`** when the figure is a likely LCP candidate, for example the lead aside on **`OmKonstnarerna*`**).
 
 ### `ContentSection`
 

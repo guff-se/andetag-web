@@ -15,7 +15,8 @@
     "page-shell:meta": "node scripts/extract-page-shell-meta.mjs",
     "worker:dev": "npm run build && wrangler dev",
     "worker:deploy": "npm run build && wrangler deploy",
-    "verify:staging-entry": "node scripts/verify-staging-entry-routing.mjs"
+    "verify:staging-entry": "node scripts/verify-staging-entry-routing.mjs",
+    "lighthouse:all": "node scripts/lighthouse-all-pages.mjs"
   },
   "dependencies": {
     "astro": "^5.18.1",
@@ -23,6 +24,9 @@
   },
   "devDependencies": {
     "@astrojs/sitemap": "^3.7.2",
+    "chrome-launcher": "^1.1.2",
+    "lighthouse": "^11.6.0",
+    "serve": "^14.2.4",
     "vitest": "^4.1.0",
     "wrangler": "^4.80.0"
   }
