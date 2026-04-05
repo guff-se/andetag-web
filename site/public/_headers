@@ -14,9 +14,11 @@
 /fonts/*
   Cache-Control: public, max-age=2592000, stale-while-revalidate=86400
 
-# Media under wp-style paths: URLs can be reused when files are replaced; no `immutable`.
+# Media under wp-style paths (hero video, posters, gallery, JPEG masters). Static repo: prefer
+# new filenames or cache-busting paths when replacing binaries in place; see AGENTS.md (first-party images).
+# Longer TTL cuts repeat-download cost (notably hero MP4) and improves PSI "cache lifetimes" vs 1d.
 /wp-content/uploads/*
-  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=31536000
 
 # Staging hosts: avoid indexing *.workers.dev (pattern from Cloudflare docs).
 https://:version.:subdomain.workers.dev/*

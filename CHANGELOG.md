@@ -19,6 +19,8 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ### Changed
 
+- **`site/public/_headers`:** **`/wp-content/uploads/*`** browser cache **`max-age`** **1d → 30d** (**`2592000`**) with **`stale-while-revalidate=31536000`** to cut repeat hero **MP4** / poster / gallery transfer and address PSI “efficient cache lifetimes” on first-party uploads; document expectation to use **new filenames** when replacing media in place (**`AGENTS.md`** workflow).
+
 - **Performance (CLS + LCP text shells):** About-the-artists hero **`figure`** reserves space with **`aspect-ratio: 1024 / 683`** and **`object-fit: cover`** (**`components.css`**). Spotify embed shell **`min-height: 652px`** (**`page-musik-sv__spotify`**). Accessibility SV/EN: one **`ContentSection`** instead of two. **`SiteLayout`:** optional **`lcpBodyFontPreloadHref`**; **`[...slug].astro`** preloads Baskervville 400 Latin on privacy (all locales), music, corporate events, visitor reviews (+ Berlin music). **`docs/performance-improvement-plan.md`** (mitigations noted, **P4** partial).
 
 - **`docs/performance-improvement-plan.md`:** Full review after **`lighthouse:all`** sweep (**current lab picture**, batch insights, reprioritized **next actions**, verification checklist and summary aligned with **63-route** local run; historical PSI baseline kept).
