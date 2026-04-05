@@ -80,6 +80,7 @@ Reference docs before implementation:
 | `docs/phase-6-verification-record.md` | Phase 6 evidence and Gustaf sign-off per slice (**P6-00** chrome package, later waves). |
 | `docs/phase-7-todo.md` | Execution checklist for Phase 7 scripts, consent, analytics, favicon, sharing metadata, schema.org, sitemap, and launch hardening. |
 | `docs/phase-8-todo.md` | Execution checklist for Phase 8 deployment: dev and staging verification, URL parity vs legacy live site (Gustaf-approved exceptions), **`www.andetag.museum`** cutover, post-live checks (**`P5-06`** production closes here). |
+| `docs/phase-9-todo.md` | **Placeholder:** Phase 9 maintenance program after migration (operating model, **performance optimization Agent Skill**, **production PR** performance gate). Summary: **`docs/grand-plan.md`** Phase 9. |
 | `docs/phase-8-verification-record.md` | Phase 8 evidence and Gustaf sign-off for production cutover. |
 | `docs/phase-4-route-coverage.md` | URL matrix to Astro shell and `_redirects` mapping for Phase 4 route coverage. |
 | `docs/phase-4-routing-reopen.md` | Post-closure routing revisit: location and language matrix, Berlin or Stockholm parity, global pages and navigation. |

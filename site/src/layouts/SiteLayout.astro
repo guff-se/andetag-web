@@ -44,6 +44,8 @@ type Props = {
   lcpImagePreloadMedia?: string | null;
   /** Optional WOFF2 preload for above-the-fold UI using that face (Jost 500 on Swedish video hero). */
   lcpFontPreloadHref?: string | null;
+  /** Optional body-serif preload when prose is likely LCP (privacy, long-form text pages with small header). */
+  lcpBodyFontPreloadHref?: string | null;
   /** `/en/` hub: only the header-selector hero, no main column or footer. */
   headerSelectorOnly?: boolean;
   /** Root-relative image path for `og:image` / Twitter when set. */
@@ -154,6 +156,17 @@ const jsonLd = includeStructuredData
         <link
           rel="preload"
           href={props.lcpFontPreloadHref}
+          as="font"
+          type="font/woff2"
+          crossorigin="anonymous"
+        />
+      ) : null
+    }
+    {
+      props.lcpBodyFontPreloadHref ? (
+        <link
+          rel="preload"
+          href={props.lcpBodyFontPreloadHref}
           as="font"
           type="font/woff2"
           crossorigin="anonymous"

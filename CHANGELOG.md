@@ -9,6 +9,8 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ### Added
 
+- **`docs/grand-plan.md`** **Phase 9** (placeholder): migration → maintenance handoff; **performance optimization Agent Skill** and **mandatory performance pass before production PRs**. **`docs/phase-9-todo.md`** checklist stub (**P9-00**–**P9-22**). **`AGENTS.md`** documentation table entry.
+
 - **`site/scripts/lighthouse-all-pages.mjs`** + **`npm run lighthouse:all`:** mobile performance-only Lighthouse over every **`dist/`** route (local **`serve`** or **`BASE_URL`**); JSON report under **`site/reports/`**; optional **`LIGHTHOUSE_PATHS`**, **`LIGHTHOUSE_MIN`**. Dev deps **`lighthouse`**, **`chrome-launcher`**, **`serve`**. **`.gitignore`:** **`site/reports/lighthouse-*.json`**.
 
 - **`docs/performance-improvement-plan.md`:** Prioritized mobile PageSpeed / Lighthouse remediation (LCP hero poster, responsive images, third-party JS then booking API compression, Cloudflare dashboard playbook). Grounded in reproducible Lighthouse against staging Stockholm home.
@@ -16,6 +18,10 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 - **Phase 7 (initial):** **`@astrojs/sitemap`** and **`site/public/robots.txt`**; sitemap filter drops **`/404`** and root **`/`** (301-only). **JSON-LD** via **`site/src/lib/chrome/schema-org.ts`** (Stockholm **Museum** + **TouristAttraction**, Berlin **Place** pre-opening, privacy minimal graph); Vitest **`schema-org.test.ts`**. **GTM** + Consent Mode v2 defaults and optional **CookieYes** (**`TrackingHead.astro`**, **`TrackingBody.astro`**); **`PUBLIC_*`** documented in **`site/.env.example`**. **OG image** optional field **`ogImage`** on **`page-shell-meta.json`** / **`PageShellRoute`**. Self-hosted **favicon** JPEG (live WP shortcut), **logo** PNG under **`site/public/wp-content/uploads/2024/11/`**. **`docs/url-migration-policy.md`**, **`docs/content-model.md`**, **`docs/phase-7-todo.md`** updated.
 
 ### Changed
+
+- **Performance (CLS + LCP text shells):** About-the-artists hero **`figure`** reserves space with **`aspect-ratio: 1024 / 683`** and **`object-fit: cover`** (**`components.css`**). Spotify embed shell **`min-height: 652px`** (**`page-musik-sv__spotify`**). Accessibility SV/EN: one **`ContentSection`** instead of two. **`SiteLayout`:** optional **`lcpBodyFontPreloadHref`**; **`[...slug].astro`** preloads Baskervville 400 Latin on privacy (all locales), music, corporate events, visitor reviews (+ Berlin music). **`docs/performance-improvement-plan.md`** (mitigations noted, **P4** partial).
+
+- **`docs/performance-improvement-plan.md`:** Full review after **`lighthouse:all`** sweep (**current lab picture**, batch insights, reprioritized **next actions**, verification checklist and summary aligned with **63-route** local run; historical PSI baseline kept).
 
 - **About-the-artists + optical-fibre images:** **`artWeekOpeningLeadAside`**, **`malinVaverOpticalFibertextil`**, **`malinVaver2OpticalFibertextil`** in **`stockholm-body-responsive-images.ts`** with ImageMagick derivatives; **`OmKonstnarernaSv`**, **`OmKonstnarernaEn`**, **`DieKuenstlerDe`**, **`OptiskFibertextilSv`**, **`OpticalFibreTextileEn`**, **`OptischeFasertextilDe`** use **`ResponsiveInlinePicture`** (first optical figure **`eager`** + **`fetchpriority=high`**). **`ResponsiveInlinePicture`:** optional **`fetchpriority`**. **`components.css`:** **`picture`** rules for **`page-om-konstnarerna-sv__figure`** and **`optisk-fibertextil-figure`**. **`docs/phase-3-component-usage.md`**.
 

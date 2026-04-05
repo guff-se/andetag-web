@@ -166,6 +166,26 @@ const lcpFontPreloadHref =
   heroVideoHeaderIds.has(shell.headerVariantId) || smallHeroHeaderIds.has(shell.headerVariantId)
     ? "/fonts/jost/jost-500-normal-latin.woff2"
     : null;
+
+/** Text-heavy shells: small header + Baskervville body often wins LCP; preload Latin 400. */
+const LCP_BODY_FONT_PRELOAD_HREF = "/fonts/baskervville/baskervville-400-normal-latin.woff2";
+const LCP_BODY_FONT_PATHS = new Set<string>([
+  "/en/stockholm/privacy/",
+  "/sv/stockholm/privacy/",
+  "/en/berlin/privacy/",
+  "/de/berlin/privacy/",
+  "/sv/stockholm/musik/",
+  "/en/stockholm/music/",
+  "/en/berlin/music/",
+  "/de/berlin/musik-von-andetag/",
+  "/sv/stockholm/foretagsevent/",
+  "/en/stockholm/corporate-events/",
+  "/sv/stockholm/besokaromdomen/",
+  "/en/stockholm/visitor-reviews/",
+]);
+const lcpBodyFontPreloadHref = LCP_BODY_FONT_PATHS.has(canonicalPath)
+  ? LCP_BODY_FONT_PRELOAD_HREF
+  : null;
 ---
 
 <SiteLayout
@@ -182,6 +202,7 @@ const lcpFontPreloadHref =
   lcpImagePreloadHref={lcpImagePreloadHref}
   lcpImagePreloadMedia={lcpImagePreloadMedia}
   lcpFontPreloadHref={lcpFontPreloadHref}
+  lcpBodyFontPreloadHref={lcpBodyFontPreloadHref}
   headerSelectorOnly={headerSelectorOnly}
   ogImagePublicPath={shell.ogImage}
 >

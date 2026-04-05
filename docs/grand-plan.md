@@ -277,6 +277,31 @@ Acceptance checks:
 
 Task-level checklist: `docs/phase-8-todo.md`.
 
+### Phase 9, Maintenance program (post-migration)
+
+Goal: transition this repository from a **migration project** (scrape-driven parity, phased URL and locale rollout) to a **maintenance project** (ongoing content, performance, and compliance work on a live **`www`** stack). Detailed scope, governance, and cadence will be defined later.
+
+**Status:** **Placeholder** (opens after Phase 8 production cutover and stabilization, or in parallel with late Phase 8 runbook items if agreed).
+
+**Direction (to be expanded):**
+
+- **Operating model:** clear ownership for content updates, locale QA, analytics or consent changes, and infra (Workers, DNS, Cloudflare).
+- **Regression discipline:** keep **`npm test`**, **`npm run build`**, and documented routing checks as non-negotiable; extend with maintenance-specific gates as needed.
+- **Performance:** treat **`docs/performance-improvement-plan.md`** as the living lab playbook; re-run batch or targeted Lighthouse when **`site/`** performance-sensitive areas change.
+
+**Deliverables (initial, non-exhaustive):**
+
+- **Performance optimization Agent Skill:** author a **Cursor Agent Skill** (or equivalent team artifact) that instructs agents to run the agreed performance checks (for example local **`npm run build`**, targeted or batch **`npm run lighthouse:all`**, and review against **`docs/performance-improvement-plan.md`**) before treating **`site/`** work as merge-ready. Skill location and naming TBD (global Cursor skills vs repo-local **`.cursor/rules`** or **`docs/`** companion); the skill text should be concrete enough that runs are repeatable.
+- **Production PR gate:** ensure that **every pull request that will deploy to production** (**`www`**) is only merged after that performance workflow has been **executed and passed** (or explicitly waived with owner and reason in **`docs/migration-exceptions.md`** or the Phase 9 verification record). Implementation may combine **human discipline** (skill invoked in PR prep), **CI** (optional Lighthouse or budget gate on **`main`** / release branch), and **checklist rows** in **`docs/phase-9-todo.md`**. Exact wiring follows Cloudflare preview + merge model from Phase 8 (**`docs/phase-8-todo.md`**, **P8-25**).
+
+**Acceptance checks (placeholder):**
+
+- Phase 9 checklist (**`docs/phase-9-todo.md`**) exists and is updated as the maintenance program is specified.
+- Performance skill is written, discoverable, and referenced from **`AGENTS.md`** or maintainer onboarding.
+- Production PR policy is documented and followed (no silent skips).
+
+Task-level checklist: `docs/phase-9-todo.md`.
+
 ## Cross-Cutting Best Practices
 
 - Keep content, routes, and component configuration in versioned source files, not in hidden CMS state.
@@ -307,7 +332,7 @@ Task-level checklist: `docs/phase-8-todo.md`.
 - Stack and hosting were decided after Phase 1 analysis and accepted in **`docs/decisions/0001-static-stack-selection.md`** (Astro + Cloudflare; **Workers + static assets** from **`site/`** for staging and production entry routing, see ADR operational notes and **`AGENTS.md`**).
 - **Until `www` cutover:** pushes to **`main`** redeploy **staging** (**`andetag-web.guff.workers.dev`**); Gustaf approves **staging → production** when the maintainer confirms readiness.
 - **After `www` cutover:** content and code changes ship via **pull requests** only; each PR gets a **Cloudflare preview URL**; merging to **`main`** updates **`www`** (document exact project settings in the Phase 8 runbook, **`docs/phase-8-todo.md`** **P8-25**).
-- Rollout order is fixed: Swedish Stockholm production first, then Phase 6 localization rollout, then Phase 7 launch hardening (scripts, consent, sitemap, schema), then Phase 8 cutover of **`www.andetag.museum`** to this stack.
+- Rollout order is fixed: Swedish Stockholm production first, then Phase 6 localization rollout, then Phase 7 launch hardening (scripts, consent, sitemap, schema), then Phase 8 cutover of **`www.andetag.museum`** to this stack, then Phase 9 maintenance program (migration-to-operations handoff, performance skill, production PR gates).
 
 ### SEO and URL Policy
 
@@ -376,6 +401,7 @@ As of **2026-04-04**, Phases **0 through 6** are closed. Default execution focus
 2. **Phase 8:** Complete **`docs/phase-8-todo.md`**, including **P8-06** (Gustaf signs off **`sv`**, **`en`**, and **`de`** copy on **staging**). When Phase 7 items that must ship before **`www`** are complete or explicitly waived (**§P8-05**), cut over **`https://www.andetag.museum`**, run production table **B** (**`P5-06`** production), and close **`docs/phase-8-verification-record.md`**.
 3. **Routing hygiene:** Before changing **`docs/url-matrix.csv`**, **`site/public/_redirects`**, registry, or **`site/workers/`**, read **`docs/phase-4-routing-reopen.md`** and **`docs/url-migration-policy.md`**; after entry changes, run **`npm run verify:staging-entry`** from **`site/`** (see **`docs/phase-4-redirect-tests.md`**).
 4. **Carry-forward:** Lazy or consent-gated embed work may revisit showcase performance **EX-0006** in Phase 7 (**`docs/migration-exceptions.md`**). **German** external reviewer (if used) feeds **P8-06** before Gustaf approves **`de`** for production.
+5. **Phase 9 (after `www` stabilization):** Open **`docs/phase-9-todo.md`**: maintenance operating model, **performance optimization Agent Skill**, and **mandatory performance pass before production PRs** (see **`docs/grand-plan.md`** Phase 9).
 
 ### Phase closure references (historical)
 
