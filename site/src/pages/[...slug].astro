@@ -53,7 +53,7 @@ import TillganglighetSv from "../components/page-bodies/TillganglighetSv.astro";
 import VilkenTypAvUpplevelseEn from "../components/page-bodies/VilkenTypAvUpplevelseEn.astro";
 import PrivacyPage from "../components/page-bodies/PrivacyPage.astro";
 import VilkenTypAvUpplevelseSv from "../components/page-bodies/VilkenTypAvUpplevelseSv.astro";
-import { HERO_SV_ASSETS } from "../lib/chrome/assets";
+import { HEADER_SMALL_LCP_PRELOAD_WEBP, HERO_SV_ASSETS } from "../lib/chrome/assets";
 import {
   getPageShellRoute,
   PAGE_SHELL_PATHS,
@@ -147,12 +147,25 @@ const heroVideoHeaderIds = new Set<typeof shell.headerVariantId>([
   "chrome-hdr-en-berlin-hero",
   "chrome-hdr-de-berlin-hero",
 ]);
+/** Static-image small hero: responsive stack in `SiteHeader.astro`; mobile WebP preload for LCP (PageSpeed mobile). */
+const smallHeroHeaderIds = new Set<typeof shell.headerVariantId>([
+  "chrome-hdr-sv-stockholm-small",
+  "chrome-hdr-en-stockholm-small",
+  "chrome-hdr-en-berlin-small",
+  "chrome-hdr-de-berlin-small",
+]);
 const lcpImagePreloadHref = heroVideoHeaderIds.has(shell.headerVariantId)
   ? HERO_SV_ASSETS.posterPreload
+  : smallHeroHeaderIds.has(shell.headerVariantId)
+    ? HEADER_SMALL_LCP_PRELOAD_WEBP
+    : null;
+const lcpImagePreloadMedia = smallHeroHeaderIds.has(shell.headerVariantId)
+  ? "(max-width: 767px)"
   : null;
-const lcpFontPreloadHref = heroVideoHeaderIds.has(shell.headerVariantId)
-  ? "/fonts/jost/jost-500-normal-latin.woff2"
-  : null;
+const lcpFontPreloadHref =
+  heroVideoHeaderIds.has(shell.headerVariantId) || smallHeroHeaderIds.has(shell.headerVariantId)
+    ? "/fonts/jost/jost-500-normal-latin.woff2"
+    : null;
 ---
 
 <SiteLayout
@@ -167,6 +180,7 @@ const lcpFontPreloadHref = heroVideoHeaderIds.has(shell.headerVariantId)
   hreflang={shell.hreflang}
   xDefaultPath={shell.xDefaultPath}
   lcpImagePreloadHref={lcpImagePreloadHref}
+  lcpImagePreloadMedia={lcpImagePreloadMedia}
   lcpFontPreloadHref={lcpFontPreloadHref}
   headerSelectorOnly={headerSelectorOnly}
   ogImagePublicPath={shell.ogImage}

@@ -53,6 +53,7 @@ This project works with real scraped website artifacts and SEO language constrai
 | Output model is structured (`content`, `nav`, `design`, `schema`, `pages`) | Supports static site generation with clean source-of-truth artifacts. |
 | Language architecture remains sv/en/de with preserved hreflang relationships | Required for SEO/GEO continuity and migration safety. |
 | WordPress/plugin JS is not migrated as content | Reduces noise and avoids carrying over irrelevant runtime behavior. |
+| First-party marketing and body photos ship with responsive derivatives (WebP + JPEG) | Keeps transfer and decode cost low on mobile (Lighthouse). Masters remain in-repo for full-resolution use (for example gallery lightbox **`href`**). Workflow and suffix rules are mandatory; see **Conventions** → **First-party raster images (performance)**. |
 
 ---
 
@@ -102,6 +103,7 @@ Reference docs before implementation:
 | `docs/migration-exceptions.md` | Exception log format and approval workflow for source parity deviations. |
 | `docs/testimonials-reimplementation-options.md` | Research and strategic options for customer testimonials and social proof (discussion before implementation). |
 | `docs/design-extraction-method.md` | Reproducible method for extracting design tokens and component patterns from all CSS sources. |
+| `docs/performance-improvement-plan.md` | Mobile image and script performance (responsive raster workflow, Lighthouse re-checks, P2–P5 backlog). **Use when** adding or changing first-party photos in **`site/public/`** or tuning **`HeroSection`**, **`GallerySection`**, **`TestimonialCarousel`**, booking script loading. |
 | `docs/phase-1-analysis-schema.md` | Structured tables for Phase 1 variant, widget, and integration analysis. |
 | `docs/site-structure-refactor-plan.md` | Side phase: `site/src/` layout (ADR 0003). **Status:** complete (2026-03-24). Historical execution notes, §6 verification, deferred follow-ups. |
 | `docs/phase-structure-todo.md` | Execution checklist for the site structure refactor (S0–S8); record baseline hash and check off phases. |
@@ -249,6 +251,40 @@ Astro workspace (`site/`): `npm test` and `npm run build` (also run on `push` to
 - Design system rule: visual design primitives are universal across languages. Language can change content, active variants, and shown elements, but core design tokens, layout patterns, and component styling must remain shared unless an approved migration exception is logged.
 - The rebuilt site must self-host all first-party assets. Do not use absolute `https://www.andetag.museum/...` URLs for internal JS, CSS, images, video, fonts, or other media in `site/`; use local root-relative paths (for example `/wp-content/uploads/...`) backed by files in the Astro workspace.
 - **Missing media in `site-html/`:** When a migrated page needs an image or other first-party file that is referenced in scraped HTML or on the live site but was not captured under `site-html/`, **download it from the current production URL** (or re-run the crawler if you prefer a batch refresh) and commit it under **`site/public/`** on the same path the site will serve (for example `site/public/wp-content/uploads/...`). Then wire that path in Astro. Do not leave permanent hotlinks to `andetag.museum` for internal assets, and do not invent placeholder imagery.
+
+### First-party raster images (performance)
+
+**Rule:** Whenever you add a **new photograph or large raster** used in the Astro site (hero, gallery tile, body figure, testimonial band, Berlin teaser, **`og:image`** targets, and similar), you must **not** rely on the full-resolution master alone in HTML. Ship **responsive derivatives** next to the master under **`site/public/`**, wire them through the approved components or modules, and record paths in TypeScript so builds stay deterministic.
+
+**1. Commit the master** on the same URL path the site will serve (for example **`site/public/wp-content/uploads/.../original.jpg`**). Keep provenance: encode from the real asset, do not substitute different imagery.
+
+**2. Generate three files beside the master** (ImageMagick, from the repo root or `site/public/`; adjust **`INPUT`** and **`BASE`**):
+
+```bash
+# INPUT = path to master under site/public; SUFFIX = role tag (see below)
+BASE="${INPUT%.*}"   # strip .jpg or .jpeg
+magick "$INPUT" -resize 640x -strip -define webp:method=6 -quality 82 "${BASE}-${SUFFIX}-640w.webp"
+magick "$INPUT" -resize 960x -strip -define webp:method=6 -quality 82 "${BASE}-${SUFFIX}-960w.webp"
+magick "$INPUT" -resize 960x -strip -quality 82 "${BASE}-${SUFFIX}-960w.jpg"
+```
+
+**3. Choose `SUFFIX` by usage** (matches existing shipped assets):
+
+| Role | `SUFFIX` | Markup / module |
+|------|----------|-----------------|
+| **`GallerySection`** tile (WebP thumb, full JPEG for lightbox **`href`**) | `gallery` | **`site/src/lib/content/stockholm-marketing-gallery.ts`** (or a new shared module if the set is not the Stockholm marketing eight); **`GallerySection`** **`thumbWebp640`** / **`thumbWebp960`**, **`src`** = **`jpeg960`**, **`fullSrc`** = master |
+| Inline figure (intro, aside, Berlin teaser) | `body` or `aside` | **`ResponsiveInlinePicture.astro`**; paths in **`site/src/lib/content/stockholm-body-responsive-images.ts`** (add a named export, or split a module if the file grows) |
+| **`HeroSection`** full-bleed cover (parallax **`img`**) | `hero` | **`HeroCoverImage`** object; marketing book band uses **`STOCKHOLM_BOOK_HERO_COVER`** in **`site/src/lib/chrome/assets.ts`**, other heroes in **`stockholm-body-responsive-images.ts`** |
+| **`TestimonialCarousel`** background | `testimonial` | **`BodyPictureSources`** default or prop; **`testimonialCarouselDefaultBg`** in **`stockholm-body-responsive-images.ts`** |
+
+**4. Wire and verify:** Use **`sizes`** and **`<picture>`** as in **`docs/phase-3-component-usage.md`** (**`GallerySection`**, **`HeroSection`**, **`TestimonialCarousel`**, **`ResponsiveInlinePicture`**). Add or extend a **Vitest** check on new path constants if you add a new exported bundle. Run **`npm test`** and **`npm run build`** in **`site/`**.
+
+**5. Docs and changelog:** Update **`docs/performance-improvement-plan.md`** if the workflow or scope changes; add a **`CHANGELOG.md`** note for user-visible image behavior.
+
+**Exceptions:** Tiny assets (icons, logos under tens of KB, SVG) do not need this triple. **`1024x`-suffixed** masters that are already display-sized may skip derivatives only if you document why in the same PR (for example verified file size and Lighthouse unchanged). Prefer processing anyway for format (WebP) wins.
+
+**Reference:** Closed **P1** spec and rationale in **`docs/performance-improvement-plan.md`**.
+
 - For CSS, create fresh local styles in `site/src/styles/` or component-scoped files instead of copying legacy WordPress CSS bundles.
 - For JS behavior, reimplement with local project code and package-managed dependencies instead of loading legacy WordPress script files by URL.
 - For webfonts, maintain source definitions in `site/src/lib/fonts/sources.json` and regenerate local files via `npm run fonts:sync`; do not ship runtime links to remote font providers.

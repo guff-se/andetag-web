@@ -1,5 +1,6 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
+import { HEADER_SMALL_LCP_PRELOAD_WEBP } from "../lib/chrome/assets";
 ---
 
 <SiteLayout
@@ -14,6 +15,9 @@ import SiteLayout from "../layouts/SiteLayout.astro";
   xDefaultPath={null}
   robots="noindex,follow"
   includeStructuredData={false}
+  lcpImagePreloadHref={HEADER_SMALL_LCP_PRELOAD_WEBP}
+  lcpImagePreloadMedia="(max-width: 767px)"
+  lcpFontPreloadHref="/fonts/jost/jost-500-normal-latin.woff2"
 >
   <section class="error-page">
     <h1>Sidan hittades inte</h1>

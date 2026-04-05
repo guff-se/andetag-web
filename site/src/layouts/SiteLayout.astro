@@ -38,8 +38,10 @@ type Props = {
   robots?: "index,follow" | "noindex,nofollow";
   fullWidthMain?: boolean;
   bodyClass?: string;
-  /** When set, emits an early high-priority image preload (LCP: Swedish home hero poster, etc.). */
+  /** When set, emits an early high-priority image preload (LCP: Swedish home hero poster, small-header mobile WebP, etc.). */
   lcpImagePreloadHref?: string | null;
+  /** Optional `media` on the image preload (for example `(max-width: 767px)` for small-header mobile art direction). */
+  lcpImagePreloadMedia?: string | null;
   /** Optional WOFF2 preload for above-the-fold UI using that face (Jost 500 on Swedish video hero). */
   lcpFontPreloadHref?: string | null;
   /** `/en/` hub: only the header-selector hero, no main column or footer. */
@@ -138,7 +140,13 @@ const jsonLd = includeStructuredData
     <meta name="twitter:image" content={ogImageUrl} />
     {
       props.lcpImagePreloadHref ? (
-        <link rel="preload" as="image" href={props.lcpImagePreloadHref} fetchpriority="high" />
+        <link
+          rel="preload"
+          as="image"
+          href={props.lcpImagePreloadHref}
+          fetchpriority="high"
+          {...(props.lcpImagePreloadMedia ? { media: props.lcpImagePreloadMedia } : {})}
+        />
       ) : null
     }
     {

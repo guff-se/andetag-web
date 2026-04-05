@@ -18,10 +18,23 @@ export const HERO_SV_ASSETS = {
   videoMobile: "/wp-content/uploads/2024/12/stockholm-hero-mobile.mp4",
 } as const;
 
+/** Portrait mobile still for `shared-hero-header.is-small` (≤767px). Source: `Mobile-BG.00_00_00_00.Still002.jpg`. */
+const HEADER_SMALL_MOBILE_BASE =
+  "/wp-content/uploads/2025/10/Mobile-BG.00_00_00_00.Still002-header-mobile";
+
 export const HEADER_SMALL_SV_ASSETS = {
-  desktopBackground: "/wp-content/uploads/2025/10/Desktop.00_00_00_00.Still002.jpg",
-  mobileBackground: "/wp-content/uploads/2025/10/Mobile-BG.00_00_00_00.Still002.jpg",
+  mobile: {
+    avif640: `${HEADER_SMALL_MOBILE_BASE}-640w.avif`,
+    avif960: `${HEADER_SMALL_MOBILE_BASE}-960w.avif`,
+    webp640: `${HEADER_SMALL_MOBILE_BASE}-640w.webp`,
+    webp960: `${HEADER_SMALL_MOBILE_BASE}-960w.webp`,
+    jpeg640: `${HEADER_SMALL_MOBILE_BASE}-640w.jpg`,
+    jpeg960: `${HEADER_SMALL_MOBILE_BASE}-960w.jpg`,
+  },
 } as const;
+
+/** Preload for LCP on `chrome-hdr-*-small` pages (mobile lab; matches `(max-width: 767px)` art direction). */
+export const HEADER_SMALL_LCP_PRELOAD_WEBP = HEADER_SMALL_SV_ASSETS.mobile.webp960;
 
 const BOOK_HERO_BASE = "/wp-content/uploads/2024/11/Andetag-21-399-scaled";
 

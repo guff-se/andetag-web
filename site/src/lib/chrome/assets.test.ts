@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { HEADER_SMALL_SV_ASSETS, HERO_SV_ASSETS, STOCKHOLM_BOOK_HERO_COVER } from "./assets";
+import {
+  HEADER_SMALL_LCP_PRELOAD_WEBP,
+  HEADER_SMALL_SV_ASSETS,
+  HERO_SV_ASSETS,
+  STOCKHOLM_BOOK_HERO_COVER,
+} from "./assets";
 
 describe("layout asset paths", () => {
   it("keeps Swedish hero assets root-relative and local", () => {
@@ -26,10 +31,12 @@ describe("layout asset paths", () => {
   });
 
   it("keeps Swedish small-header assets root-relative and local", () => {
-    expect(HEADER_SMALL_SV_ASSETS.desktopBackground).toBe("/wp-content/uploads/2025/10/Desktop.00_00_00_00.Still002.jpg");
-    expect(HEADER_SMALL_SV_ASSETS.mobileBackground).toBe("/wp-content/uploads/2025/10/Mobile-BG.00_00_00_00.Still002.jpg");
+    expect(HEADER_SMALL_LCP_PRELOAD_WEBP).toBe(
+      "/wp-content/uploads/2025/10/Mobile-BG.00_00_00_00.Still002-header-mobile-960w.webp",
+    );
+    expect(HEADER_SMALL_SV_ASSETS.mobile.webp960).toBe(HEADER_SMALL_LCP_PRELOAD_WEBP);
 
-    Object.values(HEADER_SMALL_SV_ASSETS).forEach((path) => {
+    Object.values(HEADER_SMALL_SV_ASSETS.mobile).forEach((path) => {
       expect(path.startsWith("/")).toBe(true);
       expect(path.includes("://")).toBe(false);
       expect(path.startsWith("/wp-content/")).toBe(true);
