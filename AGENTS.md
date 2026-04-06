@@ -79,6 +79,7 @@ Reference docs before implementation:
 | `docs/phase-6-todo.md` | Localization (**`en`**, **`de`**) and Phase 5 carry-forward. **P6-00**–**P6-06** closed **2026-04-04**; Worker and SEO manual live-entry rows remain in the carry-forward table. |
 | `docs/phase-6-verification-record.md` | Phase 6 evidence and Gustaf sign-off per slice (**P6-00** chrome package, later waves). |
 | `docs/phase-7-todo.md` | Execution checklist for Phase 7 scripts, consent, analytics, favicon, sharing metadata, schema.org, sitemap, and launch hardening. |
+| `docs/phase-7-verification-record.md` | Phase 7 evidence (structured data validation, sharing checks, and other items as they close). |
 | `docs/phase-8-todo.md` | Execution checklist for Phase 8 deployment: dev and staging verification, URL parity vs legacy live site (Gustaf-approved exceptions), **`www.andetag.museum`** cutover, post-live checks (**`P5-06`** production closes here). |
 | `docs/phase-9-todo.md` | **Placeholder:** Phase 9 maintenance program after migration (operating model, **performance optimization Agent Skill**, **production PR** performance gate). Summary: **`docs/grand-plan.md`** Phase 9. |
 | `docs/phase-8-verification-record.md` | Phase 8 evidence and Gustaf sign-off for production cutover. |

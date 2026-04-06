@@ -9,6 +9,8 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ### Added
 
+- **Site identity icons:** **`andetag-icon.png`** (1024×1024 master) plus **`favicon.ico`**, **`favicon-{16,32}x32.png`**, **`apple-touch-icon.png`** (180×180), **`android-chrome-{192,512}x512.png`**, and **`site.webmanifest`** under **`site/public/`**. **`SiteLayout.astro`:** **`theme-color`** (aubergine **`#4a0d2f`**), **`manifest`**, and updated **`link rel="icon"`** set. Removed legacy **`favicon.svg`**. **`docs/phase-7-todo.md`** **P7-01**–**P7-02**; Vitest **`site-icons.test.ts`**.
+
 - **`docs/grand-plan.md`** **Phase 9** (placeholder): migration → maintenance handoff; **performance optimization Agent Skill** and **mandatory performance pass before production PRs**. **`docs/phase-9-todo.md`** checklist stub (**P9-00**–**P9-22**). **`AGENTS.md`** documentation table entry.
 
 - **`site/scripts/lighthouse-all-pages.mjs`** + **`npm run lighthouse:all`:** mobile performance-only Lighthouse over every **`dist/`** route (local **`serve`** or **`BASE_URL`**); JSON report under **`site/reports/`**; optional **`LIGHTHOUSE_PATHS`**, **`LIGHTHOUSE_MIN`**. Dev deps **`lighthouse`**, **`chrome-launcher`**, **`serve`**. **`.gitignore`:** **`site/reports/lighthouse-*.json`**.
@@ -18,6 +20,15 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 - **Phase 7 (initial):** **`@astrojs/sitemap`** and **`site/public/robots.txt`**; sitemap filter drops **`/404`** and root **`/`** (301-only). **JSON-LD** via **`site/src/lib/chrome/schema-org.ts`** (Stockholm **Museum** + **TouristAttraction**, Berlin **Place** pre-opening, privacy minimal graph); Vitest **`schema-org.test.ts`**. **GTM** + Consent Mode v2 defaults and optional **CookieYes** (**`TrackingHead.astro`**, **`TrackingBody.astro`**); **`PUBLIC_*`** documented in **`site/.env.example`**. **OG image** optional field **`ogImage`** on **`page-shell-meta.json`** / **`PageShellRoute`**. Self-hosted **favicon** JPEG (live WP shortcut), **logo** PNG under **`site/public/wp-content/uploads/2024/11/`**. **`docs/url-migration-policy.md`**, **`docs/content-model.md`**, **`docs/phase-7-todo.md`** updated.
 
 ### Changed
+
+- **Phase 7 P7-15:** Final SEO pass recorded in **`docs/phase-7-verification-record.md`** (metadata parity, hreflang or canonical checks, lab Lighthouse summary vs **EX-0014**, **EX-0006** follow-up closure in **`docs/migration-exceptions.md`**). **`page-shell-registry.test.ts`:** non-empty descriptions for all shells; Berlin English story shells assert layout **`canonicalUrl`** matches **EX-0016** Stockholm English target. **`docs/phase-7-todo.md`** **P7-15** closed; **`docs/grand-plan.md`** carry-forward item 4 aligned (**EX-0006** vs **P7-12**).
+
+- **Phase 7 P7-12:** **`docs/tracking-and-consent-requirements.md`** — Brevo waitlist (**§2**) clarified (plain form **`POST`**, no on-site Brevo cookie, explicit opt-in at submit; not CookieYes-gated). **§4a** approved embed inventory (Understory, Brevo, Vimeo, Google Maps, Spotify, GTM, CookieYes). **`docs/phase-7-todo.md`** **P7-12** closed; evidence in **`docs/phase-7-verification-record.md`**.
+
+- **Phase 7 P7-09:** Structured data validation logged in **`docs/phase-7-verification-record.md`** (staging JSON-LD fetch and parse checks, Vitest **`schema-org`**, build); Google Rich Results URL mode on **`*.workers.dev`** crawl failed (repeat on **`www`** post-cutover). **`docs/phase-7-todo.md`** **P7-09** closed; **`AGENTS.md`** doc table entry for the verification record.
+- **Schema parity audit (legacy vs rebuilt):** Added representative JSON-LD comparison evidence to **`docs/phase-7-verification-record.md`** and logged **`EX-0017`** in **`docs/migration-exceptions.md`** for intentional schema contract differences from Yoast output (entity set and omitted review or offer fields), pending post-cutover Rich Results verification on **`www`**.
+
+- **Phase 7 P7-05:** Documented Open Graph / Twitter meta spot-check on **`dist/`** and staging (**`docs/phase-7-todo.md`**); confirms **`ogImage`** null fallback to Stockholm hero poster across sampled hubs and deep routes per locale.
 
 - **Tracking defaults:** GTM container **`GTM-KXJGBL5W`** and CookieYes client id **`fce30d588ad80c2888014047a65067c1`** are now hardcoded in **`TrackingHead.astro`** and **`TrackingBody.astro`** for version-controlled, deterministic deploys. **`site/.env.example`** no longer declares tracking IDs.
 

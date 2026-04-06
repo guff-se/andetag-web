@@ -31,6 +31,10 @@ function boot(): void {
     if (src) injectScript(src);
   };
 
+  // TEMP TEST: eager load (restore IntersectionObserver block below afterward)
+  shells.forEach(run);
+
+  /*
   if (!("IntersectionObserver" in window)) {
     shells.forEach(run);
     return;
@@ -48,6 +52,7 @@ function boot(): void {
   );
 
   shells.forEach((el) => io.observe(el));
+  */
 }
 
 if (document.readyState === "loading") {

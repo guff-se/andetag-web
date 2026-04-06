@@ -1,4 +1,6 @@
 import { describe, expect, it } from "vitest";
+import { createPageLayoutModel } from "../chrome/page-layout";
+import { buildCanonicalUrl } from "../chrome/seo";
 import { getPageShellRoute, PAGE_SHELL_PATHS } from "./page-shell-registry";
 
 describe("page shell registry", () => {
@@ -8,7 +10,31 @@ describe("page shell registry", () => {
       expect(() => getPageShellRoute(path)).not.toThrow();
       const shell = getPageShellRoute(path);
       expect(shell.title.length).toBeGreaterThan(0);
+      expect(shell.description.trim().length).toBeGreaterThan(0);
       expect(shell.canonicalPath).toBe(path);
+    }
+  });
+
+  it("uses SEO canonical URL in layout model when Berlin English story shells point at Stockholm English", () => {
+    for (const path of [
+      "/en/berlin/about-andetag/",
+      "/en/berlin/about-the-artists-malin-gustaf-tadaa/",
+      "/en/berlin/music/",
+      "/en/berlin/optical-fibre-textile/",
+    ] as const) {
+      const shell = getPageShellRoute(path);
+      expect(shell.seoCanonicalPath).not.toBeNull();
+      const model = createPageLayoutModel({
+        language: shell.language,
+        destination: shell.destination,
+        headerVariantId: shell.headerVariantId,
+        footerVariantId: shell.footerVariantId,
+        canonicalPath: shell.canonicalPath,
+        seoCanonicalPath: shell.seoCanonicalPath,
+        hreflang: shell.hreflang,
+        xDefaultPath: shell.xDefaultPath,
+      });
+      expect(model.canonicalUrl).toBe(buildCanonicalUrl(shell.seoCanonicalPath!));
     }
   });
 

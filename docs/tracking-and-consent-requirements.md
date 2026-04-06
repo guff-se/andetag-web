@@ -28,13 +28,13 @@ Minimum event categories to support:
 - Booking widget open and click-through events
 - Outbound conversion handoff events
 
-## 2) Brevo Requirements
+## 2) Brevo (waitlist) Requirements
 
-- Brevo forms/scripts may be included only after consent category checks are evaluated.
-- Brevo embed loading behavior must be deterministic:
-  - no hidden auto-injection outside approved component slots
-  - explicit fallback content when blocked by consent
-- Form placement and field mapping must be captured in page-level implementation notes.
+The Berlin early-bird waitlist is implemented as **`WaitlistFormEmbed.astro`**: a **server-rendered HTML form** that **`POST`s** to Brevo’s form endpoint. There is **no Brevo JavaScript** on the page and **no Brevo cookie** set by that flow on first-party page load.
+
+- **Consent:** The user gives **explicit consent** via the **required** opt-in checkbox (**`OPT_IN`**) and linked privacy policy before submit. This is treated as **outside CookieYes category gating** (same category model still applies to any separate **Brevo tracking or remarketing tags** if those are added later via GTM).
+- **Determinism:** Markup lives only in approved embed slots; **`unavailable`** shows deterministic fallback copy.
+- **Placement and fields:** Berlin EN/DE bodies; email + opt-in; locale hidden field. Adjust **`formAction`** only when the Brevo form endpoint changes.
 
 ## 3) Consent Category Model
 
@@ -57,11 +57,27 @@ Policy:
 |----------|------------------|-----------------------|
 | `necessary` | consent manager runtime, security/session essentials, Understory booking widget runtime, **`andetag_entry` routing cookie** (see `docs/url-migration-policy.md` entry routing section) | no |
 | `analytics` | GA4 via GTM | yes |
-| `marketing` | Meta Pixel, Google Ads conversion tags, Brevo marketing tags | yes |
+| `marketing` | Meta Pixel, Google Ads conversion tags, **Brevo tracking or remarketing tags** (via GTM), not the waitlist HTML form | yes |
 
 Understory classification rule:
 
 - Understory booking widget is business-critical for primary conversion and must be treated as `necessary` (not blocked behind optional consent categories).
+
+## 4a) Approved third-party embed inventory (P7-12)
+
+Normative consent **category** labels match **§3** (`necessary`, `analytics`, `marketing`). **Implementation note:** only GTM and tags behind CookieYes are category-gated today; third-party **iframes** below load with **`loading="lazy"`** where applicable but are **not** automatically suppressed until a category toggles (deferring iframe loads on consent is a follow-up if legal or CMP configuration requires it).
+
+| Embed | Where | Component / mechanism | Consent classification | Notes |
+|-------|--------|------------------------|---------------------------|--------|
+| Understory booking | Stockholm (and related) pages | **`BookingEmbed.astro`** + **`booking-embed-lazy.ts`** | **`necessary`** | Lazy script injection when the shell nears the viewport; same rule as **§4** table. |
+| Brevo waitlist | Berlin EN/DE home | **`WaitlistFormEmbed.astro`** | **Not CookieYes-gated** | Plain **`POST`** form; explicit opt-in at submit; see **§2**. |
+| Vimeo promo video | Stockholm home/SEO, Berlin home | **`VideoEmbed.astro`** | **`marketing`** (third-party player) | Iframe to Vimeo; treat like other optional media embeds for policy. |
+| Google Maps | Stockholm home, Hitta hit, SEO landings | **`MapEmbed.astro`** | **`marketing`** (third-party map) | Google may set cookies in the iframe context; align CMP disclosure with your legal review. |
+| Spotify album | Musik pages (SV/EN/DE) | Inline **`iframe`** in page bodies | **`marketing`** | Lazy-loaded where wired; third-party Spotify player. |
+| Google Tag Manager | All pages (when tracking on) | **`TrackingHead.astro`**, **`TrackingBody.astro`** | **`analytics` / `marketing`** for tags inside GTM; loader **after** consent default | Consent Mode v2 default denied before interaction; see Phase 7 tracking checklist. |
+| CookieYes | All pages (when configured) | **`TrackingHead.astro`** | **`necessary`** | CMP runtime. |
+
+Out-of-scope for this inventory: **first-party** media (hero video poster, gallery, self-hosted MP4), **external links** (for example Understory gift card URL opened in a new tab), and **Worker `andetag_entry`** (cookie policy in **`docs/url-migration-policy.md`**).
 
 ## 5) Compliance and UX Requirements
 

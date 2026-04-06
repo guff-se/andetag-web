@@ -6,35 +6,37 @@ Purpose: track Scripts, Consent, Analytics, and Launch Hardening deliverables. N
 
 ## Identity and sharing (head markup)
 
-- [x] **P7-01 Favicon:** `site/public/favicon.svg` retained; **`/favicon.jpg`** added (JPEG is the current live **`/favicon.ico`** redirect target from WordPress, 150×150, self-hosted). Layout references both; no remote icon URLs.
-- [ ] **P7-02 Touch or mask icons (optional):** If brand guidelines require them, add `apple-touch-icon` and any mask-icon link; keep assets self-hosted.
+- [x] **P7-01 Favicon:** **`site/public/favicon.ico`** (multi-size) plus **`favicon-16x16.png`** / **`favicon-32x32.png`**; master **`andetag-icon.png`** (1024×1024) under **`site/public/`**. Wired from **`SiteLayout.astro`**; no remote icon URLs.
+- [x] **P7-02 Touch or mask icons (optional):** **`apple-touch-icon.png`** (180×180) self-hosted; **`site.webmanifest`** with **192** / **512** PNG for install hints. No separate Safari mask icon (optional later).
 - [x] **P7-03 Sharing policy (baseline):** Default **`og:image`** / Twitter image: Stockholm hero still **`HERO_SV_ASSETS.poster`** (`site/src/lib/chrome/assets.ts`), large enough for **`summary_large_image`**. **`twitter:card`:** **`summary_large_image`**. **`og:locale` / `og:locale:alternate`:** unchanged from Phase 6 (`site/src/lib/chrome/seo.ts`), aligned with hreflang siblings.
 - [x] **P7-04 Implement meta tags:** Title, description, full **`og:*`** and Twitter set from shell; **`og:url`** matches canonical. Optional per-shell **`ogImage`** in **`page-shell-meta.json`** (see **`docs/content-model.md`**).
-- [ ] **P7-05 Validate previews:** Spot-check major hubs and one deep page per locale with a sharing debugger or card validator; confirm fallback when `ogImage` is null.
+- [x] **P7-05 Validate previews:** Spot-check major hubs and one deep page per locale with a sharing debugger or card validator; confirm fallback when `ogImage` is null.
+  - **2026-04-06:** Parsed built **`dist/`** HTML (`npm run build` in **`site/`**): hubs **`/sv/stockholm/`**, **`/en/`**, **`/en/stockholm/`**, **`/de/berlin/`**; deep **`/sv/stockholm/biljetter/`**, **`/en/stockholm/tickets/`**, **`/de/berlin/musik-von-andetag/`**. Each has **`og:url`** = canonical **`https://www.andetag.museum…`**, **`og:image`** = **`https://www.andetag.museum/wp-content/uploads/2024/11/stockholm-hero-poster-1920w.jpg`** (**`defaultOgImageAbsoluteUrl()`** / **`HERO_SV_ASSETS.poster`**), **`twitter:card`** = **`summary_large_image`**. **`page-shell-meta.json`** has no per-page **`ogImage`** yet, so all shells exercise the null fallback path in **`SiteLayout.astro`**. Staging **`https://andetag-web.guff.workers.dev/sv/stockholm/`** (HTTP 200) matches the same **`og:image`** / **`og:url`** / **`twitter:card`**. Third-party card UIs (for example Facebook Sharing Debugger) remain for **`www`** post-cutover per checklist note below.
 
 ## Schema.org
 
 - [x] **P7-06 JSON-LD plan (implemented shape):** **`@graph`** per page: **WebSite**, **WebPage**, **Organization**, **logo** **ImageObject**; Stockholm adds **Museum** + **TouristAttraction** (address, geo, hours, `sameAs` from legacy footer JSON-LD in **`site-html/`**); Berlin pre-opening adds **Place** only (SEO manual §11); privacy routes use minimal graph (no venue entity).
 - [x] **P7-07 Implement JSON-LD:** **`site/src/lib/chrome/schema-org.ts`**, one **`application/ld+json`** script from **`SiteLayout.astro`** (off on **`404`**).
 - [x] **P7-08 Berlin rules:** Berlin **`destination`** shells use **Place** only until opening protocol; flip to Museum when SEO manual §11 phase 2 is triggered (code comment / future edit in **`schema-org.ts`**).
-- [ ] **P7-09 Validate structured data:** Run Rich Results Test or equivalent on representative URLs; fix errors before sign-off.
+- [x] **P7-09 Validate structured data:** Rich Results URL test on staging reported **crawl failed** (Google fetch, not JSON-LD parse errors). Equivalent validation: HTTP fetch + JSON parse + **`@graph`** type inventory on four staging URLs; **`schema-org.test.ts`** + **`npm run build`** green. Evidence: **`docs/phase-7-verification-record.md`** §P7-09. Repeat Rich Results on **`www`** after Phase 8 cutover.
 
 ## Scripts, consent, analytics (existing Phase 7 scope)
 
-- [x] **P7-10 Tracking (initial wiring):** GTM loader + Google Consent Mode v2 **default denied** in **`TrackingHead.astro`**; container **`GTM-KXJGBL5W`** (legacy) with optional **`PUBLIC_GTM_CONTAINER_ID`**. **Remaining:** map **`docs/kpi-measurement-map.md`** events in GTM, verify gating in preview and staging.
-- [ ] **P7-11 CookieYes:** Optional script when **`PUBLIC_COOKIEYES_CLIENT_ID`** is set (**`site/.env.example`**). **Remaining:** configure CMP, categories, and GTM integration; validate by category on staging.
-- [ ] **P7-12 Widgets:** Understory, Brevo (if retained), and other approved embeds finalized with consent classification documented.
+- [x] **P7-10 Tracking (initial wiring):** GTM loader + Google Consent Mode v2 **default denied** in **`TrackingHead.astro`**; container **`GTM-KXJGBL5W`** is version-controlled in tracking components. **Remaining:** map **`docs/kpi-measurement-map.md`** events in GTM, verify gating in preview and staging.
+- [ ] **P7-11 CookieYes:** Script is version-controlled in **`TrackingHead.astro`** (client id **`fce30d588ad80c2888014047a65067c1`**). **Remaining:** configure CMP, categories, and GTM integration, validate by category on staging, then switch CookieYes or GTM primary production domain references during Phase 8 cutover (**`docs/phase-8-todo.md`** **P8-13**).
+- [x] **P7-12 Widgets:** Understory, Brevo waitlist, and other approved embeds documented with consent classification in **`docs/tracking-and-consent-requirements.md`** **§2** and **§4a** (2026-04-06). **Brevo:** plain **`POST`** waitlist form, no on-site Brevo cookie, explicit opt-in at submit; **not** behind CookieYes categories. **Follow-up:** if legal or CMP requires **lazy iframes** (Maps, Vimeo, Spotify) to load only after **`marketing`** (or another category), implement deferral and update the inventory table.
 
 ## Sitemap, robots, launch
 
 - [x] **P7-13 XML sitemap:** **`@astrojs/sitemap`** in **`site/astro.config.mjs`**: shell pages only, excludes **`/404`** and root **`/`** (redirect-only). Aligns with **`docs/url-migration-policy.md`** (note on root exclusion added there).
 - [x] **P7-14 robots.txt:** **`site/public/robots.txt`** → **`sitemap-index.xml`**.
-- [ ] **P7-15 Final SEO pass:** Metadata parity, hreflang, CWV targets; showcase performance follow-up **EX-0006** after lazy or consent-gated embed patterns if still open.
+- [x] **P7-15 Final SEO pass:** Metadata parity, hreflang, CWV targets; showcase performance follow-up **EX-0006** after lazy or consent-gated embed patterns if still open.
 - [ ] **P7-16 Sign-off:** Pre-launch checklist complete; update `docs/grand-plan.md` or a Phase 7 verification record when the phase closes.
 **Production host:** Checks that require **`https://www.andetag.museum`** (for example sitemap fetch at the canonical origin, live GTM validation) are completed or repeated in **`docs/phase-8-todo.md`** after cutover.
 
 ## References
 
+- `docs/phase-7-verification-record.md` (evidence log as Phase 7 items close)
 - `docs/grand-plan.md` (Phase 7 deliverables and acceptance checks)
 - `docs/phase-8-todo.md` (deployment and post-live **`www`** verification)
 - `docs/Andetag SEO Manual.md` (schema types, descriptions, Berlin protocol)

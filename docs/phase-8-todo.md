@@ -32,6 +32,7 @@ Normative phase summary: **`docs/grand-plan.md`** (Phase 8). Exit checks: **`doc
 - [ ] **P8-10 Runbook:** Written steps for DNS, Cloudflare **custom domain** / **Workers** (or Pages) binding, TLS, and rollback (revert DNS or detach domain). Align with **`docs/url-migration-policy.md`** and hosting account reality.
 - [ ] **P8-11 Execute cutover:** Point **`www.andetag.museum`** (and apex policy if applicable) at this deployment so the **entry Worker** and static assets serve production traffic.
 - [ ] **P8-12 Immediate smoke:** Right after cutover, spot-check **`/`**, **`/en/`**, **`/sv/stockholm/`**, sample inner pages, and one **Berlin** path; confirm **HTTPS** and no accidental **mixed content** for first-party assets.
+- [ ] **P8-13 Consent or tag primary domain switch:** In CookieYes and GTM admin, switch primary production domain references from staging to **`www.andetag.museum`**, publish, then verify banner load and consent-gated tag behavior on live **`www`**.
 
 ## Post-cutover: live **`www`**
 
