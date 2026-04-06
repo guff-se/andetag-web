@@ -84,6 +84,7 @@ export function getSwedishFooterModel() {
     seoLinks,
     copyright: "© 2026 Tadaa Art AB",
     privacyLink: { label: "Integritetspolicy", href: "/sv/stockholm/privacy/" },
+    consentPreferencesLabel: "Cookieinställningar",
     socialLinks,
   };
 }

@@ -49,6 +49,8 @@ export type BerlinLocationFooterModel = {
   locationLinkColumns: [FooterLink[], FooterLink[]];
   copyright: string;
   privacyLink: FooterLink;
+  /** Termly **`termly-display-preferences`** anchor text (locale-specific). */
+  consentPreferencesLabel: string;
   socialLinks: FooterSocialLink[];
 };
 
@@ -94,6 +96,7 @@ export function getEnglishBerlinFooterModel(): BerlinLocationFooterModel {
     locationLinkColumns: [column0, column1],
     copyright: "© 2026 Tadaa Art AB",
     privacyLink: { label: "Privacy policy", href: EN_BERLIN_PRIVACY_PATH },
+    consentPreferencesLabel: "Consent Preferences",
     socialLinks,
   };
 }

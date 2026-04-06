@@ -1,6 +1,6 @@
 # KPI Measurement Map (Phase 1)
 
-Purpose: map conversion goals to measurable events that can be implemented via GTM and validated in Phase 7.
+Purpose: align conversion goals with **GTM** behavior, consent, and optional event instrumentation. Normative consent categories: **`docs/tracking-and-consent-requirements.md`**.
 
 ## Reused Inputs
 
@@ -13,7 +13,91 @@ Purpose: map conversion goals to measurable events that can be implemented via G
 
 - Completed purchase in the external ticketing flow (Understory checkout completion).
 
-## Funnel Stages
+## Minimum viable measurement (operator default)
+
+Many stacks only need:
+
+1. **Page views:** usually **GA4** automatic **`page_view`** when the GA4 **Google tag** fires after **`analytics_storage`** consent (or equivalent **Termly** + Consent Mode wiring). No custom `dataLayer` events are strictly required for a basic page-count.
+2. **Conversions:** **Google Ads** conversion tags, **GA4** conversion events, and/or **Meta** **Purchase** / **PageView**, configured in GTM and gated by the right consent types.
+
+The **extended taxonomy** below (§ Event taxonomy) is **optional** for reporting. Keep or drop tags in GTM based on product need; do not treat every row as mandatory for launch.
+
+## Staged rollout: staging now, finish at production cutover
+
+**Accepted approach (Gustaf):** Configure **Termly** and as much **GTM** alignment as practical on **staging** while **`www`** may still run **WordPress + Complianz** with the **same** container **`GTM-KXJGBL5W`**. **Complete** removal of **`cmplz_*`**-only dependence and full **Termly + Consent Mode** verification on **`www`** in **Phase 8** (**`docs/phase-8-todo.md`** **P8-13**, **P8-22**).
+
+**Risk:** On **cutover day**, if the container is updated before legacy traffic is gone, **WordPress** tags that still rely only on **`cmplz_*`** can misbehave; if the container is updated after static **`www`** goes live, **static** pages may have **gaps** in analytics or marketing tags until GTM is published. **Brief tracking loss during the migration window is acceptable** (not a launch blocker). Prefer **dual triggers** (Complianz **or** Termly / consent path) if you want continuity on both stacks until WordPress is retired; see § Complianz trigger coupling.
+
+**Logged:** **`docs/migration-exceptions.md`** **EX-0018**.
+
+## Legacy GTM container export (live WordPress, v15)
+
+**Artifact:** repository root **`Google Tag Manager v15.json`** (export **2026-04-06**), container **`GTM-KXJGBL5W`**, site name **`www.andetag.museum`**. Same **`publicId`** as **`site/src/components/chrome/TrackingHead.astro`**.
+
+Use this export when reconciling **staging static site + Termly** with what production used on WordPress.
+
+### Complianz trigger coupling (must fix for Termly)
+
+On the legacy site, **GA4** and the **Google Ads** “all pages” **Google tag** do **not** fire on a generic “All Pages” load alone. They fire on the **custom event** **`cmplz_event_statistics`** (Complianz “statistics” acceptance).
+
+**Meta** “all pages” **PageView** fires on **`cmplz_event_marketing`**.
+
+**Termly** does **not** emit **`cmplz_*`** event names. If GTM triggers are left unchanged after CMP swap, **GA4 / Ads / Meta may never fire**.
+
+**Required maintainer action:**
+
+- Reconfigure GTM so tags fire under **Termly + Google Consent Mode v2** per **`docs/gtm-termly-migration-runbook.md`** (Termly gallery template, **`userPrefUpdate`**, **`Termly.consentSaveDone`**, tag consent checks), **or**
+- Replace **`cmplz_*`** custom-event triggers with **Consent Initialization** / **All Pages** plus **tag-level consent** settings that match **`analytics_storage`**, **`ad_storage`**, etc.
+
+Re-verify in **GTM Preview** on **`andetag-web.guff.workers.dev`** before **`www`** cutover, again on **`www`** after **P8-13**.
+
+### Understory `dataLayer` events (already wired in legacy GTM)
+
+Understory pushes **parent-page** `dataLayer` events that GTM already maps to **GA4** (and some to Ads/Meta). These are **not** implemented in Astro source today; they depend on the **Understory** runtime posting to **`window.dataLayer`**.
+
+| `dataLayer` event (legacy names) | GTM tag role (summary) |
+|----------------------------------|-------------------------|
+| **`understory_add_to_cart`** | GA4 **`add_to_cart`** (ecommerce params via DLVs) |
+| **`understory_view_item`** | GA4 **`view_item`** |
+| **`understory_begin_checkout`** | GA4 **`begin_checkout`** |
+| **`on_receipt`** | **Google Ads** conversion (**Understory booking**), **Meta Purchase** |
+
+If these events stop appearing on the new site, **funnel and conversion tags** that depend on them will go quiet even though the widget still works. Confirm with **GTM Preview** on a ticket page after booking flow steps.
+
+### Cross-domain linker and session overrides
+
+- **Conversion linker** tag lists linker domains including **`andetag.museum`**, **`andetag.understory.io`**, **`checkout.stripe.com`**, **`guff.workers.dev`**. Update if production or staging host lists change.
+- **GA4 Google tag** config passes **`client_id`** and **`session_id`** from dataLayer (**`ga_client_id`**, **`ga_session_id`**) via custom JavaScript variables. If Understory or the parent page no longer sets those keys, **session stitching** vs the old site may change; validate with analytics if continuity matters.
+
+### Engagement tags (optional)
+
+Legacy container includes **outbound link**, **file download**, **tel/mailto**, **YouTube** (**`youTubeTrack`**), **copy text** / **copied email** (custom events). Many use **`consentStatus`: `NOT_SET`** in the export. Decide whether to keep, remove, or re-gate them under **Termly** + Consent Mode.
+
+### Consent-type nuances to verify
+
+- **Google Ads** “all pages” tag in the export lists **`analytics_storage`** as required consent; **Meta** lists **`ad_storage`**. Confirm against current Google and Meta guidance for your use case.
+
+## GTM migration checklist (static site + Termly)
+
+**Phase A (before or during staging, without requiring a perfect cutover):**
+
+**Operator steps (click-by-click):** **`docs/gtm-termly-migration-runbook.md`**.
+
+1. **Termly** resource blocker on **`andetag-web.guff.workers.dev`** via **`TrackingHead.astro`** (**`docs/phase-7-todo.md`** **P7-11**).
+2. In **GTM**, add the **Termly** gallery template and **Consent Mode**-compatible triggers **alongside** existing **`cmplz_*`** triggers so **static staging** can fire tags without breaking **WordPress** (same container).
+3. **GTM Preview** on staging: consent flow + minimum **page_view** / conversion path smoke test.
+
+**Phase B (production finish, **`docs/phase-8-todo.md`**):**
+
+4. **Replace or narrow** **`cmplz_*`**-only triggers once **`www`** serves the static stack (or use dual triggers until WP is fully off **`www`**).
+5. **Confirm Understory** still emits **`understory_*`** and **`on_receipt`** on parent **`dataLayer`** on Astro pages.
+6. **Review conversion linker** domain list for **`www`**, Understory, Stripe, and preview hosts.
+7. **Audit tags** with **`consentStatus`: `NOT_SET`** for alignment with **`docs/tracking-and-consent-requirements.md`**.
+8. **P8-13** and **P8-22:** publish GTM, switch **Termly** / GTM domain focus to **`www`**, live verification.
+
+Staged acceptance of cutover-day gaps: **`docs/migration-exceptions.md`** **EX-0018** and § **Staged rollout** above.
+
+## Funnel Stages (conceptual)
 
 1. Discover and land on route.
 2. Engage with conversion-oriented content.
@@ -21,7 +105,9 @@ Purpose: map conversion goals to measurable events that can be implemented via G
 4. Handoff to external ticketing flow.
 5. Completed purchase (measured via external platform integration or approved proxy signal).
 
-## Event Taxonomy
+## Event taxonomy (optional extended model)
+
+These names were planned for a richer funnel than **page_view + conversions**. Implement only if you add matching **`dataLayer.push`** calls from the app or keep equivalent GTM auto-event tags.
 
 | event_name | stage | trigger | pages | category | required_params | consent_category |
 |------------|-------|---------|-------|----------|-----------------|------------------|
@@ -37,32 +123,36 @@ Purpose: map conversion goals to measurable events that can be implemented via G
 
 | business_goal | primary_signal | backup_signal | owner_system |
 |---------------|----------------|---------------|--------------|
-| Completed purchase | external checkout completion event from ticketing integration | `booking_handoff_click` with campaign attribution | ticketing platform + analytics warehouse |
-| Improve conversion rate from key pages | purchase completion attributed to route group | `booking_widget_visible` to `booking_handoff_click` ratio | GTM + analytics |
-| Berlin pre-launch demand capture | qualified waitlist submissions | Brevo form starts and completion rate | Brevo + GTM |
+| Completed purchase | external checkout completion event from ticketing integration | **`on_receipt`**-driven Ads/Meta tags (legacy GTM) or GA4 ecommerce events from Understory | ticketing platform + analytics |
+| Improve conversion rate from key pages | purchase completion attributed to route group | Optional proxy events from § taxonomy if implemented | GTM + analytics |
+| Berlin pre-launch demand capture | qualified waitlist submissions | Brevo form completions | Brevo + optional GTM |
 
 ## GTM Implementation Requirements
 
-- Use one event naming standard across sv/en/de routes.
-- Include `lang` and `destination` on all conversion and proxy events.
+- Use one event naming standard across sv/en/de routes when you add custom events.
+- Include `lang` and `destination` on custom conversion and proxy events if you implement them.
 - Treat Understory booking widget runtime as `necessary` so conversion path is never blocked by optional consent categories.
 - Keep optional tag firing behind consent categories:
-  - analytics events: `analytics`
-  - marketing tags: `marketing`
+  - analytics: **`analytics_storage`**
+  - marketing / ads: **`ad_storage`** (and related flags per tag vendor)
 - Prevent duplicate event firing when both widget load and route hydration occur.
 
-## Minimum Validation Plan (Phase 7 Input)
+## Validation Plan
 
-1. Verify every taxonomy event in GTM preview on one representative route per language.
-2. Verify consent gating by category before and after opt-in.
-3. Verify booking proxy sequence on:
-   - `/stockholm/biljetter/`
-   - `/en/stockholm/tickets/`
-   - `/stockholm/dejt/`
-4. Verify Berlin lead flow sequence on `/de/berlin/`.
-5. Compare event counts between staging and production dry run window before launch.
+**Minimum (aligned with § Minimum viable measurement):**
+
+1. GTM Preview on staging: after analytics consent, **GA4** receives **`page_view`** (or equivalent).
+2. After marketing consent where applicable, **Meta** / **Ads** behave as expected; without consent, restricted behavior matches policy.
+3. Complete a test purchase or sandbox flow: **`on_receipt`** (or your chosen conversion signal) still reaches Ads/GA4/Meta if you rely on legacy tags.
+
+**Extended (only if you keep optional tags or custom taxonomy):**
+
+4. Verify custom taxonomy events per locale route if implemented.
+5. Berlin waitlist: optional **Brevo**-related GTM tags only with **marketing** consent.
+6. Compare staging vs production event counts in a dry-run window after **`www`** cutover.
 
 ## Open Measurement Dependencies
 
-- Purchase completion callback capabilities from Understory integration.
-- Final event implementation details and reporting destinations must be validated in Phase 7 staging runs.
+- Understory continues to expose **`dataLayer`** events on the parent page for parity with **`Google Tag Manager v15.json`** (or you deliberately remove dependent tags).
+- Purchase completion and ecommerce parameters depend on Understory and GTM variable mapping in the container.
+- Final tag and trigger edits happen in **GTM admin**, not only in this repository.

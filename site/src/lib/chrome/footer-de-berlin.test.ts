@@ -30,6 +30,7 @@ describe("german berlin footer model", () => {
     expect(flatNav.map((l) => l.href)).toEqual([...DE_BERLIN_FOOTER_NAV_PATHS]);
     expect(DE_BERLIN_FOOTER_PATHS).toContain("/de/berlin/privacy/");
     expect(model.privacyLink).toEqual({ label: "Datenschutz", href: "/de/berlin/privacy/" });
+    expect(model.consentPreferencesLabel).toBe("Cookie-Einstellungen");
   });
 
   it("uses local root-relative internal URLs", () => {

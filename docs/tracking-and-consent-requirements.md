@@ -16,6 +16,7 @@ This document extends requirements already stated in:
 
 ## 1) Tag Management Requirements (GTM)
 
+- Step-by-step GTM clicks for **Termly** vs legacy **Complianz** triggers: **`docs/gtm-termly-migration-runbook.md`**.
 - GTM is mandatory as the orchestration layer for analytics and marketing tags.
 - GTM container must be environment-aware (`dev`, `staging`, `prod`).
 - All non-essential tags must be controlled by consent state.
@@ -28,11 +29,19 @@ Minimum event categories to support:
 - Booking widget open and click-through events
 - Outbound conversion handoff events
 
+### 1a) Legacy WordPress GTM + Complianz vs Termly (static site)
+
+The **live** container export **`Google Tag Manager v15.json`** (root of this repo) shows **Complianz**-specific **`dataLayer`** events (**`cmplz_event_statistics`**, **`cmplz_event_marketing`**) used as **GTM triggers** for **GA4**, **Google Ads**, and **Meta**. **Termly does not emit those names.** After CMP swap, GTM triggers **must** be updated (for example **All Pages** plus tag-level consent, and the **Termly** GTM template per **`docs/gtm-termly-migration-runbook.md`**) or **GA4 / Ads / Meta may not fire**.
+
+**Understory** already supplies parent-page **`dataLayer`** events (**`understory_add_to_cart`**, **`understory_view_item`**, **`understory_begin_checkout`**, **`on_receipt`**) that the legacy container maps to analytics and conversion tags. The Astro app does not push those; parity depends on Understory.
+
+**Action list and export details:** **`docs/kpi-measurement-map.md`** (§ Legacy GTM container export, § GTM migration checklist, § Staged rollout). **EX-0018** documents accepted brief tracking gaps during **`www`** migration if GTM and CMP timing do not align perfectly.
+
 ## 2) Brevo (waitlist) Requirements
 
 The Berlin early-bird waitlist is implemented as **`WaitlistFormEmbed.astro`**: a **server-rendered HTML form** that **`POST`s** to Brevo’s form endpoint. There is **no Brevo JavaScript** on the page and **no Brevo cookie** set by that flow on first-party page load.
 
-- **Consent:** The user gives **explicit consent** via the **required** opt-in checkbox (**`OPT_IN`**) and linked privacy policy before submit. This is treated as **outside CookieYes category gating** (same category model still applies to any separate **Brevo tracking or remarketing tags** if those are added later via GTM).
+- **Consent:** The user gives **explicit consent** via the **required** opt-in checkbox (**`OPT_IN`**) and linked privacy policy before submit. This is treated as **outside Termly category gating** (same category model still applies to any separate **Brevo tracking or remarketing tags** if those are added later via GTM).
 - **Determinism:** Markup lives only in approved embed slots; **`unavailable`** shows deterministic fallback copy.
 - **Placement and fields:** Berlin EN/DE bodies; email + opt-in; locale hidden field. Adjust **`formAction`** only when the Brevo form endpoint changes.
 
@@ -65,17 +74,17 @@ Understory classification rule:
 
 ## 4a) Approved third-party embed inventory (P7-12)
 
-Normative consent **category** labels match **§3** (`necessary`, `analytics`, `marketing`). **Implementation note:** only GTM and tags behind CookieYes are category-gated today; third-party **iframes** below load with **`loading="lazy"`** where applicable but are **not** automatically suppressed until a category toggles (deferring iframe loads on consent is a follow-up if legal or CMP configuration requires it).
+Normative consent **category** labels match **§3** (`necessary`, `analytics`, `marketing`). **Implementation note:** only GTM and tags behind **Termly** are category-gated today; third-party **iframes** below load with **`loading="lazy"`** where applicable but are **not** automatically suppressed until a category toggles (deferring iframe loads on consent is a follow-up if legal or CMP configuration requires it).
 
 | Embed | Where | Component / mechanism | Consent classification | Notes |
 |-------|--------|------------------------|---------------------------|--------|
 | Understory booking | Stockholm (and related) pages | **`BookingEmbed.astro`** + **`booking-embed-lazy.ts`** | **`necessary`** | Lazy script injection when the shell nears the viewport; same rule as **§4** table. |
-| Brevo waitlist | Berlin EN/DE home | **`WaitlistFormEmbed.astro`** | **Not CookieYes-gated** | Plain **`POST`** form; explicit opt-in at submit; see **§2**. |
+| Brevo waitlist | Berlin EN/DE home | **`WaitlistFormEmbed.astro`** | **Not Termly-gated** | Plain **`POST`** form; explicit opt-in at submit; see **§2**. |
 | Vimeo promo video | Stockholm home/SEO, Berlin home | **`VideoEmbed.astro`** | **`marketing`** (third-party player) | Iframe to Vimeo; treat like other optional media embeds for policy. |
 | Google Maps | Stockholm home, Hitta hit, SEO landings | **`MapEmbed.astro`** | **`marketing`** (third-party map) | Google may set cookies in the iframe context; align CMP disclosure with your legal review. |
 | Spotify album | Musik pages (SV/EN/DE) | Inline **`iframe`** in page bodies | **`marketing`** | Lazy-loaded where wired; third-party Spotify player. |
 | Google Tag Manager | All pages (when tracking on) | **`TrackingHead.astro`**, **`TrackingBody.astro`** | **`analytics` / `marketing`** for tags inside GTM; loader **after** consent default | Consent Mode v2 default denied before interaction; see Phase 7 tracking checklist. |
-| CookieYes | All pages (when configured) | **`TrackingHead.astro`** | **`necessary`** | CMP runtime. |
+| Termly | All pages | **`TrackingHead.astro`** | **`necessary`** | Resource blocker / CMP script (**`app.termly.io/resource-blocker/...`**). |
 
 Out-of-scope for this inventory: **first-party** media (hero video poster, gallery, self-hosted MP4), **external links** (for example Understory gift card URL opened in a new tab), and **Worker `andetag_entry`** (cookie policy in **`docs/url-migration-policy.md`**).
 

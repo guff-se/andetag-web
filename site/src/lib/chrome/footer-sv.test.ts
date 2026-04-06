@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { getSwedishFooterModel } from "./footer-sv";
 import {
+  FOOTER_SV_EXPECTED_CONSENT_PREFERENCES_LABEL,
   FOOTER_SV_EXPECTED_GROUPED_SECTION_TITLES,
   FOOTER_SV_EXPECTED_PRIVACY_LABEL,
   FOOTER_SV_EXPECTED_SECTION_TITLES,
@@ -21,6 +22,7 @@ describe("swedish footer model", () => {
       FOOTER_SV_EXPECTED_GROUPED_SECTION_TITLES,
     );
     expect(model.privacyLink.label).toBe(FOOTER_SV_EXPECTED_PRIVACY_LABEL);
+    expect(model.consentPreferencesLabel).toBe(FOOTER_SV_EXPECTED_CONSENT_PREFERENCES_LABEL);
     expect(model.copyright).toBe("© 2026 Tadaa Art AB");
   });
 

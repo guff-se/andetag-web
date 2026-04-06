@@ -1,17 +1,19 @@
 ---
 /**
- * GTM bootstrap, Google Consent Mode v2 defaults, optional CookieYes.
- * Tracking ids are version-controlled for deterministic deploys.
+ * Termly resource blocker, GTM bootstrap, Google Consent Mode v2 defaults.
+ * Termly ID is the resource-blocker UUID from the Termly dashboard embed.
+ *
+ * Note: Termly’s GTM guide often recommends turning Auto Blocker off when GTM
+ * orchestrates tags, because Auto Blocker can interfere with GTM. This site
+ * uses `autoBlock=on` per operator choice; if GTM or Understory misbehaves,
+ * try `autoBlock=off` and rely on GTM consent checks + the Termly template.
  */
 const gtmId = "GTM-KXJGBL5W";
-const cookieYesId = "fce30d588ad80c2888014047a65067c1";
-const cookieYesSrc =
-  cookieYesId && cookieYesId.length > 0
-    ? `https://cdn-cookieyes.com/client_data/${cookieYesId}/script.js`
-    : null;
+const termlyResourceBlockerSrc =
+  "https://app.termly.io/resource-blocker/45781ec1-8b4c-4a0c-acef-9815cd5eabb3?autoBlock=on";
 ---
 
-<!-- Consent defaults before GTM (CookieYes updates these when configured in the CMP). -->
+<!-- Consent defaults before GTM (Termly + Termly GTM template update these when configured). -->
 <script is:inline>
   window.dataLayer = window.dataLayer || [];
   function gtag() {
@@ -28,7 +30,7 @@ const cookieYesSrc =
     wait_for_update: 500,
   });
 </script>
-{cookieYesSrc ? <script async id="cookieyes" type="text/javascript" src={cookieYesSrc} /> : null}
+<script is:inline src={termlyResourceBlockerSrc}></script>
 <script is:inline define:vars={{ gtmId }}>
   (function (w, d, s, l, i) {
     w[l] = w[l] || [];

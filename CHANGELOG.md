@@ -7,7 +7,21 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ## [Unreleased]
 
+### Removed
+
+- **`docs/gtm-cookieyes-migration-runbook.md`** (superseded by **`docs/gtm-termly-migration-runbook.md`**).
+
 ### Added
+
+- **`docs/cmp-vendor-matrix-seo-white-label.md`:** **Stakeholder direction** recorded (**Zaraz** out while **GTM** + **Understory** stay; next **Termly Pro+**). **`docs/decisions/0002-consent-platform-selection.md`** follow-up aligned.
+
+- **`docs/cmp-vendor-matrix-seo-white-label.md`:** **Cloudflare Zaraz** section (**built-in CMP**, **Consent Mode v2**, **pricing**, **Custom CSS** vs **WL**, and **GTM conflict** per [Zaraz FAQ](https://developers.cloudflare.com/zaraz/faq/)). **Why:** evaluate **zone-native** consent when already on **Cloudflare**.
+
+- **`docs/cmp-vendor-matrix-seo-white-label.md`:** third-party **review** summary (**Trustpilot**, **G2**, **OMR**) for the **Clear WL at moderate cost** row; **fit** table vs **`docs/tracking-and-consent-requirements.md`**; **recommendation** (**Termly Pro+** primary, **consentmanager** runner-up). **Why:** pick a **WL** CMP with review context and stack fit in one place.
+
+- **`docs/cmp-vendor-matrix-seo-white-label.md`:** systematic **CMP** comparison (**white-label**, **price**, **implementation**, **technical SEO** only) across requested vendors plus prior shortlist (**CookieYes**, **Termly**, **iubenda**, **Cookiebot**, **Osano**, **CookieScript**, etc.). Linked from **`docs/decisions/0002-consent-platform-selection.md`** and **`AGENTS.md`**. **Why:** choose a **WL** CMP without rereading scattered vendor pages.
+
+- **`docs/gtm-termly-migration-runbook.md`:** step-by-step GTM work for **Termly** + **Complianz** transition (dual triggers, tag consent, linker, Understory Preview, Phase B). **`AGENTS.md`** doc table; cross-link from **`docs/kpi-measurement-map.md`**; **`docs/phase-7-todo.md`** reference.
 
 - **Site identity icons:** **`andetag-icon.png`** (1024×1024 master) plus **`favicon.ico`**, **`favicon-{16,32}x32.png`**, **`apple-touch-icon.png`** (180×180), **`android-chrome-{192,512}x512.png`**, and **`site.webmanifest`** under **`site/public/`**. **`SiteLayout.astro`:** **`theme-color`** (aubergine **`#4a0d2f`**), **`manifest`**, and updated **`link rel="icon"`** set. Removed legacy **`favicon.svg`**. **`docs/phase-7-todo.md`** **P7-01**–**P7-02**; Vitest **`site-icons.test.ts`**.
 
@@ -20,6 +34,20 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 - **Phase 7 (initial):** **`@astrojs/sitemap`** and **`site/public/robots.txt`**; sitemap filter drops **`/404`** and root **`/`** (301-only). **JSON-LD** via **`site/src/lib/chrome/schema-org.ts`** (Stockholm **Museum** + **TouristAttraction**, Berlin **Place** pre-opening, privacy minimal graph); Vitest **`schema-org.test.ts`**. **GTM** + Consent Mode v2 defaults and optional **CookieYes** (**`TrackingHead.astro`**, **`TrackingBody.astro`**); **`PUBLIC_*`** documented in **`site/.env.example`**. **OG image** optional field **`ogImage`** on **`page-shell-meta.json`** / **`PageShellRoute`**. Self-hosted **favicon** JPEG (live WP shortcut), **logo** PNG under **`site/public/wp-content/uploads/2024/11/`**. **`docs/url-migration-policy.md`**, **`docs/content-model.md`**, **`docs/phase-7-todo.md`** updated.
 
 ### Changed
+
+- **Footer:** **`SiteFooter.astro`** adds **Termly** **`termly-display-preferences`** (after privacy, same **`shared-footer-privacy`** typography); labels from footer models (**SV** **Cookieinställningar**, **EN** **Consent Preferences**, **DE** **Cookie-Einstellungen**). **`layout.css`:** flex row for legal links in that cell.
+
+- **CMP (site + docs):** **CookieYes** removed from **`site/src/components/chrome/TrackingHead.astro`**; **Termly** resource blocker (**`45781ec1-8b4c-4a0c-acef-9815cd5eabb3`**, **`autoBlock=on`**) loads before **GTM**. **`docs/gtm-cookieyes-migration-runbook.md`** replaced by **`docs/gtm-termly-migration-runbook.md`**. **ADR 0002**, **`docs/phase-7-verification-record.md`** §P7-11, **`docs/migration-exceptions.md`** **EX-0018**, **`docs/cmp-vendor-matrix-seo-white-label.md`**, and related phase or tracking docs updated. **Why:** **Termly** is the implemented CMP per vendor choice.
+
+- **`docs/decisions/0002-consent-platform-selection.md`:** **Termly Pro+** deep-dive (official **GTM** + **Consent Mode v2** path, **Google**-documented setup, **Auto Blocker** vs **GTM**, **EU** storage, **consent logs**, six **cookie categories** vs repo **`necessary` / `analytics` / `marketing`**, **Meta** trigger notes, pilot risks). **Why:** confirm **Termly** as a **white-label** alternative to **CookieYes Ultimate** without guessing integration fit.
+
+- **`docs/decisions/0002-consent-platform-selection.md`:** **2026-04-06** supplement repricing the consent choice when the **cookie banner** must be **white-label** (no **“Powered by”**): **CookieYes** needs **Ultimate** (~**USD 55**/domain; EUR checkout may align with ~**EUR 55**), vs **Termly Pro+**, **iubenda Ultimate**, **CookieScript** tiers, and verification gaps for **Cookiebot** / **Osano**. **Why:** original matrix used **Basic**-tier **CookieYes** economics; branding is **Ultimate**-gated per vendor docs.
+
+- **Tracking migration policy:** **`docs/kpi-measurement-map.md`** § Staged rollout (staging CookieYes/GTM now, finish at **`www`** cutover; acceptable brief gaps on migration day). **`docs/migration-exceptions.md`** **EX-0018**. **`docs/phase-7-todo.md`** **P7-10**, **`docs/phase-8-todo.md`** **P8-05**, **`docs/tracking-and-consent-requirements.md`** §1a aligned.
+
+- **GTM / KPI docs:** **`docs/kpi-measurement-map.md`** reworked around minimum viable measurement (page views + conversions), legacy container export **`Google Tag Manager v15.json`** (Complianz **`cmplz_*`** triggers, Understory **`dataLayer`** events, linker and consent notes), and a **CookieYes migration checklist**. **`docs/tracking-and-consent-requirements.md`** §1a links here. **`docs/phase-7-todo.md`** **P7-10** remaining clarified; **`docs/phase-8-todo.md`** **P8-13** / **P8-22** reference the checklist. **`AGENTS.md`** documentation table updated.
+
+- **Phase 7 P7-11:** CookieYes + GTM consent work closed for staging; evidence in **`docs/phase-7-verification-record.md`** §P7-11. Production domain switch remains **`docs/phase-8-todo.md`** **P8-13**. **`docs/phase-7-todo.md`** **P7-11** checked.
 
 - **Phase 7 P7-15:** Final SEO pass recorded in **`docs/phase-7-verification-record.md`** (metadata parity, hreflang or canonical checks, lab Lighthouse summary vs **EX-0014**, **EX-0006** follow-up closure in **`docs/migration-exceptions.md`**). **`page-shell-registry.test.ts`:** non-empty descriptions for all shells; Berlin English story shells assert layout **`canonicalUrl`** matches **EX-0016** Stockholm English target. **`docs/phase-7-todo.md`** **P7-15** closed; **`docs/grand-plan.md`** carry-forward item 4 aligned (**EX-0006** vs **P7-12**).
 

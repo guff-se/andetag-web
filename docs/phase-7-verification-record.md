@@ -54,10 +54,18 @@ These are treated as intentional schema-policy deviations and logged as **`EX-00
 
 **Deliverable:** Embed inventory and consent labels in **`docs/tracking-and-consent-requirements.md`**:
 
-- **§2** Brevo waitlist: HTML **`POST`** only (**`WaitlistFormEmbed.astro`**), no Brevo script or cookie on page load; required **`OPT_IN`** checkbox and privacy link; **outside CookieYes category gating** (separate Brevo **tracking** tags via GTM remain **`marketing`** if introduced).
-- **§4a** Table: Understory booking (**`necessary`**), Brevo waitlist (not CMP-gated), Vimeo (**`marketing`**), Google Maps (**`marketing`**), Spotify (**`marketing`**), GTM + CookieYes roles noted.
+- **§2** Brevo waitlist: HTML **`POST`** only (**`WaitlistFormEmbed.astro`**), no Brevo script or cookie on page load; required **`OPT_IN`** checkbox and privacy link; **outside CMP category gating** (separate Brevo **tracking** tags via GTM remain **`marketing`** if introduced).
+- **§4a** Table: Understory booking (**`necessary`**), Brevo waitlist (not CMP-gated), Vimeo (**`marketing`**), Google Maps (**`marketing`**), Spotify (**`marketing`**), GTM + CMP (**Termly** after **2026-04-07**) roles noted.
 
 **Verification:** Doc-only; no runtime change. **`npm test -- --run`** in **`site/`** (2026-04-06): green (**25** files, **98** tests).
+
+## P7-11 · CMP + GTM (CookieYes closure, Termly embed)
+
+**Dates:** 2026-04-06 (staging sign-off on **CookieYes**); **2026-04-07** (embed switch to **Termly**).
+
+**Historical (through 2026-04-06):** **`TrackingHead.astro`** loaded **CookieYes** (**`cdn-cookieyes.com`**, client **`fce30d588ad80c2888014047a65067c1`**) with Consent Mode v2 **default denied** before GTM (**`GTM-KXJGBL5W`**). **Gustaf sign-off:** category model (**`necessary`**, **`analytics`**, **`marketing`**) and GTM consent gating matched **`docs/tracking-and-consent-requirements.md`**; banner and preferences checked on **`https://andetag-web.guff.workers.dev`**. **`andetag_entry`** documented as **necessary** per **`docs/url-migration-policy.md`**. Understory: no cookie observed in manual check; classification **`necessary`** (**§4** / **§4a**).
+
+**Current in-repo wiring (2026-04-07):** **`TrackingHead.astro`** loads **Termly** resource blocker (**`app.termly.io/resource-blocker/45781ec1-8b4c-4a0c-acef-9815cd5eabb3?autoBlock=on`**) after inline consent defaults and before GTM; **`TrackingBody.astro`** holds GTM **`noscript`** only. Operator GTM steps: **`docs/gtm-termly-migration-runbook.md`**. **Re-verify** banner, categories, and consent-gated tags on staging and **`www`** after GTM publish (**`docs/phase-8-todo.md`** **P8-13**).
 
 ## P7-15 · Final SEO pass (metadata, hreflang, CWV, EX-0006)
 
@@ -83,3 +91,9 @@ These are treated as intentional schema-policy deviations and logged as **`EX-00
 - Internal **`/component-showcase/`** remains removed. **P7-15** documents that production pages do not stack the full embed set; **`docs/migration-exceptions.md`** **EX-0006** **`follow_up`** updated accordingly. Optional lazy or consent-gated iframes stay under **P7-12** inventory follow-up.
 
 **Verification:** **`npm test`** and **`npm run build`** in **`site/`** (2026-04-06) after registry test extension.
+
+## Documentation · Legacy GTM export and Termly migration
+
+**Date:** 2026-04-06 (audit); runbook path **2026-04-07** (**`docs/gtm-termly-migration-runbook.md`**).
+
+Repository root **`Google Tag Manager v15.json`** (live WordPress container **v15**) audited; findings and maintainer checklist recorded in **`docs/kpi-measurement-map.md`**. **`docs/tracking-and-consent-requirements.md`** §1a summarizes Complianz trigger coupling and Understory **`dataLayer`** parity. Does not replace GTM admin work for **P7-10** remaining items.

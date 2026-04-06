@@ -96,7 +96,9 @@ Reference docs before implementation:
 | `docs/phase-3-component-usage.md` | Implementation-facing usage reference for approved Phase 3 components and embeds. |
 | `docs/phase-1-design-baseline.md` | Source-backed design token and component evidence baseline for Phase 1. |
 | `docs/ia-language-destination-options.md` | IA options and recommendation for language plus destination routing continuity. |
-| `docs/kpi-measurement-map.md` | KPI funnel event taxonomy for GTM and Phase 7 analytics implementation. |
+| `docs/kpi-measurement-map.md` | GTM and analytics: minimum viable measurement, **legacy `Google Tag Manager v15.json`** audit (Complianz triggers, Understory `dataLayer`), migration checklist for **Termly**, optional extended event taxonomy. |
+| `docs/cmp-vendor-matrix-seo-white-label.md` | CMP **shortlist matrix**: **white-label** plan gates, **price** ballparks, **implementation** ease, **technical SEO** risks (Core Web Vitals, not legal). Complements **`docs/decisions/0002-consent-platform-selection.md`**. |
+| `docs/gtm-termly-migration-runbook.md` | Step-by-step GTM UI work with **Termly**: gallery template, **`userPrefUpdate`** / **`Termly.consentSaveDone`**, dual triggers off **`cmplz_*`**, linker, Understory Preview, Phase B cleanup. |
 | `docs/url-migration-policy.md` | Canonical URL, redirect, alias, entry routing (**`andetag_entry`**), **Current routing architecture**, and **Sitemap / inbound links** policy for migration and launch. |
 | `docs/url-matrix-schema.md` | URL matrix data contract for must-keep URLs and redirect status tracking. |
 | `docs/content-model.md` | Versioned contract for page frontmatter, shared data, and component props. |
@@ -110,7 +112,7 @@ Reference docs before implementation:
 | `docs/site-structure-refactor-plan.md` | Side phase: `site/src/` layout (ADR 0003). **Status:** complete (2026-03-24). Historical execution notes, §6 verification, deferred follow-ups. |
 | `docs/phase-structure-todo.md` | Execution checklist for the site structure refactor (S0–S8); record baseline hash and check off phases. |
 | `docs/decisions/0001-static-stack-selection.md` | **Accepted** ADR: Astro; Cloudflare hosting; deploy path is Workers + static assets from **`site/`** (see Cloudflare section below and **`site/wrangler.jsonc`**). |
-| `docs/decisions/0002-consent-platform-selection.md` | **Accepted** ADR: CookieYes replaces Complianz; category-based gating expectations for Phase 7. |
+| `docs/decisions/0002-consent-platform-selection.md` | **Accepted** ADR: consent platform selection; **implemented CMP:** **Termly** (resource blocker in **`TrackingHead.astro`**); historical matrix includes CookieYes. |
 | `docs/decisions/0003-site-src-structure.md` | **Accepted** ADR: final folder names (`chrome`, `page-bodies`, `page-registry`, `ui-logic`, `client-scripts`). |
 | `docs/decisions/README.md` | ADR template, naming convention, and decision lifecycle process. |
 

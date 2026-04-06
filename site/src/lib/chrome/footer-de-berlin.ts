@@ -68,6 +68,7 @@ export function getGermanBerlinFooterModel(): BerlinLocationFooterModel {
     locationLinkColumns: [column0, column1],
     copyright: "© 2026 Tadaa Art AB",
     privacyLink: { label: "Datenschutz", href: DE_BERLIN_PRIVACY_PATH },
+    consentPreferencesLabel: "Cookie-Einstellungen",
     socialLinks,
   };
 }

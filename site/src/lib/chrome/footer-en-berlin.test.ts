@@ -28,6 +28,7 @@ describe("english berlin footer model", () => {
     expect(flatNav.map((l) => l.href)).toEqual([...EN_BERLIN_FOOTER_NAV_PATHS]);
     expect(EN_BERLIN_FOOTER_PATHS).toContain("/en/berlin/privacy/");
     expect(model.privacyLink).toEqual({ label: "Privacy policy", href: "/en/berlin/privacy/" });
+    expect(model.consentPreferencesLabel).toBe("Consent Preferences");
     expect(model.copyright).toBe("© 2026 Tadaa Art AB");
   });
 

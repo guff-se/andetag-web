@@ -143,7 +143,9 @@ export const PAGE_LAYOUT_FIXTURES: PageLayoutFixture[] = [
 export const FOOTER_SV_EXPECTED_SECTION_TITLES = ["Besok ANDETAG", "Upplevelsen"] as const;
 export const FOOTER_SV_EXPECTED_GROUPED_SECTION_TITLES = ["Grupper & foretag", "Om"] as const;
 export const FOOTER_SV_EXPECTED_PRIVACY_LABEL = "Integritetspolicy";
+export const FOOTER_SV_EXPECTED_CONSENT_PREFERENCES_LABEL = "Cookieinställningar";
 
 export const FOOTER_EN_EXPECTED_SECTION_TITLES = ["Visit ANDETAG", "The Experience"] as const;
 export const FOOTER_EN_EXPECTED_GROUPED_SECTION_TITLES = ["Groups & business", "About"] as const;
 export const FOOTER_EN_EXPECTED_PRIVACY_LABEL = "Privacy policy";
+export const FOOTER_EN_EXPECTED_CONSENT_PREFERENCES_LABEL = "Consent Preferences";

@@ -22,9 +22,9 @@ Purpose: track Scripts, Consent, Analytics, and Launch Hardening deliverables. N
 
 ## Scripts, consent, analytics (existing Phase 7 scope)
 
-- [x] **P7-10 Tracking (initial wiring):** GTM loader + Google Consent Mode v2 **default denied** in **`TrackingHead.astro`**; container **`GTM-KXJGBL5W`** is version-controlled in tracking components. **Remaining:** map **`docs/kpi-measurement-map.md`** events in GTM, verify gating in preview and staging.
-- [ ] **P7-11 CookieYes:** Script is version-controlled in **`TrackingHead.astro`** (client id **`fce30d588ad80c2888014047a65067c1`**). **Remaining:** configure CMP, categories, and GTM integration, validate by category on staging, then switch CookieYes or GTM primary production domain references during Phase 8 cutover (**`docs/phase-8-todo.md`** **P8-13**).
-- [x] **P7-12 Widgets:** Understory, Brevo waitlist, and other approved embeds documented with consent classification in **`docs/tracking-and-consent-requirements.md`** **§2** and **§4a** (2026-04-06). **Brevo:** plain **`POST`** waitlist form, no on-site Brevo cookie, explicit opt-in at submit; **not** behind CookieYes categories. **Follow-up:** if legal or CMP requires **lazy iframes** (Maps, Vimeo, Spotify) to load only after **`marketing`** (or another category), implement deferral and update the inventory table.
+- [x] **P7-10 Tracking (initial wiring):** GTM loader + Google Consent Mode v2 **default denied** in **`TrackingHead.astro`**; container **`GTM-KXJGBL5W`** is version-controlled in tracking components. **GTM admin (staged):** set up what you can on **staging** without breaking **WordPress + Complianz** (optional **dual triggers** per **`docs/kpi-measurement-map.md`** § Staged rollout and checklist **Phase A**). **Finish** **`cmplz_*`** exit, live verification, and **Understory `dataLayer`** checks in **Phase 8** (**P8-13**, **P8-22**). **EX-0018** accepts brief tracking gaps on cutover day. Optional extended KPI taxonomy events remain **optional**.
+- [x] **P7-11 Termly:** Resource blocker script is version-controlled in **`TrackingHead.astro`** (**`https://app.termly.io/resource-blocker/45781ec1-8b4c-4a0c-acef-9815cd5eabb3?autoBlock=on`**). **GTM:** complete **`docs/gtm-termly-migration-runbook.md`** on the container and re-verify staging (**`andetag-web.guff.workers.dev`**). **Deferred:** **Termly** + GTM primary production domain focus on **`www.andetag.museum`** after cutover (**`docs/phase-8-todo.md`** **P8-13**).
+- [x] **P7-12 Widgets:** Understory, Brevo waitlist, and other approved embeds documented with consent classification in **`docs/tracking-and-consent-requirements.md`** **§2** and **§4a** (2026-04-06). **Brevo:** plain **`POST`** waitlist form, no on-site Brevo cookie, explicit opt-in at submit; **not** behind **Termly** categories. **Follow-up:** if legal or CMP requires **lazy iframes** (Maps, Vimeo, Spotify) to load only after **`marketing`** (or another category), implement deferral and update the inventory table.
 
 ## Sitemap, robots, launch
 
@@ -36,6 +36,8 @@ Purpose: track Scripts, Consent, Analytics, and Launch Hardening deliverables. N
 
 ## References
 
+- **`Google Tag Manager v15.json`** (repository root): exported live **WordPress** container **v15**; audit and migration checklist in **`docs/kpi-measurement-map.md`**.
+- **`docs/gtm-termly-migration-runbook.md`**: GTM UI steps (Termly template, dual triggers, consent, Preview).
 - `docs/phase-7-verification-record.md` (evidence log as Phase 7 items close)
 - `docs/grand-plan.md` (Phase 7 deliverables and acceptance checks)
 - `docs/phase-8-todo.md` (deployment and post-live **`www`** verification)
