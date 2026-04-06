@@ -1,4 +1,4 @@
-# KPI Measurement Map (Phase 1)
+# KPI Measurement Map
 
 Purpose: align conversion goals with **GTM** behavior, consent, and optional event instrumentation. Normative consent categories: **`docs/tracking-and-consent-requirements.md`**.
 

@@ -10,5 +10,11 @@ export type HeroCoverImage =
 export function isHeroCoverResponsive(
   value: HeroCoverImage | undefined,
 ): value is { jpeg960: string; webp640: string; webp960: string } {
-  return typeof value === "object" && value !== null && "jpeg960" in value;
+  return (
+    typeof value === "object" &&
+    value !== null &&
+    "jpeg960" in value &&
+    "webp640" in value &&
+    "webp960" in value
+  );
 }

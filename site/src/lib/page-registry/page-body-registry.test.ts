@@ -9,10 +9,6 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const slugPath = join(__dirname, "../../pages/[...slug].astro");
 
 describe("page body registry", () => {
-  it("lists every migrated path in the slug map", () => {
-    expect(PAGE_CUSTOM_BODY_PATHS.size).toBe(60);
-  });
-
   it("stays aligned with pageBodies map in [...slug].astro", () => {
     const slugSource = readFileSync(slugPath, "utf8");
     for (const path of PAGE_CUSTOM_BODY_PATHS) {

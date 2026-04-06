@@ -15,7 +15,16 @@ const BASE = (process.env.STAGING_BASE ?? "https://andetag-web.guff.workers.dev"
 function headersToObject(headers) {
   const o = {};
   headers.forEach((v, k) => {
-    o[k.toLowerCase()] = v;
+    const key = k.toLowerCase();
+    if (key === "set-cookie") {
+      if (!o[key]) {
+        o[key] = [v];
+      } else {
+        o[key].push(v);
+      }
+    } else {
+      o[key] = v;
+    }
   });
   return o;
 }
@@ -33,9 +42,10 @@ async function probe(name, url, init, expect) {
     issues.push(`location ${JSON.stringify(loc)} want prefix ${JSON.stringify(expect.locationPrefix)}`);
   }
   if (expect.setCookieIncludes) {
-    const sc = h["set-cookie"] ?? "";
-    if (!sc.includes(expect.setCookieIncludes)) {
-      issues.push(`set-cookie missing ${JSON.stringify(expect.setCookieIncludes)} got ${JSON.stringify(sc)}`);
+    const scArr = h["set-cookie"] ?? [];
+    const scJoined = scArr.join("; ");
+    if (!scJoined.includes(expect.setCookieIncludes)) {
+      issues.push(`set-cookie missing ${JSON.stringify(expect.setCookieIncludes)} got ${JSON.stringify(scArr)}`);
     }
   }
 

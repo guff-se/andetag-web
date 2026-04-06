@@ -137,6 +137,9 @@ const pageBodies: Partial<Record<string, ShellPageBody>> = {
   "/sv/stockholm/vilken-typ-av-upplevelse/": VilkenTypAvUpplevelseSv,
 };
 const PageBody = pageBodies[canonicalPath];
+if (!PageBody && canonicalPath !== "/en/") {
+  throw new Error(`No page body component for path: ${canonicalPath}`);
+}
 const headerSelectorOnly = canonicalPath === "/en/";
 
 /** Full-bleed video hero (`SiteHeader.astro`): preload poster + Jost 500 for earlier paint (all breakpoints use video). */

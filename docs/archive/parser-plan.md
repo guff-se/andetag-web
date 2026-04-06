@@ -1,3 +1,5 @@
+> **Status: Superseded.** This document described a planned `parsed/` extraction pipeline that was not implemented as the primary delivery path. The migration uses `page-shell-registry`, `page-shell-meta.json`, and Astro components under `site/src/`. Retained for historical reference. The file counts and output paths below are stale.
+
 # Parser Plan - WordPress/Elementor to Static Site
 
 This document describes what the parser will extract from the scraped HTML and CSS files, and what format it will output.

@@ -1,6 +1,6 @@
 # ANDETAG SEO & GEO MANUAL
 
-Version: February 2026
+Version: April 2026
 Audience: Senior SEO and GEO specialist
 Scope: andetag.museum (Stockholm open, Berlin pre-opening)
 
@@ -132,7 +132,7 @@ Future localization (parallel strategy when launching):
 
 ---
 
-3. URL & Location Architecture (POLYLANG COMPATIBLE)
+## 3. URL & Location Architecture (POLYLANG COMPATIBLE)
 
 3.1 Language prefix (LOCKED)
 

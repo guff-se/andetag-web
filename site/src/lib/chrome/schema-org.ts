@@ -1,8 +1,6 @@
 import type { Destination, Language } from "./types";
 import { HERO_SV_ASSETS } from "./assets";
-import { buildCanonicalUrl } from "./seo";
-
-const ORIGIN = "https://www.andetag.museum";
+import { buildCanonicalUrl, CANONICAL_HOST, languageToHreflangAttribute } from "./seo";
 
 /** Source: `site-html/en-stockholm-tickets.html` footer JSON-LD (`#andetag`). */
 const STOCKHOLM_MUSEUM_SAME_AS = [
@@ -61,21 +59,6 @@ const STOCKHOLM_OPENING_HOURS: object[] = [
   },
 ];
 
-function inLanguageAttribute(language: Language): string {
-  switch (language) {
-    case "sv":
-      return "sv-SE";
-    case "en":
-      return "en";
-    case "de":
-      return "de-DE";
-    default: {
-      const _e: never = language;
-      return _e;
-    }
-  }
-}
-
 function stockholmMuseumDescription(language: Language): string {
   if (language === "sv") return STOCKHOLM_MUSEUM_DESCRIPTION_SV;
   return STOCKHOLM_MUSEUM_DESCRIPTION_EN;
@@ -86,7 +69,7 @@ function logoNode() {
   const logoUrl = buildCanonicalUrl(logoPath);
   return {
     "@type": "ImageObject" as const,
-    "@id": `${ORIGIN}/#logo`,
+    "@id": `${CANONICAL_HOST}/#logo`,
     url: logoUrl,
     contentUrl: logoUrl,
     caption: "ANDETAG logo",
@@ -97,7 +80,7 @@ function heroImageNode() {
   const heroUrl = buildCanonicalUrl(HERO_SV_ASSETS.poster);
   return {
     "@type": "ImageObject" as const,
-    "@id": `${ORIGIN}/#image-hero-stockholm`,
+    "@id": `${CANONICAL_HOST}/#image-hero-stockholm`,
     url: heroUrl,
     contentUrl: heroUrl,
     caption: "ANDETAG Stockholm",
@@ -130,15 +113,15 @@ export function buildSchemaJsonLd(ctx: SchemaPageContext): { "@context": string;
 }
 
 function buildPrivacySchema(ctx: SchemaPageContext): { "@context": string; "@graph": object[] } {
-  const inLang = inLanguageAttribute(ctx.language);
+  const inLang = languageToHreflangAttribute(ctx.language);
   const graph: object[] = [
     {
       "@type": "WebSite",
-      "@id": `${ORIGIN}/#website`,
-      url: ORIGIN + "/",
+      "@id": `${CANONICAL_HOST}/#website`,
+      url: CANONICAL_HOST + "/",
       name: "ANDETAG",
       inLanguage: inLang,
-      publisher: { "@id": `${ORIGIN}/#organization` },
+      publisher: { "@id": `${CANONICAL_HOST}/#organization` },
     },
     {
       "@type": "WebPage",
@@ -147,14 +130,14 @@ function buildPrivacySchema(ctx: SchemaPageContext): { "@context": string; "@gra
       name: ctx.pageTitle,
       description: ctx.pageDescription,
       inLanguage: inLang,
-      isPartOf: { "@id": `${ORIGIN}/#website` },
+      isPartOf: { "@id": `${CANONICAL_HOST}/#website` },
     },
     {
       "@type": "Organization",
-      "@id": `${ORIGIN}/#organization`,
+      "@id": `${CANONICAL_HOST}/#organization`,
       name: "ANDETAG",
-      url: ORIGIN + "/",
-      logo: { "@id": `${ORIGIN}/#logo` },
+      url: CANONICAL_HOST + "/",
+      logo: { "@id": `${CANONICAL_HOST}/#logo` },
       sameAs: [...ORG_SAME_AS],
     },
     logoNode(),
@@ -163,15 +146,15 @@ function buildPrivacySchema(ctx: SchemaPageContext): { "@context": string; "@gra
 }
 
 function buildBerlinPlaceSchema(ctx: SchemaPageContext): { "@context": string; "@graph": object[] } {
-  const inLang = inLanguageAttribute(ctx.language);
+  const inLang = languageToHreflangAttribute(ctx.language);
   const graph: object[] = [
     {
       "@type": "WebSite",
-      "@id": `${ORIGIN}/#website`,
-      url: ORIGIN + "/",
+      "@id": `${CANONICAL_HOST}/#website`,
+      url: CANONICAL_HOST + "/",
       name: "ANDETAG",
       inLanguage: inLang,
-      publisher: { "@id": `${ORIGIN}/#organization` },
+      publisher: { "@id": `${CANONICAL_HOST}/#organization` },
     },
     {
       "@type": "WebPage",
@@ -180,24 +163,24 @@ function buildBerlinPlaceSchema(ctx: SchemaPageContext): { "@context": string; "
       name: ctx.pageTitle,
       description: ctx.pageDescription,
       inLanguage: inLang,
-      isPartOf: { "@id": `${ORIGIN}/#website` },
-      about: { "@id": `${ORIGIN}/#place-berlin` },
+      isPartOf: { "@id": `${CANONICAL_HOST}/#website` },
+      about: { "@id": `${CANONICAL_HOST}/#place-berlin` },
     },
     {
       "@type": "Organization",
-      "@id": `${ORIGIN}/#organization`,
+      "@id": `${CANONICAL_HOST}/#organization`,
       name: "ANDETAG",
-      url: ORIGIN + "/",
-      logo: { "@id": `${ORIGIN}/#logo` },
+      url: CANONICAL_HOST + "/",
+      logo: { "@id": `${CANONICAL_HOST}/#logo` },
       sameAs: [...ORG_SAME_AS],
     },
     logoNode(),
     {
       "@type": "Place",
-      "@id": `${ORIGIN}/#place-berlin`,
+      "@id": `${CANONICAL_HOST}/#place-berlin`,
       name: "ANDETAG Berlin",
       description: ctx.pageDescription,
-      url: `${ORIGIN}/de/berlin/`,
+      url: `${CANONICAL_HOST}/de/berlin/`,
       sameAs: [...ORG_SAME_AS],
     },
   ];
@@ -205,16 +188,16 @@ function buildBerlinPlaceSchema(ctx: SchemaPageContext): { "@context": string; "
 }
 
 function buildStockholmVenueSchema(ctx: SchemaPageContext): { "@context": string; "@graph": object[] } {
-  const inLang = inLanguageAttribute(ctx.language);
+  const inLang = languageToHreflangAttribute(ctx.language);
   const museumDescription = stockholmMuseumDescription(ctx.language);
   const graph: object[] = [
     {
       "@type": "WebSite",
-      "@id": `${ORIGIN}/#website`,
-      url: ORIGIN + "/",
+      "@id": `${CANONICAL_HOST}/#website`,
+      url: CANONICAL_HOST + "/",
       name: "ANDETAG",
       inLanguage: inLang,
-      publisher: { "@id": `${ORIGIN}/#organization` },
+      publisher: { "@id": `${CANONICAL_HOST}/#organization` },
     },
     {
       "@type": "WebPage",
@@ -223,28 +206,28 @@ function buildStockholmVenueSchema(ctx: SchemaPageContext): { "@context": string
       name: ctx.pageTitle,
       description: ctx.pageDescription,
       inLanguage: inLang,
-      isPartOf: { "@id": `${ORIGIN}/#website` },
-      about: { "@id": `${ORIGIN}/#museum-stockholm` },
-      primaryImageOfPage: { "@id": `${ORIGIN}/#image-hero-stockholm` },
+      isPartOf: { "@id": `${CANONICAL_HOST}/#website` },
+      about: { "@id": `${CANONICAL_HOST}/#museum-stockholm` },
+      primaryImageOfPage: { "@id": `${CANONICAL_HOST}/#image-hero-stockholm` },
     },
     {
       "@type": "Organization",
-      "@id": `${ORIGIN}/#organization`,
+      "@id": `${CANONICAL_HOST}/#organization`,
       name: "ANDETAG",
-      url: ORIGIN + "/",
-      logo: { "@id": `${ORIGIN}/#logo` },
+      url: CANONICAL_HOST + "/",
+      logo: { "@id": `${CANONICAL_HOST}/#logo` },
       sameAs: [...ORG_SAME_AS],
     },
     heroImageNode(),
     {
       "@type": ["Museum", "TouristAttraction"],
-      "@id": `${ORIGIN}/#museum-stockholm`,
+      "@id": `${CANONICAL_HOST}/#museum-stockholm`,
       name: "ANDETAG Stockholm",
       description: museumDescription,
-      url: `${ORIGIN}/sv/stockholm/`,
-      parentOrganization: { "@id": `${ORIGIN}/#organization` },
-      image: { "@id": `${ORIGIN}/#image-hero-stockholm` },
-      logo: { "@id": `${ORIGIN}/#logo` },
+      url: `${CANONICAL_HOST}/sv/stockholm/`,
+      parentOrganization: { "@id": `${CANONICAL_HOST}/#organization` },
+      image: { "@id": `${CANONICAL_HOST}/#image-hero-stockholm` },
+      logo: { "@id": `${CANONICAL_HOST}/#logo` },
       email: "info@tadaa.se",
       sameAs: [...STOCKHOLM_MUSEUM_SAME_AS],
       isAccessibleForFree: false,

@@ -74,7 +74,7 @@ Purpose: one **necessary** (strictly functional) first-party cookie plus edge lo
 |-----------|--------|
 | Name | `andetag_entry` |
 | Purpose | Remember the visitor’s chosen **entry lane** (language or destination entry) for routing only. No analytics or marketing use. |
-| Consent | **`necessary`** only: must not be gated behind optional CookieYes categories; document in CookieYes as essential / functional (aligned with `docs/tracking-and-consent-requirements.md`). |
+| Consent | **`necessary`** only: must not be gated behind optional CMP consent categories; document in the CMP (Termly) as essential / functional (aligned with `docs/tracking-and-consent-requirements.md`). |
 | Format | `v1:<token>` (version prefix allows future migrations). |
 | Tokens | `sv` (Swedish Stockholm), `de` (German Berlin), `en-s` (English Stockholm), `en-b` (English Berlin). |
 | `Path` | `/` |

@@ -119,7 +119,7 @@ Phase 4 remains **valid for the closed matrix** until you flip production entry 
 | **`public/_redirects`** | Swedish legacy paths **`301`** to **`/sv/...`**; see **`docs/url-matrix.csv`**. | Avoid duplicate redirects with Worker for **`/`** if both apply. |
 | **Tests** | Registry and matrix parity tests enforce **`keep`** paths vs shells. | Add or extend tests when Worker behavior is testable in CI if desired. |
 | **`404.astro` / `phase-4-404.md`** | Recovery links use **`/sv/stockholm/`**. | None. |
-| **Worker** | Not in repo yet. | **New** deliverable: cookie, **`Accept-Language`**, bot list, **`302`** rules; extend **`docs/phase-4-redirect-tests.md`** for **`/`** and **`/en/`** entry cases. |
+| **Worker** | In repo since 2026-04-04 (**`site/workers/entry-router.ts`** + **`entry-routing-logic.ts`**). | Cookie, **`Accept-Language`**, bot list, **`302`** rules implemented; **`docs/phase-4-redirect-tests.md`** covers **`/`** and **`/en/`** entry cases. |
 
 **Stable:** `[...slug].astro` shell pattern, `SiteLayout` + `seo.ts` hreflang **mechanics**, trailing-slash config, global **404** pattern. **Evolving:** Worker versus static ownership of **`/`** and query preservation at the edge.
 

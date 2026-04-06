@@ -72,7 +72,7 @@ const testimonialItems = [
 ] as const;
 ---
 
-<main class="page-body page-berlin-home" lang="de">
+<div class="page-body page-berlin-home" lang="de">
   <ContentSection heading="Ein Ort zum Atmen" markdown={breatheMarkdown} />
 
   <div class="page-berlin-home__secondary-band page-berlin-home__secondary-band--stockholm">
@@ -106,7 +106,7 @@ const testimonialItems = [
     </div>
   </div>
 
-  <TestimonialCarousel items={[...testimonialItems]} aggregate={{ ...stockholmTestimonialAggregateDe }} />
+  <TestimonialCarousel items={[...testimonialItems]} aggregate={{ ...stockholmTestimonialAggregateDe }} prevLabel="Vorheriges Zitat" nextLabel="Nächstes Zitat" />
 
   <div class="page-migrated-cta page-berlin-home__cta-after-testimonials">
     <ButtonGroup
@@ -148,4 +148,4 @@ const testimonialItems = [
       </section>
     </div>
   </div>
-</main>
+</div>

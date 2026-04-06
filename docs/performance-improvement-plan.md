@@ -12,7 +12,7 @@ After **P0** (hero poster), **P1** (gallery, marketing bodies, small header, abo
 |-----------|------:|------|
 | Performance score | **88–98** per URL | **Lowest 88**, **highest 98**, **mean ~93** |
 | LCP (lab) | **~2.4–3.9 s** | **Mean ~3.1 s**; still above the **2.5 s** “good” CWV line on many routes |
-| TBT (lab) | **~0–1 ms** typical | Main-thread blocking is **light** in this headless run; **PSI / real devices** can look worse (GTM, CookieYes, cache state) |
+| TBT (lab) | **~0–1 ms** typical | Main-thread blocking is **light** in this headless run; **PSI / real devices** can look worse (GTM, Termly, cache state) |
 | CLS | **0** on most URLs | **Four** routes logged **CLS above 0.05** in the same run (see **Lighthouse batch insights** below) |
 
 **Interpretation:** Image and header work moved the **score distribution** into the high 80s and 90s locally. **LCP** remains the main gap versus **2.5 s** good, clustered on routes with **small header + heavy first paint** (privacy, some Stockholm shells, optical-fibre, Berlin hub). **Do not** treat local **`serve dist`** as identical to **staging Worker** or **PSI** (TLS, `workers.dev` headers, third-party variance).
@@ -31,7 +31,7 @@ Mobile [PageSpeed Insights](https://pagespeed.web.dev/analysis/https-andetag-web
 |-------|--------|----------------------|
 | **P0** Hero poster | **Done** | Responsive **AVIF / WebP / JPEG** (`stockholm-hero-poster-{960,1920}w.*`), `<picture>` under video + **CSS fade-in** on `playing`. **LCP preload** uses **art-directed AVIF** (`lcpImagePreloads` in **`[...slug].astro`**, **`SiteLayout`**) so the preloaded file matches the **first** `<source>` (Chrome picks **AVIF**, not legacy **`960w.webp`** preload). **`HERO_SV_ASSETS.poster`** → **`1920w.jpg`** for default **`og:image`** / JSON-LD (must be served on **`www`** after Phase 8; see **`docs/phase-8-todo.md`** **P8-23** Facebook Sharing Debugger). |
 | **P1** Gallery / body images | **Done** | **Gallery** (**`stockholm-marketing-gallery.ts`**). **Marketing bodies:** **`stockholm-body-responsive-images.ts`** (home, SEO, book **`HeroSection`**, **Art Yoga** / **Dejt** covers, **Berlin** After Hours teaser, default **`TestimonialCarousel`** band, **about-the-artists** lead aside **`artWeekOpeningLeadAside`**, **optical-fibre** **`malinVaver*`**) with **`{640,960}w` WebP** + **`960w` JPEG** beside sources. **`ResponsiveInlinePicture`** (**`fetchpriority`** optional for LCP candidates), **`HeroSection`** / **`TestimonialCarousel`** responsive modes. **Small header (`shared-hero-header.is-small`):** portrait mobile still (**`Mobile-BG.*-header-mobile-*`**) AVIF/WebP/JPEG; desktop uses same **`stockholm-hero-poster-*`** stack as the video hero; **`HEADER_SMALL_LCP_PRELOAD_WEBP`** with **`media=(max-width:767px)`**; **`fetchpriority=high`** on fallback **`img`**. **Optional hygiene:** circular **portrait** JPEGs on about-the-artists (**`1024x1024`**) still ship as single files; batch derivatives if a future sweep flags them. |
-| **P2** Third-party + first-party JS | **Partial** | **`BookingEmbed`:** Understory script **`defer`** via **`booking-embed-lazy.ts`** (viewport **`IntersectionObserver`**, ~**`400px`** **`rootMargin`**). **Gallery lightbox:** vanilla **`gallery-lightbox.ts`**. **Hero parallax:** vanilla **`hero-cover-parallax.ts`**; **`jquery`** dependency **removed** from **`site/package.json`**. **GTM** / CookieYes unchanged (Partytown or **`load`** deferral still optional). |
+| **P2** Third-party + first-party JS | **Partial** | **`BookingEmbed`:** Understory script **`defer`** via **`booking-embed-lazy.ts`** (viewport **`IntersectionObserver`**, ~**`400px`** **`rootMargin`**). **Gallery lightbox:** vanilla **`gallery-lightbox.ts`**. **Hero parallax:** vanilla **`hero-cover-parallax.ts`**; **`jquery`** dependency **removed** from **`site/package.json`**. **GTM** / Termly unchanged (Partytown or **`load`** deferral still optional). |
 | **P3** Booking API compression | **Vendor** | Ask Understory for **gzip/Brotli** on API Gateway JSON. |
 | **P4** Fonts | **Partial** | **`fonts.css`** unchanged; **`SiteLayout`** adds optional **`lcpBodyFontPreloadHref`** (Baskervville 400 Latin WOFF2) on text-heavy shells (privacy all locales, music sv/en/de Berlin, corporate events, visitor reviews) wired from **`[...slug].astro`**. |
 | **P5** CSS | **Open** | Hygiene only. |
@@ -85,7 +85,7 @@ The article’s checklist maps to this codebase as follows (gaps are where we st
 | **Limit HTTP requests** | Partially | Lab run showed **~63 requests** on Stockholm home; third parties multiply trips; audit duplicates and lazy third-party load. |
 | **Browser caching** (`Cache-Control`, etc.) | Strong for fingerprints | `site/public/_headers` covers `/_astro/*`, fonts, uploads (**`/wp-content/uploads/*`** ~**30d** `max-age` + long **`stale-while-revalidate`** for large video or poster repeat visits; replace-in-place at the same URL should use a new filename per **`AGENTS.md`**). HTML stays short TTL or revalidate. |
 | **Remove render-blocking JS** | Mixed | GTM in head; Understory booking script uses **`defer`** (**P2** partial). |
-| **Limit external scripts** | Understory, GTM, CookieYes | Defer, lazy-load, or isolate (Partytown) where tags allow; reduces **layout shift** risk from late-injected widgets. |
+| **Limit external scripts** | Understory, GTM, Termly | Defer, lazy-load, or isolate (Partytown) where tags allow; reduces **layout shift** risk from late-injected widgets. |
 | **Limit redirects** | Policy-heavy | Entry **`/`** / **`/en/`** routing is intentional ([`url-migration-policy.md`](url-migration-policy.md)); avoid **chains** and extra hops on marketing landing URLs. |
 | **Minify CSS/JS** | Default via Astro build | Still verify no large inline blocks; marginal gains but standard hygiene. |
 | **Fast hosting / DNS / CDN** | Workers + Cloudflare DNS | TTFB for HTML is edge + Worker path; static assets benefit from POP proximity. |
@@ -135,7 +135,7 @@ The article’s checklist maps to this codebase as follows (gaps are where we st
 |----------|--------|----------------------|
 | **P0** | Hero poster / above-the-fold media | Drove **LCP** when poster was ~**1.4 MB** JPEG. **Done.** |
 | **P1** | Gallery and body images | Bulk **bytes** and format audits. **Done** for scoped marketing routes; **optional** portrait derivatives remain. |
-| **P2** | Third-party **JavaScript** (Understory, GTM) | Booking script **lazy** + **defer** **done**; **GTM** / CookieYes **open**. Improves **TBT** and critical path on **real** visits more than in minimal headless lab. |
+| **P2** | Third-party **JavaScript** (Understory, GTM) | Booking script **lazy** + **defer** **done**; **GTM** / Termly **open**. Improves **TBT** and critical path on **real** visits more than in minimal headless lab. |
 | **P3** | Booking **API** JSON compression | **Vendor**; large uncompressed JSON; parallel track. |
 | **P4** | Fonts | Smaller than image work; matters more when **LCP is text** (privacy, dense copy). |
 | **P5** | CSS weight / minification | Hygiene after bigger wins. |
@@ -207,7 +207,7 @@ Use this order when **serial** engineering time is limited. **Parallel** items (
 
 ### P2 — Third-party JavaScript: Understory + GTM
 
-**Status: partial** (booking script **lazy** + **defer** **done**; **GTM** / CookieYes **unchanged**).
+**Status: partial** (booking script **lazy** + **defer** **done**; **GTM** / Termly **unchanged**).
 
 **What Lighthouse said (historical):** “Reduce unused JavaScript”; **understory.io** and **GTM** highlighted. **`jquery`** was removed (**2026-04**); **gallery** and **hero parallax** are vanilla.
 

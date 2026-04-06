@@ -5,6 +5,21 @@
   --component-focus: #e0e31c;
 }
 
+/*
+ * Full-bleed utility (not yet wired to HTML selectors).
+ * Selectors that duplicate this pattern today:
+ *   .component-hero
+ *   .testimonial-block
+ *   .gallery-section (via left/margin-left variant)
+ *   .embed-shell-no-frame
+ *   .page-stockholm-home__video-band / .page-berlin-home__video-band
+ */
+.full-bleed {
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  width: 100vw;
+}
+
 /* Visual Identity: prose uses Baskervville on body; headings stay Jost. */
 .content-section > :is(h1, h2, h3, h4),
 .content-section-body :is(h1, h2, h3, h4),
@@ -22,7 +37,7 @@
  */
 .content-section > h1,
 .content-section-body h1 {
-  color: #4a0d2f;
+  color: var(--component-surface);
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.3em;
@@ -35,7 +50,7 @@
 /* Direct section headings in ContentSection (h2–h4 as children of the section). */
 .content-section > :is(h2, h3, h4),
 .info-frame > :is(h2, h3, h4) {
-  color: #4a0d2f;
+  color: var(--component-surface);
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.2em;
@@ -48,7 +63,7 @@
 /* Subheadings inside migrated or markdown body HTML. */
 .content-section-body :is(h2, h3, h4),
 .info-frame-body :is(h2, h3, h4) {
-  color: #4a0d2f;
+  color: var(--component-surface);
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.2em;
@@ -77,7 +92,7 @@
 }
 
 .partners-section > :is(h1, h2, h3) {
-  color: #4a0d2f;
+  color: var(--component-surface);
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.2em;
@@ -128,7 +143,7 @@
 }
 
 .link-footer {
-  color: #4a0d2f;
+  color: var(--component-link);
   text-decoration: underline;
   text-underline-offset: 0.2em;
 }
@@ -162,14 +177,14 @@
 
 .link-cta-primary {
   background: var(--component-accent); /* lavender #d0a4cc = rgb(208, 164, 204) */
-  color: #4a0d2f;
-  border-color: #4a0d2f;
+  color: var(--component-surface);
+  border-color: var(--component-surface);
 }
 
 .link-cta-secondary {
-  background: #4a0d2f;
+  background: var(--component-surface);
   color: #fafafa;
-  border-color: #4a0d2f;
+  border-color: var(--component-surface);
 }
 
 .link-cta-outline {
@@ -550,7 +565,7 @@
   font-size: 1.35rem;
   font-weight: 500;
   line-height: 1;
-  color: #4a0d2f;
+  color: var(--component-surface);
 }
 
 .accordion-item.is-open .accordion-item-toggle::before {
@@ -938,7 +953,7 @@ body.lightbox-open {
 
 .testimonial-block__aggregate-eyebrow {
   margin: 0 0 0.35rem;
-  color: #4a0d2f;
+  color: var(--component-surface);
   font-family: "JostLocal", "Jost", Arial, sans-serif;
   font-size: 0.78rem;
   font-weight: 500;
@@ -979,7 +994,7 @@ body.lightbox-open {
 
 .testimonial-block__aggregate-score {
   margin: 0;
-  color: #4a0d2f;
+  color: var(--component-surface);
   font-family: "JostLocal", "Jost", Arial, sans-serif;
   font-size: clamp(2rem, 5vw, 2.75rem);
   font-weight: 500;
@@ -1000,7 +1015,7 @@ body.lightbox-open {
   gap: 0.12rem;
   font-size: 1.15rem;
   line-height: 1;
-  color: #4a0d2f;
+  color: var(--component-surface);
   letter-spacing: 0.02em;
 }
 
@@ -1015,7 +1030,7 @@ body.lightbox-open {
 .testimonial-block__aggregate-meta {
   margin: 0.5rem auto 0.65rem;
   max-width: 28rem;
-  color: #4a0d2f;
+  color: var(--component-surface);
   font-size: 0.95rem;
   line-height: 1.45;
 }
@@ -1023,7 +1038,7 @@ body.lightbox-open {
 .testimonial-block__aggregate-link {
   display: inline-block;
   margin-top: 0.15rem;
-  color: #4a0d2f;
+  color: var(--component-link);
   font-family: "JostLocal", "Jost", Arial, sans-serif;
   font-size: 0.72rem;
   font-weight: 500;
@@ -1077,7 +1092,7 @@ body.lightbox-open {
 
 .testimonial-slide p {
   margin: 0;
-  color: #4a0d2f;
+  color: var(--component-surface);
   /* Only 400 roman and 400 italic are self-hosted; weight 300 has no file and will not change rendering. */
   font-family: "BaskervvilleLocal", "Baskervville", Georgia, serif;
   font-size: clamp(1.45rem, 2.7vw, 2.15rem);
@@ -1091,7 +1106,7 @@ body.lightbox-open {
 .testimonial-slide cite {
   display: block;
   margin-top: 1.3rem;
-  color: #4a0d2f;
+  color: var(--component-surface);
   font-family: "JostLocal", "Jost", Arial, sans-serif;
   font-size: 0.95rem;
   letter-spacing: 0.3em;
@@ -1138,7 +1153,7 @@ body.lightbox-open {
 }
 
 .info-frame-body {
-  color: #4a0d2f;
+  color: var(--component-surface);
   font-family: "JostLocal", "Jost", Arial, sans-serif;
   font-size: 16px;
   line-height: 1.45;
@@ -1178,7 +1193,7 @@ body.lightbox-open {
 
 .embed-shell-heading {
   margin: 0 0 1.5rem;
-  color: #4a0d2f;
+  color: var(--component-surface);
   font-family: "JostLocal", "Jost", Arial, sans-serif;
   font-weight: 500;
   font-size: clamp(1.05rem, 2.2vw, 1.35rem);
@@ -1491,7 +1506,7 @@ body.lightbox-open {
 .page-berlin-home__signup-footnote p {
   font-size: 0.8125rem;
   line-height: 1.45;
-  color: #4a0d2f;
+  color: var(--component-surface);
   text-align: center;
 }
 
@@ -1788,7 +1803,7 @@ body.lightbox-open {
   font-family: "BaskervvilleLocal", "Baskervville", Georgia, serif;
   font-size: clamp(0.95rem, 2.5vw, 1.05rem);
   line-height: 1.55;
-  color: #4a0d2f;
+  color: var(--component-surface);
 }
 
 .page-om-andetag-sv__etymology-box p {
@@ -2116,5 +2131,18 @@ body.lightbox-open {
 @media (min-width: 768px) {
   .page-vilken-typ-sv__lists {
     grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (forced-colors: active) {
+  .gallery-carousel-btn:focus-visible,
+  .testimonial-nav button:focus-visible,
+  .accordion-item-toggle:focus-visible {
+    outline: 2px solid CanvasText;
+  }
+
+  .link-cta-primary,
+  .link-cta-secondary {
+    border: 1px solid LinkText;
   }
 }

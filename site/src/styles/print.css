@@ -1,0 +1,34 @@
+@media print {
+  .shared-hero-chrome,
+  .header-root,
+  .footer-root,
+  .shared-footer,
+  .skip-link,
+  nav,
+  video,
+  .gallery-carousel-controls,
+  .testimonial-nav {
+    display: none !important;
+  }
+
+  body {
+    color: #000;
+    background: #fff;
+  }
+
+  main {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    color: #555;
+  }
+
+  img {
+    max-width: 100% !important;
+  }
+}

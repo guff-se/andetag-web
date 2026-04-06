@@ -48,6 +48,7 @@ const accUid = randomUUID().replace(/-/g, "").slice(0, 10);
           id={panelId}
           role="region"
           aria-labelledby={headerId}
+          hidden={!isOpen}
         >
           <div class="accordion-item-expand-inner">
             {item.bodyHtml ? (

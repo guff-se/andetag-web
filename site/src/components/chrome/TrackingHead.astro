@@ -8,7 +8,9 @@
  * uses `autoBlock=on` per operator choice; if GTM or Understory misbehaves,
  * try `autoBlock=off` and rely on GTM consent checks + the Termly template.
  */
-const gtmId = "GTM-KXJGBL5W";
+import { GTM_CONTAINER_ID } from "../../lib/chrome/tracking-constants";
+
+const gtmId = GTM_CONTAINER_ID;
 const termlyResourceBlockerSrc =
   "https://app.termly.io/resource-blocker/45781ec1-8b4c-4a0c-acef-9815cd5eabb3?autoBlock=on";
 ---

@@ -28,6 +28,8 @@ export type PageShellRoute = {
 const metaPages = pageShellMeta.pages as Record<string, PageShellSourceMeta>;
 
 /** Stockholm Swedish + English pairs. Order: [sv, en]. */
+// NOTE: These pairs overlap with GLOBAL_TRILINGUAL_TOPICS in chrome-navigation-resolve.ts.
+// If routes change, both tables must be updated. Consider deriving from a shared source.
 export const STOCKHOLM_SV_EN_PAIRS: ReadonlyArray<readonly [string, string]> = [
   ["/sv/stockholm/", "/en/stockholm/"],
   ["/sv/stockholm/musik/", "/en/stockholm/music/"],

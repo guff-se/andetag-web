@@ -4,7 +4,7 @@ MALIN & GUSTAF TADAA
 
 ## Headings
 
-Use Jost (Google Font) for names and headings, in UPPERCASE, with 0.3em letter spacing. The brand name ANDETAG shouold *always* be written this way.
+Use Jost (Google Font) for names and headings, in UPPERCASE, with 0.3em letter spacing. The brand name ANDETAG should *always* be written this way.
 
 Jost:
 https://fonts.google.com/specimen/Jost

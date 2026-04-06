@@ -1,156 +1,39 @@
-# Agent Guide: ANDETAG Web Migration
+# Agent Guide: ANDETAG Web
 
-This document guides AI agents working in this repository. Read it at the start of each session.
-
----
-
-## You Built This
-
-**You created every file in this project.** Own design decisions, keep the system coherent, and leave the repo in a better state than you found it.
-
-**Your collaborator knows architecture but not implementation details.** Always report what changed, where it changed, and why.
+Read this at the start of each session.
 
 ---
 
-## Your Role
+## Role
 
-You are the sole maintainer for this repository and should execute complete solutions end-to-end.
+You are the sole maintainer. You created every file in this project. Own design decisions and keep the system coherent.
 
-**Implications:**
-- Make implementation choices without waiting for approval when requirements are clear.
-- Do not hand off executable work to the user when you can do it yourself.
+- Execute complete solutions end-to-end; do not hand off executable work.
+- Your collaborator knows architecture but not implementation details: always report what changed, where, and why.
 - Keep docs and implementation aligned at all times.
 - Prefer small, verifiable changes with clear rationale.
 
 ---
 
-## Critical: Source Integrity
+## Source Integrity
 
 This project works with real scraped website artifacts and SEO language constraints.
 
 - Never fabricate pages, URLs, metadata, or content values that could be interpreted as source truth.
 - If required source data is missing or ambiguous, stop and ask.
-- Do not silently invent placeholders in parser outputs, manifests, or SEO copy.
+- Do not silently invent placeholders in manifests or SEO copy.
 
 ---
 
-## Project at a Glance
+## Project Overview
 
-**What it is:** A migration workspace for converting the current `andetag.museum` WordPress/Elementor site into structured static-site source content.
+**What:** Migrating `andetag.museum` from WordPress/Elementor to an Astro static site on Cloudflare Workers.
 
-**Business context:** Stockholm content is live and multilingual (sv/en/de context), while Berlin is a pre-launch track. The repository captures scraped source files, parser planning docs, and SEO content strategy that must stay consistent.
+**Status:** Phases 0-7 closed. **Phase 8** (production deployment) is active. Phase 9 (maintenance) is a placeholder.
 
-**Tech:** Python (`spider.py`), HTML/Markdown source artifacts, and documentation-driven parser specs in `docs/`.
+**Languages:** Swedish (`sv`), English (`en`), German (`de`) with preserved hreflang relationships.
 
----
-
-## Key Design Decisions
-
-| Decision | Rationale |
-|----------|-----------|
-| `site-html/` is treated as canonical scraped input | Parser behavior should be deterministic from stable local source files. |
-| Parser extraction boundary is `data-elementor-type="wp-page"` | Keeps per-page content separate from shared header/footer templates. |
-| Output model is structured (`content`, `nav`, `design`, `schema`, `pages`) | Supports static site generation with clean source-of-truth artifacts. |
-| Language architecture remains sv/en/de with preserved hreflang relationships | Required for SEO/GEO continuity and migration safety. |
-| WordPress/plugin JS is not migrated as content | Reduces noise and avoids carrying over irrelevant runtime behavior. |
-| First-party marketing and body photos ship with responsive derivatives (WebP + JPEG) | Keeps transfer and decode cost low on mobile (Lighthouse). Masters remain in-repo for full-resolution use (for example gallery lightbox **`href`**). Workflow and suffix rules are mandatory; see **Conventions** → **First-party raster images (performance)**. |
-
----
-
-## Documentation Structure
-
-Reference docs before implementation:
-
-| Doc | Use when |
-|-----|----------|
-| `docs/existing-site-structure.md` | Understanding current WP/Elementor templates, widget types, nav, integrations. |
-| `docs/parser-plan.md` | Implementing or changing parser outputs and extraction rules. |
-| `docs/Andetag SEO Manual.md` | Making SEO/GEO decisions, page intent, language strategy, schema constraints. |
-| `docs/Tone of Voice.md` | Writing or editing user-facing copy and metadata text. |
-| `docs/Visual Identity.md` | Quick visual direction and brand consistency checks. |
-| `docs/grand-plan.md` | Project roadmap, phase gates, business objectives, and decision log. |
-| `docs/phase-0-todo.md` | Execution checklist for Phase 0 guardrails and deliverables. |
-| `docs/phase-1-todo.md` | Execution checklist for Phase 1 analysis deliverables and exit gate inputs. |
-| `docs/phase-2-todo.md` | Execution checklist for Phase 2 shared layout system deliverables and approvals. |
-| `docs/phase-3-todo.md` | Execution checklist for Phase 3 component library, showcase approval, and verification gates. |
-| `docs/phase-4-todo.md` | Execution checklist for Phase 4 routing, redirects, canonical or hreflang wiring, and URL coverage validation. |
-| `docs/phase-5-todo.md` | Historical Phase 5 execution checklist; **status complete** (2026-03-24, Swedish `/sv/` migration). Carry-forward items **`P5-05`–`P5-07`** in **`docs/phase-6-todo.md`**. |
-| `docs/phase-5-verification-record.md` | Phase 5 evidence, per-page design approvals, P5-01 static target note, Lighthouse summary, **EX-0014**, stakeholder sign-off (**closed** 2026-03-24). |
-| `docs/phase-6-todo.md` | Localization (**`en`**, **`de`**) and Phase 5 carry-forward. **P6-00**–**P6-06** closed **2026-04-04**; Worker and SEO manual live-entry rows remain in the carry-forward table. |
-| `docs/phase-6-verification-record.md` | Phase 6 evidence and Gustaf sign-off per slice (**P6-00** chrome package, later waves). |
-| `docs/phase-7-todo.md` | Phase 7 checklist (**closed** **Gustaf** **2026-04-09**): scripts, **Termly** embed, analytics wiring in source, favicon, sharing, schema, sitemap. **GTM** runbook execution is **Phase 8 · P8-07** (`docs/phase-8-todo.md`). |
-| `docs/phase-7-verification-record.md` | Phase 7 evidence; **closed** **Gustaf** **2026-04-09** (§P7-16). |
-| `docs/phase-8-todo.md` | Execution checklist for Phase 8 deployment: dev and staging verification, URL parity vs legacy live site (Gustaf-approved exceptions), **`www.andetag.museum`** cutover, post-live checks (**`P5-06`** production closes here). |
-| `docs/phase-9-todo.md` | **Placeholder:** Phase 9 maintenance program after migration (operating model, **performance optimization Agent Skill**, **production PR** performance gate). Summary: **`docs/grand-plan.md`** Phase 9. |
-| `docs/phase-8-verification-record.md` | Phase 8 evidence and Gustaf sign-off for production cutover. |
-| `docs/phase-4-route-coverage.md` | URL matrix to Astro shell and `_redirects` mapping for Phase 4 route coverage. |
-| `docs/phase-4-routing-reopen.md` | Post-closure routing revisit: location and language matrix, Berlin or Stockholm parity, global pages and navigation. |
-| `docs/routing-location-scoped-global-pages-plan.md` | Execution plan: move story or global pages under location-prefixed routes, redirects, canonical, chrome, and docs (when approved). |
-| `docs/phase-4-redirect-tests.md` | Redirect tests: static **`public/_redirects`** and Worker entry router (**`/`**, **`/en/`**); execution log. |
-| `docs/phase-4-404.md` | Phase 4 global `404` behavior and accessibility notes. |
-| `docs/phase-4-verification-record.md` | Phase 4 verification evidence and stakeholder sign-off (parallel to Phase 3 record). |
-| `docs/phase-3-component-qa-checklist.md` | Reusable QA checklist template for Phase 3 component verification and showcase sign-off. |
-| `docs/phase-3-verification-record.md` | Phase 3 `P3-08` Lighthouse results, manual QA summary, and stakeholder sign-off (historical internal showcase route, since removed). |
-| `docs/phase-3-fixture-strategy.md` | Deterministic fixture strategy and coverage map for Phase 3 layout and component regression checks. |
-| `docs/phase-3-component-inventory.md` | Source-backed Phase 3 component inventory and approved API contracts. |
-| `docs/phase-3-component-usage.md` | Implementation-facing usage reference for approved Phase 3 components and embeds. |
-| `docs/phase-1-design-baseline.md` | Source-backed design token and component evidence baseline for Phase 1. |
-| `docs/ia-language-destination-options.md` | IA options and recommendation for language plus destination routing continuity. |
-| `docs/kpi-measurement-map.md` | GTM and analytics: minimum viable measurement, **legacy `Google Tag Manager v15.json`** audit (Complianz triggers, Understory `dataLayer`), migration checklist for **Termly**, optional extended event taxonomy. |
-| `docs/cmp-vendor-matrix-seo-white-label.md` | CMP **shortlist matrix**: **white-label** plan gates, **price** ballparks, **implementation** ease, **technical SEO** risks (Core Web Vitals, not legal). Complements **`docs/decisions/0002-consent-platform-selection.md`**. |
-| `docs/gtm-termly-migration-runbook.md` | Step-by-step GTM UI work with **Termly** (**execute Phase 8 · P8-07**, just before **`www`** cutover): gallery template, **`userPrefUpdate`** / **`Termly.consentSaveDone`**, dual triggers off **`cmplz_*`**, linker, Understory Preview, post-cutover cleanup. |
-| `docs/url-migration-policy.md` | Canonical URL, redirect, alias, entry routing (**`andetag_entry`**), **Current routing architecture**, and **Sitemap / inbound links** policy for migration and launch. |
-| `docs/url-matrix-schema.md` | URL matrix data contract for must-keep URLs and redirect status tracking. |
-| `docs/content-model.md` | Versioned contract for page frontmatter, shared data, and component props. |
-| `docs/definition-of-done.md` | Measurable exit checks for each delivery phase. |
-| `docs/tracking-and-consent-requirements.md` | GTM, Brevo, and consent category requirements for compliant tracking. |
-| `docs/migration-exceptions.md` | Exception log format and approval workflow for source parity deviations. |
-| `docs/testimonials-reimplementation-options.md` | Research and strategic options for customer testimonials and social proof (discussion before implementation). |
-| `docs/design-extraction-method.md` | Reproducible method for extracting design tokens and component patterns from all CSS sources. |
-| `docs/performance-improvement-plan.md` | Mobile image and script performance (responsive raster workflow, Lighthouse re-checks, P2–P5 backlog). **Use when** adding or changing first-party photos in **`site/public/`** or tuning **`HeroSection`**, **`GallerySection`**, **`TestimonialCarousel`**, booking script loading. |
-| `docs/phase-1-analysis-schema.md` | Structured tables for Phase 1 variant, widget, and integration analysis. |
-| `docs/site-structure-refactor-plan.md` | Side phase: `site/src/` layout (ADR 0003). **Status:** complete (2026-03-24). Historical execution notes, §6 verification, deferred follow-ups. |
-| `docs/phase-structure-todo.md` | Execution checklist for the site structure refactor (S0–S8); record baseline hash and check off phases. |
-| `docs/decisions/0001-static-stack-selection.md` | **Accepted** ADR: Astro; Cloudflare hosting; deploy path is Workers + static assets from **`site/`** (see Cloudflare section below and **`site/wrangler.jsonc`**). |
-| `docs/decisions/0002-consent-platform-selection.md` | **Accepted** ADR: consent platform selection; **implemented CMP:** **Termly** (resource blocker in **`TrackingHead.astro`**); historical matrix includes CookieYes. |
-| `docs/decisions/0003-site-src-structure.md` | **Accepted** ADR: final folder names (`chrome`, `page-bodies`, `page-registry`, `ui-logic`, `client-scripts`). |
-| `docs/decisions/README.md` | ADR template, naming convention, and decision lifecycle process. |
-
-**Rule:** If behavior changes, update the relevant doc in the same task.
-
-### Documentation Overview Maintenance
-
-- Keep this documentation table current whenever new planning or migration docs are created.
-- If a doc is superseded, mark it in the table or remove it in the same task that introduces the replacement.
-- At the end of substantial planning work, verify that every new doc in `docs/` has a clear owner purpose and "use when" entry here.
-
----
-
-## Coherence: Everything Is Connected
-
-Changes often affect multiple layers. Audit all related layers before concluding:
-
-| Layer | What to check |
-|-------|---------------|
-| **Scraped source** | `site-html/` and `site-md/` filename conventions and source coverage |
-| **Parser logic** | `spider.py` behavior and any future parser modules/scripts |
-| **Planned outputs** | `docs/parser-plan.md` output contracts and field names |
-| **SEO content** | `seo-content/` pages and constraints from SEO manual |
-| **Docs** | Architecture/tone/SEO docs that describe changed behavior |
-
-**Checklist for cross-cutting changes:**
-1. Search for old field names, slugs, URL paths, and widget assumptions.
-2. Update parser behavior and matching documentation together.
-3. Verify language-specific impacts (sv/en/de) and hreflang/canonical consistency.
-4. Confirm no contradiction with tone and SEO constraints.
-
-### Routing and entry URLs (Phase 5 onward)
-
-Before changing Astro routes (`site/src/pages/`, `page-shell-registry`, `page-shell-meta`), `docs/url-matrix.csv`, `site/public/_redirects`, or edge Workers for entry routing:
-
-1. Read **`docs/phase-4-routing-reopen.md`** (decided behavior, open questions, **Phase 4 implementation delta**).
-2. Read **`docs/url-migration-policy.md`** (entry routing, **`andetag_entry`**, **`Accept-Language`**, crawlers).
-3. Check **`docs/grand-plan.md`** (Entry routing and URL expansion schedule).
+**Locations:** Stockholm (live, multilingual) and Berlin (pre-launch).
 
 ---
 
@@ -158,228 +41,155 @@ Before changing Astro routes (`site/src/pages/`, `page-shell-registry`, `page-sh
 
 ```
 web/
-├── AGENTS.md                 # This guide
-├── CHANGELOG.md              # Human-readable project change log
-├── .github/workflows/        # CI workflows for docs and quality gates
-├── spider.py                 # Current crawler (HTML + Markdown snapshots + assets)
-├── docs/                     # Migration, SEO, tone, and site architecture specs
-├── site-html/                # Scraped HTML pages and downloaded WP assets
-├── site-md/                  # Markdown snapshots from crawler
-├── site/                     # Astro workspace (`npm test`, `npm run build`); `docs/site-structure-refactor-plan.md`, ADR 0003
-│   ├── public/               # Static assets, `_redirects`, `_headers`
-│   ├── scripts/              # Node / shell tooling (meta, fonts, `verify-staging-entry-routing.mjs`); not browser bundles
-│   ├── workers/              # Cloudflare entry router (`entry-router.ts`, `entry-routing-logic.ts`); policy: `docs/url-migration-policy.md`
-│   ├── wrangler.jsonc        # Workers + static `dist/` (`run_worker_first`, `ASSETS` binding)
+├── AGENTS.md              # This guide
+├── CHANGELOG.md           # Human-readable change log (see docs/changelog-standards.md)
+├── .github/workflows/     # CI: Node tests + build, Python tests, docs link check
+├── spider.py              # Crawler (HTML + Markdown snapshots + assets)
+├── docs/                  # Active migration and architecture specs
+│   └── archive/           # Closed-phase checklists, superseded plans, historical reference
+├── site-html/             # Scraped HTML pages (canonical input, do not manually edit)
+├── site-md/               # Markdown snapshots from crawler
+├── site/                  # Astro workspace
+│   ├── public/            # Static assets, _redirects, _headers
+│   ├── scripts/           # Node/shell tooling (meta, fonts, verify-staging, lighthouse)
+│   ├── workers/           # Cloudflare entry router (entry-router.ts, entry-routing-logic.ts)
+│   ├── wrangler.jsonc     # Workers + static dist/ (run_worker_first, ASSETS binding)
 │   └── src/
-│       ├── client-scripts/    # Browser-oriented TS imported from Astro components
+│       ├── client-scripts/  # Browser TS imported from Astro components
 │       ├── components/
-│       │   ├── chrome/       # Site chrome (header, footer, logo)
-│       │   ├── content/      # Section-level blocks (Hero, ContentSection, …)
-│       │   ├── embeds/
-│       │   ├── page-bodies/  # Per-route main-column bodies (`[...slug].astro` map)
-│       │   └── ui/
-│       ├── data/             # `page-shell-meta.json` (generated)
-│       ├── layouts/          # Astro document layout (`SiteLayout.astro`)
+│       │   ├── chrome/      # Header, footer, logo, tracking
+│       │   ├── content/     # Section-level blocks (Hero, Gallery, Accordion, ...)
+│       │   ├── embeds/      # Third-party embeds (booking, waitlist, map, video)
+│       │   ├── page-bodies/ # Per-route main-column bodies
+│       │   └── ui/          # Small reusable UI (links, pictures, wordmark)
+│       ├── data/            # page-shell-meta.json (generated)
+│       ├── layouts/         # SiteLayout.astro
 │       ├── lib/
-│       │   ├── chrome/       # Chrome + SEO model (navigation, hero, footer, types, fixtures)
-│       │   ├── content/
-│       │   ├── fonts/
-│       │   ├── page-registry/  # `page-body-registry`, FAQ TS next to bodies
-│       │   ├── routes/       # `page-shell-registry`, URL / chrome navigation resolution
-│       │   └── ui-logic/     # TS-only helpers (carousel, booking HTML, presentation)
-│       ├── pages/            # File-based routes (`index`, `[...slug]`, `404`)
-│       └── styles/
-└── seo-content/              # SEO content drafts (currently mostly Swedish)
+│       │   ├── chrome/      # Navigation, hero, footer, SEO, schema, types, fixtures
+│       │   ├── content/     # Gallery, testimonials, responsive image path modules
+│       │   ├── fonts/       # sources.json (npm run fonts:sync)
+│       │   ├── page-registry/  # page-body-registry, FAQ data
+│       │   ├── routes/      # page-shell-registry, chrome navigation, URL resolution
+│       │   └── ui-logic/    # TS helpers (carousel, booking, presentation)
+│       ├── pages/           # File-based routes (index, [...slug], 404)
+│       └── styles/          # Global CSS (layout, components, fonts, print, vendor)
+└── seo-content/             # SEO content drafts
 ```
 
 ---
 
-## Testing Strategy
+## Documentation
 
-**Goal:** Keep parser and content transformations reliable and repeatable.
+Consult before implementation. All active docs are in `docs/`.
 
-### Unit tests
-- Add parser-focused unit tests under `tests/` when introducing parsing helpers.
-- Use fixed HTML snippets from `site-html/` fixtures for deterministic assertions.
-- Validate exact output fields and normalization behavior.
+| Doc | Use when |
+|-----|----------|
+| `docs/grand-plan.md` | Roadmap, phase gates, business objectives, decision log |
+| `docs/phase-8-todo.md` | **Current phase:** deployment checklist, URL parity, `www` cutover |
+| `docs/phase-8-verification-record.md` | Phase 8 evidence and sign-off |
+| `docs/phase-9-todo.md` | Placeholder: post-migration maintenance program |
+| `docs/Andetag SEO Manual.md` | SEO/GEO decisions, page intent, language strategy, schema |
+| `docs/Tone of Voice.md` | User-facing copy and metadata text |
+| `docs/Visual Identity.md` | Typography, color palette, CTA mapping |
+| `docs/url-migration-policy.md` | Canonical URLs, redirects, entry routing (`andetag_entry`), sitemap |
+| `docs/phase-4-routing-reopen.md` | Routing decisions, open questions, location/language matrix |
+| `docs/phase-4-redirect-tests.md` | Redirect test tables and execution log |
+| `docs/content-model.md` | Page frontmatter, shared data contracts, component props |
+| `docs/phase-3-component-usage.md` | Component API reference and usage patterns |
+| `docs/definition-of-done.md` | Measurable exit checks per phase |
+| `docs/migration-exceptions.md` | Exception log for source parity deviations |
+| `docs/performance-improvement-plan.md` | Lighthouse, responsive images, script loading |
+| `docs/responsive-image-workflow.md` | **Mandatory** when adding photos: derivative generation, suffix rules, wiring |
+| `docs/tracking-and-consent-requirements.md` | GTM, Brevo, consent categories |
+| `docs/kpi-measurement-map.md` | Analytics measurement, GTM audit, Termly migration checklist |
+| `docs/gtm-termly-migration-runbook.md` | Step-by-step GTM work for Phase 8 P8-07 |
+| `docs/decisions/0002-consent-platform-selection.md` | CMP selection ADR (Termly implemented) |
+| `docs/changelog-standards.md` | How to write CHANGELOG.md entries |
+| `docs/archive/` | Closed-phase checklists, verification records, superseded plans |
 
-### Integration checks
-- Run parser/crawler against local artifacts when possible.
-- If network access is required (for crawling or media download), keep runs explicit and documented.
+**Rule:** If behavior changes, update the relevant doc in the same task.
 
-### Running checks
+---
+
+## Coherence Checklist
+
+Changes often affect multiple layers. Audit before concluding:
+
+| Layer | What to check |
+|-------|---------------|
+| **Astro site** | `site/src/` components, pages, lib, styles, client scripts |
+| **Workers / routing** | `site/workers/`, `site/public/_redirects`, `_headers`, URL policy doc |
+| **Scraped source** | `site-html/` and `site-md/` coverage |
+| **SEO content** | `seo-content/` pages and SEO manual constraints |
+| **Docs** | Architecture, tone, and SEO docs that describe changed behavior |
+
+For cross-cutting changes:
+1. Search for old field names, slugs, URL paths.
+2. Verify language-specific impacts (sv/en/de) and hreflang/canonical consistency.
+3. Confirm no contradiction with tone and SEO constraints.
+
+**Before changing routes:** Read `docs/phase-4-routing-reopen.md`, `docs/url-migration-policy.md`, and the entry routing schedule in `docs/grand-plan.md`.
+
+---
+
+## Testing
+
 ```bash
+# Astro (primary)
+cd site && npm test          # Vitest: 27 files, 107 tests
+cd site && npm run build     # Static build (also CI on push/PR to main)
+
+# Optional
+cd site && npm run lighthouse:all   # Mobile perf sweep (needs built dist/)
+cd site && npm run verify:staging-entry  # Entry routing vs staging
+
+# Python crawler
 python3 -m py_compile spider.py
-python3 spider.py
 python3 -m unittest tests.test_spider_versioning
 ```
 
-**`spider.py`:** By default each run writes **`crawl-versions/<id>/`**, diffs against the prior run, and writes **`MIGRATION_CHANGELOG.md`** in that folder before promoting to **`site-html/`** and **`site-md/`**. Use **`python3 spider.py --legacy`** for a simple refresh with no archive or changelog (large disk use on repeated full crawls: consider pruning old **`crawl-versions/*`** manually or via git ignore if you do not commit archives).
-
-Astro workspace (`site/`): `npm test` and `npm run build` (also run on `push` to `main` via `.github/workflows/ci.yml`). Optional mobile performance sweep over every built route: **`npm run build`** then **`npm run lighthouse:all`** (writes **`site/reports/lighthouse-performance.json`**; see **`docs/performance-improvement-plan.md`** § re-verify).
-
-### Rule
-- Use red/green TDD for non-trivial parser logic changes.
-- No parser feature is complete without a regression check (test or documented deterministic validation).
-
----
-
-## Workflow by Task Type
-
-### Updating parser behavior
-1. Read `docs/parser-plan.md` and `docs/existing-site-structure.md`.
-2. Implement minimal parser change in `spider.py` or new parser module.
-3. Add/update tests or deterministic validation steps.
-4. Update parser docs if output shape or assumptions changed.
-
-### Updating SEO or content guidance
-1. Read `docs/Andetag SEO Manual.md` and `docs/Tone of Voice.md`.
-2. Edit affected `seo-content/` files or metadata references.
-3. Verify language-specific wording constraints (especially sv/en/de intent).
-4. Keep docs and content examples synchronized.
-
-### Investigating migration mismatches
-1. Reproduce using source page in `site-html/`.
-2. Identify whether mismatch is parser logic, source artifact, or spec drift.
-3. Fix root cause and add a regression check.
-4. Document changed assumption in relevant doc.
+CI (`.github/workflows/ci.yml`) runs Node tests, build, Python tests, and docs link check on push and PR to `main`.
 
 ---
 
 ## Conventions
 
-- **No effort estimates.** Do not add day/hour estimates to docs or plans.
-- Preserve raw scraped files. Do not manually "clean" `site-html/` content in place.
-- Keep filenames and slugs predictable and stable.
-- Locale-specific source files must use language suffixes at the end of the filename, using only `sv`, `en`, and `de` (for example `hero-sv.ts`, `hero-en.ts`, `hero-de.ts`).
-- Design system rule: visual design primitives are universal across languages. Language can change content, active variants, and shown elements, but core design tokens, layout patterns, and component styling must remain shared unless an approved migration exception is logged.
-- The rebuilt site must self-host all first-party assets. Do not use absolute `https://www.andetag.museum/...` URLs for internal JS, CSS, images, video, fonts, or other media in `site/`; use local root-relative paths (for example `/wp-content/uploads/...`) backed by files in the Astro workspace.
-- **Missing media in `site-html/`:** When a migrated page needs an image or other first-party file that is referenced in scraped HTML or on the live site but was not captured under `site-html/`, **download it from the current production URL** (or re-run the crawler if you prefer a batch refresh) and commit it under **`site/public/`** on the same path the site will serve (for example `site/public/wp-content/uploads/...`). Then wire that path in Astro. Do not leave permanent hotlinks to `andetag.museum` for internal assets, and do not invent placeholder imagery.
-
-### First-party raster images (performance)
-
-**Rule:** Whenever you add a **new photograph or large raster** used in the Astro site (hero, gallery tile, body figure, testimonial band, Berlin teaser, **`og:image`** targets, and similar), you must **not** rely on the full-resolution master alone in HTML. Ship **responsive derivatives** next to the master under **`site/public/`**, wire them through the approved components or modules, and record paths in TypeScript so builds stay deterministic.
-
-**1. Commit the master** on the same URL path the site will serve (for example **`site/public/wp-content/uploads/.../original.jpg`**). Keep provenance: encode from the real asset, do not substitute different imagery.
-
-**2. Generate three files beside the master** (ImageMagick, from the repo root or `site/public/`; adjust **`INPUT`** and **`BASE`**):
-
-```bash
-# INPUT = path to master under site/public; SUFFIX = role tag (see below)
-BASE="${INPUT%.*}"   # strip .jpg or .jpeg
-magick "$INPUT" -resize 640x -strip -define webp:method=6 -quality 82 "${BASE}-${SUFFIX}-640w.webp"
-magick "$INPUT" -resize 960x -strip -define webp:method=6 -quality 82 "${BASE}-${SUFFIX}-960w.webp"
-magick "$INPUT" -resize 960x -strip -quality 82 "${BASE}-${SUFFIX}-960w.jpg"
-```
-
-**3. Choose `SUFFIX` by usage** (matches existing shipped assets):
-
-| Role | `SUFFIX` | Markup / module |
-|------|----------|-----------------|
-| **`GallerySection`** tile (WebP thumb, full JPEG for lightbox **`href`**) | `gallery` | **`site/src/lib/content/stockholm-marketing-gallery.ts`** (or a new shared module if the set is not the Stockholm marketing eight); **`GallerySection`** **`thumbWebp640`** / **`thumbWebp960`**, **`src`** = **`jpeg960`**, **`fullSrc`** = master |
-| Inline figure (intro, aside, Berlin teaser) | `body` or `aside` | **`ResponsiveInlinePicture.astro`**; paths in **`site/src/lib/content/stockholm-body-responsive-images.ts`** (add a named export, or split a module if the file grows) |
-| **`HeroSection`** full-bleed cover (parallax **`img`**) | `hero` | **`HeroCoverImage`** object; marketing book band uses **`STOCKHOLM_BOOK_HERO_COVER`** in **`site/src/lib/chrome/assets.ts`**, other heroes in **`stockholm-body-responsive-images.ts`** |
-| **`TestimonialCarousel`** background | `testimonial` | **`BodyPictureSources`** default or prop; **`testimonialCarouselDefaultBg`** in **`stockholm-body-responsive-images.ts`** |
-
-**4. Wire and verify:** Use **`sizes`** and **`<picture>`** as in **`docs/phase-3-component-usage.md`** (**`GallerySection`**, **`HeroSection`**, **`TestimonialCarousel`**, **`ResponsiveInlinePicture`**). Add or extend a **Vitest** check on new path constants if you add a new exported bundle. Run **`npm test`** and **`npm run build`** in **`site/`**.
-
-**5. Docs and changelog:** Update **`docs/performance-improvement-plan.md`** if the workflow or scope changes; add a **`CHANGELOG.md`** note for user-visible image behavior.
-
-**Exceptions:** Tiny assets (icons, logos under tens of KB, SVG) do not need this triple. **`1024x`-suffixed** masters that are already display-sized may skip derivatives only if you document why in the same PR (for example verified file size and Lighthouse unchanged). Prefer processing anyway for format (WebP) wins.
-
-**Reference:** Closed **P1** spec and rationale in **`docs/performance-improvement-plan.md`**.
-
-- For CSS, create fresh local styles in `site/src/styles/` or component-scoped files instead of copying legacy WordPress CSS bundles.
-- For JS behavior, reimplement with local project code and package-managed dependencies instead of loading legacy WordPress script files by URL.
-- For webfonts, maintain source definitions in `site/src/lib/fonts/sources.json` and regenerate local files via `npm run fonts:sync`; do not ship runtime links to remote font providers.
-- For user-facing copy, follow `docs/Tone of Voice.md` and SEO constraints exactly.
-- In prose docs, avoid the em dash character and use commas, colons, or parentheses.
-
-### Header and Footer Parity Notes
-
-- Keep CSS selector naming design-scoped and reusable (`shared-*`), language-specific files should provide content and routing differences only.
-- When a source template has distinct mobile navigation behavior, implement that behavior directly instead of collapsing to desktop interaction patterns.
-- For sticky UI elements that start near or outside viewport bounds, calculate stick points from the element's real document position and recalculate on resize.
-- During active layout or component parity work, optional dedicated preview routes under `site/src/pages/` can shorten review cycles. **Remove those routes and any `_redirects` entries or doc references that exist only for them when the owning phase is marked complete**, unless follow-up is logged in `docs/migration-exceptions.md` or the relevant phase todo with an owner. After closure, rely on matrix shells, tests, and verification records for regression (see **Phase closure cleanup** below).
+- **No effort estimates** in docs or plans.
+- **Locale suffixes** at end of filename: `hero-sv.ts`, `hero-en.ts`, `hero-de.ts`.
+- **Self-host all first-party assets.** No absolute `https://www.andetag.museum/...` URLs in `site/`. Use root-relative paths backed by files in `site/public/`.
+- **Missing media:** Download from production and commit under `site/public/` on the serving path. Do not leave hotlinks or invent placeholders.
+- **Responsive images:** Follow `docs/responsive-image-workflow.md` for any new photograph or large raster.
+- **CSS:** Fresh local styles in `site/src/styles/` or component-scoped. Do not copy legacy WordPress CSS.
+- **JS:** Reimplement with local code and package-managed deps. Do not load legacy WP scripts.
+- **Fonts:** Maintain `site/src/lib/fonts/sources.json`, regenerate via `npm run fonts:sync`.
+- **Copy:** Follow `docs/Tone of Voice.md` and SEO constraints exactly.
+- **Prose docs:** Avoid em dash; use commas, colons, or parentheses.
+- **Design tokens** are universal across languages. Language changes content and variants, not core styling, unless an approved exception is logged.
 
 ---
 
-## Environment
+## Cloudflare
 
-- **Runtime:** Python 3 with `requests`, `beautifulsoup4`, and `html2text`.
-- **Data source:** Local `site-html/` and `site-md/` artifacts, plus optional live crawl target `https://www.andetag.museum`.
-- **Secrets:** None currently required in-repo.
-- **Gotcha:** `spider.py` may fetch live assets; avoid unintended full recrawls during small parser-only changes.
-
-### Cloudflare (Astro `site/`)
-
-- **Astro build:** `site/astro.config.mjs` sets **`output: "static"`**, **`trailingSlash: "always"`**, and **`site: https://www.andetag.museum`**. There is **no** Cloudflare **adapter** in the config. The site is a **normal static export** (`dist/`). **Production** uses **Wrangler** to run the **entry Worker** and serve **`dist/`** as static assets. You only need **`@astrojs/cloudflare`** if you switch Astro to **SSR on Workers** (server-rendered pages). This project does not; adding that adapter without changing `output` would be unused weight.
-- **Pages (recommended):** Project root directory `site`, build command `npm run build`, build output directory `dist`. For **entry routing** at **`/`** and **`/en/`**, use **Workers + static assets** (below), not Pages-only static **`_redirects`** for **`/`** (that would skip the Worker).
-- **Workers static assets + entry router:** `site/wrangler.jsonc` sets **`main`** to **`workers/entry-router.ts`**, **`assets.directory`** to **`./dist`**, **`assets.binding`** **`ASSETS`**, and **`run_worker_first`** **`true`** so the Worker can refresh **`andetag_entry`** on lane **`200`** responses. Deploy from **`site/`**: **`npm run worker:deploy`**. **Staging:** **`https://andetag-web.guff.workers.dev`** (typical CI deploy on push to **`main`**). **Entry router checks:** **`npm run verify:staging-entry`** (table **B** against staging; optional **`STAGING_BASE`**). Local: **`npm run worker:dev`**. **Architecture summary:** **`docs/url-migration-policy.md`**, **Current routing architecture**. Policy detail and redirect evidence: **`docs/phase-4-redirect-tests.md`**.
-- **`_headers`** (in **`public/`**) sets `Cache-Control` (and optional `X-Robots-Tag` on `*.workers.dev`) per [Workers static asset headers](https://developers.cloudflare.com/workers/static-assets/headers/); without it, the default is `max-age=0, must-revalidate` on every file. **`/wp-content/uploads/*`** uses a **~30 day** `max-age` (large hero **MP4**, posters, gallery); if you **replace** a file at the **same** URL, browsers may keep the old bytes until TTL: prefer a **new filename** or path when shipping updated media.
+- **Astro:** `output: "static"`, `trailingSlash: "always"`, `site: https://www.andetag.museum`. Normal static export to `dist/`. No `@astrojs/cloudflare` adapter.
+- **Workers + static assets:** `wrangler.jsonc` sets `run_worker_first: true`. The entry router handles `/` and `/en/` language routing, then falls through to `ASSETS.fetch` for static pages.
+- **Deploy:** `npm run worker:deploy` from `site/`. **Staging:** `https://andetag-web.guff.workers.dev`.
+- **`_headers`:** Cache-Control per asset type. `~30 day` max-age on `/wp-content/uploads/*`. Prefer new filenames when replacing media at the same URL.
 
 ---
 
-## Delivery and Reporting
+## Delivery
 
 When finishing substantial work:
 
 1. Report concrete file-level changes and behavior impact.
-2. Call out any **Critical** constraints from docs that affected implementation.
-3. Explicitly mention residual risks (for example language edge cases, widget variants not covered, or network-dependent checks not run).
+2. Call out constraints from docs that affected implementation.
+3. Mention residual risks (language edge cases, untested variants, network-dependent checks).
 
-### Phase Closure Forward Audit (Mandatory)
+### Phase closure
 
-When a phase is marked complete, always perform a forward audit across all remaining future phases before finalizing:
+When a phase is marked complete:
 
-1. Review planning docs for every later phase (`N+1` and onward), not only the next phase.
-2. Identify assumptions or decisions that changed in the completed phase and could invalidate future phase plans.
-3. Update affected planning docs in the same task, or explicitly log unresolved impacts as gaps/exceptions with owners and target phases.
-4. Ask clarifying questions immediately when a future-phase dependency is ambiguous or requires stakeholder approval.
-5. **Phase closure cleanup:** remove human-auditing scaffolding that was created **only** for the phase being closed (for example temporary preview pages under `site/src/pages/`, redirect rules in `site/public/_redirects` that only served those pages, duplicate scratch checklists in `docs/` when the phase verification record already holds evidence). **Keep** regression tests, fixtures, and signed verification records required by `docs/definition-of-done.md`. If something must stay temporarily, log it with owner and removal target in `docs/migration-exceptions.md` or the phase todo.
-
-Rule: no phase closure is final until this forward audit has been completed and documented, and applicable cleanup has been executed or explicitly deferred with an owner.
-
----
-
-## AI Changelog Standards
-
-Maintain a human-readable changelog for meaningful repository changes.
-
-### File and format
-
-- Use `CHANGELOG.md` at repo root.
-- Follow Keep a Changelog categories: `Added`, `Changed`, `Deprecated`, `Removed`, `Fixed`, `Security`.
-- Keep an `Unreleased` section at the top.
-- For releases, use reverse chronological order and ISO date format (`YYYY-MM-DD`).
-- Link versions and relevant PRs/issues when available.
-
-### Entry quality rules
-
-- Write for humans, not commit logs, and summarize user-visible impact.
-- Group related changes, avoid noisy internal-only notes unless they affect behavior or operations.
-- Include migration notes when URL behavior, schema fields, or contracts change.
-- Explicitly call out breaking changes and deprecations before removals.
-- Include verification notes for major changes (tests run, deterministic checks, or manual validation scope).
-
-### AI-specific logging rules
-
-- For AI-authored changes, include a short "why" statement for each notable entry.
-- Record scope precisely with file paths or subsystem names (for example parser, docs, SEO metadata, routing).
-- If uncertainty remains (for example missing source data), document assumptions and follow-up actions.
-- Keep changelog entries consistent with commit intent (`feat`, `fix`, and breaking changes) for future automation.
-
-### Release workflow
-
-1. During work: add notable items under `Unreleased`.
-2. On release: move `Unreleased` items into a new version heading with date.
-3. After release: reset `Unreleased` with empty category headings.
-
----
-
-## When in Doubt
-
-1. Check docs first.
-2. Prefer simpler parser logic over clever extraction heuristics.
-3. Add a deterministic test/check before and after changing behavior.
-4. Update docs immediately when behavior changes.
+1. Forward-audit all remaining future phase docs for invalidated assumptions.
+2. Update affected docs in the same task, or log unresolved impacts as exceptions.
+3. Remove scaffolding created only for the closing phase (preview routes, scratch checklists). Keep tests, fixtures, and verification records.
+4. No phase closure is final until this audit is completed.

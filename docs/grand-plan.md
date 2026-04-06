@@ -348,7 +348,7 @@ Task-level checklist: `docs/phase-9-todo.md`.
 ### Integrations and Compliance
 
 - Retain and reimplement: Google Tag Manager and Brevo.
-- Replace Complianz with CookieYes and enforce category-based tag gating (`necessary`, `analytics`, `marketing`) in static runtime.
+- Replace Complianz with Termly and enforce category-based tag gating (`necessary`, `analytics`, `marketing`) in static runtime.
 - Understory booking widget is classified as `necessary` and must remain available without optional consent opt-in.
 - No urgency widgets or upsell modules required in the initial conversion implementation.
 
@@ -388,7 +388,7 @@ These items are **still open** for governance nuance. **SEO evolution** (allow i
 
 - **Static stack:** Astro (ADR **`docs/decisions/0001-static-stack-selection.md`**).
 - **Hosting and edge delivery:** Cloudflare with static build output from **`site/`**; staging and production use **Workers + static assets** and the entry router described in **`AGENTS.md`** ( **`site/wrangler.jsonc`**, **`site/workers/entry-router.ts`** ). ADR 0001 operational notes align with this deploy path.
-- **Cookie and consent platform:** CookieYes replacing Complianz (**`docs/decisions/0002-consent-platform-selection.md`**).
+- **Cookie and consent platform:** Termly replacing Complianz (evaluated CookieYes; **`docs/decisions/0002-consent-platform-selection.md`**).
 - **Swedish migration wave order and closure:** Phase 5 milestone 2026-03-24; evidence **`docs/phase-5-verification-record.md`**.
 - **Localization sequencing:** Phases 5 then 6; Phase 6 closed 2026-04-04 (**`docs/phase-6-verification-record.md`**).
 - **IA for language plus destination:** Decisions in **`docs/phase-4-routing-reopen.md`**, **`docs/phase-6-todo.md`**, and **`docs/url-migration-policy.md`**.

@@ -10,7 +10,27 @@
   --color-border: rgba(74, 13, 47, 0.28);
   /* Space from shared hero nav strip (header bottom) to first main column content; see `components.css` first-block margin reset. */
   --page-shell-main-top-gap: 4rem;
+
+  --z-base: 0;
+  --z-hero-layer: 5;
+  --z-header: 10;
+  --z-subnav: 25;
+  --z-mobile-shell: 30;
+  --z-skip-link: 200;
+  --z-lightbox: 1400;
 }
+
+/*
+ * Breakpoint scale
+ * ----------------
+ * --bp-sm:    640px   (mobile / small)
+ * --bp-md:    768px   (tablet)
+ * --bp-lg:    900px   (desktop threshold)
+ * --bp-xl:   1024px   (wide desktop)
+ *
+ * Use max-width: (bp - 1)px for below, min-width: bp for above.
+ * 599px/600px and 639px/640px target small-phone vs phone.
+ */
 
 * {
   box-sizing: border-box;
@@ -52,9 +72,9 @@ select:focus-visible {
   top: -999px;
   z-index: 200;
   background: #fafafa;
-  color: #4a0d2f;
+  color: var(--component-link);
   padding: 0.5rem 0.75rem;
-  border: 2px solid #4a0d2f;
+  border: 2px solid var(--component-surface);
 }
 
 .skip-link:focus-visible {
@@ -410,7 +430,7 @@ select:focus-visible {
   min-width: 190px;
   display: none;
   background: #f7dceae8;
-  border: 1px solid #4a0d2f;
+  border: 1px solid var(--component-surface);
   box-shadow: 18px 18px 10px rgba(0, 0, 0, 0.5);
   z-index: 5;
   box-sizing: border-box;
@@ -424,7 +444,7 @@ select:focus-visible {
 .shared-hero-submenu a {
   display: block;
   padding: 10px 15px;
-  color: #4a0d2f;
+  color: var(--component-link);
   font-family: "JostLocal", "Jost", sans-serif;
   font-size: 1em;
   font-weight: 400;
@@ -435,7 +455,7 @@ select:focus-visible {
 }
 
 .shared-hero-submenu a:hover {
-  background: #4a0d2f;
+  background: var(--component-surface);
   color: #f7dcea;
 }
 
@@ -516,7 +536,7 @@ select:focus-visible {
   right: 0;
   width: min(330px, calc(100vw - 20px));
   background: #f7dceae8;
-  border: 1px solid #4a0d2f;
+  border: 1px solid var(--component-surface);
   box-shadow: 18px 18px 10px rgba(0, 0, 0, 0.5);
 }
 
@@ -532,7 +552,7 @@ select:focus-visible {
   display: block;
   padding: 12px 16px;
   font-family: "JostLocal", "Jost", sans-serif;
-  color: #4a0d2f;
+  color: var(--component-link);
   font-size: 1rem;
   font-weight: 500;
   text-transform: uppercase;
@@ -550,7 +570,7 @@ select:focus-visible {
 .shared-hero-mobile-submenu a {
   display: block;
   padding: 10px 16px 10px 28px;
-  color: #4a0d2f;
+  color: var(--component-link);
   font-family: "JostLocal", "Jost", sans-serif;
   font-size: 0.95rem;
   font-weight: 400;
@@ -559,7 +579,7 @@ select:focus-visible {
 }
 
 .shared-hero-mobile-submenu a:hover {
-  background: #4a0d2f;
+  background: var(--component-surface);
   color: #f7dcea;
 }
 
@@ -692,7 +712,7 @@ span.nav-link.nav-link--section {
 }
 
 .shared-footer-root {
-  background: #4a0d2f;
+  background: var(--component-surface);
 }
 
 .shared-footer-container {
@@ -846,7 +866,7 @@ span.nav-link.nav-link--section {
 .footer-root {
   margin-top: auto;
   border-top: 1px solid rgba(247, 220, 234, 0.25);
-  background: #4a0d2f;
+  background: var(--component-surface);
   color: #f7dcea;
 }
 

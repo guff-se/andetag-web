@@ -57,7 +57,7 @@ Status: **closed** (Phase 6 localization waves and wrap-up tasks complete). **Fi
 
 **Package sign-off (chrome + bodies):** **Yes** (2026-04-04, Gustaf).
 
-**German external review:** **Approved** to run **once**, late **pre-launch** (Phase 7), per stakeholder (Gustaf, 2026-04-04). Not blocking shipped **`de`** routes in repo.
+**German external review:** **Approved** to run **once**, late **pre-launch** (Phase 8, **P8-06**), per stakeholder (Gustaf, 2026-04-04). Not blocking shipped **`de`** routes in repo.
 
 ## P6-04 · Locale metadata, hreflang, Open Graph baseline
 

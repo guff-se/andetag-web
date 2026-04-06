@@ -60,7 +60,7 @@ const submitLabel = locale === "de" ? "Anmelden" : "Sign up";
                           type="text"
                           id="EMAIL"
                           name="EMAIL"
-                          autocomplete="off"
+                          autocomplete="email"
                           placeholder={emailPlaceholder}
                           data-required="true"
                           required
@@ -84,7 +84,7 @@ const submitLabel = locale === "de" ? "Anmelden" : "Sign up";
                         <label>
                           <input type="checkbox" class="input_replaced" value="1" id="OPT_IN" name="OPT_IN" required />
                           <span class="checkbox checkbox_tick_positive"></span>
-                          <span
+                          <div
                             style="font-size: 14px; text-align: left; font-family: 'Baskervville', Georgia, serif; color: #4A0D2F; background-color: transparent;"
                           >
                             <p>
@@ -93,7 +93,7 @@ const submitLabel = locale === "de" ? "Anmelden" : "Sign up";
                               {optInAfterLink}
                             </p>
                             <span data-required="*" style="display: inline;" class="entry__label entry__label_optin"></span>
-                          </span>
+                          </div>
                         </label>
                       </div>
                     </div>

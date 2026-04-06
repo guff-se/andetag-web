@@ -102,7 +102,7 @@ Out-of-scope for this inventory: **first-party** media (hero video poster, galle
 - No optional tag should fire on first paint without consent.
 - Consent and tag gating must work across all supported language paths (`/`, `/en/`, `/de/...`).
 
-## 7) Validation Checklist for Platform Selection (Phase 1 and 6)
+## 7) Validation Checklist
 
 - Supports category-based prior blocking.
 - Supports GTM integration without custom brittle patches.

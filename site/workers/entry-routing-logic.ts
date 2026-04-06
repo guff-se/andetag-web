@@ -52,7 +52,11 @@ export function parseEntryCookieValue(cookieHeader: string | null): string | nul
   for (const part of cookieHeader.split(";")) {
     const [name, ...rest] = part.trim().split("=");
     if (name === ENTRY_COOKIE && rest.length) {
-      return decodeURIComponent(rest.join("=").trim());
+      try {
+        return decodeURIComponent(rest.join("=").trim());
+      } catch {
+        return null;
+      }
     }
   }
   return null;
@@ -191,8 +195,8 @@ export function decideEnglishHubRouting(input: {
 /** Refresh or set `andetag_entry` when the visitor receives a document under a language lane (`docs/url-migration-policy.md` **When to set or refresh**). */
 export function entryTokenForContentPath(pathname: string): EntryToken | null {
   if (pathname.startsWith("/sv/")) return "sv";
-  if (pathname.startsWith("/de/berlin")) return "de";
-  if (pathname.startsWith("/en/stockholm")) return "en-s";
-  if (pathname.startsWith("/en/berlin")) return "en-b";
+  if (pathname.startsWith("/de/berlin/")) return "de";
+  if (pathname.startsWith("/en/stockholm/")) return "en-s";
+  if (pathname.startsWith("/en/berlin/")) return "en-b";
   return null;
 }

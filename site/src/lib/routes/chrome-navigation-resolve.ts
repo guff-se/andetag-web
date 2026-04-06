@@ -40,6 +40,8 @@ function buildStockholmBilingualTopics(): TopicSlots[] {
   }));
 }
 
+// NOTE: These topic paths overlap with STOCKHOLM_SV_EN_PAIRS in page-shell-registry.ts.
+// If routes change, both tables must be updated. Consider deriving from a shared source.
 const GLOBAL_TRILINGUAL_TOPICS: TopicSlots[] = [
   {
     svStockholm: "/sv/stockholm/om-andetag/",
