@@ -1,11 +1,10 @@
 ---
 /**
  * GTM bootstrap, Google Consent Mode v2 defaults, optional CookieYes.
- * Container id: legacy WP / `docs/existing-site-structure.md` (`GTM-KXJGBL5W`).
- * Override with `PUBLIC_GTM_CONTAINER_ID`. CookieYes: `PUBLIC_COOKIEYES_CLIENT_ID` (dashboard client id for cdn-cookieyes.com).
+ * Tracking ids are version-controlled for deterministic deploys.
  */
-const gtmId = import.meta.env.PUBLIC_GTM_CONTAINER_ID ?? "GTM-KXJGBL5W";
-const cookieYesId = import.meta.env.PUBLIC_COOKIEYES_CLIENT_ID as string | undefined;
+const gtmId = "GTM-KXJGBL5W";
+const cookieYesId = "fce30d588ad80c2888014047a65067c1";
 const cookieYesSrc =
   cookieYesId && cookieYesId.length > 0
     ? `https://cdn-cookieyes.com/client_data/${cookieYesId}/script.js`

@@ -19,6 +19,10 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ### Changed
 
+- **Tracking defaults:** GTM container **`GTM-KXJGBL5W`** and CookieYes client id **`fce30d588ad80c2888014047a65067c1`** are now hardcoded in **`TrackingHead.astro`** and **`TrackingBody.astro`** for version-controlled, deterministic deploys. **`site/.env.example`** no longer declares tracking IDs.
+
+- **LCP (video hero):** **`SiteLayout`** supports **`lcpImagePreloads`** (art-directed **`type` + `media`**). **`[...slug].astro`** preloads **AVIF** poster **`960w` / `1920w`** to match **`SiteHeader.astro`** `<picture>` (Chrome was taking AVIF while **`posterPreload`** was WebP, wasting a fetch). Applies to all **`chrome-hdr-*-hero`** shells (Stockholm home, Berlin hubs, **`/en/`** selector).
+
 - **`site/public/_headers`:** **`/wp-content/uploads/*`** browser cache **`max-age`** **1d → 30d** (**`2592000`**) with **`stale-while-revalidate=31536000`** to cut repeat hero **MP4** / poster / gallery transfer and address PSI “efficient cache lifetimes” on first-party uploads; document expectation to use **new filenames** when replacing media in place (**`AGENTS.md`** workflow).
 
 - **Performance (CLS + LCP text shells):** About-the-artists hero **`figure`** reserves space with **`aspect-ratio: 1024 / 683`** and **`object-fit: cover`** (**`components.css`**). Spotify embed shell **`min-height: 652px`** (**`page-musik-sv__spotify`**). Accessibility SV/EN: one **`ContentSection`** instead of two. **`SiteLayout`:** optional **`lcpBodyFontPreloadHref`**; **`[...slug].astro`** preloads Baskervville 400 Latin on privacy (all locales), music, corporate events, visitor reviews (+ Berlin music). **`docs/performance-improvement-plan.md`** (mitigations noted, **P4** partial).
