@@ -16,7 +16,7 @@ This document extends requirements already stated in:
 
 ## 1) Tag Management Requirements (GTM)
 
-- Step-by-step GTM clicks for **Termly** vs legacy **Complianz** triggers: **`docs/gtm-termly-migration-runbook.md`**.
+- Step-by-step GTM clicks for **Termly** vs legacy **Complianz** triggers: **`docs/gtm-termly-migration-runbook.md`** (**execute in Phase 8 · P8-07**, just before **`www`** cutover; Phase 7 ships embed + defaults only).
 - GTM is mandatory as the orchestration layer for analytics and marketing tags.
 - GTM container must be environment-aware (`dev`, `staging`, `prod`).
 - All non-essential tags must be controlled by consent state.
@@ -31,7 +31,7 @@ Minimum event categories to support:
 
 ### 1a) Legacy WordPress GTM + Complianz vs Termly (static site)
 
-The **live** container export **`Google Tag Manager v15.json`** (root of this repo) shows **Complianz**-specific **`dataLayer`** events (**`cmplz_event_statistics`**, **`cmplz_event_marketing`**) used as **GTM triggers** for **GA4**, **Google Ads**, and **Meta**. **Termly does not emit those names.** After CMP swap, GTM triggers **must** be updated (for example **All Pages** plus tag-level consent, and the **Termly** GTM template per **`docs/gtm-termly-migration-runbook.md`**) or **GA4 / Ads / Meta may not fire**.
+The **live** container export **`Google Tag Manager v15.json`** (root of this repo) shows **Complianz**-specific **`dataLayer`** events (**`cmplz_event_statistics`**, **`cmplz_event_marketing`**) used as **GTM triggers** for **GA4**, **Google Ads**, and **Meta**. **Termly does not emit those names.** Maintainer updates GTM triggers per **`docs/gtm-termly-migration-runbook.md`** in **Phase 8 · P8-07** (not a Phase 7 gate). Until then, static pages may not fire those tags even though **Termly** and **GTM** load.
 
 **Understory** already supplies parent-page **`dataLayer`** events (**`understory_add_to_cart`**, **`understory_view_item`**, **`understory_begin_checkout`**, **`on_receipt`**) that the legacy container maps to analytics and conversion tags. The Astro app does not push those; parity depends on Understory.
 

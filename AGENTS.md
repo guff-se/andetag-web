@@ -78,8 +78,8 @@ Reference docs before implementation:
 | `docs/phase-5-verification-record.md` | Phase 5 evidence, per-page design approvals, P5-01 static target note, Lighthouse summary, **EX-0014**, stakeholder sign-off (**closed** 2026-03-24). |
 | `docs/phase-6-todo.md` | Localization (**`en`**, **`de`**) and Phase 5 carry-forward. **P6-00**–**P6-06** closed **2026-04-04**; Worker and SEO manual live-entry rows remain in the carry-forward table. |
 | `docs/phase-6-verification-record.md` | Phase 6 evidence and Gustaf sign-off per slice (**P6-00** chrome package, later waves). |
-| `docs/phase-7-todo.md` | Execution checklist for Phase 7 scripts, consent, analytics, favicon, sharing metadata, schema.org, sitemap, and launch hardening. |
-| `docs/phase-7-verification-record.md` | Phase 7 evidence (structured data validation, sharing checks, and other items as they close). |
+| `docs/phase-7-todo.md` | Phase 7 checklist (**closed** **Gustaf** **2026-04-09**): scripts, **Termly** embed, analytics wiring in source, favicon, sharing, schema, sitemap. **GTM** runbook execution is **Phase 8 · P8-07** (`docs/phase-8-todo.md`). |
+| `docs/phase-7-verification-record.md` | Phase 7 evidence; **closed** **Gustaf** **2026-04-09** (§P7-16). |
 | `docs/phase-8-todo.md` | Execution checklist for Phase 8 deployment: dev and staging verification, URL parity vs legacy live site (Gustaf-approved exceptions), **`www.andetag.museum`** cutover, post-live checks (**`P5-06`** production closes here). |
 | `docs/phase-9-todo.md` | **Placeholder:** Phase 9 maintenance program after migration (operating model, **performance optimization Agent Skill**, **production PR** performance gate). Summary: **`docs/grand-plan.md`** Phase 9. |
 | `docs/phase-8-verification-record.md` | Phase 8 evidence and Gustaf sign-off for production cutover. |
@@ -98,7 +98,7 @@ Reference docs before implementation:
 | `docs/ia-language-destination-options.md` | IA options and recommendation for language plus destination routing continuity. |
 | `docs/kpi-measurement-map.md` | GTM and analytics: minimum viable measurement, **legacy `Google Tag Manager v15.json`** audit (Complianz triggers, Understory `dataLayer`), migration checklist for **Termly**, optional extended event taxonomy. |
 | `docs/cmp-vendor-matrix-seo-white-label.md` | CMP **shortlist matrix**: **white-label** plan gates, **price** ballparks, **implementation** ease, **technical SEO** risks (Core Web Vitals, not legal). Complements **`docs/decisions/0002-consent-platform-selection.md`**. |
-| `docs/gtm-termly-migration-runbook.md` | Step-by-step GTM UI work with **Termly**: gallery template, **`userPrefUpdate`** / **`Termly.consentSaveDone`**, dual triggers off **`cmplz_*`**, linker, Understory Preview, Phase B cleanup. |
+| `docs/gtm-termly-migration-runbook.md` | Step-by-step GTM UI work with **Termly** (**execute Phase 8 · P8-07**, just before **`www`** cutover): gallery template, **`userPrefUpdate`** / **`Termly.consentSaveDone`**, dual triggers off **`cmplz_*`**, linker, Understory Preview, post-cutover cleanup. |
 | `docs/url-migration-policy.md` | Canonical URL, redirect, alias, entry routing (**`andetag_entry`**), **Current routing architecture**, and **Sitemap / inbound links** policy for migration and launch. |
 | `docs/url-matrix-schema.md` | URL matrix data contract for must-keep URLs and redirect status tracking. |
 | `docs/content-model.md` | Versioned contract for page frontmatter, shared data, and component props. |

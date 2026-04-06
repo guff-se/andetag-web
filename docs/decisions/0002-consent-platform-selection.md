@@ -260,7 +260,7 @@ Legacy container used **Complianz** custom events; **CookieYes** uses a differen
 
 ### Recommended next actions (stakeholder)
 
-1. **Resolved (2026-04-07):** **Termly** embed in **`TrackingHead.astro`**; complete **GTM** work in **`docs/gtm-termly-migration-runbook.md`** and re-run **P7-11**-class checks on staging and **`www`** (supersedes the prior **CookieYes Ultimate vs migrate** fork in this supplement).
+1. **Resolved (2026-04-07):** **Termly** embed in **`TrackingHead.astro`**; complete **GTM** work in **`docs/gtm-termly-migration-runbook.md`** in **Phase 8 · P8-07** and re-run consent or tag checks on staging and **`www`** (**`docs/phase-8-todo.md`**) (supersedes the prior **CookieYes Ultimate vs migrate** fork in this supplement).
 2. **Legal or compliance review** for **Termly**: category model, **Consent Mode v2**, **logs**, and **Google Ads** readiness.
 3. If CMP changes again, update **docs/tracking-and-consent-requirements.md**, **docs/kpi-measurement-map.md**, **site/src/components/chrome/TrackingHead.astro** / **TrackingBody.astro**, and **docs/gtm-termly-migration-runbook.md** in the **same** change set.
 
@@ -294,5 +294,5 @@ Legacy container used **Complianz** custom events; **CookieYes** uses a differen
 - [x] Select platform: CookieYes (historical matrix).
 - Validate category-level prior blocking in staging.
 - [x] Update this ADR status to `Accepted`.
-- [x] **2026-04-07:** Implement **Termly** embed + **`docs/gtm-termly-migration-runbook.md`** (replaces **CookieYes** in **`TrackingHead.astro`**). **Cloudflare Zaraz** ruled out while **GTM** + **Understory** remain (**`docs/cmp-vendor-matrix-seo-white-label.md`**).
+- [x] **2026-04-07:** Implement **Termly** embed in **`TrackingHead.astro`** (replaces **CookieYes**). **GTM** steps in **`docs/gtm-termly-migration-runbook.md`:** **Phase 8 · P8-07**. **Cloudflare Zaraz** ruled out while **GTM** + **Understory** remain (**`docs/cmp-vendor-matrix-seo-white-label.md`**).
 

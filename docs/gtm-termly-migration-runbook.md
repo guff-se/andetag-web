@@ -2,6 +2,8 @@
 
 Purpose: **exact UI steps** in **Google Tag Manager** to move off **Complianz-only** firing while the same container (**`GTM-KXJGBL5W`**) may still load on **WordPress + Complianz** until **`www`** cutover. The static site loads **Termly** (resource blocker) **before** **GTM** in **`TrackingHead.astro`**. Strategy and risk acceptance: **`docs/kpi-measurement-map.md`** § Staged rollout, **`docs/migration-exceptions.md`** **EX-0018**.
 
+**When to run (schedule):** Maintainer executes this runbook in **Phase 8** as **`docs/phase-8-todo.md`** **P8-07** — **just before production cutover** (**`P8-11`**), after **P8-06** locale sign-off (unless Gustaf agrees a different slot). **Phase 7** delivers the **Termly** embed, **Consent Mode** defaults, **GTM** loader in source, and documentation; it does **not** require this container work to be finished.
+
 **Prerequisites**
 
 - GTM **edit** access to container **`GTM-KXJGBL5W`** (**`www.andetag.museum`** in exports).

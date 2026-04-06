@@ -783,11 +783,14 @@ span.nav-link.nav-link--section {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 0;
+  /* Match SEO row (Aktivitet / Museum / …): air around the slash between links */
+  gap: 0.55em;
 }
 
 .shared-footer-privacy-sep {
   user-select: none;
+  /* Extra horizontal rhythm so the slash reads like the inline ` / ` in `.shared-footer-seo-links` */
+  padding-inline: 0.15em;
 }
 
 .shared-footer-seo-links {

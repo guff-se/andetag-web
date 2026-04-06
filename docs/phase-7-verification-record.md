@@ -1,8 +1,8 @@
 # Phase 7 Verification Record
 
-Purpose: evidence for Phase 7 items in **`docs/phase-7-todo.md`** and **`docs/definition-of-done.md`** Phase 7, before Phase 8 **`www`** cutover.
+Purpose: evidence for Phase 7 items in **`docs/phase-7-todo.md`** and **`docs/definition-of-done.md`** Phase 7. Phase 7 is **closed**; **`www`** cutover and live-only checks are **Phase 8**.
 
-**Status:** **in progress** (Phase 7 not closed; this file grows as checklist items complete).
+**Status:** **closed** (**Gustaf** sign-off **2026-04-09**; maintainer record **2026-04-08**). **`www`**-dependent checks continue in **`docs/phase-8-todo.md`** (**P8-07** GTM, **P8-13**, **P8-22**, …).
 
 ## P7-09 · Validate structured data
 
@@ -65,7 +65,7 @@ These are treated as intentional schema-policy deviations and logged as **`EX-00
 
 **Historical (through 2026-04-06):** **`TrackingHead.astro`** loaded **CookieYes** (**`cdn-cookieyes.com`**, client **`fce30d588ad80c2888014047a65067c1`**) with Consent Mode v2 **default denied** before GTM (**`GTM-KXJGBL5W`**). **Gustaf sign-off:** category model (**`necessary`**, **`analytics`**, **`marketing`**) and GTM consent gating matched **`docs/tracking-and-consent-requirements.md`**; banner and preferences checked on **`https://andetag-web.guff.workers.dev`**. **`andetag_entry`** documented as **necessary** per **`docs/url-migration-policy.md`**. Understory: no cookie observed in manual check; classification **`necessary`** (**§4** / **§4a**).
 
-**Current in-repo wiring (2026-04-07):** **`TrackingHead.astro`** loads **Termly** resource blocker (**`app.termly.io/resource-blocker/45781ec1-8b4c-4a0c-acef-9815cd5eabb3?autoBlock=on`**) after inline consent defaults and before GTM; **`TrackingBody.astro`** holds GTM **`noscript`** only. Operator GTM steps: **`docs/gtm-termly-migration-runbook.md`**. **Re-verify** banner, categories, and consent-gated tags on staging and **`www`** after GTM publish (**`docs/phase-8-todo.md`** **P8-13**).
+**Current in-repo wiring (2026-04-07):** **`TrackingHead.astro`** loads **Termly** resource blocker (**`app.termly.io/resource-blocker/45781ec1-8b4c-4a0c-acef-9815cd5eabb3?autoBlock=on`**) after inline consent defaults and before GTM; **`TrackingBody.astro`** holds GTM **`noscript`** only; **`SiteFooter.astro`** includes **`termly-display-preferences`**. **GTM** container migration (**`docs/gtm-termly-migration-runbook.md`**) is **deferred** to **Phase 8 · P8-07** (just before **`P8-11`**). **Re-verify** banner, categories, and consent-gated tags on staging after **P8-07** publish and on **`www`** after **P8-13** / **P8-22**.
 
 ## P7-15 · Final SEO pass (metadata, hreflang, CWV, EX-0006)
 
@@ -96,4 +96,12 @@ These are treated as intentional schema-policy deviations and logged as **`EX-00
 
 **Date:** 2026-04-06 (audit); runbook path **2026-04-07** (**`docs/gtm-termly-migration-runbook.md`**).
 
-Repository root **`Google Tag Manager v15.json`** (live WordPress container **v15**) audited; findings and maintainer checklist recorded in **`docs/kpi-measurement-map.md`**. **`docs/tracking-and-consent-requirements.md`** §1a summarizes Complianz trigger coupling and Understory **`dataLayer`** parity. Does not replace GTM admin work for **P7-10** remaining items.
+Repository root **`Google Tag Manager v15.json`** (live WordPress container **v15**) audited; findings and maintainer checklist recorded in **`docs/kpi-measurement-map.md`**. **`docs/tracking-and-consent-requirements.md`** §1a summarizes Complianz trigger coupling and Understory **`dataLayer`** parity. **GTM** admin execution: **Phase 8 · P8-07** (not Phase 7).
+
+## P7-16 · Phase 7 closure
+
+**Maintainer record:** **2026-04-08.** All **`docs/phase-7-todo.md`** rows **checked** for in-repo and staging-documented deliverables. **Explicit deferral:** full **GTM** container work (**`docs/gtm-termly-migration-runbook.md`**) is **Phase 8 · P8-07**, just before **`P8-11`** (**`docs/phase-8-todo.md`**).
+
+**Verification:** **`npm test -- --run`** and **`npm run build`** in **`site/`** green; **`docs/grand-plan.md`** Phase 7 **Status** set to **complete**.
+
+**Stakeholder sign-off (Phase 7):** **Gustaf** approved **closure of Phase 7** **2026-04-09**. Phase 7 is **done**; **staging → `www`** promotion and **Phase 8** pre-cutover gates (**P8-05**, **P8-06**, **P8-07**, …) are **separate** and **not** implied by this sign-off alone.

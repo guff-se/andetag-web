@@ -24,7 +24,7 @@ The **extended taxonomy** below (§ Event taxonomy) is **optional** for reportin
 
 ## Staged rollout: staging now, finish at production cutover
 
-**Accepted approach (Gustaf):** Configure **Termly** and as much **GTM** alignment as practical on **staging** while **`www`** may still run **WordPress + Complianz** with the **same** container **`GTM-KXJGBL5W`**. **Complete** removal of **`cmplz_*`**-only dependence and full **Termly + Consent Mode** verification on **`www`** in **Phase 8** (**`docs/phase-8-todo.md`** **P8-13**, **P8-22**).
+**Accepted approach (Gustaf):** **Phase 7** ships the **Termly** embed and **GTM** loader in **`TrackingHead.astro`**; **full GTM container migration** (this runbook) is **Phase 8 · P8-07**, timed **just before** **`P8-11`** cutover (**`docs/phase-8-todo.md`**). Optional early **dual triggers** on **staging** while **`www`** still runs **WordPress + Complianz** remains allowed but is **not** required before Phase 7 closure. **Complete** removal of **`cmplz_*`**-only dependence and full **Termly + Consent Mode** verification on **`www`** land in **Phase 8** (**P8-07**, **P8-13**, **P8-22**).
 
 **Risk:** On **cutover day**, if the container is updated before legacy traffic is gone, **WordPress** tags that still rely only on **`cmplz_*`** can misbehave; if the container is updated after static **`www`** goes live, **static** pages may have **gaps** in analytics or marketing tags until GTM is published. **Brief tracking loss during the migration window is acceptable** (not a launch blocker). Prefer **dual triggers** (Complianz **or** Termly / consent path) if you want continuity on both stacks until WordPress is retired; see § Complianz trigger coupling.
 
@@ -49,7 +49,7 @@ On the legacy site, **GA4** and the **Google Ads** “all pages” **Google tag*
 - Reconfigure GTM so tags fire under **Termly + Google Consent Mode v2** per **`docs/gtm-termly-migration-runbook.md`** (Termly gallery template, **`userPrefUpdate`**, **`Termly.consentSaveDone`**, tag consent checks), **or**
 - Replace **`cmplz_*`** custom-event triggers with **Consent Initialization** / **All Pages** plus **tag-level consent** settings that match **`analytics_storage`**, **`ad_storage`**, etc.
 
-Re-verify in **GTM Preview** on **`andetag-web.guff.workers.dev`** before **`www`** cutover, again on **`www`** after **P8-13**.
+Re-verify in **GTM Preview** on **`andetag-web.guff.workers.dev`** after **P8-07** publish, again on **`www`** after **P8-13**.
 
 ### Understory `dataLayer` events (already wired in legacy GTM)
 
@@ -79,21 +79,23 @@ Legacy container includes **outbound link**, **file download**, **tel/mailto**, 
 
 ## GTM migration checklist (static site + Termly)
 
-**Phase A (before or during staging, without requiring a perfect cutover):**
+**Phase 7 (in-repo, closed):** **Termly** resource blocker + **Consent Mode** defaults + **GTM** bootstrap in **`TrackingHead.astro`** (**`docs/phase-7-todo.md`** **P7-10**, **P7-11**).
+
+**Phase 8 · P8-07 (scheduled operator work, just before `P8-11`):**
 
 **Operator steps (click-by-click):** **`docs/gtm-termly-migration-runbook.md`**.
 
-1. **Termly** resource blocker on **`andetag-web.guff.workers.dev`** via **`TrackingHead.astro`** (**`docs/phase-7-todo.md`** **P7-11**).
-2. In **GTM**, add the **Termly** gallery template and **Consent Mode**-compatible triggers **alongside** existing **`cmplz_*`** triggers so **static staging** can fire tags without breaking **WordPress** (same container).
-3. **GTM Preview** on staging: consent flow + minimum **page_view** / conversion path smoke test.
+1. In **GTM**, add the **Termly** gallery template and **Consent Mode**-compatible triggers **alongside** or **instead of** legacy **`cmplz_*`** triggers so **static staging** can fire tags (same container as **WordPress** until cutover).
+2. **Dual-trigger** or **replace** pattern per runbook §4 for **GA4**, **Ads**, **Meta**.
+3. **GTM Preview** on **`andetag-web.guff.workers.dev`**: consent flow + minimum **page_view** / conversion path smoke test; watch **WordPress** for double-counting if both stacks still share the container.
 
-**Phase B (production finish, **`docs/phase-8-todo.md`**):**
+**Phase 8 (post-cutover and live finish, **`docs/phase-8-todo.md`**):**
 
-4. **Replace or narrow** **`cmplz_*`**-only triggers once **`www`** serves the static stack (or use dual triggers until WP is fully off **`www`**).
+4. **Replace or narrow** **`cmplz_*`**-only triggers once **`www`** serves the static stack (or keep dual triggers until WP is fully off **`www`**).
 5. **Confirm Understory** still emits **`understory_*`** and **`on_receipt`** on parent **`dataLayer`** on Astro pages.
 6. **Review conversion linker** domain list for **`www`**, Understory, Stripe, and preview hosts.
 7. **Audit tags** with **`consentStatus`: `NOT_SET`** for alignment with **`docs/tracking-and-consent-requirements.md`**.
-8. **P8-13** and **P8-22:** publish GTM, switch **Termly** / GTM domain focus to **`www`**, live verification.
+8. **P8-13** and **P8-22:** switch **Termly** / GTM primary domain focus to **`www`**, publish, live verification.
 
 Staged acceptance of cutover-day gaps: **`docs/migration-exceptions.md`** **EX-0018** and § **Staged rollout** above.
 

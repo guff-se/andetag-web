@@ -170,7 +170,7 @@ Normative stack requirements come from **docs/tracking-and-consent-requirements.
 ### Stakeholder direction (record)
 
 - **Cloudflare Zaraz** is **out of scope:** **Understory** and the rest of the stack assume **GTM**; Zaraz does **not** govern tags that live inside **GTM** (see **§ Cloudflare Zaraz** and [Zaraz FAQ](https://developers.cloudflare.com/zaraz/faq/)).
-- **Implemented (2026-04-07):** **Termly** resource blocker in **`site/src/components/chrome/TrackingHead.astro`**; GTM steps in **`docs/gtm-termly-migration-runbook.md`**.
+- **Implemented (2026-04-07):** **Termly** resource blocker in **`site/src/components/chrome/TrackingHead.astro`**; **GTM** container steps in **`docs/gtm-termly-migration-runbook.md`** run in **Phase 8 · P8-07** (**`docs/phase-8-todo.md`**).
 
 ---
 

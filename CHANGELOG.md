@@ -35,6 +35,10 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ### Changed
 
+- **Phase 7 closure:** **Gustaf** sign-off **2026-04-09** (**`docs/phase-7-verification-record.md`** §P7-16); **`docs/grand-plan.md`**, **`docs/phase-8-todo.md`** **P8-05** (checked), **`docs/phase-8-verification-record.md`**, **`AGENTS.md`** aligned.
+
+- **Phase scheduling:** **GTM** + **Termly** container migration (**`docs/gtm-termly-migration-runbook.md`**) moved from Phase 7 exit criteria to **Phase 8 · P8-07** (just before **`P8-11`** **`www`** cutover). Phase 7 maintainer documentation **2026-04-08**. **Why:** operator runs **GTM** once, immediately pre-production.
+
 - **Footer:** **`SiteFooter.astro`** adds **Termly** **`termly-display-preferences`** (after privacy, same **`shared-footer-privacy`** typography); labels from footer models (**SV** **Cookieinställningar**, **EN** **Consent Preferences**, **DE** **Cookie-Einstellungen**). **`layout.css`:** flex row for legal links in that cell.
 
 - **CMP (site + docs):** **CookieYes** removed from **`site/src/components/chrome/TrackingHead.astro`**; **Termly** resource blocker (**`45781ec1-8b4c-4a0c-acef-9815cd5eabb3`**, **`autoBlock=on`**) loads before **GTM**. **`docs/gtm-cookieyes-migration-runbook.md`** replaced by **`docs/gtm-termly-migration-runbook.md`**. **ADR 0002**, **`docs/phase-7-verification-record.md`** §P7-11, **`docs/migration-exceptions.md`** **EX-0018**, **`docs/cmp-vendor-matrix-seo-white-label.md`**, and related phase or tracking docs updated. **Why:** **Termly** is the implemented CMP per vendor choice.

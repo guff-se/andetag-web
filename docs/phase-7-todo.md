@@ -2,7 +2,7 @@
 
 Purpose: track Scripts, Consent, Analytics, and Launch Hardening deliverables. Normative phase summary: `docs/grand-plan.md` (Phase 7). Exit checks: `docs/definition-of-done.md` (Phase 7).
 
-**Position:** Phases **0–6** are **closed** (Phase 6 closure **2026-04-04**). Phase 7 is the **active** implementation phase before **`www`** cutover (**`docs/phase-8-todo.md`**).
+**Position:** Phases **0–7** are **closed** (**Gustaf** Phase 7 sign-off **2026-04-09**; maintainer documentation **2026-04-08**). **Active** work before **`www`** cutover is **Phase 8** (**`docs/phase-8-todo.md`**). **GTM** container migration (**`docs/gtm-termly-migration-runbook.md`**) is **not** a Phase 7 exit requirement; it is scheduled for **Phase 8 · P8-07** (just before **`P8-11`** production cutover).
 
 ## Identity and sharing (head markup)
 
@@ -22,8 +22,8 @@ Purpose: track Scripts, Consent, Analytics, and Launch Hardening deliverables. N
 
 ## Scripts, consent, analytics (existing Phase 7 scope)
 
-- [x] **P7-10 Tracking (initial wiring):** GTM loader + Google Consent Mode v2 **default denied** in **`TrackingHead.astro`**; container **`GTM-KXJGBL5W`** is version-controlled in tracking components. **GTM admin (staged):** set up what you can on **staging** without breaking **WordPress + Complianz** (optional **dual triggers** per **`docs/kpi-measurement-map.md`** § Staged rollout and checklist **Phase A**). **Finish** **`cmplz_*`** exit, live verification, and **Understory `dataLayer`** checks in **Phase 8** (**P8-13**, **P8-22**). **EX-0018** accepts brief tracking gaps on cutover day. Optional extended KPI taxonomy events remain **optional**.
-- [x] **P7-11 Termly:** Resource blocker script is version-controlled in **`TrackingHead.astro`** (**`https://app.termly.io/resource-blocker/45781ec1-8b4c-4a0c-acef-9815cd5eabb3?autoBlock=on`**). **GTM:** complete **`docs/gtm-termly-migration-runbook.md`** on the container and re-verify staging (**`andetag-web.guff.workers.dev`**). **Deferred:** **Termly** + GTM primary production domain focus on **`www.andetag.museum`** after cutover (**`docs/phase-8-todo.md`** **P8-13**).
+- [x] **P7-10 Tracking (initial wiring):** GTM loader + Google Consent Mode v2 **default denied** in **`TrackingHead.astro`**; container **`GTM-KXJGBL5W`** is version-controlled in tracking components. **GTM admin (container migration):** **deferred** to **Phase 8 · P8-07** — execute **`docs/gtm-termly-migration-runbook.md`** **just before** **`P8-11`** production cutover (after **P8-06** unless Gustaf agrees otherwise). Optional early **dual triggers** on staging remain allowed per **`docs/kpi-measurement-map.md`** but are **not** required for Phase 7 closure. **Finish** **`cmplz_*`** exit, **Understory `dataLayer`** checks, live **`www`** tag verification in **Phase 8** (**P8-07**, **P8-13**, **P8-22**). **EX-0018** accepts brief tracking gaps on cutover day. Optional extended KPI taxonomy events remain **optional**.
+- [x] **P7-11 Termly (in-repo + dashboard):** Resource blocker script is version-controlled in **`TrackingHead.astro`** (**`https://app.termly.io/resource-blocker/45781ec1-8b4c-4a0c-acef-9815cd5eabb3?autoBlock=on`**); footer **`termly-display-preferences`** in **`SiteFooter.astro`**. **Termly** dashboard (**GCM** scan, domain list) is operator-owned. **GTM** steps in **`docs/gtm-termly-migration-runbook.md`:** **Phase 8 · P8-07**, not Phase 7. **Deferred:** primary production domain and live re-verify (**`docs/phase-8-todo.md`** **P8-13**, **P8-22**).
 - [x] **P7-12 Widgets:** Understory, Brevo waitlist, and other approved embeds documented with consent classification in **`docs/tracking-and-consent-requirements.md`** **§2** and **§4a** (2026-04-06). **Brevo:** plain **`POST`** waitlist form, no on-site Brevo cookie, explicit opt-in at submit; **not** behind **Termly** categories. **Follow-up:** if legal or CMP requires **lazy iframes** (Maps, Vimeo, Spotify) to load only after **`marketing`** (or another category), implement deferral and update the inventory table.
 
 ## Sitemap, robots, launch
@@ -31,16 +31,16 @@ Purpose: track Scripts, Consent, Analytics, and Launch Hardening deliverables. N
 - [x] **P7-13 XML sitemap:** **`@astrojs/sitemap`** in **`site/astro.config.mjs`**: shell pages only, excludes **`/404`** and root **`/`** (redirect-only). Aligns with **`docs/url-migration-policy.md`** (note on root exclusion added there).
 - [x] **P7-14 robots.txt:** **`site/public/robots.txt`** → **`sitemap-index.xml`**.
 - [x] **P7-15 Final SEO pass:** Metadata parity, hreflang, CWV targets; showcase performance follow-up **EX-0006** after lazy or consent-gated embed patterns if still open.
-- [ ] **P7-16 Sign-off:** Pre-launch checklist complete; update `docs/grand-plan.md` or a Phase 7 verification record when the phase closes.
-**Production host:** Checks that require **`https://www.andetag.museum`** (for example sitemap fetch at the canonical origin, live GTM validation) are completed or repeated in **`docs/phase-8-todo.md`** after cutover.
+- [x] **P7-16 Sign-off:** **Gustaf** approved Phase 7 closure **2026-04-09** (evidence **`docs/phase-7-verification-record.md`** §P7-16). Maintainer checklist and **`docs/grand-plan.md`** Phase 7 **Status** updated **2026-04-08**. **Promotion to `www`** and pre-cutover gates (**locale copy**, **P8-07** **GTM**, live checks) remain **Phase 8** (**P8-05**–**P8-07**, …).
+**Production host:** Checks that require **`https://www.andetag.museum`** (for example sitemap fetch at the canonical origin, live GTM validation after **P8-07**) are completed in **`docs/phase-8-todo.md`**.
 
 ## References
 
 - **`Google Tag Manager v15.json`** (repository root): exported live **WordPress** container **v15**; audit and migration checklist in **`docs/kpi-measurement-map.md`**.
-- **`docs/gtm-termly-migration-runbook.md`**: GTM UI steps (Termly template, dual triggers, consent, Preview).
-- `docs/phase-7-verification-record.md` (evidence log as Phase 7 items close)
-- `docs/grand-plan.md` (Phase 7 deliverables and acceptance checks)
-- `docs/phase-8-todo.md` (deployment and post-live **`www`** verification)
+- **`docs/gtm-termly-migration-runbook.md`**: GTM UI steps (Termly template, dual triggers, consent, Preview). **Execute Phase 8 · P8-07** (not required for Phase 7 closure).
+- `docs/phase-7-verification-record.md` (Phase 7 **closed**; **Gustaf** **2026-04-09**)
+- `docs/grand-plan.md` (Phase 7 deliverables, **Status** complete)
+- `docs/phase-8-todo.md` (**P8-07** **GTM** before cutover, post-live **`www`** verification)
 - `docs/Andetag SEO Manual.md` (schema types, descriptions, Berlin protocol)
 - `docs/content-model.md` (frontmatter `ogImage`, shared `seo` contract)
 - `docs/tracking-and-consent-requirements.md`, `docs/kpi-measurement-map.md`

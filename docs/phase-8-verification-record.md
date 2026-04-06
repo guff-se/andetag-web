@@ -7,10 +7,12 @@ Normative checklist: **`docs/phase-8-todo.md`**.
 ## Status
 
 - Phase 8: **open** (not started).
+- **Phase 7:** **closed** with **Gustaf** sign-off **2026-04-09** (**`docs/phase-7-verification-record.md`** §P7-16). **P8-05** checked **2026-04-09**.
 
 ## Pre-cutover (dev and staging)
 
-- **P8-01–P8-05:** (local QA, staging parity, URL coverage, exceptions, Phase 7 gate)
+- **P8-05 Phase 7 gate:** **Closed** **2026-04-09** (**Gustaf**; **`docs/phase-7-verification-record.md`** §P7-16).
+- **P8-01–P8-04:** (local QA, staging parity, URL coverage, exceptions)
 - **P8-06 Locale copy (`sv`, `en`, `de` on staging):** Gustaf sign-off dates and scope (checklist used); optional external **`de`** reviewer note
 
 ## Cutover
