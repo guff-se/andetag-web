@@ -154,8 +154,23 @@ const smallHeroHeaderIds = new Set<typeof shell.headerVariantId>([
   "chrome-hdr-en-berlin-small",
   "chrome-hdr-de-berlin-small",
 ]);
+/** Video hero `<picture>` lists AVIF before WebP; preloading WebP while Chrome picks AVIF wasted fetch and delayed LCP. */
+const lcpImagePreloads = heroVideoHeaderIds.has(shell.headerVariantId)
+  ? ([
+      {
+        href: HERO_SV_ASSETS.posterAvif960,
+        media: "(max-width: 900px)",
+        type: "image/avif",
+      },
+      {
+        href: HERO_SV_ASSETS.posterAvif1920,
+        media: "(min-width: 901px)",
+        type: "image/avif",
+      },
+    ] as const)
+  : null;
 const lcpImagePreloadHref = heroVideoHeaderIds.has(shell.headerVariantId)
-  ? HERO_SV_ASSETS.posterPreload
+  ? null
   : smallHeroHeaderIds.has(shell.headerVariantId)
     ? HEADER_SMALL_LCP_PRELOAD_WEBP
     : null;
@@ -201,6 +216,7 @@ const lcpBodyFontPreloadHref = LCP_BODY_FONT_PATHS.has(canonicalPath)
   xDefaultPath={shell.xDefaultPath}
   lcpImagePreloadHref={lcpImagePreloadHref}
   lcpImagePreloadMedia={lcpImagePreloadMedia}
+  lcpImagePreloads={lcpImagePreloads}
   lcpFontPreloadHref={lcpFontPreloadHref}
   lcpBodyFontPreloadHref={lcpBodyFontPreloadHref}
   headerSelectorOnly={headerSelectorOnly}

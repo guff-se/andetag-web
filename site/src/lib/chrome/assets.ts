@@ -4,7 +4,7 @@ const HERO_POSTER_BASE = "/wp-content/uploads/2024/11/stockholm-hero-poster";
 export const HERO_SV_ASSETS = {
   /** Default OG / JSON-LD image: same 1920w JPEG as hero `<picture>` fallback (`seo.ts` → absolute `www` URL). */
   poster: `${HERO_POSTER_BASE}-1920w.jpg`,
-  /** Preload for LCP: mobile-first WebP (matches `(max-width: 900px)` poster sources). */
+  /** Legacy WebP path; video hero LCP preloads use AVIF in `[...slug].astro` (`lcpImagePreloads`) to match `<picture>` order. */
   posterPreload: `${HERO_POSTER_BASE}-960w.webp`,
   posterAvif960: `${HERO_POSTER_BASE}-960w.avif`,
   posterWebp960: `${HERO_POSTER_BASE}-960w.webp`,

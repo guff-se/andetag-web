@@ -38,10 +38,15 @@ type Props = {
   robots?: "index,follow" | "noindex,nofollow";
   fullWidthMain?: boolean;
   bodyClass?: string;
-  /** When set, emits an early high-priority image preload (LCP: Swedish home hero poster, small-header mobile WebP, etc.). */
+  /** When set, emits an early high-priority image preload (LCP: small-header mobile WebP, etc.). */
   lcpImagePreloadHref?: string | null;
   /** Optional `media` on the image preload (for example `(max-width: 767px)` for small-header mobile art direction). */
   lcpImagePreloadMedia?: string | null;
+  /**
+   * Art-directed LCP preloads (preferred for video hero: must match `<picture>` type order, e.g. AVIF before WebP).
+   * When non-empty, overrides `lcpImagePreloadHref` / `lcpImagePreloadMedia`.
+   */
+  lcpImagePreloads?: readonly { href: string; media?: string | null; type?: string | null }[] | null;
   /** Optional WOFF2 preload for above-the-fold UI using that face (Jost 500 on Swedish video hero). */
   lcpFontPreloadHref?: string | null;
   /** Optional body-serif preload when prose is likely LCP (privacy, long-form text pages with small header). */
@@ -141,7 +146,18 @@ const jsonLd = includeStructuredData
     }
     <meta name="twitter:image" content={ogImageUrl} />
     {
-      props.lcpImagePreloadHref ? (
+      props.lcpImagePreloads && props.lcpImagePreloads.length > 0 ? (
+        props.lcpImagePreloads.map((entry) => (
+          <link
+            rel="preload"
+            as="image"
+            href={entry.href}
+            fetchpriority="high"
+            {...(entry.media ? { media: entry.media } : {})}
+            {...(entry.type ? { type: entry.type } : {})}
+          />
+        ))
+      ) : props.lcpImagePreloadHref ? (
         <link
           rel="preload"
           as="image"
