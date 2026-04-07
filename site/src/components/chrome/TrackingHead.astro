@@ -3,16 +3,17 @@
  * Termly resource blocker, GTM bootstrap, Google Consent Mode v2 defaults.
  * Termly ID is the resource-blocker UUID from the Termly dashboard embed.
  *
- * Performance: Termly loads with `async` + `fetchpriority="low"` so it does
- * not block the parser or compete with LCP image downloads. `autoBlock=off`
- * because GTM Consent Mode (via the Termly GTM template and the inline
- * consent defaults below) handles tag gating; Termly's auto-blocker is
- * redundant when GTM orchestrates tags and can interfere with GTM Preview.
+ * Performance strategy:
+ * 1. Consent defaults (all denied) are set synchronously so no tag fires
+ *    without consent regardless of script load order.
+ * 2. Termly is dynamically injected after requestIdleCallback, keeping its
+ *    ~163KB download off the critical path for LCP image preloads.
+ * 3. GTM is deferred to the `load` event and will wait up to 500ms for
+ *    Termly's consent signal (`wait_for_update`).
  *
- * GTM is deferred to the `load` event so it does not compete for main-thread
- * time during initial paint. Consent defaults (denied) are set synchronously
- * before either script runs, so no tag fires without consent even if the
- * scripts load in any order.
+ * `autoBlock=off` because GTM Consent Mode (via the Termly GTM template)
+ * handles tag gating; Termly's auto-blocker is redundant and can interfere
+ * with GTM Preview.
  */
 import { GTM_CONTAINER_ID } from "../../lib/chrome/tracking-constants";
 
@@ -38,8 +39,22 @@ const termlyResourceBlockerSrc =
     wait_for_update: 500,
   });
 </script>
-<!-- Termly CMP: async + low priority so LCP images win the bandwidth race. -->
-<script is:inline async fetchpriority="low" src={termlyResourceBlockerSrc}></script>
+<!-- Termly CMP: deferred to idle time so it never competes with LCP image downloads. -->
+<script is:inline define:vars={{ termlyResourceBlockerSrc }}>
+  (function loadTermly() {
+    function inject() {
+      var s = document.createElement("script");
+      s.src = termlyResourceBlockerSrc;
+      s.async = true;
+      document.head.appendChild(s);
+    }
+    if (typeof requestIdleCallback === "function") {
+      requestIdleCallback(inject, { timeout: 3000 });
+    } else {
+      setTimeout(inject, 1500);
+    }
+  })();
+</script>
 <!-- GTM: deferred to window.load so it does not delay LCP. -->
 <script is:inline define:vars={{ gtmId }}>
   window.addEventListener("load", function () {

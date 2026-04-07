@@ -100,10 +100,8 @@ const jsonLd = includeStructuredData
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="theme-color" content="#4a0d2f" />
-    <!-- Preconnect to third-party origins before their scripts appear (dns-prefetch as fallback). -->
-    <link rel="preconnect" href="https://app.termly.io" crossorigin />
+    <!-- dns-prefetch for third-party origins (Termly deferred to idle, GTM deferred to load). -->
     <link rel="dns-prefetch" href="https://app.termly.io" />
-    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
     <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
     <!-- LCP preloads: placed early so the preload scanner discovers them immediately. -->
     {
