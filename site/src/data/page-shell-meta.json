@@ -308,6 +308,16 @@
       "sourceFile": "stockholm-vilken-typ-av-upplevelse.html",
       "title": "Vilken typ av upplevelse är ANDETAG? En stillsam konstupplevelse i ljus | ANDETAG Stockholm",
       "description": "ANDETAG är en stillsam, ljusbaserad konstupplevelse byggd kring närvaro, andning och långsamhet. En ärlig beskrivning av vad du möter innan ditt besök."
+    },
+    "/sv/stockholm/navid-modiri/": {
+      "sourceFile": "sv-navid-modiri.html",
+      "title": "Navid Modiri | Världens bästa andare & ANDETAGs andningsambassadör | ANDETAG Stockholm",
+      "description": "Navid Modiri är världens bästa andare och ANDETAGs officiella andningsambassadör. Läs om hur detta samarbete kommer att göra alla lyckliga."
+    },
+    "/en/stockholm/navid-modiri/": {
+      "sourceFile": "en-navid-modiri.html",
+      "title": "Navid Modiri | The World's Greatest Breather & ANDETAG's Breathing Ambassador | ANDETAG Stockholm",
+      "description": "Navid Modiri is the world's greatest breather and ANDETAG's official breathing ambassador. Read about how this collaboration will make everyone happy."
     }
   }
 }

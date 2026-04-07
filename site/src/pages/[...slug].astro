@@ -53,6 +53,8 @@ import TillganglighetSv from "../components/page-bodies/TillganglighetSv.astro";
 import VilkenTypAvUpplevelseEn from "../components/page-bodies/VilkenTypAvUpplevelseEn.astro";
 import PrivacyPage from "../components/page-bodies/PrivacyPage.astro";
 import VilkenTypAvUpplevelseSv from "../components/page-bodies/VilkenTypAvUpplevelseSv.astro";
+import NavidModiriSv from "../components/page-bodies/NavidModiriSv.astro";
+import NavidModiriEn from "../components/page-bodies/NavidModiriEn.astro";
 import { HEADER_SMALL_LCP_PRELOAD_WEBP, HERO_SV_ASSETS } from "../lib/chrome/assets";
 import {
   getPageShellRoute,
@@ -135,6 +137,8 @@ const pageBodies: Partial<Record<string, ShellPageBody>> = {
   "/sv/stockholm/tillganglighet/": TillganglighetSv,
   "/sv/stockholm/utstallning-stockholm/": StockholmUtstallningSv,
   "/sv/stockholm/vilken-typ-av-upplevelse/": VilkenTypAvUpplevelseSv,
+  "/sv/stockholm/navid-modiri/": NavidModiriSv,
+  "/en/stockholm/navid-modiri/": NavidModiriEn,
 };
 const PageBody = pageBodies[canonicalPath];
 if (!PageBody && canonicalPath !== "/en/") {

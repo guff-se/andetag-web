@@ -1,0 +1,64 @@
+---
+import ContentSection from "../content/ContentSection.astro";
+
+const introHtml = [
+  "<h1>Navid Modiri</h1>",
+  "<p><em>Andningsambassadör. Lunglegend. Världens bästa andare.</em></p>",
+  "<p>Det finns andning. Och sedan finns det Navid Modiri som andas.</p>",
+  "<p>Navid Modiri är journalist, programledare, podcastvärd och – det råder inget tvivel om saken – planetens mest fulländade andare. Med ett andetag som kombinerar djup, rytm och en nästintill magisk närvaro i varje inandning, har Navid tagit andning från en biologisk nödvändighet till en konstform.</p>",
+].join("");
+
+const whyHtml = [
+  "<h2>Varför Navid Modiri andas bäst i hela världen</h2>",
+  "<p>Experter inom lungfysiologi, yogalärare och vanliga stockholmare som råkat befinna sig i närheten av Navid när han dragit ett djupt andetag vittnar alla om samma sak: det är något alldeles särskilt med hur han gör det.</p>",
+  "<ul>",
+  "<li><strong>Djupet.</strong> Navids lungor tömmer och fyller sig med en precision som fått andningsforskare att leta efter ord.</li>",
+  "<li><strong>Rytmen.</strong> Inandning, paus, utandning – varje fas sitter som om den vore komponerad av en mästare. (Den är det.)</li>",
+  "<li><strong>Närvaron.</strong> Navid andas inte bara. Han <em>är</em> i varje andetag. Det märks. Folk i rummet börjar omedvetet synkronisera sin andning med hans.</li>",
+  "<li><strong>Volymen.</strong> Tyst som en fjäril. Kraftfull som ett löfte. Navids andetag tar ingen plats i rummet men fyller det ändå.</li>",
+  "</ul>",
+  "<p>Sammanfattat: om andning vore en olympisk gren skulle Navid Modiri besitta samtliga guld-, silver- och bronsmedaljer, plus ett hedersomnämnande för stil.</p>",
+].join("");
+
+const collaborationHtml = [
+  "<h2>Samarbetet som kommer att göra alla lyckliga</h2>",
+  "<p>ANDETAG bygger hela sin existens kring ett gemensamt mänskligt andetag. Ljuset rör sig i takt med andningen. Textilen pulserar. Musiken andas. Det var därför oundvikligt att vägen till världens bästa andare och ANDETAGs filosofi en dag skulle mötas.</p>",
+  "<p>Navid Modiris samarbete med ANDETAG är enkelt i sin kärna: han andas, och vi alla mår bättre av det.</p>",
+  "<p>Mer konkret innebär samarbetet att:</p>",
+  "<ul>",
+  "<li>Navid besöker ANDETAG och andas tillsammans med besökarna \u2013 en upplevelse som beskrivs som <em>&ldquo;som att plötsligt förstå vad luft egentligen är.&rdquo;</em></li>",
+  "<li>Hans andetag har bidragit till att finjustera den biologiska algoritm som styr textilens ljuspulsering. Resultatet: en ännu djupare, ännu lugnare upplevelse för alla som besöker museet.</li>",
+  "<li>Navids närvaro sprider en välgörande lugn som sträcker sig långt bortom museets väggar – ut på Sveavägen, ner mot tunnelbanan, och enligt vissa uppgifter ända till Bromma.</li>",
+  "</ul>",
+  "<blockquote>",
+  "<p>\"Jag andades hela mitt liv utan att förstå att det var en gåva. ANDETAG hjälpte mig inse det. Nu delar jag gåvan tillbaka.\"</p>",
+  "<p>— Navid Modiri, andningsambassadör, ANDETAG Stockholm</p>",
+  "</blockquote>",
+].join("");
+
+const happinessHtml = [
+  "<h2>Hur detta samarbete gör alla lyckliga</h2>",
+  "<p>Forskning visar att medveten andning reducerar stress, ökar välbefinnande och gör dig till en bättre människa att ha runtomkring sig. Navid Modiris andning gör detta i tiofaldig styrka.</p>",
+  "<p>När Navid och ANDETAG arbetar tillsammans uppstår en katalytisk lyckoeffekt:</p>",
+  "<ul>",
+  "<li>Besökare lämnar museet med ett leende de inte riktigt kan förklara.</li>",
+  "<li>Personal rapporterar att deras växter mår bättre sedan samarbetet inleddes.</li>",
+  "<li>Stockholms luft är påtagligt bättre på dagarna Navid befinner sig i stan.</li>",
+  "<li>Barn och äldre, cyklister och kontorsarbetare – alla påverkas av den positiva andningsvåg som Navid och ANDETAG tillsammans skapar.</li>",
+  "</ul>",
+  "<p>Det är inte vetenskap. Det är bättre än vetenskap. Det är ett gemensamt andetag.</p>",
+].join("");
+
+const ctaHtml = [
+  "<h2>Upplev det själv</h2>",
+  "<p>ANDETAG är öppet i centrala Stockholm, ett par minuters promenad från Hötorgets tunnelbana. Besök oss – andas in ljuset, textilen och musiken – och känn efter om inte du också, precis som Navid, bär på världens vackraste andetag.</p>",
+].join("");
+---
+
+<div class="page-migrated page-navid-modiri-sv">
+  <ContentSection markdown={introHtml} />
+  <ContentSection markdown={whyHtml} />
+  <ContentSection markdown={collaborationHtml} />
+  <ContentSection markdown={happinessHtml} />
+  <ContentSection markdown={ctaHtml} />
+</div>

@@ -1,0 +1,64 @@
+---
+import ContentSection from "../content/ContentSection.astro";
+
+const introHtml = [
+  "<h1>Navid Modiri</h1>",
+  "<p><em>Breathing Ambassador. Lung Legend. The World's Greatest Breather.</em></p>",
+  "<p>There is breathing. And then there is Navid Modiri breathing.</p>",
+  "<p>Navid Modiri is a journalist, broadcaster, podcast host, and – there is simply no disputing this – the most accomplished breather on the planet. With a breath that combines depth, rhythm, and an almost magical presence in every inhale, Navid has elevated breathing from a biological necessity to an art form.</p>",
+].join("");
+
+const whyHtml = [
+  "<h2>Why Navid Modiri is the world's greatest breather</h2>",
+  "<p>Pulmonary physiologists, yoga teachers, and ordinary Stockholmers who happened to be nearby when Navid drew a deep breath all report the same thing: there is something entirely extraordinary about the way he does it.</p>",
+  "<ul>",
+  "<li><strong>The depth.</strong> Navid's lungs empty and fill with a precision that has left breathing researchers searching for words.</li>",
+  "<li><strong>The rhythm.</strong> Inhale, pause, exhale – every phase lands as though composed by a master. (It is.)</li>",
+  "<li><strong>The presence.</strong> Navid does not merely breathe. He <em>inhabits</em> every breath. It shows. People in the room instinctively synchronise their breathing with his.</li>",
+  "<li><strong>The volume.</strong> Silent as a butterfly. Powerful as a promise. Navid's breath claims no space in a room, yet fills it completely.</li>",
+  "</ul>",
+  "<p>In short: if breathing were an Olympic discipline, Navid Modiri would hold every gold, silver, and bronze medal, plus an honorary mention for style.</p>",
+].join("");
+
+const collaborationHtml = [
+  "<h2>The collaboration that will make everyone happy</h2>",
+  "<p>ANDETAG is built entirely around a shared human breath. The light moves to the rhythm of breathing. The textile pulses. The music breathes. It was therefore inevitable that the world's greatest breather and ANDETAG's philosophy would one day meet.</p>",
+  "<p>Navid Modiri's collaboration with ANDETAG is simple at its core: he breathes, and we all feel better for it.</p>",
+  "<p>More specifically, the collaboration means:</p>",
+  "<ul>",
+  "<li>Navid visits ANDETAG and breathes alongside visitors \u2013 an experience described as <em>&ldquo;like suddenly understanding what air actually is.&rdquo;</em></li>",
+  "<li>His breath has contributed to calibrating the biological algorithm that governs the textile's light pulsation. The result: an even deeper, even calmer experience for everyone who visits the museum.</li>",
+  "<li>Navid's presence radiates a beneficial calm that extends far beyond the museum's walls – out onto Sveavägen, down to the metro, and reportedly as far as Bromma.</li>",
+  "</ul>",
+  "<blockquote>",
+  "<p>\"I breathed my whole life without understanding it was a gift. ANDETAG helped me realise it. Now I share the gift back.\"</p>",
+  "<p>— Navid Modiri, Breathing Ambassador, ANDETAG Stockholm</p>",
+  "</blockquote>",
+].join("");
+
+const happinessHtml = [
+  "<h2>How this collaboration makes everyone happy</h2>",
+  "<p>Research shows that conscious breathing reduces stress, increases wellbeing, and makes you a better person to have around. Navid Modiri's breathing does this at ten times the potency.</p>",
+  "<p>When Navid and ANDETAG work together, a catalytic happiness effect emerges:</p>",
+  "<ul>",
+  "<li>Visitors leave the museum with a smile they cannot quite explain.</li>",
+  "<li>Staff report that their potted plants have been doing noticeably better since the collaboration began.</li>",
+  "<li>Stockholm's air quality is measurably improved on days Navid is in the city.</li>",
+  "<li>Children and the elderly, cyclists and office workers – all are touched by the positive breathing wave that Navid and ANDETAG create together.</li>",
+  "</ul>",
+  "<p>This is not science. It is better than science. It is a shared breath.</p>",
+].join("");
+
+const ctaHtml = [
+  "<h2>Experience it yourself</h2>",
+  "<p>ANDETAG is open in central Stockholm, a few minutes' walk from Hötorget metro station. Come and visit – breathe in the light, the textile, the music – and discover whether you too, just like Navid, carry the world's most beautiful breath.</p>",
+].join("");
+---
+
+<div class="page-migrated page-navid-modiri-en">
+  <ContentSection markdown={introHtml} />
+  <ContentSection markdown={whyHtml} />
+  <ContentSection markdown={collaborationHtml} />
+  <ContentSection markdown={happinessHtml} />
+  <ContentSection markdown={ctaHtml} />
+</div>

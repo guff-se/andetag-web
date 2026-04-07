@@ -57,6 +57,7 @@ export const STOCKHOLM_SV_EN_PAIRS: ReadonlyArray<readonly [string, string]> = [
   ["/sv/stockholm/museum-stockholm/", "/en/stockholm/museum-stockholm/"],
   ["/sv/stockholm/npf-stockholm/", "/en/stockholm/npf-visitors/"],
   ["/sv/stockholm/utstallning-stockholm/", "/en/stockholm/exhibition-stockholm/"],
+  ["/sv/stockholm/navid-modiri/", "/en/stockholm/navid-modiri/"],
 ];
 
 /** Berlin German story page ↔ Berlin English (same topic, different slug). Order: [de, en]. */

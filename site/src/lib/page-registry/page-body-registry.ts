@@ -63,4 +63,6 @@ export const PAGE_CUSTOM_BODY_PATHS: ReadonlySet<string> = new Set([
   "/sv/stockholm/vilken-typ-av-upplevelse/",
   "/sv/stockholm/privacy/",
   "/de/berlin/privacy/",
+  "/sv/stockholm/navid-modiri/",
+  "/en/stockholm/navid-modiri/",
 ]);
