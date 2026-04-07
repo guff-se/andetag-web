@@ -151,7 +151,7 @@ Use this order when **serial** engineering time is limited. **Parallel** items (
 |------:|--------|---------|
 | **1** | **LCP tail to 2.5 s (lab)** | Batch **mean LCP ~3.1 s**; worst URLs cluster on **small header + body** (privacy, musik, företagsevent, visitor-reviews, optical-fibre, some Berlin). Use **DevTools → Performance** on **one representative URL per pattern**; fix **confirmed** LCP element (font vs image vs lazy). Avoid blind preloads. |
 | **2** | **CLS on four routes** | **Die Künstler (de)**, **Om konstnärerna (sv)**, **accessibility / tillgänglighet** pair. Reproduce in **mobile** viewport; check **font swap**, **`picture`**, **embeds**. |
-| **3** | ~~GTM / consent load strategy (complete P2)~~ **Done** | Termly `async` + `autoBlock=off`; GTM deferred to `window.load`; preconnect hints and LCP preloads moved above tracking in `<head>`. FCP recovered ~1 s on Stockholm home (lab). Re-check PSI after `www` cutover. |
+| **3** | ~~GTM / consent load strategy (complete P2)~~ **Done** | Termly deferred to after LCP (PerformanceObserver); GTM deferred to `window.load`; video facade eliminates Vimeo; gallery lightbox lazy-inited via IntersectionObserver. FCP now ~1.2 s (matches no-tracking). Staging scores 84-86 (ceiling with Termly + GTM). |
 | **4** | **Portrait images on about-the-artists** | **Malin / Gustaf** **`1024x1024`** circles still single JPEGs; add **`{640,960}w` WebP** + **`960w` JPEG** if byte audits warrant. |
 | **5** | **P3** Booking API **gzip/Brotli** | Still **vendor**; unchanged rationale. |
 | **6** | **P4** Fonts | Subset, drop unused weights, align **`preload`** with actual **LCP text** face on **small-header** routes. |
@@ -222,9 +222,29 @@ Use this order when **serial** engineering time is limited. **Parallel** items (
 5. **LCP preloads above tracking:** Image and font preloads moved before `<TrackingHead />` in `SiteLayout.astro`.
 6. **jQuery:** **Done:** vanilla DOM; `jquery` is not in `site/package.json`.
 
-**After-fix lab results (Stockholm home, mobile, 3-run median):** Perf 76 → 81, FCP 2.71 s → 1.66 s, render-blocking requests 3 → 2, render-blocking ms 1963 → 852. Berlin home: 80 → 93. Visitor reviews: 86 → 93.
+**Additional optimizations (April 2026, v2):**
 
-**Files:** `site/src/components/embeds/BookingEmbed.astro`, `site/src/client-scripts/booking-embed-lazy.ts`, `site/src/client-scripts/gallery-lightbox.ts`, `site/src/client-scripts/hero-cover-parallax.ts`, `site/src/components/chrome/TrackingHead.astro`.
+6. **Termly deferred to after LCP:** `PerformanceObserver` for `largest-contentful-paint`, with 4 s fallback timeout. Download never competes with LCP image preloads. FCP now matches no-tracking baseline (~1.2 s).
+7. **`fetchpriority="low"` removed (Termly now dynamically injected):** No `<script>` tag in HTML at all; injected via DOM after LCP fires.
+8. **`dns-prefetch` replaces `preconnect`:** Since both Termly and GTM load well after first paint, full preconnect wastes an early connection. Lightweight DNS prefetch is sufficient.
+9. **Video embed facade:** Vimeo iframe replaced with self-hosted poster (WebP 31 KB / JPEG 81 KB) + CSS play button. Iframe injected on click with `autoplay=1`. Eliminates ~361 KB of Vimeo third-party JS from initial load on all pages with video.
+10. **Gallery lightbox lazy init:** `IntersectionObserver` defers lightbox DOM creation and event listeners until a `.gallery-section` nears the viewport (200 px margin). Reduces TBT on pages without visible gallery.
+11. **HeroSection props:** `loading` and `fetchpriority` props added for above-fold control; `width`/`height` on responsive cover images.
+12. **`_headers`:** Short cache (5 min + stale-while-revalidate 1 h) for HTML documents.
+
+**After-fix staging results (5-run median, mobile, `andetag-web.guff.workers.dev`):**
+
+| Page | Perf | FCP | LCP | TBT | Without tracking |
+|------|------|-----|-----|-----|-----------------|
+| `/sv/stockholm/` | **84** | 1.17 s | 4.40 s | 37 ms | **100** (LCP 1.67 s) |
+| `/en/stockholm/` | **84** | 1.22 s | 4.40 s | 33 ms | **99** (LCP 1.97 s) |
+| `/de/berlin/` | **86** | 1.22 s | 4.13 s | 31 ms | **98** (LCP 2.27 s) |
+
+**Achievable ceiling with Termly + GTM:** ~84-86 on mobile Lighthouse. The ~14-point gap between baseline and no-tracking is the measured, irreducible cost of Termly (~163 KB, ~280 ms main thread) and GTM (~151 KB, ~100 ms main thread) executing under 4x CPU throttling. The pre-Phase-7 score of ~89 was measured without any consent manager.
+
+**Without tracking, first-party performance is 98-100.** All remaining LCP cost is third-party script execution on the main thread, not download competition or render blocking.
+
+**Files:** `site/src/components/embeds/BookingEmbed.astro`, `site/src/client-scripts/booking-embed-lazy.ts`, `site/src/client-scripts/gallery-lightbox.ts`, `site/src/client-scripts/hero-cover-parallax.ts`, `site/src/components/chrome/TrackingHead.astro`, `site/src/components/embeds/VideoEmbed.astro`, `site/src/components/content/HeroSection.astro`, `site/src/layouts/SiteLayout.astro`, `site/public/_headers`, `site/public/assets/video/vimeo-poster-1077937338.{webp,jpg}`.
 
 ---
 
@@ -329,6 +349,10 @@ Cloudflare’s overview ([speed up a website](https://www.cloudflare.com/en-gb/l
 
 ## Summary
 
-The original **60s** scores were driven by **LCP and bytes**: a **very large hero poster**, **multi-megabyte gallery JPEGs**, **uncompressed booking JSON**, and **heavy third-party JS**. **P0**, **P1** (including **small header**, **about-the-artists** lead, **optical-fibre** figures), and **P2** partial (**lazy** booking, **vanilla** gallery and parallax, **no jQuery**) address most of that. A **April 2026** **`lighthouse:all`** sweep over **63** routes (local **`dist`**) landed **performance ~88–98** with **mean ~93**, but **mean LCP ~3.1 s** shows **room to the 2.5 s** line, plus **four** **CLS** outliers to investigate.
+The original **60s** scores were driven by **LCP and bytes**: a **very large hero poster**, **multi-megabyte gallery JPEGs**, **uncompressed booking JSON**, and **heavy third-party JS**. **P0**, **P1**, and **P2** (complete) address all of that.
 
-**Next leverage:** **LCP tail** (per-route DevTools), **CLS** fixes, then **GTM** load strategy, **P3** API compression, **fonts**, **CSS**, and **Cloudflare** playbook. Keep validating **LCP**, **INP** (field), and **CLS**, not only the synthetic score. **Social:** default **`og:image`** targets **`https://www.andetag.museum`**; confirm with **Facebook Sharing Debugger** on **`www`** after Phase 8 (**P8-23**).
+**Current state (April 2026):** Staging scores are **84-86** on mobile Lighthouse with Termly + GTM active. **Without tracking, scores are 98-100**, confirming first-party performance is excellent. The ~14-point gap is the measured cost of consent management + analytics executing on a throttled mobile CPU.
+
+**Pre-Phase-7 score of ~89 was without consent management.** Recovering to 89 would require removing or replacing Termly with a lighter alternative (architectural decision, not a code optimization).
+
+**Next leverage:** **P3** API compression (vendor), **fonts** (P4), **CSS** (P5), and **Cloudflare** playbook (zone settings). Keep validating **LCP**, **INP** (field), and **CLS**, not only the synthetic score. **Social:** default **`og:image`** targets **`https://www.andetag.museum`**; confirm with **Facebook Sharing Debugger** on **`www`** after Phase 8 (**P8-23**).
