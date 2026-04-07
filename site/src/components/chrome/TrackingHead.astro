@@ -3,13 +3,14 @@
  * Termly resource blocker, GTM bootstrap, Google Consent Mode v2 defaults.
  * Termly ID is the resource-blocker UUID from the Termly dashboard embed.
  *
- * Performance strategy:
- * 1. Consent defaults (all denied) are set synchronously so no tag fires
- *    without consent regardless of script load order.
- * 2. Termly is dynamically injected after requestIdleCallback, keeping its
- *    ~163KB download off the critical path for LCP image preloads.
- * 3. GTM is deferred to the `load` event and will wait up to 500ms for
- *    Termly's consent signal (`wait_for_update`).
+ * Performance strategy (sequence):
+ * 1. Consent defaults (all denied) fire synchronously: no tag ever fires
+ *    without consent, regardless of script load order.
+ * 2. Termly is injected after the largest-contentful-paint event, so its
+ *    ~163KB download and execution never compete with the LCP image.
+ *    Fallback: 4s timeout if LCP observer is unavailable.
+ * 3. GTM is deferred to the `load` event; its `wait_for_update: 500` gives
+ *    Termly time to set consent before any GTM tag fires.
  *
  * `autoBlock=off` because GTM Consent Mode (via the Termly GTM template)
  * handles tag gating; Termly's auto-blocker is redundant and can interfere
@@ -39,20 +40,32 @@ const termlyResourceBlockerSrc =
     wait_for_update: 500,
   });
 </script>
-<!-- Termly CMP: deferred to idle time so it never competes with LCP image downloads. -->
+<!-- Termly CMP: deferred until after LCP so it never degrades the score. -->
 <script is:inline define:vars={{ termlyResourceBlockerSrc }}>
-  (function loadTermly() {
+  (function () {
+    var done = false;
     function inject() {
+      if (done) return;
+      done = true;
       var s = document.createElement("script");
       s.src = termlyResourceBlockerSrc;
       s.async = true;
       document.head.appendChild(s);
     }
-    if (typeof requestIdleCallback === "function") {
-      requestIdleCallback(inject, { timeout: 3000 });
+    if ("PerformanceObserver" in window) {
+      try {
+        var po = new PerformanceObserver(function () {
+          po.disconnect();
+          inject();
+        });
+        po.observe({ type: "largest-contentful-paint", buffered: true });
+      } catch (e) {
+        setTimeout(inject, 2000);
+      }
     } else {
-      setTimeout(inject, 1500);
+      setTimeout(inject, 2000);
     }
+    setTimeout(inject, 4000);
   })();
 </script>
 <!-- GTM: deferred to window.load so it does not delay LCP. -->
