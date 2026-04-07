@@ -16,7 +16,10 @@
     "worker:dev": "npm run build && wrangler dev",
     "worker:deploy": "npm run build && wrangler deploy",
     "verify:staging-entry": "node scripts/verify-staging-entry-routing.mjs",
-    "lighthouse:all": "node scripts/lighthouse-all-pages.mjs"
+    "lighthouse:all": "node scripts/lighthouse-all-pages.mjs",
+    "perf:impact": "node scripts/perf-third-party-impact.mjs",
+    "perf:blocking": "node scripts/perf-render-blocking-audit.mjs",
+    "perf:consent": "node scripts/perf-consent-timing.mjs"
   },
   "dependencies": {
     "astro": "^5.18.1",
@@ -25,6 +28,7 @@
   "devDependencies": {
     "@astrojs/sitemap": "^3.7.2",
     "chrome-launcher": "^1.1.2",
+    "chrome-remote-interface": "^0.34.0",
     "lighthouse": "^11.6.0",
     "serve": "^14.2.4",
     "vitest": "^4.1.0",

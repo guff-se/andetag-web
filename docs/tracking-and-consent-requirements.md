@@ -83,8 +83,8 @@ Normative consent **category** labels match **§3** (`necessary`, `analytics`, `
 | Vimeo promo video | Stockholm home/SEO, Berlin home | **`VideoEmbed.astro`** | **`marketing`** (third-party player) | Iframe to Vimeo; treat like other optional media embeds for policy. |
 | Google Maps | Stockholm home, Hitta hit, SEO landings | **`MapEmbed.astro`** | **`marketing`** (third-party map) | Google may set cookies in the iframe context; align CMP disclosure with your legal review. |
 | Spotify album | Musik pages (SV/EN/DE) | Inline **`iframe`** in page bodies | **`marketing`** | Lazy-loaded where wired; third-party Spotify player. |
-| Google Tag Manager | All pages (when tracking on) | **`TrackingHead.astro`**, **`TrackingBody.astro`** | **`analytics` / `marketing`** for tags inside GTM; loader **after** consent default | Consent Mode v2 default denied before interaction; see Phase 7 tracking checklist. |
-| Termly | All pages | **`TrackingHead.astro`** | **`necessary`** | Resource blocker / CMP script (**`app.termly.io/resource-blocker/...`**). |
+| Google Tag Manager | All pages (when tracking on) | **`TrackingHead.astro`**, **`TrackingBody.astro`** | **`analytics` / `marketing`** for tags inside GTM; loader **after** consent default | Consent Mode v2 default denied before interaction. **GTM deferred to `window.load`** to avoid blocking first paint. |
+| Termly | All pages | **`TrackingHead.astro`** | **`necessary`** | Resource blocker / CMP script (**`app.termly.io/resource-blocker/...`**). Loads **`async`** with **`autoBlock=off`** (tag gating via GTM Consent Mode, not Termly auto-blocker). |
 
 Out-of-scope for this inventory: **first-party** media (hero video poster, gallery, self-hosted MP4), **external links** (for example Understory gift card URL opened in a new tab), and **Worker `andetag_entry`** (cookie policy in **`docs/url-migration-policy.md`**).
 

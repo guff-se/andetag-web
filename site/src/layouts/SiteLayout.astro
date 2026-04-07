@@ -100,6 +100,54 @@ const jsonLd = includeStructuredData
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="theme-color" content="#4a0d2f" />
+    <!-- Preconnect to third-party origins before their scripts appear. -->
+    <link rel="preconnect" href="https://app.termly.io" crossorigin />
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+    <!-- LCP preloads: placed early so the preload scanner discovers them immediately. -->
+    {
+      props.lcpImagePreloads && props.lcpImagePreloads.length > 0 ? (
+        props.lcpImagePreloads.map((entry) => (
+          <link
+            rel="preload"
+            as="image"
+            href={entry.href}
+            fetchpriority="high"
+            {...(entry.media ? { media: entry.media } : {})}
+            {...(entry.type ? { type: entry.type } : {})}
+          />
+        ))
+      ) : props.lcpImagePreloadHref ? (
+        <link
+          rel="preload"
+          as="image"
+          href={props.lcpImagePreloadHref}
+          fetchpriority="high"
+          {...(props.lcpImagePreloadMedia ? { media: props.lcpImagePreloadMedia } : {})}
+        />
+      ) : null
+    }
+    {
+      props.lcpFontPreloadHref ? (
+        <link
+          rel="preload"
+          href={props.lcpFontPreloadHref}
+          as="font"
+          type="font/woff2"
+          crossorigin="anonymous"
+        />
+      ) : null
+    }
+    {
+      props.lcpBodyFontPreloadHref ? (
+        <link
+          rel="preload"
+          href={props.lcpBodyFontPreloadHref}
+          as="font"
+          type="font/woff2"
+          crossorigin="anonymous"
+        />
+      ) : null
+    }
     <TrackingHead />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -150,50 +198,6 @@ const jsonLd = includeStructuredData
       ) : null
     }
     <meta name="twitter:image" content={ogImageUrl} />
-    {
-      props.lcpImagePreloads && props.lcpImagePreloads.length > 0 ? (
-        props.lcpImagePreloads.map((entry) => (
-          <link
-            rel="preload"
-            as="image"
-            href={entry.href}
-            fetchpriority="high"
-            {...(entry.media ? { media: entry.media } : {})}
-            {...(entry.type ? { type: entry.type } : {})}
-          />
-        ))
-      ) : props.lcpImagePreloadHref ? (
-        <link
-          rel="preload"
-          as="image"
-          href={props.lcpImagePreloadHref}
-          fetchpriority="high"
-          {...(props.lcpImagePreloadMedia ? { media: props.lcpImagePreloadMedia } : {})}
-        />
-      ) : null
-    }
-    {
-      props.lcpFontPreloadHref ? (
-        <link
-          rel="preload"
-          href={props.lcpFontPreloadHref}
-          as="font"
-          type="font/woff2"
-          crossorigin="anonymous"
-        />
-      ) : null
-    }
-    {
-      props.lcpBodyFontPreloadHref ? (
-        <link
-          rel="preload"
-          href={props.lcpBodyFontPreloadHref}
-          as="font"
-          type="font/woff2"
-          crossorigin="anonymous"
-        />
-      ) : null
-    }
     {
       jsonLd ? (
         <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

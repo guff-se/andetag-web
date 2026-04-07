@@ -5,5 +5,5 @@ site/node_modules/
 site/dist/
 site/.astro/
 site/.vscode/
-site/reports/lighthouse-*.json
+site/reports/*.json
 npm-debug.log*

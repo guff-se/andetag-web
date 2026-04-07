@@ -31,7 +31,7 @@ Mobile [PageSpeed Insights](https://pagespeed.web.dev/analysis/https-andetag-web
 |-------|--------|----------------------|
 | **P0** Hero poster | **Done** | Responsive **AVIF / WebP / JPEG** (`stockholm-hero-poster-{960,1920}w.*`), `<picture>` under video + **CSS fade-in** on `playing`. **LCP preload** uses **art-directed AVIF** (`lcpImagePreloads` in **`[...slug].astro`**, **`SiteLayout`**) so the preloaded file matches the **first** `<source>` (Chrome picks **AVIF**, not legacy **`960w.webp`** preload). **`HERO_SV_ASSETS.poster`** → **`1920w.jpg`** for default **`og:image`** / JSON-LD (must be served on **`www`** after Phase 8; see **`docs/phase-8-todo.md`** **P8-23** Facebook Sharing Debugger). |
 | **P1** Gallery / body images | **Done** | **Gallery** (**`stockholm-marketing-gallery.ts`**). **Marketing bodies:** **`stockholm-body-responsive-images.ts`** (home, SEO, book **`HeroSection`**, **Art Yoga** / **Dejt** covers, **Berlin** After Hours teaser, default **`TestimonialCarousel`** band, **about-the-artists** lead aside **`artWeekOpeningLeadAside`**, **optical-fibre** **`malinVaver*`**) with **`{640,960}w` WebP** + **`960w` JPEG** beside sources. **`ResponsiveInlinePicture`** (**`fetchpriority`** optional for LCP candidates), **`HeroSection`** / **`TestimonialCarousel`** responsive modes. **Small header (`shared-hero-header.is-small`):** portrait mobile still (**`Mobile-BG.*-header-mobile-*`**) AVIF/WebP/JPEG; desktop uses same **`stockholm-hero-poster-*`** stack as the video hero; **`HEADER_SMALL_LCP_PRELOAD_WEBP`** with **`media=(max-width:767px)`**; **`fetchpriority=high`** on fallback **`img`**. **Optional hygiene:** circular **portrait** JPEGs on about-the-artists (**`1024x1024`**) still ship as single files; batch derivatives if a future sweep flags them. |
-| **P2** Third-party + first-party JS | **Partial** | **`BookingEmbed`:** Understory script **`defer`** via **`booking-embed-lazy.ts`** (viewport **`IntersectionObserver`**, ~**`400px`** **`rootMargin`**). **Gallery lightbox:** vanilla **`gallery-lightbox.ts`**. **Hero parallax:** vanilla **`hero-cover-parallax.ts`**; **`jquery`** dependency **removed** from **`site/package.json`**. **GTM** / Termly unchanged (Partytown or **`load`** deferral still optional). |
+| **P2** Third-party + first-party JS | **Done** | **`BookingEmbed`:** Understory script **`defer`** via **`booking-embed-lazy.ts`** (viewport **`IntersectionObserver`**, ~**`400px`** **`rootMargin`**). **Gallery lightbox:** vanilla **`gallery-lightbox.ts`**. **Hero parallax:** vanilla **`hero-cover-parallax.ts`**; **`jquery`** dependency **removed** from **`site/package.json`**. **Termly** resource blocker switched to **`async`** + **`autoBlock=off`** (consent gated by GTM Consent Mode, not Termly auto-blocker). **GTM** deferred to **`window.load`** event. **`SiteLayout`** now places **`<link rel="preconnect">`** for `app.termly.io` and `googletagmanager.com` and **LCP preloads** above **`<TrackingHead />`** so the preload scanner discovers them before any script. **FCP recovered from ~2.7 s to ~1.66 s** (lab) on Stockholm home. |
 | **P3** Booking API compression | **Vendor** | Ask Understory for **gzip/Brotli** on API Gateway JSON. |
 | **P4** Fonts | **Partial** | **`fonts.css`** unchanged; **`SiteLayout`** adds optional **`lcpBodyFontPreloadHref`** (Baskervville 400 Latin WOFF2) on text-heavy shells (privacy all locales, music sv/en/de Berlin, corporate events, visitor reviews) wired from **`[...slug].astro`**. |
 | **P5** CSS | **Open** | Hygiene only. |
@@ -151,7 +151,7 @@ Use this order when **serial** engineering time is limited. **Parallel** items (
 |------:|--------|---------|
 | **1** | **LCP tail to 2.5 s (lab)** | Batch **mean LCP ~3.1 s**; worst URLs cluster on **small header + body** (privacy, musik, företagsevent, visitor-reviews, optical-fibre, some Berlin). Use **DevTools → Performance** on **one representative URL per pattern**; fix **confirmed** LCP element (font vs image vs lazy). Avoid blind preloads. |
 | **2** | **CLS on four routes** | **Die Künstler (de)**, **Om konstnärerna (sv)**, **accessibility / tillgänglighet** pair. Reproduce in **mobile** viewport; check **font swap**, **`picture`**, **embeds**. |
-| **3** | **GTM / consent load strategy (complete P2)** | Local batch underplays third parties. After CMP behavior is stable: **defer GTM** to **`load`** or **first interaction**, or **Partytown**, and re-check **PSI** on **`/sv/stockholm/`** and **`/en/stockholm/`**. |
+| **3** | ~~GTM / consent load strategy (complete P2)~~ **Done** | Termly `async` + `autoBlock=off`; GTM deferred to `window.load`; preconnect hints and LCP preloads moved above tracking in `<head>`. FCP recovered ~1 s on Stockholm home (lab). Re-check PSI after `www` cutover. |
 | **4** | **Portrait images on about-the-artists** | **Malin / Gustaf** **`1024x1024`** circles still single JPEGs; add **`{640,960}w` WebP** + **`960w` JPEG** if byte audits warrant. |
 | **5** | **P3** Booking API **gzip/Brotli** | Still **vendor**; unchanged rationale. |
 | **6** | **P4** Fonts | Subset, drop unused weights, align **`preload`** with actual **LCP text** face on **small-header** routes. |
@@ -207,20 +207,22 @@ Use this order when **serial** engineering time is limited. **Parallel** items (
 
 ### P2 — Third-party JavaScript: Understory + GTM
 
-**Status: partial** (booking script **lazy** + **defer** **done**; **GTM** / Termly **unchanged**).
+**Status: done.**
 
 **What Lighthouse said (historical):** “Reduce unused JavaScript”; **understory.io** and **GTM** highlighted. **`jquery`** was removed (**2026-04**); **gallery** and **hero parallax** are vanilla.
 
-**April 2026 batch note:** Local **`lighthouse:all`** often shows **TBT near zero**; **PSI** and **real devices** still pay for **GTM** and CMP. Completing **item 3** in [Next actions](#next-actions-reprioritized-april-2026) matters more than chasing **TBT** in headless **`serve dist`** alone.
+**April 2026 regression diagnosis:** A/B Lighthouse testing (`npm run perf:impact`) confirmed the synchronous Termly resource-blocker `<script>` in `<head>` was the primary regression: it blocked the HTML parser for ~1.7 s (DNS + TLS + download + execute), adding ~1.2 s to FCP and ~1.3 s to LCP versus a no-Termly baseline. GTM added another ~1 s to LCP. Combined, tracking scripts cost ~14 performance points and ~1.9 s LCP on the Stockholm home page.
 
-**Why before P3:** In-repo script loading improves **TBT** without waiting on Understory API changes.
+**Shipped fixes (April 2026):**
 
-**Plan:**
+1. **Booking widget script:** **Done:** **`defer`** injection via **`booking-embed-lazy.ts`** when the embed nears the viewport (**`IntersectionObserver`**, **`rootMargin` ~400px**); without **`IntersectionObserver`**, load immediately.
+2. **Termly `async` + `autoBlock=off`:** Resource-blocker loads with `async` so it no longer blocks the parser. `autoBlock=off` because GTM Consent Mode handles tag gating. FCP recovered from ~2.7 s to ~1.66 s (lab, Stockholm home).
+3. **GTM deferred to `window.load`:** GTM bootstrap wrapped in `addEventListener("load", ...)`. Consent defaults (`denied`) set synchronously before either script.
+4. **Preconnect hints:** `<link rel="preconnect">` for `app.termly.io` and `googletagmanager.com` as first elements in `<head>`.
+5. **LCP preloads above tracking:** Image and font preloads moved before `<TrackingHead />` in `SiteLayout.astro`.
+6. **jQuery:** **Done:** vanilla DOM; `jquery` is not in `site/package.json`.
 
-1. **Booking widget script:** **Done:** **`defer`** injection via **`booking-embed-lazy.ts`** when the embed nears the viewport (**`IntersectionObserver`**, **`rootMargin` ~400px**); without **`IntersectionObserver`**, load immediately. **`data-booking-embed-lazy`** on **`BookingEmbed`** **`section`**.
-2. **Lazy bootstrap:** **Done** (viewport-based as above). Optional later: **`requestIdleCallback`** for below-the-fold embeds only if metrics warrant it.
-3. **GTM:** After consent work stabilizes (you already default-deny then load GTM), consider loading GTM **after** `load` or first interaction, or **Partytown**. **Open.**
-4. **jQuery:** **Done:** **`gallery-lightbox.ts`** and **`hero-cover-parallax.ts`** are vanilla DOM; **`jquery`** is not in **`site/package.json`**.
+**After-fix lab results (Stockholm home, mobile, 3-run median):** Perf 76 → 81, FCP 2.71 s → 1.66 s, render-blocking requests 3 → 2, render-blocking ms 1963 → 852. Berlin home: 80 → 93. Visitor reviews: 86 → 93.
 
 **Files:** `site/src/components/embeds/BookingEmbed.astro`, `site/src/client-scripts/booking-embed-lazy.ts`, `site/src/client-scripts/gallery-lightbox.ts`, `site/src/client-scripts/hero-cover-parallax.ts`, `site/src/components/chrome/TrackingHead.astro`.
 

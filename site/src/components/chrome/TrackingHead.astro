@@ -3,19 +3,24 @@
  * Termly resource blocker, GTM bootstrap, Google Consent Mode v2 defaults.
  * Termly ID is the resource-blocker UUID from the Termly dashboard embed.
  *
- * Note: Termly’s GTM guide often recommends turning Auto Blocker off when GTM
- * orchestrates tags, because Auto Blocker can interfere with GTM. This site
- * uses `autoBlock=on` per operator choice; if GTM or Understory misbehaves,
- * try `autoBlock=off` and rely on GTM consent checks + the Termly template.
+ * Performance: Termly loads with `async` to avoid blocking the HTML parser.
+ * `autoBlock=off` because GTM Consent Mode (via the Termly GTM template and
+ * the inline consent defaults below) handles tag gating; Termly's auto-blocker
+ * is redundant when GTM orchestrates tags and can interfere with GTM Preview.
+ *
+ * GTM is deferred to the `load` event so it does not compete for main-thread
+ * time during initial paint. Consent defaults (denied) are set synchronously
+ * before either script runs, so no tag fires without consent even if the
+ * scripts load in any order.
  */
 import { GTM_CONTAINER_ID } from "../../lib/chrome/tracking-constants";
 
 const gtmId = GTM_CONTAINER_ID;
 const termlyResourceBlockerSrc =
-  "https://app.termly.io/resource-blocker/45781ec1-8b4c-4a0c-acef-9815cd5eabb3?autoBlock=on";
+  "https://app.termly.io/resource-blocker/45781ec1-8b4c-4a0c-acef-9815cd5eabb3?autoBlock=off";
 ---
 
-<!-- Consent defaults before GTM (Termly + Termly GTM template update these when configured). -->
+<!-- Consent defaults: synchronous, tiny, must run before any tag manager. -->
 <script is:inline>
   window.dataLayer = window.dataLayer || [];
   function gtag() {
@@ -32,16 +37,20 @@ const termlyResourceBlockerSrc =
     wait_for_update: 500,
   });
 </script>
-<script is:inline src={termlyResourceBlockerSrc}></script>
+<!-- Termly CMP: async to avoid blocking first paint. -->
+<script is:inline async src={termlyResourceBlockerSrc}></script>
+<!-- GTM: deferred to window.load so it does not delay LCP. -->
 <script is:inline define:vars={{ gtmId }}>
-  (function (w, d, s, l, i) {
-    w[l] = w[l] || [];
-    w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-    var f = d.getElementsByTagName(s)[0],
-      j = d.createElement(s),
-      dl = l != "dataLayer" ? "&l=" + l : "";
-    j.async = true;
-    j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-    f.parentNode.insertBefore(j, f);
-  })(window, document, "script", "dataLayer", gtmId);
+  window.addEventListener("load", function () {
+    (function (w, d, s, l, i) {
+      w[l] = w[l] || [];
+      w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+      var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != "dataLayer" ? "&l=" + l : "";
+      j.async = true;
+      j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+      f.parentNode.insertBefore(j, f);
+    })(window, document, "script", "dataLayer", gtmId);
+  });
 </script>

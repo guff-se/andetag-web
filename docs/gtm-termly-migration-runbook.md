@@ -12,7 +12,7 @@ Purpose: **exact UI steps** in **Google Tag Manager** to move off **Complianz-on
 
 **Auto Blocker vs GTM**
 
-The site embed uses Termly **resource blocker** with **`autoBlock=on`**. Termly’s GTM documentation often says **not** to enable **Auto Blocker** when using **GTM**, because it can interfere with how GTM serves scripts. If you see missing tags or broken Preview, switch the embed to **`autoBlock=off`** in **`TrackingHead.astro`** and rely on **GTM Consent Initialization**, the **Termly** community template, **Additional Consent Checks**, and **`Termly.consentSaveDone`** triggers (below).
+The site embed uses Termly **resource blocker** with **`autoBlock=off`** and **`async`** loading (changed from synchronous `autoBlock=on` for performance: the sync script blocked first paint by ~1.2 s). Termly’s GTM documentation often says **not** to enable **Auto Blocker** when using **GTM**, because it can interfere with how GTM serves scripts. If you see missing tags or broken Preview, the site now relies on **GTM Consent Initialization**, the **Termly** community template, **Additional Consent Checks**, and **`Termly.consentSaveDone`** triggers (below).
 
 ---
 
@@ -41,7 +41,7 @@ Until you change this, **Termly-only** pages **never** fire those tags if they s
 
 1. In **Termly**, enable **Google Consent Mode** for the relevant regions and map Termly purposes to **`analytics_storage`**, **`ad_storage`**, **`ad_user_data`**, **`ad_personalization`** as your setup allows ([Termly GCM article](https://support.termly.io/en/articles/7904735-google-consent-mode-and-termly-cmp)).
 2. Ensure domains include **staging** (**`andetag-web.guff.workers.dev`**) and **`www.andetag.museum`** for production (**`docs/phase-8-todo.md`** **P8-13**).
-3. The Astro site loads the **resource blocker** script from **`TrackingHead.astro`** (UUID **`45781ec1-8b4c-4a0c-acef-9815cd5eabb3`**). Do **not** inject a **second** full Termly CMP load via GTM unless Termly support says otherwise.
+3. The Astro site loads the **resource blocker** script with **`async`** and **`autoBlock=off`** from **`TrackingHead.astro`** (UUID **`45781ec1-8b4c-4a0c-acef-9815cd5eabb3`**). GTM is deferred to `window.load`. Do **not** inject a **second** full Termly CMP load via GTM unless Termly support says otherwise.
 
 **Check on staging:** after accepting categories, use **GTM Preview** and (if needed) **Tag Assistant** to confirm consent updates propagate to Google tags.
 
