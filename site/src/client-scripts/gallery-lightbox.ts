@@ -1,5 +1,6 @@
 /**
  * Full-screen image lightbox for `.js-gallery-lightbox` links (replaces jQuery in `GallerySection.astro`).
+ * Initialization deferred to when a gallery section enters the viewport (IntersectionObserver).
  */
 function ensureLightbox(): void {
   if (document.getElementById("gallery-lightbox-overlay")) {
@@ -48,7 +49,12 @@ function closeLightbox(): void {
   document.body.classList.remove("lightbox-open");
 }
 
-function initGalleryLightbox(): void {
+let initialized = false;
+
+function bindLightboxListeners(): void {
+  if (initialized) return;
+  initialized = true;
+
   ensureLightbox();
 
   document.addEventListener("click", (event) => {
@@ -83,4 +89,23 @@ function initGalleryLightbox(): void {
   });
 }
 
-initGalleryLightbox();
+const galleries = document.querySelectorAll(".gallery-section");
+if (galleries.length > 0 && "IntersectionObserver" in window) {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          bindLightboxListeners();
+          observer.disconnect();
+          break;
+        }
+      }
+    },
+    { rootMargin: "200px" },
+  );
+  for (const el of galleries) {
+    observer.observe(el);
+  }
+} else if (galleries.length > 0) {
+  bindLightboxListeners();
+}

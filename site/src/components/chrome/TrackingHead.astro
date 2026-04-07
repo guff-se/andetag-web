@@ -3,10 +3,11 @@
  * Termly resource blocker, GTM bootstrap, Google Consent Mode v2 defaults.
  * Termly ID is the resource-blocker UUID from the Termly dashboard embed.
  *
- * Performance: Termly loads with `async` to avoid blocking the HTML parser.
- * `autoBlock=off` because GTM Consent Mode (via the Termly GTM template and
- * the inline consent defaults below) handles tag gating; Termly's auto-blocker
- * is redundant when GTM orchestrates tags and can interfere with GTM Preview.
+ * Performance: Termly loads with `async` + `fetchpriority="low"` so it does
+ * not block the parser or compete with LCP image downloads. `autoBlock=off`
+ * because GTM Consent Mode (via the Termly GTM template and the inline
+ * consent defaults below) handles tag gating; Termly's auto-blocker is
+ * redundant when GTM orchestrates tags and can interfere with GTM Preview.
  *
  * GTM is deferred to the `load` event so it does not compete for main-thread
  * time during initial paint. Consent defaults (denied) are set synchronously
@@ -37,8 +38,8 @@ const termlyResourceBlockerSrc =
     wait_for_update: 500,
   });
 </script>
-<!-- Termly CMP: async to avoid blocking first paint. -->
-<script is:inline async src={termlyResourceBlockerSrc}></script>
+<!-- Termly CMP: async + low priority so LCP images win the bandwidth race. -->
+<script is:inline async fetchpriority="low" src={termlyResourceBlockerSrc}></script>
 <!-- GTM: deferred to window.load so it does not delay LCP. -->
 <script is:inline define:vars={{ gtmId }}>
   window.addEventListener("load", function () {

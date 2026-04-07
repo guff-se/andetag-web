@@ -20,6 +20,10 @@
 /wp-content/uploads/*
   Cache-Control: public, max-age=2592000, stale-while-revalidate=31536000
 
+# HTML pages: short cache with stale-while-revalidate for faster repeat navigations.
+/*.html
+  Cache-Control: public, max-age=300, stale-while-revalidate=3600
+
 # Staging hosts: avoid indexing *.workers.dev (pattern from Cloudflare docs).
 https://:version.:subdomain.workers.dev/*
   X-Robots-Tag: noindex

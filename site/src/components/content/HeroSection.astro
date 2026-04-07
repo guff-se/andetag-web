@@ -17,6 +17,10 @@ type Props = {
   ctas?: Cta[];
   /** Use when `heading` is omitted so the band has an accessible name (for example "Boka Art Yoga"). */
   ariaLabel?: string;
+  /** Override loading behavior. Default "lazy"; set "eager" for above-fold cover bands. */
+  loading?: "lazy" | "eager";
+  /** Hint to the browser. Use "high" for above-fold LCP candidates. */
+  fetchpriority?: "high" | "low" | "auto";
 };
 
 const {
@@ -27,6 +31,8 @@ const {
   headingLevel = "h1",
   ctas = [],
   ariaLabel,
+  loading = "lazy",
+  fetchpriority,
 } = Astro.props as Props;
 const HeadingTag = getHeadingTag(headingLevel, "h1");
 const hasImage = Boolean(backgroundImage);
@@ -53,8 +59,11 @@ const coverResponsive = isHeroCoverResponsive(backgroundImage);
               src={backgroundImage.jpeg960}
               alt=""
               class="component-hero-media"
-              loading="lazy"
+              width="960"
+              height="640"
+              loading={loading}
               decoding="async"
+              fetchpriority={fetchpriority}
             />
           </picture>
         ) : (
@@ -62,8 +71,9 @@ const coverResponsive = isHeroCoverResponsive(backgroundImage);
             src={backgroundImage as string}
             alt=""
             class="component-hero-media"
-            loading="lazy"
+            loading={loading}
             decoding="async"
+            fetchpriority={fetchpriority}
           />
         )}
         <div class="component-hero-cover-overlay" aria-hidden="true" />
