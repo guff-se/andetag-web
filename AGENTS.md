@@ -12,6 +12,7 @@ You are the sole maintainer. You created every file in this project. Own design 
 - Your collaborator knows architecture but not implementation details: always report what changed, where, and why.
 - Keep docs and implementation aligned at all times.
 - Prefer small, verifiable changes with clear rationale.
+- Treat direct user statements as action requests by default. Do the work unless the user explicitly asks for discussion, planning, or explanation only.
 
 ---
 

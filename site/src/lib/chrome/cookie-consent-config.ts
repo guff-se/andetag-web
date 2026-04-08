@@ -17,6 +17,7 @@ type ConsentModeUpdate = {
 const DEFAULT_LANGUAGE: SupportedLanguage = "sv";
 
 type CookieConsentConfig = {
+  revision?: number;
   language: {
     default: SupportedLanguage;
     translations: Record<SupportedLanguage, unknown>;
@@ -40,7 +41,7 @@ type CookieConsentConfig = {
   guiOptions: {
     consentModal: {
       layout: "box";
-      position: "bottom left";
+      position: "bottom right";
       equalWeightButtons: false;
       flipButtons: false;
     };
@@ -96,52 +97,53 @@ export function buildConsentModeUpdate(consent: ConsentState): ConsentModeUpdate
 
 export function createCookieConsentConfig(language: SupportedLanguage): CookieConsentConfig {
   return {
+    revision: 2,
     language: {
       default: language,
       translations: {
         sv: {
           consentModal: {
-            title: "Vi anvander cookies",
+            title: "Vi använder cookies",
             description:
-              "Vi anvander cookies for att webbplatsen ska fungera och for anonym statistik/annonsering nar du tillater det.",
+              "Vi använder cookies för att webbplatsen ska fungera och för anonym statistik när du tillåter det.",
             acceptAllBtn: "Acceptera alla",
-            acceptNecessaryBtn: "Endast nodvandiga",
-            showPreferencesBtn: "Valj cookies",
+            acceptNecessaryBtn: "Endast nödvändiga",
+            showPreferencesBtn: "Välj cookies",
           },
           preferencesModal: {
-            title: "Cookieinstallningar",
+            title: "Cookieinställningar",
             acceptAllBtn: "Acceptera alla",
-            acceptNecessaryBtn: "Endast nodvandiga",
+            acceptNecessaryBtn: "Endast nödvändiga",
             savePreferencesBtn: "Spara val",
-            closeIconLabel: "Stang",
+            closeIconLabel: "Stäng",
             sections: [
               {
-                title: "Varfor cookies?",
+                title: "Varför cookies?",
                 description:
-                  "Nodvandiga cookies kravs for grundfunktioner. Du kan ocksa tillata analys och marknadsforing.",
+                  "Nödvändiga cookies krävs för grundfunktioner. Du kan också tillåta analys och marknadsföring.",
               },
               {
-                title: "Nodvandiga",
+                title: "Nödvändiga",
                 description:
-                  "Kravs for att sidan ska fungera, till exempel sprakval och sparade samtyckesinstallningar.",
+                  "Krävs för att sidan ska fungera, till exempel språkval och sparade samtyckesinställningar.",
                 linkedCategory: "necessary",
               },
               {
                 title: "Analys",
-                description: "Hjalper oss att forsta hur webbplatsen anvands.",
+                description: "Hjälper oss att förstå hur webbplatsen används.",
                 linkedCategory: "analytics",
                 cookieTable: {
                   headers: { name: "Namn", domain: "Domän", desc: "Beskrivning" },
                   body: [
                     { name: "_ga / _ga_*", domain: "www.andetag.museum", desc: "Google Analytics" },
-                    { name: "vuid", domain: ".vimeo.com", desc: "Vimeo analytics i inbaddad video" },
-                    { name: "s7", domain: ".spotify.com", desc: "Spotify analytics i inbaddad spelare" },
+                    { name: "vuid", domain: ".vimeo.com", desc: "Vimeo analytics i inbäddad video" },
+                    { name: "s7", domain: ".spotify.com", desc: "Spotify analytics i inbäddad spelare" },
                   ],
                 },
               },
               {
-                title: "Marknadsforing",
-                description: "Anvands for annonsering och konverteringsmatning.",
+                title: "Marknadsföring",
+                description: "Används för annonsering och konverteringsmätning.",
                 linkedCategory: "marketing",
                 cookieTable: {
                   headers: { name: "Namn", domain: "Domän", desc: "Beskrivning" },
@@ -158,7 +160,7 @@ export function createCookieConsentConfig(language: SupportedLanguage): CookieCo
           consentModal: {
             title: "We use cookies",
             description:
-              "Cookies keep the site working. With your permission, we also use analytics and marketing cookies.",
+              "Cookies keep the site working. With your permission, we also use analytics cookies.",
             acceptAllBtn: "Accept all",
             acceptNecessaryBtn: "Only necessary",
             showPreferencesBtn: "Cookie settings",
@@ -213,7 +215,7 @@ export function createCookieConsentConfig(language: SupportedLanguage): CookieCo
           consentModal: {
             title: "Wir verwenden Cookies",
             description:
-              "Cookies halten die Website funktionsfahig. Mit deiner Zustimmung nutzen wir auch Analyse- und Marketing-Cookies.",
+              "Cookies halten die Website funktionsfähig. Mit deiner Zustimmung nutzen wir auch Analyse-Cookies.",
             acceptAllBtn: "Alle akzeptieren",
             acceptNecessaryBtn: "Nur notwendige",
             showPreferencesBtn: "Cookie-Einstellungen",
@@ -223,17 +225,17 @@ export function createCookieConsentConfig(language: SupportedLanguage): CookieCo
             acceptAllBtn: "Alle akzeptieren",
             acceptNecessaryBtn: "Nur notwendige",
             savePreferencesBtn: "Auswahl speichern",
-            closeIconLabel: "Schliessen",
+            closeIconLabel: "Schließen",
             sections: [
               {
                 title: "Warum Cookies?",
                 description:
-                  "Notwendige Cookies sind fur Grundfunktionen erforderlich. Analyse und Marketing kannst du optional erlauben.",
+                  "Notwendige Cookies sind für Grundfunktionen erforderlich. Analyse und Marketing kannst du optional erlauben.",
               },
               {
                 title: "Notwendig",
                 description:
-                  "Erforderlich fur die Website-Funktion, zum Beispiel Sprache und gespeicherte Einwilligung.",
+                  "Erforderlich für die Website-Funktion, zum Beispiel Sprache und gespeicherte Einwilligung.",
                 linkedCategory: "necessary",
               },
               {
@@ -251,13 +253,13 @@ export function createCookieConsentConfig(language: SupportedLanguage): CookieCo
               },
               {
                 title: "Marketing",
-                description: "Wird fur Werbung und Conversion-Messung verwendet.",
+                description: "Wird für Werbung und Conversion-Messung verwendet.",
                 linkedCategory: "marketing",
                 cookieTable: {
                   headers: { name: "Name", domain: "Domain", desc: "Beschreibung" },
                   body: [
                     { name: "_gcl_au / _gcl_ls", domain: "www.andetag.museum", desc: "Google Ads" },
-                    { name: "Meta Pixel", domain: "www.andetag.museum", desc: "Event uber GTM" },
+                    { name: "Meta Pixel", domain: "www.andetag.museum", desc: "Event über GTM" },
                   ],
                 },
               },
@@ -294,7 +296,7 @@ export function createCookieConsentConfig(language: SupportedLanguage): CookieCo
     guiOptions: {
       consentModal: {
         layout: "box",
-        position: "bottom left",
+        position: "bottom right",
         equalWeightButtons: false,
         flipButtons: false,
       },
