@@ -49,7 +49,7 @@ export type BerlinLocationFooterModel = {
   locationLinkColumns: [FooterLink[], FooterLink[]];
   copyright: string;
   privacyLink: FooterLink;
-  /** Termly **`termly-display-preferences`** anchor text (locale-specific). */
+  /** Footer label for opening the cookie preferences modal (locale-specific). */
   consentPreferencesLabel: string;
   socialLinks: FooterSocialLink[];
 };

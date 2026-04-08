@@ -1,0 +1,29 @@
+:root {
+  --cc-font-family: "Baskervville", Georgia, serif;
+  --cc-btn-primary-bg: #d0a4cc;
+  --cc-btn-primary-color: #4a0d2f;
+  --cc-btn-primary-border-color: #d0a4cc;
+  --cc-btn-primary-hover-bg: #c391be;
+  --cc-btn-primary-hover-border-color: #c391be;
+  --cc-btn-primary-hover-color: #4a0d2f;
+  --cc-btn-secondary-bg: transparent;
+  --cc-btn-secondary-border-color: #4a0d2f;
+  --cc-btn-secondary-color: #4a0d2f;
+  --cc-btn-secondary-hover-bg: #f7dcea;
+  --cc-btn-secondary-hover-border-color: #4a0d2f;
+  --cc-btn-secondary-hover-color: #4a0d2f;
+  --cc-modal-bg: #fffafc;
+  --cc-modal-border-color: #e4c8dd;
+  --cc-modal-border-radius: 12px;
+  --cc-modal-transition-duration: 0.2s;
+  --cc-text: #2e1230;
+  --cc-secondary-text: #4a0d2f;
+}
+
+#cc-main .cm__btn,
+#cc-main .pm__btn {
+  border-radius: 999px;
+  font-family: "Jost", Arial, sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}

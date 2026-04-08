@@ -62,7 +62,9 @@ berlinLocationFooter ? (
         <div class="shared-footer-privacy">
           <a href={berlinLocationFooter.privacyLink.href}>{berlinLocationFooter.privacyLink.label}</a>
           <span class="shared-footer-privacy-sep" aria-hidden="true">/</span>
-          <a href="#" class="termly-display-preferences">{berlinLocationFooter.consentPreferencesLabel}</a>
+          <button type="button" class="shared-footer-consent-link" data-consent-preferences>
+            {berlinLocationFooter.consentPreferencesLabel}
+          </button>
         </div>
         <div class="shared-footer-socials" aria-label="Social links">
           <FooterSocialLinks links={berlinLocationFooter.socialLinks} />
@@ -132,7 +134,9 @@ berlinLocationFooter ? (
         <div class="shared-footer-privacy">
           <a href={detailedFooter.privacyLink.href}>{detailedFooter.privacyLink.label}</a>
           <span class="shared-footer-privacy-sep" aria-hidden="true">/</span>
-          <a href="#" class="termly-display-preferences">{detailedFooter.consentPreferencesLabel}</a>
+          <button type="button" class="shared-footer-consent-link" data-consent-preferences>
+            {detailedFooter.consentPreferencesLabel}
+          </button>
         </div>
         <div class="shared-footer-socials" aria-label="Social links">
           <FooterSocialLinks links={detailedFooter.socialLinks} />

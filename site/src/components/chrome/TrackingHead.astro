@@ -1,26 +1,18 @@
 ---
 /**
- * Termly resource blocker, GTM bootstrap, Google Consent Mode v2 defaults.
- * Termly ID is the resource-blocker UUID from the Termly dashboard embed.
+ * CookieConsent CMP bootstrap, GTM bootstrap, Google Consent Mode v2 defaults.
  *
  * Performance strategy (sequence):
  * 1. Consent defaults (all denied) fire synchronously: no tag ever fires
  *    without consent, regardless of script load order.
- * 2. Termly is injected after the largest-contentful-paint event, so its
- *    ~163KB download and execution never compete with the LCP image.
- *    Fallback: 4s timeout if LCP observer is unavailable.
+ * 2. CookieConsent is initialized as an early, lightweight module script.
+ *    It emits consent updates on first consent, load, and preference changes.
  * 3. GTM is deferred to the `load` event; its `wait_for_update: 500` gives
- *    Termly time to set consent before any GTM tag fires.
- *
- * `autoBlock=off` because GTM Consent Mode (via the Termly GTM template)
- * handles tag gating; Termly's auto-blocker is redundant and can interfere
- * with GTM Preview.
+ *    the CMP time to set consent before any GTM tag fires.
  */
 import { GTM_CONTAINER_ID } from "../../lib/chrome/tracking-constants";
 
 const gtmId = GTM_CONTAINER_ID;
-const termlyResourceBlockerSrc =
-  "https://app.termly.io/resource-blocker/45781ec1-8b4c-4a0c-acef-9815cd5eabb3?autoBlock=off";
 ---
 
 <!-- Consent defaults: synchronous, tiny, must run before any tag manager. -->
@@ -40,33 +32,8 @@ const termlyResourceBlockerSrc =
     wait_for_update: 500,
   });
 </script>
-<!-- Termly CMP: deferred until after LCP so it never degrades the score. -->
-<script is:inline define:vars={{ termlyResourceBlockerSrc }}>
-  (function () {
-    var done = false;
-    function inject() {
-      if (done) return;
-      done = true;
-      var s = document.createElement("script");
-      s.src = termlyResourceBlockerSrc;
-      s.async = true;
-      document.head.appendChild(s);
-    }
-    if ("PerformanceObserver" in window) {
-      try {
-        var po = new PerformanceObserver(function () {
-          po.disconnect();
-          inject();
-        });
-        po.observe({ type: "largest-contentful-paint", buffered: true });
-      } catch (e) {
-        setTimeout(inject, 2000);
-      }
-    } else {
-      setTimeout(inject, 2000);
-    }
-    setTimeout(inject, 4000);
-  })();
+<script>
+  import "../../client-scripts/cookie-consent-init.ts";
 </script>
 <!-- GTM: deferred to window.load so it does not delay LCP. -->
 <script is:inline define:vars={{ gtmId }}>
