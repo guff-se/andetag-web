@@ -16,7 +16,7 @@ This document extends requirements already stated in:
 
 ## 1) Tag Management Requirements (GTM)
 
-- Step-by-step GTM clicks for **Termly** vs legacy **Complianz** triggers: **`docs/gtm-termly-migration-runbook.md`** (**execute in Phase 8 · P8-07**, just before **`www`** cutover; Phase 7 ships embed + defaults only).
+- Step-by-step GTM clicks for **CookieConsent** vs legacy **Complianz** triggers: **`docs/gtm-consent-migration-runbook.md`** (**execute in Phase 8 · P8-07**, just before **`www`** cutover; Phase 7 ships embed + defaults only).
 - GTM is mandatory as the orchestration layer for analytics and marketing tags.
 - GTM container must be environment-aware (`dev`, `staging`, `prod`).
 - All non-essential tags must be controlled by consent state.
@@ -29,9 +29,9 @@ Minimum event categories to support:
 - Booking widget open and click-through events
 - Outbound conversion handoff events
 
-### 1a) Legacy WordPress GTM + Complianz vs Termly (static site)
+### 1a) Legacy WordPress GTM + Complianz vs CookieConsent (static site)
 
-The **live** container export **`Google Tag Manager v15.json`** (root of this repo) shows **Complianz**-specific **`dataLayer`** events (**`cmplz_event_statistics`**, **`cmplz_event_marketing`**) used as **GTM triggers** for **GA4**, **Google Ads**, and **Meta**. **Termly does not emit those names.** Maintainer updates GTM triggers per **`docs/gtm-termly-migration-runbook.md`** in **Phase 8 · P8-07** (not a Phase 7 gate). Until then, static pages may not fire those tags even though **Termly** and **GTM** load.
+The **live** container export **`Google Tag Manager v15.json`** (root of this repo) shows **Complianz**-specific **`dataLayer`** events (**`cmplz_event_statistics`**, **`cmplz_event_marketing`**) used as **GTM triggers** for **GA4**, **Google Ads**, and **Meta**. **CookieConsent does not emit those names.** Maintainer updates GTM triggers per **`docs/gtm-consent-migration-runbook.md`** in **Phase 8 · P8-07** (not a Phase 7 gate). Until then, static pages may not fire those tags even though **CookieConsent** and **GTM** load.
 
 **Understory** already supplies parent-page **`dataLayer`** events (**`understory_add_to_cart`**, **`understory_view_item`**, **`understory_begin_checkout`**, **`on_receipt`**) that the legacy container maps to analytics and conversion tags. The Astro app does not push those; parity depends on Understory.
 
@@ -41,7 +41,7 @@ The **live** container export **`Google Tag Manager v15.json`** (root of this re
 
 The Berlin early-bird waitlist is implemented as **`WaitlistFormEmbed.astro`**: a **server-rendered HTML form** that **`POST`s** to Brevo’s form endpoint. There is **no Brevo JavaScript** on the page and **no Brevo cookie** set by that flow on first-party page load.
 
-- **Consent:** The user gives **explicit consent** via the **required** opt-in checkbox (**`OPT_IN`**) and linked privacy policy before submit. This is treated as **outside Termly category gating** (same category model still applies to any separate **Brevo tracking or remarketing tags** if those are added later via GTM).
+- **Consent:** The user gives **explicit consent** via the **required** opt-in checkbox (**`OPT_IN`**) and linked privacy policy before submit. This is treated as **outside CMP category gating** (same category model still applies to any separate **Brevo tracking or remarketing tags** if those are added later via GTM).
 - **Determinism:** Markup lives only in approved embed slots; **`unavailable`** shows deterministic fallback copy.
 - **Placement and fields:** Berlin EN/DE bodies; email + opt-in; locale hidden field. Adjust **`formAction`** only when the Brevo form endpoint changes.
 
@@ -74,7 +74,7 @@ Understory classification rule:
 
 ## 4a) Approved third-party embed inventory (P7-12)
 
-Normative consent **category** labels match **§3** (`necessary`, `analytics`, `marketing`). **Implementation note:** only GTM and tags behind **Termly** are category-gated today; third-party **iframes** below load with **`loading="lazy"`** where applicable but are **not** automatically suppressed until a category toggles (deferring iframe loads on consent is a follow-up if legal or CMP configuration requires it).
+Normative consent **category** labels match **§3** (`necessary`, `analytics`, `marketing`). **Implementation note:** only GTM and tags behind **CookieConsent** are category-gated today; third-party **iframes** below load with **`loading="lazy"`** where applicable but are **not** automatically suppressed until a category toggles (deferring iframe loads on consent is a follow-up if legal or CMP configuration requires it).
 
 | Embed | Where | Component / mechanism | Consent classification | Notes |
 |-------|--------|------------------------|---------------------------|--------|
@@ -84,7 +84,7 @@ Normative consent **category** labels match **§3** (`necessary`, `analytics`, `
 | Google Maps | Stockholm home, Hitta hit, SEO landings | **`MapEmbed.astro`** | **`marketing`** (third-party map) | Google may set cookies in the iframe context; align CMP disclosure with your legal review. |
 | Spotify album | Musik pages (SV/EN/DE) | Inline **`iframe`** in page bodies | **`marketing`** | Lazy-loaded where wired; third-party Spotify player. |
 | Google Tag Manager | All pages (when tracking on) | **`TrackingHead.astro`**, **`TrackingBody.astro`** | **`analytics` / `marketing`** for tags inside GTM; loader **after** consent default | Consent Mode v2 default denied before interaction. **GTM deferred to `window.load`** to avoid blocking first paint. |
-| Termly | All pages | **`TrackingHead.astro`** | **`necessary`** | Resource blocker / CMP script (**`app.termly.io/resource-blocker/...`**). Loads **`async`** with **`autoBlock=off`** (tag gating via GTM Consent Mode, not Termly auto-blocker). |
+| CookieConsent | All pages | **`TrackingHead.astro`** + **`cookie-consent-init.ts`** | **`necessary`** | Self-hosted CMP bundle and config callbacks update Google Consent Mode. |
 
 Out-of-scope for this inventory: **first-party** media (hero video poster, gallery, self-hosted MP4), **external links** (for example Understory gift card URL opened in a new tab), and **Worker `andetag_entry`** (cookie policy in **`docs/url-migration-policy.md`**).
 

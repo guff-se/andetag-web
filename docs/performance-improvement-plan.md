@@ -12,7 +12,7 @@ After **P0** (hero poster), **P1** (gallery, marketing bodies, small header, abo
 |-----------|------:|------|
 | Performance score | **88–98** per URL | **Lowest 88**, **highest 98**, **mean ~93** |
 | LCP (lab) | **~2.4–3.9 s** | **Mean ~3.1 s**; still above the **2.5 s** “good” CWV line on many routes |
-| TBT (lab) | **~0–1 ms** typical | Main-thread blocking is **light** in this headless run; **PSI / real devices** can look worse (GTM, Termly, cache state) |
+| TBT (lab) | **~0–1 ms** typical | Main-thread blocking is **light** in this headless run; **PSI / real devices** can look worse (GTM, consent tooling, cache state) |
 | CLS | **0** on most URLs | **Four** routes logged **CLS above 0.05** in the same run (see **Lighthouse batch insights** below) |
 
 **Interpretation:** Image and header work moved the **score distribution** into the high 80s and 90s locally. **LCP** remains the main gap versus **2.5 s** good, clustered on routes with **small header + heavy first paint** (privacy, some Stockholm shells, optical-fibre, Berlin hub). **Do not** treat local **`serve dist`** as identical to **staging Worker** or **PSI** (TLS, `workers.dev` headers, third-party variance).
@@ -351,8 +351,8 @@ Cloudflare’s overview ([speed up a website](https://www.cloudflare.com/en-gb/l
 
 The original **60s** scores were driven by **LCP and bytes**: a **very large hero poster**, **multi-megabyte gallery JPEGs**, **uncompressed booking JSON**, and **heavy third-party JS**. **P0**, **P1**, and **P2** (complete) address all of that.
 
-**Current state (April 2026):** Staging scores are **84-86** on mobile Lighthouse with Termly + GTM active. **Without tracking, scores are 98-100**, confirming first-party performance is excellent. The ~14-point gap is the measured cost of consent management + analytics executing on a throttled mobile CPU.
+**Current state (April 2026):** Staging scores are **84-86** on mobile Lighthouse with consent management + GTM active. **Without tracking, scores are 98-100**, confirming first-party performance is excellent. The remaining gap is the measured cost of consent management + analytics executing on a throttled mobile CPU.
 
-**Pre-Phase-7 score of ~89 was without consent management.** Recovering to 89 would require removing or replacing Termly with a lighter alternative (architectural decision, not a code optimization).
+**Pre-Phase-7 score of ~89 was without consent management.** Recovering to 89 generally requires reducing third-party consent/analytics cost (architectural decision, not a code optimization).
 
 **Next leverage:** **P3** API compression (vendor), **fonts** (P4), **CSS** (P5), and **Cloudflare** playbook (zone settings). Keep validating **LCP**, **INP** (field), and **CLS**, not only the synthetic score. **Social:** default **`og:image`** targets **`https://www.andetag.museum`**; confirm with **Facebook Sharing Debugger** on **`www`** after Phase 8 (**P8-23**).

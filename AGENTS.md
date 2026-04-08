@@ -102,9 +102,9 @@ Consult before implementation. All active docs are in `docs/`.
 | `docs/performance-improvement-plan.md` | Lighthouse, responsive images, script loading |
 | `docs/responsive-image-workflow.md` | **Mandatory** when adding photos: derivative generation, suffix rules, wiring |
 | `docs/tracking-and-consent-requirements.md` | GTM, Brevo, consent categories |
-| `docs/kpi-measurement-map.md` | Analytics measurement, GTM audit, Termly migration checklist |
-| `docs/gtm-termly-migration-runbook.md` | Step-by-step GTM work for Phase 8 P8-07 |
-| `docs/decisions/0002-consent-platform-selection.md` | CMP selection ADR (Termly implemented) |
+| `docs/kpi-measurement-map.md` | Analytics measurement, GTM audit, consent migration checklist |
+| `docs/gtm-consent-migration-runbook.md` | Step-by-step GTM work for Phase 8 P8-07 |
+| `docs/decisions/0002-consent-platform-selection.md` | CMP selection ADR (CookieConsent implemented) |
 | `docs/changelog-standards.md` | How to write CHANGELOG.md entries |
 | `docs/archive/` | Closed-phase checklists, verification records, superseded plans |
 

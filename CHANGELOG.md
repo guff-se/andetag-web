@@ -12,6 +12,7 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 - **`docs/gtm-cookieyes-migration-runbook.md`** (superseded by **`docs/gtm-termly-migration-runbook.md`**).
 
 ### Added
+- **`docs/gtm-consent-migration-runbook.md`:** New Phase 8 operator runbook for GTM trigger migration with CookieConsent and Consent Mode v2 validation on staging and production.
 
 - **`docs/cmp-vendor-matrix-seo-white-label.md`:** **Stakeholder direction** recorded (**Zaraz** out while **GTM** + **Understory** stay; next **Termly Pro+**). **`docs/decisions/0002-consent-platform-selection.md`** follow-up aligned.
 
@@ -34,6 +35,9 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 - **Phase 7 (initial):** **`@astrojs/sitemap`** and **`site/public/robots.txt`**; sitemap filter drops **`/404`** and root **`/`** (301-only). **JSON-LD** via **`site/src/lib/chrome/schema-org.ts`** (Stockholm **Museum** + **TouristAttraction**, Berlin **Place** pre-opening, privacy minimal graph); Vitest **`schema-org.test.ts`**. **GTM** + Consent Mode v2 defaults and optional **CookieYes** (**`TrackingHead.astro`**, **`TrackingBody.astro`**); **`PUBLIC_*`** documented in **`site/.env.example`**. **OG image** optional field **`ogImage`** on **`page-shell-meta.json`** / **`PageShellRoute`**. Self-hosted **favicon** JPEG (live WP shortcut), **logo** PNG under **`site/public/wp-content/uploads/2024/11/`**. **`docs/url-migration-policy.md`**, **`docs/content-model.md`**, **`docs/phase-7-todo.md`** updated.
 
 ### Changed
+- **Consent documentation closure:** `docs/cookieconsent-migration-plan.md` marked operator UX and persistence checks complete, Step 7 explicitly scheduled as Phase 8 production readiness, and Step 9 cancellation marked complete by operator update.
+- **Phase 8 and reference docs:** `docs/phase-8-todo.md`, `docs/tracking-and-consent-requirements.md`, `docs/kpi-measurement-map.md`, `docs/definition-of-done.md`, `docs/grand-plan.md`, `docs/url-migration-policy.md`, `docs/migration-exceptions.md`, and `AGENTS.md` updated from Termly-specific wording to CookieConsent and the new runbook path.
+- **ADR 0002 update:** `docs/decisions/0002-consent-platform-selection.md` amended with 2026-04-08 implementation status showing CookieConsent as current CMP runtime.
 
 - **Phase 7 closure:** **Gustaf** sign-off **2026-04-09** (**`docs/phase-7-verification-record.md`** §P7-16); **`docs/grand-plan.md`**, **`docs/phase-8-todo.md`** **P8-05** (checked), **`docs/phase-8-verification-record.md`**, **`AGENTS.md`** aligned.
 

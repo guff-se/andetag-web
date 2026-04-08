@@ -1,6 +1,6 @@
 # Implementation plan: Termly to CookieConsent migration
 
-Status: **draft**
+Status: **implemented, operator follow-up in Phase 8**
 Date: 2026-04-08
 Deciders: Gustaf, AI agent
 Related: `docs/decisions/0002-consent-platform-selection.md`, `docs/tracking-and-consent-requirements.md`, `docs/performance-improvement-plan.md`
@@ -278,13 +278,13 @@ These checks require a human in the browser. The agent should report what to che
 
 **4a. Consent UX checks**
 
-- [ ] Consent banner appears on first visit in **sv**, **en**, and **de**
-- [ ] "Accept all" grants analytics + marketing
-- [ ] "Reject all" (or closing the banner with only necessary) leaves analytics + marketing denied
-- [ ] Preferences modal opens from the footer link on all footer variants
-- [ ] Preferences modal shows three categories with correct labels and cookie tables
-- [ ] Consent persists across page navigation and language switches
-- [ ] Consent persists across sessions (close tab, reopen)
+- [x] Consent banner appears on first visit in **sv**, **en**, and **de**
+- [x] "Accept all" grants analytics + marketing
+- [x] "Reject all" (or closing the banner with only necessary) leaves analytics + marketing denied
+- [x] Preferences modal opens from the footer link on all footer variants
+- [x] Preferences modal shows three categories with correct labels and cookie tables
+- [x] Consent persists across page navigation and language switches
+- [x] Consent persists across sessions (close tab, reopen)
 
 **4b. GTM and tag verification (requires GTM Preview)**
 
@@ -360,7 +360,7 @@ Remove the `termly.io` head-position checks (`termly-before-preloads`, `termly-b
 
 ---
 
-### Step 7: GTM container changes (operator, in GTM admin UI)
+### Step 7: GTM container changes (operator, in GTM admin UI, Phase 8 production readiness)
 
 This is manual work in the GTM web UI, not code. The agent writes the runbook; the operator executes it.
 
@@ -394,7 +394,7 @@ All doc updates are independent and can be executed in parallel. Each is a text 
 | File | What to change |
 |------|---------------|
 | `docs/decisions/0002-consent-platform-selection.md` | Add amendment: CookieConsent replaces Termly (date, rationale, what was kept/dropped) |
-| `docs/gtm-termly-migration-runbook.md` | Rename to `docs/gtm-consent-migration-runbook.md` and rewrite for CookieConsent. Old content in git history. |
+| `docs/gtm-consent-migration-runbook.md` | Operator runbook for CookieConsent-based GTM trigger and consent checks in Phase 8 P8-07. |
 | `docs/tracking-and-consent-requirements.md` | Replace Termly row in embed inventory (section 4a), update CMP references (1a), confirm technical requirements (6) |
 | `docs/kpi-measurement-map.md` | Replace Termly references, simplify Complianz trigger coupling, update GTM migration checklist |
 | `docs/phase-8-todo.md` | P8-01: replace Termly; P8-07: reference new runbook; P8-13: remove dashboard domain switch; P8-22: update live pass |
@@ -426,6 +426,8 @@ All doc updates are independent and can be executed in parallel. Each is a text 
 - Optionally export consent logs before cancellation (for records, though not legally required per business decision)
 - Remove the Termly staging domain (`andetag-web.guff.workers.dev`) from the Termly dashboard
 - Cancel billing
+
+Status update: operator confirmed cancellation complete.
 
 **9b. Final cookie audit on staging**
 

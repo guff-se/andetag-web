@@ -2,7 +2,7 @@
 
 Status: Accepted
 Date: 2026-03-22
-Amendment: 2026-04-06 (white-label economics; **§ Supplement**); 2026-04-06 (**Termly Pro+** deep-dive); **2026-04-07** (**implementation:** **Termly** embed in **`TrackingHead.astro`**, **`docs/gtm-termly-migration-runbook.md`**)
+Amendment: 2026-04-06 (white-label economics; **§ Supplement**); 2026-04-06 (**Termly Pro+** deep-dive); 2026-04-07 (**implementation:** **Termly** embed in **`TrackingHead.astro`**, **`docs/gtm-termly-migration-runbook.md`**); **2026-04-08** (**implementation update:** **CookieConsent** replaces Termly, **`docs/gtm-consent-migration-runbook.md`**)
 Deciders: Gustaf, AI agent
 Related docs:
 
@@ -20,7 +20,7 @@ Complianz is WordPress-dependent and cannot be reused as-is in the static stack.
 
 **Original (2026-03-22):** Accepted platform decision: use **CookieYes** as the consent platform for the Astro + Cloudflare implementation (matrix rationale below).
 
-**Superseded for implementation (2026-04-07):** The static site uses **Termly** (**resource blocker** UUID **`45781ec1-8b4c-4a0c-acef-9815cd5eabb3`**, **`autoBlock=on`**) in **`site/src/components/chrome/TrackingHead.astro`**, before **GTM**. **GTM** remains the tag orchestration layer per **`docs/tracking-and-consent-requirements.md`**. Operator steps: **`docs/gtm-termly-migration-runbook.md`**.
+**Superseded for implementation (2026-04-08):** The static site uses **CookieConsent** (self-hosted via `vanilla-cookieconsent`) in **`site/src/components/chrome/TrackingHead.astro`** and **`site/src/client-scripts/cookie-consent-init.ts`**. **GTM** remains the tag orchestration layer per **`docs/tracking-and-consent-requirements.md`**. Operator steps: **`docs/gtm-consent-migration-runbook.md`**.
 
 **Original CookieYes rationale (historical):**
 
@@ -256,13 +256,13 @@ Legacy container used **Complianz** custom events; **CookieYes** uses a differen
 1. **End-to-end staging:** GA4, **Google Ads**, **linker**, **Understory** `dataLayer` conversions, and any **Meta** tag, under **EEA** test profiles.
 2. **Multilingual** banner strings vs **sv/en/de** (Pro+ lists **multi-language** and **regional** rules on [pricing](https://termly.io/pricing/)).
 3. **TCF** only if you actually need **IAB** string behavior for your ad stack; otherwise keep disabled to reduce UX weight unless **Google** or partners require it.
-4. **Migration cost:** replace **`TrackingHead.astro` / `TrackingBody.astro`** embeds, publish **`docs/gtm-termly-migration-runbook.md`**, and update **`docs/kpi-measurement-map.md`** event naming notes.
+4. **Migration cost:** replace **`TrackingHead.astro` / `TrackingBody.astro`** embeds, publish **`docs/gtm-consent-migration-runbook.md`**, and update **`docs/kpi-measurement-map.md`** event naming notes.
 
 ### Recommended next actions (stakeholder)
 
-1. **Resolved (2026-04-07):** **Termly** embed in **`TrackingHead.astro`**; complete **GTM** work in **`docs/gtm-termly-migration-runbook.md`** in **Phase 8 · P8-07** and re-run consent or tag checks on staging and **`www`** (**`docs/phase-8-todo.md`**) (supersedes the prior **CookieYes Ultimate vs migrate** fork in this supplement).
+1. **Resolved (2026-04-08):** **CookieConsent** in **`TrackingHead.astro`**; complete **GTM** work in **`docs/gtm-consent-migration-runbook.md`** in **Phase 8 · P8-07** and re-run consent or tag checks on staging and **`www`** (**`docs/phase-8-todo.md`**) (supersedes the prior **CookieYes Ultimate vs migrate** fork in this supplement).
 2. **Legal or compliance review** for **Termly**: category model, **Consent Mode v2**, **logs**, and **Google Ads** readiness.
-3. If CMP changes again, update **docs/tracking-and-consent-requirements.md**, **docs/kpi-measurement-map.md**, **site/src/components/chrome/TrackingHead.astro** / **TrackingBody.astro**, and **docs/gtm-termly-migration-runbook.md** in the **same** change set.
+3. If CMP changes again, update **docs/tracking-and-consent-requirements.md**, **docs/kpi-measurement-map.md**, **site/src/components/chrome/TrackingHead.astro** / **TrackingBody.astro**, and **docs/gtm-consent-migration-runbook.md** in the **same** change set.
 
 **Status note:** The **2026-03-22** matrix choice (**CookieYes**) remains in the ADR body for history; **implementation** is **Termly** (**Decision** amendment **2026-04-07**). This supplement still documents repriced **white-label** tradeoffs vs **CookieYes Ultimate**.
 
@@ -295,4 +295,5 @@ Legacy container used **Complianz** custom events; **CookieYes** uses a differen
 - Validate category-level prior blocking in staging.
 - [x] Update this ADR status to `Accepted`.
 - [x] **2026-04-07:** Implement **Termly** embed in **`TrackingHead.astro`** (replaces **CookieYes**). **GTM** steps in **`docs/gtm-termly-migration-runbook.md`:** **Phase 8 · P8-07**. **Cloudflare Zaraz** ruled out while **GTM** + **Understory** remain (**`docs/cmp-vendor-matrix-seo-white-label.md`**).
+- [x] **2026-04-08:** Replace **Termly** with **CookieConsent** in site runtime and move GTM operator guidance to **`docs/gtm-consent-migration-runbook.md`**.
 

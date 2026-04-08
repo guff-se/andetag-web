@@ -46,7 +46,7 @@ On the legacy site, **GA4** and the **Google Ads** “all pages” **Google tag*
 
 **Required maintainer action:**
 
-- Reconfigure GTM so tags fire under **Termly + Google Consent Mode v2** per **`docs/gtm-termly-migration-runbook.md`** (Termly gallery template, **`userPrefUpdate`**, **`Termly.consentSaveDone`**, tag consent checks), **or**
+- Reconfigure GTM so tags fire under **CookieConsent + Google Consent Mode v2** per **`docs/gtm-consent-migration-runbook.md`** (consent-aware triggers, tag consent checks), **or**
 - Replace **`cmplz_*`** custom-event triggers with **Consent Initialization** / **All Pages** plus **tag-level consent** settings that match **`analytics_storage`**, **`ad_storage`**, etc.
 
 Re-verify in **GTM Preview** on **`andetag-web.guff.workers.dev`** after **P8-07** publish, again on **`www`** after **P8-13**.
@@ -83,7 +83,7 @@ Legacy container includes **outbound link**, **file download**, **tel/mailto**, 
 
 **Phase 8 · P8-07 (scheduled operator work, just before `P8-11`):**
 
-**Operator steps (click-by-click):** **`docs/gtm-termly-migration-runbook.md`**.
+**Operator steps (click-by-click):** **`docs/gtm-consent-migration-runbook.md`**.
 
 1. In **GTM**, add the **Termly** gallery template and **Consent Mode**-compatible triggers **alongside** or **instead of** legacy **`cmplz_*`** triggers so **static staging** can fire tags (same container as **WordPress** until cutover).
 2. **Dual-trigger** or **replace** pattern per runbook §4 for **GA4**, **Ads**, **Meta**.

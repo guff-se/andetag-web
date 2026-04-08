@@ -181,7 +181,7 @@ Source: `docs/phase-4-routing-reopen.md` and `docs/url-migration-policy.md`. Thi
 | **Berlin parity**: **German** Berlin pages and locale QA | **Phase 6** | Matches existing rule: non-Swedish locale rollout after Swedish Phase 5 completion; English Berlin can precede or overlap per launch plan. |
 | **Cloudflare Worker** (or equivalent edge) implementing **`/`**, **`/en/`**, cookie **set or read**, **`Accept-Language`** parsing, **verified-bot** branch | **In repo 2026-04-04** (**`site/workers/`**, **`wrangler deploy`**) | Staging or preview verification: **`docs/phase-4-redirect-tests.md`** table **B**. Static **200** targets were satisfied before enable (Phase 6 English or Berlin bodies closed). |
 | **Production enable** of entry Worker on **`www.andetag.museum`** (DNS or custom domain to this stack) | **Phase 8** | Staging verification (**`P5-06`** on **`andetag-web.guff.workers.dev`**) precedes cutover; **`www`** table **B** and Gustaf sign-off are **`docs/phase-8-todo.md`**. |
-| **Termly** / CMP listing for **`andetag_entry`** as **`necessary`** (essential or functional) | **Phase 7** embed + **Phase 8** GTM (**P8-07**) | Aligns with consent platform go-live and audit checklist; cookie may already be set by the Worker in Phase 5 or 6. |
+| **CMP** listing for **`andetag_entry`** as **`necessary`** (essential or functional) | **Phase 7** embed + **Phase 8** GTM (**P8-07**) | Aligns with consent platform go-live and audit checklist; cookie may already be set by the Worker in Phase 5 or 6. |
 | **Sitemap and `robots.txt`** including new canonical entry URLs | **Phase 7** | Sitemap is already a Phase 7 deliverable; ensure **`/sv/stockholm/`**, hub, and parity URLs appear only as canonical **keep** rows. |
 | **`docs/Andetag SEO Manual.md`** and hreflang or **`x-default`** examples for new entry behavior | **Shipped in repo 2026-04-04** (sections 12, 14, **`/`** and **`/en/`** live behavior table); **Phase 7** final audit remains | Examples match **`docs/url-migration-policy.md`** and **`site/workers/entry-router.ts`**. |
 
@@ -254,7 +254,7 @@ Acceptance checks:
 - JSON-LD parses without errors and matches the SEO manual entity rules for Stockholm (and Berlin phase as applicable).
 - Pre-launch checklist completed and signed off.
 
-**Status:** **complete** (**Gustaf** sign-off **2026-04-09**; maintainer closure **2026-04-08**). **Shipped in repo / staging evidence:** **Termly** resource blocker, **Consent Mode v2** defaults, **GTM** loader (**`TrackingHead.astro`** / **`TrackingBody.astro`**), favicon and sharing metadata, JSON-LD, sitemap, **`robots.txt`**, final SEO pass per **`docs/phase-7-todo.md`**. **Deferred to Phase 8:** **GTM** container migration (**`docs/gtm-termly-migration-runbook.md`**, **`docs/phase-8-todo.md`** **P8-07**) immediately before **`www`** cutover (**`P8-11`**); live tag and domain verification (**P8-13**, **P8-22**). **Promotion to `www`** requires **Phase 8** gates (**P8-05**, **P8-06**, **P8-07**, …); Phase 7 closure does **not** by itself authorize cutover.
+**Status:** **complete** (**Gustaf** sign-off **2026-04-09**; maintainer closure **2026-04-08**). **Shipped in repo / staging evidence:** **CookieConsent** runtime, **Consent Mode v2** defaults, **GTM** loader (**`TrackingHead.astro`** / **`TrackingBody.astro`**), favicon and sharing metadata, JSON-LD, sitemap, **`robots.txt`**, final SEO pass per **`docs/phase-7-todo.md`**. **Deferred to Phase 8:** **GTM** container migration (**`docs/gtm-consent-migration-runbook.md`**, **`docs/phase-8-todo.md`** **P8-07**) immediately before **`www`** cutover (**`P8-11`**); live tag and domain verification (**P8-13**, **P8-22**). **Promotion to `www`** requires **Phase 8** gates (**P8-05**, **P8-06**, **P8-07**, …); Phase 7 closure does **not** by itself authorize cutover.
 
 Task-level checklist: `docs/phase-7-todo.md`.
 
@@ -334,7 +334,7 @@ Task-level checklist: `docs/phase-9-todo.md`.
 - Stack and hosting were decided after Phase 1 analysis and accepted in **`docs/decisions/0001-static-stack-selection.md`** (Astro + Cloudflare; **Workers + static assets** from **`site/`** for staging and production entry routing, see ADR operational notes and **`AGENTS.md`**).
 - **Until `www` cutover:** pushes to **`main`** redeploy **staging** (**`andetag-web.guff.workers.dev`**); Gustaf approves **staging → production** when the maintainer confirms readiness.
 - **After `www` cutover:** content and code changes ship via **pull requests** only; each PR gets a **Cloudflare preview URL**; merging to **`main`** updates **`www`** (document exact project settings in the Phase 8 runbook, **`docs/phase-8-todo.md`** **P8-25**).
-- Rollout order is fixed: Swedish Stockholm production first, then Phase 6 localization rollout, then Phase 7 launch hardening (in-repo scripts, **Termly** embed, sitemap, schema; maintainer closure **2026-04-08**), then Phase 8 cutover of **`www.andetag.museum`** to this stack (**P8-07** **GTM** runbook just before **`P8-11`**), then Phase 9 maintenance program (migration-to-operations handoff, performance skill, production PR gates).
+- Rollout order is fixed: Swedish Stockholm production first, then Phase 6 localization rollout, then Phase 7 launch hardening (in-repo scripts, **CookieConsent** embed, sitemap, schema; maintainer closure **2026-04-08**), then Phase 8 cutover of **`www.andetag.museum`** to this stack (**P8-07** **GTM** runbook just before **`P8-11`**), then Phase 9 maintenance program (migration-to-operations handoff, performance skill, production PR gates).
 
 ### SEO and URL Policy
 
@@ -348,7 +348,7 @@ Task-level checklist: `docs/phase-9-todo.md`.
 ### Integrations and Compliance
 
 - Retain and reimplement: Google Tag Manager and Brevo.
-- Replace Complianz with Termly and enforce category-based tag gating (`necessary`, `analytics`, `marketing`) in static runtime.
+- Replace Complianz with CookieConsent and enforce category-based tag gating (`necessary`, `analytics`, `marketing`) in static runtime.
 - Understory booking widget is classified as `necessary` and must remain available without optional consent opt-in.
 - No urgency widgets or upsell modules required in the initial conversion implementation.
 
@@ -388,7 +388,7 @@ These items are **still open** for governance nuance. **SEO evolution** (allow i
 
 - **Static stack:** Astro (ADR **`docs/decisions/0001-static-stack-selection.md`**).
 - **Hosting and edge delivery:** Cloudflare with static build output from **`site/`**; staging and production use **Workers + static assets** and the entry router described in **`AGENTS.md`** ( **`site/wrangler.jsonc`**, **`site/workers/entry-router.ts`** ). ADR 0001 operational notes align with this deploy path.
-- **Cookie and consent platform:** Termly replacing Complianz (evaluated CookieYes; **`docs/decisions/0002-consent-platform-selection.md`**).
+- **Cookie and consent platform:** CookieConsent replacing Complianz and superseding the prior Termly implementation (evaluated CookieYes first; **`docs/decisions/0002-consent-platform-selection.md`**).
 - **Swedish migration wave order and closure:** Phase 5 milestone 2026-03-24; evidence **`docs/phase-5-verification-record.md`**.
 - **Localization sequencing:** Phases 5 then 6; Phase 6 closed 2026-04-04 (**`docs/phase-6-verification-record.md`**).
 - **IA for language plus destination:** Decisions in **`docs/phase-4-routing-reopen.md`**, **`docs/phase-6-todo.md`**, and **`docs/url-migration-policy.md`**.
@@ -399,7 +399,7 @@ These items are **still open** for governance nuance. **SEO evolution** (allow i
 
 As of **2026-04-08**, Phases **0 through 7** are closed. Default execution focus:
 
-1. **Phase 8:** Complete **`docs/phase-8-todo.md`**: dev and staging QA (**P8-01**–**P8-04**), **P8-05** / **P8-06** (Gustaf signs off **`sv`**, **`en`**, and **`de`** on **staging**), **P8-07** (**GTM** + **Termly** runbook **just before** **`P8-11`**), then cut over **`https://www.andetag.museum`**, run production table **B** (**`P5-06`** production), and close **`docs/phase-8-verification-record.md`**.
+1. **Phase 8:** Complete **`docs/phase-8-todo.md`**: dev and staging QA (**P8-01**–**P8-04**), **P8-05** / **P8-06** (Gustaf signs off **`sv`**, **`en`**, and **`de`** on **staging**), **P8-07** (**GTM** + consent runbook **just before** **`P8-11`**), then cut over **`https://www.andetag.museum`**, run production table **B** (**`P5-06`** production), and close **`docs/phase-8-verification-record.md`**.
 2. **Phase 7 (closed):** **`docs/phase-7-verification-record.md`**; **`docs/phase-7-todo.md`**. **GTM** container migration deferred to **P8-07**, not Phase 7.
 3. **Routing hygiene:** Before changing **`docs/url-matrix.csv`**, **`site/public/_redirects`**, registry, or **`site/workers/`**, read **`docs/phase-4-routing-reopen.md`** and **`docs/url-migration-policy.md`**; after entry changes, run **`npm run verify:staging-entry`** from **`site/`** (see **`docs/phase-4-redirect-tests.md`**).
 4. **Carry-forward:** **EX-0006** Phase 7 embed-pattern follow-up is closed in **P7-15** (**`docs/phase-7-verification-record.md`**); optional lazy iframe deferral for marketing embeds remains **P7-12** in **`docs/phase-7-todo.md`**. **German** external reviewer (if used) feeds **P8-06** before Gustaf approves **`de`** for production.
