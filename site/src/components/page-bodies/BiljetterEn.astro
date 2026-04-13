@@ -3,6 +3,10 @@ import BookingEmbed from "../embeds/BookingEmbed.astro";
 import ButtonGroup from "../content/ButtonGroup.astro";
 import ContentSection from "../content/ContentSection.astro";
 import InfoFrame from "../content/InfoFrame.astro";
+import {
+  STOCKHOLM_TICKETS,
+  STOCKHOLM_DAYTIME_WINDOW,
+} from "../../lib/content/stockholm-offers";
 
 /**
  * Body from `site-html/en-stockholm-tickets.html` wp-page **2789**.
@@ -17,12 +21,17 @@ const introHtml = [
   '<p>At selected times, <a href="/en/stockholm/art-yoga/">Art Yoga</a> is offered, a gentle yoga class that can also be booked through the booking calendar.</p>',
 ].join("");
 
+const regular = STOCKHOLM_TICKETS.find((t) => t.id === "regular")!;
+const studentSenior = STOCKHOLM_TICKETS.find((t) => t.id === "student-senior")!;
+const youth = STOCKHOLM_TICKETS.find((t) => t.id === "youth")!;
+const artYoga = STOCKHOLM_TICKETS.find((t) => t.id === "art-yoga")!;
+
 const priceFrameHtml = [
-  "<p><strong>Regular ticket:</strong> 240 SEK (190 SEK daytime)</p>",
-  "<p><strong>Student/senior:</strong> 200 SEK (150 SEK daytime)</p>",
-  "<p><strong>Youth (8–17 years):</strong> 125 SEK</p>",
-  "<p><strong>Art Yoga</strong> (Tuesdays 17.00–18.00): 320 kr</p>",
-  "<p><strong>Daytime pricing:</strong> weekdays 12.00 – 17.00</p>",
+  `<p><strong>${regular.nameEn}:</strong> ${regular.price} SEK (${regular.daytimePrice} SEK daytime)</p>`,
+  `<p><strong>${studentSenior.nameEn}:</strong> ${studentSenior.price} SEK (${studentSenior.daytimePrice} SEK daytime)</p>`,
+  `<p><strong>${youth.nameEn}:</strong> ${youth.price} SEK</p>`,
+  `<p><strong>${artYoga.nameEn}</strong> (Tuesdays 17.00\u201318.00): ${artYoga.price} SEK</p>`,
+  `<p><strong>Daytime pricing:</strong> ${STOCKHOLM_DAYTIME_WINDOW.descriptionEn}</p>`,
 ].join("");
 
 const seasonHtml = [

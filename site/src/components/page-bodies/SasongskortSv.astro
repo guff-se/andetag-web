@@ -1,5 +1,6 @@
 ---
 import ContentSection from "../content/ContentSection.astro";
+import { STOCKHOLM_SEASON_PASS } from "../../lib/content/stockholm-offers";
 
 /** `site-html/stockholm-sasongskort.html` wp-page **2804**. */
 const h1Html =
@@ -21,7 +22,7 @@ const givesMarkdown =
 const priceMarkdown =
   "<h3>Pris och villkor</h3>" +
   "<p><strong>Säsongskort säljs i kassan.</strong></p>" +
-  "<p><strong>Pris: 950 kr</strong><br />Gäller i 6 månader från inköpsdatum.</p>" +
+  `<p><strong>Pris: ${STOCKHOLM_SEASON_PASS.price} kr</strong><br />Gäller i ${STOCKHOLM_SEASON_PASS.durationMonths} månader från inköpsdatum.</p>` +
   "<p>Om du redan har köpt en ordinarie biljett kan dess värde dras av vid köp av säsongskort i entrén. Visa upp din biljett i kassan.</p>" +
   "<p>Säsongskortet är personligt.</p>";
 

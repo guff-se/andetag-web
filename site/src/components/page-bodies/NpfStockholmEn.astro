@@ -2,6 +2,7 @@
 import ButtonGroup from "../content/ButtonGroup.astro";
 import ContentSection from "../content/ContentSection.astro";
 import InfoFrame from "../content/InfoFrame.astro";
+import { STOCKHOLM_TICKETS } from "../../lib/content/stockholm-offers";
 
 /** English peer of `NpfStockholmSv.astro`; Swedish source `site-html/stockholm-npf-stockholm.html` wp-page **4384**. */
 const leadMarkdown =
@@ -26,11 +27,15 @@ const advanceMarkdown =
   "<p><strong>Toilet:</strong> We do not currently have a fully accessible toilet. Contact us in advance if you want to discuss practical options.</p>" +
   "<p><strong>Groups:</strong> We welcome groups from day services and schools. For group bookings, contact <a href=\"mailto:info@tadaa.se\">info@tadaa.se</a>.</p>";
 
+const _r = STOCKHOLM_TICKETS.find((t) => t.id === "regular")!;
+const _ss = STOCKHOLM_TICKETS.find((t) => t.id === "student-senior")!;
+const _y = STOCKHOLM_TICKETS.find((t) => t.id === "youth")!;
+
 const practicalFrameHtml =
-  "<p><strong>Address:</strong> Kungsgatan 39, Stockholm (Hötorget metro)</p>" +
-  "<p><strong>Opening hours:</strong> Tuesday–Saturday 12:00–20:00, Sunday 12:00–17:00. Closed Mondays.</p>" +
-  "<p><strong>Prices:</strong><br />Standard 240 SEK (190 SEK daytime weekdays 12–17).<br />Student / senior 200 SEK (150 daytime).<br />Youth 8–17: 125 SEK.</p>" +
-  "<p><strong>Duration:</strong> Most visitors stay 45–50 minutes. You may stay as long as you like.</p>" +
+  "<p><strong>Address:</strong> Kungsgatan 39, Stockholm (H\u00f6torget metro)</p>" +
+  "<p><strong>Opening hours:</strong> Tuesday\u2013Saturday 12:00\u201320:00, Sunday 12:00\u201317:00. Closed Mondays.</p>" +
+  `<p><strong>Prices:</strong><br />Standard ${_r.price} SEK (${_r.daytimePrice} SEK daytime weekdays 12\u201317).<br />Student / senior ${_ss.price} SEK (${_ss.daytimePrice} daytime).<br />Youth 8\u201317: ${_y.price} SEK.</p>` +
+  "<p><strong>Duration:</strong> Most visitors stay 45\u201350 minutes. You may stay as long as you like.</p>" +
   "<p><strong>Age:</strong> Suitable for all ages. Children are welcome.</p>";
 ---
 

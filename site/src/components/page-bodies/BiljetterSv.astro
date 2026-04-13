@@ -3,6 +3,10 @@ import BookingEmbed from "../embeds/BookingEmbed.astro";
 import ButtonGroup from "../content/ButtonGroup.astro";
 import ContentSection from "../content/ContentSection.astro";
 import InfoFrame from "../content/InfoFrame.astro";
+import {
+  STOCKHOLM_TICKETS,
+  STOCKHOLM_DAYTIME_WINDOW,
+} from "../../lib/content/stockholm-offers";
 
 /**
  * Body migrated from `site-html/stockholm-biljetter.html`
@@ -22,12 +26,17 @@ const introHtml = [
   '<p>Vid utvalda tider erbjuds <a href="/sv/stockholm/art-yoga/">Art Yoga</a>, en lugn yogaklass som även den kan bokas igenom bokningskalendern.</p>',
 ].join("");
 
+const regular = STOCKHOLM_TICKETS.find((t) => t.id === "regular")!;
+const studentSenior = STOCKHOLM_TICKETS.find((t) => t.id === "student-senior")!;
+const youth = STOCKHOLM_TICKETS.find((t) => t.id === "youth")!;
+const artYoga = STOCKHOLM_TICKETS.find((t) => t.id === "art-yoga")!;
+
 const priceFrameHtml = [
-  "<p><strong>Ordinarie biljett:</strong> 240 kr (190 kr dagtid)</p>",
-  "<p><strong>Student/pensionär:</strong> 200 kr (150 kr dagtid)</p>",
-  "<p><strong>Ungdom (8-17 år):</strong> 125 kr</p>",
-  "<p><strong>Art Yoga (Tisdagar 17.00–18.00):</strong> 320 kr</p>",
-  "<p><strong>Dagtidspris:</strong> gäller vardagar 12.00 – 17.00</p>",
+  `<p><strong>${regular.nameSv}:</strong> ${regular.price} kr (${regular.daytimePrice} kr dagtid)</p>`,
+  `<p><strong>${studentSenior.nameSv}:</strong> ${studentSenior.price} kr (${studentSenior.daytimePrice} kr dagtid)</p>`,
+  `<p><strong>${youth.nameSv}:</strong> ${youth.price} kr</p>`,
+  `<p><strong>${artYoga.nameSv} (Tisdagar 17.00\u201318.00):</strong> ${artYoga.price} kr</p>`,
+  `<p><strong>Dagtidspris:</strong> g\u00e4ller ${STOCKHOLM_DAYTIME_WINDOW.descriptionSv}</p>`,
 ].join("");
 
 const seasonHtml = [

@@ -42,6 +42,7 @@ Normative rules: **`docs/url-migration-policy.md`**. Use **`curl -sI`**; send **
 
 | date | environment | operator | result |
 |------|-------------|----------|--------|
+| 2026-04-12 | `https://andetag-web.guff.workers.dev/` | AI agent (Phase 8 P8-01/P8-02): **`npm run verify:staging-entry`** (E1–E11 pass) + **`curl`** table **A** all 14 cases | **Pass:** table **B** 11/11 entry-router checks; table **A** 14/14 static redirect checks (`/de/`, `/en/berlin-en/`, `/en/stockholm/art-yoga-en/`, `/privacy-policy/`, `/privacy/`, `/stockholm/biljetter/`, `/musik/`, `/optisk-fibertextil/`, `/en/music/`, `/sv/musik/`, `/en/about-andetag/`, `/om-andetag/`, `/de/ueber-andetag/`, query preservation). |
 | 2026-04-04 | `https://andetag-web.guff.workers.dev/` | AI agent: **`curl -sI`** (table **B** E1–E11) + **`npm run verify:staging-entry`** in **`site/`** | **Pass:** entry router **`302`**/**`301`**/**`200`** and **`Location`** match table **B**; E3/E4 **`Set-Cookie`** present. Static **`_redirects`** spot-check: **`/de/`**, **`/privacy/`**, **`/musik/`** → expected **`301`** targets. |
 | 2026-03-23 | `https://andetag-web.guff.workers.dev/` (Cloudflare Workers static assets) | automated `curl -sI` | **Pass (historical)**: cases 1–5 as **then** defined; **`/privacy-policy/`** target was **`/privacy/`** before **2026-03-28** routing. |
 | 2026-03-23 | Repo `site/public/_redirects` and `site/dist/_redirects` (post `/sv/` rollout) | review + `HEAD` probe | **Pass (historical rules)**: see note below. |

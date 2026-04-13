@@ -18,6 +18,11 @@ import { introAside18_058Body } from "../../lib/content/stockholm-body-responsiv
 import { stockholmMarketingGallerySeoEn } from "../../lib/content/stockholm-marketing-gallery";
 import { stockholmTestimonialAggregateEn } from "../../lib/content/stockholm-testimonial-aggregate";
 import { stockholmMarketingFaqEn } from "../../lib/page-registry/stockholm-marketing-faq-en";
+import {
+  STOCKHOLM_TICKETS,
+  STOCKHOLM_SEASON_PASS,
+  STOCKHOLM_DAYTIME_WINDOW,
+} from "../../lib/content/stockholm-offers";
 
 export interface Props {
   galleryId: string;
@@ -42,15 +47,19 @@ const ticketsIntroHtml = [
   "<p>We use timed entry so that not too many people arrive at once. Slots fill quickly, so book ahead when you can.</p>",
 ].join("");
 
+const _r = STOCKHOLM_TICKETS.find((t) => t.id === "regular")!;
+const _ss = STOCKHOLM_TICKETS.find((t) => t.id === "student-senior")!;
+const _y = STOCKHOLM_TICKETS.find((t) => t.id === "youth")!;
+
 const homePriceFrameHtml = [
-  "<p><strong>Standard ticket:</strong> 240 SEK (190 SEK daytime)</p>",
-  "<p><strong>Student / senior:</strong> 200 SEK (150 SEK daytime)</p>",
-  "<p><strong>Youth (8–17):</strong> 125 SEK</p>",
-  "<p>Daytime price applies weekdays 12:00–17:00</p>",
+  `<p><strong>${_r.nameEn}:</strong> ${_r.price} SEK (${_r.daytimePrice} SEK daytime)</p>`,
+  `<p><strong>${_ss.nameEn}:</strong> ${_ss.price} SEK (${_ss.daytimePrice} SEK daytime)</p>`,
+  `<p><strong>${_y.nameEn}:</strong> ${_y.price} SEK</p>`,
+  `<p>Daytime price applies ${STOCKHOLM_DAYTIME_WINDOW.descriptionEn}</p>`,
 ].join("");
 
 const seasonMarkdown = [
-  "<p>Want to make <span class=\"brand-wordmark\">ANDETAG</span> a habit? Many visitors come weekly for their <span class=\"brand-wordmark\">ANDETAG</span>.<br />For 950 SEK you get unlimited visits for six months.</p>",
+  `<p>Want to make <span class="brand-wordmark">ANDETAG</span> a habit? Many visitors come weekly for their <span class="brand-wordmark">ANDETAG</span>.<br />For ${STOCKHOLM_SEASON_PASS.price} SEK you get unlimited visits for ${STOCKHOLM_SEASON_PASS.durationMonths} months.</p>`,
   '<p><a href="/en/stockholm/season-pass/">Season passes</a> are sold at the desk. Show your ticket for a discount on a season pass.</p>',
 ].join("");
 

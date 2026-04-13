@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 /**
  * A/B Lighthouse comparison: measures performance with and without third-party
- * scripts (Termly, GTM) to isolate their individual and combined impact.
+ * scripts (self-hosted CookieConsent bundle, GTM) to isolate their impact.
  *
  * Runs mobile Lighthouse on a set of representative URLs under four scenarios:
  *   1. baseline    — all scripts load normally
- *   2. no-termly   — Termly resource blocker blocked
+ *   2. no-cmp      — CookieConsent-related bundles blocked (`/_astro/` cookie-consent paths)
  *   3. no-gtm      — GTM blocked
- *   4. no-tracking  — both Termly and GTM blocked
+ *   4. no-tracking — both CMP and GTM blocked
  *
  * Uses Lighthouse `blockedUrlPatterns` to simulate blocking at the network level.
  *
@@ -32,17 +32,18 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const siteRoot = join(__dirname, "..");
 const distDir = join(siteRoot, "dist");
 
-const TERMLY_PATTERN = "*termly.io*";
+/** Block Astro-bundled CMP init and vendor CSS (same-origin paths). */
+const CMP_PATTERNS = ["*cookie-consent-init*", "*cookieconsent*"];
 const GTM_PATTERN = "*googletagmanager.com*";
 
 const SCENARIOS = [
   { id: "baseline", label: "All scripts (baseline)", blocked: [] },
-  { id: "no-termly", label: "Termly blocked", blocked: [TERMLY_PATTERN] },
+  { id: "no-cmp", label: "CookieConsent bundles blocked", blocked: CMP_PATTERNS },
   { id: "no-gtm", label: "GTM blocked", blocked: [GTM_PATTERN] },
   {
     id: "no-tracking",
-    label: "Termly + GTM blocked",
-    blocked: [TERMLY_PATTERN, GTM_PATTERN],
+    label: "CMP + GTM blocked",
+    blocked: [...CMP_PATTERNS, GTM_PATTERN],
   },
 ];
 
@@ -261,10 +262,10 @@ async function main() {
       );
     }
 
-    const noTermly = allResults[path]["no-termly"];
-    if (baseline?.lcpMs != null && noTermly?.lcpMs != null) {
-      const lcpDelta = baseline.lcpMs - noTermly.lcpMs;
-      console.log(`  Termly-only cost:      LCP +${formatMs(lcpDelta)}`);
+    const noCmp = allResults[path]["no-cmp"];
+    if (baseline?.lcpMs != null && noCmp?.lcpMs != null) {
+      const lcpDelta = baseline.lcpMs - noCmp.lcpMs;
+      console.log(`  CMP-only cost:         LCP +${formatMs(lcpDelta)}`);
     }
 
     const noGtm = allResults[path]["no-gtm"];
@@ -281,8 +282,8 @@ async function main() {
   for (const path of paths) {
     const b = allResults[path]["baseline"];
     const nt = allResults[path]["no-tracking"];
-    const nTermly = allResults[path]["no-termly"];
-    if (!b || !nt || !nTermly) continue;
+    const nCmp = allResults[path]["no-cmp"];
+    if (!b || !nt || !nCmp) continue;
 
     console.log(`${path}:`);
     console.log(`  Baseline:  Perf=${formatScore(b.performance)}, LCP=${formatMs(b.lcpMs)}, TBT=${Math.round(b.tbtMs ?? 0)}ms`);

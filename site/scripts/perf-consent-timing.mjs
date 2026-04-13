@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 /**
- * Deep-dive performance trace focused on consent manager (Termly) timing.
+ * Deep-dive performance trace focused on self-hosted CookieConsent timing.
  *
  * Uses Chrome DevTools Protocol Performance domain to capture a CPU profile
  * and Performance timeline, then extracts:
- *   - Time from navigation start to Termly script fetch, parse, and execute
+ *   - Time from navigation start to CMP bundle fetch, parse, and execute
  *   - Time from navigation start to GTM script fetch, parse, and execute
- *   - How Termly blocks the parser (FCP delta, DOM interactive delay)
- *   - Resources fetched BY Termly (cascade / waterfall depth)
+ *   - FCP delta vs blocked scenarios
+ *   - Resources fetched for CMP (same-origin `/_astro/` bundles)
  *   - Main-thread long tasks attributable to consent/tracking
  *   - Comparison of key timings vs a "no-consent" baseline
  *
@@ -31,6 +31,14 @@ const siteRoot = join(__dirname, "..");
 const distDir = join(siteRoot, "dist");
 const outRel = process.env.PERF_OUT || "reports/perf-consent-timing.json";
 const outPath = join(siteRoot, outRel);
+
+const CMP_BLOCK_PATTERNS = ["*cookie-consent-init*", "*cookieconsent*"];
+
+function isCmpResourceUrl(url) {
+  if (!url) return false;
+  const u = url.toLowerCase();
+  return u.includes("cookie-consent-init") || u.includes("cookieconsent") || u.includes("vanilla-cookieconsent");
+}
 
 async function tracePageWithPerfTimeline(url, chromePort, label) {
   const { default: CDP } = await import("chrome-remote-interface");
@@ -115,7 +123,7 @@ async function tracePageWithPerfTimeline(url, chromePort, label) {
   const paintEntries = perfEntries.filter((e) => e.entryType === "paint");
   const resourceEntries = perfEntries.filter((e) => e.entryType === "resource");
 
-  const termlyResources = resourceEntries.filter((e) => e.name.includes("termly.io"));
+  const cmpResources = resourceEntries.filter((e) => isCmpResourceUrl(e.name));
   const gtmResources = resourceEntries.filter((e) => e.name.includes("googletagmanager.com"));
 
   const fcp = paintEntries.find((e) => e.name === "first-contentful-paint");
@@ -129,18 +137,23 @@ async function tracePageWithPerfTimeline(url, chromePort, label) {
     (e) => e.name === "EvaluateScript" || e.name === "v8.compile",
   );
 
-  const termlyEvals = evalEvents.filter(
-    (e) => e.args?.data?.url?.includes("termly.io") || e.args?.data?.stackTrace?.some((f) => f.url?.includes("termly.io")),
-  );
+  const cmpEvals = evalEvents.filter((e) => {
+    const u = e.args?.data?.url || "";
+    const st = e.args?.data?.stackTrace;
+    return isCmpResourceUrl(u) || (Array.isArray(st) && st.some((f) => isCmpResourceUrl(f.url)));
+  });
   const gtmEvals = evalEvents.filter(
     (e) => e.args?.data?.url?.includes("googletagmanager.com"),
   );
 
-  const termlyChainedRequests = [];
+  const cmpChainedRequests = [];
   const allEntries = [...requests.values()].filter((r) => r.endTime);
   for (const entry of allEntries) {
-    if (entry.initiatorUrl?.includes("termly.io") || (entry.url.includes("termly.io") && entry.url !== termlyResources[0]?.name)) {
-      termlyChainedRequests.push({
+    if (
+      isCmpResourceUrl(entry.initiatorUrl) ||
+      (isCmpResourceUrl(entry.url) && entry.url !== cmpResources[0]?.name)
+    ) {
+      cmpChainedRequests.push({
         url: entry.url.length > 120 ? entry.url.slice(0, 117) + "..." : entry.url,
         type: entry.type,
         durationMs: Math.round(((entry.endTime || 0) - (entry.startTime || 0)) * 1000),
@@ -164,9 +177,9 @@ async function tracePageWithPerfTimeline(url, chromePort, label) {
       firstPaintMs: fp ? Math.round(fp.startTime) : null,
       firstContentfulPaintMs: fcp ? Math.round(fcp.startTime) : null,
     },
-    termly: {
-      resourceCount: termlyResources.length,
-      resources: termlyResources.map((r) => ({
+    cmp: {
+      resourceCount: cmpResources.length,
+      resources: cmpResources.map((r) => ({
         url: r.name.length > 120 ? r.name.slice(0, 117) + "..." : r.name,
         startMs: Math.round(r.startTime),
         durationMs: Math.round(r.duration),
@@ -179,9 +192,9 @@ async function tracePageWithPerfTimeline(url, chromePort, label) {
         downloadMs: Math.round((r.responseEnd || 0) - (r.responseStart || 0)),
         renderBlocking: r.renderBlockingStatus || "unknown",
       })),
-      chainedRequests: termlyChainedRequests,
-      evalEventsCount: termlyEvals.length,
-      totalEvalDurationMs: termlyEvals.reduce((sum, e) => sum + ((e.dur || 0) / 1000), 0),
+      chainedRequests: cmpChainedRequests,
+      evalEventsCount: cmpEvals.length,
+      totalEvalDurationMs: cmpEvals.reduce((sum, e) => sum + ((e.dur || 0) / 1000), 0),
     },
     gtm: {
       resourceCount: gtmResources.length,
@@ -221,8 +234,8 @@ async function traceWithBlocking(url, chromePort, blockedPatterns, label) {
     uploadThroughput: 750 * 1024 / 8,
   });
 
-  for (const pattern of blockedPatterns) {
-    await Network.setBlockedURLs({ urls: [pattern] });
+  if (blockedPatterns.length > 0) {
+    await Network.setBlockedURLs({ urls: blockedPatterns });
   }
 
   const loadPromise = new Promise((resolve) => Page.loadEventFired(() => resolve()));
@@ -323,23 +336,23 @@ async function main() {
 
     const fullTrace = await tracePageWithPerfTimeline(url, chrome.port, "full-trace");
 
-    const noTermly = await traceWithBlocking(url, chrome.port, ["*termly.io*"], "no-termly");
+    const noCmp = await traceWithBlocking(url, chrome.port, CMP_BLOCK_PATTERNS, "no-cmp");
     const noGtm = await traceWithBlocking(url, chrome.port, ["*googletagmanager.com*"], "no-gtm");
     const noTracking = await traceWithBlocking(
       url,
       chrome.port,
-      ["*termly.io*", "*googletagmanager.com*"],
+      [...CMP_BLOCK_PATTERNS, "*googletagmanager.com*"],
       "no-tracking",
     );
 
-    allResults[path] = { fullTrace, noTermly, noGtm, noTracking };
+    allResults[path] = { fullTrace, noCmp, noGtm, noTracking };
 
     console.log("\n--- Navigation Timing ---");
     console.log("Scenario            | TTFB   | FP     | FCP    | DOMi   | DCL    | Load");
     console.log("-".repeat(90));
     for (const [label, data] of [
       ["With all scripts", fullTrace],
-      ["No Termly", noTermly],
+      ["No CMP", noCmp],
       ["No GTM", noGtm],
       ["No tracking", noTracking],
     ]) {
@@ -364,27 +377,27 @@ async function main() {
       const fcpDelta = fullTrace.paint.firstContentfulPaintMs - noTracking.paint.firstContentfulPaintMs;
       console.log(`\n  FCP penalty from tracking scripts: ${fcpDelta}ms`);
     }
-    if (fullTrace.paint.firstContentfulPaintMs != null && noTermly.paint.firstContentfulPaintMs != null) {
-      const fcpDelta = fullTrace.paint.firstContentfulPaintMs - noTermly.paint.firstContentfulPaintMs;
-      console.log(`  FCP penalty from Termly alone:     ${fcpDelta}ms`);
+    if (fullTrace.paint.firstContentfulPaintMs != null && noCmp.paint.firstContentfulPaintMs != null) {
+      const fcpDelta = fullTrace.paint.firstContentfulPaintMs - noCmp.paint.firstContentfulPaintMs;
+      console.log(`  FCP penalty from CMP alone:        ${fcpDelta}ms`);
     }
 
-    console.log("\n--- Termly resource cascade ---");
-    console.log(`  Primary resources: ${fullTrace.termly.resourceCount}`);
-    for (const r of fullTrace.termly.resources) {
+    console.log("\n--- CookieConsent (CMP) resource cascade ---");
+    console.log(`  Primary resources: ${fullTrace.cmp.resourceCount}`);
+    for (const r of fullTrace.cmp.resources) {
       console.log(
         `    ${r.url}\n      start=${r.startMs}ms, dur=${r.durationMs}ms, size=${r.transferSizeKb}KB, ` +
           `DNS=${r.dnsMs}ms, connect=${r.connectMs}ms, SSL=${r.sslMs}ms, wait=${r.waitMs}ms, dl=${r.downloadMs}ms, ` +
           `blocking=${r.renderBlocking}`,
       );
     }
-    if (fullTrace.termly.chainedRequests.length > 0) {
-      console.log(`  Chained (initiated by Termly): ${fullTrace.termly.chainedRequests.length}`);
-      for (const r of fullTrace.termly.chainedRequests) {
+    if (fullTrace.cmp.chainedRequests.length > 0) {
+      console.log(`  Chained (initiated by CMP): ${fullTrace.cmp.chainedRequests.length}`);
+      for (const r of fullTrace.cmp.chainedRequests) {
         console.log(`    ${r.url} (${r.type}, ${r.durationMs}ms, ${r.bytes}B)`);
       }
     }
-    console.log(`  Script evaluation events: ${fullTrace.termly.evalEventsCount}, total=${Math.round(fullTrace.termly.totalEvalDurationMs)}ms`);
+    console.log(`  Script evaluation events: ${fullTrace.cmp.evalEventsCount}, total=${Math.round(fullTrace.cmp.totalEvalDurationMs)}ms`);
 
     console.log("\n--- GTM resource cascade ---");
     console.log(`  Primary resources: ${fullTrace.gtm.resourceCount}`);
@@ -402,12 +415,12 @@ async function main() {
   console.log("\n\n=== DIAGNOSIS ===\n");
   for (const [path, data] of Object.entries(allResults)) {
     const full = data.fullTrace;
-    const noT = data.noTermly;
+    const noT = data.noCmp;
     const noAll = data.noTracking;
 
     console.log(`${path}:`);
 
-    const termlyFcpCost =
+    const cmpFcpCost =
       full.paint.firstContentfulPaintMs != null && noT.paint.firstContentfulPaintMs != null
         ? full.paint.firstContentfulPaintMs - noT.paint.firstContentfulPaintMs
         : null;
@@ -416,31 +429,29 @@ async function main() {
         ? full.paint.firstContentfulPaintMs - noAll.paint.firstContentfulPaintMs
         : null;
 
-    if (termlyFcpCost != null) {
-      console.log(`  Termly FCP cost: ${termlyFcpCost}ms`);
-      if (termlyFcpCost > 200) {
-        console.log("  >> SIGNIFICANT: Termly adds >200ms to FCP. The synchronous <script> in <head> blocks parsing.");
-        console.log("  >> FIX: Add 'async' to the Termly resource-blocker script tag.");
+    if (cmpFcpCost != null) {
+      console.log(`  CMP FCP cost: ${cmpFcpCost}ms`);
+      if (cmpFcpCost > 200) {
+        console.log("  >> SIGNIFICANT: CMP adds >200ms to FCP. Check load order (async client bundles, preloads).");
       }
     }
     if (totalFcpCost != null) {
       console.log(`  Total tracking FCP cost: ${totalFcpCost}ms`);
     }
 
-    const termlyResources = full.termly.resources;
-    if (termlyResources.length > 0) {
-      const primary = termlyResources[0];
+    const cmpResources = full.cmp.resources;
+    if (cmpResources.length > 0) {
+      const primary = cmpResources[0];
       if (primary.renderBlocking === "blocking") {
-        console.log(`  >> CONFIRMED: Termly primary resource is render-blocking (${primary.durationMs}ms)`);
+        console.log(`  >> CONFIRMED: CMP primary resource is render-blocking (${primary.durationMs}ms)`);
       }
       if (primary.dnsMs > 50 || primary.connectMs > 100) {
         console.log(`  >> CONNECTION OVERHEAD: DNS=${primary.dnsMs}ms, connect=${primary.connectMs}ms, SSL=${primary.sslMs}ms`);
-        console.log("  >> FIX: Add <link rel='preconnect' href='https://app.termly.io'> before the script.");
       }
     }
 
-    if (full.termly.chainedRequests.length > 2) {
-      console.log(`  >> RESOURCE CASCADE: Termly triggers ${full.termly.chainedRequests.length} additional requests.`);
+    if (full.cmp.chainedRequests.length > 2) {
+      console.log(`  >> RESOURCE CASCADE: CMP triggers ${full.cmp.chainedRequests.length} additional requests.`);
       console.log("  >> This amplifies the render-blocking cost as the browser must wait for the full chain.");
     }
 

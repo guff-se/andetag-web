@@ -2,7 +2,7 @@
 
 Purpose: track Scripts, Consent, Analytics, and Launch Hardening deliverables. Normative phase summary: `docs/grand-plan.md` (Phase 7). Exit checks: `docs/definition-of-done.md` (Phase 7).
 
-**Position:** Phases **0–7** are **closed** (**Gustaf** Phase 7 sign-off **2026-04-09**; maintainer documentation **2026-04-08**). **Active** work before **`www`** cutover is **Phase 8** (**`docs/phase-8-todo.md`**). **GTM** container migration (**`docs/gtm-termly-migration-runbook.md`**) is **not** a Phase 7 exit requirement; it is scheduled for **Phase 8 · P8-07** (just before **`P8-11`** production cutover).
+**Position:** Phases **0–7** are **closed** (**Gustaf** Phase 7 sign-off **2026-04-09**; maintainer documentation **2026-04-08**). **Active** work before **`www`** cutover is **Phase 8** (**`docs/phase-8-todo.md`**). **GTM** container migration (**`docs/gtm-consent-migration-runbook.md`**) is **not** a Phase 7 exit requirement; it is scheduled for **Phase 8 · P8-07** (just before **`P8-11`** production cutover).
 
 ## Identity and sharing (head markup)
 
@@ -22,9 +22,9 @@ Purpose: track Scripts, Consent, Analytics, and Launch Hardening deliverables. N
 
 ## Scripts, consent, analytics (existing Phase 7 scope)
 
-- [x] **P7-10 Tracking (initial wiring):** GTM loader + Google Consent Mode v2 **default denied** in **`TrackingHead.astro`**; container **`GTM-KXJGBL5W`** is version-controlled in tracking components. **GTM admin (container migration):** **deferred** to **Phase 8 · P8-07** — execute **`docs/gtm-termly-migration-runbook.md`** **just before** **`P8-11`** production cutover (after **P8-06** unless Gustaf agrees otherwise). Optional early **dual triggers** on staging remain allowed per **`docs/kpi-measurement-map.md`** but are **not** required for Phase 7 closure. **Finish** **`cmplz_*`** exit, **Understory `dataLayer`** checks, live **`www`** tag verification in **Phase 8** (**P8-07**, **P8-13**, **P8-22**). **EX-0018** accepts brief tracking gaps on cutover day. Optional extended KPI taxonomy events remain **optional**.
-- [x] **P7-11 Termly (in-repo + dashboard):** Resource blocker script is version-controlled in **`TrackingHead.astro`** (**`https://app.termly.io/resource-blocker/45781ec1-8b4c-4a0c-acef-9815cd5eabb3?autoBlock=on`**); footer **`termly-display-preferences`** in **`SiteFooter.astro`**. **Termly** dashboard (**GCM** scan, domain list) is operator-owned. **GTM** steps in **`docs/gtm-termly-migration-runbook.md`:** **Phase 8 · P8-07**, not Phase 7. **Deferred:** primary production domain and live re-verify (**`docs/phase-8-todo.md`** **P8-13**, **P8-22**).
-- [x] **P7-12 Widgets:** Understory, Brevo waitlist, and other approved embeds documented with consent classification in **`docs/tracking-and-consent-requirements.md`** **§2** and **§4a** (2026-04-06). **Brevo:** plain **`POST`** waitlist form, no on-site Brevo cookie, explicit opt-in at submit; **not** behind **Termly** categories. **Follow-up:** if legal or CMP requires **lazy iframes** (Maps, Vimeo, Spotify) to load only after **`marketing`** (or another category), implement deferral and update the inventory table.
+- [x] **P7-10 Tracking (initial wiring):** GTM loader + Google Consent Mode v2 **default denied** in **`TrackingHead.astro`**; container **`GTM-KXJGBL5W`** is version-controlled in tracking components. **GTM admin (container migration):** **deferred** to **Phase 8 · P8-07** — execute **`docs/gtm-consent-migration-runbook.md`** **just before** **`P8-11`** production cutover (after **P8-06** unless Gustaf agrees otherwise). Optional early **dual triggers** on staging remain allowed per **`docs/kpi-measurement-map.md`** but are **not** required for Phase 7 closure. **Finish** **`cmplz_*`** exit, **Understory `dataLayer`** checks, live **`www`** tag verification in **Phase 8** (**P8-07**, **P8-13**, **P8-22**). **EX-0018** accepts brief tracking gaps on cutover day. Optional extended KPI taxonomy events remain **optional**.
+- [x] **P7-11 Interim commercial CMP (in-repo + dashboard, historical):** Resource blocker script was version-controlled in **`TrackingHead.astro`** (legacy third-party CDN URL; see git history); footer preferences link class in **`SiteFooter.astro`**. **GCM** scan and domain list in the vendor dashboard were operator-owned. **Superseded:** production now uses **CookieConsent**; **Termly is not used.** **GTM** steps in **`docs/gtm-consent-migration-runbook.md`:** **Phase 8 · P8-07**, not Phase 7. **Deferred:** primary production domain and live re-verify (**`docs/phase-8-todo.md`** **P8-13**, **P8-22**).
+- [x] **P7-12 Widgets:** Understory, Brevo waitlist, and other approved embeds documented with consent classification in **`docs/tracking-and-consent-requirements.md`** **§2** and **§4a** (2026-04-06). **Brevo:** plain **`POST`** waitlist form, no on-site Brevo cookie, explicit opt-in at submit; **not** behind **CMP** category gating. **Follow-up:** if legal or CMP requires **lazy iframes** (Maps, Vimeo, Spotify) to load only after **`marketing`** (or another category), implement deferral and update the inventory table.
 
 ## Sitemap, robots, launch
 
@@ -37,7 +37,7 @@ Purpose: track Scripts, Consent, Analytics, and Launch Hardening deliverables. N
 ## References
 
 - **`Google Tag Manager v15.json`** (repository root): exported live **WordPress** container **v15**; audit and migration checklist in **`docs/kpi-measurement-map.md`**.
-- **`docs/gtm-termly-migration-runbook.md`**: GTM UI steps (Termly template, dual triggers, consent, Preview). **Execute Phase 8 · P8-07** (not required for Phase 7 closure).
+- **`docs/gtm-consent-migration-runbook.md`**: GTM UI steps (CMP template, dual triggers, consent, Preview). **Execute Phase 8 · P8-07** (not required for Phase 7 closure).
 - `docs/phase-7-verification-record.md` (Phase 7 **closed**; **Gustaf** **2026-04-09**)
 - `docs/grand-plan.md` (Phase 7 deliverables, **Status** complete)
 - `docs/phase-8-todo.md` (**P8-07** **GTM** before cutover, post-live **`www`** verification)

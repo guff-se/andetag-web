@@ -2,6 +2,7 @@
 import ButtonGroup from "../content/ButtonGroup.astro";
 import ContentSection from "../content/ContentSection.astro";
 import InfoFrame from "../content/InfoFrame.astro";
+import { STOCKHOLM_TICKETS } from "../../lib/content/stockholm-offers";
 
 /** `site-html/stockholm-npf-stockholm.html` wp-page **4384**. */
 const leadMarkdown =
@@ -26,12 +27,16 @@ const advanceMarkdown =
   "<p><strong>Toalett:</strong> Vi har för närvarande inte en fullt utrustad rullstolsanpassad toalett. Kontakta oss i förväg om du vill diskutera praktiska lösningar.</p>" +
   "<p><strong>Grupper:</strong> Vi tar emot grupper från daglig verksamhet och skolor. För gruppbokning, kontakta <a href=\"mailto:info@tadaa.se\">info@tadaa.se</a>.</p>";
 
+const _r = STOCKHOLM_TICKETS.find((t) => t.id === "regular")!;
+const _ss = STOCKHOLM_TICKETS.find((t) => t.id === "student-senior")!;
+const _y = STOCKHOLM_TICKETS.find((t) => t.id === "youth")!;
+
 const practicalFrameHtml =
-  "<p><strong>Adress:</strong> Kungsgatan 39, Stockholm (Hötorgets tunnelbana)</p>" +
-  "<p><strong>Öppettider:</strong> Tisdag–lördag 12.00–20.00, söndag 12.00–17.00. Måndagar stängt.</p>" +
-  "<p><strong>Pris:</strong><br />Ordinarie 240 kr (190 kr dagtid vardagar 12–17).<br />Student/pensionär 200 kr (150 dagtid).<br />Ungdom 8–17 år 125 kr.</p>" +
-  "<p><strong>Tidsåtgång:</strong> Besökare stannar i genomsnitt 45–50 minuter. Du får stanna så länge du vill.</p>" +
-  "<p><strong>Ålder:</strong> Passar alla åldrar. Barn är välkomna.</p>";
+  "<p><strong>Adress:</strong> Kungsgatan 39, Stockholm (H\u00f6torgets tunnelbana)</p>" +
+  "<p><strong>\u00d6ppettider:</strong> Tisdag\u2013l\u00f6rdag 12.00\u201320.00, s\u00f6ndag 12.00\u201317.00. M\u00e5ndagar st\u00e4ngt.</p>" +
+  `<p><strong>Pris:</strong><br />Ordinarie ${_r.price} kr (${_r.daytimePrice} kr dagtid vardagar 12\u201317).<br />Student/pension\u00e4r ${_ss.price} kr (${_ss.daytimePrice} dagtid).<br />Ungdom 8\u201317 \u00e5r ${_y.price} kr.</p>` +
+  "<p><strong>Tids\u00e5tg\u00e5ng:</strong> Bes\u00f6kare stannar i genomsnitt 45\u201350 minuter. Du f\u00e5r stanna s\u00e5 l\u00e4nge du vill.</p>" +
+  "<p><strong>\u00c5lder:</strong> Passar alla \u00e5ldrar. Barn \u00e4r v\u00e4lkomna.</p>";
 ---
 
 <div class="page-migrated page-npf-stockholm-sv">

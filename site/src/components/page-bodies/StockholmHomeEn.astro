@@ -17,6 +17,10 @@ import { andrumLookingBody, andrumMeditationBody } from "../../lib/content/stock
 import { stockholmMarketingGalleryHome } from "../../lib/content/stockholm-marketing-gallery";
 import { stockholmTestimonialAggregateEn } from "../../lib/content/stockholm-testimonial-aggregate";
 import { stockholmMarketingFaqEn } from "../../lib/page-registry/stockholm-marketing-faq-en";
+import {
+  STOCKHOLM_TICKETS,
+  STOCKHOLM_DAYTIME_WINDOW,
+} from "../../lib/content/stockholm-offers";
 
 /**
  * English Stockholm home: body from `site-html/en.html`
@@ -57,12 +61,17 @@ const biljetterIntroHtml = [
   "<p>We use time slots to ensure that too many people don&#8217;t arrive at the same time. Spots fill up quickly, so make sure to book in advance.</p>",
 ].join("");
 
+const _r = STOCKHOLM_TICKETS.find((t) => t.id === "regular")!;
+const _ss = STOCKHOLM_TICKETS.find((t) => t.id === "student-senior")!;
+const _y = STOCKHOLM_TICKETS.find((t) => t.id === "youth")!;
+const _ay = STOCKHOLM_TICKETS.find((t) => t.id === "art-yoga")!;
+
 const homePriceFrameHtml = [
-  "<p><strong>Regular ticket:</strong> 240 SEK (190 SEK daytime)</p>",
-  "<p><strong>Student/senior:</strong> 200 SEK (150 SEK daytime)</p>",
-  "<p><strong>Youth (8–17 years):</strong> 125 SEK</p>",
-  "<p><strong>Art Yoga</strong> (Tuesdays 17.00–18.00): 320 kr</p>",
-  "<p>Daytime pricing: weekdays 12.00 – 17.00</p>",
+  `<p><strong>${_r.nameEn}:</strong> ${_r.price} SEK (${_r.daytimePrice} SEK daytime)</p>`,
+  `<p><strong>${_ss.nameEn}:</strong> ${_ss.price} SEK (${_ss.daytimePrice} SEK daytime)</p>`,
+  `<p><strong>${_y.nameEn}:</strong> ${_y.price} SEK</p>`,
+  `<p><strong>${_ay.nameEn}</strong> (Tuesdays 17.00\u201318.00): ${_ay.price} SEK</p>`,
+  `<p>Daytime pricing: ${STOCKHOLM_DAYTIME_WINDOW.descriptionEn}</p>`,
 ].join("");
 
 const seasonMarkdown = [
@@ -81,23 +90,12 @@ const artYogaMarkdown = [
   "<p>The class is open to both beginners and experienced practitioners.<br />No prior experience is required.</p>",
 ].join("");
 
-const testimonialItems = [
-  {
-    quote:
-      "The installation is incredibly immersive, with light, sound and textile art blending into a unique experience. It invites you to slow down, breathe and simply be present. Truly one of a kind.",
-    author: "Edwin",
-  },
-  {
-    quote:
-      "A calming and meditative experience that feels like a deep breath for the whole body. The movement of light and color creates a soothing atmosphere. You leave feeling grounded, rested and quietly moved.",
-    author: "Therese",
-  },
-  {
-    quote:
-      "The artwork is stunning, with intricate textures and glowing fibers that feel alive. The experience engages many senses at once, creating a rare sense of wonder. Beautiful, thoughtful and unforgettable.",
-    author: "Gabrielle",
-  },
-] as const;
+import { STOCKHOLM_FEATURED_REVIEWS } from "../../lib/content/stockholm-reviews";
+
+const testimonialItems = STOCKHOLM_FEATURED_REVIEWS.map((r) => ({
+  quote: r.quote,
+  author: r.author,
+}));
 
 const partners = [
   {

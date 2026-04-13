@@ -1,5 +1,6 @@
 ---
 import ContentSection from "../content/ContentSection.astro";
+import { STOCKHOLM_SEASON_PASS } from "../../lib/content/stockholm-offers";
 
 /** `site-html/en-stockholm-season-pass.html` wp-page. */
 const h1Html = "<h1>Season Pass for <span class=\"brand-wordmark\">ANDETAG</span></h1>";
@@ -20,7 +21,7 @@ const givesMarkdown =
 const priceMarkdown =
   "<h3>Price and conditions</h3>" +
   "<p><strong>Season passes are purchased at the entrance.</strong></p>" +
-  "<p><strong>Season pass: 950 SEK</strong><br />Valid for 6 months from the date of purchase.</p>" +
+  `<p><strong>Season pass: ${STOCKHOLM_SEASON_PASS.price} SEK</strong><br />Valid for ${STOCKHOLM_SEASON_PASS.durationMonths} months from the date of purchase.</p>` +
   "<p>If you have already purchased a standard ticket, its value can be deducted when buying a season pass at the entrance. Simply show your ticket at the desk.</p>" +
   "<p>The season pass is personal and non-transferable.</p>";
 

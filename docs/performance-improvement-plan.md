@@ -31,7 +31,7 @@ Mobile [PageSpeed Insights](https://pagespeed.web.dev/analysis/https-andetag-web
 |-------|--------|----------------------|
 | **P0** Hero poster | **Done** | Responsive **AVIF / WebP / JPEG** (`stockholm-hero-poster-{960,1920}w.*`), `<picture>` under video + **CSS fade-in** on `playing`. **LCP preload** uses **art-directed AVIF** (`lcpImagePreloads` in **`[...slug].astro`**, **`SiteLayout`**) so the preloaded file matches the **first** `<source>` (Chrome picks **AVIF**, not legacy **`960w.webp`** preload). **`HERO_SV_ASSETS.poster`** → **`1920w.jpg`** for default **`og:image`** / JSON-LD (must be served on **`www`** after Phase 8; see **`docs/phase-8-todo.md`** **P8-23** Facebook Sharing Debugger). |
 | **P1** Gallery / body images | **Done** | **Gallery** (**`stockholm-marketing-gallery.ts`**). **Marketing bodies:** **`stockholm-body-responsive-images.ts`** (home, SEO, book **`HeroSection`**, **Art Yoga** / **Dejt** covers, **Berlin** After Hours teaser, default **`TestimonialCarousel`** band, **about-the-artists** lead aside **`artWeekOpeningLeadAside`**, **optical-fibre** **`malinVaver*`**) with **`{640,960}w` WebP** + **`960w` JPEG** beside sources. **`ResponsiveInlinePicture`** (**`fetchpriority`** optional for LCP candidates), **`HeroSection`** / **`TestimonialCarousel`** responsive modes. **Small header (`shared-hero-header.is-small`):** portrait mobile still (**`Mobile-BG.*-header-mobile-*`**) AVIF/WebP/JPEG; desktop uses same **`stockholm-hero-poster-*`** stack as the video hero; **`HEADER_SMALL_LCP_PRELOAD_WEBP`** with **`media=(max-width:767px)`**; **`fetchpriority=high`** on fallback **`img`**. **Optional hygiene:** circular **portrait** JPEGs on about-the-artists (**`1024x1024`**) still ship as single files; batch derivatives if a future sweep flags them. |
-| **P2** Third-party + first-party JS | **Done** | **`BookingEmbed`:** Understory script **`defer`** via **`booking-embed-lazy.ts`** (viewport **`IntersectionObserver`**, ~**`400px`** **`rootMargin`**). **Gallery lightbox:** vanilla **`gallery-lightbox.ts`**. **Hero parallax:** vanilla **`hero-cover-parallax.ts`**; **`jquery`** dependency **removed** from **`site/package.json`**. **Termly** resource blocker switched to **`async`** + **`autoBlock=off`** (consent gated by GTM Consent Mode, not Termly auto-blocker). **GTM** deferred to **`window.load`** event. **`SiteLayout`** now places **`<link rel="preconnect">`** for `app.termly.io` and `googletagmanager.com` and **LCP preloads** above **`<TrackingHead />`** so the preload scanner discovers them before any script. **FCP recovered from ~2.7 s to ~1.66 s** (lab) on Stockholm home. |
+| **P2** Third-party + first-party JS | **Done** | **`BookingEmbed`:** Understory script **`defer`** via **`booking-embed-lazy.ts`** (viewport **`IntersectionObserver`**, ~**`400px`** **`rootMargin`**). **Gallery lightbox:** vanilla **`gallery-lightbox.ts`**. **Hero parallax:** vanilla **`hero-cover-parallax.ts`**; **`jquery`** dependency **removed** from **`site/package.json`**. **Consent:** interim third-party CMP (April 2026) moved to **`async`** + **`autoBlock=off`** (consent gated by GTM Consent Mode, not vendor auto-blocker); production now uses self-hosted **CookieConsent** (no third-party CMP origin). **GTM** deferred to **`window.load`** event. **`SiteLayout`** places **`<link rel="preconnect">`** for `googletagmanager.com` where needed and **LCP preloads** above **`<TrackingHead />`** so the preload scanner discovers them before any script. **FCP recovered from ~2.7 s to ~1.66 s** (lab) on Stockholm home during the interim CMP tuning window. |
 | **P3** Booking API compression | **Vendor** | Ask Understory for **gzip/Brotli** on API Gateway JSON. |
 | **P4** Fonts | **Partial** | **`fonts.css`** unchanged; **`SiteLayout`** adds optional **`lcpBodyFontPreloadHref`** (Baskervville 400 Latin WOFF2) on text-heavy shells (privacy all locales, music sv/en/de Berlin, corporate events, visitor reviews) wired from **`[...slug].astro`**. |
 | **P5** CSS | **Open** | Hygiene only. |
@@ -85,7 +85,7 @@ The article’s checklist maps to this codebase as follows (gaps are where we st
 | **Limit HTTP requests** | Partially | Lab run showed **~63 requests** on Stockholm home; third parties multiply trips; audit duplicates and lazy third-party load. |
 | **Browser caching** (`Cache-Control`, etc.) | Strong for fingerprints | `site/public/_headers` covers `/_astro/*`, fonts, uploads (**`/wp-content/uploads/*`** ~**30d** `max-age` + long **`stale-while-revalidate`** for large video or poster repeat visits; replace-in-place at the same URL should use a new filename per **`AGENTS.md`**). HTML stays short TTL or revalidate. |
 | **Remove render-blocking JS** | Mixed | GTM in head; Understory booking script uses **`defer`** (**P2** partial). |
-| **Limit external scripts** | Understory, GTM, Termly | Defer, lazy-load, or isolate (Partytown) where tags allow; reduces **layout shift** risk from late-injected widgets. |
+| **Limit external scripts** | Understory, GTM, consent bundle | Defer, lazy-load, or isolate (Partytown) where tags allow; reduces **layout shift** risk from late-injected widgets. |
 | **Limit redirects** | Policy-heavy | Entry **`/`** / **`/en/`** routing is intentional ([`url-migration-policy.md`](url-migration-policy.md)); avoid **chains** and extra hops on marketing landing URLs. |
 | **Minify CSS/JS** | Default via Astro build | Still verify no large inline blocks; marginal gains but standard hygiene. |
 | **Fast hosting / DNS / CDN** | Workers + Cloudflare DNS | TTFB for HTML is edge + Worker path; static assets benefit from POP proximity. |
@@ -135,7 +135,7 @@ The article’s checklist maps to this codebase as follows (gaps are where we st
 |----------|--------|----------------------|
 | **P0** | Hero poster / above-the-fold media | Drove **LCP** when poster was ~**1.4 MB** JPEG. **Done.** |
 | **P1** | Gallery and body images | Bulk **bytes** and format audits. **Done** for scoped marketing routes; **optional** portrait derivatives remain. |
-| **P2** | Third-party **JavaScript** (Understory, GTM) | Booking script **lazy** + **defer** **done**; **GTM** / Termly **open**. Improves **TBT** and critical path on **real** visits more than in minimal headless lab. |
+| **P2** | Third-party **JavaScript** (Understory, GTM) | Booking script **lazy** + **defer** **done**; **GTM** / consent **open**. Improves **TBT** and critical path on **real** visits more than in minimal headless lab. |
 | **P3** | Booking **API** JSON compression | **Vendor**; large uncompressed JSON; parallel track. |
 | **P4** | Fonts | Smaller than image work; matters more when **LCP is text** (privacy, dense copy). |
 | **P5** | CSS weight / minification | Hygiene after bigger wins. |
@@ -151,7 +151,7 @@ Use this order when **serial** engineering time is limited. **Parallel** items (
 |------:|--------|---------|
 | **1** | **LCP tail to 2.5 s (lab)** | Batch **mean LCP ~3.1 s**; worst URLs cluster on **small header + body** (privacy, musik, företagsevent, visitor-reviews, optical-fibre, some Berlin). Use **DevTools → Performance** on **one representative URL per pattern**; fix **confirmed** LCP element (font vs image vs lazy). Avoid blind preloads. |
 | **2** | **CLS on four routes** | **Die Künstler (de)**, **Om konstnärerna (sv)**, **accessibility / tillgänglighet** pair. Reproduce in **mobile** viewport; check **font swap**, **`picture`**, **embeds**. |
-| **3** | ~~GTM / consent load strategy (complete P2)~~ **Done** | Termly deferred to after LCP (PerformanceObserver); GTM deferred to `window.load`; video facade eliminates Vimeo; gallery lightbox lazy-inited via IntersectionObserver. FCP now ~1.2 s (matches no-tracking). Staging scores 84-86 (ceiling with Termly + GTM). |
+| **3** | ~~GTM / consent load strategy (complete P2)~~ **Done** | Interim third-party CMP deferred to after LCP (PerformanceObserver); GTM deferred to `window.load`; video facade eliminates Vimeo; gallery lightbox lazy-inited via IntersectionObserver. FCP now ~1.2 s (matches no-tracking). Staging scores 84-86 (ceiling with consent + GTM). |
 | **4** | **Portrait images on about-the-artists** | **Malin / Gustaf** **`1024x1024`** circles still single JPEGs; add **`{640,960}w` WebP** + **`960w` JPEG** if byte audits warrant. |
 | **5** | **P3** Booking API **gzip/Brotli** | Still **vendor**; unchanged rationale. |
 | **6** | **P4** Fonts | Subset, drop unused weights, align **`preload`** with actual **LCP text** face on **small-header** routes. |
@@ -211,22 +211,22 @@ Use this order when **serial** engineering time is limited. **Parallel** items (
 
 **What Lighthouse said (historical):** “Reduce unused JavaScript”; **understory.io** and **GTM** highlighted. **`jquery`** was removed (**2026-04**); **gallery** and **hero parallax** are vanilla.
 
-**April 2026 regression diagnosis:** A/B Lighthouse testing (`npm run perf:impact`) confirmed the synchronous Termly resource-blocker `<script>` in `<head>` was the primary regression: it blocked the HTML parser for ~1.7 s (DNS + TLS + download + execute), adding ~1.2 s to FCP and ~1.3 s to LCP versus a no-Termly baseline. GTM added another ~1 s to LCP. Combined, tracking scripts cost ~14 performance points and ~1.9 s LCP on the Stockholm home page.
+**April 2026 regression diagnosis:** A/B Lighthouse testing (`npm run perf:impact`) confirmed the synchronous third-party CMP resource-blocker `<script>` in `<head>` was the primary regression: it blocked the HTML parser for ~1.7 s (DNS + TLS + download + execute), adding ~1.2 s to FCP and ~1.3 s to LCP versus a no-CMP baseline. GTM added another ~1 s to LCP. Combined, tracking scripts cost ~14 performance points and ~1.9 s LCP on the Stockholm home page.
 
 **Shipped fixes (April 2026):**
 
 1. **Booking widget script:** **Done:** **`defer`** injection via **`booking-embed-lazy.ts`** when the embed nears the viewport (**`IntersectionObserver`**, **`rootMargin` ~400px**); without **`IntersectionObserver`**, load immediately.
-2. **Termly `async` + `autoBlock=off`:** Resource-blocker loads with `async` so it no longer blocks the parser. `autoBlock=off` because GTM Consent Mode handles tag gating. FCP recovered from ~2.7 s to ~1.66 s (lab, Stockholm home).
+2. **Third-party CMP `async` + `autoBlock=off`:** Resource-blocker loads with `async` so it no longer blocks the parser. `autoBlock=off` because GTM Consent Mode handles tag gating. FCP recovered from ~2.7 s to ~1.66 s (lab, Stockholm home).
 3. **GTM deferred to `window.load`:** GTM bootstrap wrapped in `addEventListener("load", ...)`. Consent defaults (`denied`) set synchronously before either script.
-4. **Preconnect hints:** `<link rel="preconnect">` for `app.termly.io` and `googletagmanager.com` as first elements in `<head>`.
+4. **Preconnect hints:** `<link rel="preconnect">` for `googletagmanager.com` as first elements in `<head>` (third-party CMP origin removed after CookieConsent).
 5. **LCP preloads above tracking:** Image and font preloads moved before `<TrackingHead />` in `SiteLayout.astro`.
 6. **jQuery:** **Done:** vanilla DOM; `jquery` is not in `site/package.json`.
 
 **Additional optimizations (April 2026, v2):**
 
-6. **Termly deferred to after LCP:** `PerformanceObserver` for `largest-contentful-paint`, with 4 s fallback timeout. Download never competes with LCP image preloads. FCP now matches no-tracking baseline (~1.2 s).
-7. **`fetchpriority="low"` removed (Termly now dynamically injected):** No `<script>` tag in HTML at all; injected via DOM after LCP fires.
-8. **`dns-prefetch` replaces `preconnect`:** Since both Termly and GTM load well after first paint, full preconnect wastes an early connection. Lightweight DNS prefetch is sufficient.
+6. **Third-party CMP deferred to after LCP:** `PerformanceObserver` for `largest-contentful-paint`, with 4 s fallback timeout. Download never competes with LCP image preloads. FCP now matches no-tracking baseline (~1.2 s).
+7. **`fetchpriority="low"` removed (CMP script dynamically injected):** No `<script>` tag in HTML at all; injected via DOM after LCP fires.
+8. **`dns-prefetch` replaces `preconnect`:** Since both the CMP bundle and GTM load well after first paint, full preconnect wastes an early connection. Lightweight DNS prefetch is sufficient.
 9. **Video embed facade:** Vimeo iframe replaced with self-hosted poster (WebP 31 KB / JPEG 81 KB) + CSS play button. Iframe injected on click with `autoplay=1`. Eliminates ~361 KB of Vimeo third-party JS from initial load on all pages with video.
 10. **Gallery lightbox lazy init:** `IntersectionObserver` defers lightbox DOM creation and event listeners until a `.gallery-section` nears the viewport (200 px margin). Reduces TBT on pages without visible gallery.
 11. **HeroSection props:** `loading` and `fetchpriority` props added for above-fold control; `width`/`height` on responsive cover images.
@@ -240,7 +240,7 @@ Use this order when **serial** engineering time is limited. **Parallel** items (
 | `/en/stockholm/` | **84** | 1.22 s | 4.40 s | 33 ms | **99** (LCP 1.97 s) |
 | `/de/berlin/` | **86** | 1.22 s | 4.13 s | 31 ms | **98** (LCP 2.27 s) |
 
-**Achievable ceiling with Termly + GTM:** ~84-86 on mobile Lighthouse. The ~14-point gap between baseline and no-tracking is the measured, irreducible cost of Termly (~163 KB, ~280 ms main thread) and GTM (~151 KB, ~100 ms main thread) executing under 4x CPU throttling. The pre-Phase-7 score of ~89 was measured without any consent manager.
+**Achievable ceiling with third-party CMP + GTM (April 2026 lab):** ~84-86 on mobile Lighthouse. The ~14-point gap between baseline and no-tracking was the measured cost of the third-party CMP bundle (~163 KB, ~280 ms main thread) and GTM (~151 KB, ~100 ms main thread) executing under 4x CPU throttling. The pre-Phase-7 score of ~89 was measured without any consent manager. **Current:** self-hosted **CookieConsent** reduces third-party CMP network cost; re-measure on **staging** / **`www`** after cutover.
 
 **Without tracking, first-party performance is 98-100.** All remaining LCP cost is third-party script execution on the main thread, not download competition or render blocking.
 

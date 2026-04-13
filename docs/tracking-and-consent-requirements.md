@@ -2,6 +2,8 @@
 
 Purpose: define tracking and consent guardrails before implementation decisions in later phases.
 
+**Third-party CMP:** The live site uses **CookieConsent** only (self-hosted). **Termly is not used** (no third-party commercial CMP scripts, SDK, or dashboard dependency).
+
 ## Reused Inputs
 
 This document extends requirements already stated in:
@@ -79,7 +81,7 @@ Normative consent **category** labels match **§3** (`necessary`, `analytics`, `
 | Embed | Where | Component / mechanism | Consent classification | Notes |
 |-------|--------|------------------------|---------------------------|--------|
 | Understory booking | Stockholm (and related) pages | **`BookingEmbed.astro`** + **`booking-embed-lazy.ts`** | **`necessary`** | Lazy script injection when the shell nears the viewport; same rule as **§4** table. |
-| Brevo waitlist | Berlin EN/DE home | **`WaitlistFormEmbed.astro`** | **Not Termly-gated** | Plain **`POST`** form; explicit opt-in at submit; see **§2**. |
+| Brevo waitlist | Berlin EN/DE home | **`WaitlistFormEmbed.astro`** | **Not CMP category-gated** | Plain **`POST`** form; explicit opt-in at submit; see **§2**. |
 | Vimeo promo video | Stockholm home/SEO, Berlin home | **`VideoEmbed.astro`** | **`marketing`** (third-party player) | Iframe to Vimeo; treat like other optional media embeds for policy. |
 | Google Maps | Stockholm home, Hitta hit, SEO landings | **`MapEmbed.astro`** | **`marketing`** (third-party map) | Google may set cookies in the iframe context; align CMP disclosure with your legal review. |
 | Spotify album | Musik pages (SV/EN/DE) | Inline **`iframe`** in page bodies | **`marketing`** | Lazy-loaded where wired; third-party Spotify player. |

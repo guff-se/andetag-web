@@ -113,27 +113,25 @@ function analyzeHtml(htmlPath, siteRootPath) {
     }
   }
 
-  const termlyIndex = headContent.indexOf("termly.io");
+  const cmpBundleIndex = headContent.search(/cookie-consent-init|cookieconsent/i);
   const gtmIndex = headContent.indexOf("googletagmanager.com");
   const firstPreloadIndex = headContent.indexOf('rel="preload"');
-  const firstStyleIndex = headContent.indexOf("<link") < headContent.indexOf('rel="stylesheet"')
-    ? headContent.indexOf('rel="stylesheet"')
-    : -1;
 
-  if (termlyIndex > -1 && firstPreloadIndex > -1 && termlyIndex < firstPreloadIndex) {
+  if (cmpBundleIndex > -1 && firstPreloadIndex > -1 && cmpBundleIndex < firstPreloadIndex) {
     findings.push({
       severity: "warn",
-      type: "termly-before-preloads",
-      message: "Termly script appears BEFORE LCP preloads in <head>. Browser must fetch and execute Termly before discovering preload hints.",
-      fix: "Move LCP preload <link> tags above third-party scripts in <head> so the browser's preload scanner finds them immediately.",
+      type: "cmp-before-preloads",
+      message:
+        "CookieConsent-related script reference appears BEFORE LCP preloads in <head>. The browser may discover preloads later than ideal.",
+      fix: "Move LCP preload <link> tags above non-critical scripts in <head> so the preload scanner finds them immediately.",
     });
   }
 
-  if (termlyIndex > -1 && gtmIndex > -1 && termlyIndex < gtmIndex) {
+  if (cmpBundleIndex > -1 && gtmIndex > -1 && cmpBundleIndex < gtmIndex) {
     findings.push({
       severity: "info",
-      type: "termly-before-gtm",
-      message: "Termly loads before GTM (correct: consent state must be available when GTM evaluates tags).",
+      type: "cmp-before-gtm",
+      message: "CMP bundle loads before GTM (good: consent defaults and updates should be available when GTM runs).",
     });
   }
 

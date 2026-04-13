@@ -82,8 +82,10 @@ All phases must keep these baseline checks in scope:
 ## Phase 8, Deployment and production cutover
 
 - **Pre-cutover:** Dev and staging (**`https://andetag-web.guff.workers.dev`**) pass full functional QA (routing, scripts, cookies, consent, embeds, forms). **GTM** + **CookieConsent** container migration (**`docs/gtm-consent-migration-runbook.md`**, **P8-07**) is complete and Preview-validated on staging before **`www`** cutover. Must-keep URLs from the legacy live site behave per **`docs/url-matrix.csv`** and **`docs/url-migration-policy.md`**; exceptions are approved and logged.
+- **SEO baseline:** Google Search Console baseline data (indexed pages, top queries, clicks, crawl stats) is exported before cutover (**P8-08**). Internal links on the rebuilt site point to canonical URLs, not redirect-source URLs (**P8-09**).
 - **Locale copy:** Gustaf has explicitly approved **final user-visible text** for **`sv`**, **`en`**, and **`de`** on **staging** (**`docs/phase-8-todo.md`**, **P8-06**); optional external **`de`** review completed before that sign-off if used.
 - **Cutover:** **`https://www.andetag.museum`** serves this stack (entry Worker + static assets); runbook executed; rollback path understood.
-- **Post-cutover:** **`docs/phase-4-redirect-tests.md`** table **B** (and agreed matrix checks) pass on **`www`**; live spot-checks for SEO, sharing, and conversion paths match Phase 7 expectations on the canonical host.
+- **Post-cutover:** **`docs/phase-4-redirect-tests.md`** table **B** (and agreed matrix checks) pass on **`www`**; **`robots.txt`** allows crawling and references production sitemap; new sitemap submitted to GSC; live spot-checks for SEO, sharing, and conversion paths match Phase 7 expectations on the canonical host.
+- **Monitoring:** Organic health monitored for 2-4 weeks post-cutover (GSC coverage, traffic trend vs baseline, indexed pages, Core Web Vitals field data); no SEO regression requiring intervention before closure (**P8-26**).
 - **Sign-off:** Gustaf approval recorded in **`docs/phase-8-verification-record.md`**.
 - **Post-cutover operations:** Routine changes ship via **PRs** with preview URLs; **merge to `main`** updates **`www`** (**`docs/phase-8-todo.md`**, **P8-25**).

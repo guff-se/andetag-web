@@ -88,7 +88,7 @@ Consult before implementation. All active docs are in `docs/`.
 | `docs/grand-plan.md` | Roadmap, phase gates, business objectives, decision log |
 | `docs/phase-8-todo.md` | **Current phase:** deployment checklist, URL parity, `www` cutover |
 | `docs/phase-8-verification-record.md` | Phase 8 evidence and sign-off |
-| `docs/phase-9-todo.md` | Placeholder: post-migration maintenance program |
+| `docs/phase-9-todo.md` | Placeholder: post-migration maintenance program (performance skill **P9-10**; pages, SEO, testimonials skills **P9-12**–**P9-15**; production PR gate **P9-20**+) |
 | `docs/Andetag SEO Manual.md` | SEO/GEO decisions, page intent, language strategy, schema |
 | `docs/Tone of Voice.md` | User-facing copy and metadata text |
 | `docs/Visual Identity.md` | Typography, color palette, CTA mapping |
@@ -104,6 +104,7 @@ Consult before implementation. All active docs are in `docs/`.
 | `docs/tracking-and-consent-requirements.md` | GTM, Brevo, consent categories |
 | `docs/kpi-measurement-map.md` | Analytics measurement, GTM audit, consent migration checklist |
 | `docs/gtm-consent-migration-runbook.md` | Step-by-step GTM work for Phase 8 P8-07 |
+| `docs/phase-8-cutover-runbook.md` | DNS, Workers custom domain, TLS, rollback, post-cutover PR discipline (P8-10, P8-11, P8-25) |
 | `docs/decisions/0002-consent-platform-selection.md` | CMP selection ADR (CookieConsent implemented) |
 | `docs/changelog-standards.md` | How to write CHANGELOG.md entries |
 | `docs/archive/` | Closed-phase checklists, verification records, superseded plans |

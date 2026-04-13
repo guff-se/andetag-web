@@ -9,6 +9,8 @@
 # Legacy global English story URLs → Stockholm English (single hop)
 /en/about-andetag/ /en/stockholm/about-andetag/ 301
 /en/about-the-artists-malin-gustaf-tadaa/ /en/stockholm/about-the-artists-malin-gustaf-tadaa/ 301
+/en/artists-malin-gustaf-tadaa/ /en/stockholm/about-the-artists-malin-gustaf-tadaa/ 301
+/en/giftcard/ /en/stockholm/giftcard/ 301
 /en/music/ /en/stockholm/music/ 301
 /en/optical-fibre-textile/ /en/stockholm/optical-fibre-textile/ 301
 
@@ -18,9 +20,11 @@
 /sv/om-konstnarerna-malin-gustaf-tadaa/ /sv/stockholm/om-konstnarerna-malin-gustaf-tadaa/ 301
 /sv/optisk-fibertextil/ /sv/stockholm/optisk-fibertextil/ 301
 /musik/ /sv/stockholm/musik/ 301
+/music/ /en/stockholm/music/ 301
 /om-andetag/ /sv/stockholm/om-andetag/ 301
 /om-konstnarerna-malin-gustaf-tadaa/ /sv/stockholm/om-konstnarerna-malin-gustaf-tadaa/ 301
 /optisk-fibertextil/ /sv/stockholm/optisk-fibertextil/ 301
+/presentkort/ /sv/stockholm/presentkort/ 301
 
 # Legacy German story URLs → /de/berlin/… (sitemap-backed slugs)
 /de/ueber-andetag/ /de/berlin/ueber-andetag/ 301
@@ -31,6 +35,9 @@
 # Privacy: legacy single URL → Swedish Stockholm canonical shell
 /privacy-policy/ /sv/stockholm/privacy/ 301
 /privacy/ /sv/stockholm/privacy/ 301
+
+# Explicit overrides where splat target slug differs from legacy slug
+/stockholm/faq/ /sv/stockholm/fragor-svar/ 301
 
 /stockholm/* /sv/stockholm/:splat 301
 # `/` entry routing: Cloudflare Worker (`site/workers/entry-router.ts`), not static `_redirects`.

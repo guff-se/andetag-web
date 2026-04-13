@@ -3,9 +3,12 @@
 Web spider to crawl andetag.museum and save content as markdown files.
 
 Versioned mode (default): each run writes an immutable snapshot under crawl-versions/<id>/
-(html/ and md/ subtrees), diffs against the previous snapshot, writes MIGRATION_CHANGELOG.md
-in the new snapshot folder, then copies the snapshot to site-html/ and site-md/ (canonical
-inputs for the migration).
+(html/ and md/ subtrees), writes MIGRATION_CHANGELOG.md in the new snapshot folder, updates
+manifest.json, then copies the snapshot to site-html/ and site-md/ unless --no-promote.
+
+Use --diff-against-canonical to compare the new crawl to the existing site-html/ and site-md/
+trees without treating the prior archived snapshot as the baseline. Pair with --no-promote to
+leave the workspace mirrors untouched.
 
 Legacy mode (--legacy): deletes and recreates site-html/ and site-md/ only, no archive or diff.
 """
@@ -581,6 +584,8 @@ def run_versioned_crawl(
     versions_dir_name: str,
     html_dir_name: str,
     md_dir_name: str,
+    no_promote: bool = False,
+    diff_against_canonical: bool = False,
 ) -> None:
     versions_dir = (root / versions_dir_name).resolve()
     manifest = load_manifest(versions_dir)
@@ -608,7 +613,27 @@ def run_versioned_crawl(
     spider.crawl()
 
     changelog_path = snap / "MIGRATION_CHANGELOG.md"
-    if previous_id:
+    canonical_html = (root / html_dir_name).resolve()
+    canonical_md = (root / md_dir_name).resolve()
+
+    if diff_against_canonical:
+        if not canonical_html.is_dir() or not canonical_md.is_dir():
+            raise SystemExit(
+                f"Cannot diff against canonical: missing {html_dir_name}/ or {md_dir_name}/ "
+                f"under {root}"
+            )
+        prev_label = f"canonical {html_dir_name}/ + {md_dir_name}/"
+        write_migration_changelog_file(
+            changelog_path,
+            previous_id=prev_label,
+            new_id=new_id,
+            base_url=base_url,
+            prev_html=canonical_html,
+            prev_md=canonical_md,
+            new_html=version_html,
+            new_md=version_md,
+        )
+    elif previous_id:
         prev_snap = versions_dir / previous_id
         prev_html = prev_snap / "html"
         prev_md = prev_snap / "md"
@@ -639,10 +664,13 @@ def run_versioned_crawl(
         )
         changelog_path.write_text(text + "\n", encoding="utf-8")
 
-    canonical_html = (root / html_dir_name).resolve()
-    canonical_md = (root / md_dir_name).resolve()
-    print(f"Promoting snapshot to canonical {html_dir_name}/ and {md_dir_name}/ ...")
-    promote_snapshot_to_canonical(version_html, version_md, canonical_html, canonical_md)
+    if no_promote:
+        print(
+            f"Skipping promotion to {html_dir_name}/ and {md_dir_name}/ (--no-promote)."
+        )
+    else:
+        print(f"Promoting snapshot to canonical {html_dir_name}/ and {md_dir_name}/ ...")
+        promote_snapshot_to_canonical(version_html, version_md, canonical_html, canonical_md)
 
     entry = {
         "id": new_id,
@@ -687,6 +715,16 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         default="site-md",
         help="Canonical Markdown output directory (default: site-md).",
     )
+    p.add_argument(
+        "--no-promote",
+        action="store_true",
+        help="Keep site-html/ and site-md/ unchanged; only write crawl-versions/<id>/ and manifest.",
+    )
+    p.add_argument(
+        "--diff-against-canonical",
+        action="store_true",
+        help="Write MIGRATION_CHANGELOG.md vs existing --html-dir/--md-dir trees instead of the prior snapshot.",
+    )
     return p.parse_args(argv)
 
 
@@ -710,6 +748,8 @@ def main(argv: list[str] | None = None) -> None:
         versions_dir_name=args.versions_dir,
         html_dir_name=args.html_dir,
         md_dir_name=args.md_dir,
+        no_promote=args.no_promote,
+        diff_against_canonical=args.diff_against_canonical,
     )
 
 

@@ -264,10 +264,12 @@ Goal: verify the rebuilt site end-to-end on **dev** and **staging**, obtain **fi
 
 Deliverables:
 
-- **Pre-cutover:** Full QA on local dev and on **`https://andetag-web.guff.workers.dev`**: routing, scripts, cookies, consent, embeds, forms, and locale behavior. **URL parity:** every must-keep path from the legacy live site (per **`docs/url-matrix.csv`** and agreed inventory) resolves on dev and staging as expected (**200** or policy **301**). Any exception is recorded in **`docs/migration-exceptions.md`** and **confirmed with Gustaf**.
+- **Pre-cutover:** Full QA on local dev and on **`https://andetag-web.guff.workers.dev`**: routing, scripts, cookies, consent, embeds, forms, and locale behavior. **URL parity:** every must-keep path from the legacy live site (per **`docs/url-matrix.csv`** and agreed inventory) resolves on dev and staging as expected (**200** or policy **301**). Any exception is recorded in **`docs/migration-exceptions.md`** and **confirmed with Gustaf**. **Internal link audit:** all internal `<a href>` links on the rebuilt site target canonical URLs, not redirect-source URLs.
+- **SEO baseline:** Export **Google Search Console** data (indexed pages, top queries and pages by clicks, crawl stats, coverage report) before cutover (**P8-08**) as the reference for detecting SEO regression.
 - **Locale copy gate (staging):** Gustaf explicitly approves **final user-visible text** for **`sv`**, **`en`**, and **`de`** on staging before the stack is treated as **ready for `www`**. Optional: external reviewer for **`de`** before Gustaf signs German. Log evidence in **`docs/phase-8-verification-record.md`** (see **`docs/phase-8-todo.md`**, **P8-06**).
-- **Cutover:** DNS or Cloudflare configuration so **`www`** (and apex per policy) serves the Workers deployment with the entry Worker and static assets; documented runbook and rollback. **Promotion rule until cutover:** pushes to **`main`** redeploy **staging**; Gustaf approves **staging → production** when the maintainer reports Phase 7 + Phase 8 pre-cutover gates are met.
-- **Post-cutover:** Repeat automated and manual checks on **`https://www.andetag.museum`**, including **`docs/phase-4-redirect-tests.md`** table **B** (closes **`P5-06`** production), redirect matrix checks, live GTM or consent validation, and SEO or sharing spot-checks as in **`docs/phase-7-todo.md`** where they require the canonical host.
+- **Cutover:** DNS or Cloudflare configuration so **`www`** (and apex per policy) serves the Workers deployment with the entry Worker and static assets; documented runbook and rollback (including DNS TTL reduction and cache-purge plan). **Promotion rule until cutover:** pushes to **`main`** redeploy **staging**; Gustaf approves **staging → production** when the maintainer reports Phase 7 + Phase 8 pre-cutover gates are met.
+- **Post-cutover:** Repeat automated and manual checks on **`https://www.andetag.museum`**, including **`docs/phase-4-redirect-tests.md`** table **B** (closes **`P5-06`** production), redirect matrix checks, live GTM or consent validation, and SEO or sharing spot-checks as in **`docs/phase-7-todo.md`** where they require the canonical host. Verify **`robots.txt`** allows crawling and references the production sitemap; **submit** sitemap to GSC; request indexing of highest-value pages.
+- **Post-cutover monitoring (2-4 weeks):** Track organic health daily then bi-weekly: GSC coverage, traffic vs baseline, indexed pages, and Core Web Vitals field data (**P8-26**). Do not close Phase 8 until monitoring confirms no SEO regression requiring intervention.
 - **Post-cutover release discipline:** Stop using **direct pushes to `main`** for day-to-day changes. Ship via **pull requests**; each PR gets a **Cloudflare preview URL** for review; **merging** the PR updates **`www`** (or the agreed production branch). Capture the exact wiring in the cutover runbook (**`docs/phase-8-todo.md`**, **P8-25**).
 
 Acceptance checks:
@@ -275,6 +277,7 @@ Acceptance checks:
 - Staging entry verification (**`npm run verify:staging-entry`**) passes before cutover; production table **B** passes on **`www`** after cutover, logged in **`docs/phase-4-redirect-tests.md`** or the Phase 8 verification record.
 - **P8-06** complete: Gustaf has signed off **all three** locales on staging (and external **`de`** review if used).
 - No unapproved URL or behavior gaps vs the legacy site scope agreed for launch.
+- **P8-26** monitoring period complete: organic traffic, indexed pages, and crawl health stable vs **P8-08** baseline (or regression investigated and resolved).
 - Gustaf sign-off on **`docs/phase-8-verification-record.md`**.
 
 Task-level checklist: `docs/phase-8-todo.md`.
@@ -294,12 +297,14 @@ Goal: transition this repository from a **migration project** (scrape-driven par
 **Deliverables (initial, non-exhaustive):**
 
 - **Performance optimization Agent Skill:** author a **Cursor Agent Skill** (or equivalent team artifact) that instructs agents to run the agreed performance checks (for example local **`npm run build`**, targeted or batch **`npm run lighthouse:all`**, and review against **`docs/performance-improvement-plan.md`**) before treating **`site/`** work as merge-ready. Skill location and naming TBD (global Cursor skills vs repo-local **`.cursor/rules`** or **`docs/`** companion); the skill text should be concrete enough that runs are repeatable.
+- **Content and SEO Agent Skills:** author skills (or equivalents) for **adding pages** (routes, registry, responsive images, navigation), **SEO work** (metadata, hreflang, schema, SEO manual alignment), and **updating testimonials**. For SEO, evaluate **open-source** Agent Skills to **install or adopt** as a baseline before customizing. Task IDs **P9-12**–**P9-15** in **`docs/phase-9-todo.md`**.
 - **Production PR gate:** ensure that **every pull request that will deploy to production** (**`www`**) is only merged after that performance workflow has been **executed and passed** (or explicitly waived with owner and reason in **`docs/migration-exceptions.md`** or the Phase 9 verification record). Implementation may combine **human discipline** (skill invoked in PR prep), **CI** (optional Lighthouse or budget gate on **`main`** / release branch), and **checklist rows** in **`docs/phase-9-todo.md`**. Exact wiring follows Cloudflare preview + merge model from Phase 8 (**`docs/phase-8-todo.md`**, **P8-25**).
 
 **Acceptance checks (placeholder):**
 
 - Phase 9 checklist (**`docs/phase-9-todo.md`**) exists and is updated as the maintenance program is specified.
 - Performance skill is written, discoverable, and referenced from **`AGENTS.md`** or maintainer onboarding.
+- Page, SEO, and testimonials skills (**P9-12**–**P9-15**) are written, discoverable, and referenced the same way when those maintenance workflows are in scope.
 - Production PR policy is documented and followed (no silent skips).
 
 Task-level checklist: `docs/phase-9-todo.md`.
@@ -388,7 +393,7 @@ These items are **still open** for governance nuance. **SEO evolution** (allow i
 
 - **Static stack:** Astro (ADR **`docs/decisions/0001-static-stack-selection.md`**).
 - **Hosting and edge delivery:** Cloudflare with static build output from **`site/`**; staging and production use **Workers + static assets** and the entry router described in **`AGENTS.md`** ( **`site/wrangler.jsonc`**, **`site/workers/entry-router.ts`** ). ADR 0001 operational notes align with this deploy path.
-- **Cookie and consent platform:** CookieConsent replacing Complianz and superseding the prior Termly implementation (evaluated CookieYes first; **`docs/decisions/0002-consent-platform-selection.md`**).
+- **Cookie and consent platform:** CookieConsent replacing Complianz and superseding any interim commercial CMP trial (evaluated CookieYes first; **`docs/decisions/0002-consent-platform-selection.md`**). **Termly is not used.**
 - **Swedish migration wave order and closure:** Phase 5 milestone 2026-03-24; evidence **`docs/phase-5-verification-record.md`**.
 - **Localization sequencing:** Phases 5 then 6; Phase 6 closed 2026-04-04 (**`docs/phase-6-verification-record.md`**).
 - **IA for language plus destination:** Decisions in **`docs/phase-4-routing-reopen.md`**, **`docs/phase-6-todo.md`**, and **`docs/url-migration-policy.md`**.
@@ -399,11 +404,11 @@ These items are **still open** for governance nuance. **SEO evolution** (allow i
 
 As of **2026-04-08**, Phases **0 through 7** are closed. Default execution focus:
 
-1. **Phase 8:** Complete **`docs/phase-8-todo.md`**: dev and staging QA (**P8-01**–**P8-04**), **P8-05** / **P8-06** (Gustaf signs off **`sv`**, **`en`**, and **`de`** on **staging**), **P8-07** (**GTM** + consent runbook **just before** **`P8-11`**), then cut over **`https://www.andetag.museum`**, run production table **B** (**`P5-06`** production), and close **`docs/phase-8-verification-record.md`**.
+1. **Phase 8:** Complete **`docs/phase-8-todo.md`**: dev and staging QA (**P8-01**-**P8-04**), **SEO baseline** (**P8-08**) and **internal link audit** (**P8-09**), **P8-05** / **P8-06** (Gustaf signs off **`sv`**, **`en`**, and **`de`** on **staging**), **P8-07** (**GTM** + consent runbook **just before** **`P8-11`**), then cut over **`https://www.andetag.museum`**, verify **SEO** (**P8-23**: `robots.txt`, sitemap submission to GSC), run production table **B** (**`P5-06`** production), **monitor organic health** for 2-4 weeks (**P8-26**), and close **`docs/phase-8-verification-record.md`**.
 2. **Phase 7 (closed):** **`docs/phase-7-verification-record.md`**; **`docs/phase-7-todo.md`**. **GTM** container migration deferred to **P8-07**, not Phase 7.
 3. **Routing hygiene:** Before changing **`docs/url-matrix.csv`**, **`site/public/_redirects`**, registry, or **`site/workers/`**, read **`docs/phase-4-routing-reopen.md`** and **`docs/url-migration-policy.md`**; after entry changes, run **`npm run verify:staging-entry`** from **`site/`** (see **`docs/phase-4-redirect-tests.md`**).
 4. **Carry-forward:** **EX-0006** Phase 7 embed-pattern follow-up is closed in **P7-15** (**`docs/phase-7-verification-record.md`**); optional lazy iframe deferral for marketing embeds remains **P7-12** in **`docs/phase-7-todo.md`**. **German** external reviewer (if used) feeds **P8-06** before Gustaf approves **`de`** for production.
-5. **Phase 9 (after `www` stabilization):** Open **`docs/phase-9-todo.md`**: maintenance operating model, **performance optimization Agent Skill**, and **mandatory performance pass before production PRs** (see **`docs/grand-plan.md`** Phase 9).
+5. **Phase 9 (after `www` stabilization):** Open **`docs/phase-9-todo.md`**: maintenance operating model, **Agent Skills** (performance **P9-10**; pages, SEO, testimonials **P9-12**–**P9-15**), and **mandatory performance pass before production PRs** (see **`docs/grand-plan.md`** Phase 9).
 
 ### Phase closure references (historical)
 

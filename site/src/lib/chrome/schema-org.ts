@@ -1,6 +1,15 @@
 import type { Destination, Language } from "./types";
 import { HERO_SV_ASSETS } from "./assets";
 import { buildCanonicalUrl, CANONICAL_HOST, languageToHreflangAttribute } from "./seo";
+import {
+  STOCKHOLM_FEATURED_REVIEWS,
+  STOCKHOLM_RATING,
+} from "../content/stockholm-reviews";
+import {
+  STOCKHOLM_ART_YOGA_EVENT,
+  STOCKHOLM_CURRENCY,
+  STOCKHOLM_TICKETS,
+} from "../content/stockholm-offers";
 
 /** Source: `site-html/en-stockholm-tickets.html` footer JSON-LD (`#andetag`). */
 const STOCKHOLM_MUSEUM_SAME_AS = [
@@ -187,6 +196,73 @@ function buildBerlinPlaceSchema(ctx: SchemaPageContext): { "@context": string; "
   return { "@context": "https://schema.org", "@graph": graph };
 }
 
+function stockholmOffers(language: Language): object[] {
+  const ticketsUrl = buildCanonicalUrl(
+    language === "sv" ? "/sv/stockholm/biljetter/" : "/en/stockholm/tickets/",
+  );
+  return STOCKHOLM_TICKETS.flatMap((t) => {
+    const name = language === "sv" ? t.nameSv : t.nameEn;
+    const base: object = {
+      "@type": "Offer",
+      name,
+      price: String(t.price),
+      priceCurrency: STOCKHOLM_CURRENCY,
+      url: ticketsUrl,
+      availability: "https://schema.org/InStock",
+    };
+    if (t.daytimePrice == null) return [base];
+    const daytimeName =
+      language === "sv" ? `${name} (dagtid)` : `${name} (daytime)`;
+    return [
+      base,
+      {
+        "@type": "Offer",
+        name: daytimeName,
+        price: String(t.daytimePrice),
+        priceCurrency: STOCKHOLM_CURRENCY,
+        url: ticketsUrl,
+        availability: "https://schema.org/InStock",
+      },
+    ];
+  });
+}
+
+function artYogaEventNode(language: Language): object {
+  const ev = STOCKHOLM_ART_YOGA_EVENT;
+  const name = language === "sv" ? ev.nameSv : ev.nameEn;
+  const description = language === "sv" ? ev.descriptionSv : ev.descriptionEn;
+  const url = buildCanonicalUrl(language === "sv" ? ev.pathSv : ev.pathEn);
+  const yogaOffer = STOCKHOLM_TICKETS.find((t) => t.id === "art-yoga")!;
+  return {
+    "@type": "Event",
+    "@id": `${CANONICAL_HOST}/#event-art-yoga`,
+    name,
+    description,
+    url,
+    duration: ev.durationIso,
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    eventStatus: "https://schema.org/EventScheduled",
+    eventSchedule: {
+      "@type": "Schedule",
+      repeatFrequency: ev.schedule.repeatFrequency,
+      byDay: ev.schedule.byDay,
+      startTime: ev.schedule.startTime,
+      endTime: ev.schedule.endTime,
+      scheduleTimezone: ev.schedule.scheduleTimezone,
+    },
+    location: { "@id": `${CANONICAL_HOST}/#museum-stockholm` },
+    organizer: { "@id": `${CANONICAL_HOST}/#organization` },
+    performer: { "@type": "Person", name: ev.performer },
+    offers: {
+      "@type": "Offer",
+      price: String(yogaOffer.price),
+      priceCurrency: STOCKHOLM_CURRENCY,
+      url,
+      availability: "https://schema.org/InStock",
+    },
+  };
+}
+
 function buildStockholmVenueSchema(ctx: SchemaPageContext): { "@context": string; "@graph": object[] } {
   const inLang = languageToHreflangAttribute(ctx.language);
   const museumDescription = stockholmMuseumDescription(ctx.language);
@@ -234,7 +310,26 @@ function buildStockholmVenueSchema(ctx: SchemaPageContext): { "@context": string
       address: STOCKHOLM_ADDRESS,
       geo: STOCKHOLM_GEO,
       openingHoursSpecification: STOCKHOLM_OPENING_HOURS,
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: STOCKHOLM_RATING.ratingValue,
+        reviewCount: String(STOCKHOLM_RATING.reviewCount),
+        bestRating: STOCKHOLM_RATING.bestRating,
+      },
+      review: STOCKHOLM_FEATURED_REVIEWS.map((r) => ({
+        "@type": "Review",
+        author: { "@type": "Person", name: r.author },
+        datePublished: r.datePublished,
+        reviewBody: r.quote,
+        reviewRating: {
+          "@type": "Rating",
+          ratingValue: r.ratingValue,
+          bestRating: "5",
+        },
+      })),
+      offers: stockholmOffers(ctx.language),
     },
+    artYogaEventNode(ctx.language),
     logoNode(),
   ];
   return { "@context": "https://schema.org", "@graph": graph };

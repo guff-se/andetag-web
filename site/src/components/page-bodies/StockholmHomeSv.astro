@@ -17,6 +17,11 @@ import { andrumLookingBody, andrumMeditationBody } from "../../lib/content/stock
 import { stockholmMarketingGalleryHome } from "../../lib/content/stockholm-marketing-gallery";
 import { stockholmTestimonialAggregateSv } from "../../lib/content/stockholm-testimonial-aggregate";
 import { stockholmMarketingFaqSv } from "../../lib/page-registry/stockholm-marketing-faq-sv";
+import {
+  STOCKHOLM_TICKETS,
+  STOCKHOLM_SEASON_PASS,
+  STOCKHOLM_DAYTIME_WINDOW,
+} from "../../lib/content/stockholm-offers";
 
 /**
  * Swedish Stockholm home: body from `site-html/index.html`
@@ -57,15 +62,19 @@ const biljetterIntroHtml = [
   "<p>Vi använder tidsbokning för att se till att inte för många anländer samtidigt. Platserna fylls snabbt, så se till att boka i tid.</p>",
 ].join("");
 
+const _r = STOCKHOLM_TICKETS.find((t) => t.id === "regular")!;
+const _ss = STOCKHOLM_TICKETS.find((t) => t.id === "student-senior")!;
+const _y = STOCKHOLM_TICKETS.find((t) => t.id === "youth")!;
+
 const homePriceFrameHtml = [
-  "<p><strong>Ordinarie biljett:</strong> 240 kr (190 kr dagtid)</p>",
-  "<p><strong>Student/pensionär:</strong> 200 kr (150 kr dagtid)</p>",
-  "<p><strong>Ungdom (8-17 år):</strong> 125 kr</p>",
-  "<p>Dagtidspris gäller vardagar 12.00 – 17.00</p>",
+  `<p><strong>${_r.nameSv}:</strong> ${_r.price} kr (${_r.daytimePrice} kr dagtid)</p>`,
+  `<p><strong>${_ss.nameSv}:</strong> ${_ss.price} kr (${_ss.daytimePrice} kr dagtid)</p>`,
+  `<p><strong>${_y.nameSv}:</strong> ${_y.price} kr</p>`,
+  `<p>Dagtidspris g\u00e4ller ${STOCKHOLM_DAYTIME_WINDOW.descriptionSv}</p>`,
 ].join("");
 
 const seasonMarkdown = [
-  "<p>Vill du göra <span class=\"brand-wordmark\">ANDETAG</span> till en vana? Vi har många besökare som gjort det till sin veckorutin att ta ett <span class=\"brand-wordmark\">ANDETAG</span>.<br />För 950 kr får du fri tillgång till upplevelsen i 6 månader.</p>",
+  `<p>Vill du g\u00f6ra <span class="brand-wordmark">ANDETAG</span> till en vana? Vi har m\u00e5nga bes\u00f6kare som gjort det till sin veckorutin att ta ett <span class="brand-wordmark">ANDETAG</span>.<br />F\u00f6r ${STOCKHOLM_SEASON_PASS.price} kr f\u00e5r du fri tillg\u00e5ng till upplevelsen i ${STOCKHOLM_SEASON_PASS.durationMonths} m\u00e5nader.</p>`,
   '<p><a href="/sv/stockholm/sasongskort/">Säsongskort</a> säljs i kassan. Om du visar din biljett får du dessutom avdrag på säsongskortet.</p>',
 ].join("");
 
@@ -80,23 +89,12 @@ const artYogaMarkdown = [
   "<p>Klassen är öppen för både nybörjare och erfarna yogautövare.<br />Inga förkunskaper krävs.</p>",
 ].join("");
 
-const testimonialItems = [
-  {
-    quote:
-      "The installation is incredibly immersive, with light, sound and textile art blending into a unique experience. It invites you to slow down, breathe and simply be present. Truly one of a kind.",
-    author: "Edwin",
-  },
-  {
-    quote:
-      "A calming and meditative experience that feels like a deep breath for the whole body. The movement of light and color creates a soothing atmosphere. You leave feeling grounded, rested and quietly moved.",
-    author: "Therese",
-  },
-  {
-    quote:
-      "The artwork is stunning, with intricate textures and glowing fibers that feel alive. The experience engages many senses at once, creating a rare sense of wonder. Beautiful, thoughtful and unforgettable.",
-    author: "Gabrielle",
-  },
-] as const;
+import { STOCKHOLM_FEATURED_REVIEWS } from "../../lib/content/stockholm-reviews";
+
+const testimonialItems = STOCKHOLM_FEATURED_REVIEWS.map((r) => ({
+  quote: r.quote,
+  author: r.author,
+}));
 
 const partners = [
   {

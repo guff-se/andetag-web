@@ -109,15 +109,7 @@ export function isHeroCoverResponsive(
 
 ### 7. ~~Documentation contradicts implementation on CMP vendor~~ FIXED
 
-**Files:**
-- `docs/grand-plan.md` (Integrations and Compliance, Resolved inputs): says **CookieYes**
-- `docs/url-migration-policy.md` (cookie consent rows): says **CookieYes**
-- `docs/tracking-and-consent-requirements.md`: inherits CookieYes from grand-plan
-- Actual implementation and `docs/decisions/0002-consent-platform-selection.md`: **Termly**
-
-**What:** Three docs still name CookieYes as the chosen CMP. The implemented CMP is Termly. New contributors (human or AI) reading the grand plan will get the wrong vendor.
-
-**Fix:** Update all CookieYes references to Termly (or vendor-neutral "CMP") in `grand-plan.md`, `url-migration-policy.md`, and `tracking-and-consent-requirements.md`. Keep CookieYes only as historical context where the ADR documents the evaluation.
+**Resolution (2026-04-08 onward):** Production uses **CookieConsent** (self-hosted). **`docs/decisions/0002-consent-platform-selection.md`**, **`docs/grand-plan.md`**, **`docs/tracking-and-consent-requirements.md`**, and **`docs/url-migration-policy.md`** are aligned on CookieConsent. **Termly is not used** (no scripts, subscription, or dashboard dependency).
 
 ---
 

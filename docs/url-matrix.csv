@@ -65,6 +65,8 @@ https://www.andetag.museum/en/berlin-en/,https://www.andetag.museum/en/berlin/,e
 https://www.andetag.museum/en/stockholm/art-yoga-en/,https://www.andetag.museum/en/stockholm/art-yoga/,en,stockholm,content,redirect,301,legacy alias per URL migration policy
 https://www.andetag.museum/en/about-andetag/,https://www.andetag.museum/en/stockholm/about-andetag/,en,stockholm,content,redirect,301,location-scoped story URL
 https://www.andetag.museum/en/about-the-artists-malin-gustaf-tadaa/,https://www.andetag.museum/en/stockholm/about-the-artists-malin-gustaf-tadaa/,en,stockholm,content,redirect,301,location-scoped story URL
+https://www.andetag.museum/en/artists-malin-gustaf-tadaa/,https://www.andetag.museum/en/stockholm/about-the-artists-malin-gustaf-tadaa/,en,stockholm,content,redirect,301,GSC legacy slug variant
+https://www.andetag.museum/en/giftcard/,https://www.andetag.museum/en/stockholm/giftcard/,en,stockholm,content,redirect,301,legacy English global URL (P8-08 GSC cross-ref)
 https://www.andetag.museum/en/music/,https://www.andetag.museum/en/stockholm/music/,en,stockholm,content,redirect,301,location-scoped story URL
 https://www.andetag.museum/en/optical-fibre-textile/,https://www.andetag.museum/en/stockholm/optical-fibre-textile/,en,stockholm,content,redirect,301,location-scoped story URL
 https://www.andetag.museum/de/ueber-andetag/,https://www.andetag.museum/de/berlin/ueber-andetag/,de,berlin,content,redirect,301,location-scoped German story URL
@@ -79,8 +81,11 @@ https://www.andetag.museum/musik/,https://www.andetag.museum/sv/stockholm/musik/
 https://www.andetag.museum/om-andetag/,https://www.andetag.museum/sv/stockholm/om-andetag/,sv,stockholm,content,redirect,301,legacy unprefixed Swedish URL
 https://www.andetag.museum/om-konstnarerna-malin-gustaf-tadaa/,https://www.andetag.museum/sv/stockholm/om-konstnarerna-malin-gustaf-tadaa/,sv,stockholm,content,redirect,301,legacy unprefixed Swedish URL
 https://www.andetag.museum/optisk-fibertextil/,https://www.andetag.museum/sv/stockholm/optisk-fibertextil/,sv,stockholm,content,redirect,301,legacy unprefixed Swedish URL
+https://www.andetag.museum/presentkort/,https://www.andetag.museum/sv/stockholm/presentkort/,sv,stockholm,content,redirect,301,legacy unprefixed Swedish URL (P8-08 GSC cross-ref)
+https://www.andetag.museum/music/,https://www.andetag.museum/en/stockholm/music/,en,stockholm,content,redirect,301,legacy unprefixed English URL (P8-08 GSC cross-ref)
 https://www.andetag.museum/privacy-policy/,https://www.andetag.museum/sv/stockholm/privacy/,sv,stockholm,content,redirect,301,legacy privacy alias
 https://www.andetag.museum/privacy/,https://www.andetag.museum/sv/stockholm/privacy/,sv,stockholm,content,redirect,301,legacy single privacy URL
 https://www.andetag.museum/,https://www.andetag.museum/sv/stockholm/,sv,stockholm,content,redirect,301,legacy unprefixed Swedish URL
 https://www.andetag.museum/stockholm/aktivitet-inomhus-stockholm/,https://www.andetag.museum/sv/stockholm/aktivitet-inomhus-stockholm/,sv,stockholm,content,redirect,301,legacy unprefixed Swedish URL; use _redirects stockholm splat rule
+https://www.andetag.museum/stockholm/faq/,https://www.andetag.museum/sv/stockholm/fragor-svar/,sv,stockholm,content,redirect,301,slug mismatch: legacy faq → fragor-svar (P8-08 GSC cross-ref)
 https://www.andetag.museum/stockholm/*,https://www.andetag.museum/sv/stockholm/:splat,sv,stockholm,content,redirect,301,legacy unprefixed Swedish URLs; Cloudflare splat
