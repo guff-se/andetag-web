@@ -1,12 +1,9 @@
 # Lychee loads this automatically from the repo root (same cwd as CI).
 #
-# Trustpilot and G2 often answer automated checks with HTTP 403 (bot protection).
-# Concord has returned HTTP 429 under burst checks from GitHub Actions. The URLs
-# remain valid for human readers in vendor research docs; excluding them avoids
-# flaky CI without weakening checks on first-party or cooperative origins.
+# docs/archive/ holds closed-phase notes and frozen research snapshots with many
+# third-party URLs. Skipping the tree keeps CI focused on active docs and avoids
+# flaky failures (bot blocking, rate limits) on sites we do not control.
 
-exclude = [
-  '^https://www\.trustpilot\.com/',
-  '^https://www\.g2\.com/',
-  '^https://concord\.tech/',
+exclude_path = [
+  '(\\./)?docs/archive/',
 ]

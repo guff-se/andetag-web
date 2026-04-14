@@ -83,15 +83,15 @@ Assumptions for comparability:
 - Need for multilingual support and Google Ads-compatible consent handling.
 
 
-| Provider        | Public plan/pricing input                                                                                                 | Cost estimate for current baseline                                               | Notes                                                                                                                                                                                           |
-| --------------- | ------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Cookiebot       | Premium Medium: `EUR 30` per domain/month for accounts with fewer than four domains and up to 3,500 subpages              | `~EUR 30/month`                                                                  | Pricing is subpage-based, not pageview-based. Source below is a Cookiebot partner listing because the official Cookiebot pricing page returned `403` from this environment during this session. |
-| iubenda         | Advanced: `EUR 21.99/month` (monthly billing) with 50,000 included page views, plus `EUR 0.05` per 1,000 extra page views | `~EUR 22.49/month` at 60,000 page views/month                                    | Overage estimate: 10,000 extra page views => `EUR 0.50`.                                                                                                                                        |
-| Osano           | Plus: `USD 199/month` includes 30,000 monthly visitors                                                                    | `>= USD 199/month`, likely higher at current baseline if visitor cap is exceeded | Higher tiers are listed as custom pricing on the same page.                                                                                                                                     |
-| CookieYes       | Basic: `$10/month` per domain with 100,000 pageviews included                                                             | `~$10/month`                                                                     | Includes Google Consent Mode v2 and is positioned as Google Certified CMP on pricing/features pages.                                                                                            |
-| Commercial SaaS CMP (example) | Mid-tier Pro+ style plans from public US vendor pricing (2026 snapshot) | `~USD 15–20/month` site-equivalent | Used only as a cost anchor in research; **not** the implemented CMS. |
-| CookieScript    | Standard: `EUR 7/month`, Plus: `EUR 9/month` (annual subscription terms shown)                                            | `~EUR 7-9/month`                                                                 | Very low-cost options with Consent Mode support, lower assurance posture in this analysis than top choices for Ads-heavy operations.                                                            |
-| Custom in-house | No vendor fee                                                                                                             | No reliable fixed monthly amount                                                 | Under AI-assisted delivery, engineering cost is significantly reduced, but legal validation, policy updates, and audit operations remain required.                                              |
+| Provider                      | Public plan/pricing input                                                                                                 | Cost estimate for current baseline                                               | Notes                                                                                                                                                                                           |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Cookiebot                     | Premium Medium: `EUR 30` per domain/month for accounts with fewer than four domains and up to 3,500 subpages              | `~EUR 30/month`                                                                  | Pricing is subpage-based, not pageview-based. Source below is a Cookiebot partner listing because the official Cookiebot pricing page returned `403` from this environment during this session. |
+| iubenda                       | Advanced: `EUR 21.99/month` (monthly billing) with 50,000 included page views, plus `EUR 0.05` per 1,000 extra page views | `~EUR 22.49/month` at 60,000 page views/month                                    | Overage estimate: 10,000 extra page views => `EUR 0.50`.                                                                                                                                        |
+| Osano                         | Plus: `USD 199/month` includes 30,000 monthly visitors                                                                    | `>= USD 199/month`, likely higher at current baseline if visitor cap is exceeded | Higher tiers are listed as custom pricing on the same page.                                                                                                                                     |
+| CookieYes                     | Basic: `$10/month` per domain with 100,000 pageviews included                                                             | `~$10/month`                                                                     | Includes Google Consent Mode v2 and is positioned as Google Certified CMP on pricing/features pages.                                                                                            |
+| Commercial SaaS CMP (example) | Mid-tier Pro+ style plans from public US vendor pricing (2026 snapshot)                                                   | `~USD 15–20/month` site-equivalent                                               | Used only as a cost anchor in research; **not** the implemented CMS.                                                                                                                            |
+| CookieScript                  | Standard: `EUR 7/month`, Plus: `EUR 9/month` (annual subscription terms shown)                                            | `~EUR 7-9/month`                                                                 | Very low-cost options with Consent Mode support, lower assurance posture in this analysis than top choices for Ads-heavy operations.                                                            |
+| Custom in-house               | No vendor fee                                                                                                             | No reliable fixed monthly amount                                                 | Under AI-assisted delivery, engineering cost is significantly reduced, but legal validation, policy updates, and audit operations remain required.                                              |
 
 
 Pricing sources used in this document:
@@ -109,11 +109,11 @@ Baseline for comparison:
 Alternatives reviewed:
 
 
-| Provider     | Public pricing (as observed)                                                   | Estimated monthly cost at ~60k PV          | Consent Mode v2 support | Ads-signal reliability view | Notes                                                                                                            |
-| ------------ | ------------------------------------------------------------------------------ | ------------------------------------------ | ----------------------- | --------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| CookieYes    | Basic: `$10/month` per domain with 100,000 pageviews included                  | `~$10/month`                               | Yes                     | High                        | Google Consent Mode v2 and Google Certified CMP are listed on pricing/features.                                  |
-| Commercial SaaS CMP (example) | Mid-tier Pro+ style plans (2026 snapshot) | `~USD 15–20/month` | Yes (typical Pro+) | Medium-high | Research-only row; **not** the live stack. |
-| CookieScript | Standard: `EUR 7/month`, Plus: `EUR 9/month` (annual subscription terms shown) | `~EUR 7-9/month`                           | Yes                     | Medium                      | Very low cost, but lower confidence than top options for Ads-heavy operations due to platform assurance posture. |
+| Provider                      | Public pricing (as observed)                                                   | Estimated monthly cost at ~60k PV | Consent Mode v2 support | Ads-signal reliability view | Notes                                                                                                            |
+| ----------------------------- | ------------------------------------------------------------------------------ | --------------------------------- | ----------------------- | --------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| CookieYes                     | Basic: `$10/month` per domain with 100,000 pageviews included                  | `~$10/month`                      | Yes                     | High                        | Google Consent Mode v2 and Google Certified CMP are listed on pricing/features.                                  |
+| Commercial SaaS CMP (example) | Mid-tier Pro+ style plans (2026 snapshot)                                      | `~USD 15–20/month`                | Yes (typical Pro+)      | Medium-high                 | Research-only row; **not** the live stack.                                                                       |
+| CookieScript                  | Standard: `EUR 7/month`, Plus: `EUR 9/month` (annual subscription terms shown) | `~EUR 7-9/month`                  | Yes                     | Medium                      | Very low cost, but lower confidence than top options for Ads-heavy operations due to platform assurance posture. |
 
 
 Sources for additional alternatives:
@@ -128,15 +128,15 @@ Additional alternatives recommendation:
 
 
 | Criteria                                           | Weight  | Cookiebot | iubenda  | Osano    | CookieYes | Commercial CMP (research) | CookieScript | Custom   |
-| -------------------------------------------------- | ------- | --------- | -------- | -------- | --------- | -------- | ------------ | -------- |
-| Category-based prior blocking                      | 20      | 5         | 5        | 5        | 5         | 4        | 4            | 4        |
-| GTM integration simplicity                         | 15      | 5         | 4        | 4        | 5         | 4        | 4            | 4        |
-| Google Ads + Consent Mode v2 operational readiness | 25      | 4         | 5        | 5        | 5         | 4        | 3            | 3        |
-| Multilingual UX support                            | 10      | 4         | 5        | 4        | 4         | 4        | 4            | 4        |
-| Audit logs and consent proof                       | 10      | 4         | 4        | 5        | 3         | 3        | 3            | 4        |
-| Static-site implementation speed                   | 10      | 5         | 4        | 3        | 5         | 4        | 4            | 4        |
-| Relative total cost of ownership                   | 10      | 3         | 4        | 2        | 5         | 4        | 5            | 5        |
-| **Weighted total (/5)**                            | **100** | **4.35**  | **4.55** | **4.25** | **4.70**  | **3.90** | **3.75**     | **3.85** |
+| -------------------------------------------------- | ------- | --------- | -------- | -------- | --------- | ------------------------- | ------------ | -------- |
+| Category-based prior blocking                      | 20      | 5         | 5        | 5        | 5         | 4                         | 4            | 4        |
+| GTM integration simplicity                         | 15      | 5         | 4        | 4        | 5         | 4                         | 4            | 4        |
+| Google Ads + Consent Mode v2 operational readiness | 25      | 4         | 5        | 5        | 5         | 4                         | 3            | 3        |
+| Multilingual UX support                            | 10      | 4         | 5        | 4        | 4         | 4                         | 4            | 4        |
+| Audit logs and consent proof                       | 10      | 4         | 4        | 5        | 3         | 3                         | 3            | 4        |
+| Static-site implementation speed                   | 10      | 5         | 4        | 3        | 5         | 4                         | 4            | 4        |
+| Relative total cost of ownership                   | 10      | 3         | 4        | 2        | 5         | 4                         | 5            | 5        |
+| **Weighted total (/5)**                            | **100** | **4.35**  | **4.55** | **4.25** | **4.70**  | **3.90**                  | **3.75**     | **3.85** |
 
 
 Recommendation from matrix:
@@ -150,7 +150,7 @@ Decision note for this project:
 
 - **Implemented CMP:** **CookieConsent** (see **Decision**).
 - Historical matrix primary: **CookieYes** (superseded for embed; retained in tables below for comparison).
-- Keep **`iubenda`** as fallback reference if alternative testing reveals unacceptable Ads signal loss or GTM gating complexity.
+- Keep **iubenda** as fallback reference if alternative testing reveals unacceptable Ads signal loss or GTM gating complexity.
 
 ## Historical material
 
