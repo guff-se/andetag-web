@@ -39,6 +39,10 @@
 /privacy-policy/ /sv/stockholm/privacy/ 301
 /privacy/ /sv/stockholm/privacy/ 301
 
+# Legacy WordPress path served only on archive host
+/display https://old.andetag.museum/display/ 301
+/display/ https://old.andetag.museum/display/ 301
+
 # Explicit overrides where splat target slug differs from legacy slug
 /stockholm/faq/ /sv/stockholm/fragor-svar/ 301
 

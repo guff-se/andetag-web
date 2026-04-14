@@ -143,6 +143,7 @@ Update `docs/Andetag SEO Manual.md` and hreflang examples when **`/sv/stockholm/
 
 - **Stockholm Swedish** content lives under **`/sv/stockholm/...`** (home **`/sv/stockholm/`**, trailing slash), **including** the four story topics (music, about ANDETAG, artists, optical fibre textile) at **`/sv/stockholm/{slug}/`**.
 - **Legacy** **`/sv/musik/`**-style paths (without **`/stockholm/`**) and **unprefixed** URLs from the live WordPress site (**`/`**, **`/stockholm/...`**, **`/musik/`**, **`/om-andetag/`**, and similar) are **not** canonical: the URL matrix lists them as **`redirect`** rows with **`301`** straight to the matching **`/sv/stockholm/...`** path. Repo rules live in **`site/public/_redirects`**; keep matrix and redirects aligned.
+- **Rare legacy paths** that are not rebuilt on **`www`** but remain on the WordPress archive host use a **`301`** to **`https://old.andetag.museum/...`** (same path where applicable), listed in **`docs/url-matrix.csv`** and **`site/public/_redirects`**. Example: **`/display/`** → **`https://old.andetag.museum/display/`**.
 
 Canonical Swedish Stockholm **home:** **`/sv/stockholm/`**.
 
