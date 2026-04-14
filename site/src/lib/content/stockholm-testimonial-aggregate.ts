@@ -2,14 +2,18 @@
  * Locale-specific Tripadvisor summary for the Stockholm testimonial band.
  * Numbers come from `stockholm-reviews.ts` (single source of truth).
  */
-import { STOCKHOLM_RATING, STOCKHOLM_TRIPADVISOR_URL } from "./stockholm-reviews";
+import {
+  STOCKHOLM_RATING,
+  STOCKHOLM_TRIPADVISOR_URL,
+  stockholmTripadvisorRatingCommaDecimal,
+} from "./stockholm-reviews";
 
 export const stockholmTripadvisorReviewsUrl = STOCKHOLM_TRIPADVISOR_URL;
 
 export const stockholmTestimonialAggregateSv = {
   eyebrow: "Besökaromdömen",
-  score: "4,9",
-  scoreCaption: "av 5",
+  score: stockholmTripadvisorRatingCommaDecimal(),
+  scoreCaption: `av ${STOCKHOLM_RATING.bestRating}`,
   meta: `${STOCKHOLM_RATING.reviewCount} recensioner`,
   linkHref: stockholmTripadvisorReviewsUrl,
   linkLabel: "Läs alla recensioner",
@@ -20,7 +24,7 @@ export const stockholmTestimonialAggregateSv = {
 export const stockholmTestimonialAggregateEn = {
   eyebrow: "Visitor reviews",
   score: STOCKHOLM_RATING.ratingValue,
-  scoreCaption: "out of 5",
+  scoreCaption: `out of ${STOCKHOLM_RATING.bestRating}`,
   meta: `${STOCKHOLM_RATING.reviewCount} reviews`,
   linkHref: stockholmTripadvisorReviewsUrl,
   linkLabel: "Read all reviews",
@@ -30,8 +34,8 @@ export const stockholmTestimonialAggregateEn = {
 
 export const stockholmTestimonialAggregateDe = {
   eyebrow: "Besucherbewertungen",
-  score: "4,9",
-  scoreCaption: "von 5",
+  score: stockholmTripadvisorRatingCommaDecimal(),
+  scoreCaption: `von ${STOCKHOLM_RATING.bestRating}`,
   meta: `${STOCKHOLM_RATING.reviewCount} Bewertungen`,
   linkHref: stockholmTripadvisorReviewsUrl,
   linkLabel: "Alle Bewertungen lesen",

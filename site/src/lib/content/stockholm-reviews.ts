@@ -6,7 +6,7 @@
  * to propagate. See Phase 9 skill P9-14 for the maintenance workflow.
  *
  * Source: https://www.tripadvisor.com/Attraction_Review-g189852-d32883203-Reviews-Andetag-Stockholm.html
- * Last verified: 2026-04-12
+ * Last verified: 2026-04-13
  */
 
 export const STOCKHOLM_TRIPADVISOR_URL =
@@ -14,9 +14,17 @@ export const STOCKHOLM_TRIPADVISOR_URL =
 
 export const STOCKHOLM_RATING = {
   ratingValue: "4.9",
-  reviewCount: 165,
+  /** Total reviews on Tripadvisor (aggregateRating reviewCount). */
+  reviewCount: 193,
+  /** Subset rated five stars (on-page stats only; not used in JSON-LD). */
+  fiveStarReviewCount: 179,
   bestRating: "5",
 } as const;
+
+/** Comma decimal for Swedish/German UI (Tripadvisor-style). */
+export function stockholmTripadvisorRatingCommaDecimal(): string {
+  return STOCKHOLM_RATING.ratingValue.replace(".", ",");
+}
 
 export type StockholmReview = {
   author: string;

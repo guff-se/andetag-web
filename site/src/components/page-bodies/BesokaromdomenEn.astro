@@ -1,5 +1,9 @@
 ---
 import ContentSection from "../content/ContentSection.astro";
+import {
+  STOCKHOLM_RATING,
+  STOCKHOLM_TRIPADVISOR_URL,
+} from "../../lib/content/stockholm-reviews";
 
 /**
  * `site-html/en-stockholm-visitor-reviews.html` wp-page **3708**.
@@ -10,9 +14,9 @@ const bodyMarkdown = [
   "<p><span class=\"brand-wordmark\">ANDETAG</span> is an art experience in central Stockholm, frequently reviewed by both local and international visitors.<br />Below is a curated selection of excerpts from Tripadvisor reviews.</p>",
   "<p><strong>Overview</strong></p>",
   "<ul>",
-  "<li><p>165 total reviews</p></li>",
-  "<li><p>152 five-star ratings</p></li>",
-  "<li><p>Average rating: 4.9 / 5</p></li>",
+  `<li><p>${STOCKHOLM_RATING.reviewCount} total reviews</p></li>`,
+  `<li><p>${STOCKHOLM_RATING.fiveStarReviewCount} five-star ratings</p></li>`,
+  `<li><p>Average rating: ${STOCKHOLM_RATING.ratingValue} / ${STOCKHOLM_RATING.bestRating}</p></li>`,
   "<li><p>Top ranked art museum in Stockholm on TripAdvisor</p></li>",
   "</ul>",
   "<hr />",
@@ -34,7 +38,7 @@ const bodyMarkdown = [
   "</ul>",
   "<hr />",
   "<h3>Read more reviews</h3>",
-  "<ul><li>Link to <a href=\"https://www.tripadvisor.com/Attraction_Review-g189852-d32883203-Reviews-Andetag-Stockholm.html\" target=\"_blank\" rel=\"noopener noreferrer\"><span class=\"brand-wordmark\">ANDETAG</span> on Tripadvisor</a></li></ul>",
+  `<ul><li>Link to <a href="${STOCKHOLM_TRIPADVISOR_URL}" target="_blank" rel="noopener noreferrer"><span class="brand-wordmark">ANDETAG</span> on Tripadvisor</a></li></ul>`,
   "<hr />",
   "<h3>Related pages</h3>",
   "<ul>",
