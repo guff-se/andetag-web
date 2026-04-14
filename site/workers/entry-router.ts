@@ -44,6 +44,23 @@ function normalizeEnPath(pathname: string, search: string): Response | null {
   return null;
 }
 
+/** Language-only roots → default location home (`301`, query preserved). */
+function normalizeDeSvRoots(pathname: string, search: string): Response | null {
+  if (pathname === "/de") {
+    return new Response(null, {
+      status: 301,
+      headers: { Location: `/de/berlin/${search}` },
+    });
+  }
+  if (pathname === "/sv" || pathname === "/sv/") {
+    return new Response(null, {
+      status: 301,
+      headers: { Location: `/sv/stockholm/${search}` },
+    });
+  }
+  return null;
+}
+
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
@@ -57,6 +74,9 @@ export default {
 
     const enNorm = normalizeEnPath(url.pathname, url.search);
     if (enNorm) return enNorm;
+
+    const deSvNorm = normalizeDeSvRoots(url.pathname, url.search);
+    if (deSvNorm) return deSvNorm;
 
     if (url.pathname === "/" || url.pathname === "") {
       const d = decideRootRouting({

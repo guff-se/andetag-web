@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ANDETAG Alt Text Review</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { font-family: system-ui, -apple-system, sans-serif; max-width: 1200px; margin: 0 auto; padding: 2rem; background: #111; color: #e0e0e0; line-height: 1.5; }
+  h1 { color: #fff; border-bottom: 1px solid #333; padding-bottom: .5rem; }
+  h2 { color: #ccc; margin-top: 3rem; border-bottom: 1px solid #222; padding-bottom: .3rem; }
+  h3 { color: #aaa; margin-top: 2rem; }
+  .status-ok { color: #6c6; }
+  .status-fix { color: #e66; font-weight: bold; }
+  .card { background: #1a1a1a; border: 1px solid #333; border-radius: 8px; margin: 1rem 0; overflow: hidden; }
+  .card-header { padding: .75rem 1rem; background: #222; display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; }
+  .card-header code { font-size: .8rem; color: #aaa; word-break: break-all; }
+  .card-body { display: flex; gap: 1.5rem; padding: 1rem; flex-wrap: wrap; }
+  .card-img { flex: 0 0 auto; max-width: 320px; }
+  .card-img img { width: 100%; height: auto; border-radius: 4px; cursor: pointer; background: #000; }
+  .card-info { flex: 1; min-width: 280px; }
+  .card-info table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+  .card-info td { padding: .3rem .5rem; border-bottom: 1px solid #222; vertical-align: top; }
+  .card-info td:first-child { color: #888; white-space: nowrap; width: 100px; }
+  .current-alt { color: #e88; }
+  .suggested-alt { color: #8e8; }
+  .arrow { color: #666; }
+  a { color: #8af; }
+  .section-note { background: #1a2a1a; border-left: 3px solid #6c6; padding: .5rem 1rem; margin: 1rem 0; border-radius: 0 4px 4px 0; }
+  .section-warn { background: #2a1a1a; border-left: 3px solid #e66; padding: .5rem 1rem; margin: 1rem 0; border-radius: 0 4px 4px 0; }
+  .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; margin: 1rem 0; }
+  .gallery-card { background: #1a1a1a; border: 1px solid #333; border-radius: 8px; overflow: hidden; }
+  .gallery-card img { width: 100%; aspect-ratio: 4/3; object-fit: cover; cursor: pointer; background: #000; }
+  .gallery-card .info { padding: .75rem; font-size: .8rem; }
+  .gallery-card .info .label { color: #888; }
+  .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.92); z-index: 100; justify-content: center; align-items: center; cursor: zoom-out; }
+  .lightbox.active { display: flex; }
+  .lightbox img { max-width: 95vw; max-height: 95vh; object-fit: contain; }
+</style>
+</head>
+<body>
+
+<h1>ANDETAG Alt Text Review</h1>
+<p>Click any image to see it full-size. Images are loaded from <code>site/public/</code>.</p>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lb" onclick="this.classList.remove('active')">
+  <img id="lb-img" src="" alt="">
+</div>
+
+<!-- ================================================ -->
+<h2>Section 6: Empty alt on content images <span class="status-fix">NEEDS FIX</span></h2>
+<p class="section-warn">These are real content images with <code>alt=""</code>. Each needs a descriptive alt.</p>
+
+<!-- 6a -->
+<h3>6a. Date page illustration</h3>
+<div class="card">
+  <div class="card-header">
+    <code>date1-copy-e1769692334982.jpeg</code>
+    <span class="status-fix">FIX</span>
+  </div>
+  <div class="card-body">
+    <div class="card-img">
+      <img src="../site/public/wp-content/uploads/2026/01/date1-copy-e1769692334982.jpeg" onclick="openLb(this)" alt="date page illustration">
+    </div>
+    <div class="card-info">
+      <table>
+        <tr><td>Used in</td><td>DejtSv.astro, DejtEn.astro</td></tr>
+        <tr><td>Current</td><td class="current-alt"><em>(empty)</em></td></tr>
+        <tr><td>Suggested sv</td><td class="suggested-alt">Par som sitter tillsammans i ljuset på ANDETAG</td></tr>
+        <tr><td>Suggested en</td><td class="suggested-alt">Couple sitting together in the light at ANDETAG</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- 6b -->
+<h3>6b. Artists page lead aside</h3>
+<div class="card">
+  <div class="card-header">
+    <code>ANDETAG-Art-Week-Opening-2-photo-by-Gustaf-Tadaa-1024x683.jpg</code>
+    <span class="status-fix">FIX</span>
+  </div>
+  <div class="card-body">
+    <div class="card-img">
+      <img src="../site/public/wp-content/uploads/2025/04/ANDETAG-Art-Week-Opening-2-photo-by-Gustaf-Tadaa-1024x683.jpg" onclick="openLb(this)" alt="Art Week opening">
+    </div>
+    <div class="card-info">
+      <table>
+        <tr><td>Used in</td><td>OmKonstnarernaSv, OmKonstnarernaEn, DieKuenstlerDe</td></tr>
+        <tr><td>Current</td><td class="current-alt"><em>(empty)</em></td></tr>
+        <tr><td>Suggested sv</td><td class="suggested-alt">Besökare i ANDETAG under Art Week-invigningen</td></tr>
+        <tr><td>Suggested en</td><td class="suggested-alt">Visitors at ANDETAG during the Art Week opening</td></tr>
+        <tr><td>Suggested de</td><td class="suggested-alt">Besucher in ANDETAG bei der Eröffnung der Art Week</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- 6c -->
+<h3>6c. Optical fibre textile: Malin weaving (first image)</h3>
+<div class="card">
+  <div class="card-header">
+    <code>malin-vaver-768x1024.jpg</code>
+    <span class="status-fix">FIX</span>
+  </div>
+  <div class="card-body">
+    <div class="card-img">
+      <img src="../site/public/wp-content/uploads/2026/02/malin-vaver-768x1024.jpg" onclick="openLb(this)" alt="malin weaving">
+    </div>
+    <div class="card-info">
+      <table>
+        <tr><td>Used in</td><td>OptiskFibertextilSv, OpticalFibreTextileEn, OptischeFasertextilDe</td></tr>
+        <tr><td>Current</td><td class="current-alt"><em>(empty)</em></td></tr>
+        <tr><td>Suggested sv</td><td class="suggested-alt">Malin Tadaa vid jacquardvävstolen, väver optisk fibertextil</td></tr>
+        <tr><td>Suggested en</td><td class="suggested-alt">Malin Tadaa at the jacquard loom, weaving optical fibre textile</td></tr>
+        <tr><td>Suggested de</td><td class="suggested-alt">Malin Tadaa am Jacquard-Webstuhl beim Weben von optischem Fasertextil</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- 6d -->
+<h3>6d. Optical fibre textile: second image</h3>
+<div class="card">
+  <div class="card-header">
+    <code>malin-vaver2-768x1024.jpg</code>
+    <span class="status-fix">FIX</span>
+  </div>
+  <div class="card-body">
+    <div class="card-img">
+      <img src="../site/public/wp-content/uploads/2026/02/malin-vaver2-768x1024.jpg" onclick="openLb(this)" alt="malin weaving 2">
+    </div>
+    <div class="card-info">
+      <table>
+        <tr><td>Used in</td><td>OptiskFibertextilSv, OpticalFibreTextileEn, OptischeFasertextilDe</td></tr>
+        <tr><td>Current</td><td class="current-alt"><em>(empty)</em></td></tr>
+        <tr><td>Suggested sv</td><td class="suggested-alt">Närbild av handvävd optisk fibertextil som lyser inifrån</td></tr>
+        <tr><td>Suggested en</td><td class="suggested-alt">Close-up of hand-woven optical fibre textile glowing from within</td></tr>
+        <tr><td>Suggested de</td><td class="suggested-alt">Nahaufnahme von handgewebtem optischem Fasertextil, das von innen leuchtet</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- 6e -->
+<h3>6e. "What kind of experience" hero image</h3>
+<div class="card">
+  <div class="card-header">
+    <code>TADAA-LONG-V1.00_07_24_06.Still008-2-1024x576.jpg</code>
+    <span class="status-fix">FIX</span>
+  </div>
+  <div class="card-body">
+    <div class="card-img">
+      <img src="../site/public/wp-content/uploads/2026/01/TADAA-LONG-V1.00_07_24_06.Still008-2-1024x576.jpg" onclick="openLb(this)" alt="vilken typ hero">
+    </div>
+    <div class="card-info">
+      <table>
+        <tr><td>Used in</td><td>VilkenTypAvUpplevelseSv, VilkenTypAvUpplevelseEn</td></tr>
+        <tr><td>Current</td><td class="current-alt"><em>(empty)</em></td></tr>
+        <tr><td>Suggested sv</td><td class="suggested-alt">Lysande textilkonstverk i andningsrummet på ANDETAG</td></tr>
+        <tr><td>Suggested en</td><td class="suggested-alt">Glowing textile artwork in the breathing room at ANDETAG</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================ -->
+<h2>Section 7: Gallery images <span class="status-fix">NEEDS REWRITE</span></h2>
+<p class="section-warn">Current alts are keyword-stuffed search queries, not image descriptions. Each needs a rewrite based on what the photo actually shows.</p>
+
+<div class="gallery-grid">
+
+  <div class="gallery-card">
+    <img src="../site/public/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-6074-scaled.jpg" onclick="openLb(this)" alt="gallery 1">
+    <div class="info">
+      <div><strong>#1</strong> TERRAN-6074</div>
+      <div class="label">Current:</div>
+      <div class="current-alt">fine art stockholm</div>
+      <div class="label">Suggested:</div>
+      <div class="suggested-alt">Glowing optical fibre textile close-up at ANDETAG</div>
+    </div>
+  </div>
+
+  <div class="gallery-card">
+    <img src="../site/public/wp-content/uploads/2024/11/Andetag-13-35-copy-2.jpg" onclick="openLb(this)" alt="gallery 2">
+    <div class="info">
+      <div><strong>#2</strong> Andetag-13-35</div>
+      <div class="label">Current:</div>
+      <div class="current-alt">optical fiber art textile installation</div>
+      <div class="label">Suggested:</div>
+      <div class="suggested-alt">Visitor sitting among woven light artworks</div>
+    </div>
+  </div>
+
+  <div class="gallery-card">
+    <img src="../site/public/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-5983-scaled.jpg" onclick="openLb(this)" alt="gallery 3">
+    <div class="info">
+      <div><strong>#3</strong> TERRAN-5983</div>
+      <div class="label">Current:</div>
+      <div class="current-alt">a perfect place for a date in stockholm</div>
+      <div class="label">Suggested:</div>
+      <div class="suggested-alt">Two people resting on cushions in the breathing room</div>
+    </div>
+  </div>
+
+  <div class="gallery-card">
+    <img src="../site/public/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-6038-scaled.jpg" onclick="openLb(this)" alt="gallery 4">
+    <div class="info">
+      <div><strong>#4</strong> TERRAN-6038</div>
+      <div class="label">Current:</div>
+      <div class="current-alt">calm down in stockholm</div>
+      <div class="label">Suggested:</div>
+      <div class="suggested-alt">Soft light shifting across textile surfaces</div>
+    </div>
+  </div>
+
+  <div class="gallery-card">
+    <img src="../site/public/wp-content/uploads/2024/11/Andetag-10-53-copy-2.jpg" onclick="openLb(this)" alt="gallery 5">
+    <div class="info">
+      <div><strong>#5</strong> Andetag-10-53</div>
+      <div class="label">Current:</div>
+      <div class="current-alt">unique light art stockholm</div>
+      <div class="label">Suggested:</div>
+      <div class="suggested-alt">Blue and amber light patterns in woven fabric</div>
+    </div>
+  </div>
+
+  <div class="gallery-card">
+    <img src="../site/public/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-59311-scaled.jpg" onclick="openLb(this)" alt="gallery 6">
+    <div class="info">
+      <div><strong>#6</strong> TERRAN-59311</div>
+      <div class="label">Current:</div>
+      <div class="current-alt">a meditative experience in stockholm</div>
+      <div class="label">Suggested:</div>
+      <div class="suggested-alt">Visitor lying down surrounded by breathing light</div>
+    </div>
+  </div>
+
+  <div class="gallery-card">
+    <img src="../site/public/wp-content/uploads/2024/11/Andetag-19-508-copy.jpg" onclick="openLb(this)" alt="gallery 7">
+    <div class="info">
+      <div><strong>#7</strong> Andetag-19-508</div>
+      <div class="label">Current:</div>
+      <div class="current-alt">mindfulness exhibition stockholm</div>
+      <div class="label">Suggested:</div>
+      <div class="suggested-alt">Overview of the exhibition space with glowing walls</div>
+    </div>
+  </div>
+
+  <div class="gallery-card">
+    <img src="../site/public/wp-content/uploads/2024/11/Andetag-10-69-copy.jpg" onclick="openLb(this)" alt="gallery 8">
+    <div class="info">
+      <div><strong>#8</strong> Andetag-10-69</div>
+      <div class="label">Current:</div>
+      <div class="current-alt">things to do in stockholm</div>
+      <div class="label">Suggested:</div>
+      <div class="suggested-alt">Detail of optical fibres glowing in textile weave</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ================================================ -->
+<h2>Section 9: Shared body aside <span class="status-fix">NEEDS FIX</span></h2>
+
+<div class="card">
+  <div class="card-header">
+    <code>Andetag-18-058-copy2-1024x683.jpg</code>
+    <span class="status-fix">FIX</span>
+  </div>
+  <div class="card-body">
+    <div class="card-img">
+      <img src="../site/public/wp-content/uploads/2024/11/Andetag-18-058-copy2-1024x683.jpg" onclick="openLb(this)" alt="shared body aside">
+    </div>
+    <div class="card-info">
+      <table>
+        <tr><td>Used in</td><td>StockholmHomeSharedBody.astro (SEO landing pages)</td></tr>
+        <tr><td>Current</td><td class="current-alt">immersive art installation stockholm andetag</td></tr>
+        <tr><td>Suggested</td><td class="suggested-alt">Lysande optisk fibertextil i utställningen ANDETAG</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ================================================ -->
+<h2>Already OK (no changes needed)</h2>
+
+<h3>Decorative backgrounds (correctly <code>alt=""</code>)</h3>
+<div class="gallery-grid">
+  <div class="gallery-card">
+    <img src="../site/public/wp-content/uploads/2024/11/stockholm-hero-poster-960w.jpg" onclick="openLb(this)" alt="hero poster">
+    <div class="info"><div>Hero video poster</div><div class="status-ok">OK: decorative bg</div></div>
+  </div>
+  <div class="gallery-card">
+    <img src="../site/public/wp-content/uploads/2025/10/Mobile-BG.00_00_00_00.Still002.jpg" onclick="openLb(this)" alt="mobile header bg">
+    <div class="info"><div>Small header mobile bg</div><div class="status-ok">OK: decorative bg</div></div>
+  </div>
+  <div class="gallery-card">
+    <img src="../site/public/wp-content/uploads/2024/11/Andetag-21-399-scaled.jpg" onclick="openLb(this)" alt="book hero cover">
+    <div class="info"><div>"Boka" hero band cover</div><div class="status-ok">OK: decorative bg</div></div>
+  </div>
+  <div class="gallery-card">
+    <img src="../site/public/wp-content/uploads/2024/11/Andetag-27-037-copy-scaled.jpg" onclick="openLb(this)" alt="testimonial bg">
+    <div class="info"><div>Testimonial carousel bg</div><div class="status-ok">OK: decorative bg</div></div>
+  </div>
+  <div class="gallery-card">
+    <img src="../site/public/wp-content/uploads/2025/04/Art-Yoga-at-ANDETAG-photo-by-Johan-Eriksson-Terran-e1745929172557.jpeg" onclick="openLb(this)" alt="art yoga hero">
+    <div class="info"><div>Art Yoga hero bg</div><div class="status-ok">OK: decorative bg</div></div>
+  </div>
+  <div class="gallery-card">
+    <img src="../site/public/wp-content/uploads/2026/01/TADAA-LONG-V1.00_07_29_05.Still009-2-2.jpg" onclick="openLb(this)" alt="dejt hero bg">
+    <div class="info"><div>Dejt testimonial hero bg</div><div class="status-ok">OK: decorative bg</div></div>
+  </div>
+</div>
+
+<h3>Home page content images (good alts)</h3>
+<div class="gallery-grid">
+  <div class="gallery-card">
+    <img src="../site/public/wp-content/uploads/2026/03/andrum-looking.jpg" onclick="openLb(this)" alt="intro lead">
+    <div class="info"><div>Home intro lead</div><div class="status-ok">OK: "Silhouette of a visitor looking up..."</div></div>
+  </div>
+  <div class="gallery-card">
+    <img src="../site/public/wp-content/uploads/2026/03/andrum-meditation.jpg" onclick="openLb(this)" alt="art yoga aside">
+    <div class="info"><div>Home Art Yoga aside</div><div class="status-ok">OK: "Person meditating surrounded by..."</div></div>
+  </div>
+  <div class="gallery-card">
+    <img src="../site/public/wp-content/uploads/2025/04/ANDETAG-After-Hours-1-photo-Pekka-Paakko.jpg" onclick="openLb(this)" alt="berlin after hours">
+    <div class="info"><div>Berlin After Hours</div><div class="status-ok">OK: "Visitors in low light among..."</div></div>
+  </div>
+</div>
+
+<h3>Artist portraits (good alts)</h3>
+<div class="gallery-grid">
+  <div class="gallery-card">
+    <img src="../site/public/wp-content/uploads/2024/12/Malin-Tadaa-Andetag-2025-face-1-1024x1024.jpg" onclick="openLb(this)" alt="Malin portrait">
+    <div class="info"><div>Malin Tadaa</div><div class="status-ok">OK: "Portrait of Malin Tadaa"</div></div>
+  </div>
+  <div class="gallery-card">
+    <img src="../site/public/wp-content/uploads/2024/12/Gustaf-Tadaa-Andetag-2025-face-1-1024x1024.jpg" onclick="openLb(this)" alt="Gustaf portrait">
+    <div class="info"><div>Gustaf Tadaa</div><div class="status-ok">OK: "Portrait of Gustaf Tadaa"</div></div>
+  </div>
+</div>
+
+<script>
+function openLb(img) {
+  const lb = document.getElementById('lb');
+  document.getElementById('lb-img').src = img.src;
+  lb.classList.add('active');
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') document.getElementById('lb').classList.remove('active');
+});
+</script>
+
+</body>
+</html>

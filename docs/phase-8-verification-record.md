@@ -6,7 +6,7 @@ Normative checklist: **`docs/phase-8-todo.md`**.
 
 ## Status
 
-- Phase 8: **open** (cutover executed **2026-04-14**; **P8-22** and **P8-23** **Pass 2026-04-14**; remaining post-cutover: **P8-25**, **P8-26**, **P8-24**).
+- Phase 8: **open** (cutover executed **2026-04-14**; **P8-22** and **P8-23** **Pass 2026-04-14**; remaining post-cutover: **P8-26**, **P8-24**). **Release discipline** (**PR** workflow, branch protection): **Phase 9 · [`docs/phase-9-todo.md`](phase-9-todo.md) · P9-25** (moved from **P8-25** **2026-04-14**).
 - **Phase 7:** **closed** with **Gustaf** sign-off **2026-04-09** (**`docs/phase-7-verification-record.md`** §P7-16). **P8-05** checked **2026-04-09**.
 
 ## Pre-cutover (dev and staging)
@@ -18,7 +18,7 @@ Normative checklist: **`docs/phase-8-todo.md`**.
 - **P8-08 Search Console baseline:** **Captured 2026-04-12.** GSC property `https://www.andetag.museum` (verified). Export covers 2026-01-11 to 2026-04-10 (90 days). See §GSC baseline snapshot below for full data. **Backlink cross-reference (deferred from P8-03):** all top GSC pages checked against `_redirects` and URL matrix. 5 gaps found and fixed: `/presentkort/` (3,373 imp), `/en/giftcard/` (964 imp), `/stockholm/faq/` slug mismatch (664 imp, splat would 404), `/en/artists-malin-gustaf-tadaa/` slug variant (140 imp), `/music/` (5 imp). Rules added to `_redirects` and `url-matrix.csv`.
 - **P8-09 Internal link audit:** **Pass 2026-04-12.** Scanned **63** HTML files in `dist/`, **3,869** internal `<a href>` links. **0** links point to redirect-source paths from `_redirects`. Header, footer, and body links all use canonical paths. No legacy unprefixed Swedish paths or `/privacy/` aliases found in anchors.
 - **P8-04 Exception sign-off:** **Approved 2026-04-12.** All active exceptions (**EX-0002** through **EX-0019**) are now **approved** or **resolved**. **EX-0017** revised: Stockholm venue schema includes **`Museum`** + paired **`LocalBusiness`**, **`aggregateRating`**, featured **`Review`** nodes, **`Offer`** nodes, and **four** dated Art Yoga **`Event`** nodes, per **`stockholm-reviews.ts`** / **`stockholm-offers.ts`** / **`art-yoga-next-occurrence.ts`**. Legacy standalone **`ArtGallery`** dropped; **`TouristAttraction`** dual type not used. See current **`docs/migration-exceptions.md`** **EX-0017**.
-- **P8-10 Cutover runbook:** Drafted **2026-04-12** at **`docs/phase-8-cutover-runbook.md`**. Covers Workers custom domain binding (preferred), Workers route fallback, rollback procedure, edge cache purge, and post-cutover release discipline (P8-25). DNS TTL reduction date: _pending_ (Gustaf to execute 24-48h before cutover).
+- **P8-10 Cutover runbook:** Drafted **2026-04-12** at **`docs/phase-8-cutover-runbook.md`**. Covers Workers custom domain binding (preferred), Workers route fallback, rollback procedure, edge cache purge, and post-cutover release discipline (now **Phase 9 · P9-25**). DNS TTL reduction date: _pending_ (Gustaf to execute 24-48h before cutover).
 - **P8-06 Locale copy (`sv`, `en`, `de` on staging):** Gustaf sign-off dates and scope (checklist used); optional external **`de`** reviewer note
 
 ### GSC baseline snapshot (P8-08)
@@ -113,7 +113,7 @@ Captured on **`https://andetag-web.guff.workers.dev`**: _pending_
 - **P8-20:** **Pass 2026-04-14.** **`STAGING_BASE=https://www.andetag.museum npm run verify:staging-entry`** from **`site/`**: **E1**–**E11** all **ok** (log in **`docs/phase-4-redirect-tests.md`**). Closes **`P5-06`** production entry routing.
 - **P8-21 Redirect regression:** **Pass 2026-04-14.** Table **A** **`curl -sI`** on **`https://www.andetag.museum`**: **14/14** cases **301** with expected path-only **`Location`** (see **`docs/phase-4-redirect-tests.md`** execution log).
 - **P8-22 Live feature pass:** **Pass 2026-04-14.** **CMP + consent + tags** (**P8-12**/**P8-13**). **Lighthouse** mobile performance-only on **four** **`www`** URLs (table below). **Manual checkpoints** **1**, **5**–**7** (booking, locale, Berlin waitlist). **Closure:** operator Part **B** complete (**`dataLayer`** / booking receipt path per **`docs/kpi-measurement-map.md`**). See §P8-22 closure.
-- **P8-25 Release discipline:**
+- **P8-25 Release discipline:** **Moved** to **`docs/phase-9-todo.md`** **P9-25** **2026-04-14** (open checklist item; runbook **Post-cutover release discipline** section remains the how-to).
 
 ### Manual post-cutover checkpoints (operator)
 

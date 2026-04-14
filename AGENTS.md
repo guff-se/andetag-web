@@ -104,7 +104,7 @@ Consult before implementation. All active docs are in `docs/`.
 | `docs/tracking-and-consent-requirements.md` | GTM, Brevo, consent categories |
 | `docs/kpi-measurement-map.md` | Analytics measurement, GTM audit, consent migration checklist |
 | `docs/gtm-consent-migration-runbook.md` | Step-by-step GTM work for Phase 8 P8-07 |
-| `docs/phase-8-cutover-runbook.md` | DNS, Workers custom domain, TLS, rollback, post-cutover PR discipline (P8-10, P8-11, P8-25) |
+| `docs/phase-8-cutover-runbook.md` | DNS, Workers custom domain, TLS, rollback, post-cutover PR discipline (P8-10, P8-11; checklist **P9-25** in `docs/phase-9-todo.md`) |
 | `docs/decisions/0002-consent-platform-selection.md` | CMP selection ADR (CookieConsent implemented) |
 | `docs/changelog-standards.md` | How to write CHANGELOG.md entries |
 | `docs/archive/` | Closed-phase checklists, verification records, superseded plans |

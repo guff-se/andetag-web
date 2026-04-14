@@ -45,7 +45,9 @@ This is how the rebuilt site is **intended** to behave in **staging** and **prod
 
 - German root:
   - Canonical: `/de/berlin/`
-  - Redirect: `/de/` -> `/de/berlin/` (`301`)
+  - Redirect: `/de` and `/de/` -> `/de/berlin/` (`301`)
+- Swedish language root (no city in path):
+  - Redirect: `/sv` and `/sv/` -> `/sv/stockholm/` (`301`)
 - English Berlin path:
   - Canonical target path: `/en/berlin/`
   - Legacy alias: `/en/berlin-en/` -> `/en/berlin/` (`301`)

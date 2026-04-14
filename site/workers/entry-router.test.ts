@@ -43,6 +43,42 @@ describe("entry-router Worker", () => {
     expect(res.headers.get("Location")).toBe("/en/");
   });
 
+  it("normalizes /de to /de/berlin/ with 301", async () => {
+    const assetFetch = vi.fn(() => Promise.resolve(htmlResponse("")));
+    const env = makeEnv(assetFetch);
+    const req = new Request("https://www.andetag.museum/de", {
+      headers: { "User-Agent": "Mozilla/5.0" },
+    });
+    const res = await entryRouter.fetch(req, env);
+    expect(assetFetch).not.toHaveBeenCalled();
+    expect(res.status).toBe(301);
+    expect(res.headers.get("Location")).toBe("/de/berlin/");
+  });
+
+  it("normalizes /de with query to /de/berlin/ with 301", async () => {
+    const env = makeEnv(() => Promise.resolve(htmlResponse("")));
+    const req = new Request("https://www.andetag.museum/de?utm_source=x", {
+      headers: { "User-Agent": "Mozilla/5.0" },
+    });
+    const res = await entryRouter.fetch(req, env);
+    expect(res.status).toBe(301);
+    expect(res.headers.get("Location")).toBe("/de/berlin/?utm_source=x");
+  });
+
+  it("normalizes /sv and /sv/ to /sv/stockholm/ with 301", async () => {
+    for (const path of ["/sv", "/sv/"]) {
+      const assetFetch = vi.fn(() => Promise.resolve(htmlResponse("")));
+      const envInner = makeEnv(assetFetch);
+      const req = new Request(`https://www.andetag.museum${path}`, {
+        headers: { "User-Agent": "Mozilla/5.0" },
+      });
+      const res = await entryRouter.fetch(req, envInner);
+      expect(assetFetch).not.toHaveBeenCalled();
+      expect(res.status).toBe(301);
+      expect(res.headers.get("Location")).toBe("/sv/stockholm/");
+    }
+  });
+
   it("passes normal asset requests through to ASSETS", async () => {
     const assetBody = "<html><body>Stockholm</body></html>";
     const assetFetch = vi.fn(() => Promise.resolve(htmlResponse(assetBody)));

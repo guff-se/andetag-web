@@ -2,12 +2,12 @@
 
 Purpose: track the transition from **migration** (phased rebuild, URL parity, locale rollout) to **maintenance** (ongoing updates on live **`www`**). Normative phase summary: **`docs/grand-plan.md`** (Phase 9).
 
-**Status:** **Placeholder**. Fill in owners, dates, and concrete tasks when Phase 8 cutover is complete or when Gustaf scopes the maintenance program.
+**Status:** **Placeholder**, except **P9-25** (post-cutover release discipline), which is an active carry from Phase 8 (**2026-04-14**). Fill in owners, dates, and the rest of the program when Gustaf scopes it.
 
 ## Governance and scope (TBD)
 
 - [ ] **P9-00** Document maintenance scope: what lives in this repo vs external tools; who approves content, **`de`** copy, and analytics changes.
-- [ ] **P9-01** Align with Phase 8 post-cutover PR workflow (**`docs/phase-8-todo.md`**, **P8-25**): previews, merge to **`main`**, production deploy.
+- [ ] **P9-25** **Post-cutover release discipline** (carried from Phase 8 **P8-25** **2026-04-14**): Keep **`docs/phase-8-cutover-runbook.md`** **Post-cutover release discipline** section accurate; extend **`AGENTS.md`** if needed. **No direct pushes to `main`** for routine work; **PRs** with **Cloudflare preview deployments** per branch; **merge to `main`** promotes **`www`**. Align **GitHub** branch protection and **Cloudflare Workers** (or **Pages**) project settings with this flow.
 
 ## Performance optimization Agent Skill
 

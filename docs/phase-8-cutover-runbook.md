@@ -2,7 +2,7 @@
 
 Purpose: step-by-step procedure for pointing **`www.andetag.museum`** at the Workers deployment, with rollback plan.
 
-References: **`docs/phase-8-todo.md`** (P8-10, P8-11, P8-12, P8-25), **`docs/url-migration-policy.md`**, **`site/wrangler.jsonc`**, **`site/workers/entry-router.ts`**.
+References: **`docs/phase-8-todo.md`** (P8-10, P8-11, P8-12), **`docs/phase-9-todo.md`** (**P9-25** release discipline), **`docs/url-migration-policy.md`**, **`site/wrangler.jsonc`**, **`site/workers/entry-router.ts`**.
 
 ---
 
@@ -123,7 +123,7 @@ If critical issues are found after cutover:
 
 ---
 
-## Post-cutover release discipline (P8-25)
+## Post-cutover release discipline (Phase 9 · **P9-25**)
 
 After `www` is live on this stack:
 
@@ -165,5 +165,5 @@ After cutover is confirmed stable (after P8-26 monitoring):
 | P8-12 Smoke test | Immediately after | Maintainer + Gustaf | Pending |
 | Edge cache purge | If needed | Gustaf or maintainer | Pending |
 | P8-13 GTM domain switch | Same day after smoke | Gustaf (GTM UI) | Pending |
-| P8-25 Branch protection | Same day or next | Gustaf or maintainer | Pending |
+| P9-25 Branch protection | Same day or next | Gustaf or maintainer | Pending |
 | DNS TTL restoration | After P8-26 stable | Gustaf | Pending |

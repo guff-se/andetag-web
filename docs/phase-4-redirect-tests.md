@@ -9,7 +9,12 @@ Environment: run **(A)** against any deploy that serves **`dist/_redirects`**. R
 | # | Request path | Expected status | Expected location (path) | Query preservation |
 |---|----------------|-----------------|---------------------------|--------------------|
 | 1 | `/de/` | 301 | `/de/berlin/` | yes |
+| 1b | `/de` | 301 | `/de/berlin/` | yes |
 | 2 | `/de/?utm_source=test` | 301 | `/de/berlin/?utm_source=test` | yes |
+| 2b | `/de?utm_source=test` | 301 | `/de/berlin/?utm_source=test` | yes |
+| 2c | `/sv/` | 301 | `/sv/stockholm/` | yes |
+| 2d | `/sv` | 301 | `/sv/stockholm/` | yes |
+| 2e | `/sv?utm_source=test` | 301 | `/sv/stockholm/?utm_source=test` | yes |
 | 3 | `/en/berlin-en/` | 301 | `/en/berlin/` | yes |
 | 4 | `/en/stockholm/art-yoga-en/` | 301 | `/en/stockholm/art-yoga/` | yes |
 | 5 | `/privacy-policy/` | 301 | `/sv/stockholm/privacy/` | yes |

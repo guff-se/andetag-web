@@ -88,4 +88,4 @@ All phases must keep these baseline checks in scope:
 - **Post-cutover:** **`docs/phase-4-redirect-tests.md`** table **B** (and agreed matrix checks) pass on **`www`**; **`robots.txt`** allows crawling and references production sitemap; new sitemap submitted to GSC; live spot-checks for SEO, sharing, and conversion paths match Phase 7 expectations on the canonical host.
 - **Monitoring:** Organic health monitored for 2-4 weeks post-cutover (GSC coverage, traffic trend vs baseline, indexed pages, Core Web Vitals field data); no SEO regression requiring intervention before closure (**P8-26**).
 - **Sign-off:** Gustaf approval recorded in **`docs/phase-8-verification-record.md`**.
-- **Post-cutover operations:** Routine changes ship via **PRs** with preview URLs; **merge to `main`** updates **`www`** (**`docs/phase-8-todo.md`**, **P8-25**).
+- **Post-cutover operations:** Routine changes ship via **PRs** with preview URLs; **merge to `main`** updates **`www`** (**`docs/phase-9-todo.md`**, **P9-25**).
