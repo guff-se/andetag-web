@@ -6,7 +6,7 @@ Normative checklist: **`docs/phase-8-todo.md`**.
 
 ## Status
 
-- Phase 8: **open** (cutover executed **2026-04-14**; post-cutover rows **P8-20**–**P8-26** still in progress).
+- Phase 8: **open** (cutover executed **2026-04-14**; **P8-22** and **P8-23** **Pass 2026-04-14**; remaining post-cutover: **P8-25**, **P8-26**, **P8-24**).
 - **Phase 7:** **closed** with **Gustaf** sign-off **2026-04-09** (**`docs/phase-7-verification-record.md`** §P7-16). **P8-05** checked **2026-04-09**.
 
 ## Pre-cutover (dev and staging)
@@ -109,10 +109,10 @@ Captured on **`https://andetag-web.guff.workers.dev`**: _pending_
 
 ## Post-cutover (**`www`**)
 
-- **P8-23 SEO and sharing:** **Partial 2026-04-14.** **`curl`** spot-check: **`robots.txt`** includes **`User-agent: *`**, **`Allow: /`**, **`Sitemap: https://www.andetag.museum/sitemap-index.xml`** (plus Cloudflare-managed bot blocks above). **`sitemap-index.xml`** **HTTP 200**. **`/sv/stockholm/`** has **`og:image`** absolute **`https://www.andetag.museum/...jpg`**. **GSC sitemap (operator):** first submit showed **`sitemap-0.xml`** **Hämtning misslyckades** and **0** discovered pages; **removing** the submitted **`sitemap-index.xml`** and **adding it again** fixed processing (child fetch and counts). **Facebook Sharing Debugger**, **Rich Results Test**, and **GSC URL Inspection** on live **`www`**: see §Manual post-cutover checkpoints. **Optional:** repeat URL Inspection for other high-traffic **`www`** URLs; JSON-LD diff vs **`docs/archive/phase-7-todo.md`** §Schema.org / **`docs/Andetag SEO Manual.md`**.
+- **P8-23 SEO and sharing:** **Pass 2026-04-14.** Early evidence: **`curl`** on **`robots.txt`** (**`User-agent: *`**, **`Allow: /`**, production **`Sitemap:`**), **`sitemap-index.xml`** **HTTP 200**, **`og:image`** on **`/sv/stockholm/`**. **GSC sitemap:** remove-and-resubmit fixed **`sitemap-0.xml`** fetch. **Closure:** operator completed URL Inspection batch, **Facebook** on **`/en/stockholm/`**, **Rich Results** on **`/en/stockholm/`**, and representative checks; see §P8-23 closure.
 - **P8-20:** **Pass 2026-04-14.** **`STAGING_BASE=https://www.andetag.museum npm run verify:staging-entry`** from **`site/`**: **E1**–**E11** all **ok** (log in **`docs/phase-4-redirect-tests.md`**). Closes **`P5-06`** production entry routing.
 - **P8-21 Redirect regression:** **Pass 2026-04-14.** Table **A** **`curl -sI`** on **`https://www.andetag.museum`**: **14/14** cases **301** with expected path-only **`Location`** (see **`docs/phase-4-redirect-tests.md`** execution log).
-- **P8-22 Live feature pass:** **Partial 2026-04-14.** **CMP + consent + tags** already **P8-12**/**P8-13**. **Lighthouse** mobile performance-only on **four** template URLs (**`BASE_URL=https://www.andetag.museum`**, **`LIGHTHOUSE_PATHS`** comma list); see table below (local repro: **`site/reports/lighthouse-performance.json`**; **`site/reports/*.json`** is **`.gitignore`**d). **Booking / conversion on `www`:** steps **1** and **7** in §Manual post-cutover checkpoints; operator **2026-04-14:** “booking works fine”. **Header locale switch:** step **5**. **Berlin Brevo waitlist:** step **6** (**Done**). **Still open:** other **P8-01** spot checks only if you want a written sweep beyond what is already logged.
+- **P8-22 Live feature pass:** **Pass 2026-04-14.** **CMP + consent + tags** (**P8-12**/**P8-13**). **Lighthouse** mobile performance-only on **four** **`www`** URLs (table below). **Manual checkpoints** **1**, **5**–**7** (booking, locale, Berlin waitlist). **Closure:** operator Part **B** complete (**`dataLayer`** / booking receipt path per **`docs/kpi-measurement-map.md`**). See §P8-22 closure.
 - **P8-25 Release discipline:**
 
 ### Manual post-cutover checkpoints (operator)
@@ -128,6 +128,14 @@ Maintainer updates this subsection when the operator reports a step **done** (no
 | 5 | **P8-22** | From **`https://www.andetag.museum/en/stockholm/`**, use the **site language control** → **Swedish** (expect **`/sv/stockholm/...`**); then back to **English** (expect **`/en/stockholm/...`**) | **Done 2026-04-14** | Pass/fail and final URLs not supplied in thread; amend when known. |
 | 6 | **P8-22** | **Berlin** Brevo waitlist (**`/en/berlin/`** or **`/de/berlin/`**): submit once; stay on site; checkbox + opt-in copy alignment; in-page success feedback | **Done 2026-04-14** | Initial issues: line break, navigation to **`sibforms.com`**, no success UI. **Shipped:** flex + reset **`text-indent`**, hidden **`iframe`** **`target`**, **`aria-live`** sending + thank-you (**`waitlist-form-feedback.ts`**, commits through **`709acec`**). Operator confirms **step done** post-deploy retest. |
 | 7 | **P8-22** | **Stockholm** Understory booking on **`www`** (e.g. **`/en/stockholm/tickets/`**): embed loads and booking flow works | **Done 2026-04-14** | Operator: **“booking works fine”** (chat). |
+
+### P8-23 closure (operator)
+
+**Pass 2026-04-14.** Operator confirms **Part A** of the maintainer checklist: **Google Search Console** sitemap processing OK; **URL Inspection** (request indexing or confirm already indexed) on the agreed high-traffic **`www`** set (home **`/`**, **`/en/`**, Stockholm **`/sv/stockholm/`** and **`/en/stockholm/`**, ticket pages **`/sv/stockholm/biljetter/`** and **`/en/stockholm/tickets/`**, Berlin **`/de/berlin/`** and **`/en/berlin/`**); **Facebook Sharing Debugger** on **`https://www.andetag.museum/en/stockholm/`** in addition to **`/sv/stockholm/`**; **Rich Results Test** on **`https://www.andetag.museum/en/stockholm/`**; representative **Open Graph** / **JSON-LD** sanity. Evidence trail: §Manual post-cutover checkpoints steps **2**–**4** plus this note.
+
+### P8-22 closure (operator)
+
+**Pass 2026-04-14.** Operator confirms **Part B**: booking **`dataLayer`** / receipt-side verification aligned with **`docs/kpi-measurement-map.md`**, completing the explicit **P8-22** requirement alongside §Manual checkpoints **1**, **5**–**7**, **P8-12**/**P8-13**, and §Production Lighthouse baseline.
 
 ### Production Lighthouse baseline (P8-22)
 
