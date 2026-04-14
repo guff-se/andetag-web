@@ -10,10 +10,10 @@ References: **`docs/phase-8-todo.md`** (P8-10, P8-11, P8-12, P8-25), **`docs/url
 
 - [x] **P8-01 through P8-09** pass (verification record updated).
 - [x] **P8-06** Gustaf locale copy sign-off for `sv`, `en`, `de` on staging (2026-04-12).
-- [ ] **P8-07** GTM container migration published and validated on staging.
+- [x] **P8-07** GTM container migration published and validated on staging; live **Part D** complete **2026-04-14** (see **`docs/phase-8-verification-record.md`** §Cutover).
 - [x] **P8-08** GSC baseline exported and recorded (2026-04-12).
 - [x] **DNS TTL reduction:** `www.andetag.museum` and `andetag.museum` TTL lowered to **60 seconds** at Websupport.se (2026-04-12). Original TTL: ______.
-- [ ] **DNS migration to Cloudflare** (see step 0 below): move `andetag.museum` nameservers from Websupport.se to Cloudflare. Must be done **before cutover day** to allow propagation and TLS cert provisioning.
+- [x] **DNS migration to Cloudflare** (see step 0 below): zone **`andetag.museum`** on Cloudflare; Worker custom domain and redirects operational **2026-04-14**.
 
 ---
 

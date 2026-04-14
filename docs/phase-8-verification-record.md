@@ -6,7 +6,7 @@ Normative checklist: **`docs/phase-8-todo.md`**.
 
 ## Status
 
-- Phase 8: **open** (pre-cutover in progress, **2026-04-12**).
+- Phase 8: **open** (cutover executed **2026-04-14**; post-cutover rows **P8-20**–**P8-26** still in progress).
 - **Phase 7:** **closed** with **Gustaf** sign-off **2026-04-09** (**`docs/phase-7-verification-record.md`** §P7-16). **P8-05** checked **2026-04-09**.
 
 ## Pre-cutover (dev and staging)
@@ -103,28 +103,28 @@ Captured on **`https://andetag-web.guff.workers.dev`**: _pending_
 
 ## Cutover
 
-- **P8-07 GTM migration:** (publish date, GTM Preview results on staging)
-- **P8-10–P8-12:** (runbook execution, cutover date and time, immediate smoke results)
+- **P8-07 GTM migration:** **Pass 2026-04-14.** **`docs/gtm-consent-migration-runbook.md`** Parts **A–C** published and validated on staging (**`https://andetag-web.guff.workers.dev`**); **Part D** completed on live **`https://www.andetag.museum`** (GTM Preview on **`www`**, **`cmplz_*`** triggers removed from **GA4 - All pages**, **Google ads tag - All pages**, **Meta - All pages**; **All Pages** only; republish).
+- **P8-11 / P8-12:** **Pass 2026-04-14.** **`www`** serves Worker + static assets; immediate smoke: representative paths **200** (entry **`/`** **302** to **`/en/`**); **`robots.txt`** and **`sitemap-index.xml`** **200**; no mixed-content failures in Chrome check; **`andetag_entry`** cookie set on **`www`**; **CookieConsent** (CMP) working.
+- **P8-13:** **Pass 2026-04-14.** Consent-gated **GA4 / Ads / Meta** behaviour confirmed on **`www`** with live container (same window as runbook Part D).
 
 ## Post-cutover (**`www`**)
 
-- **P8-23 SEO and sharing:** (`robots.txt` verified; sitemap submitted to GSC; OG debugger results; JSON-LD spot-check)
-- **P8-20:** Table **B** on **`https://www.andetag.museum`** (closes **`P5-06`** production).
-- **P8-21 Redirect regression:**
-- **P8-22 Live feature pass:** (consent, tags, embeds, Lighthouse production baseline)
-- **P8-13 Consent/tag domain switch:** (GTM publish date on `www`; consent verification)
+- **P8-23 SEO and sharing:** **Partial 2026-04-14.** **`curl`** spot-check: **`robots.txt`** includes **`User-agent: *`**, **`Allow: /`**, **`Sitemap: https://www.andetag.museum/sitemap-index.xml`** (plus Cloudflare-managed bot blocks above). **`sitemap-index.xml`** **HTTP 200**. **`/sv/stockholm/`** has **`og:image`** absolute **`https://www.andetag.museum/...jpg`**. **Still operator:** submit sitemap and URL Inspection batch in **GSC**; **Facebook Sharing Debugger** “Scrape Again” on key URLs; JSON-LD spot-check vs **`docs/phase-7-todo.md`**.
+- **P8-20:** **Pass 2026-04-14.** **`STAGING_BASE=https://www.andetag.museum npm run verify:staging-entry`** from **`site/`**: **E1**–**E11** all **ok** (log in **`docs/phase-4-redirect-tests.md`**). Closes **`P5-06`** production entry routing.
+- **P8-21 Redirect regression:** **Pass 2026-04-14.** Table **A** **`curl -sI`** on **`https://www.andetag.museum`**: **14/14** cases **301** with expected path-only **`Location`** (see **`docs/phase-4-redirect-tests.md`** execution log).
+- **P8-22 Live feature pass:** **Partial 2026-04-14.** **CMP + consent + tags** already **P8-12**/**P8-13**. **Lighthouse** mobile performance-only on **four** template URLs (**`BASE_URL=https://www.andetag.museum`**, **`LIGHTHOUSE_PATHS`** comma list); see table below (local repro: **`site/reports/lighthouse-performance.json`**; **`site/reports/*.json`** is **`.gitignore`**d). **Still open:** full **P8-01** manual sweep, **booking** **`on_receipt`** / **`dataLayer`** path in GTM Preview.
 - **P8-25 Release discipline:**
 
 ### Production Lighthouse baseline (P8-22)
 
-Captured on **`https://www.andetag.museum`**: _pending_
+Captured on **`https://www.andetag.museum`**: **2026-04-14T10:04:05Z** (mobile, performance category only; **`npm run lighthouse:all`**).
 
 | Page | Mobile perf | Desktop perf | LCP | CLS |
 |------|-------------|--------------|-----|-----|
-| `/sv/stockholm/` | | | | |
-| `/en/stockholm/` | | | | |
-| `/sv/stockholm/biljetter/` | | | | |
-| `/de/berlin/` | | | | |
+| `/sv/stockholm/` | 98 | _not run_ | 2.28 s | 0 |
+| `/en/stockholm/` | 98 | _not run_ | 2.21 s | 0 |
+| `/sv/stockholm/biljetter/` | 97 | _not run_ | 2.58 s | 0.001 |
+| `/de/berlin/` | 100 | _not run_ | 1.60 s | 0 |
 
 ### Post-cutover monitoring log (P8-26)
 

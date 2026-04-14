@@ -7,6 +7,11 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ## [Unreleased]
 
+### Changed
+
+- **Phase 8 evidence:** **`docs/phase-8-todo.md`** marks **P8-07**, **P8-11**, **P8-12**, **P8-13** pass **2026-04-14** (GTM runbook through Part D on **`www`**, cutover smoke, **`andetag_entry`**, CMP). **`docs/phase-8-verification-record.md`** §Cutover and status updated; **`docs/phase-8-cutover-runbook.md`** prerequisites **P8-07** and DNS-on-Cloudflare checked.
+- **Phase 8 post-cutover checks:** **`P8-20`** and **`P8-21`** pass on **`https://www.andetag.museum`** (**`verify:staging-entry`**, table **A** **`curl`**); execution log in **`docs/phase-4-redirect-tests.md`** (environment note updated). **`P8-23`** / **`P8-22`** partial and Lighthouse two-page baseline recorded in **`docs/phase-8-verification-record.md`**.
+
 ### Fixed
 
 - **Consent Mode updates after CMP choice:** `onFirstConsent` / `onConsent` / `onChange` now read **`cookie.categories`** from vanilla-cookieconsent instead of **`acceptedCategory()`**, which still reflected the previous state when those callbacks ran. That had caused **`gtag("consent", "update", …)`** to push **all denied** even after **Acceptera alla**. **`cookie-consent-config.ts`**, tests in **`cookie-consent-config.test.ts`**.
