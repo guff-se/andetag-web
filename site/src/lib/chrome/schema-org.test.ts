@@ -1,6 +1,17 @@
 import { describe, expect, it } from "vitest";
 import { buildSchemaJsonLd } from "./schema-org";
 
+function graphNodeWithSchemaType(
+  graph: object[],
+  typeName: string,
+): Record<string, unknown> | undefined {
+  return graph.find((raw) => {
+    const t = (raw as Record<string, unknown>)["@type"];
+    const list = Array.isArray(t) ? t.map(String) : t != null ? [String(t)] : [];
+    return list.includes(typeName);
+  }) as Record<string, unknown> | undefined;
+}
+
 describe("buildSchemaJsonLd", () => {
   const base = {
     pageTitle: "T",
@@ -18,6 +29,7 @@ describe("buildSchemaJsonLd", () => {
     const types = doc["@graph"].map((n) => (n as { "@type"?: string | string[] })["@type"]);
     const flat = types.flatMap((t) => (Array.isArray(t) ? t : t ? [t] : []));
     expect(flat).toContain("Museum");
+    expect(flat).toContain("LocalBusiness");
     expect(flat).not.toContain("Place");
     expect(flat).not.toContain("TouristAttraction");
   });
@@ -28,10 +40,9 @@ describe("buildSchemaJsonLd", () => {
       pageUrl: "https://www.andetag.museum/en/stockholm/tickets/",
       destination: "stockholm",
     });
-    const venue = doc["@graph"].find(
-      (n) => (n as Record<string, unknown>)["@type"] === "Museum",
-    ) as Record<string, unknown> | undefined;
+    const venue = graphNodeWithSchemaType(doc["@graph"], "Museum");
     expect(venue).toBeDefined();
+    expect(venue!.url).toBe("https://www.andetag.museum/en/stockholm/");
     const rating = venue!.aggregateRating as Record<string, unknown>;
     expect(rating).toBeDefined();
     expect(rating["@type"]).toBe("AggregateRating");
@@ -80,9 +91,7 @@ describe("buildSchemaJsonLd", () => {
       pageUrl: "https://www.andetag.museum/en/stockholm/tickets/",
       destination: "stockholm",
     });
-    const venue = doc["@graph"].find(
-      (n) => (n as Record<string, unknown>)["@type"] === "Museum",
-    ) as Record<string, unknown> | undefined;
+    const venue = graphNodeWithSchemaType(doc["@graph"], "Museum");
     expect(venue).toBeDefined();
     const offers = venue!.offers as Record<string, unknown>[];
     expect(offers.length).toBeGreaterThanOrEqual(4);
@@ -145,10 +154,9 @@ describe("buildSchemaJsonLd", () => {
     ) as Record<string, unknown>[];
     expect(events.length).toBe(4);
     expect(events.every((e) => e.name === "Art Yoga på ANDETAG")).toBe(true);
-    const venue = doc["@graph"].find(
-      (n) => (n as Record<string, unknown>)["@type"] === "Museum",
-    ) as Record<string, unknown>;
-    const offers = venue.offers as Record<string, unknown>[];
+    const venue = graphNodeWithSchemaType(doc["@graph"], "Museum");
+    expect(venue?.url).toBe("https://www.andetag.museum/sv/stockholm/");
+    const offers = venue!.offers as Record<string, unknown>[];
     expect(offers.find((o) => o.name === "Ordinarie biljett")).toBeDefined();
   });
 

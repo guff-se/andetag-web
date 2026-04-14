@@ -77,6 +77,11 @@ function stockholmMuseumDescription(language: Language): string {
   return STOCKHOLM_MUSEUM_DESCRIPTION_EN;
 }
 
+/** Canonical Stockholm hub URL for the active shell language. */
+function stockholmMuseumPageUrl(language: Language): string {
+  return buildCanonicalUrl(language === "sv" ? "/sv/stockholm/" : "/en/stockholm/");
+}
+
 function logoNode() {
   const logoPath = "/wp-content/uploads/2024/11/andetag-logo-white-shadow.png";
   const logoUrl = buildCanonicalUrl(logoPath);
@@ -308,12 +313,13 @@ function buildStockholmVenueSchema(ctx: SchemaPageContext): { "@context": string
     },
     heroImageNode(),
     {
-      // Single @type: Google Rich Results rejects aggregateRating/review on @type ["Museum","TouristAttraction"].
-      "@type": "Museum",
+      // Museum for semantics; LocalBusiness is required by Google's review-snippet list of valid
+      // parent types for nested aggregateRating/review (Museum alone is not listed).
+      "@type": ["Museum", "LocalBusiness"],
       "@id": `${CANONICAL_HOST}/#museum-stockholm`,
       name: "ANDETAG Stockholm",
       description: museumDescription,
-      url: `${CANONICAL_HOST}/sv/stockholm/`,
+      url: stockholmMuseumPageUrl(ctx.language),
       parentOrganization: { "@id": `${CANONICAL_HOST}/#organization` },
       image: { "@id": `${CANONICAL_HOST}/#image-hero-stockholm` },
       logo: { "@id": `${CANONICAL_HOST}/#logo` },
@@ -326,7 +332,7 @@ function buildStockholmVenueSchema(ctx: SchemaPageContext): { "@context": string
       aggregateRating: {
         "@type": "AggregateRating",
         ratingValue: STOCKHOLM_RATING.ratingValue,
-        reviewCount: String(STOCKHOLM_RATING.reviewCount),
+        reviewCount: STOCKHOLM_RATING.reviewCount,
         bestRating: STOCKHOLM_RATING.bestRating,
       },
       review: STOCKHOLM_FEATURED_REVIEWS.map((r) => ({

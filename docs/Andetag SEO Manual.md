@@ -256,6 +256,8 @@ Optional:
 
 * aggregateRating (include when stable and maintained)
 
+Implementation note: Google's review-snippet documentation lists valid parent types for nested `aggregateRating` / `Review` (for example `LocalBusiness`) and does not list `Museum` alone. The static site therefore declares **`@type`: [`Museum`, `LocalBusiness`]** on the Stockholm venue node so ratings stay valid for Rich Results tooling while keeping **`Museum`** as the primary entity (**`docs/migration-exceptions.md`** **EX-0017**). **`TouristAttraction`** remains omitted there because of earlier Rich Results conflicts.
+
 ---
 
 ## 7. Factual Anchor Pages (CRITICAL FOR GEO)
