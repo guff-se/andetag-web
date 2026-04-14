@@ -93,6 +93,14 @@
 
 /* Checkbox + copy on one row: Brevo’s real checkbox is `position:absolute`; the text sits in a
    block `div` which otherwise wraps below the visible `.checkbox` span. */
+/* Vendor `.sib-form .entry__choice { padding-left: 1.5em; text-indent: -1.5em }` hangs text for
+   the hidden native box; with `display:flex` on the label it pulls the copy backward over the
+   custom `.checkbox` — reset indent on this embed’s opt-in row only. */
+.waitlist-embed .sib-form #sib-container .sib-optin .entry__choice {
+  padding-left: 0 !important;
+  text-indent: 0 !important;
+}
+
 .waitlist-embed .sib-form #sib-container .entry__choice label {
   display: flex !important;
   flex-direction: row;
@@ -104,6 +112,8 @@
 .waitlist-embed .sib-form #sib-container .entry__choice label > .checkbox {
   flex-shrink: 0;
   margin-top: 0.12em;
+  position: relative;
+  z-index: 1;
 }
 
 .waitlist-embed .sib-form #sib-container .entry__choice label > div {
