@@ -7,3 +7,9 @@ site/.astro/
 site/.vscode/
 site/reports/*.json
 npm-debug.log*
+
+# Python bytecode (repo root, tests/, etc.)
+__pycache__/
+
+# Crawler comparison snapshots (local only)
+crawl-versions/
