@@ -10,6 +10,7 @@ import {
   STOCKHOLM_CURRENCY,
   STOCKHOLM_TICKETS,
 } from "../content/stockholm-offers";
+import { computeNextArtYogaOccurrenceIso } from "./art-yoga-next-occurrence";
 
 /** Source: `site-html/en-stockholm-tickets.html` footer JSON-LD (`#andetag`). */
 const STOCKHOLM_MUSEUM_SAME_AS = [
@@ -233,12 +234,16 @@ function artYogaEventNode(language: Language): object {
   const description = language === "sv" ? ev.descriptionSv : ev.descriptionEn;
   const url = buildCanonicalUrl(language === "sv" ? ev.pathSv : ev.pathEn);
   const yogaOffer = STOCKHOLM_TICKETS.find((t) => t.id === "art-yoga")!;
+  const { startDate, endDate } = computeNextArtYogaOccurrenceIso();
   return {
     "@type": "Event",
     "@id": `${CANONICAL_HOST}/#event-art-yoga`,
     name,
     description,
     url,
+    startDate,
+    endDate,
+    image: { "@id": `${CANONICAL_HOST}/#image-hero-stockholm` },
     duration: ev.durationIso,
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
     eventStatus: "https://schema.org/EventScheduled",
@@ -259,6 +264,7 @@ function artYogaEventNode(language: Language): object {
       priceCurrency: STOCKHOLM_CURRENCY,
       url,
       availability: "https://schema.org/InStock",
+      validFrom: startDate,
     },
   };
 }
@@ -296,7 +302,8 @@ function buildStockholmVenueSchema(ctx: SchemaPageContext): { "@context": string
     },
     heroImageNode(),
     {
-      "@type": ["Museum", "TouristAttraction"],
+      // Single @type: Google Rich Results rejects aggregateRating/review on @type ["Museum","TouristAttraction"].
+      "@type": "Museum",
       "@id": `${CANONICAL_HOST}/#museum-stockholm`,
       name: "ANDETAG Stockholm",
       description: museumDescription,

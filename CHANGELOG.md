@@ -14,6 +14,8 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ### Fixed
 
+- **JSON-LD Rich Results (Stockholm):** **`Museum`** node uses a single **`@type`** (removed **`TouristAttraction`** array entry) so **Google** accepts **`aggregateRating`** and **`Review`**. Art Yoga **`Event`** now includes computed **`startDate`** / **`endDate`**, **`image`**, and offer **`validFrom`** (**`art-yoga-next-occurrence.ts`**). **`schema-org.ts`**, **`schema-org.test.ts`**, **`docs/migration-exceptions.md`** **EX-0017**.
+
 - **Consent Mode updates after CMP choice:** `onFirstConsent` / `onConsent` / `onChange` now read **`cookie.categories`** from vanilla-cookieconsent instead of **`acceptedCategory()`**, which still reflected the previous state when those callbacks ran. That had caused **`gtag("consent", "update", …)`** to push **all denied** even after **Acceptera alla**. **`cookie-consent-config.ts`**, tests in **`cookie-consent-config.test.ts`**.
 
 ### Removed

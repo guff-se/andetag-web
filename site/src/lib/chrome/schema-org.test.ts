@@ -19,6 +19,7 @@ describe("buildSchemaJsonLd", () => {
     const flat = types.flatMap((t) => (Array.isArray(t) ? t : t ? [t] : []));
     expect(flat).toContain("Museum");
     expect(flat).not.toContain("Place");
+    expect(flat).not.toContain("TouristAttraction");
   });
 
   it("includes aggregateRating and review on Stockholm pages", () => {
@@ -28,8 +29,7 @@ describe("buildSchemaJsonLd", () => {
       destination: "stockholm",
     });
     const venue = doc["@graph"].find(
-      (n) => Array.isArray((n as Record<string, unknown>)["@type"]) &&
-        ((n as Record<string, unknown>)["@type"] as string[]).includes("Museum"),
+      (n) => (n as Record<string, unknown>)["@type"] === "Museum",
     ) as Record<string, unknown> | undefined;
     expect(venue).toBeDefined();
     const rating = venue!.aggregateRating as Record<string, unknown>;
@@ -81,9 +81,7 @@ describe("buildSchemaJsonLd", () => {
       destination: "stockholm",
     });
     const venue = doc["@graph"].find(
-      (n) =>
-        Array.isArray((n as Record<string, unknown>)["@type"]) &&
-        ((n as Record<string, unknown>)["@type"] as string[]).includes("Museum"),
+      (n) => (n as Record<string, unknown>)["@type"] === "Museum",
     ) as Record<string, unknown> | undefined;
     expect(venue).toBeDefined();
     const offers = venue!.offers as Record<string, unknown>[];
@@ -115,6 +113,12 @@ describe("buildSchemaJsonLd", () => {
     expect(schedule.scheduleTimezone).toBe("Europe/Stockholm");
     const performer = event!.performer as Record<string, unknown>;
     expect(performer.name).toBe("Fabian Macklin");
+    expect(typeof event!.startDate).toBe("string");
+    expect(typeof event!.endDate).toBe("string");
+    expect((event!.startDate as string).length).toBeGreaterThan(10);
+    expect(event!.image).toEqual({ "@id": "https://www.andetag.museum/#image-hero-stockholm" });
+    const offer = event!.offers as Record<string, unknown>;
+    expect(offer.validFrom).toBe(event!.startDate);
   });
 
   it("uses Swedish names when language is sv", () => {
@@ -130,9 +134,7 @@ describe("buildSchemaJsonLd", () => {
     ) as Record<string, unknown>;
     expect(event.name).toBe("Art Yoga på ANDETAG");
     const venue = doc["@graph"].find(
-      (n) =>
-        Array.isArray((n as Record<string, unknown>)["@type"]) &&
-        ((n as Record<string, unknown>)["@type"] as string[]).includes("Museum"),
+      (n) => (n as Record<string, unknown>)["@type"] === "Museum",
     ) as Record<string, unknown>;
     const offers = venue.offers as Record<string, unknown>[];
     expect(offers.find((o) => o.name === "Ordinarie biljett")).toBeDefined();
