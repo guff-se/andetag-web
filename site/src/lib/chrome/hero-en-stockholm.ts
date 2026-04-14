@@ -44,6 +44,7 @@ const MENU_DEFINITION: Array<{
 }> = [
   {
     label: "Visit",
+    href: "/en/stockholm/",
     matchPrefixes: [
       "/en/",
       "/en/stockholm/",
@@ -68,6 +69,7 @@ const MENU_DEFINITION: Array<{
   },
   {
     label: "The Experience",
+    href: "/en/stockholm/what-kind-of-experience/",
     matchPrefixes: [
       "/en/stockholm/what-kind-of-experience/",
       "/en/stockholm/date/",
@@ -89,6 +91,7 @@ const MENU_DEFINITION: Array<{
   },
   {
     label: "Groups",
+    href: "/en/stockholm/group-bookings/",
     matchPrefixes: ["/en/stockholm/group-bookings/", "/en/stockholm/corporate-events/"],
     subMenu: [
       { label: "Group bookings", href: "/en/stockholm/group-bookings/" },
@@ -97,6 +100,7 @@ const MENU_DEFINITION: Array<{
   },
   {
     label: "About",
+    href: "/en/stockholm/about-andetag/",
     matchPrefixes: [
       "/en/stockholm/about-andetag/",
       "/en/stockholm/optical-fibre-textile/",

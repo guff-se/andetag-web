@@ -7,6 +7,7 @@ describe("swedish hero header model", () => {
     const besok = model.menuItems.find((item) => item.label === "Besök");
 
     expect(besok?.active).toBe(true);
+    expect(besok?.href).toBe("/sv/stockholm/");
     expect(model.ticketItem.highlight).toBe(true);
     expect(model.logoHomeHref).toBe("/sv/stockholm/");
   });
@@ -16,6 +17,7 @@ describe("swedish hero header model", () => {
     const upplevelsen = model.menuItems.find((item) => item.label === "Upplevelsen");
 
     expect(upplevelsen?.active).toBe(true);
+    expect(upplevelsen?.href).toBe("/sv/stockholm/vilken-typ-av-upplevelse/");
   });
 
   it("returns right-end language flag options with current swedish active", () => {

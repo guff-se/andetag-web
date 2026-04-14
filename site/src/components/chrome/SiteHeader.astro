@@ -308,8 +308,19 @@ sharedHero && (
           sharedHero.menuItems.map((item) => (
             <li class="shared-hero-mobile-menu-item">
               {item.subMenu.length > 0 ? (
-                <details>
-                  <summary>{item.label}</summary>
+                <details class="shared-hero-mobile-menu-details">
+                  <summary class="shared-hero-mobile-menu-summary">
+                    <span class="shared-hero-mobile-menu-summary-main">
+                      {item.href ? (
+                        <a href={item.href}>{item.label}</a>
+                      ) : (
+                        <span class="shared-hero-mobile-menu-heading">{item.label}</span>
+                      )}
+                    </span>
+                    <span class="shared-hero-mobile-menu-summary-chevron" aria-hidden="true">
+                      ▾
+                    </span>
+                  </summary>
                   <ul class="shared-hero-mobile-submenu">
                     {item.subMenu.map((subItem) => <li><a href={subItem.href}>{subItem.label}</a></li>)}
                   </ul>

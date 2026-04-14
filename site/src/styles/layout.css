@@ -584,6 +584,45 @@ select:focus-visible {
   display: none;
 }
 
+.shared-hero-mobile-menu-details > .shared-hero-mobile-menu-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.shared-hero-mobile-menu-summary-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.shared-hero-mobile-menu-summary-main > a,
+.shared-hero-mobile-menu-summary-main > .shared-hero-mobile-menu-heading {
+  display: block;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: inherit;
+  text-decoration: none;
+}
+
+.shared-hero-mobile-menu-summary-main > a:hover {
+  text-decoration: underline;
+}
+
+.shared-hero-mobile-menu-summary-chevron {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2rem;
+  font-size: 0.75rem;
+  line-height: 1;
+  opacity: 0.85;
+}
+
 .shared-hero-mobile-submenu a {
   display: block;
   padding: 10px 16px 10px 28px;

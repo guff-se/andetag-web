@@ -10,10 +10,12 @@ describe("english stockholm hero header model", () => {
   it("marks Visit active on the hub and ticket pages", () => {
     const hub = getEnglishStockholmHeroHeaderModel("/en/");
     expect(hub.menuItems[0]?.active).toBe(true);
+    expect(hub.menuItems[0]?.href).toBe("/en/stockholm/");
 
     const tickets = getEnglishStockholmHeroHeaderModel("/en/stockholm/tickets/");
     expect(tickets.menuItems[0]?.active).toBe(true);
     expect(tickets.menuItems[0]?.label).toBe("Visit");
+    expect(tickets.menuItems[0]?.href).toBe("/en/stockholm/");
   });
 
   it("lists only Stockholm-available languages in the flag strip", () => {

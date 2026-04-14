@@ -62,6 +62,7 @@ const NAVIGATION_VARIANTS: Record<NavigationVariant["id"], NavigationVariant> = 
     items: [
       {
         label: "Besök",
+        href: "/sv/stockholm/",
         children: [
           { label: "ANDETAG", href: "/sv/stockholm/" },
           { label: "Biljetter", href: "/sv/stockholm/biljetter/" },
@@ -75,6 +76,7 @@ const NAVIGATION_VARIANTS: Record<NavigationVariant["id"], NavigationVariant> = 
       },
       {
         label: "Upplevelsen",
+        href: "/sv/stockholm/vilken-typ-av-upplevelse/",
         children: [
           { label: "Hur är ANDETAG?", href: "/sv/stockholm/vilken-typ-av-upplevelse/" },
           { label: "Art Yoga", href: "/sv/stockholm/art-yoga/" },
@@ -84,6 +86,7 @@ const NAVIGATION_VARIANTS: Record<NavigationVariant["id"], NavigationVariant> = 
       },
       {
         label: "Grupper",
+        href: "/sv/stockholm/gruppbokning/",
         children: [
           { label: "Gruppbokningar", href: "/sv/stockholm/gruppbokning/" },
           { label: "Företagsevent", href: "/sv/stockholm/foretagsevent/" },
@@ -91,6 +94,7 @@ const NAVIGATION_VARIANTS: Record<NavigationVariant["id"], NavigationVariant> = 
       },
       {
         label: "Om",
+        href: "/sv/stockholm/om-andetag/",
         children: [
           { label: "Om ANDETAG", href: "/sv/stockholm/om-andetag/" },
           { label: "Textilen", href: "/sv/stockholm/optisk-fibertextil/" },
@@ -108,6 +112,7 @@ const NAVIGATION_VARIANTS: Record<NavigationVariant["id"], NavigationVariant> = 
     items: [
       {
         label: "Visit",
+        href: "/en/stockholm/",
         children: [
           { label: "ANDETAG", href: "/en/stockholm/" },
           { label: "Tickets", href: "/en/stockholm/tickets/" },
@@ -121,6 +126,7 @@ const NAVIGATION_VARIANTS: Record<NavigationVariant["id"], NavigationVariant> = 
       },
       {
         label: "The Experience",
+        href: "/en/stockholm/what-kind-of-experience/",
         children: [
           { label: "What is it", href: "/en/stockholm/what-kind-of-experience/" },
           { label: "Art Yoga", href: "/en/stockholm/art-yoga/" },
@@ -130,6 +136,7 @@ const NAVIGATION_VARIANTS: Record<NavigationVariant["id"], NavigationVariant> = 
       },
       {
         label: "Groups",
+        href: "/en/stockholm/group-bookings/",
         children: [
           { label: "Group bookings", href: "/en/stockholm/group-bookings/" },
           { label: "Events", href: "/en/stockholm/corporate-events/" },
@@ -137,6 +144,7 @@ const NAVIGATION_VARIANTS: Record<NavigationVariant["id"], NavigationVariant> = 
       },
       {
         label: "About",
+        href: "/en/stockholm/about-andetag/",
         children: [
           { label: "About ANDETAG", href: "/en/stockholm/about-andetag/" },
           { label: "The Textile", href: "/en/stockholm/optical-fibre-textile/" },
