@@ -32,6 +32,8 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ### Added
 
+- **`301`** **`/sv/stockholm/faq/`** → **`/sv/stockholm/fragor-svar/`** (Swedish FAQ slug alias). **`site/public/_redirects`**, **`docs/url-matrix.csv`**, **`docs/phase-4-redirect-tests.md`** table **A** case **13**.
+
 - **Legacy `/display/` redirect:** **`301`** from **`/display`** and **`/display/`** on **`www`** to **`https://old.andetag.museum/display/`** (WordPress archive). **`site/public/_redirects`**, **`docs/url-matrix.csv`**, **`docs/url-migration-policy.md`**.
 
 - **Schema.org `offers` and Art Yoga `Event` with `Schedule`:** Stockholm Museum node now emits **6 `Offer` nodes** (regular, daytime, student/senior, youth, Art Yoga) sourced from **`stockholm-offers.ts`**. Art Yoga added as a recurring **`Event`** with `eventSchedule` (`repeatFrequency: P1W`, `byDay: Tuesday`, 17:00-18:00 `Europe/Stockholm`), `performer` (Fabian Macklin), and its own `Offer`. Language-aware names and URLs for sv/en. **7 new tests** in `schema-org.test.ts`. **EX-0017** updated.

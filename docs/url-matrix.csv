@@ -90,5 +90,6 @@ https://www.andetag.museum/privacy/,https://www.andetag.museum/sv/stockholm/priv
 https://www.andetag.museum/,https://www.andetag.museum/sv/stockholm/,sv,stockholm,content,redirect,301,legacy unprefixed Swedish URL
 https://www.andetag.museum/stockholm/aktivitet-inomhus-stockholm/,https://www.andetag.museum/sv/stockholm/aktivitet-inomhus-stockholm/,sv,stockholm,content,redirect,301,legacy unprefixed Swedish URL; use _redirects stockholm splat rule
 https://www.andetag.museum/stockholm/faq/,https://www.andetag.museum/sv/stockholm/fragor-svar/,sv,stockholm,content,redirect,301,slug mismatch: legacy faq → fragor-svar (P8-08 GSC cross-ref)
+https://www.andetag.museum/sv/stockholm/faq/,https://www.andetag.museum/sv/stockholm/fragor-svar/,sv,stockholm,content,redirect,301,Swedish prefixed legacy /faq/ → fragor-svar
 https://www.andetag.museum/stockholm/*,https://www.andetag.museum/sv/stockholm/:splat,sv,stockholm,content,redirect,301,legacy unprefixed Swedish URLs; Cloudflare splat
 https://www.andetag.museum/display/,https://old.andetag.museum/display/,sv,stockholm,content,redirect,301,legacy WP display page; archive host only (_redirects)

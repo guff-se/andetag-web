@@ -45,6 +45,7 @@
 
 # Explicit overrides where splat target slug differs from legacy slug
 /stockholm/faq/ /sv/stockholm/fragor-svar/ 301
+/sv/stockholm/faq/ /sv/stockholm/fragor-svar/ 301
 
 /stockholm/* /sv/stockholm/:splat 301
 # `/` entry routing: Cloudflare Worker (`site/workers/entry-router.ts`), not static `_redirects`.
