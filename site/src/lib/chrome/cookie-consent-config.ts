@@ -51,9 +51,9 @@ type CookieConsentConfig = {
       flipButtons: false;
     };
   };
-  onFirstConsent: () => void;
-  onConsent: () => void;
-  onChange: () => void;
+  onFirstConsent: (param: { cookie: { categories: string[] } }) => void;
+  onConsent: (param: { cookie: { categories: string[] } }) => void;
+  onChange: (param: { cookie: { categories: string[] } }) => void;
 };
 
 declare global {
@@ -76,9 +76,26 @@ function getCategoryConsent(): ConsentState {
   };
 }
 
-function pushConsentUpdate(): void {
+/**
+ * Use the `cookie.categories` array from vanilla-cookieconsent callbacks. In
+ * `onFirstConsent` / `onConsent`, `acceptedCategory()` is not reliable yet; it
+ * still reads the pre-update state, which produced all-denied consent updates.
+ */
+export function consentStateFromAcceptedCategories(
+  categories: readonly string[],
+): ConsentState {
+  return {
+    analytics: categories.includes("analytics"),
+    marketing: categories.includes("marketing"),
+  };
+}
+
+function pushConsentUpdate(acceptedCategories?: readonly string[]): void {
   if (typeof window.gtag !== "function") return;
-  window.gtag("consent", "update", buildConsentModeUpdate(getCategoryConsent()));
+  const consent = acceptedCategories
+    ? consentStateFromAcceptedCategories(acceptedCategories)
+    : getCategoryConsent();
+  window.gtag("consent", "update", buildConsentModeUpdate(consent));
 }
 
 export function resolveCookieConsentLanguage(language: string | null | undefined): SupportedLanguage {
@@ -306,8 +323,14 @@ export function createCookieConsentConfig(language: SupportedLanguage): CookieCo
         flipButtons: false,
       },
     },
-    onFirstConsent: pushConsentUpdate,
-    onConsent: pushConsentUpdate,
-    onChange: pushConsentUpdate,
+    onFirstConsent: ({ cookie }) => {
+      pushConsentUpdate(cookie.categories);
+    },
+    onConsent: ({ cookie }) => {
+      pushConsentUpdate(cookie.categories);
+    },
+    onChange: ({ cookie }) => {
+      pushConsentUpdate(cookie.categories);
+    },
   };
 }

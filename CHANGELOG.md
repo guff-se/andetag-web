@@ -7,6 +7,10 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ## [Unreleased]
 
+### Fixed
+
+- **Consent Mode updates after CMP choice:** `onFirstConsent` / `onConsent` / `onChange` now read **`cookie.categories`** from vanilla-cookieconsent instead of **`acceptedCategory()`**, which still reflected the previous state when those callbacks ran. That had caused **`gtag("consent", "update", …)`** to push **all denied** even after **Acceptera alla**. **`cookie-consent-config.ts`**, tests in **`cookie-consent-config.test.ts`**.
+
 ### Removed
 
 - **`docs/gtm-cookieyes-migration-runbook.md`** (superseded by **`docs/gtm-consent-migration-runbook.md`**).

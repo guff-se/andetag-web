@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   buildConsentModeUpdate,
+  consentStateFromAcceptedCategories,
   resolveCookieConsentLanguage,
 } from "./cookie-consent-config";
 
@@ -14,6 +15,22 @@ describe("cookie consent language resolution", () => {
   it("falls back to swedish when language is unknown", () => {
     expect(resolveCookieConsentLanguage("fr")).toBe("sv");
     expect(resolveCookieConsentLanguage("")).toBe("sv");
+  });
+});
+
+describe("consent state from CMP cookie.categories", () => {
+  it("reflects accept-all style category list", () => {
+    expect(consentStateFromAcceptedCategories(["necessary", "analytics", "marketing"])).toEqual({
+      analytics: true,
+      marketing: true,
+    });
+  });
+
+  it("reflects analytics-only selection", () => {
+    expect(consentStateFromAcceptedCategories(["necessary", "analytics"])).toEqual({
+      analytics: true,
+      marketing: false,
+    });
   });
 });
 
