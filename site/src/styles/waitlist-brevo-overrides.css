@@ -138,3 +138,12 @@
   clip-path: inset(50%);
   visibility: hidden;
 }
+
+.waitlist-embed__status {
+  margin: 0.75rem 0 0;
+  font-family: "Baskervville", Georgia, serif;
+  font-size: 1rem;
+  line-height: 1.45;
+  color: #4a0d2f;
+  text-align: center;
+}
