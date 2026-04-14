@@ -10,7 +10,10 @@ import {
   STOCKHOLM_CURRENCY,
   STOCKHOLM_TICKETS,
 } from "../content/stockholm-offers";
-import { computeNextArtYogaOccurrenceIso } from "./art-yoga-next-occurrence";
+import { computeArtYogaOccurrenceSeriesIso } from "./art-yoga-next-occurrence";
+
+/** Explicit dated Event nodes for Rich Results; refreshed each static build. */
+const ART_YOGA_SCHEMA_WEEKS = 4;
 
 /** Source: `site-html/en-stockholm-tickets.html` footer JSON-LD (`#andetag`). */
 const STOCKHOLM_MUSEUM_SAME_AS = [
@@ -228,45 +231,48 @@ function stockholmOffers(language: Language): object[] {
   });
 }
 
-function artYogaEventNode(language: Language): object {
+function artYogaEventNodes(language: Language): object[] {
   const ev = STOCKHOLM_ART_YOGA_EVENT;
   const name = language === "sv" ? ev.nameSv : ev.nameEn;
   const description = language === "sv" ? ev.descriptionSv : ev.descriptionEn;
   const url = buildCanonicalUrl(language === "sv" ? ev.pathSv : ev.pathEn);
   const yogaOffer = STOCKHOLM_TICKETS.find((t) => t.id === "art-yoga")!;
-  const { startDate, endDate } = computeNextArtYogaOccurrenceIso();
-  return {
-    "@type": "Event",
-    "@id": `${CANONICAL_HOST}/#event-art-yoga`,
-    name,
-    description,
-    url,
-    startDate,
-    endDate,
-    image: { "@id": `${CANONICAL_HOST}/#image-hero-stockholm` },
-    duration: ev.durationIso,
-    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-    eventStatus: "https://schema.org/EventScheduled",
-    eventSchedule: {
-      "@type": "Schedule",
-      repeatFrequency: ev.schedule.repeatFrequency,
-      byDay: ev.schedule.byDay,
-      startTime: ev.schedule.startTime,
-      endTime: ev.schedule.endTime,
-      scheduleTimezone: ev.schedule.scheduleTimezone,
-    },
-    location: { "@id": `${CANONICAL_HOST}/#museum-stockholm` },
-    organizer: { "@id": `${CANONICAL_HOST}/#organization` },
-    performer: { "@type": "Person", name: ev.performer },
-    offers: {
-      "@type": "Offer",
-      price: String(yogaOffer.price),
-      priceCurrency: STOCKHOLM_CURRENCY,
+  const slots = computeArtYogaOccurrenceSeriesIso(ART_YOGA_SCHEMA_WEEKS);
+  return slots.map(({ startDate, endDate }) => {
+    const dayKey = startDate.slice(0, 10);
+    return {
+      "@type": "Event",
+      "@id": `${CANONICAL_HOST}/#event-art-yoga-${dayKey}`,
+      name,
+      description,
       url,
-      availability: "https://schema.org/InStock",
-      validFrom: startDate,
-    },
-  };
+      startDate,
+      endDate,
+      image: { "@id": `${CANONICAL_HOST}/#image-hero-stockholm` },
+      duration: ev.durationIso,
+      eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+      eventStatus: "https://schema.org/EventScheduled",
+      eventSchedule: {
+        "@type": "Schedule",
+        repeatFrequency: ev.schedule.repeatFrequency,
+        byDay: ev.schedule.byDay,
+        startTime: ev.schedule.startTime,
+        endTime: ev.schedule.endTime,
+        scheduleTimezone: ev.schedule.scheduleTimezone,
+      },
+      location: { "@id": `${CANONICAL_HOST}/#museum-stockholm` },
+      organizer: { "@id": `${CANONICAL_HOST}/#organization` },
+      performer: { "@type": "Person", name: ev.performer },
+      offers: {
+        "@type": "Offer",
+        price: String(yogaOffer.price),
+        priceCurrency: STOCKHOLM_CURRENCY,
+        url,
+        availability: "https://schema.org/InStock",
+        validFrom: startDate,
+      },
+    };
+  });
 }
 
 function buildStockholmVenueSchema(ctx: SchemaPageContext): { "@context": string; "@graph": object[] } {
@@ -336,7 +342,7 @@ function buildStockholmVenueSchema(ctx: SchemaPageContext): { "@context": string
       })),
       offers: stockholmOffers(ctx.language),
     },
-    artYogaEventNode(ctx.language),
+    ...artYogaEventNodes(ctx.language),
     logoNode(),
   ];
   return { "@context": "https://schema.org", "@graph": graph };
