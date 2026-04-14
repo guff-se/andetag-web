@@ -39,6 +39,8 @@ const sharedDeBerlinHeader = isGermanBerlinSharedHeroHeader(model.header.id)
   ? getGermanBerlinHeroHeaderModel(currentPath)
   : null;
 const sharedHero = sharedSvHeader ?? sharedEnHeader ?? sharedEnBerlinHeader ?? sharedDeBerlinHeader;
+const mobileLanguageAlternates =
+  sharedHero?.languageFlags.filter((flag) => !flag.active) ?? [];
 const isSharedBerlinHero = Boolean(sharedEnBerlinHeader ?? sharedDeBerlinHeader);
 const berlinHeroCenterCopy = sharedEnBerlinHeader?.centerCopy ?? sharedDeBerlinHeader?.centerCopy;
 const heroSocialInstagramHref = isSharedBerlinHero
@@ -339,6 +341,15 @@ sharedHero && (
               <a href={sharedHero.ticketItem.href}>{sharedHero.ticketItem.label}</a>
             </li>
           ) : null
+        }
+        {
+          mobileLanguageAlternates.map((flag) => (
+            <li class="shared-hero-mobile-menu-item shared-hero-mobile-lang-item">
+              <a href={flag.href} aria-label={flag.label}>
+                <span class="shared-hero-mobile-lang-emoji" aria-hidden="true">{flag.flag}</span>
+              </a>
+            </li>
+          ))
         }
       </ul>
     </nav>

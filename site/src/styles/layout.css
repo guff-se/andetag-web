@@ -639,6 +639,24 @@ select:focus-visible {
   color: #f7dcea;
 }
 
+/* Language alternates: same cell padding as other top-level mobile links, not uppercase nav labels. */
+.shared-hero-mobile-lang-item > a {
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 400;
+}
+
+.shared-hero-mobile-lang-emoji {
+  display: inline-block;
+  font-size: 1.65rem;
+  line-height: 1;
+}
+
+.shared-hero-mobile-lang-item > a:focus-visible {
+  outline: 2px solid var(--component-link);
+  outline-offset: 2px;
+}
+
 .header-root {
   position: sticky;
   top: 0;
