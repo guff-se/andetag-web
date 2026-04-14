@@ -9,6 +9,8 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ### Changed
 
+- **Phase 8 closure (2026-04-14):** **`docs/phase-8-todo.md`** **closed**; **`docs/phase-8-verification-record.md`** §Closure and Gustaf sign-off; **`docs/grand-plan.md`** Phase 8 **complete** and **Practical next steps** repointed to Phase 9; **`docs/definition-of-done.md`** Phase 8 monitoring row → **P9-26**; **`AGENTS.md`** project status. **Post-cutover organic monitoring** moved from **P8-26** to **`docs/phase-9-todo.md`** **P9-26** (log §Organic monitoring log in Phase 8 verification record until Phase 9 record exists).
+
 - **Phase 9 · P9-25:** Post-cutover **release discipline** (no direct **`main`** pushes, **PR** + **Cloudflare** previews, branch protection, merge promotes **`www`**) moved from Phase 8 **P8-25** to **`docs/phase-9-todo.md`**. **`docs/phase-8-todo.md`**, **`docs/phase-8-cutover-runbook.md`**, **`docs/phase-8-verification-record.md`**, **`docs/grand-plan.md`**, **`docs/definition-of-done.md`**, **`AGENTS.md`** cross-references updated; **P9-01** merged into **P9-25**.
 
 - **Phase 8 evidence:** **`docs/phase-8-todo.md`** marks **P8-07**, **P8-11**, **P8-12**, **P8-13** pass **2026-04-14** (GTM runbook through Part D on **`www`**, cutover smoke, **`andetag_entry`**, CMP). **`docs/phase-8-verification-record.md`** §Cutover and status updated; **`docs/phase-8-cutover-runbook.md`** prerequisites **P8-07** and DNS-on-Cloudflare checked.

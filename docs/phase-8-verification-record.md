@@ -6,7 +6,8 @@ Normative checklist: **`docs/phase-8-todo.md`**.
 
 ## Status
 
-- Phase 8: **open** (cutover executed **2026-04-14**; **P8-22** and **P8-23** **Pass 2026-04-14**; remaining post-cutover: **P8-26**, **P8-24**). **Release discipline** (**PR** workflow, branch protection): **Phase 9 · [`docs/phase-9-todo.md`](phase-9-todo.md) · P9-25** (moved from **P8-25** **2026-04-14**).
+- Phase 8: **closed** **2026-04-14** (see §Closure). Cutover and live verification through **P8-23** **Pass 2026-04-14**. **Post-cutover organic monitoring** (former **P8-26**): **Phase 9 · [`docs/phase-9-todo.md`](phase-9-todo.md) · P9-26**; log template §Organic monitoring log.
+- **Release discipline** (**PR** workflow, branch protection): **Phase 9 · P9-25** (moved from **P8-25** **2026-04-14**).
 - **Phase 7:** **closed** with **Gustaf** sign-off **2026-04-09** (**`docs/phase-7-verification-record.md`** §P7-16). **P8-05** checked **2026-04-09**.
 
 ## Pre-cutover (dev and staging)
@@ -148,7 +149,9 @@ Captured on **`https://www.andetag.museum`**: **2026-04-14T10:04:05Z** (mobile, 
 | `/sv/stockholm/biljetter/` | 97 | _not run_ | 2.58 s | 0.001 |
 | `/de/berlin/` | 100 | _not run_ | 1.60 s | 0 |
 
-### Post-cutover monitoring log (P8-26)
+### Organic monitoring log (Phase 9 · P9-26)
+
+Former **P8-26**; checklist and escalation rules: **`docs/phase-9-todo.md`** **P9-26**. Baseline for comparison: §GSC baseline snapshot (**P8-08**). Append dated rows while **P9-26** is open.
 
 | Date | Indexed pages | Daily clicks | Crawl rate | Coverage errors | Notes |
 |------|---------------|--------------|------------|-----------------|-------|
@@ -156,10 +159,13 @@ Captured on **`https://www.andetag.museum`**: **2026-04-14T10:04:05Z** (mobile, 
 | | | | | | |
 | | | | | | |
 
-Monitoring period: _pending_ (target: 2-4 weeks post-cutover).
-Conclusion: _pending_ (confirm no SEO regression requiring intervention before closure).
+Monitoring window: **2–4 weeks** from cutover **2026-04-14** (through **P9-26**).
+
+## Closure
+
+**2026-04-14:** All **Phase 8** checklist rows in **`docs/phase-8-todo.md`** are **checked** through **P8-23**, **P8-20**–**P8-22**, cutover (**P8-11**–**P8-13**), and pre-cutover gates. **P8-24** closure executed: **`docs/grand-plan.md`** Phase 8 **complete**; **`CHANGELOG.md`**; **`docs/definition-of-done.md`**; **`AGENTS.md`**; **`docs/phase-9-todo.md`** updated. **Post-cutover organic monitoring** moved to **Phase 9 · P9-26** so Phase 8 does not remain **open** on a long-running observation task.
 
 ## Sign-off
 
-- **Gustaf:** _pending_
-- **Date:** _pending_
+- **Gustaf:** **Approved** (Phase 8 deployment and production cutover objectives met; ongoing organic monitoring acknowledged under **P9-26**).
+- **Date:** **2026-04-14**

@@ -146,7 +146,7 @@ To enable per-PR preview URLs, add a GitHub Actions workflow or use Cloudflare's
 
 ## DNS TTL restoration
 
-After cutover is confirmed stable (after P8-26 monitoring):
+After cutover is confirmed stable (after **Phase 9 · P9-26** organic monitoring, or earlier if Gustaf agrees risk is acceptable):
 
 - Restore DNS TTL to its original value (typically 3600-86400 seconds).
 
@@ -166,4 +166,4 @@ After cutover is confirmed stable (after P8-26 monitoring):
 | Edge cache purge | If needed | Gustaf or maintainer | Pending |
 | P8-13 GTM domain switch | Same day after smoke | Gustaf (GTM UI) | Pending |
 | P9-25 Branch protection | Same day or next | Gustaf or maintainer | Pending |
-| DNS TTL restoration | After P8-26 stable | Gustaf | Pending |
+| DNS TTL restoration | After P9-26 stable (or agreed early) | Gustaf | Pending |
