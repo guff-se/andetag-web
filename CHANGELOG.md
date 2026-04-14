@@ -16,6 +16,8 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ### Fixed
 
+- **Docs link check (lychee):** added repo-root **`lychee.toml`** **`exclude`** regexes for **Trustpilot**, **G2**, and **concord.tech**, which often return **403** (bot blocking) or **429** (rate limit) from **GitHub Actions** while remaining valid in a browser.
+
 - **Berlin Brevo waitlist embed:** opt-in row uses **flex** so the custom checkbox and **“I agree…”** copy stay on one line; form **`POST`** targets a **hidden named iframe** so subscribers are not navigated to the blank **`sibforms.com`** response page (**`WaitlistFormEmbed.astro`**, **`waitlist-brevo-overrides.css`**). Follow-up: reset vendor **`padding-left` / `text-indent`** on **`.sib-optin .entry__choice`** so copy does not overlap the custom checkbox. **`waitlist-form-feedback.ts`**: **`aria-live`** status shows **Sending…** then a short **thank-you** when the iframe finishes loading (response body is not readable cross-origin).
 
 - **JSON-LD Rich Results (Stockholm):** Stockholm venue uses **`@type`: [`Museum`, `LocalBusiness`]**: **`LocalBusiness`** satisfies Google's review-snippet parent-type rules for nested **`aggregateRating`** / **`Review`** ( **`Museum`** alone is not in that list); **`TouristAttraction`** remains omitted. Museum **`url`** is language-specific (**`/sv/stockholm/`** vs **`/en/stockholm/`**). **`aggregateRating.reviewCount`** is a JSON number. Art Yoga: **four** dated **`Event`** nodes (**`computeArtYogaOccurrenceSeriesIso`**). **`schema-org.ts`**, **`schema-org.test.ts`**, **`docs/migration-exceptions.md`** **EX-0017**, **`docs/Andetag SEO Manual.md`** §6 implementation note.
