@@ -35,6 +35,9 @@ const optInBeforeLink =
 const optInAfterLink = locale === "de" ? "." : ".";
 const privacyLinkLabel = locale === "de" ? "Datenschutzerklärung" : "Privacy Policy";
 const submitLabel = locale === "de" ? "Anmelden" : "Sign up";
+
+/** Brevo returns HTML; load it in a hidden iframe so the parent page does not navigate away. */
+const submitFrameName = `${formId}-sib-response`;
 ---
 
 <section class="embed-shell">
@@ -49,7 +52,13 @@ const submitLabel = locale === "de" ? "Anmelden" : "Sign up";
             class="sib-container--large sib-container--vertical"
             style="text-align:center; background-color:transparent; max-width:540px; border-radius:0; border-width:0; border-style:none; padding:0;"
           >
-            <form id="sib-form" method="POST" action={formAction} style="padding:0; margin:0;">
+            <form
+              id="sib-form"
+              method="POST"
+              action={formAction}
+              target={submitFrameName}
+              style="padding:0; margin:0;"
+            >
               <div style="padding: 4px 0;">
                 <div class="sib-input sib-form-block">
                   <div class="form__entry entry_block">
@@ -126,6 +135,12 @@ const submitLabel = locale === "de" ? "Anmelden" : "Sign up";
               <input type="hidden" name="locale" value={locale} />
               <input type="hidden" name="html_type" value="simple" />
             </form>
+            <iframe
+              class="waitlist-embed__submit-frame"
+              name={submitFrameName}
+              title="Brevo waitlist form response"
+              aria-hidden="true"
+              tabindex="-1"></iframe>
           </div>
         </div>
       </div>

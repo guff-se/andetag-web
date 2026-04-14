@@ -126,6 +126,7 @@ Maintainer updates this subsection when the operator reports a step **done** (no
 | 3 | **P8-23** | [Rich Results Test](https://search.google.com/test/rich-results) URL mode on **`https://www.andetag.museum/sv/stockholm/`** (or agreed alternate **`www`** Stockholm URL) | **Done 2026-04-14** | Critical-issue count not supplied in thread; amend when known. |
 | 4 | **P8-23** | **Google Search Console** → **URL Inspection** for **`https://www.andetag.museum/sv/stockholm/`** → **Request indexing** (or confirm already indexed) | **Done 2026-04-14** | GSC UI outcome not supplied in thread; amend if indexing state or queue message should be recorded. |
 | 5 | **P8-22** | From **`https://www.andetag.museum/en/stockholm/`**, use the **site language control** → **Swedish** (expect **`/sv/stockholm/...`**); then back to **English** (expect **`/en/stockholm/...`**) | **Done 2026-04-14** | Pass/fail and final URLs not supplied in thread; amend when known. |
+| 6 | **P8-22** | **Berlin** Brevo waitlist (**`/en/berlin/`** or **`/de/berlin/`**): submit once; stay on site; checkbox + opt-in copy alignment | **Retest after deploy** | **2026-04-14:** Operator reported unwanted line break before opt-in copy and full navigation to **`sibforms.com`** (subscription still succeeded). **Repo fix:** flex opt-in row + hidden **`iframe`** form **`target`** (**`WaitlistFormEmbed.astro`**, **`waitlist-brevo-overrides.css`**); re-run on **`www`** after next production deploy. |
 
 ### Production Lighthouse baseline (P8-22)
 

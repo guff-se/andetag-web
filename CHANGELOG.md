@@ -14,6 +14,8 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ### Fixed
 
+- **Berlin Brevo waitlist embed:** opt-in row uses **flex** so the custom checkbox and **“I agree…”** copy stay on one line; form **`POST`** targets a **hidden named iframe** so subscribers are not navigated to the blank **`sibforms.com`** response page (**`WaitlistFormEmbed.astro`**, **`waitlist-brevo-overrides.css`**).
+
 - **JSON-LD Rich Results (Stockholm):** Stockholm venue uses **`@type`: [`Museum`, `LocalBusiness`]**: **`LocalBusiness`** satisfies Google's review-snippet parent-type rules for nested **`aggregateRating`** / **`Review`** ( **`Museum`** alone is not in that list); **`TouristAttraction`** remains omitted. Museum **`url`** is language-specific (**`/sv/stockholm/`** vs **`/en/stockholm/`**). **`aggregateRating.reviewCount`** is a JSON number. Art Yoga: **four** dated **`Event`** nodes (**`computeArtYogaOccurrenceSeriesIso`**). **`schema-org.ts`**, **`schema-org.test.ts`**, **`docs/migration-exceptions.md`** **EX-0017**, **`docs/Andetag SEO Manual.md`** §6 implementation note.
 
 - **Consent Mode updates after CMP choice:** `onFirstConsent` / `onConsent` / `onChange` now read **`cookie.categories`** from vanilla-cookieconsent instead of **`acceptedCategory()`**, which still reflected the previous state when those callbacks ran. That had caused **`gtag("consent", "update", …)`** to push **all denied** even after **Acceptera alla**. **`cookie-consent-config.ts`**, tests in **`cookie-consent-config.test.ts`**.
