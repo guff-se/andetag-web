@@ -42,7 +42,7 @@
     "/en/berlin/": {
       "sourceFile": "en-berlin-en.html",
       "title": "ANDETAG Berlin | The Breathing Museum Opens Autumn 2026 | ANDETAG Stockholm",
-      "description": "ANDETAG, the breathing museum, is coming to Berlin in autumn 2026. A calm, light-based art experience built for stillness and presence. Sign up for early bird tickets."
+      "description": "ANDETAG, the breathing museum, is coming to Berlin in autumn 2026. A calm, light-based art experience built for stillness and presence. Sign up to be the first to know."
     },
     "/en/berlin/about-andetag/": {
       "sourceFile": "en-about-andetag.html",
@@ -103,6 +103,11 @@
       "sourceFile": "en-stockholm-date.html",
       "title": "Date in Stockholm | A Quiet Place to Be Together | ANDETAG Stockholm",
       "description": "A still, immersive art experience in central Stockholm. A calm date where you can be close, be quiet, and share an hour together. Suitable for first dates and couples."
+    },
+    "/en/stockholm/event-stockholm/": {
+      "sourceFile": "stockholm-att-gora-stockholm.html",
+      "title": "ANDETAG | Event in Stockholm: a quiet pause | ANDETAG Stockholm",
+      "description": "What happens in Stockholm when you want calm? ANDETAG, the breathing museum, is a still event in central Stockholm: light, textile, and breath at Hötorget. Book your visit."
     },
     "/en/stockholm/exhibition-stockholm/": {
       "sourceFile": "stockholm-utstallning-stockholm.html",
@@ -223,6 +228,11 @@
       "sourceFile": "stockholm-dejt.html",
       "title": "Dejt i Stockholm | En lugn plats att vara tillsammans | ANDETAG Stockholm",
       "description": "En stillsam konstupplevelse mitt i Stockholm. En lugn dejt där ni kan sitta nära, vara tysta och dela en stund tillsammans. Passar både första dejten och etablerade par."
+    },
+    "/sv/stockholm/event-stockholm/": {
+      "sourceFile": "stockholm-att-gora-stockholm.html",
+      "title": "ANDETAG | Event i Stockholm: stillsam paus | ANDETAG Stockholm",
+      "description": "Vad händer i Stockholm när du vill pausa? ANDETAG är ett stillsamt event i Stockholm: ljus, textil och andning vid Hötorget. Boka ditt besök."
     },
     "/sv/stockholm/foretagsevent/": {
       "sourceFile": "stockholm-foretagsevent.html",

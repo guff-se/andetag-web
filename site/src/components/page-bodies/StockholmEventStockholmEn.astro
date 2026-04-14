@@ -1,0 +1,21 @@
+---
+import StockholmSeoLandingEn from "./StockholmSeoLandingEn.astro";
+
+/**
+ * English peer of `StockholmEventStockholmSv.astro`; layout matches `StockholmThingsToDoEn.astro`.
+ */
+const introMarkdown = [
+  "<p>Wondering what happens in Stockholm, or looking for an event in Stockholm without a crowd, a queue, and noise?</p>",
+  "<p>Many guides chase tempo and spectacle. This is something else.</p>",
+  "<p><span class=\"brand-wordmark\">ANDETAG</span> is a place to do one thing: stay.</p>",
+  "<p>Let your eyes rest in slow light.</p>",
+  "<p>Breathe.</p>",
+  "<p>That is enough.</p>",
+].join("");
+---
+
+<StockholmSeoLandingEn
+  galleryId="stockholm-en-event-stockholm"
+  h1Text="An event in Stockholm when you want a quiet pause"
+  introMarkdown={introMarkdown}
+/>

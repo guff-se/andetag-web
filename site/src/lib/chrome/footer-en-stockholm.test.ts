@@ -20,6 +20,7 @@ describe("english stockholm footer model", () => {
       "Activity",
       "Museum",
       "Things to do",
+      "Event",
       "Exhibition",
     ]);
 
@@ -29,6 +30,7 @@ describe("english stockholm footer model", () => {
       "/en/stockholm/indoor-activity-stockholm/",
       "/en/stockholm/museum-stockholm/",
       "/en/stockholm/things-to-do-stockholm/",
+      "/en/stockholm/event-stockholm/",
       "/en/stockholm/exhibition-stockholm/",
     ]);
   });

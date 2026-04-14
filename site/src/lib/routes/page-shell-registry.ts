@@ -54,6 +54,7 @@ export const STOCKHOLM_SV_EN_PAIRS: ReadonlyArray<readonly [string, string]> = [
   ["/sv/stockholm/vilken-typ-av-upplevelse/", "/en/stockholm/what-kind-of-experience/"],
   ["/sv/stockholm/aktivitet-inomhus-stockholm/", "/en/stockholm/indoor-activity-stockholm/"],
   ["/sv/stockholm/att-gora-stockholm/", "/en/stockholm/things-to-do-stockholm/"],
+  ["/sv/stockholm/event-stockholm/", "/en/stockholm/event-stockholm/"],
   ["/sv/stockholm/museum-stockholm/", "/en/stockholm/museum-stockholm/"],
   ["/sv/stockholm/npf-stockholm/", "/en/stockholm/npf-visitors/"],
   ["/sv/stockholm/utstallning-stockholm/", "/en/stockholm/exhibition-stockholm/"],

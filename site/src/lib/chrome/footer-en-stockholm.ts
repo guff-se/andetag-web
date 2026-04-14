@@ -73,6 +73,7 @@ export function getEnglishStockholmFooterModel() {
     { label: "Activity", href: "/en/stockholm/indoor-activity-stockholm/" },
     { label: "Museum", href: "/en/stockholm/museum-stockholm/" },
     { label: "Things to do", href: "/en/stockholm/things-to-do-stockholm/" },
+    { label: "Event", href: "/en/stockholm/event-stockholm/" },
     { label: "Exhibition", href: "/en/stockholm/exhibition-stockholm/" },
   ];
 

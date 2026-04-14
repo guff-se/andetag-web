@@ -74,6 +74,7 @@ const MENU_DEFINITION: Array<{
       "/en/stockholm/npf-visitors/",
       "/en/stockholm/indoor-activity-stockholm/",
       "/en/stockholm/museum-stockholm/",
+      "/en/stockholm/event-stockholm/",
       "/en/stockholm/things-to-do-stockholm/",
       "/en/stockholm/exhibition-stockholm/",
       "/en/stockholm/art-yoga/",

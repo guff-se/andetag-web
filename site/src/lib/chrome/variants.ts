@@ -59,7 +59,7 @@ export const HEADER_VARIANTS: Record<HeaderVariantId, HeaderVariant> = {
     kind: "hero",
     navVariantDesktop: "en-main-berlin",
     navVariantMobile: "en-main-berlin",
-    ctaLabel: "Sign up for early bird tickets",
+    ctaLabel: "Sign up to be the first to know",
     ctaHref: "#signup",
   },
   "chrome-hdr-en-berlin-small": {
@@ -77,7 +77,7 @@ export const HEADER_VARIANTS: Record<HeaderVariantId, HeaderVariant> = {
     kind: "hero",
     navVariantDesktop: "de-main",
     navVariantMobile: "de-main",
-    ctaLabel: "FÜR FRÜHBUCHER-TICKETS ANMELDEN",
+    ctaLabel: "Als Erste informiert werden",
     ctaHref: "#signup",
   },
   "chrome-hdr-de-berlin-small": {

@@ -68,6 +68,7 @@ export function getSwedishFooterModel() {
     { label: "Aktivitet", href: "/sv/stockholm/aktivitet-inomhus-stockholm/" },
     { label: "Museum", href: "/sv/stockholm/museum-stockholm/" },
     { label: "Att göra", href: "/sv/stockholm/att-gora-stockholm/" },
+    { label: "Event", href: "/sv/stockholm/event-stockholm/" },
     { label: "Utställning", href: "/sv/stockholm/utstallning-stockholm/" },
   ];
 

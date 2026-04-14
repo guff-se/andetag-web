@@ -157,6 +157,7 @@ The following Swedish Stockholm SEO landing pages remain indexable and live at t
 
 - `/sv/stockholm/aktivitet-inomhus-stockholm/`
 - `/sv/stockholm/att-gora-stockholm/`
+- `/sv/stockholm/event-stockholm/` (English peer: `/en/stockholm/event-stockholm/`)
 - `/sv/stockholm/museum-stockholm/`
 - `/sv/stockholm/npf-stockholm/`
 - `/sv/stockholm/utstallning-stockholm/`
