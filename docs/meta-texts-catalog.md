@@ -1,25 +1,27 @@
 # Meta texts catalog (titles and descriptions)
 
-This file lists every **HTML document title** and **meta description** wired through [`SiteLayout.astro`](../site/src/layouts/SiteLayout.astro) (also used for `og:title`, `og:description`, `twitter:title`, `twitter:description`, and JSON-LD where applicable).
+This file lists every **HTML document title** and **meta description** wired through `[SiteLayout.astro](../site/src/layouts/SiteLayout.astro)` (also used for `og:title`, `og:description`, `twitter:title`, `twitter:description`, and JSON-LD where applicable).
 
 ## How to use this file
 
 1. Edit **Title** and **Description** under each canonical path below. Do not change the canonical path in each section heading (level-3 heading, path in backticks), so a later sync can match rows to `page-shell-meta.json` keys.
-2. When you are done, ask the maintainer or agent to **apply this catalog** to the codebase. That means updating [`page-shell-meta.json`](../site/src/data/page-shell-meta.json) (field `pages` → matching keys) and, if you changed the 404 block, [`404.astro`](../site/src/pages/404.astro).
-3. **Do not** run [`extract-page-shell-meta.mjs`](../site/scripts/extract-page-shell-meta.mjs) expecting it to preserve hand-tuned copy across all routes. That script re-reads `site-html/` snapshots; use it only when you intentionally refresh from HTML sources.
+2. When you are done, ask the maintainer or agent to **apply this catalog** to the codebase. That means updating `[page-shell-meta.json](../site/src/data/page-shell-meta.json)` (field `pages` → matching keys) and, if you changed the 404 block, `[404.astro](../site/src/pages/404.astro)`.
+3. **Do not** run `[extract-page-shell-meta.mjs](../site/scripts/extract-page-shell-meta.mjs)` expecting it to preserve hand-tuned copy across all routes. That script re-reads `site-html/` snapshots; use it only when you intentionally refresh from HTML sources.
 
 ## Scope
 
-| Source | What it controls |
-|--------|-------------------|
-| [`page-shell-meta.json`](../site/src/data/page-shell-meta.json) | All shell routes below (via `getPageShellRoute` in [`[...slug].astro`](../site/src/pages/[...slug].astro)) |
-| [`404.astro`](../site/src/pages/404.astro) | 404 page only (`noindex`) |
 
-Other head tags not listed here: `og:site_name` is the constant `ANDETAG` in [`seo.ts`](../site/src/lib/chrome/seo.ts). [`site.webmanifest`](../site/public/site.webmanifest) uses short `name` / `short_name` only (no per-page descriptions).
+| Source                                                          | What it controls                                                                                           |
+| --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `[page-shell-meta.json](../site/src/data/page-shell-meta.json)` | All shell routes below (via `getPageShellRoute` in `[[...slug].astro](../site/src/pages/[...slug].astro)`) |
+| `[404.astro](../site/src/pages/404.astro)`                      | 404 page only (`noindex`)                                                                                  |
+
+
+Other head tags not listed here: `og:site_name` is the constant `ANDETAG` in `[seo.ts](../site/src/lib/chrome/seo.ts)`. `[site.webmanifest](../site/public/site.webmanifest)` uses short `name` / `short_name` only (no per-page descriptions).
 
 ---
 
-## Shell routes ([`page-shell-meta.json`](../site/src/data/page-shell-meta.json))
+## Shell routes (`[page-shell-meta.json](../site/src/data/page-shell-meta.json)`)
 
 ### `/de/berlin/`
 
@@ -525,7 +527,7 @@ Other head tags not listed here: `og:site_name` is the constant `ANDETAG` in [`s
 
 ---
 
-## 404 page ([`404.astro`](../site/src/pages/404.astro))
+## 404 page (`[404.astro](../site/src/pages/404.astro)`)
 
 Swedish shell; `robots` is `noindex,follow` (not editable in this table without a code change).
 

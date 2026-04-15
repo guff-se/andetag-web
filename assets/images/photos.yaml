@@ -129,10 +129,10 @@ photos:
   - file: andrum-hall-visitors-at-rest.jpg
     original: _94A4042-mid.jpg
     alt:
-      sv: "Besökare vilar stilla i ANDETAGs andrum framför en symmetrisk vägg av lysande textilformer."
-      en: "Visitors at rest in the ANDETAG breathing hall before a symmetrical wall of luminous textile forms."
-      de: "Besuchende ruhen im ANDETAG-Atemraum vor einer symmetrischen Wand aus leuchtenden Textilformen."
-    tags: [andrum, textile-art, light-sculpture, visitors, group, symmetry, rest]
+      sv: "Besökare vilar stilla i ANDETAGs andrum framför en vägg av lysande textilformer."
+      en: "Visitors at rest in the ANDETAG breathing hall before a wall of luminous textile forms."
+      de: "Besuchende ruhen im ANDETAG-Atemraum vor einer Wand aus leuchtenden Textilformen."
+    tags: [andrum, textile-art, light-sculpture, visitors, group, rest]
 
   - file: corridor-lounge-illuminated-sculptures.jpg
     original: _94A4049-mid.jpg
@@ -225,15 +225,15 @@ photos:
   - file: gallery-info-panel-and-visitors.jpg
     original: _94A4146-mid.jpg
     alt:
-      sv: "Galleri med ANDETAGs infotext på väggen och besökare som betraktar symmetriska textilverk."
-      en: "Gallery with the ANDETAG info panel on the wall and visitors viewing symmetrical textile works."
-      de: "Galerie mit dem ANDETAG-Infoschild an der Wand und Besuchenden vor symmetrischen Textilwerken."
+      sv: "Galleri med ANDETAGs infotext på väggen och besökare som betraktar textilverk."
+      en: "Gallery with the ANDETAG info panel on the wall and visitors viewing textile works."
+      de: "Galerie mit dem ANDETAG-Infoschild an der Wand und Besuchenden vor Textilwerken."
     tags: [gallery, textile-art, sculpture, visitors, info-panel, wayfinding]
 
   - file: gallery-visitor-on-bench-contemplation.jpg
     original: _94A4151-mid.jpg
     alt:
-      sv: "Besökare sitter ensam på en bänk och betraktar en symmetrisk textilskulptur på väggen."
-      en: "A lone visitor sits on a bench, contemplating a symmetrical textile sculpture on the wall."
-      de: "Eine Besucherin sitzt allein auf einer Bank und betrachtet eine symmetrische Textilskulptur an der Wand."
+      sv: "Besökare sitter ensam på en bänk och betraktar en textilskulptur på väggen."
+      en: "A lone visitor sits on a bench, contemplating a textile sculpture on the wall."
+      de: "Eine Besucherin sitzt allein auf einer Bank und betrachtet eine Textilskulptur an der Wand."
     tags: [gallery, textile-art, sculpture, visitor, solo, bench, contemplation]
