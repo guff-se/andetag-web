@@ -28,7 +28,7 @@ https://www.andetag.museum/en/stockholm/how-to-find-us/,https://www.andetag.muse
 https://www.andetag.museum/en/stockholm/indoor-activity-stockholm/,https://www.andetag.museum/en/stockholm/indoor-activity-stockholm/,en,stockholm,content,keep,none,shell canonical
 https://www.andetag.museum/en/stockholm/museum-stockholm/,https://www.andetag.museum/en/stockholm/museum-stockholm/,en,stockholm,content,keep,none,shell canonical
 https://www.andetag.museum/en/stockholm/music/,https://www.andetag.museum/en/stockholm/music/,en,stockholm,content,keep,none,shell canonical
-https://www.andetag.museum/en/stockholm/npf-visitors/,https://www.andetag.museum/en/stockholm/npf-visitors/,en,stockholm,content,keep,none,shell canonical
+https://www.andetag.museum/en/stockholm/neurodivergent-art/,https://www.andetag.museum/en/stockholm/neurodivergent-art/,en,stockholm,content,keep,none,shell canonical
 https://www.andetag.museum/en/stockholm/opening-hours/,https://www.andetag.museum/en/stockholm/opening-hours/,en,stockholm,content,keep,none,shell canonical
 https://www.andetag.museum/en/stockholm/optical-fibre-textile/,https://www.andetag.museum/en/stockholm/optical-fibre-textile/,en,stockholm,content,keep,none,shell canonical
 https://www.andetag.museum/en/stockholm/privacy/,https://www.andetag.museum/en/stockholm/privacy/,en,stockholm,legal,keep,none,shell canonical
@@ -65,6 +65,7 @@ https://www.andetag.museum/sv/stockholm/vilken-typ-av-upplevelse/,https://www.an
 https://www.andetag.museum/de/,https://www.andetag.museum/de/berlin/,de,berlin,content,redirect,301,legacy alias per URL migration policy
 https://www.andetag.museum/en/berlin-en/,https://www.andetag.museum/en/berlin/,en,berlin,content,redirect,301,legacy alias per URL migration policy
 https://www.andetag.museum/en/stockholm/art-yoga-en/,https://www.andetag.museum/en/stockholm/art-yoga/,en,stockholm,content,redirect,301,legacy alias per URL migration policy
+https://www.andetag.museum/en/stockholm/npf-visitors/,https://www.andetag.museum/en/stockholm/neurodivergent-art/,en,stockholm,content,redirect,301,English NPF shell slug rename (_redirects)
 https://www.andetag.museum/en/about-andetag/,https://www.andetag.museum/en/stockholm/about-andetag/,en,stockholm,content,redirect,301,location-scoped story URL
 https://www.andetag.museum/en/about-the-artists-malin-gustaf-tadaa/,https://www.andetag.museum/en/stockholm/about-the-artists-malin-gustaf-tadaa/,en,stockholm,content,redirect,301,location-scoped story URL
 https://www.andetag.museum/en/artists-malin-gustaf-tadaa/,https://www.andetag.museum/en/stockholm/about-the-artists-malin-gustaf-tadaa/,en,stockholm,content,redirect,301,GSC legacy slug variant

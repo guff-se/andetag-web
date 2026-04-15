@@ -1,7 +1,7 @@
 {
   "_meta": {
     "source": "site-html/*.html via extract-page-shell-meta.mjs",
-    "notes": "Swedish canonical paths use /sv/stockholm/…; legacy unprefixed URLs redirect via site/public/_redirects. /en/stockholm/ shell row uses en.html as source file for title or description (EX-0007 resolved in Phase 6 P6-01). /en/: title and description aligned with minimal hub (EX-0015); re-extract may need a guard for this path."
+    "notes": "Swedish canonical paths use /sv/stockholm/…; legacy unprefixed URLs redirect via site/public/_redirects. /en/stockholm/ shell row uses en.html as source file for title or description (EX-0007 resolved in Phase 6 P6-01). /en/: title and description aligned with minimal hub (EX-0015); re-extract may need a guard for this path. Coordinated title and description review: docs/meta-texts-catalog.md (apply edits to this JSON; extract-page-shell-meta.mjs alone will not preserve all curated copy)."
   },
   "pages": {
     "/de/berlin/": {
@@ -91,8 +91,8 @@
     },
     "/en/stockholm/art-yoga/": {
       "sourceFile": "en-stockholm-art-yoga.html",
-      "title": "Art Yoga i Stockholm | Yoga i konstmiljö på ANDETAG | ANDETAG Stockholm",
-      "description": "Art Yoga är en långsam yogaklass i Andetags omslutande konstmiljö i centrala Stockholm. En plats att röra sig, andas och landa, en gång i veckan."
+      "title": "Art Yoga in Stockholm | Slow yoga at ANDETAG | ANDETAG Stockholm",
+      "description": "Art Yoga is a slow yoga class in ANDETAG's enveloping art space in central Stockholm. A place to move, breathe, and settle, once a week."
     },
     "/en/stockholm/corporate-events/": {
       "sourceFile": "en-stockholm-corporate-events.html",
@@ -149,7 +149,7 @@
       "title": "The Music | ANDETAG Stockholm",
       "description": "The original music from ANDETAG. Twelve tracks in a slower rhythm. A shared breath to listen to, beyond the exhibition. By Gustaf Tadaa and Povel Olsson."
     },
-    "/en/stockholm/npf-visitors/": {
+    "/en/stockholm/neurodivergent-art/": {
       "sourceFile": "stockholm-npf-stockholm.html",
       "title": "Neurodiversity-friendly visit at ANDETAG Stockholm | Calm, low-stimulus exhibition | ANDETAG Stockholm",
       "description": "Visitor information for autistic, ADHD, and sensory-sensitive guests. ANDETAG in Stockholm: predictable light, small groups, quiet music at Hötorget."

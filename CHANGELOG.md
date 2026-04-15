@@ -9,6 +9,10 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ### Changed
 
+- **Stockholm FAQ “What is ANDETAG?”:** Expanded English and Swedish answer copy on home accordions, SEO landings, and **`/en/stockholm/faq/`** / **`/sv/stockholm/fragor-svar/`**; shared HTML lives in **`site/src/lib/page-registry/stockholm-what-is-andetag-faq-copy.ts`** so home and FAQ pages cannot drift (FAQ pages still append the read-more link only). English **`/en/stockholm/art-yoga/`** shell title and description use English in **`page-shell-meta.json`**.
+
+- **English Stockholm NPF shell URL:** canonical **`/en/stockholm/neurodivergent-art/`** (was **`/en/stockholm/npf-visitors/`**). **`301`** from the old path in **`site/public/_redirects`**; **`STOCKHOLM_SV_EN_PAIRS`**, nav, hero, footer, **`[...slug].astro`**, **`page-body-registry.ts`**, **`page-shell-meta.json`**, **`docs/url-matrix.csv`** (keep + redirect rows), **`docs/Andetag SEO Manual.md`**, **`docs/meta-texts-catalog.md`**, **`docs/phase-4-redirect-tests.md`** table **A** case **14**.
+
 - **Phase 8 closure (2026-04-14):** **`docs/phase-8-todo.md`** **closed**; **`docs/phase-8-verification-record.md`** §Closure and Gustaf sign-off; **`docs/grand-plan.md`** Phase 8 **complete** and **Practical next steps** repointed to Phase 9; **`docs/definition-of-done.md`** Phase 8 monitoring row → **P9-26**; **`AGENTS.md`** project status. **Post-cutover organic monitoring** moved from **P8-26** to **`docs/phase-9-todo.md`** **P9-26** (log §Organic monitoring log in Phase 8 verification record until Phase 9 record exists).
 
 - **Phase 9 · P9-25:** Post-cutover **release discipline** (no direct **`main`** pushes, **PR** + **Cloudflare** previews, branch protection, merge promotes **`www`**) moved from Phase 8 **P8-25** to **`docs/phase-9-todo.md`**. **`docs/phase-8-todo.md`**, **`docs/phase-8-cutover-runbook.md`**, **`docs/phase-8-verification-record.md`**, **`docs/grand-plan.md`**, **`docs/definition-of-done.md`**, **`AGENTS.md`** cross-references updated; **P9-01** merged into **P9-25**.
@@ -31,6 +35,8 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 - **`docs/gtm-cookieyes-migration-runbook.md`** (superseded by **`docs/gtm-consent-migration-runbook.md`**).
 
 ### Added
+
+- **`docs/meta-texts-catalog.md`:** Single editable list of shell **title** and **meta description** per canonical path (plus 404), with workflow notes; **`page-shell-meta.json`** **`_meta.notes`** references it.
 
 - **`301`** **`/sv/stockholm/faq/`** → **`/sv/stockholm/fragor-svar/`** (Swedish FAQ slug alias). **`site/public/_redirects`**, **`docs/url-matrix.csv`**, **`docs/phase-4-redirect-tests.md`** table **A** case **13**.
 

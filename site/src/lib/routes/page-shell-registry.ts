@@ -56,7 +56,7 @@ export const STOCKHOLM_SV_EN_PAIRS: ReadonlyArray<readonly [string, string]> = [
   ["/sv/stockholm/att-gora-stockholm/", "/en/stockholm/things-to-do-stockholm/"],
   ["/sv/stockholm/event-stockholm/", "/en/stockholm/event-stockholm/"],
   ["/sv/stockholm/museum-stockholm/", "/en/stockholm/museum-stockholm/"],
-  ["/sv/stockholm/npf-stockholm/", "/en/stockholm/npf-visitors/"],
+  ["/sv/stockholm/npf-stockholm/", "/en/stockholm/neurodivergent-art/"],
   ["/sv/stockholm/utstallning-stockholm/", "/en/stockholm/exhibition-stockholm/"],
 ];
 

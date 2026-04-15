@@ -30,7 +30,7 @@ describe("english stockholm hero header model", () => {
   });
 
   it("marks The Experience active on NPF and SEO landing paths", () => {
-    const npf = getEnglishStockholmHeroHeaderModel("/en/stockholm/npf-visitors/");
+    const npf = getEnglishStockholmHeroHeaderModel("/en/stockholm/neurodivergent-art/");
     expect(npf.menuItems.find((item) => item.label === "The Experience")?.active).toBe(true);
 
     const indoor = getEnglishStockholmHeroHeaderModel("/en/stockholm/indoor-activity-stockholm/");

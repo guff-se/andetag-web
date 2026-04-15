@@ -29,7 +29,7 @@ export const PAGE_CUSTOM_BODY_PATHS: ReadonlySet<string> = new Set([
   "/en/stockholm/how-to-find-us/",
   "/en/stockholm/indoor-activity-stockholm/",
   "/en/stockholm/museum-stockholm/",
-  "/en/stockholm/npf-visitors/",
+  "/en/stockholm/neurodivergent-art/",
   "/en/stockholm/opening-hours/",
   "/en/stockholm/season-pass/",
   "/en/stockholm/tickets/",

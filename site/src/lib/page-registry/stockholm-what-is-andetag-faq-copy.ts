@@ -1,0 +1,10 @@
+/**
+ * Shared HTML for the first FAQ accordion on Stockholm home, SEO landings, and
+ * the dedicated FAQ pages (those append a “read more” link after this body).
+ * Single source of truth so copy cannot drift between surfaces.
+ */
+export const WHAT_IS_ANDETAG_FAQ_EN_BODY_HTML =
+  "<p><span class=\"brand-wordmark\">ANDETAG</span> is a breathing art museum in Stockholm, an immersive experience where light, textile and music move in sync with a shared breath.</p><p>The artworks are woven from optical fibre and glow from within. The light shifts slowly, synchronized to a breathing rhythm that never repeats. Every artwork is connected to a global system that synchronizes the exhibition with works held by collectors in the US, Costa Rica, Portugal and Sweden. All breathing together, in real time.</p><p>The music, composed specifically for the exhibition, guides the experience inward. In the final room, you are welcome to lie down, surrounded by light, music and breath. A place for stillness and wonder. You stay as long as you like.</p><p>A different kind of experience, in the heart of Stockholm. A place to breathe, in a world that often forgets to.</p>";
+
+export const WHAT_IS_ANDETAG_FAQ_SV_BODY_HTML =
+  "<p><span class=\"brand-wordmark\">ANDETAG</span> är en lugn konstupplevelse i centrala Stockholm, ett museum där ljus, textil och musik rör sig i takt med ett gemensamt andetag.</p><p>Verken är vävda av optisk fiber och lyser inifrån. Ljuset förändras långsamt, synkroniserat med en andningsrytm som aldrig upprepar sig. Varje verk är anslutet till ett globalt system som synkroniserar utställningen med konstverk hos samlare i USA, Costa Rica, Portugal och Sverige. Alla andas tillsammans, i realtid.</p><p>Musiken, skriven speciellt för utställningen, leder upplevelsen inåt. I det sista rummet är du välkommen att lägga dig ner, omsluten av ljus, musik och andetag. En plats för stillhet och förundran. Du stannar så länge du vill.</p><p>En annorlunda aktivitet, mitt i centrala Stockholm. En plats att andas, i en värld som ofta glömmer bort att göra det.</p>";

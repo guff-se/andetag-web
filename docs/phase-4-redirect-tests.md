@@ -25,6 +25,7 @@ Environment: run **(A)** against any deploy that serves **`dist/_redirects`**. R
 | 11 | `/en/music/` | 301 | `/en/stockholm/music/` | yes |
 | 12 | `/sv/musik/` | 301 | `/sv/stockholm/musik/` | yes |
 | 13 | `/sv/stockholm/faq/` | 301 | `/sv/stockholm/fragor-svar/` | yes |
+| 14 | `/en/stockholm/npf-visitors/` | 301 | `/en/stockholm/neurodivergent-art/` | yes |
 
 ## B) Entry router (Worker) cases
 
@@ -123,6 +124,8 @@ curl -sI "$BASE/optisk-fibertextil/"
 curl -sI "$BASE/en/music/"
 curl -sI "$BASE/sv/musik/"
 curl -sI "$BASE/sv/stockholm/faq/"
+curl -sI "$BASE/en/stockholm/npf-visitors/"
+curl -sI "$BASE/en/stockholm/npf-visitors/?utm_source=test"
 ```
 
 **Entry router (table B):** on **staging**, from **`site/`** run **`npm run verify:staging-entry`** (uses **`fetch`**; override host with **`STAGING_BASE=...`**). Or set **`BASE="https://andetag-web.guff.workers.dev"`** and run **`curl -sI`** per table **B** (vary **`User-Agent`** and **`Cookie`**). Locally: **`npx wrangler dev`** after **`npm run build`**.

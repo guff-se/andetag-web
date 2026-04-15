@@ -1,14 +1,15 @@
+import { WHAT_IS_ANDETAG_FAQ_EN_BODY_HTML } from "./stockholm-what-is-andetag-faq-copy";
+
 /**
- * FAQ accordion for English Stockholm home (`/en/stockholm/`), from
- * `site-html/en.html` wp-page **907** nested accordion (elementor `236e787`).
- * Copy is verbatim from source except `titleHtml` uses `brand-wordmark` for ANDETAG.
+ * FAQ accordion for English Stockholm home (`/en/stockholm/`) and SEO landings.
+ * `titleHtml` uses `brand-wordmark` for ANDETAG.
+ * First answer body: `WHAT_IS_ANDETAG_FAQ_EN_BODY_HTML` (shared with FAQ page).
  */
 export const stockholmMarketingFaqEn = [
   {
     title: "What is ANDETAG?",
     titleHtml: 'What is <span class="brand-wordmark">ANDETAG</span>?',
-    bodyHtml:
-      "<p><span class=\"brand-wordmark\">ANDETAG</span> is a breathing art museum and experience in Stockholm. Visitors enter a room of light and woven optical textiles that respond to breath and sound. The experience blends contemporary art, meditation, and stillness, and has become an appreciated alternative for art lovers, curious visitors, and anyone seeking a quiet pause in the middle of the city.</p><p>You may stay as long as you want. The average visitor stays around 50 minutes.</p>",
+    bodyHtml: WHAT_IS_ANDETAG_FAQ_EN_BODY_HTML,
   },
   {
     title: "Is ANDETAG suitable for children?",

@@ -43,7 +43,7 @@ export function getEnglishStockholmFooterModel() {
       links: [
         { label: "What is ANDETAG?", href: "/en/stockholm/what-kind-of-experience/" },
         { label: "Romantic date", href: "/en/stockholm/date/" },
-        { label: "NPF visitors", href: "/en/stockholm/npf-visitors/" },
+        { label: "NPF visitors", href: "/en/stockholm/neurodivergent-art/" },
         { label: "Art Yoga", href: "/en/stockholm/art-yoga/" },
         { label: "The Music", href: "/en/stockholm/music/" },
         { label: "Visitor reviews", href: "/en/stockholm/visitor-reviews/" },

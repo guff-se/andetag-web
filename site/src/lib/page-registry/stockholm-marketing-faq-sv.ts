@@ -1,13 +1,15 @@
+import { WHAT_IS_ANDETAG_FAQ_SV_BODY_HTML } from "./stockholm-what-is-andetag-faq-copy";
+
 /**
  * FAQ accordion bodies shared by Swedish SEO landing pages (legacy nested accordion,
  * same Q&A as `StockholmHomeSv.astro` home accordion).
+ * First answer body: `WHAT_IS_ANDETAG_FAQ_SV_BODY_HTML` (shared with FAQ page).
  */
 export const stockholmMarketingFaqSv = [
   {
     title: "Vad är ANDETAG?",
     titleHtml: 'Vad är <span class="brand-wordmark">ANDETAG</span>?',
-    bodyHtml:
-      "<p><span class=\"brand-wordmark\">ANDETAG</span> är en unik konstinstallation och upplevelse i Stockholm. Besökare rör sig genom rum av ljus och textilkonst som reagerar på andning och ljud. Upplevelsen är en blandning av samtida konst, meditation och stillhet, och har blivit ett uppskattat alternativ för både konstälskare, nyfikna besökare och alla som söker ett lugnt avbrott mitt i city.</p><p>Du får stanna så länge du vill. Den genomsnittliga besökaren stannar runt 50 minuter.</p>",
+    bodyHtml: WHAT_IS_ANDETAG_FAQ_SV_BODY_HTML,
   },
   {
     title: "Passar ANDETAG för barn?",

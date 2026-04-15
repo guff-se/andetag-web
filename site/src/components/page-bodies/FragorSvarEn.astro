@@ -1,10 +1,12 @@
 ---
 import AccordionSection from "../content/AccordionSection.astro";
 import ContentSection from "../content/ContentSection.astro";
+import { WHAT_IS_ANDETAG_FAQ_EN_BODY_HTML } from "../../lib/page-registry/stockholm-what-is-andetag-faq-copy";
 
 /**
  * Body from `site-html/en-stockholm-faq.html` wp-page (two nested accordions).
  * Links normalized to `/en/stockholm/...`. Titles use `titleHtml` where ANDETAG appears in source.
+ * “What is ANDETAG?” body matches home accordion (`WHAT_IS_ANDETAG_FAQ_EN_BODY_HTML`) plus read-more link.
  */
 const introHtml = "<h1>Frequently Asked Questions (FAQ)</h1>";
 
@@ -12,8 +14,7 @@ const faqColumnLeft = [
   {
     title: "What is ANDETAG?",
     titleHtml: 'What is <span class="brand-wordmark">ANDETAG</span>?',
-    bodyHtml:
-      "<p><span class=\"brand-wordmark\">ANDETAG</span> is a calm art experience in central Stockholm, by Hötorget. Light, woven textile and music move in a shared rhythm, close to the breath.</p><p><a href=\"/en/stockholm/what-kind-of-experience/\">Read more about the experience.</a></p>",
+    bodyHtml: `${WHAT_IS_ANDETAG_FAQ_EN_BODY_HTML}<p><a href="/en/stockholm/what-kind-of-experience/">Read more about the experience.</a></p>`,
   },
   {
     title: "How long does the experience take?",

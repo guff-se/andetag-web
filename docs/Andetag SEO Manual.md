@@ -282,7 +282,7 @@ Accessibility:
 * Physical access
 * Sensory considerations
 * Seating and rest
-* NPF pages (**`/sv/stockholm/npf-stockholm/`**, **`/en/stockholm/npf-visitors/`**) expand pre-visit information for neurodivergent visitors
+* NPF pages (**`/sv/stockholm/npf-stockholm/`**, **`/en/stockholm/neurodivergent-art/`**) expand pre-visit information for neurodivergent visitors
 
 ---
 
@@ -426,7 +426,7 @@ Accessibility
 NPF / neurodivergent audience
 
 * SV: /sv/stockholm/npf-stockholm/
-* EN: /en/stockholm/npf-visitors/
+* EN: /en/stockholm/neurodivergent-art/
 * Keywords: NPF-vänlig, neurodivergent-friendly, sensory-friendly museum, low stimulation, autism-friendly, lugn miljö, low demand, what to expect
 * Content: Pre-visit information for visitors with autism, ADHD or sensory sensitivities. Sensory profile, predictable rhythm, small groups, decompress. Links to accessibility page.
 

@@ -73,7 +73,7 @@ const MENU_DEFINITION: Array<{
     matchPrefixes: [
       "/en/stockholm/what-kind-of-experience/",
       "/en/stockholm/date/",
-      "/en/stockholm/npf-visitors/",
+      "/en/stockholm/neurodivergent-art/",
       "/en/stockholm/indoor-activity-stockholm/",
       "/en/stockholm/museum-stockholm/",
       "/en/stockholm/event-stockholm/",
@@ -86,7 +86,7 @@ const MENU_DEFINITION: Array<{
       { label: "What is it", href: "/en/stockholm/what-kind-of-experience/" },
       { label: "Art Yoga", href: "/en/stockholm/art-yoga/" },
       { label: "Romantic date", href: "/en/stockholm/date/" },
-      { label: "NPF visitors", href: "/en/stockholm/npf-visitors/" },
+      { label: "NPF visitors", href: "/en/stockholm/neurodivergent-art/" },
     ],
   },
   {

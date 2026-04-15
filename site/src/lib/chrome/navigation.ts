@@ -131,7 +131,7 @@ const NAVIGATION_VARIANTS: Record<NavigationVariant["id"], NavigationVariant> = 
           { label: "What is it", href: "/en/stockholm/what-kind-of-experience/" },
           { label: "Art Yoga", href: "/en/stockholm/art-yoga/" },
           { label: "Romantic date", href: "/en/stockholm/date/" },
-          { label: "NPF visitors", href: "/en/stockholm/npf-visitors/" },
+          { label: "NPF visitors", href: "/en/stockholm/neurodivergent-art/" },
         ],
       },
       {

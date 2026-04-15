@@ -25,7 +25,7 @@ describe("english stockholm footer model", () => {
     ]);
 
     const experience = model.sections[1]?.links ?? [];
-    expect(experience.find((l) => l.href === "/en/stockholm/npf-visitors/")?.label).toBe("NPF visitors");
+    expect(experience.find((l) => l.href === "/en/stockholm/neurodivergent-art/")?.label).toBe("NPF visitors");
     expect(model.seoLinks.map((l) => l.href)).toEqual([
       "/en/stockholm/indoor-activity-stockholm/",
       "/en/stockholm/museum-stockholm/",

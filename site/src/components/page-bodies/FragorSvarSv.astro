@@ -1,6 +1,7 @@
 ---
 import AccordionSection from "../content/AccordionSection.astro";
 import ContentSection from "../content/ContentSection.astro";
+import { WHAT_IS_ANDETAG_FAQ_SV_BODY_HTML } from "../../lib/page-registry/stockholm-what-is-andetag-faq-copy";
 
 /**
  * Body migrated from `site-html/stockholm-fragor-svar.html`
@@ -9,6 +10,7 @@ import ContentSection from "../content/ContentSection.astro";
  * Internal links normalized to canonical **`/sv/stockholm/...`** paths.
  * Contact strings **`info@tadaa.se`** kept as in source (**accordion** bodies).
  * Design approved: **`docs/phase-5-verification-record.md`** (2026-03-23, Gustaf).
+ * “Vad är ANDETAG?” body matches home accordion (`WHAT_IS_ANDETAG_FAQ_SV_BODY_HTML`) plus read-more link.
  */
 const introHtml = "<h1>Frågor och svar</h1>";
 
@@ -16,8 +18,7 @@ const faqColumnLeft = [
   {
     title: "Vad är ANDETAG?",
     titleHtml: 'Vad är <span class="brand-wordmark">ANDETAG</span>?',
-    bodyHtml:
-      "<p><span class=\"brand-wordmark\">ANDETAG</span> är en stillsam konstupplevelse i centrala Stockholm, vid Hötorget. Ljus, vävd textil och musik rör sig i en gemensam rytm, nära andetaget.</p><p><a href=\"/sv/stockholm/vilken-typ-av-upplevelse/\">Läs mer om upplevelsen.</a></p>",
+    bodyHtml: `${WHAT_IS_ANDETAG_FAQ_SV_BODY_HTML}<p><a href="/sv/stockholm/vilken-typ-av-upplevelse/">Läs mer om upplevelsen.</a></p>`,
   },
   {
     title: "Hur lång tid tar upplevelsen?",
