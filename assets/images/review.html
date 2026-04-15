@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ANDETAG – Photo review</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+      background: #f5f3f0;
+      color: #1a1a1a;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .meta {
+      color: #666;
+      margin-bottom: 2.5rem;
+      font-size: 0.85rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 2rem;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 1px 4px rgba(0,0,0,.08);
+    }
+
+    .card img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 3/2;
+      object-fit: cover;
+    }
+
+    .card-body {
+      padding: 1rem;
+    }
+
+    .filename {
+      font-weight: 600;
+      font-size: 0.8rem;
+      word-break: break-all;
+      margin-bottom: 0.5rem;
+      color: #333;
+    }
+
+    .original {
+      font-size: 0.75rem;
+      color: #999;
+      margin-bottom: 0.75rem;
+    }
+
+    .alt-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 0.75rem;
+    }
+
+    .alt-table td {
+      padding: 0.25rem 0.4rem;
+      vertical-align: top;
+      border-top: 1px solid #eee;
+      font-size: 0.8rem;
+    }
+
+    .alt-table td:first-child {
+      font-weight: 600;
+      white-space: nowrap;
+      width: 2rem;
+      color: #888;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+    }
+
+    .tag {
+      background: #f0ede8;
+      border-radius: 3px;
+      padding: 0.1rem 0.4rem;
+      font-size: 0.7rem;
+      color: #555;
+    }
+
+    .counter {
+      font-size: 0.7rem;
+      color: #aaa;
+      float: right;
+    }
+  </style>
+</head>
+<body>
+
+<h1>ANDETAG — Photo review</h1>
+<p class="meta">28 photos &middot; <code>assets/images/</code> &middot; Verify alt text and tags before publishing. Source of truth: <code>photos.yaml</code>.</p>
+
+<div class="grid">
+
+  <div class="card">
+    <img src="andrum-visitor-gazing-pink-light.jpg" alt="Besökare i vit skjorta blickar upp mot rosa och lila lysande textilskulpturer i ANDETAGs andrum.">
+    <div class="card-body">
+      <div class="filename"><span class="counter">1/28</span>andrum-visitor-gazing-pink-light.jpg</div>
+      <div class="original">orig: _94A3950-mid.jpg</div>
+      <table class="alt-table">
+        <tr><td>sv</td><td>Besökare i vit skjorta blickar upp mot rosa och lila lysande textilskulpturer i ANDETAGs andrum.</td></tr>
+        <tr><td>en</td><td>Visitor in a white shirt looking up at pink and violet luminous textile sculptures in the ANDETAG breathing hall.</td></tr>
+        <tr><td>de</td><td>Besucherin in weißem Hemd blickt zu rosa und violetten leuchtenden Textilskulpturen im ANDETAG-Atemraum auf.</td></tr>
+      </table>
+      <div class="tags"><span class="tag">andrum</span><span class="tag">textile-art</span><span class="tag">light-sculpture</span><span class="tag">visitor</span><span class="tag">solo</span><span class="tag">pink</span><span class="tag">violet</span><span class="tag">contemplation</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="andrum-visitor-among-textile-sculptures.jpg" alt="Besökare omgiven av lysande textilskulpturer i rosa och lila toner i ANDETAG.">
+    <div class="card-body">
+      <div class="filename"><span class="counter">2/28</span>andrum-visitor-among-textile-sculptures.jpg</div>
+      <div class="original">orig: _94A3958-mid.jpg</div>
+      <table class="alt-table">
+        <tr><td>sv</td><td>Besökare omgiven av lysande textilskulpturer i rosa och lila toner i ANDETAG.</td></tr>
+        <tr><td>en</td><td>Visitor surrounded by glowing textile sculptures in pink and violet tones at ANDETAG.</td></tr>
+        <tr><td>de</td><td>Besucherin, umgeben von leuchtenden Textilskulpturen in Rosa- und Violett-Tönen bei ANDETAG.</td></tr>
+      </table>
+      <div class="tags"><span class="tag">andrum</span><span class="tag">textile-art</span><span class="tag">light-sculpture</span><span class="tag">visitor</span><span class="tag">solo</span><span class="tag">pink</span><span class="tag">violet</span><span class="tag">immersive</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="andrum-three-visitors-warm-light.jpg" alt="Tre besökare sitter på golvet och betraktar varma, lysande textilformer i ANDETAGs andrum.">
+    <div class="card-body">
+      <div class="filename"><span class="counter">3/28</span>andrum-three-visitors-warm-light.jpg</div>
+      <div class="original">orig: _94A3961-mid.jpg</div>
+      <table class="alt-table">
+        <tr><td>sv</td><td>Tre besökare sitter på golvet och betraktar varma, lysande textilformer i ANDETAGs andrum.</td></tr>
+        <tr><td>en</td><td>Three visitors seated on the floor watching warm, glowing textile forms in the ANDETAG breathing hall.</td></tr>
+        <tr><td>de</td><td>Drei Besuchende sitzen am Boden und betrachten warme, leuchtende Textilformen im ANDETAG-Atemraum.</td></tr>
+      </table>
+      <div class="tags"><span class="tag">andrum</span><span class="tag">textile-art</span><span class="tag">light-sculpture</span><span class="tag">visitors</span><span class="tag">small-group</span><span class="tag">warm-light</span><span class="tag">contemplation</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="andrum-group-reclining-purple-light.jpg" alt="Grupp av besökare lutar sig bakåt mot lysande textilkonst i lila och blå toner.">
+    <div class="card-body">
+      <div class="filename"><span class="counter">4/28</span>andrum-group-reclining-purple-light.jpg</div>
+      <div class="original">orig: _94A3969-mid.jpg</div>
+      <table class="alt-table">
+        <tr><td>sv</td><td>Grupp av besökare lutar sig bakåt mot lysande textilkonst i lila och blå toner.</td></tr>
+        <tr><td>en</td><td>A group of visitors leaning back toward luminous textile art in purple and blue tones.</td></tr>
+        <tr><td>de</td><td>Eine Gruppe von Besuchenden lehnt sich zurück und betrachtet leuchtende Textilkunst in Violett- und Blautönen.</td></tr>
+      </table>
+      <div class="tags"><span class="tag">andrum</span><span class="tag">textile-art</span><span class="tag">light-sculpture</span><span class="tag">visitors</span><span class="tag">group</span><span class="tag">purple</span><span class="tag">blue</span><span class="tag">relaxation</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="andrum-group-seated-hands-clasped.jpg" alt="Besökare sitter stilla med händerna vid hakan inför lysande textilskulpturer.">
+    <div class="card-body">
+      <div class="filename"><span class="counter">5/28</span>andrum-group-seated-hands-clasped.jpg</div>
+      <div class="original">orig: _94A3970-mid.jpg</div>
+      <table class="alt-table">
+        <tr><td>sv</td><td>Besökare sitter stilla med händerna vid hakan inför lysande textilskulpturer.</td></tr>
+        <tr><td>en</td><td>Visitors sitting still with hands clasped near their chins before glowing textile sculptures.</td></tr>
+        <tr><td>de</td><td>Besuchende sitzen still mit gefalteten Händen vor leuchtenden Textilskulpturen.</td></tr>
+      </table>
+      <div class="tags"><span class="tag">andrum</span><span class="tag">textile-art</span><span class="tag">light-sculpture</span><span class="tag">visitors</span><span class="tag">group</span><span class="tag">stillness</span><span class="tag">contemplation</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="andrum-visitor-portrait-soft-glow.jpg" alt="Närbild av leende besökare som blickar upp i ANDETAGs dämpade ljus.">
+    <div class="card-body">
+      <div class="filename"><span class="counter">6/28</span>andrum-visitor-portrait-soft-glow.jpg</div>
+      <div class="original">orig: _94A3973-mid.jpg</div>
+      <table class="alt-table">
+        <tr><td>sv</td><td>Närbild av leende besökare som blickar upp i ANDETAGs dämpade ljus.</td></tr>
+        <tr><td>en</td><td>Close-up of a smiling visitor looking upward in ANDETAG's dim glow.</td></tr>
+        <tr><td>de</td><td>Nahaufnahme einer lächelnden Besucherin, die im gedämpften Licht von ANDETAG nach oben blickt.</td></tr>
+      </table>
+      <div class="tags"><span class="tag">andrum</span><span class="tag">visitor</span><span class="tag">solo</span><span class="tag">portrait</span><span class="tag">soft-light</span><span class="tag">wonder</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="andrum-visitor-looking-up-warm-sculptures.jpg" alt="Man i vit t-shirt sitter på golvet och blickar upp mot varma lysande textilskulpturer.">
+    <div class="card-body">
+      <div class="filename"><span class="counter">7/28</span>andrum-visitor-looking-up-warm-sculptures.jpg</div>
+      <div class="original">orig: _94A3975-mid.jpg</div>
+      <table class="alt-table">
+        <tr><td>sv</td><td>Man i vit t-shirt sitter på golvet och blickar upp mot varma lysande textilskulpturer.</td></tr>
+        <tr><td>en</td><td>Man in a white t-shirt seated on the floor, looking up at warm luminous textile sculptures.</td></tr>
+        <tr><td>de</td><td>Mann in weißem T-Shirt sitzt am Boden und blickt zu warmen leuchtenden Textilskulpturen auf.</td></tr>
+      </table>
+      <div class="tags"><span class="tag">andrum</span><span class="tag">textile-art</span><span class="tag">light-sculpture</span><span class="tag">visitor</span><span class="tag">solo</span><span class="tag">warm-light</span><span class="tag">contemplation</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="andrum-overhead-visitors-resting.jpg" alt="Översikt där besökare vilar bland lysande textilkonst i ANDETAGs andrum.">
+    <div class="card-body">
+      <div class="filename"><span class="counter">8/28</span>andrum-overhead-visitors-resting.jpg</div>
+      <div class="original">orig: _94A3984-mid.jpg</div>
+      <table class="alt-table">
+        <tr><td>sv</td><td>Översikt där besökare vilar bland lysande textilkonst i ANDETAGs andrum.</td></tr>
+        <tr><td>en</td><td>Overhead view of visitors resting among luminous textile art in the ANDETAG breathing hall.</td></tr>
+        <tr><td>de</td><td>Überblick über Besuchende, die zwischen leuchtender Textilkunst im ANDETAG-Atemraum ruhen.</td></tr>
+      </table>
+      <div class="tags"><span class="tag">andrum</span><span class="tag">textile-art</span><span class="tag">light-sculpture</span><span class="tag">visitors</span><span class="tag">group</span><span class="tag">overhead</span><span class="tag">rest</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="andrum-visitor-profile-blue-sculptures.jpg" alt="Besökare i profil badar i blått ljus från omgivande textilskulpturer.">
+    <div class="card-body">
+      <div class="filename"><span class="counter">9/28</span>andrum-visitor-profile-blue-sculptures.jpg</div>
+      <div class="original">orig: _94A3989-mid.jpg</div>
+      <table class="alt-table">
+        <tr><td>sv</td><td>Besökare i profil badar i blått ljus från omgivande textilskulpturer.</td></tr>
+        <tr><td>en</td><td>Visitor in profile bathed in blue light from surrounding textile sculptures.</td></tr>
+        <tr><td>de</td><td>Besucher im Profil, in blaues Licht umliegender Textilskulpturen getaucht.</td></tr>
+      </table>
+      <div class="tags"><span class="tag">andrum</span><span class="tag">textile-art</span><span class="tag">light-sculpture</span><span class="tag">visitor</span><span class="tag">solo</span><span class="tag">blue</span><span class="tag">profile</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="andrum-visitor-blue-glow-forms.jpg" alt="Lugn besökare i blått ljus med lysande textilformer som svävar omkring.">
+    <div class="card-body">
+      <div class="filename"><span class="counter">10/28</span>andrum-visitor-blue-glow-forms.jpg</div>
+      <div class="original">orig: _94A3991-mid.jpg</div>
+      <table class="alt-table">
+        <tr><td>sv</td><td>Lugn besökare i blått ljus med lysande textilformer som svävar omkring.</td></tr>
+        <tr><td>en</td><td>Calm visitor in blue light, luminous textile forms floating around.</td></tr>
+        <tr><td>de</td><td>Ruhiger Besucher in blauem Licht, umgeben von schwebenden leuchtenden Textilformen.</td></tr>
+      </table>
+      <div class="tags"><span class="tag">andrum</span><span class="tag">textile-art</span><span class="tag">light-sculpture</span><span class="tag">visitor</span><span class="tag">solo</span><span class="tag">blue</span><span class="tag">calm</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="andrum-wall-of-light-four-visitors.jpg" alt="Fyra besökare sitter tillsammans framför en stor vägg av lysande textilskulpturer i ANDETAG.">
+    <div class="card-body">
+      <div class="filename"><span class="counter">11/28</span>andrum-wall-of-light-four-visitors.jpg</div>
+      <div class="original">orig: _94A4012-mid.jpg</div>
+      <table class="alt-table">
+        <tr><td>sv</td><td>Fyra besökare sitter tillsammans framför en stor vägg av lysande textilskulpturer i ANDETAG.</td></tr>
+        <tr><td>en</td><td>Four visitors seated together before a large wall of luminous textile sculptures at ANDETAG.</td></tr>
+        <tr><td>de</td><td>Vier Besuchende sitzen zusammen vor einer großen Wand aus leuchtenden Textilskulpturen bei ANDETAG.</td></tr>
+      </table>
+      <div class="tags"><span class="tag">andrum</span><span class="tag">textile-art</span><span class="tag">light-sculpture</span><span class="tag">visitors</span><span class="tag">group</span><span class="tag">wall</span><span class="tag">wide-shot</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="andrum-five-visitors-lying-ceiling-light.jpg" alt="Fem besökare ligger ner på golvet och blickar upp mot ett tak av lysande textilkonst.">
+    <div class="card-body">
+      <div class="filename"><span class="counter">12/28</span>andrum-five-visitors-lying-ceiling-light.jpg</div>
+      <div class="original">orig: _94A4018-mid.jpg</div>
+      <table class="alt-table">
+        <tr><td>sv</td><td>Fem besökare ligger ner på golvet och blickar upp mot ett tak av lysande textilkonst.</td></tr>
+        <tr><td>en</td><td>Five visitors lying on the floor looking up at a ceiling of luminous textile art.</td></tr>
+        <tr><td>de</td><td>Fünf Besuchende liegen am Boden und blicken zu einer Decke aus leuchtender Textilkunst hinauf.</td></tr>
+      </table>
+      <div class="tags"><span class="tag">andrum</span><span class="tag">textile-art</span><span class="tag">light-sculpture</span><span class="tag">visitors</span><span class="tag">group</span><span class="tag">lying-down</span><span class="tag">ceiling</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="andrum-visitors-on-pillows-suspended-art.jpg" alt="Besökare vilar på kuddar under svävande, lysande textilskulpturer.">
+    <div class="card-body">
+      <div class="filename"><span class="counter">13/28</span>andrum-visitors-on-pillows-suspended-art.jpg</div>
+      <div class="original">orig: _94A4027-mid.jpg</div>
+      <table class="alt-table">
+        <tr><td>sv</td><td>Besökare vilar på kuddar under svävande, lysande textilskulpturer.</td></tr>
+        <tr><td>en</td><td>Visitors resting on pillows beneath floating, luminous textile sculptures.</td></tr>
+        <tr><td>de</td><td>Besuchende ruhen auf Kissen unter schwebenden, leuchtenden Textilskulpturen.</td></tr>
+      </table>
+      <div class="tags"><span class="tag">andrum</span><span class="tag">textile-art</span><span class="tag">light-sculpture</span><span class="tag">visitors</span><span class="tag">group</span><span class="tag">pillows</span><span class="tag">rest</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="andrum-wide-hall-visitors-resting.jpg" alt="Översikt av ANDETAGs andrum med besökare som ligger ner framför en lysande textilväggsinstallation.">
+    <div class="card-body">
+      <div class="filename"><span class="counter">14/28</span>andrum-wide-hall-visitors-resting.jpg</div>
+      <div class="original">orig: _94A4040-mid.jpg</div>
+      <table class="alt-table">
+        <tr><td>sv</td><td>Översikt av ANDETAGs andrum med besökare som ligger ner framför en lysande textilväggsinstallation.</td></tr>
+        <tr><td>en</td><td>Wide view of the ANDETAG breathing hall, visitors lying before a luminous textile wall installation.</td></tr>
+        <tr><td>de</td><td>Weite Sicht in den ANDETAG-Atemraum mit Besuchenden vor einer leuchtenden Textilwandinstallation.</td></tr>
+      </table>
+      <div class="tags"><span class="tag">andrum</span><span class="tag">textile-art</span><span class="tag">light-sculpture</span><span class="tag">visitors</span><span class="tag">group</span><span class="tag">wide-shot</span><span class="tag">installation</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="andrum-hall-visitors-at-rest.jpg" alt="Besökare vilar stilla i ANDETAGs andrum framför en symmetrisk vägg av lysande textilformer.">
+    <div class="card-body">
+      <div class="filename"><span class="counter">15/28</span>andrum-hall-visitors-at-rest.jpg</div>
+      <div class="original">orig: _94A4042-mid.jpg</div>
+      <table class="alt-table">
+        <tr><td>sv</td><td>Besökare vilar stilla i ANDETAGs andrum framför en symmetrisk vägg av lysande textilformer.</td></tr>
+        <tr><td>en</td><td>Visitors at rest in the ANDETAG breathing hall before a symmetrical wall of luminous textile forms.</td></tr>
+        <tr><td>de</td><td>Besuchende ruhen im ANDETAG-Atemraum vor einer symmetrischen Wand aus leuchtenden Textilformen.</td></tr>
+      </table>
+      <div class="tags"><span class="tag">andrum</span><span class="tag">textile-art</span><span class="tag">light-sculpture</span><span class="tag">visitors</span><span class="tag">group</span><span class="tag">symmetry</span><span class="tag">rest</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="corridor-lounge-illuminated-sculptures.jpg" alt="Besökare samtalar i en korridor med orange fåtöljer och väggmonterade lysande textilskulpturer.">
+    <div class="card-body">
+      <div class="filename"><span class="counter">16/28</span>corridor-lounge-illuminated-sculptures.jpg</div>
+      <div class="original">orig: _94A4049-mid.jpg</div>
+      <table class="alt-table">
+        <tr><td>sv</td><td>Besökare samtalar i en korridor med orange fåtöljer och väggmonterade lysande textilskulpturer.</td></tr>
+        <tr><td>en</td><td>Visitors conversing in a corridor with orange armchairs and wall-mounted luminous textile sculptures.</td></tr>
+        <tr><td>de</td><td>Besuchende unterhalten sich in einem Gang mit orangefarbenen Sesseln und leuchtenden Textilskulpturen an den Wänden.</td></tr>
+      </table>
+      <div class="tags"><span class="tag">corridor</span><span class="tag">textile-art</span><span class="tag">light-sculpture</span><span class="tag">visitors</span><span class="tag">seating</span><span class="tag">conversation</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="corridor-visitors-walking-past-sculptures.jpg" alt="Par går genom korridor med belysta textilverk i blått och rött på väggarna.">
+    <div class="card-body">
+      <div class="filename"><span class="counter">17/28</span>corridor-visitors-walking-past-sculptures.jpg</div>
+      <div class="original">orig: _94A4059-mid.jpg</div>
+      <table class="alt-table">
+        <tr><td>sv</td><td>Par går genom korridor med belysta textilverk i blått och rött på väggarna.</td></tr>
+        <tr><td>en</td><td>A couple walking through a corridor with blue and red illuminated textile works on the walls.</td></tr>
+        <tr><td>de</td><td>Ein Paar geht durch einen Gang mit blau und rot beleuchteten Textilwerken an den Wänden.</td></tr>
+      </table>
+      <div class="tags"><span class="tag">corridor</span><span class="tag">textile-art</span><span class="tag">light-sculpture</span><span class="tag">visitors</span><span class="tag">walking</span><span class="tag">perspective</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="entrance-storefront-passageway.jpg" alt="ANDETAGs entré i en gångpassage med glasfasad och skylten ANDETAG Malin &amp; Gustaf Tadaa.">
+    <div class="card-body">
+      <div class="filename"><span class="counter">18/28</span>entrance-storefront-passageway.jpg</div>
+      <div class="original">orig: _94A4076-mid.jpg</div>
+      <table class="alt-table">
+        <tr><td>sv</td><td>ANDETAGs entré i en gångpassage med glasfasad och skylten ANDETAG Malin &amp; Gustaf Tadaa.</td></tr>
+        <tr><td>en</td><td>The ANDETAG entrance in a pedestrian passage with glass facade and the sign ANDETAG Malin &amp; Gustaf Tadaa.</td></tr>
+        <tr><td>de</td><td>Der ANDETAG-Eingang in einer Fußgängerpassage mit Glasfassade und dem Schriftzug ANDETAG Malin &amp; Gustaf Tadaa.</td></tr>
+      </table>
+      <div class="tags"><span class="tag">entrance</span><span class="tag">exterior</span><span class="tag">signage</span><span class="tag">passageway</span><span class="tag">wayfinding</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="reception-flowers-and-welcome.jpg" alt="Värd i svart hälsar besökare vid en reception med en stor blombukett och inramade textilverk på väggen.">
+    <div class="card-body">
+      <div class="filename"><span class="counter">19/28</span>reception-flowers-and-welcome.jpg</div>
+      <div class="original">orig: _94A4086-mid.jpg</div>
+      <table class="alt-table">
+        <tr><td>sv</td><td>Värd i svart hälsar besökare vid en reception med en stor blombukett och inramade textilverk på väggen.</td></tr>
+        <tr><td>en</td><td>Host in black greeting a visitor at a reception with a large bouquet and framed textile works on the wall.</td></tr>
+        <tr><td>de</td><td>Gastgeberin in Schwarz begrüßt einen Gast am Empfang mit großem Blumenstrauß und gerahmten Textilwerken.</td></tr>
+      </table>
+      <div class="tags"><span class="tag">reception</span><span class="tag">welcome</span><span class="tag">staff</span><span class="tag">visitor</span><span class="tag">flowers</span><span class="tag">interior</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="reception-lobby-with-sculpture.jpg" alt="Foajé med inramade textilverk, soffa med besökare och en stor väggskulptur i ANDETAG.">
+    <div class="card-body">
+      <div class="filename"><span class="counter">20/28</span>reception-lobby-with-sculpture.jpg</div>
+      <div class="original">orig: _94A4095-mid.jpg</div>
+      <table class="alt-table">
+        <tr><td>sv</td><td>Foajé med inramade textilverk, soffa med besökare och en stor väggskulptur i ANDETAG.</td></tr>
+        <tr><td>en</td><td>Lobby with framed textile works, a sofa with visitors, and a large wall sculpture at ANDETAG.</td></tr>
+        <tr><td>de</td><td>Foyer mit gerahmten Textilwerken, einem Sofa mit Besuchenden und einer großen Wandskulptur bei ANDETAG.</td></tr>
+      </table>
+      <div class="tags"><span class="tag">reception</span><span class="tag">lobby</span><span class="tag">visitors</span><span class="tag">interior</span><span class="tag">sculpture</span><span class="tag">sofa</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="lockers-visitors-preparing.jpg" alt="Besökare lägger undan sina saker i rosa skåp bredvid en soffa och textilskulptur i ANDETAG.">
+    <div class="card-body">
+      <div class="filename"><span class="counter">21/28</span>lockers-visitors-preparing.jpg</div>
+      <div class="original">orig: _94A4099-mid.jpg</div>
+      <table class="alt-table">
+        <tr><td>sv</td><td>Besökare lägger undan sina saker i rosa skåp bredvid en soffa och textilskulptur i ANDETAG.</td></tr>
+        <tr><td>en</td><td>Visitors storing their belongings in pink lockers next to a sofa and textile sculpture at ANDETAG.</td></tr>
+        <tr><td>de</td><td>Besuchende verstauen ihre Sachen in rosafarbenen Schließfächern neben Sofa und Textilskulptur bei ANDETAG.</td></tr>
+      </table>
+      <div class="tags"><span class="tag">lockers</span><span class="tag">visitors</span><span class="tag">interior</span><span class="tag">preparation</span><span class="tag">sofa</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="lockers-guests-hanging-coats.jpg" alt="Besökare hänger av sig rockar och packar ned saker i ANDETAGs rosa skåp inför andrumet.">
+    <div class="card-body">
+      <div class="filename"><span class="counter">22/28</span>lockers-guests-hanging-coats.jpg</div>
+      <div class="original">orig: _94A4111-mid.jpg</div>
+      <table class="alt-table">
+        <tr><td>sv</td><td>Besökare hänger av sig rockar och packar ned saker i ANDETAGs rosa skåp inför andrumet.</td></tr>
+        <tr><td>en</td><td>Visitors hanging up coats and stowing belongings in ANDETAG's pink lockers before entering the breathing hall.</td></tr>
+        <tr><td>de</td><td>Besuchende hängen Mäntel auf und verstauen Sachen in den rosafarbenen ANDETAG-Schließfächern vor dem Atemraum.</td></tr>
+      </table>
+      <div class="tags"><span class="tag">lockers</span><span class="tag">visitors</span><span class="tag">interior</span><span class="tag">preparation</span><span class="tag">coats</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="gallery-visitors-among-sculptures.jpg" alt="Besökare rör sig genom galleri med textila väggskulpturer upplysta av spotlights.">
+    <div class="card-body">
+      <div class="filename"><span class="counter">23/28</span>gallery-visitors-among-sculptures.jpg</div>
+      <div class="original">orig: _94A4128-mid.jpg</div>
+      <table class="alt-table">
+        <tr><td>sv</td><td>Besökare rör sig genom galleri med textila väggskulpturer upplysta av spotlights.</td></tr>
+        <tr><td>en</td><td>Visitors moving through a gallery with textile wall sculptures lit by spotlights.</td></tr>
+        <tr><td>de</td><td>Besuchende gehen durch eine Galerie mit textilen Wandskulpturen im Licht von Spotlights.</td></tr>
+      </table>
+      <div class="tags"><span class="tag">gallery</span><span class="tag">textile-art</span><span class="tag">sculpture</span><span class="tag">visitors</span><span class="tag">group</span><span class="tag">spotlight</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="gallery-two-visitors-studying-sculpture.jpg" alt="Två besökare studerar en detaljerad textil väggskulptur i blått och orange.">
+    <div class="card-body">
+      <div class="filename"><span class="counter">24/28</span>gallery-two-visitors-studying-sculpture.jpg</div>
+      <div class="original">orig: _94A4129-mid.jpg</div>
+      <table class="alt-table">
+        <tr><td>sv</td><td>Två besökare studerar en detaljerad textil väggskulptur i blått och orange.</td></tr>
+        <tr><td>en</td><td>Two visitors studying a detailed textile wall sculpture in blue and orange.</td></tr>
+        <tr><td>de</td><td>Zwei Besucherinnen betrachten eine detaillierte textile Wandskulptur in Blau und Orange.</td></tr>
+      </table>
+      <div class="tags"><span class="tag">gallery</span><span class="tag">textile-art</span><span class="tag">sculpture</span><span class="tag">visitors</span><span class="tag">pair</span><span class="tag">close-up</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="gallery-visitors-close-up-textile-art.jpg" alt="Närbild av två besökare i samtal framför textila skulpturer i ANDETAGs galleri.">
+    <div class="card-body">
+      <div class="filename"><span class="counter">25/28</span>gallery-visitors-close-up-textile-art.jpg</div>
+      <div class="original">orig: _94A4131-mid.jpg</div>
+      <table class="alt-table">
+        <tr><td>sv</td><td>Närbild av två besökare i samtal framför textila skulpturer i ANDETAGs galleri.</td></tr>
+        <tr><td>en</td><td>Close-up of two visitors in conversation before textile sculptures in the ANDETAG gallery.</td></tr>
+        <tr><td>de</td><td>Nahaufnahme zweier Besucherinnen im Gespräch vor Textilskulpturen in der ANDETAG-Galerie.</td></tr>
+      </table>
+      <div class="tags"><span class="tag">gallery</span><span class="tag">textile-art</span><span class="tag">sculpture</span><span class="tag">visitors</span><span class="tag">pair</span><span class="tag">conversation</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="gallery-visitors-admiring-iridescent-work.jpg" alt="Två besökare betraktar en skimrande textilskulptur i lila, guld och grönt.">
+    <div class="card-body">
+      <div class="filename"><span class="counter">26/28</span>gallery-visitors-admiring-iridescent-work.jpg</div>
+      <div class="original">orig: _94A4138-mid.jpg</div>
+      <table class="alt-table">
+        <tr><td>sv</td><td>Två besökare betraktar en skimrande textilskulptur i lila, guld och grönt.</td></tr>
+        <tr><td>en</td><td>Two visitors contemplating a shimmering textile sculpture in violet, gold, and green.</td></tr>
+        <tr><td>de</td><td>Zwei Besucherinnen betrachten eine schimmernde Textilskulptur in Violett, Gold und Grün.</td></tr>
+      </table>
+      <div class="tags"><span class="tag">gallery</span><span class="tag">textile-art</span><span class="tag">sculpture</span><span class="tag">visitors</span><span class="tag">pair</span><span class="tag">iridescent</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="gallery-info-panel-and-visitors.jpg" alt="Galleri med ANDETAGs infotext på väggen och besökare som betraktar symmetriska textilverk.">
+    <div class="card-body">
+      <div class="filename"><span class="counter">27/28</span>gallery-info-panel-and-visitors.jpg</div>
+      <div class="original">orig: _94A4146-mid.jpg</div>
+      <table class="alt-table">
+        <tr><td>sv</td><td>Galleri med ANDETAGs infotext på väggen och besökare som betraktar symmetriska textilverk.</td></tr>
+        <tr><td>en</td><td>Gallery with the ANDETAG info panel on the wall and visitors viewing symmetrical textile works.</td></tr>
+        <tr><td>de</td><td>Galerie mit dem ANDETAG-Infoschild an der Wand und Besuchenden vor symmetrischen Textilwerken.</td></tr>
+      </table>
+      <div class="tags"><span class="tag">gallery</span><span class="tag">textile-art</span><span class="tag">sculpture</span><span class="tag">visitors</span><span class="tag">info-panel</span><span class="tag">wayfinding</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="gallery-visitor-on-bench-contemplation.jpg" alt="Besökare sitter ensam på en bänk och betraktar en symmetrisk textilskulptur på väggen.">
+    <div class="card-body">
+      <div class="filename"><span class="counter">28/28</span>gallery-visitor-on-bench-contemplation.jpg</div>
+      <div class="original">orig: _94A4151-mid.jpg</div>
+      <table class="alt-table">
+        <tr><td>sv</td><td>Besökare sitter ensam på en bänk och betraktar en symmetrisk textilskulptur på väggen.</td></tr>
+        <tr><td>en</td><td>A lone visitor sits on a bench, contemplating a symmetrical textile sculpture on the wall.</td></tr>
+        <tr><td>de</td><td>Eine Besucherin sitzt allein auf einer Bank und betrachtet eine symmetrische Textilskulptur an der Wand.</td></tr>
+      </table>
+      <div class="tags"><span class="tag">gallery</span><span class="tag">textile-art</span><span class="tag">sculpture</span><span class="tag">visitor</span><span class="tag">solo</span><span class="tag">bench</span><span class="tag">contemplation</span></div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
