@@ -90,7 +90,13 @@ https://www.andetag.museum/privacy-policy/,https://www.andetag.museum/sv/stockho
 https://www.andetag.museum/privacy/,https://www.andetag.museum/sv/stockholm/privacy/,sv,stockholm,content,redirect,301,legacy single privacy URL
 https://www.andetag.museum/,https://www.andetag.museum/sv/stockholm/,sv,stockholm,content,redirect,301,legacy unprefixed Swedish URL
 https://www.andetag.museum/stockholm/aktivitet-inomhus-stockholm/,https://www.andetag.museum/sv/stockholm/aktivitet-inomhus-stockholm/,sv,stockholm,content,redirect,301,legacy unprefixed Swedish URL; use _redirects stockholm splat rule
+https://www.andetag.museum/stockholm/aktivitet-stockholm/,https://www.andetag.museum/sv/stockholm/aktivitet-inomhus-stockholm/,sv,stockholm,content,redirect,301,Pretty Links legacy slug; explicit _redirects rule before stockholm splat
 https://www.andetag.museum/stockholm/faq/,https://www.andetag.museum/sv/stockholm/fragor-svar/,sv,stockholm,content,redirect,301,slug mismatch: legacy faq → fragor-svar (P8-08 GSC cross-ref)
 https://www.andetag.museum/sv/stockholm/faq/,https://www.andetag.museum/sv/stockholm/fragor-svar/,sv,stockholm,content,redirect,301,Swedish prefixed legacy /faq/ → fragor-svar
 https://www.andetag.museum/stockholm/*,https://www.andetag.museum/sv/stockholm/:splat,sv,stockholm,content,redirect,301,legacy unprefixed Swedish URLs; Cloudflare splat
 https://www.andetag.museum/display/,https://old.andetag.museum/display/,sv,stockholm,content,redirect,301,legacy WP display page; archive host only (_redirects)
+https://www.andetag.museum/spotify/,https://open.spotify.com/album/16JNuKeBQUK3RZHQjj4nDV,sv,stockholm,content,redirect,302,ops quicklink; Spotify album (_redirects)
+https://www.andetag.museum/z6ch/,https://www.andetag.museum/?utm_source=flyer&utm_medium=flyer&utm_campaign=AND_FLYER&utm_content=flyer,sv,stockholm,content,redirect,302,ops quicklink; flyer print UTM (_redirects)
+https://www.andetag.museum/8xno/,https://www.andetag.museum/?utm_source=poster&utm_medium=poster&utm_campaign=AND_POSTER&utm_content=small,sv,stockholm,content,redirect,302,ops quicklink; poster small UTM (_redirects)
+https://www.andetag.museum/qauz/,https://www.andetag.museum/?utm_source=poster&utm_medium=poster&utm_campaign=AND_POSTER&utm_content=large,sv,stockholm,content,redirect,302,ops quicklink; poster large UTM (_redirects)
+https://www.andetag.museum/presskit/,https://drive.google.com/drive/folders/1ojWoIyQ-btaAJqyytRYA86IO0kDWVPir?usp=drive_link,sv,stockholm,content,redirect,302,ops quicklink; press Google Drive (_redirects)
