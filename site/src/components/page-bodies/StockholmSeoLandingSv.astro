@@ -4,7 +4,7 @@
  * same structure as the lower half of `StockholmHomeSv` (no lead eyebrow, Art Yoga, partners, or press blocks).
  * Source: matching `data-elementor-type="wp-page"` blocks in `site-html/stockholm-*-stockholm.html`.
  * WP TripAdvisor shortcode after testimonials: omitted per **EX-0012** (extends **EX-0002**); `TestimonialCarousel` kept.
- * Booking aside contact line: **info@tadaa.se** as in scraped HTML (not `BookingEmbed` default **EX-0010**).
+ * Booking aside contact line matches **EX-0010**: **`mailto:info@andetag.museum`** (same as **`BookingEmbed`** default).
  */
 import AccordionSection from "../content/AccordionSection.astro";
 import BookingEmbed from "../embeds/BookingEmbed.astro";
@@ -72,7 +72,7 @@ const seasonMarkdown = [
 
 const privatMarkdown = [
   "<p><span class=\"brand-wordmark\">ANDETAG</span> erbjuder skräddarsydda event morgon, dag, kväll och helg, perfekt för <a href=\"/sv/stockholm/foretagsevent/\">företag</a>, <a href=\"/sv/stockholm/gruppbokning/\">grupper</a> eller speciella tillfällen. Vi kan också erbjuda grupprabatter.</p>",
-  '<p>Skicka ett mejl till <a href="mailto:info@tadaa.se">info@tadaa.se</a>, så hjälper vi dig!</p>',
+  '<p>Skicka ett mejl till <a href="mailto:info@andetag.museum">info@andetag.museum</a>, så hjälper vi dig!</p>',
 ].join("");
 
 const testimonialItems = [
@@ -149,7 +149,7 @@ const faqItems = [...stockholmMarketingFaqSv];
       />
       <div class="content-section-body page-stockholm-seo-landing__booking-aside-note">
         <p>
-          Vänligen maila <a href="mailto:info@tadaa.se">info@tadaa.se</a> om du har några frågor.
+          Vänligen maila <a href="mailto:info@andetag.museum">info@andetag.museum</a> om du har några frågor.
         </p>
       </div>
     </aside>

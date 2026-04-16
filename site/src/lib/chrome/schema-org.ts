@@ -323,7 +323,7 @@ function buildStockholmVenueSchema(ctx: SchemaPageContext): { "@context": string
       parentOrganization: { "@id": `${CANONICAL_HOST}/#organization` },
       image: { "@id": `${CANONICAL_HOST}/#image-hero-stockholm` },
       logo: { "@id": `${CANONICAL_HOST}/#logo` },
-      email: "info@tadaa.se",
+      email: "info@andetag.museum",
       sameAs: [...STOCKHOLM_MUSEUM_SAME_AS],
       isAccessibleForFree: false,
       address: STOCKHOLM_ADDRESS,

@@ -8,7 +8,7 @@ import { WHAT_IS_ANDETAG_FAQ_SV_BODY_HTML } from "../../lib/page-registry/stockh
  * (`data-elementor-type="wp-page"` post id 2881). Head from `page-shell-meta.json`.
  * Legacy `e-grid` with two nested accordions → **`.page-faq-accordions`** + two **`AccordionSection`** instances.
  * Internal links normalized to canonical **`/sv/stockholm/...`** paths.
- * Contact strings **`info@tadaa.se`** kept as in source (**accordion** bodies).
+ * FAQ contact lines use **`mailto:info@andetag.museum`** (**EX-0010** alignment).
  * Design approved: **`docs/phase-5-verification-record.md`** (2026-03-23, Gustaf).
  * “Vad är ANDETAG?” body matches home accordion (`WHAT_IS_ANDETAG_FAQ_SV_BODY_HTML`) plus read-more link.
  */
@@ -38,7 +38,7 @@ const faqColumnLeft = [
   {
     title: "Kan jag boka om eller avboka?",
     bodyHtml:
-      "<p>Du kan avboka fram till din bokade tid. Återbetalning sker som presentkort som du kan använda för att boka en ny tid. Länk finns i ditt bekräftelsemejl.<br />Vid frågor kontakta info@tadaa.se så löser vi det!</p>",
+      "<p>Du kan avboka fram till din bokade tid. Återbetalning sker som presentkort som du kan använda för att boka en ny tid. Länk finns i ditt bekräftelsemejl.<br />Vid frågor kontakta <a href=\"mailto:info@andetag.museum\">info@andetag.museum</a> så löser vi det!</p>",
   },
   {
     title: "Hur tidigt kan jag komma?",
@@ -77,7 +77,7 @@ const faqColumnRight = [
   {
     title: "Kan jag komma i grupp?",
     bodyHtml:
-      "<p>Ja. <span class=\"brand-wordmark\">ANDETAG</span> kan besökas i grupp, både som <a href=\"/sv/stockholm/gruppbokning/\">privat sällskap</a> och som företagsevent.</p><p>För grupper, skolklasser, daglig verksamhet eller företag rekommenderar vi att boka i förväg. Det gör att vi kan ta emot er på ett lugnt och samlat sätt.</p><p>Vi erbjuder <a href=\"/sv/stockholm/gruppbokning/\">grupprabatt</a> vid samlad bokning.</p><p>Kontakta oss för upplägg och bokning:<br /><strong>info@tadaa.se</strong></p>",
+      "<p>Ja. <span class=\"brand-wordmark\">ANDETAG</span> kan besökas i grupp, både som <a href=\"/sv/stockholm/gruppbokning/\">privat sällskap</a> och som företagsevent.</p><p>För grupper, skolklasser, daglig verksamhet eller företag rekommenderar vi att boka i förväg. Det gör att vi kan ta emot er på ett lugnt och samlat sätt.</p><p>Vi erbjuder <a href=\"/sv/stockholm/gruppbokning/\">grupprabatt</a> vid samlad bokning.</p><p>Kontakta oss för upplägg och bokning:<br /><a href=\"mailto:info@andetag.museum\"><strong>info@andetag.museum</strong></a></p>",
   },
   {
     title: "Finns det klippkort?",
@@ -87,7 +87,7 @@ const faqColumnRight = [
   {
     title: "Kan jag boka för företag eller privat sällskap?",
     bodyHtml:
-      "<p>Ja, det finns möjligheter för både <a href=\"/sv/stockholm/foretagsevent/\">företagsevent</a> och <a href=\"/sv/stockholm/gruppbokning/\">gruppbokningar</a> kontakta <a href=\"mailto:info@tadaa.se\">info@tadaa.se</a>, så hjälper vi dig.</p>",
+      "<p>Ja, det finns möjligheter för både <a href=\"/sv/stockholm/foretagsevent/\">företagsevent</a> och <a href=\"/sv/stockholm/gruppbokning/\">gruppbokningar</a> kontakta <a href=\"mailto:info@andetag.museum\">info@andetag.museum</a>, så hjälper vi dig.</p>",
   },
   {
     title: "Kan jag fotografera?",

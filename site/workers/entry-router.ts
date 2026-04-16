@@ -70,7 +70,9 @@ export default {
       return env.ASSETS.fetch(request);
     }
 
-    const cf = request.cf as { botManagement?: { verifiedBot?: boolean } } | undefined;
+    const cf = request.cf as
+      | { country?: string | null; botManagement?: { verifiedBot?: boolean } }
+      | undefined;
 
     const enNorm = normalizeEnPath(url.pathname, url.search);
     if (enNorm) return enNorm;
@@ -97,12 +99,13 @@ export default {
       const d = decideEnglishHubRouting({
         pathname: url.pathname,
         search: url.search,
+        acceptLanguage: request.headers.get("Accept-Language"),
         cookieHeader: request.headers.get("Cookie"),
         userAgent: request.headers.get("User-Agent"),
         cf,
       });
       if (d.type === "redirect") {
-        return redirect302(d.locationPath);
+        return redirect302(d.locationPath, d.setCookie);
       }
     }
 

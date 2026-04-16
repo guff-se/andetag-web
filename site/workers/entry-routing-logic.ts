@@ -15,8 +15,25 @@ export type RootRoutingDecision =
   | { type: "unexpected" };
 
 export type EnglishHubDecision =
-  | { type: "redirect"; locationPath: string }
+  | { type: "redirect"; locationPath: string; setCookie?: string }
   | { type: "serve_asset" };
+
+/** Cloudflare `request.cf` fields used for entry routing (see Workers `IncomingRequestCfProperties`). */
+export type EntryRequestCf =
+  | {
+      country?: string | null;
+      botManagement?: { verifiedBot?: boolean };
+    }
+  | undefined;
+
+/** ISO 3166-1 alpha-2 from Cloudflare `cf.country`, uppercased, or `null` if missing or non-standard. */
+export function parseEntryCfCountry(cf: EntryRequestCf): string | null {
+  const raw = cf?.country;
+  if (typeof raw !== "string" || raw.length !== 2) return null;
+  const c = raw.toUpperCase();
+  if (!/^[A-Z]{2}$/.test(c)) return null;
+  return c;
+}
 
 /** Primary language subtags sorted by descending q (0..1). */
 export function parseAcceptLanguagePrimaryTags(header: string | null): string[] {
@@ -77,7 +94,7 @@ export function parseEntryToken(raw: string | null): EntryToken | null {
  */
 export function isEntryVerifiedBot(
   userAgent: string | null,
-  cf: { botManagement?: { verifiedBot?: boolean } } | undefined,
+  cf: EntryRequestCf,
 ): boolean {
   if (cf?.botManagement?.verifiedBot === true) return true;
   if (!userAgent) return false;
@@ -100,6 +117,19 @@ export function entrySetCookieHeader(token: EntryToken): string {
   return `${ENTRY_COOKIE}=${ENTRY_PREFIX}${token}; Path=/; Max-Age=${ENTRY_COOKIE_MAX_AGE}; Secure; HttpOnly; SameSite=Lax`;
 }
 
+/**
+ * Swedish or German **browser lane** from `Accept-Language`: only the **highest-q**
+ * primary counts (first after q-sort). If that primary is not `sv` or `de`, return
+ * `null` so geo or the English hub can apply, even when `sv`/`de` appears lower in the list.
+ */
+export function preferredLanguageLane(acceptLanguage: string | null): "sv" | "de" | null {
+  const primaries = parseAcceptLanguagePrimaryTags(acceptLanguage);
+  const top = primaries[0];
+  if (top === "sv") return "sv";
+  if (top === "de") return "de";
+  return null;
+}
+
 /** `locationPath` is path + search (e.g. `/sv/stockholm/?x=1`). */
 export function decideRootRouting(input: {
   pathname: string;
@@ -107,7 +137,7 @@ export function decideRootRouting(input: {
   acceptLanguage: string | null;
   cookieHeader: string | null;
   userAgent: string | null;
-  cf: { botManagement?: { verifiedBot?: boolean } } | undefined;
+  cf: EntryRequestCf;
 }): RootRoutingDecision {
   const q = input.search;
   const suffix = (path: string) => path + q;
@@ -138,26 +168,36 @@ export function decideRootRouting(input: {
     }
   }
 
-  const primaries = parseAcceptLanguagePrimaryTags(input.acceptLanguage);
-  if (primaries.length === 0) {
-    return { type: "redirect", locationPath: suffix("/en/") };
+  const lane = preferredLanguageLane(input.acceptLanguage);
+  if (lane === "sv") {
+    return {
+      type: "redirect",
+      locationPath: suffix("/sv/stockholm/"),
+      setCookie: entrySetCookieHeader("sv"),
+    };
+  }
+  if (lane === "de") {
+    return {
+      type: "redirect",
+      locationPath: suffix("/de/berlin/"),
+      setCookie: entrySetCookieHeader("de"),
+    };
   }
 
-  for (const p of primaries) {
-    if (p === "sv") {
-      return {
-        type: "redirect",
-        locationPath: suffix("/sv/stockholm/"),
-        setCookie: entrySetCookieHeader("sv"),
-      };
-    }
-    if (p === "de") {
-      return {
-        type: "redirect",
-        locationPath: suffix("/de/berlin/"),
-        setCookie: entrySetCookieHeader("de"),
-      };
-    }
+  const country = parseEntryCfCountry(input.cf);
+  if (country === "SE") {
+    return {
+      type: "redirect",
+      locationPath: suffix("/en/stockholm/"),
+      setCookie: entrySetCookieHeader("en-s"),
+    };
+  }
+  if (country === "DE") {
+    return {
+      type: "redirect",
+      locationPath: suffix("/en/berlin/"),
+      setCookie: entrySetCookieHeader("en-b"),
+    };
   }
 
   return { type: "redirect", locationPath: suffix("/en/") };
@@ -166,9 +206,10 @@ export function decideRootRouting(input: {
 export function decideEnglishHubRouting(input: {
   pathname: string;
   search: string;
+  acceptLanguage: string | null;
   cookieHeader: string | null;
   userAgent: string | null;
-  cf: { botManagement?: { verifiedBot?: boolean } } | undefined;
+  cf: EntryRequestCf;
 }): EnglishHubDecision {
   const q = input.search;
   const suffix = (path: string) => path + q;
@@ -187,6 +228,38 @@ export function decideEnglishHubRouting(input: {
   }
   if (token === "en-b" || token === "de") {
     return { type: "redirect", locationPath: suffix("/en/berlin/") };
+  }
+
+  const lane = preferredLanguageLane(input.acceptLanguage);
+  if (lane === "sv") {
+    return {
+      type: "redirect",
+      locationPath: suffix("/sv/stockholm/"),
+      setCookie: entrySetCookieHeader("sv"),
+    };
+  }
+  if (lane === "de") {
+    return {
+      type: "redirect",
+      locationPath: suffix("/de/berlin/"),
+      setCookie: entrySetCookieHeader("de"),
+    };
+  }
+
+  const country = parseEntryCfCountry(input.cf);
+  if (country === "SE") {
+    return {
+      type: "redirect",
+      locationPath: suffix("/en/stockholm/"),
+      setCookie: entrySetCookieHeader("en-s"),
+    };
+  }
+  if (country === "DE") {
+    return {
+      type: "redirect",
+      locationPath: suffix("/en/berlin/"),
+      setCookie: entrySetCookieHeader("en-b"),
+    };
   }
 
   return { type: "serve_asset" };

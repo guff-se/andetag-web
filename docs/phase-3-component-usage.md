@@ -184,7 +184,7 @@ Purpose: provide implementation-facing usage guidance for approved Phase 3 compo
     - required data attributes: `data-company-id`, `data-language`
   - Keep fallback text user-actionable when unavailable.
   - **`BiljetterSv.astro`** (`/sv/stockholm/biljetter/`): whole page is **`page-layout-with-aside`** from the top (main: copy + priser + säsongskort; aside: **`BookingEmbed`** with **`heading="Tillgängliga tider"`**, **`unframed`**, default contact below widget). Company id **`3b3aa7a7c2cd455b8f3a56cd81033110`**, language **`sv`**, **`anchorId`** **`book`** (header CTA `#book`).
-  - **`DejtSv.astro`** (`/sv/stockholm/dejt/`): same aside pattern, but the grid starts **after** the testimonial band; intro uses a separate **`page-dejt-intro`** **`page-layout-with-aside`** for text + photo. Contact line is the embed default (**`info@andetag.museum`**; legacy **`info@tadaa.se`**; **EX-0010**).
+  - **`DejtSv.astro`** (`/sv/stockholm/dejt/`): same aside pattern, but the grid starts **after** the testimonial band; intro uses a separate **`page-dejt-intro`** **`page-layout-with-aside`** for text + photo. Contact line is the embed default (**`info@andetag.museum`** with **`mailto:`**; **EX-0010**).
 
 ### `WaitlistFormEmbed`
 

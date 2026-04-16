@@ -9,6 +9,10 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ### Changed
 
+- **Public contact email:** All former **`info@tadaa.se`** strings in the Astro workspace now use **`mailto:info@andetag.museum`** (including FAQ accordions, Stockholm home and SEO landings, group and corporate mailto buttons, NPF and accessibility pages, JSON-LD **`email`**, and press footer lines). **`docs/migration-exceptions.md`** **EX-0010** decision text updated accordingly.
+
+- **Worker entry routing:** **`/`** and **`/en/`** use Cloudflare **`cf.country`** when **`Accept-Language`** has no **`sv`**/**`de`** primary ( **`SE`** → **`/en/stockholm/`** + **`v1:en-s`**, **`DE`** → **`/en/berlin/`** + **`v1:en-b`** ). **`/en/`** also redirects **`sv`**/**`de`** browsers to **`/sv/stockholm/`** / **`/de/berlin/`** with matching cookies. **`site/workers/entry-routing-logic.ts`**, **`entry-router.ts`**, tests, **`site/scripts/verify-staging-entry-routing.mjs`** (geo-aware **E2**/**E5**/**E7**/**E11**), **`docs/url-migration-policy.md`**, **`docs/phase-4-redirect-tests.md`** table **B**.
+
 - **Stockholm FAQ “What is ANDETAG?”:** Expanded English and Swedish answer copy on home accordions, SEO landings, and **`/en/stockholm/faq/`** / **`/sv/stockholm/fragor-svar/`**; shared HTML lives in **`site/src/lib/page-registry/stockholm-what-is-andetag-faq-copy.ts`** so home and FAQ pages cannot drift (FAQ pages still append the read-more link only). English **`/en/stockholm/art-yoga/`** shell title and description use English in **`page-shell-meta.json`**.
 
 - **English Stockholm NPF shell URL:** canonical **`/en/stockholm/neurodivergent-art/`** (was **`/en/stockholm/npf-visitors/`**). **`301`** from the old path in **`site/public/_redirects`**; **`STOCKHOLM_SV_EN_PAIRS`**, nav, hero, footer, **`[...slug].astro`**, **`page-body-registry.ts`**, **`page-shell-meta.json`**, **`docs/url-matrix.csv`** (keep + redirect rows), **`docs/Andetag SEO Manual.md`**, **`docs/meta-texts-catalog.md`**, **`docs/phase-4-redirect-tests.md`** table **A** case **14**.

@@ -15,7 +15,7 @@ This is how the rebuilt site is **intended** to behave in **staging** and **prod
 
 - **Build output:** Astro produces static **`dist/`** (HTML, assets). No WordPress runtime.
 - **Edge:** **Cloudflare Workers** with **static assets** binding: **`run_worker_first`** is **`true`**, so the Worker runs before the asset handler on matching routes.
-- **Entry routes:** **`/`** and exact **`/en/`** are handled by the **Worker** ( **`302`** / **`301`**, **`Accept-Language`**, **`andetag_entry`** cookie refresh, **verified-bot** branch to **`/en/stockholm/`**). Policy contract: **Entry routing** (below). Do **not** serve **`/`** with a static **`_redirects`** rule that would **bypass** the Worker.
+- **Entry routes:** **`/`** and exact **`/en/`** are handled by the **Worker** ( **`302`** / **`301`**, **`Accept-Language`**, **`cf.country`** when the top language primary is not **`sv`**/**`de`**, **`andetag_entry`** cookie refresh, **verified-bot** branch to **`/en/stockholm/`**). Policy contract: **Entry routing** (below). Do **not** serve **`/`** with a static **`_redirects`** rule that would **bypass** the Worker.
 - **Legacy HTML paths:** **`301`** (single hop where possible) via **`site/public/_redirects`** and matrix rules, to **canonical** location-prefixed URLs (**`/sv/stockholm/...`**, **`/en/stockholm/...`**, **`/en/berlin/...`**, **`/de/berlin/...`**) per **Language and Destination** and **Location-scoped story URLs** (below).
 - **Canonical HTML URLs** and **hreflang** come from the **page shell registry** and generated meta; **Berlin English story** URLs may use HTML **`rel="canonical"`** to **Stockholm English** for the same topic (**`EX-0016`**, registry).
 - **Verification:** **`docs/phase-4-redirect-tests.md`** table **A** (static redirects) and **B** (entry router); from **`site/`**, **`npm run verify:staging-entry`** against staging or production base URL.
@@ -68,7 +68,7 @@ Internal **`hreflang`** for these pages is **same location only** (Stockholm **s
 
 ## Entry routing, `Accept-Language`, and the `andetag_entry` cookie
 
-Purpose: one **necessary** (strictly functional) first-party cookie plus edge logic so `/` and `/en/` can remember visitor choice and otherwise funnel by browser language. Implementation is expected on the **CDN or Worker** in front of static HTML (see `docs/phase-4-routing-reopen.md`). This section is the policy contract; redirect status codes here are for **entry routes** only.
+Purpose: one **necessary** (strictly functional) first-party cookie plus edge logic so `/` and `/en/` can remember visitor choice, funnel by browser language, and use **Cloudflare geolocation** (`cf.country`, ISO **3166-1 alpha-2**) when the browser language is neither Swedish nor German. Implementation is expected on the **CDN or Worker** in front of static HTML (see `docs/phase-4-routing-reopen.md`). This section is the policy contract; redirect status codes here are for **entry routes** only.
 
 ### Cookie: `andetag_entry`
 
@@ -89,14 +89,14 @@ Purpose: one **necessary** (strictly functional) first-party cookie plus edge lo
 
 - **`sv`:** user lands on any page under **`/sv/`** (Swedish language prefix) or is sent there from entry routing.
 - **`de`:** user lands on any page under `/de/berlin/`.
-- **`en-s`:** user chooses Stockholm on the English hub, or lands on any page under `/en/stockholm/`.
-- **`en-b`:** user chooses Berlin on the English hub, or lands on any page under `/en/berlin/`.
+- **`en-s`:** user chooses Stockholm on the English hub, lands on any page under `/en/stockholm/`, or is sent there from **`/`** or **`/en/`** when **`cf.country`** is **`SE`** (no `sv`/`de` in `Accept-Language`, no routing cookie).
+- **`en-b`:** user chooses Berlin on the English hub, lands on any page under `/en/berlin/`, or is sent there from **`/`** or **`/en/`** when **`cf.country`** is **`DE`** under the same conditions as **`en-s`**.
 
-Do not set `andetag_entry` merely for passing through `/en/` on the way to a choice if no lane is committed yet.
+Do not set `andetag_entry` when sending a visitor to the **English hub** (`/en/`) only to show the Stockholm or Berlin chooser (no committed lane yet). Do set it when committing **`sv`**, **`de`**, **`en-s`**, or **`en-b`** as above.
 
 ### Root path `/` (and `/` with trailing slash per global rules)
 
-**Note:** **`/`** is not a Stockholm-versus-Berlin chooser. It routes by **language lane** (Swedish site, German site, or English). The **city chooser** exists only on **`/en/`** when the visitor is in the English lane without an `en-s` / `en-b` preference. **Default human language** when there is no signal is **English** (**`/en/`** hub). **Crawlers** are handled separately so they always reach a **full English Stockholm** page, not the hub.
+**Note:** **`/`** is not an on-page Stockholm-versus-Berlin chooser. It routes by **language lane** (Swedish site, German site, or English). For **English-lane** visitors (top **`Accept-Language`** primary is not **`sv`** or **`de`**), **`cf.country`** **`SE`** or **`DE`** sends them straight to **`/en/stockholm/`** or **`/en/berlin/`** with the matching cookie; otherwise they go to the **`/en/`** hub (chooser). The same language and geo rules apply at **`/en/`** itself when there is no routing cookie. **Crawlers** are handled separately so they always reach a **full English Stockholm** page, not the hub.
 
 Handled at the **edge** for `GET` (and `HEAD` as appropriate).
 
@@ -104,11 +104,11 @@ Handled at the **edge** for `GET` (and `HEAD` as appropriate).
 
 **Everyone else, no** cookie:
 
-1. **No usable `Accept-Language`:** if the header is **missing**, **empty**, or parses to **no ranges**, **`302`** to **`/en/`** (English hub) and **omit `Set-Cookie`** until the visitor picks a city or lands on `/en/stockholm/` or `/en/berlin/`.
-2. Otherwise parse **`Accept-Language`**, **sort ranges by descending `q`**, walk in order, and examine the **primary language subtag** only:
-   - If **`sv`:** **`302`** to **`/sv/stockholm/`** and **`Set-Cookie`** `andetag_entry=v1:sv` on that response.
-   - If **`de`:** **`302`** to **`/de/berlin/`**, set `v1:de`.
-   - If the list is exhausted with **no** `sv` or `de` match: **`302`** to **`/en/`** (English hub). **Do not** set `andetag_entry` until the user picks a city on the hub or lands on `/en/stockholm/` or `/en/berlin/`.
+1. Parse **`Accept-Language`** (if **missing**, **empty**, or no ranges, treat as no `sv`/`de` preference). **Sort ranges by descending `q`** and take only the **highest-q primary** (first in that order; ties keep parser order). If that primary is **`sv`:** **`302`** to **`/sv/stockholm/`** and **`Set-Cookie`** `andetag_entry=v1:sv`. If it is **`de`:** **`302`** to **`/de/berlin/`**, set `v1:de`.
+2. If that top primary is **not** `sv` or `de`, use **Cloudflare `cf.country`** (when present and a normal **two-letter** code):
+   - If **`SE`:** **`302`** to **`/en/stockholm/`** and **`Set-Cookie`** `andetag_entry=v1:en-s`.
+   - If **`DE`:** **`302`** to **`/en/berlin/`** and **`Set-Cookie`** `andetag_entry=v1:en-b`.
+3. Otherwise: **`302`** to **`/en/`** (English hub) and **omit `Set-Cookie`** (visitor picks Stockholm or Berlin on the hub).
 
 **With cookie:** if `andetag_entry` is present and valid, **`302`** to the mapped path:
 
@@ -127,13 +127,18 @@ Handled at the **edge** for exact entry URL only (respect trailing-slash normali
 - Valid cookie **`v1:en-s`** or **`v1:en-b`:** **`302`** to `/en/stockholm/` or `/en/berlin/`.
 - Cookie **`v1:sv`:** **`302`** to `/en/stockholm/` (English counterpart of Swedish preference).
 - Cookie **`v1:de`:** **`302`** to `/en/berlin/`.
-- **Humans** otherwise: serve the **static English hub** (`200`).
+- **Humans** with **no** valid routing cookie:
+   1. If the **highest-q** primary in **`Accept-Language`** (same rule as **`/`**) is **`sv`:** **`302`** to **`/sv/stockholm/`**, **`Set-Cookie`** `v1:sv`.
+   2. If it is **`de`:** **`302`** to **`/de/berlin/`**, **`Set-Cookie`** `v1:de`.
+   3. Else if **`cf.country`** is **`SE`:** **`302`** to **`/en/stockholm/`**, **`Set-Cookie`** `v1:en-s`.
+   4. Else if **`cf.country`** is **`DE`:** **`302`** to **`/en/berlin/`**, **`Set-Cookie`** `v1:en-b`.
+   5. Else: serve the **static English hub** (`200`) and **omit `Set-Cookie`**.
 
 Do not apply this router to other `/en/*` paths.
 
 ### Crawlers and SEO
 
-**Verified bots** on **`/`** or **`/en/`** always reach **`/en/stockholm/`** in one hop (see sections above), not the English hub, so crawlers index a **full English Stockholm** page. **Humans** with **no** `Accept-Language` on **`/`** go to **`/en/`** hub (**English** as default language). Document bot detection and sample `User-Agent` or platform signals in redirect tests.
+**Verified bots** on **`/`** or **`/en/`** always reach **`/en/stockholm/`** in one hop (see sections above), not the English hub, so crawlers index a **full English Stockholm** page. **Humans** on **`/`** with **no** `sv`/`de` in **`Accept-Language`** go to **`/en/stockholm/`** or **`/en/berlin/`** when **`cf.country`** is **`SE`** or **`DE`**, else to the **`/en/`** hub. Document bot detection, **`cf.country`**, and sample **`User-Agent`** or platform signals in redirect tests.
 
 Update `docs/Andetag SEO Manual.md` and hreflang examples when **`/sv/stockholm/`** and **`/en/`** entry behavior change so **`x-default`** and alternates match this policy.
 

@@ -4,8 +4,10 @@ import {
   decideRootRouting,
   entryTokenForContentPath,
   parseAcceptLanguagePrimaryTags,
+  parseEntryCfCountry,
   parseEntryCookieValue,
   parseEntryToken,
+  preferredLanguageLane,
 } from "./entry-routing-logic";
 
 describe("parseAcceptLanguagePrimaryTags", () => {
@@ -25,6 +27,26 @@ describe("parseEntryCookieValue / parseEntryToken", () => {
     expect(parseEntryCookieValue("foo=1; andetag_entry=v1%3Asv; bar=2")).toBe("v1:sv");
     expect(parseEntryToken("v1:en-b")).toBe("en-b");
     expect(parseEntryToken("v2:sv")).toBeNull();
+  });
+});
+
+describe("parseEntryCfCountry", () => {
+  it("returns uppercased ISO code or null", () => {
+    expect(parseEntryCfCountry({ country: "se" })).toBe("SE");
+    expect(parseEntryCfCountry({ country: "DE" })).toBe("DE");
+    expect(parseEntryCfCountry(undefined)).toBeNull();
+    expect(parseEntryCfCountry({ country: "" })).toBeNull();
+    expect(parseEntryCfCountry({ country: "T1" })).toBeNull();
+  });
+});
+
+describe("preferredLanguageLane", () => {
+  it("returns sv or de only when that is the top-q primary", () => {
+    expect(preferredLanguageLane("sv-SE,en;q=0.8")).toBe("sv");
+    expect(preferredLanguageLane("de,en;q=0.8")).toBe("de");
+    expect(preferredLanguageLane("en,sv;q=0.8")).toBeNull();
+    expect(preferredLanguageLane("fr,en;q=0.8")).toBeNull();
+    expect(preferredLanguageLane("sv;q=0.8,en")).toBeNull();
   });
 });
 
@@ -56,9 +78,35 @@ describe("decideRootRouting", () => {
     expect(d).toEqual({ type: "redirect", locationPath: "/en/stockholm/" });
   });
 
-  it("with no cookie and no Accept-Language, sends humans to English hub", () => {
+  it("with no cookie and no Accept-Language, sends humans to English hub when geo unknown", () => {
     const d = decideRootRouting({ ...base, acceptLanguage: null });
     expect(d).toEqual({ type: "redirect", locationPath: "/en/" });
+  });
+
+  it("with no cookie, no Accept-Language, SE geo sends to English Stockholm with cookie", () => {
+    const d = decideRootRouting({
+      ...base,
+      acceptLanguage: null,
+      cf: { country: "SE" },
+    });
+    expect(d.type).toBe("redirect");
+    if (d.type === "redirect") {
+      expect(d.locationPath).toBe("/en/stockholm/");
+      expect(d.setCookie).toContain("andetag_entry=v1:en-s");
+    }
+  });
+
+  it("with no cookie, French browser, DE geo sends to English Berlin with cookie", () => {
+    const d = decideRootRouting({
+      ...base,
+      acceptLanguage: "fr,en;q=0.8",
+      cf: { country: "DE" },
+    });
+    expect(d.type).toBe("redirect");
+    if (d.type === "redirect") {
+      expect(d.locationPath).toBe("/en/berlin/");
+      expect(d.setCookie).toContain("andetag_entry=v1:en-b");
+    }
   });
 
   it("maps cookie tokens", () => {
@@ -109,9 +157,10 @@ describe("decideEnglishHubRouting", () => {
   const base = {
     pathname: "/en/" as const,
     search: "",
+    acceptLanguage: "en-GB,en;q=0.9" as string | null,
     cookieHeader: null as string | null,
     userAgent: "Mozilla/5.0",
-    cf: undefined,
+    cf: undefined as { country?: string; botManagement?: { verifiedBot?: boolean } } | undefined,
   };
 
   it("sends bots to English Stockholm", () => {
@@ -132,7 +181,57 @@ describe("decideEnglishHubRouting", () => {
     ).toEqual({ type: "redirect", locationPath: "/en/stockholm/" });
   });
 
-  it("serves asset for humans without routing cookie", () => {
+  it("serves asset for humans without routing cookie when geo not SE or DE", () => {
     expect(decideEnglishHubRouting(base)).toEqual({ type: "serve_asset" });
+  });
+
+  it("redirects Swedish browser to Swedish Stockholm with cookie", () => {
+    const d = decideEnglishHubRouting({
+      ...base,
+      acceptLanguage: "sv-SE,en;q=0.8",
+    });
+    expect(d.type).toBe("redirect");
+    if (d.type === "redirect") {
+      expect(d.locationPath).toBe("/sv/stockholm/");
+      expect(d.setCookie).toContain("andetag_entry=v1:sv");
+    }
+  });
+
+  it("redirects German browser to German Berlin with cookie", () => {
+    const d = decideEnglishHubRouting({
+      ...base,
+      acceptLanguage: "de-DE,en;q=0.8",
+    });
+    expect(d.type).toBe("redirect");
+    if (d.type === "redirect") {
+      expect(d.locationPath).toBe("/de/berlin/");
+      expect(d.setCookie).toContain("andetag_entry=v1:de");
+    }
+  });
+
+  it("redirects English-only SE geo to English Stockholm with cookie", () => {
+    const d = decideEnglishHubRouting({
+      ...base,
+      acceptLanguage: "en-US,en;q=0.9",
+      cf: { country: "SE" },
+    });
+    expect(d.type).toBe("redirect");
+    if (d.type === "redirect") {
+      expect(d.locationPath).toBe("/en/stockholm/");
+      expect(d.setCookie).toContain("andetag_entry=v1:en-s");
+    }
+  });
+
+  it("redirects English-only DE geo to English Berlin with cookie", () => {
+    const d = decideEnglishHubRouting({
+      ...base,
+      acceptLanguage: "en-GB",
+      cf: { country: "DE" },
+    });
+    expect(d.type).toBe("redirect");
+    if (d.type === "redirect") {
+      expect(d.locationPath).toBe("/en/berlin/");
+      expect(d.setCookie).toContain("andetag_entry=v1:en-b");
+    }
   });
 });
