@@ -165,6 +165,8 @@ The following Swedish Stockholm SEO landing pages remain indexable and live at t
 
 Legacy **`/stockholm/...`** requests **`301`** to the **`/sv/stockholm/...`** equivalents.
 
+**Pretty Links–style paths:** short **`302`** quicklinks (print, campaigns, external targets) and any **`/stockholm/...`** slug that must **not** follow the generic splat (for example a legacy slug that maps to a **different** canonical Swedish shell) live in **`site/public/_redirects`** in the comment-marked block **immediately before** the **`/stockholm/*`** rule. **`302`** keeps retargeting flexible; use **`301`** when the intent is a permanent SEO move to a canonical path.
+
 Policy notes:
 - These may share base content blocks, but each page can keep distinct SEO intent fields (title, meta description, hero/header text, and opening copy).
 - Do not collapse these pages into one canonical URL.

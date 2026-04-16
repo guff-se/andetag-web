@@ -48,6 +48,29 @@
 /stockholm/faq/ /sv/stockholm/fragor-svar/ 301
 /sv/stockholm/faq/ /sv/stockholm/fragor-svar/ 301
 
+# -----------------------------------------------------------------------------
+# Legacy Pretty Links and ops short paths (see docs/url-migration-policy.md)
+#
+# Internal 301: slug or path fixes (same bar as other migration redirects).
+# Quicklinks 302: print or campaign codes and external targets (easy to retarget).
+# -----------------------------------------------------------------------------
+
+# Internal (301): legacy Swedish slug → canonical shell (must precede /stockholm/*)
+/stockholm/aktivitet-stockholm /sv/stockholm/aktivitet-inomhus-stockholm/ 301
+/stockholm/aktivitet-stockholm/ /sv/stockholm/aktivitet-inomhus-stockholm/ 301
+
+# Quicklinks (302)
+/spotify https://open.spotify.com/album/16JNuKeBQUK3RZHQjj4nDV 302
+/spotify/ https://open.spotify.com/album/16JNuKeBQUK3RZHQjj4nDV 302
+/z6ch /?utm_source=flyer&utm_medium=flyer&utm_campaign=AND_FLYER&utm_content=flyer 302
+/z6ch/ /?utm_source=flyer&utm_medium=flyer&utm_campaign=AND_FLYER&utm_content=flyer 302
+/8xno /?utm_source=poster&utm_medium=poster&utm_campaign=AND_POSTER&utm_content=small 302
+/8xno/ /?utm_source=poster&utm_medium=poster&utm_campaign=AND_POSTER&utm_content=small 302
+/qauz /?utm_source=poster&utm_medium=poster&utm_campaign=AND_POSTER&utm_content=large 302
+/qauz/ /?utm_source=poster&utm_medium=poster&utm_campaign=AND_POSTER&utm_content=large 302
+/presskit https://drive.google.com/drive/folders/1ojWoIyQ-btaAJqyytRYA86IO0kDWVPir?usp=drive_link 302
+/presskit/ https://drive.google.com/drive/folders/1ojWoIyQ-btaAJqyytRYA86IO0kDWVPir?usp=drive_link 302
+
 /stockholm/* /sv/stockholm/:splat 301
 # `/` entry routing: Cloudflare Worker (`site/workers/entry-router.ts`), not static `_redirects`.
 # Local `astro preview` still serves `index.html` (meta refresh to `/sv/stockholm/`).
