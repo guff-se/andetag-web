@@ -195,7 +195,7 @@ Use this order when **serial** engineering time is limited. **Parallel** items (
 
 **Shipped (bodies, covers, testimonial band):**
 
-1. **`stockholm-body-responsive-images.ts`:** **`andrumLookingBody`**, **`andrumMeditationBody`**, **`introAside18_058Body`**, **`artYogaHeroCover`**, **`dejtTestimonialHeroCover`**, **`berlinAfterHoursBody`**, **`testimonialCarouselDefaultBg`** (**`Andetag-27-037-copy-scaled`** derivatives). Book band: **`STOCKHOLM_BOOK_HERO_COVER`** in **`assets.ts`**.
+1. **`stockholm-body-responsive-images.ts`:** **`mainRoomLookingBody`**, **`mainRoomMeditationBody`**, **`introAside18_058Body`**, **`artYogaHeroCover`**, **`dejtTestimonialHeroCover`**, **`berlinAfterHoursBody`**, **`testimonialCarouselDefaultBg`** (**`Andetag-27-037-copy-scaled`** derivatives). Book band: **`STOCKHOLM_BOOK_HERO_COVER`** in **`assets.ts`**.
 2. **`ResponsiveInlinePicture.astro`**; **`HeroSection`** + **`TestimonialCarousel`** accept **`BodyPictureSources`** or legacy string URLs.
 3. **`components.css`:** **`.component-hero-cover-picture`**, **`.testimonial-block__bg--picture`**, figure **`picture`** rules.
 

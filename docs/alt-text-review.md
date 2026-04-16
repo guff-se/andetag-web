@@ -67,10 +67,10 @@ All use the company name as alt text, which is correct for logos inside a link t
 
 | Image | Page | Current alt | Status |
 |-------|------|-------------|--------|
-| `andrum-looking` (derivatives) | StockholmHomeSv | Besökare i silhuett som blickar upp mot lysande konst i ANDETAG | OK |
-| `andrum-looking` (derivatives) | StockholmHomeEn | Silhouette of a visitor looking up at luminous art at ANDETAG | OK |
-| `andrum-meditation` (derivatives) | StockholmHomeSv | Person som mediterar omgiven av ljus och textilkonst under Art Yoga på ANDETAG | OK |
-| `andrum-meditation` (derivatives) | StockholmHomeEn | Person meditating surrounded by light and textile art during Art Yoga at ANDETAG | OK |
+| `main-room-looking` (derivatives) | StockholmHomeSv | Besökare i silhuett som blickar upp mot lysande konst i ANDETAG | OK |
+| `main-room-looking` (derivatives) | StockholmHomeEn | Silhouette of a visitor looking up at luminous art at ANDETAG | OK |
+| `main-room-meditation` (derivatives) | StockholmHomeSv | Person som mediterar omgiven av ljus och textilkonst under Art Yoga på ANDETAG | OK |
+| `main-room-meditation` (derivatives) | StockholmHomeEn | Person meditating surrounded by light and textile art during Art Yoga at ANDETAG | OK |
 
 ---
 

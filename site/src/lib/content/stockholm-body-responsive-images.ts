@@ -36,16 +36,16 @@ export const berlinAfterHoursBody: BodyPictureSources = {
   webp960: "/wp-content/uploads/2025/04/ANDETAG-After-Hours-1-photo-Pekka-Paakko-body-960w.webp",
 };
 
-export const andrumLookingBody: BodyPictureSources = {
-  jpeg960: "/wp-content/uploads/2026/03/andrum-looking-body-960w.jpg",
-  webp640: "/wp-content/uploads/2026/03/andrum-looking-body-640w.webp",
-  webp960: "/wp-content/uploads/2026/03/andrum-looking-body-960w.webp",
+export const mainRoomLookingBody: BodyPictureSources = {
+  jpeg960: "/wp-content/uploads/2026/03/main-room-looking-body-960w.jpg",
+  webp640: "/wp-content/uploads/2026/03/main-room-looking-body-640w.webp",
+  webp960: "/wp-content/uploads/2026/03/main-room-looking-body-960w.webp",
 };
 
-export const andrumMeditationBody: BodyPictureSources = {
-  jpeg960: "/wp-content/uploads/2026/03/andrum-meditation-body-960w.jpg",
-  webp640: "/wp-content/uploads/2026/03/andrum-meditation-body-640w.webp",
-  webp960: "/wp-content/uploads/2026/03/andrum-meditation-body-960w.webp",
+export const mainRoomMeditationBody: BodyPictureSources = {
+  jpeg960: "/wp-content/uploads/2026/03/main-room-meditation-body-960w.jpg",
+  webp640: "/wp-content/uploads/2026/03/main-room-meditation-body-640w.webp",
+  webp960: "/wp-content/uploads/2026/03/main-room-meditation-body-960w.webp",
 };
 
 export const introAside18_058Body: BodyPictureSources = {
