@@ -3,6 +3,8 @@ version: 1
 #
 # Contents described by image recognition. Alt text follows the Andetag tone:
 # calm, concrete, sensory. See docs/Tone of Voice.md and docs/alt-text-review.md.
+# In low light, attribute visible hue to the emitted light on the textile, not to
+# the cloth being intrinsically multicolored, unless a daylight frame shows material color.
 #
 # Fields
 #   file      : current filename on disk (after renaming)
@@ -18,6 +20,8 @@ version: 1
 #   in the Andetag series (e.g. "Andetag 13-35.jpg" = artwork Andetag no. 13,
 #   internal sequence 35). After renaming, the artwork number is preserved in
 #   the slug as "artwork-andetag-N-..." and called out in the alt text.
+#   Individual works are titled "Andetag no. N" in every locale (English "no."
+#   for sv, en, and de).
 
 photos:
   - file: andrum-visitor-gazing-pink-light.jpg
@@ -253,135 +257,135 @@ photos:
     original: Andetag 3.jpg
     artwork: "Andetag no. 3"
     alt:
-      sv: "Siluett av besökare framför två lysande textilskulpturer i lila och magenta, verket Andetag nr 3."
-      en: "Silhouette of a visitor before two luminous textile sculptures in violet and magenta, the artwork Andetag no. 3."
-      de: "Silhouette einer Besucherin vor zwei leuchtenden Textilskulpturen in Violett und Magenta, dem Werk Andetag Nr. 3."
+      sv: "Siluett av besökare framför två textilskulpturer som lyser i lila och magenta, verket Andetag no. 3."
+      en: "Silhouette of a visitor before two textile sculptures glowing in violet and magenta light, the artwork Andetag no. 3."
+      de: "Silhouette einer Besucherin vor zwei Textilskulpturen, die in violett und magenta leuchten, dem Werk Andetag no. 3."
     tags: [artwork, andetag-3, textile-art, light-sculpture, silhouette, violet, magenta]
 
   - file: artwork-andetag-9-floral-form.jpg
     original: Andetag 9-10.jpg
     artwork: "Andetag no. 9"
     alt:
-      sv: "Verket Andetag nr 9, blomlik textilskulptur i rosa, lila och blått, med besökare vid sidan."
+      sv: "Verket Andetag no. 9, blomlik textilskulptur i rosa, lila och blått, med besökare vid sidan."
       en: "The artwork Andetag no. 9, a flower-like textile sculpture in pink, purple, and blue, with a visitor beside it."
-      de: "Das Werk Andetag Nr. 9, eine blütenartige Textilskulptur in Rosa, Violett und Blau, mit einer Besucherin daneben."
+      de: "Das Werk Andetag no. 9, eine blütenartige Textilskulptur in Rosa, Violett und Blau, mit einer Besucherin daneben."
     tags: [artwork, andetag-9, textile-art, light-sculpture, visitor, pink, purple]
 
   - file: artwork-andetag-10-magenta-profile.jpg
     original: Andetag 10-53.jpg
     artwork: "Andetag no. 10"
     alt:
-      sv: "Verket Andetag nr 10 i magenta och lila toner, med en besökares profil i mjukt ljus."
+      sv: "Verket Andetag no. 10 i magenta och lila toner, med en besökares profil i mjukt ljus."
       en: "The artwork Andetag no. 10 in magenta and violet tones, with a visitor's profile in soft light."
-      de: "Das Werk Andetag Nr. 10 in Magenta- und Violett-Tönen, mit dem Profil einer Besucherin im weichen Licht."
+      de: "Das Werk Andetag no. 10 in Magenta- und Violett-Tönen, mit dem Profil einer Besucherin im weichen Licht."
     tags: [artwork, andetag-10, textile-art, light-sculpture, visitor, profile, magenta]
 
   - file: artwork-andetag-10-multicolor-wall.jpg
     original: Andetag 10-66.jpg
     artwork: "Andetag no. 10"
     alt:
-      sv: "Verket Andetag nr 10 på en vit vägg, lysande i blått, rosa, gult och orange."
+      sv: "Verket Andetag no. 10 på en vit vägg, lysande i blått, rosa, gult och orange."
       en: "The artwork Andetag no. 10 on a white wall, glowing in blue, pink, yellow, and orange."
-      de: "Das Werk Andetag Nr. 10 auf einer weißen Wand, leuchtend in Blau, Rosa, Gelb und Orange."
+      de: "Das Werk Andetag no. 10 auf einer weißen Wand, leuchtend in Blau, Rosa, Gelb und Orange."
     tags: [artwork, andetag-10, textile-art, light-sculpture, visitor, multicolor]
 
   - file: artwork-andetag-11-close-up-lace.jpg
     original: Andetag 11-88.jpg
     artwork: "Andetag no. 11"
     alt:
-      sv: "Närbild av verket Andetag nr 11, med spetslika textilveck i blått, lila och magenta."
+      sv: "Närbild av verket Andetag no. 11, med spetslika textilveck i blått, lila och magenta."
       en: "Close-up of the artwork Andetag no. 11, with lace-like textile folds in blue, violet, and magenta."
-      de: "Nahaufnahme des Werks Andetag Nr. 11, mit spitzenartigen Textilfalten in Blau, Violett und Magenta."
+      de: "Nahaufnahme des Werks Andetag no. 11, mit spitzenartigen Textilfalten in Blau, Violett und Magenta."
     tags: [artwork, andetag-11, textile-art, close-up, lace, blue, violet, magenta]
 
   - file: artwork-andetag-13-night-and-day.jpg
     original: Andetag 13-31-NIGHT-DAY.jpg
     artwork: "Andetag no. 13"
     alt:
-      sv: "Verket Andetag nr 13 i två stämningar: dagsljus till vänster, nattens lysande glöd till höger."
+      sv: "Verket Andetag no. 13 i två stämningar: dagsljus till vänster, nattens lysande glöd till höger."
       en: "The artwork Andetag no. 13 in two moods: daylight on the left, luminous night glow on the right."
-      de: "Das Werk Andetag Nr. 13 in zwei Stimmungen: Tageslicht links, leuchtendes Nachtglühen rechts."
+      de: "Das Werk Andetag no. 13 in zwei Stimmungen: Tageslicht links, leuchtendes Nachtglühen rechts."
     tags: [artwork, andetag-13, textile-art, split-frame, day, night, comparison]
 
   - file: artwork-andetag-13-detail-ruffle.jpg
     original: Andetag 13-35.jpg
     artwork: "Andetag no. 13"
     alt:
-      sv: "Detalj av verket Andetag nr 13, skimrande textilveck i rosa, lila, grönt och silver."
+      sv: "Detalj av verket Andetag no. 13, skimrande textilveck i rosa, lila, grönt och silver."
       en: "Detail of the artwork Andetag no. 13, shimmering textile folds in pink, violet, green, and silver."
-      de: "Detail des Werks Andetag Nr. 13, schimmernde Textilfalten in Rosa, Violett, Grün und Silber."
+      de: "Detail des Werks Andetag no. 13, schimmernde Textilfalten in Rosa, Violett, Grün und Silber."
     tags: [artwork, andetag-13, textile-art, close-up, detail, iridescent]
 
   - file: artwork-andetag-13-silhouette-profile.jpg
     original: Andetag 13-90.jpg
     artwork: "Andetag no. 13"
     alt:
-      sv: "Verket Andetag nr 13 i blått, turkos och rosa med en besökares silhuettprofil."
-      en: "The artwork Andetag no. 13 in blue, turquoise, and pink with a visitor's silhouetted profile."
-      de: "Das Werk Andetag Nr. 13 in Blau, Türkis und Rosa mit der Silhouette einer Besucherin im Profil."
+      sv: "Verket Andetag no. 13 i blått, turkos och rosa ljus, med en besökares silhuettprofil."
+      en: "The artwork Andetag no. 13 in blue, turquoise, and pink light, with a visitor's silhouetted profile."
+      de: "Das Werk Andetag no. 13 in blauem, türkisem und rosafarbenem Licht mit der Silhouette einer Besucherin im Profil."
     tags: [artwork, andetag-13, textile-art, silhouette, blue, turquoise, pink]
 
   - file: artwork-andetag-16-hand-close-up.jpg
     original: Andetag 16-049.jpg
     artwork: "Andetag no. 16"
     alt:
-      sv: "Närbild där en hand pekar mot verket Andetag nr 16, grönt och silver skimrande textil."
+      sv: "Närbild där en hand pekar mot verket Andetag no. 16, grönt och silver skimrande textil."
       en: "Close-up with a hand pointing toward the artwork Andetag no. 16, green and silver shimmering textile."
-      de: "Nahaufnahme mit einer Hand, die zum Werk Andetag Nr. 16 zeigt, grün und silbern schimmernde Textilie."
+      de: "Nahaufnahme mit einer Hand, die zum Werk Andetag no. 16 zeigt, grün und silbern schimmernde Textilie."
     tags: [artwork, andetag-16, textile-art, close-up, hand, green, silver]
 
   - file: artwork-andetag-19-hand-reaching.jpg
     original: Andetag 19-508.jpg
     artwork: "Andetag no. 19"
     alt:
-      sv: "Verket Andetag nr 19 svävar i mörkret, en hand sträcks in i den flerfärgade textilen."
-      en: "The artwork Andetag no. 19 floats in darkness, a hand reaches into the multicolored textile."
-      de: "Das Werk Andetag Nr. 19 schwebt im Dunkel, eine Hand greift in das mehrfarbige Gewebe."
+      sv: "Verket Andetag no. 19 svävar i mörkret; en hand sträcker sig in i textilformen i flerfärgat ljus."
+      en: "The artwork Andetag no. 19 floats in darkness; a hand reaches into the textile form in multicolored light."
+      de: "Das Werk Andetag no. 19 schwebt im Dunkel; eine Hand greift in die textile Form in mehrfarbigem Licht."
     tags: [artwork, andetag-19, textile-art, hand, floating, multicolor]
 
   - file: artwork-andetag-19-leopard-detail.jpg
     original: Andetag 19-508-2.jpg
     artwork: "Andetag no. 19"
     alt:
-      sv: "Hand rör vid verket Andetag nr 19 i orange, lila och leopardmönstrad textil."
-      en: "A hand touching the artwork Andetag no. 19 in orange, violet, and leopard-patterned textile."
-      de: "Eine Hand berührt das Werk Andetag Nr. 19 in oranger, violetter und leopardgemusterter Textilie."
-    tags: [artwork, andetag-19, textile-art, close-up, hand, leopard, orange, violet]
+      sv: "Hand rör vid verket Andetag no. 19 i orange och lila ljus mot textil med oregelbundet fläckmönster."
+      en: "A hand touching the artwork Andetag no. 19 in orange and violet light on textile with an irregular speckled surface."
+      de: "Eine Hand berührt das Werk Andetag no. 19 in orangefarbenem und violettem Licht an Textilie mit unregelmäßigem Fleckenmuster."
+    tags: [artwork, andetag-19, textile-art, close-up, hand, speckled, orange, violet]
 
   - file: artwork-andetag-21-portrait-woman.jpg
     original: Andetag 21-407.jpg
     artwork: "Andetag no. 21"
     alt:
-      sv: "Kvinna i profil bredvid verket Andetag nr 21 i rosa och lila spetsmönster."
+      sv: "Kvinna i profil bredvid verket Andetag no. 21 i rosa och lila spetsmönster."
       en: "Woman in profile beside the artwork Andetag no. 21 in pink and violet lace patterns."
-      de: "Frau im Profil neben dem Werk Andetag Nr. 21 in rosa und violetten Spitzenmustern."
+      de: "Frau im Profil neben dem Werk Andetag no. 21 in rosa und violetten Spitzenmustern."
     tags: [artwork, andetag-21, textile-art, portrait, visitor, pink, violet]
 
   - file: artwork-andetag-21-portrait-tall.jpg
     original: Andetag 21-407-tall.jpg
     artwork: "Andetag no. 21"
     alt:
-      sv: "Porträttformat av kvinna bredvid verket Andetag nr 21, upplyst i rosa och lila."
+      sv: "Porträttformat av kvinna bredvid verket Andetag no. 21, upplyst i rosa och lila."
       en: "Portrait-format shot of a woman beside the artwork Andetag no. 21, lit in pink and violet."
-      de: "Hochformat-Aufnahme einer Frau neben dem Werk Andetag Nr. 21, in Rosa und Violett beleuchtet."
+      de: "Hochformat-Aufnahme einer Frau neben dem Werk Andetag no. 21, in Rosa und Violett beleuchtet."
     tags: [artwork, andetag-21, textile-art, portrait, visitor, tall, pink, violet]
 
   - file: artwork-andetag-30-mirrored-pair-square.jpg
     original: Andetag 30-47-square.jpg
     artwork: "Andetag no. 30"
     alt:
-      sv: "Verket Andetag nr 30 i spegelvänd form, rosa och blå lysande textilskulpturer med besökares siluett, kvadratiskt format."
-      en: "The artwork Andetag no. 30 mirrored, pink and blue luminous textile sculptures with a visitor's silhouette, square format."
-      de: "Das Werk Andetag Nr. 30 gespiegelt, rosa und blau leuchtende Textilskulpturen mit der Silhouette einer Besucherin, quadratisches Format."
+      sv: "Verket Andetag no. 30 i spegelvänd form, rosa och blått ljus över textilskulpturer med besökares siluett, kvadratiskt format."
+      en: "The artwork Andetag no. 30 mirrored, pink and blue light across textile sculptures with a visitor's silhouette, square format."
+      de: "Das Werk Andetag no. 30 gespiegelt, rosa und blaues Licht auf Textilskulpturen mit der Silhouette einer Besucherin, quadratisches Format."
     tags: [artwork, andetag-30, textile-art, silhouette, mirrored, square, pink, blue]
 
   - file: artwork-andetag-30-close-up-swirls.jpg
     original: Andetag 30-60.jpg
     artwork: "Andetag no. 30"
     alt:
-      sv: "Närbild av verket Andetag nr 30, virvlande textilveck i magenta, rosa, blått och orange."
+      sv: "Närbild av verket Andetag no. 30, virvlande textilveck i magenta, rosa, blått och orange."
       en: "Close-up of the artwork Andetag no. 30, swirling textile folds in magenta, pink, blue, and orange."
-      de: "Nahaufnahme des Werks Andetag Nr. 30, wirbelnde Textilfalten in Magenta, Rosa, Blau und Orange."
+      de: "Nahaufnahme des Werks Andetag no. 30, wirbelnde Textilfalten in Magenta, Rosa, Blau und Orange."
     tags: [artwork, andetag-30, textile-art, close-up, swirls, multicolor]
 
   - file: seasonal-christmas-bauble-pine.jpg
@@ -419,7 +423,7 @@ photos:
   - file: theme-kids-lying-among-sculptures.jpg
     original: Andetag kids.jpeg
     alt:
-      sv: "Två barn ligger på golvet omgivna av stora, lysande Andetag-skulpturer i blått och lila."
-      en: "Two children lying on the floor surrounded by large, luminous Andetag sculptures in blue and violet."
-      de: "Zwei Kinder liegen auf dem Boden, umgeben von großen, leuchtenden Andetag-Skulpturen in Blau und Violett."
+      sv: "Två barn ligger på golvet omgivna av stora Andetag-skulpturer i blått och lila ljus."
+      en: "Two children lying on the floor surrounded by large Andetag sculptures in blue and violet light."
+      de: "Zwei Kinder liegen auf dem Boden, umgeben von großen Andetag-Skulpturen in blauem und violettem Licht."
     tags: [theme, kids, children, andrum, textile-art, light-sculpture, blue, violet]
