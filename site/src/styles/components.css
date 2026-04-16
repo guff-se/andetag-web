@@ -1619,7 +1619,7 @@ body.lightbox-open {
 .page-stockholm-home__intro-figure {
   margin-block: 1.25rem 1.5rem;
   margin-inline: auto;
-  /* Inset lead photo (`andrum-looking.jpg`) so it reads smaller than full main-column width. */
+  /* Inset lead photo (`main-room-looking.jpg`) so it reads smaller than full main-column width. */
   max-width: min(52rem, 88%);
 }
 

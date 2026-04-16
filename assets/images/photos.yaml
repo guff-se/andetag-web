@@ -20,125 +20,125 @@ version: 1
 #   the slug as "artwork-andetag-N-..." and called out in the alt text.
 
 photos:
-  - file: andrum-visitor-gazing-pink-light.jpg
+  - file: main-room-visitor-gazing-pink-light.jpg
     original: _94A3950-mid.jpg
     alt:
-      sv: "Besökare i vit skjorta blickar upp mot rosa och lila lysande textilskulpturer i ANDETAGs andrum."
-      en: "Visitor in a white shirt looking up at pink and violet luminous textile sculptures in the ANDETAG breathing hall."
-      de: "Besucherin in weißem Hemd blickt zu rosa und violetten leuchtenden Textilskulpturen im ANDETAG-Atemraum auf."
-    tags: [andrum, textile-art, light-sculpture, visitor, solo, pink, violet, contemplation]
+      sv: "Besökare i vit skjorta blickar upp mot rosa och lila lysande textilskulpturer i ANDETAGs huvudrum."
+      en: "Visitor in a white shirt looking up at pink and violet luminous textile sculptures in the main room at ANDETAG."
+      de: "Besucherin in weißem Hemd blickt zu rosa und violetten leuchtenden Textilskulpturen im Hauptraum von ANDETAG."
+    tags: [main-room, textile-art, light-sculpture, visitor, solo, pink, violet, contemplation]
 
-  - file: andrum-visitor-among-textile-sculptures.jpg
+  - file: main-room-visitor-among-textile-sculptures.jpg
     original: _94A3958-mid.jpg
     alt:
       sv: "Besökare omgiven av lysande textilskulpturer i rosa och lila toner i ANDETAG."
       en: "Visitor surrounded by glowing textile sculptures in pink and violet tones at ANDETAG."
       de: "Besucherin, umgeben von leuchtenden Textilskulpturen in Rosa- und Violett-Tönen bei ANDETAG."
-    tags: [andrum, textile-art, light-sculpture, visitor, solo, pink, violet, immersive]
+    tags: [main-room, textile-art, light-sculpture, visitor, solo, pink, violet, immersive]
 
-  - file: andrum-three-visitors-warm-light.jpg
+  - file: main-room-three-visitors-warm-light.jpg
     original: _94A3961-mid.jpg
     alt:
-      sv: "Tre besökare sitter på golvet och betraktar varma, lysande textilformer i ANDETAGs andrum."
-      en: "Three visitors seated on the floor watching warm, glowing textile forms in the ANDETAG breathing hall."
-      de: "Drei Besuchende sitzen am Boden und betrachten warme, leuchtende Textilformen im ANDETAG-Atemraum."
-    tags: [andrum, textile-art, light-sculpture, visitors, small-group, warm-light, contemplation]
+      sv: "Tre besökare sitter på golvet och betraktar varma, lysande textilformer i ANDETAGs huvudrum."
+      en: "Three visitors seated on the floor watching warm, glowing textile forms in the main room at ANDETAG."
+      de: "Drei Besuchende sitzen am Boden und betrachten warme, leuchtende Textilformen im Hauptraum von ANDETAG."
+    tags: [main-room, textile-art, light-sculpture, visitors, small-group, warm-light, contemplation]
 
-  - file: andrum-group-reclining-purple-light.jpg
+  - file: main-room-group-reclining-purple-light.jpg
     original: _94A3969-mid.jpg
     alt:
       sv: "Grupp av besökare lutar sig bakåt mot lysande textilkonst i lila och blå toner."
       en: "A group of visitors leaning back toward luminous textile art in purple and blue tones."
       de: "Eine Gruppe von Besuchenden lehnt sich zurück und betrachtet leuchtende Textilkunst in Violett- und Blautönen."
-    tags: [andrum, textile-art, light-sculpture, visitors, group, purple, blue, relaxation]
+    tags: [main-room, textile-art, light-sculpture, visitors, group, purple, blue, relaxation]
 
-  - file: andrum-group-seated-hands-clasped.jpg
+  - file: main-room-group-seated-hands-clasped.jpg
     original: _94A3970-mid.jpg
     alt:
       sv: "Besökare sitter stilla med händerna vid hakan inför lysande textilskulpturer."
       en: "Visitors sitting still with hands clasped near their chins before glowing textile sculptures."
       de: "Besuchende sitzen still mit gefalteten Händen vor leuchtenden Textilskulpturen."
-    tags: [andrum, textile-art, light-sculpture, visitors, group, stillness, contemplation]
+    tags: [main-room, textile-art, light-sculpture, visitors, group, stillness, contemplation]
 
-  - file: andrum-visitor-portrait-soft-glow.jpg
+  - file: main-room-visitor-portrait-soft-glow.jpg
     original: _94A3973-mid.jpg
     alt:
       sv: "Närbild av leende besökare som blickar upp i ANDETAGs dämpade ljus."
       en: "Close-up of a smiling visitor looking upward in ANDETAG's dim glow."
       de: "Nahaufnahme einer lächelnden Besucherin, die im gedämpften Licht von ANDETAG nach oben blickt."
-    tags: [andrum, visitor, solo, portrait, soft-light, wonder]
+    tags: [main-room, visitor, solo, portrait, soft-light, wonder]
 
-  - file: andrum-visitor-looking-up-warm-sculptures.jpg
+  - file: main-room-visitor-looking-up-warm-sculptures.jpg
     original: _94A3975-mid.jpg
     alt:
       sv: "Man i vit t-shirt sitter på golvet och blickar upp mot varma lysande textilskulpturer."
       en: "Man in a white t-shirt seated on the floor, looking up at warm luminous textile sculptures."
       de: "Mann in weißem T-Shirt sitzt am Boden und blickt zu warmen leuchtenden Textilskulpturen auf."
-    tags: [andrum, textile-art, light-sculpture, visitor, solo, warm-light, contemplation]
+    tags: [main-room, textile-art, light-sculpture, visitor, solo, warm-light, contemplation]
 
-  - file: andrum-overhead-visitors-resting.jpg
+  - file: main-room-overhead-visitors-resting.jpg
     original: _94A3984-mid.jpg
     alt:
-      sv: "Översikt där besökare vilar bland lysande textilkonst i ANDETAGs andrum."
-      en: "Overhead view of visitors resting among luminous textile art in the ANDETAG breathing hall."
-      de: "Überblick über Besuchende, die zwischen leuchtender Textilkunst im ANDETAG-Atemraum ruhen."
-    tags: [andrum, textile-art, light-sculpture, visitors, group, overhead, rest]
+      sv: "Översikt där besökare vilar bland lysande textilkonst i ANDETAGs huvudrum."
+      en: "Overhead view of visitors resting among luminous textile art in the main room at ANDETAG."
+      de: "Überblick über Besuchende, die zwischen leuchtender Textilkunst im Hauptraum von ANDETAG ruhen."
+    tags: [main-room, textile-art, light-sculpture, visitors, group, overhead, rest]
 
-  - file: andrum-visitor-profile-blue-sculptures.jpg
+  - file: main-room-visitor-profile-blue-sculptures.jpg
     original: _94A3989-mid.jpg
     alt:
       sv: "Besökare i profil badar i blått ljus från omgivande textilskulpturer."
       en: "Visitor in profile bathed in blue light from surrounding textile sculptures."
       de: "Besucher im Profil, in blaues Licht umliegender Textilskulpturen getaucht."
-    tags: [andrum, textile-art, light-sculpture, visitor, solo, blue, profile]
+    tags: [main-room, textile-art, light-sculpture, visitor, solo, blue, profile]
 
-  - file: andrum-visitor-blue-glow-forms.jpg
+  - file: main-room-visitor-blue-glow-forms.jpg
     original: _94A3991-mid.jpg
     alt:
       sv: "Lugn besökare i blått ljus med lysande textilformer som svävar omkring."
       en: "Calm visitor in blue light, luminous textile forms floating around."
       de: "Ruhiger Besucher in blauem Licht, umgeben von schwebenden leuchtenden Textilformen."
-    tags: [andrum, textile-art, light-sculpture, visitor, solo, blue, calm]
+    tags: [main-room, textile-art, light-sculpture, visitor, solo, blue, calm]
 
-  - file: andrum-wall-of-light-four-visitors.jpg
+  - file: main-room-wall-of-light-four-visitors.jpg
     original: _94A4012-mid.jpg
     alt:
       sv: "Fyra besökare sitter tillsammans framför en stor vägg av lysande textilskulpturer i ANDETAG."
       en: "Four visitors seated together before a large wall of luminous textile sculptures at ANDETAG."
       de: "Vier Besuchende sitzen zusammen vor einer großen Wand aus leuchtenden Textilskulpturen bei ANDETAG."
-    tags: [andrum, textile-art, light-sculpture, visitors, group, wall, wide-shot]
+    tags: [main-room, textile-art, light-sculpture, visitors, group, wall, wide-shot]
 
-  - file: andrum-five-visitors-lying-ceiling-light.jpg
+  - file: main-room-five-visitors-lying-ceiling-light.jpg
     original: _94A4018-mid.jpg
     alt:
       sv: "Fem besökare ligger ner på golvet och blickar upp mot ett tak av lysande textilkonst."
       en: "Five visitors lying on the floor looking up at a ceiling of luminous textile art."
       de: "Fünf Besuchende liegen am Boden und blicken zu einer Decke aus leuchtender Textilkunst hinauf."
-    tags: [andrum, textile-art, light-sculpture, visitors, group, lying-down, ceiling]
+    tags: [main-room, textile-art, light-sculpture, visitors, group, lying-down, ceiling]
 
-  - file: andrum-visitors-on-pillows-suspended-art.jpg
+  - file: main-room-visitors-on-pillows-suspended-art.jpg
     original: _94A4027-mid.jpg
     alt:
       sv: "Besökare vilar på kuddar under svävande, lysande textilskulpturer."
       en: "Visitors resting on pillows beneath floating, luminous textile sculptures."
       de: "Besuchende ruhen auf Kissen unter schwebenden, leuchtenden Textilskulpturen."
-    tags: [andrum, textile-art, light-sculpture, visitors, group, pillows, rest]
+    tags: [main-room, textile-art, light-sculpture, visitors, group, pillows, rest]
 
-  - file: andrum-wide-hall-visitors-resting.jpg
+  - file: main-room-wide-hall-visitors-resting.jpg
     original: _94A4040-mid.jpg
     alt:
-      sv: "Översikt av ANDETAGs andrum med besökare som ligger ner framför en lysande textilväggsinstallation."
-      en: "Wide view of the ANDETAG breathing hall, visitors lying before a luminous textile wall installation."
-      de: "Weite Sicht in den ANDETAG-Atemraum mit Besuchenden vor einer leuchtenden Textilwandinstallation."
-    tags: [andrum, textile-art, light-sculpture, visitors, group, wide-shot, installation]
+      sv: "Översikt av ANDETAGs huvudrum med besökare som ligger ner framför en lysande textilväggsinstallation."
+      en: "Wide view of the main room at ANDETAG, visitors resting before a wall of breathing light art."
+      de: "Weite Sicht in den Hauptraum von ANDETAG mit Besuchenden vor einer leuchtenden Textilwandinstallation."
+    tags: [main-room, textile-art, light-sculpture, visitors, group, wide-shot, installation]
 
-  - file: andrum-hall-visitors-at-rest.jpg
+  - file: main-room-hall-visitors-at-rest.jpg
     original: _94A4042-mid.jpg
     alt:
-      sv: "Besökare vilar stilla i ANDETAGs andrum framför en vägg av lysande textilformer."
-      en: "Visitors at rest in the ANDETAG breathing hall before a wall of luminous textile forms."
-      de: "Besuchende ruhen im ANDETAG-Atemraum vor einer Wand aus leuchtenden Textilformen."
-    tags: [andrum, textile-art, light-sculpture, visitors, group, rest]
+      sv: "Besökare vilar stilla i ANDETAGs huvudrum framför en vägg av lysande textilformer."
+      en: "Visitors at rest in the main room at ANDETAG before a wall of luminous textile forms."
+      de: "Besuchende ruhen im Hauptraum von ANDETAG vor einer Wand aus leuchtenden Textilformen."
+    tags: [main-room, textile-art, light-sculpture, visitors, group, rest]
 
   - file: corridor-lounge-illuminated-sculptures.jpg
     original: _94A4049-mid.jpg
@@ -159,10 +159,10 @@ photos:
   - file: entrance-storefront-passageway.jpg
     original: _94A4076-mid.jpg
     alt:
-      sv: "ANDETAGs entré i en gångpassage med glasfasad och skylten ANDETAG Malin & Gustaf Tadaa."
-      en: "The ANDETAG entrance in a pedestrian passage with glass facade and the sign ANDETAG Malin & Gustaf Tadaa."
-      de: "Der ANDETAG-Eingang in einer Fußgängerpassage mit Glasfassade und dem Schriftzug ANDETAG Malin & Gustaf Tadaa."
-    tags: [entrance, exterior, signage, passageway, wayfinding]
+      sv: "Entrén till museet ANDETAG i en gångpassage med glasfasad och skylten ANDETAG Malin & Gustaf Tadaa."
+      en: "The ANDETAG museum entrance in a pedestrian passage with glass facade and the sign ANDETAG Malin & Gustaf Tadaa."
+      de: "Der Eingang zum ANDETAG-Museum in einer Fußgängerpassage mit Glasfassade und dem Schriftzug ANDETAG Malin & Gustaf Tadaa."
+    tags: [entrance, exterior, signage, passageway, wayfinding, museum]
 
   - file: reception-flowers-and-welcome.jpg
     original: _94A4086-mid.jpg
@@ -175,10 +175,10 @@ photos:
   - file: reception-lobby-with-sculpture.jpg
     original: _94A4095-mid.jpg
     alt:
-      sv: "Foajé med inramade textilverk, soffa med besökare och en stor väggskulptur i ANDETAG."
-      en: "Lobby with framed textile works, a sofa with visitors, and a large wall sculpture at ANDETAG."
-      de: "Foyer mit gerahmten Textilwerken, einem Sofa mit Besuchenden und einer großen Wandskulptur bei ANDETAG."
-    tags: [reception, lobby, visitors, interior, sculpture, sofa]
+      sv: "Museets foajé med inramade textilverk, soffa med besökare och en stor väggskulptur i ANDETAG."
+      en: "The museum lobby with framed textile works, a sofa with visitors, and a large wall sculpture at ANDETAG."
+      de: "Das Museumsfoyer mit gerahmten Textilwerken, einem Sofa mit Besuchenden und einer großen Wandskulptur bei ANDETAG."
+    tags: [reception, lobby, visitors, interior, sculpture, sofa, museum]
 
   - file: lockers-visitors-preparing.jpg
     original: _94A4099-mid.jpg
@@ -191,9 +191,9 @@ photos:
   - file: lockers-guests-hanging-coats.jpg
     original: _94A4111-mid.jpg
     alt:
-      sv: "Besökare hänger av sig rockar och packar ned saker i ANDETAGs rosa skåp inför andrumet."
-      en: "Visitors hanging up coats and stowing belongings in ANDETAG's pink lockers before entering the breathing hall."
-      de: "Besuchende hängen Mäntel auf und verstauen Sachen in den rosafarbenen ANDETAG-Schließfächern vor dem Atemraum."
+      sv: "Besökare hänger av sig rockar och packar ned saker i ANDETAGs rosa skåp inför huvudrummet."
+      en: "Visitors hanging up coats and stowing belongings in ANDETAG's pink lockers before entering the main room."
+      de: "Besuchende hängen Mäntel auf und verstauen Sachen in den rosafarbenen ANDETAG-Schließfächern vor dem Hauptraum."
     tags: [lockers, visitors, interior, preparation, coats]
 
   - file: gallery-visitors-among-sculptures.jpg
@@ -231,10 +231,10 @@ photos:
   - file: gallery-info-panel-and-visitors.jpg
     original: _94A4146-mid.jpg
     alt:
-      sv: "Galleri med ANDETAGs infotext på väggen och besökare som betraktar textilverk."
-      en: "Gallery with the ANDETAG info panel on the wall and visitors viewing textile works."
-      de: "Galerie mit dem ANDETAG-Infoschild an der Wand und Besuchenden vor Textilwerken."
-    tags: [gallery, textile-art, sculpture, visitors, info-panel, wayfinding]
+      sv: "Utställningens galleri med ANDETAGs infotext på väggen och besökare som betraktar textilverk."
+      en: "The exhibition gallery with the ANDETAG info panel on the wall and visitors viewing textile works."
+      de: "Die Ausstellungsgalerie mit dem ANDETAG-Infoschild an der Wand und Besuchenden vor Textilwerken."
+    tags: [gallery, textile-art, sculpture, visitors, info-panel, wayfinding, exhibition]
 
   - file: gallery-visitor-on-bench-contemplation.jpg
     original: _94A4151-mid.jpg
@@ -289,10 +289,10 @@ photos:
     original: Andetag 11-88.jpg
     artwork: "Andetag no. 11"
     alt:
-      sv: "Närbild av verket Andetag nr 11, med spetslika textilveck i blått, lila och magenta."
-      en: "Close-up of the artwork Andetag no. 11, with lace-like textile folds in blue, violet, and magenta."
-      de: "Nahaufnahme des Werks Andetag Nr. 11, mit spitzenartigen Textilfalten in Blau, Violett und Magenta."
-    tags: [artwork, andetag-11, textile-art, close-up, lace, blue, violet, magenta]
+      sv: "Närbild av verket Andetag nr 11, spetslika veck i optisk fibertextil i blått, lila och magenta."
+      en: "Close-up of the artwork Andetag no. 11, lace-like folds in optical fibre textile in blue, violet, and magenta."
+      de: "Nahaufnahme des Werks Andetag Nr. 11, spitzenartige Falten in optischer Fasertextilie in Blau, Violett und Magenta."
+    tags: [artwork, andetag-11, textile-art, close-up, lace, blue, violet, magenta, optical-fibre]
 
   - file: artwork-andetag-13-night-and-day.jpg
     original: Andetag 13-31-NIGHT-DAY.jpg
@@ -307,10 +307,10 @@ photos:
     original: Andetag 13-35.jpg
     artwork: "Andetag no. 13"
     alt:
-      sv: "Detalj av verket Andetag nr 13, skimrande textilveck i rosa, lila, grönt och silver."
-      en: "Detail of the artwork Andetag no. 13, shimmering textile folds in pink, violet, green, and silver."
-      de: "Detail des Werks Andetag Nr. 13, schimmernde Textilfalten in Rosa, Violett, Grün und Silber."
-    tags: [artwork, andetag-13, textile-art, close-up, detail, iridescent]
+      sv: "Detalj av verket Andetag nr 13, skimrande veck i optisk fibertextil i rosa, lila, grönt och silver."
+      en: "Detail of the artwork Andetag no. 13, shimmering optical fibre textile folds in pink, violet, green, and silver."
+      de: "Detail des Werks Andetag Nr. 13, schimmernde Falten in optischer Fasertextilie in Rosa, Violett, Grün und Silber."
+    tags: [artwork, andetag-13, textile-art, close-up, detail, iridescent, optical-fibre]
 
   - file: artwork-andetag-13-silhouette-profile.jpg
     original: Andetag 13-90.jpg
@@ -325,10 +325,10 @@ photos:
     original: Andetag 16-049.jpg
     artwork: "Andetag no. 16"
     alt:
-      sv: "Närbild där en hand pekar mot verket Andetag nr 16, grönt och silver skimrande textil."
-      en: "Close-up with a hand pointing toward the artwork Andetag no. 16, green and silver shimmering textile."
-      de: "Nahaufnahme mit einer Hand, die zum Werk Andetag Nr. 16 zeigt, grün und silbern schimmernde Textilie."
-    tags: [artwork, andetag-16, textile-art, close-up, hand, green, silver]
+      sv: "Närbild där en hand pekar mot verket Andetag nr 16, grönt och silver skimrande optisk fibertextil."
+      en: "Close-up with a hand pointing toward the artwork Andetag no. 16, green and silver shimmering optical fibre textile."
+      de: "Nahaufnahme mit einer Hand, die zum Werk Andetag Nr. 16 zeigt, grün und silbern schimmernde optische Fasertextilie."
+    tags: [artwork, andetag-16, textile-art, close-up, hand, green, silver, optical-fibre]
 
   - file: artwork-andetag-19-hand-reaching.jpg
     original: Andetag 19-508.jpg
@@ -379,10 +379,10 @@ photos:
     original: Andetag 30-60.jpg
     artwork: "Andetag no. 30"
     alt:
-      sv: "Närbild av verket Andetag nr 30, virvlande textilveck i magenta, rosa, blått och orange."
-      en: "Close-up of the artwork Andetag no. 30, swirling textile folds in magenta, pink, blue, and orange."
-      de: "Nahaufnahme des Werks Andetag Nr. 30, wirbelnde Textilfalten in Magenta, Rosa, Blau und Orange."
-    tags: [artwork, andetag-30, textile-art, close-up, swirls, multicolor]
+      sv: "Närbild av verket Andetag nr 30, virvlande veck i optisk fibertextil i magenta, rosa, blått och orange."
+      en: "Close-up of the artwork Andetag no. 30, swirling optical fibre textile folds in magenta, pink, blue, and orange."
+      de: "Nahaufnahme des Werks Andetag Nr. 30, wirbelnde Falten in optischer Fasertextilie in Magenta, Rosa, Blau und Orange."
+    tags: [artwork, andetag-30, textile-art, close-up, swirls, multicolor, optical-fibre]
 
   - file: seasonal-christmas-bauble-pine.jpg
     original: Andetag Christmas.jpg
@@ -411,10 +411,10 @@ photos:
   - file: theme-date-couple-silhouette.jpg
     original: Andetag date.jpeg
     alt:
-      sv: "Par i silhuett sitter tätt intill varandra framför lysande textilskulpturer i ANDETAGs andrum."
-      en: "A couple in silhouette sitting close together before luminous textile sculptures in the ANDETAG breathing hall."
-      de: "Ein Paar in Silhouette sitzt eng beieinander vor leuchtenden Textilskulpturen im ANDETAG-Atemraum."
-    tags: [theme, date, couple, silhouette, andrum, textile-art]
+      sv: "Par i silhuett sitter tätt intill varandra framför lysande textilskulpturer i ANDETAGs huvudrum."
+      en: "A couple in silhouette sitting close together before luminous textile sculptures in the main room at ANDETAG."
+      de: "Ein Paar in Silhouette sitzt eng beieinander vor leuchtenden Textilskulpturen im Hauptraum von ANDETAG."
+    tags: [theme, date, couple, silhouette, main-room, textile-art]
 
   - file: theme-kids-lying-among-sculptures.jpg
     original: Andetag kids.jpeg
@@ -422,4 +422,4 @@ photos:
       sv: "Två barn ligger på golvet omgivna av stora, lysande Andetag-skulpturer i blått och lila."
       en: "Two children lying on the floor surrounded by large, luminous Andetag sculptures in blue and violet."
       de: "Zwei Kinder liegen auf dem Boden, umgeben von großen, leuchtenden Andetag-Skulpturen in Blau und Violett."
-    tags: [theme, kids, children, andrum, textile-art, light-sculpture, blue, violet]
+    tags: [theme, kids, children, main-room, textile-art, light-sculpture, blue, violet]

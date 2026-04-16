@@ -13,7 +13,7 @@ import TestimonialCarousel from "../content/TestimonialCarousel.astro";
 import VideoEmbed from "../embeds/VideoEmbed.astro";
 import ResponsiveInlinePicture from "../ui/ResponsiveInlinePicture.astro";
 import { STOCKHOLM_BOOK_HERO_COVER } from "../../lib/chrome/assets";
-import { andrumLookingBody, andrumMeditationBody } from "../../lib/content/stockholm-body-responsive-images";
+import { mainRoomLookingBody, mainRoomMeditationBody } from "../../lib/content/stockholm-body-responsive-images";
 import { stockholmMarketingGalleryHome } from "../../lib/content/stockholm-marketing-gallery";
 import { stockholmTestimonialAggregateEn } from "../../lib/content/stockholm-testimonial-aggregate";
 import { stockholmMarketingFaqEn } from "../../lib/page-registry/stockholm-marketing-faq-en";
@@ -27,7 +27,7 @@ import {
  * (`data-elementor-type="wp-page"` post id **907**). Canonical URL in legacy Yoast is `/en/`;
  * rebuilt route is **`/en/stockholm/`** with head from `page-shell-meta.json` (**EX-0007**).
  * TripAdvisor shortcode removed per **EX-0002**; carousel quotes match Swedish home (English copy).
- * Intro lead photo and Art Yoga aside: `andrum-looking.jpg`, `andrum-meditation.jpg` under `site/public/wp-content/uploads/2026/03/`.
+ * Intro lead photo and Art Yoga aside: `main-room-looking.jpg`, `main-room-meditation.jpg` under `site/public/wp-content/uploads/2026/03/`.
  */
 const understoryCompanyId = "3b3aa7a7c2cd455b8f3a56cd81033110";
 
@@ -186,7 +186,7 @@ const vimeoSrc = "https://player.vimeo.com/video/1077937338";
       <ContentSection markdown={introMarkdown} />
       <figure class="page-stockholm-home__intro-figure">
         <ResponsiveInlinePicture
-          sources={andrumLookingBody}
+          sources={mainRoomLookingBody}
           width={introLeadImage.width}
           height={introLeadImage.height}
           alt={introLeadImage.alt}
@@ -266,7 +266,7 @@ const vimeoSrc = "https://player.vimeo.com/video/1077937338";
     <aside class="page-layout-with-aside__aside" aria-label="Art Yoga, photo">
       <figure class="page-stockholm-home__art-yoga-figure">
         <ResponsiveInlinePicture
-          sources={andrumMeditationBody}
+          sources={mainRoomMeditationBody}
           width={artYogaAsideImage.width}
           height={artYogaAsideImage.height}
           alt={artYogaAsideImage.alt}
