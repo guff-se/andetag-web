@@ -587,3 +587,55 @@ Summary:
 Cookie shape and refresh rules: **`docs/url-migration-policy.md`** (**`andetag_entry`**). The Worker also appends **`Set-Cookie`** on **`200`** responses under **`/sv/...`**, **`/de/berlin...`**, **`/en/stockholm/...`**, and **`/en/berlin/...`** to match **When to set or refresh** (not on **`/en/`** hub alone). Redirect tests: **`docs/phase-4-redirect-tests.md`**.
 
 When Berlin opens and campaigns split by market, align ad landing URLs with the canonical location hubs (**`/sv/stockholm/`**, **`/en/stockholm/`**, **`/de/berlin/`**, **`/en/berlin/`**) and update this manual if examples change.
+
+---
+
+## 15. Internal Linking
+
+Internal links distribute authority, aid crawling, and guide users between related intents. Treat each location hub as a pillar and the factual anchors as its cluster. Keep link volume modest: the calm tone must not degrade into a link farm.
+
+### 15.1 Principles (LOCKED)
+
+* **Hub-and-spoke per locale.** `/sv/stockholm/` and `/en/stockholm/` are pillar pages. Every cluster page (factual anchor, experiential, commercial) should receive at least one in-body link from another page in the same language, and every cluster page should link back to the pillar through primary nav or a contextual link.
+* **No orphan pages.** Any page listed in §12 must have at least two inbound in-body internal links from other cluster pages in the same language (header and footer nav do not count as in-body links).
+* **Same-language linking only.** Never link from `/sv/...` to `/en/...` in-body. Use hreflang for cross-language navigation.
+* **Anchor text is descriptive and short.** Five words or fewer, keyword-relevant, never "click here" or "read more" on its own. Allowed pattern: "Read more about [topic]" where [topic] is the keyword phrase.
+* **Link to canonical URLs.** No redirect chains; always the final `/sv/stockholm/<slug>/` or `/en/stockholm/<slug>/`.
+* **Tasteful density.** 1–3 contextual internal links per body is the target; the pillar hub may have more. Never add links for their own sake, and do not exceed five in any single prose block.
+* **Factual anchors link into each other.** Opening hours, tickets, how-to-find-us, accessibility, NPF, and FAQ form a tight cluster so AI and search can traverse between visit intents in one hop.
+
+### 15.2 Priority link graph (Stockholm)
+
+Each row names pages that must contain at least one contextual link to the listed targets, in addition to navigation chrome. SV and EN mirror each other.
+
+| Source page | Required contextual targets |
+|-------------|-----------------------------|
+| Opening hours | Tickets, How to find us |
+| Tickets | Opening hours, Art Yoga, Season pass (already present) |
+| How to find us | Accessibility (already present) |
+| Accessibility | NPF / neurodivergent, How to find us |
+| NPF / neurodivergent | Accessibility, What kind of experience, FAQ |
+| What kind of experience | Tickets, NPF / neurodivergent |
+| Art Yoga | Tickets, What kind of experience |
+| Date | What kind of experience, How to find us |
+| FAQ | Tickets, Accessibility, Season pass, Group bookings (already present) |
+| Location hub (pillar) | All primary cluster pages via body + nav |
+
+### 15.3 Anchor-text guidance
+
+Use the conceptual keyword from §12 as the anchor phrase. Examples:
+
+* "Read more about [accessibility at ANDETAG](/sv/stockholm/tillganglighet/)"
+* "[Neurodivergent-friendly visit information](/en/stockholm/neurodivergent-art/)"
+* "[Tickets and opening hours](/en/stockholm/tickets/)"
+
+Avoid repeating the exact same anchor more than twice on a single page; vary by noun phrase while keeping the concept consistent.
+
+### 15.4 Audit checks (informational)
+
+Before shipping content changes, confirm:
+
+* No link points to a non-canonical path (missing `/sv/` or `/en/` prefix, or a path that 301s per **`docs/url-matrix.csv`**).
+* No in-body link crosses languages.
+* Every page listed in §12 has at least two inbound in-body links within its locale.
+* Anchor text is descriptive and aligns with the target page's primary keyword line.
