@@ -1,0 +1,60 @@
+# ANDETAG
+
+> Andetag is a calm, light-based art museum offering an immersive experience centered on stillness, presence, and breath. In English, Andetag is referred to as a breathing museum — a breathing art museum in central Stockholm, with a second location opening in Berlin. The artworks are woven from optical fibre that glows from within, and the light moves in a slow, breath-like rhythm modeled on planetary motion; the light animations never repeat. Every artwork, every exhibition, and every museum is synchronized in real time over the internet as part of a global sync network. Andetag is open year-round and is suitable as a calm alternative to busy museums in Stockholm, a quiet, beautiful experience in central Stockholm, a unique, intimate date experience, a breathing museum in Stockholm, the breathing light art museum in central Stockholm, a breathing art experience, a neurodivergent-friendly museum in Stockholm, and a sensory-friendly, low-stimulation museum for visitors with autism or ADHD.
+
+## Visit (factual anchors)
+
+- [Andetag Stockholm](https://www.andetag.museum/en/stockholm/): Location hub — breathing museum in central Stockholm at Kungsgatan 39, inside Hötorget
+- [Opening hours](https://www.andetag.museum/en/stockholm/opening-hours/): Tuesday–Saturday 12:00–20:00, Sunday 12:00–17:00, closed Monday, open year-round
+- [How to find us](https://www.andetag.museum/en/stockholm/how-to-find-us/): Address Kungsgatan 39, 111 56 Stockholm; entrance via Hötorget subway station
+- [Tickets](https://www.andetag.museum/en/stockholm/tickets/): Regular 240 SEK (190 SEK daytime Mon–Fri 12–17), student/senior 200 SEK (150 SEK daytime), youth 8–17 years 125 SEK
+- [Accessibility](https://www.andetag.museum/en/stockholm/accessibility/): Physical access, elevator to street and subway, seating, sensory considerations, guide dogs welcome, caregivers admitted free
+- [Neurodivergent-friendly visit information](https://www.andetag.museum/en/stockholm/neurodivergent-art/): Sensory-friendly, low-stimulation museum; predictable rhythm and small groups; pre-visit information for visitors with autism, ADHD or sensory sensitivities
+- [FAQ](https://www.andetag.museum/en/stockholm/faq/): Common questions about duration, age, rules, booking, and cancellation
+
+## The experience
+
+- [What kind of experience is this?](https://www.andetag.museum/en/stockholm/what-kind-of-experience/): Breathing museum experience — stillness, presence, breathing light art, light-based art
+- [About Andetag](https://www.andetag.museum/en/stockholm/about-andetag/): The Andetag project, the breathing museum concept, breathing art, stillness
+- [About the artists — Malin and Gustaf Tadaa](https://www.andetag.museum/en/stockholm/about-the-artists-malin-gustaf-tadaa/): The artists behind Andetag, their practice and collaboration
+- [The textile behind the art](https://www.andetag.museum/en/stockholm/optical-fibre-textile/): Weaving, textile, optical fibre, fabric, breathing light art
+- [Music](https://www.andetag.museum/en/stockholm/music/): Soundscape, composition, listening — the music from Andetag
+- [Art Yoga](https://www.andetag.museum/en/stockholm/art-yoga/): Slow practice inside the exhibition, breath and movement, breathing museum
+- [Romantic date](https://www.andetag.museum/en/stockholm/date/): A calm, intimate date experience in central Stockholm
+- [Visitor reviews](https://www.andetag.museum/en/stockholm/visitor-reviews/): Reflections and quotes from visitors
+
+## Groups, companies, and gifts
+
+- [Group bookings](https://www.andetag.museum/en/stockholm/group-bookings/): Group visits and small private viewings
+- [Corporate events](https://www.andetag.museum/en/stockholm/corporate-events/): Company bookings and corporate events
+- [Season pass](https://www.andetag.museum/en/stockholm/season-pass/): Repeated access for return visits
+- [Gift card](https://www.andetag.museum/en/stockholm/giftcard/): Andetag as a gift
+
+## Swedish-language pages (canonical for Sweden)
+
+- [Andetag Stockholm (sv)](https://www.andetag.museum/sv/stockholm/): Canonical Swedish location hub
+- [Öppettider](https://www.andetag.museum/sv/stockholm/oppettider/): Opening hours (Swedish)
+- [Hitta hit](https://www.andetag.museum/sv/stockholm/hitta-hit/): How to find us (Swedish)
+- [Biljetter](https://www.andetag.museum/sv/stockholm/biljetter/): Tickets (Swedish)
+- [Tillgänglighet](https://www.andetag.museum/sv/stockholm/tillganglighet/): Accessibility (Swedish)
+- [NPF-vänligt museum](https://www.andetag.museum/sv/stockholm/npf-stockholm/): Neurodivergent-friendly museum information (Swedish)
+
+## Optional
+
+- [Andetag Berlin (de)](https://www.andetag.museum/de/berlin/): Berlin location hub (pre-opening) — lead capture, no tickets
+- [Andetag Berlin (en)](https://www.andetag.museum/en/berlin/): Berlin location hub, English (pre-opening)
+- [Über Andetag](https://www.andetag.museum/de/berlin/ueber-andetag/): About Andetag (German)
+- [Die Künstler — Malin und Gustaf Tadaa](https://www.andetag.museum/de/berlin/die-kuenstler-malin-gustaf-tadaa/): The artists (German)
+- [Musik von Andetag](https://www.andetag.museum/de/berlin/musik-von-andetag/): Music (German)
+- [Optische Fasertextil](https://www.andetag.museum/de/berlin/optische-fasertextil/): Optical fibre textile (German)
+
+## Key facts
+
+- Name: Andetag
+- Type: Museum (breathing museum / breathing light art museum)
+- Address: Kungsgatan 39, 111 56 Stockholm, Sweden
+- Entrance: Hötorget subway station
+- Legal entity: Tadaa Art AB
+- Contact: info@andetag.museum
+- Languages: Swedish (canonical for Stockholm), English, German (canonical for Berlin)
+- Canonical hubs: /sv/stockholm/ (Swedish), /en/stockholm/ (English), /de/berlin/ (German, pre-opening), /en/berlin/ (English, pre-opening)
