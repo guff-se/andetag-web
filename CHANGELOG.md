@@ -7,6 +7,10 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ## [Unreleased]
 
+### Added
+
+- **Internal linking strategy (SEO):** **`docs/Andetag SEO Manual.md`** §15 codifies hub-and-spoke internal linking (pillar = location hub, cluster = factual anchors + experiential pages), anchor-text guidance (keyword-relevant, ≤5 words, never "click here"), same-language-only rule, canonical-URL rule, and an audit checklist. Implementation: tasteful in-body contextual links added to Stockholm factual anchors and experiential pages in **both** **`sv`** and **`en`**: **`OppettiderSv/En`** → tickets + how-to-find-us; **`TillganglighetSv/En`** → NPF + how-to-find-us; **`NpfStockholmSv/En`** → what-kind-of-experience + FAQ + accessibility; **`VilkenTypAvUpplevelseSv/En`** → tickets + NPF; **`ArtYogaSv/En`** → what-kind-of-experience + tickets; **`DejtSv/En`** → how-to-find-us + what-kind-of-experience. **`FragorSvarEn.astro`** "Read more about accessibility" now a real link (matches Swedish peer). 1–3 links per body, anchor text keyword-aligned. Why: close orphan/low-inbound gaps so visit-intent factual anchors form a tight cluster for search and AI traversal without degrading the calm tone. Verified: **`npm test`** (131 pass), **`npm run build`** clean (65 pages).
+
 ### Changed
 
 - **Public contact email:** All former **`info@tadaa.se`** strings in the Astro workspace now use **`mailto:info@andetag.museum`** (including FAQ accordions, Stockholm home and SEO landings, group and corporate mailto buttons, NPF and accessibility pages, JSON-LD **`email`**, and press footer lines). **`docs/migration-exceptions.md`** **EX-0010** decision text updated accordingly.
