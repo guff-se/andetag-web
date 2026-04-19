@@ -84,6 +84,14 @@ const privatMarkdown = [
   '<p>Please send an email to <a href="mailto:info@andetag.museum">info@andetag.museum</a> and we will assist you!</p>',
 ].join("");
 
+const stillnessBookingHref =
+  "https://andetag.understory.io/experience/ee9726a081e579357a3f34330733202e";
+
+const stillnessMarkdown = [
+  "<p>Meet German performance artist <strong>Hanno Rödger</strong> in a silent, wordless 1:1 encounter in radical presence.</p>",
+  "<p>Write down a personal worry or hope – then sit quietly across from the artist for as long as you choose. Open to active participants and observers alike. Free admission.</p>",
+].join("");
+
 const artYogaMarkdown = [
   "<p>Art Yoga is a slow yoga class held inside Andetag&#8217;s immersive art environment in central Stockholm. It is a place to move, breathe, and settle, in the middle of the city.</p>",
   "<p>Surrounded by glowing textile art and living light, the class is guided by yoga teacher <strong>Fabian Macklin</strong>. Movement and breath unfold at a gentle pace, with attention on presence rather than performance.</p>",
@@ -253,6 +261,15 @@ const vimeoSrc = "https://player.vimeo.com/video/1077937338";
       <span class="page-stockholm-home__book-hero-heading-short">Take a breath</span>
     </h2>
   </HeroSection>
+
+  <div class="page-stockholm-home__stillness">
+    <ContentSection heading="1,000 Hours of Stillness – a live performance" headingLevel="h2" markdown={stillnessMarkdown} />
+    <div class="page-stockholm-home__stillness-cta">
+      <ButtonGroup
+        buttons={[{ label: "Book", href: stillnessBookingHref, variant: "primary", external: true }]}
+      />
+    </div>
+  </div>
 
   <div class="page-layout-with-aside page-stockholm-home__art-yoga">
     <div class="page-layout-with-aside__main">
