@@ -13,7 +13,7 @@ import TestimonialCarousel from "../content/TestimonialCarousel.astro";
 import VideoEmbed from "../embeds/VideoEmbed.astro";
 import ResponsiveInlinePicture from "../ui/ResponsiveInlinePicture.astro";
 import { STOCKHOLM_BOOK_HERO_COVER } from "../../lib/chrome/assets";
-import { mainRoomLookingBody, mainRoomMeditationBody } from "../../lib/content/stockholm-body-responsive-images";
+import { mainRoomLookingBody, mainRoomMeditationBody, hannoRodgerStillnessBody } from "../../lib/content/stockholm-body-responsive-images";
 import { stockholmMarketingGalleryHome } from "../../lib/content/stockholm-marketing-gallery";
 import { stockholmTestimonialAggregateSv } from "../../lib/content/stockholm-testimonial-aggregate";
 import { stockholmMarketingFaqSv } from "../../lib/page-registry/stockholm-marketing-faq-sv";
@@ -255,8 +255,21 @@ const vimeoSrc = "https://player.vimeo.com/video/1077937338";
     </h2>
   </HeroSection>
 
-  <div class="page-stockholm-home__stillness">
-    <ContentSection heading="1,000 Hours of Stillness – a live performance" headingLevel="h2" markdown={stillnessMarkdown} />
+  <div class="page-layout-with-aside page-stockholm-home__stillness">
+    <div class="page-layout-with-aside__main">
+      <ContentSection heading="1,000 Hours of Stillness – a live performance" headingLevel="h2" markdown={stillnessMarkdown} />
+    </div>
+    <aside class="page-layout-with-aside__aside" aria-label="1,000 Hours of Stillness, foto">
+      <figure class="page-stockholm-home__stillness-figure">
+        <ResponsiveInlinePicture
+          sources={hannoRodgerStillnessBody}
+          width={960}
+          height={640}
+          alt="Performancekonstnären Hanno Rödger som bär en stol på en stadsgata"
+          sizes="(max-width: 900px) 100vw, min(42vw, 520px)"
+        />
+      </figure>
+    </aside>
   </div>
 
   <div class="page-layout-with-aside page-stockholm-home__art-yoga">
