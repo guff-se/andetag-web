@@ -1666,6 +1666,10 @@ body.lightbox-open {
   justify-content: center;
 }
 
+.page-stockholm-home__event-stillness {
+  margin-bottom: 2.25rem;
+}
+
 .page-stockholm-home__loc-mobile {
   margin-top: 1.5rem;
 }
