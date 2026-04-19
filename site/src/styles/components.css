@@ -1667,7 +1667,12 @@ body.lightbox-open {
 }
 
 .page-stockholm-home__event-stillness {
+  margin-top: 3rem;
   margin-bottom: 2.25rem;
+}
+
+.page-stockholm-home__event-stillness.page-layout-with-aside {
+  gap: 1rem;
 }
 
 .page-stockholm-home__loc-mobile {
