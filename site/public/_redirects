@@ -70,6 +70,8 @@
 /qauz/ /?utm_source=poster&utm_medium=poster&utm_campaign=AND_POSTER&utm_content=large 302
 /presskit https://drive.google.com/drive/folders/1ojWoIyQ-btaAJqyytRYA86IO0kDWVPir?usp=drive_link 302
 /presskit/ https://drive.google.com/drive/folders/1ojWoIyQ-btaAJqyytRYA86IO0kDWVPir?usp=drive_link 302
+/oneyear https://e25384f2.sibforms.com/serve/MUIFAJtGi05TqhFGWEytkCy-2Dy4RimASqYhZmLGOV3JTUANXdQxBVxCgZKqHq-SqHlpZ6UC4TTHIm9TeX1FB9LeeZv3hRAn4911SIUQgWsSOWWDXb1ZQPaBhfMloKWIP7WP7bQy6HSlCo1I7xvPEAHfBKVOig3fyF8WqHX1kIFlUKIMYYal5AEIDziEo6a3oSYEqNHbyofm3RAy 302
+/oneyear/ https://e25384f2.sibforms.com/serve/MUIFAJtGi05TqhFGWEytkCy-2Dy4RimASqYhZmLGOV3JTUANXdQxBVxCgZKqHq-SqHlpZ6UC4TTHIm9TeX1FB9LeeZv3hRAn4911SIUQgWsSOWWDXb1ZQPaBhfMloKWIP7WP7bQy6HSlCo1I7xvPEAHfBKVOig3fyF8WqHX1kIFlUKIMYYal5AEIDziEo6a3oSYEqNHbyofm3RAy 302
 
 /stockholm/* /sv/stockholm/:splat 301
 # `/` entry routing: Cloudflare Worker (`site/workers/entry-router.ts`), not static `_redirects`.
