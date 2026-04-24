@@ -44,7 +44,7 @@ This project works with real scraped website artifacts and SEO language constrai
 web/
 ├── AGENTS.md              # This guide
 ├── CHANGELOG.md           # Human-readable change log (see docs/changelog-standards.md)
-├── .github/workflows/     # CI: Node tests + build, Python tests, docs link check
+├── .github/workflows/     # CI: Node tests + build, Python tests
 ├── spider.py              # Crawler (HTML + Markdown snapshots + assets)
 ├── docs/                  # Active migration and architecture specs
 │   └── archive/           # Closed-phase checklists, superseded plans, historical reference
@@ -152,7 +152,7 @@ python3 -m py_compile spider.py
 python3 -m unittest tests.test_spider_versioning
 ```
 
-CI (`.github/workflows/ci.yml`) runs Node tests, build, Python tests, and docs link check on push and PR to `main`.
+CI (`.github/workflows/ci.yml`) runs Node tests, build, and Python tests on push and PR to `main`.
 
 ---
 

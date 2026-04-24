@@ -1,9 +1,0 @@
-# Lychee loads this automatically from the repo root (same cwd as CI).
-#
-# docs/archive/ holds closed-phase notes and frozen research snapshots with many
-# third-party URLs. Skipping the tree keeps CI focused on active docs and avoids
-# flaky failures (bot blocking, rate limits) on sites we do not control.
-
-exclude_path = [
-  '(\\./)?docs/archive/',
-]
