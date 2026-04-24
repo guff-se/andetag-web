@@ -1722,6 +1722,11 @@ body.lightbox-open {
   max-width: min(60rem, 100%);
 }
 
+/* Extra breathing room before Art Yoga / following sections (default hero margin is 2.25rem). */
+.page-stockholm-home .component-hero:has(.page-stockholm-home__book-hero-heading) {
+  margin-bottom: 3.25rem;
+}
+
 /*
  * Must beat `.component-hero :is(h1, h2)` (large `font-size`) and `.component-hero :is(h1, h2, h3)`
  * (`text-wrap: balance`), which both outrank a single class and were forcing wrap + oversized type.
