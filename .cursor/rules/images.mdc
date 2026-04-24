@@ -1,0 +1,28 @@
+---
+description: Use when selecting or suggesting photographs for a page on the ANDETAG Astro site (site/), wiring a new inline figure, hero cover, gallery tile, or testimonial background, or replacing an existing image. Canonical skill lives at /skills/images/SKILL.md.
+globs:
+  - assets/images/photos.yaml
+  - site/src/lib/content/stockholm-body-responsive-images.ts
+  - site/src/lib/content/stockholm-marketing-gallery.ts
+  - site/src/lib/chrome/assets.ts
+  - site/src/components/page-bodies/*.astro
+  - site/src/components/ui/ResponsiveInlinePicture.astro
+  - site/public/wp-content/uploads/**
+  - docs/responsive-image-workflow.md
+alwaysApply: false
+---
+
+# Images skill (pointer)
+
+Canonical: [`/skills/images/SKILL.md`](../../skills/images/SKILL.md). Read it before acting.
+
+Key points:
+
+- Curated catalog (single source of alt + tags) is `assets/images/photos.yaml` (version 1; per-file `sv + en + de` alt and tags). Alt text is ready-to-use — do not paraphrase.
+- Derivatives follow `docs/responsive-image-workflow.md`: `*-SUFFIX-640w.webp`, `*-SUFFIX-960w.webp`, `*-SUFFIX-960w.jpg`. `SUFFIX` is one of `gallery`, `body`, `aside`, `hero`, `testimonial`.
+- Masters and derivatives live under `site/public/wp-content/uploads/<year>/<month>/`. Wiring constants: `site/src/lib/content/stockholm-body-responsive-images.ts` (body/aside/hero/testimonial), `site/src/lib/chrome/assets.ts` (chrome heroes), `site/src/lib/content/stockholm-marketing-gallery.ts` (gallery tiles).
+- Stockholm pages render both `sv` and `en` off the **same** `BodyPictureSources` constant; only the `alt=` attribute differs by locale (pull `alt.sv` vs `alt.en` from `photos.yaml`).
+- **Suggest** (output a table of candidates with rationale and catalog alt text) before wiring. Do not auto-wire.
+- Count heuristic: location hub 4–6, experiential page 2–3, factual anchor 0–1, SEO landing 1–2.
+- Verify with `npm test && npm run build` from `site/`.
+- Escalate: no catalog match (do not fabricate alt text or filenames), Berlin page (no Berlin catalog entries), single-locale request on a Stockholm pair, missing master file, colour-vs-light claims that contradict the catalog's header rule.
