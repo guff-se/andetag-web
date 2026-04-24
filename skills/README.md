@@ -55,6 +55,7 @@ Keep SKILL.md tight. Supporting reference material can live as sibling files ins
 |-------|----|--------|--------------|
 | [`page`](page/SKILL.md) | P9-12 | active | Add, edit, rename, or remove a content page on the Astro site (`site/`). Covers shell meta, body registry, routing, navigation, locale parity, and image wiring. |
 | [`faq`](faq/SKILL.md) | P9-16 | active | Add, edit, remove, or reorder Stockholm FAQ entries. Covers the single-source data file, shared "What is ANDETAG?" copy, marketing FAQ subset, FAQPage JSON-LD, and `sv + en` parity. |
+| [`events`](events/SKILL.md) | P9-17 | active | Add, update, or remove events (recurring Art Yoga or one-off blocks on the Stockholm home) on the Astro site. Covers `stockholm-offers.ts` metadata, `computeArtYogaOccurrenceSeriesIso`, Understory booking CTAs, responsive event hero images, optional Event JSON-LD, and `sv + en` parity. |
 
 Rows are added as each skill lands. Ids correspond to Phase 9 work items in [`docs/phase-9-plan.md`](../docs/phase-9-plan.md).
 
