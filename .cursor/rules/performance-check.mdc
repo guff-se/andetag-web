@@ -1,0 +1,24 @@
+---
+description: Use when running the performance workflow on the ANDETAG Astro site (site/) — before a release-sensitive merge, after image/header/CSS/JS changes, or when asked for a perf audit. Triggers include "run lighthouse", "check perf", "verify perf before merging". Canonical skill lives at /skills/performance-check/SKILL.md. Also contains the P9-40 stats-bridge recipe (GSC / GA4 / sales queries via ../stats/cli).
+globs:
+  - site/scripts/lighthouse-all-pages.mjs
+  - site/scripts/perf-*.mjs
+  - site/package.json
+  - docs/performance-improvement-plan.md
+alwaysApply: false
+---
+
+# Performance check skill (pointer)
+
+Canonical: [`/skills/performance-check/SKILL.md`](../../skills/performance-check/SKILL.md). Read it before acting.
+
+Key points:
+
+- **Recipe, not strategy**: the substance (targets, completed tracks, open hygiene) lives in `docs/performance-improvement-plan.md`. This skill measures and decides pass vs needs-exception.
+- Commands: `npm run build` → `npm run lighthouse:all` (full) or `LIGHTHOUSE_PATHS=… npm run lighthouse:all` (subset). `LIGHTHOUSE_MIN=85` is the baseline gate.
+- Drilldowns (diagnostic only, not gates): `npm run perf:impact` (third-party), `npm run perf:blocking` (render-blocking), `npm run perf:consent` (consent timing).
+- Scope picker: copy-only edits skip Lighthouse; image wiring → subset; chrome / CSS / JS / new routes / structural changes → full; GTM or consent changes → full + drilldowns.
+- **P9-40 stats bridge** lives inside this skill per P9-41: use `../stats/cli` (sibling `andetag-data` repo, sparse-checkout) for GSC / GA4 / sales queries. Read-only. Credentials live in that project's `.env`; this repo holds no extra secrets.
+- Pass = no URL below `LIGHTHOUSE_MIN`, no new CLS > 0.05 that was not already flagged, no mean-score regression > 3 points vs. the documented run. Anything else → log waiver in `docs/migration-exceptions.md` (owner Gustaf, SHA) or a Phase 9 verification note.
+- Report line for PRs: `Perf: <sha> on <target> — <command>, min <X>, mean <Y>, slowest LCP <path> <Zs>, CLS <clean/outliers>. Pass/needs-exception.`
+- Escalate: vendor drift (GTM/CMP/Understory) with no PR-side culprit, headless-Chrome crashes, PSI requests, or stats-bridge gaps.

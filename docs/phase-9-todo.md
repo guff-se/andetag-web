@@ -12,7 +12,7 @@ Purpose: track the transition from **migration** (phased rebuild, URL parity, lo
 
 ## Performance optimization Agent Skill
 
-- [ ] **P9-10** Author a **Cursor Agent Skill** (or agreed equivalent) for **`site/`** performance work: when to run **`npm run build`**, **`npm test`**, **`npm run lighthouse:all`** (or **`LIGHTHOUSE_PATHS=...`** subset), how to read **`docs/performance-improvement-plan.md`**, and what counts as pass or needs exception.
+- [x] **P9-10** Performance check recipe skill: when to run `npm run build`, `npm run lighthouse:all` (full / `LIGHTHOUSE_PATHS=…` subset / `LIGHTHOUSE_MIN=85` gate / `BASE_URL=…` origin), targeted drilldowns (`perf:impact`, `perf:blocking`, `perf:consent`), and how to read `docs/performance-improvement-plan.md` for pass vs needs-exception. Also contains **P9-40** stats bridge recipe (GSC / GA4 / sales queries via the sibling `andetag-stats` CLI — read-only, credentials live in that project's `.env`, this repo holds no extra secrets). Canonical: **`skills/performance-check/SKILL.md`**. Pointers: **`.claude/skills/performance-check`**, **`.cursor/rules/performance-check.mdc`**. Escalation: vendor drift with no PR-side culprit, headless-Chrome crashes, PSI requests (documented manual step), or stats-bridge gaps (do not fabricate numbers).
 - [ ] **P9-11** Publish the skill in the agreed location (maintainer **Cursor** skills directory, or repo-local **`.cursor/rules`**, plus a pointer in **`AGENTS.md`**).
 
 ## Content, SEO, and trust Agent Skills
