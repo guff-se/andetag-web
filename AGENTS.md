@@ -130,6 +130,8 @@ For cross-cutting changes:
 2. Verify language-specific impacts (sv/en/de) and hreflang/canonical consistency.
 3. Confirm no contradiction with tone and SEO constraints.
 
+**Multilingual page parity:** When the same logical page exists in more than one language (paired page bodies such as `*En.astro` / `*Sv.astro`, mirrored FAQ modules, or Berlin `de`/`en` pairs), update **every** language variant in the **same task** unless the collaborator explicitly requests a single-locale change only. Editing one locale and not the others causes structural and copy drift (links, CTAs, headings, accordion depth), breaks hreflang intent, and is easy to miss in review.
+
 **Before changing routes:** Read `docs/phase-4-routing-reopen.md`, `docs/url-migration-policy.md`, and the entry routing schedule in `docs/grand-plan.md`.
 
 ---
@@ -165,6 +167,7 @@ CI (`.github/workflows/ci.yml`) runs Node tests, build, Python tests, and docs l
 - **JS:** Reimplement with local code and package-managed deps. Do not load legacy WP scripts.
 - **Fonts:** Maintain `site/src/lib/fonts/sources.json`, regenerate via `npm run fonts:sync`.
 - **Copy:** Follow `docs/Tone of Voice.md` and SEO constraints exactly.
+- **Multilingual edits:** Same rule as the Coherence Checklist: never change only one language of a multi-language page unless explicitly asked (see **Multilingual page parity** there).
 - **Prose docs:** Avoid em dash; use commas, colons, or parentheses.
 - **Design tokens** are universal across languages. Language changes content and variants, not core styling, unless an approved exception is logged.
 

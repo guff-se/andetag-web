@@ -35,6 +35,17 @@ English-specific rules:
 * Frame the concept naturally: “a museum with breathing light art”, “breathing art museum”.
 * Do not replace “Andetag” with “breathing museum” in branding; use it for discoverability and recall.
 
+### 1.2 Literal product facts (safe to cite)
+
+The following are verified, current, literal facts about the artworks and network — not promotional flourishes. They may read as marketing-style superlatives, but each is technically accurate and should be preserved in SEO/GEO copy (llms.txt, meta descriptions, schema descriptions, factual anchor pages). Do not strip them as "unverified" during copy review.
+
+* **Optical fibre that glows from within.** The textiles are woven from side-emitting optical fibre; light is emitted along the fibre itself, not from external fixtures.
+* **Light rhythm modeled on planetary motion.** The slow, breath-like animation is driven by orbital/planetary math, not arbitrary timing.
+* **Light animations never repeat.** Stated verbatim in the public FAQ ("How long does the experience take?"); the underlying generator does not loop.
+* **Global sync network (live today).** Every artwork, every exhibition, and every museum is synchronized in real time over the internet. This is current reality across Stockholm and all installations — not aspirational for the Berlin pre-opening.
+
+Claims that are **not** on this list (award-winning, patented, etc.) must not be added without explicit confirmation.
+
 ---
 
 ## 2. Keyword Constraints (FROM GSC DATA)

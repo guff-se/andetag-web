@@ -21,6 +21,8 @@ type Props = {
   loading?: "lazy" | "eager";
   /** Hint to the browser. Use "high" for above-fold LCP candidates. */
   fetchpriority?: "high" | "low" | "auto";
+  /** Descriptive alt for the cover image (page language). Omit only for purely decorative covers. */
+  coverImageAlt?: string;
 };
 
 const {
@@ -33,6 +35,7 @@ const {
   ariaLabel,
   loading = "lazy",
   fetchpriority,
+  coverImageAlt = "",
 } = Astro.props as Props;
 const HeadingTag = getHeadingTag(headingLevel, "h1");
 const hasImage = Boolean(backgroundImage);
@@ -57,7 +60,7 @@ const coverResponsive = isHeroCoverResponsive(backgroundImage);
             />
             <img
               src={backgroundImage.jpeg960}
-              alt=""
+              alt={coverImageAlt}
               class="component-hero-media"
               width="960"
               height="640"
@@ -69,7 +72,7 @@ const coverResponsive = isHeroCoverResponsive(backgroundImage);
         ) : (
           <img
             src={backgroundImage as string}
-            alt=""
+            alt={coverImageAlt}
             class="component-hero-media"
             loading={loading}
             decoding="async"

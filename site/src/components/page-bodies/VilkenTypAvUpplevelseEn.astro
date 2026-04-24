@@ -1,7 +1,7 @@
 ---
 import ContentSection from "../content/ContentSection.astro";
 import GallerySection from "../content/GallerySection.astro";
-import { stockholmMarketingGalleryHome } from "../../lib/content/stockholm-marketing-gallery";
+import { stockholmMarketingGalleryHomeEn } from "../../lib/content/stockholm-marketing-gallery";
 
 /**
  * `site-html/en-stockholm-what-kind-of-experience.html` wp-page.
@@ -48,7 +48,7 @@ const heroImage = {
   src: "/wp-content/uploads/2026/01/TADAA-LONG-V1.00_07_24_06.Still008-2-1024x576.jpg",
   width: 1024,
   height: 576,
-  alt: "",
+  alt: "Visitors resting together on cushions in a darkened room surrounded by breathing light art at ANDETAG",
 } as const;
 ---
 
@@ -74,7 +74,7 @@ const heroImage = {
     <ContentSection markdown={notForYouMarkdown} />
   </div>
   <GallerySection
-    images={[...stockholmMarketingGalleryHome]}
+    images={[...stockholmMarketingGalleryHomeEn]}
     mobileMode="carousel"
     galleryId="vilken-typ-en"
     carouselAriaLabel="Image gallery"

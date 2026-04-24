@@ -18,7 +18,7 @@ import TestimonialCarousel from "../content/TestimonialCarousel.astro";
 import VideoEmbed from "../embeds/VideoEmbed.astro";
 import ResponsiveInlinePicture from "../ui/ResponsiveInlinePicture.astro";
 import { introAside18_058Body } from "../../lib/content/stockholm-body-responsive-images";
-import { stockholmMarketingGalleryHome } from "../../lib/content/stockholm-marketing-gallery";
+import { stockholmMarketingGalleryHomeSv } from "../../lib/content/stockholm-marketing-gallery";
 import { stockholmTestimonialAggregateSv } from "../../lib/content/stockholm-testimonial-aggregate";
 import { stockholmMarketingFaqSv } from "../../lib/page-registry/stockholm-marketing-faq-sv";
 import {
@@ -45,13 +45,13 @@ const understoryCompanyId = "3b3aa7a7c2cd455b8f3a56cd81033110";
 const introAsideImage = {
   width: 1024,
   height: 683,
-  alt: "immersive art installation stockholm andetag",
+  alt: "Närbild av rosa och guldmönstrad optisk fibertextil som lyser inifrån",
 } as const;
 
 const biljetterIntroHtml = [
   "<p><span class=\"brand-wordmark\">ANDETAG</span> är en upplevelse som tar dig från vardagens stress in i en fridfull magisk värld.</p>",
   "<p>Du är välkommen att anlända före utsatt tid, förutsatt att vanlig öppettid råder. Du går igenom utställningen i din egen takt, och stannar tills du känner dig klar.</p>",
-  "<p>Vi använder tidsbokning för att se till att inte för många anländer samtidigt. Platserna fylls snabbt, så se till att boka i tid.</p>",
+  "<p>Vi använder tidsbokning för att se till att inte för många anländer samtidigt. Platserna fylls snabbt, så se till att <a href=\"/sv/stockholm/biljetter/\">boka i tid</a>.</p>",
 ].join("");
 
 const _r = STOCKHOLM_TICKETS.find((t) => t.id === "regular")!;
@@ -165,7 +165,7 @@ const faqItems = [...stockholmMarketingFaqSv];
   </div>
 
   <GallerySection
-    images={[...stockholmMarketingGalleryHome]}
+    images={[...stockholmMarketingGalleryHomeSv]}
     mobileMode="carousel"
     galleryId={galleryId}
     carouselAriaLabel="Bildgalleri"
@@ -183,7 +183,13 @@ const faqItems = [...stockholmMarketingFaqSv];
     </div>
   </div>
 
-  <TestimonialCarousel items={[...testimonialItems]} aggregate={{ ...stockholmTestimonialAggregateSv }} prevLabel="Föregående omdöme" nextLabel="Nästa omdöme" />
+  <TestimonialCarousel
+    items={[...testimonialItems]}
+    aggregate={{ ...stockholmTestimonialAggregateSv }}
+    prevLabel="Föregående omdöme"
+    nextLabel="Nästa omdöme"
+    backgroundImageAlt="Närbild av Andetag nr. 27 – svepande veck av optisk fibertextil i magenta och djuplila som lyser inifrån på ANDETAG museum"
+  />
 
   <div class="page-migrated-cta page-stockholm-home__cta-after-testimonials">
     <ButtonGroup buttons={[{ label: "Upplev Andetag!", href: "#book", variant: "secondary" }]} />

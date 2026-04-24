@@ -38,13 +38,13 @@ const understoryCompanyId = "3b3aa7a7c2cd455b8f3a56cd81033110";
 const introAsideImage = {
   width: 1024,
   height: 683,
-  alt: "Immersive light and textile art installation, ANDETAG Stockholm",
+  alt: "Close-up of pink-and-gold patterned optical fibre textile glowing from within",
 } as const;
 
 const ticketsIntroHtml = [
   "<p><span class=\"brand-wordmark\">ANDETAG</span> is an experience that takes you from everyday stress into a calm, magical space.</p>",
   "<p>You are welcome to arrive before your booked time when we are open as usual. You move through the exhibition at your own pace and stay until you feel ready to leave.</p>",
-  "<p>We use timed entry so that not too many people arrive at once. Slots fill quickly, so book ahead when you can.</p>",
+  "<p>We use timed entry so that not too many people arrive at once. Slots fill quickly, so <a href=\"/en/stockholm/tickets/\">book ahead when you can</a>.</p>",
 ].join("");
 
 const _r = STOCKHOLM_TICKETS.find((t) => t.id === "regular")!;
@@ -176,7 +176,11 @@ const faqItems = [...stockholmMarketingFaqEn];
     </div>
   </div>
 
-  <TestimonialCarousel items={[...testimonialItems]} aggregate={{ ...stockholmTestimonialAggregateEn }} />
+  <TestimonialCarousel
+    items={[...testimonialItems]}
+    aggregate={{ ...stockholmTestimonialAggregateEn }}
+    backgroundImageAlt="Close-up of Andetag no. 27 — sweeping folds of optical fibre textile in magenta and deep purple glowing from within at ANDETAG museum"
+  />
 
   <div class="page-migrated-cta page-stockholm-home__cta-after-testimonials">
     <ButtonGroup buttons={[{ label: "Experience ANDETAG", href: "#book", variant: "secondary" }]} />
