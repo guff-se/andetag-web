@@ -48,6 +48,7 @@ web/
 ├── spider.py              # Crawler (HTML + Markdown snapshots + assets)
 ├── docs/                  # Active migration and architecture specs
 │   └── archive/           # Closed-phase checklists, superseded plans, historical reference
+├── skills/                # Agent skills (see skills/README.md); pointers in .claude/skills/ and .cursor/rules/
 ├── site-html/             # Scraped HTML pages (canonical input, do not manually edit)
 ├── site-md/               # Markdown snapshots from crawler
 ├── site/                  # Astro workspace
@@ -107,6 +108,7 @@ Consult before implementation. All active docs are in `docs/`.
 | `docs/phase-8-cutover-runbook.md` | DNS, Workers custom domain, TLS, rollback, post-cutover PR discipline (P8-10, P8-11; checklist **P9-25** in `docs/phase-9-todo.md`) |
 | `docs/decisions/0002-consent-platform-selection.md` | CMP selection ADR (CookieConsent implemented) |
 | `docs/changelog-standards.md` | How to write CHANGELOG.md entries |
+| `skills/README.md` | **Agent skills** index and authoring pattern. Canonical skill files live at `skills/<name>/SKILL.md`; pointers in `.claude/skills/` and `.cursor/rules/`. Current: `skills/page/SKILL.md` (P9-12). |
 | `docs/archive/` | Closed-phase checklists, verification records, superseded plans |
 
 **Rule:** If behavior changes, update the relevant doc in the same task.

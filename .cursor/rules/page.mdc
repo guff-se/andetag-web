@@ -1,0 +1,26 @@
+---
+description: Use when adding, editing, renaming, or removing a content page on the ANDETAG Astro site (site/). Canonical skill lives at /skills/page/SKILL.md.
+globs:
+  - site/src/pages/**
+  - site/src/components/page-bodies/**
+  - site/src/lib/routes/page-shell-registry.ts
+  - site/src/lib/page-registry/page-body-registry.ts
+  - site/src/data/page-shell-meta.json
+  - site/scripts/extract-page-shell-meta.mjs
+  - site-html/**
+  - site/public/_redirects
+alwaysApply: false
+---
+
+# Page skill (pointer)
+
+The canonical, always-current version of this skill lives at [`/skills/page/SKILL.md`](../../skills/page/SKILL.md). Read it in full before acting on a page-level change.
+
+Short summary:
+
+- Stockholm pages always exist as a **Swedish + English pair**. Berlin story pages always exist as a **German + English pair**. Do not edit only one locale unless the user explicitly asks for a single-locale change.
+- Adding a page requires changes in `site-html/`, `site/scripts/extract-page-shell-meta.mjs` (`PATH_TO_HTML`), running `npm run page-shell:meta`, then updates to `STOCKHOLM_SV_EN_PAIRS` / `BERLIN_DE_EN_STORY_PAIRS`, `PAGE_CUSTOM_BODY_PATHS`, `[...slug].astro` imports and `pageBodies` map, new body components under `site/src/components/page-bodies/`, and `navigation.ts` entries.
+- New photos follow `docs/responsive-image-workflow.md` (three derivatives, correct `SUFFIX`, wired via the documented helper).
+- Verify with `npm test && npm run build` from `site/`. If images changed, consider the performance recipe in `/skills/performance-check/SKILL.md`.
+
+See the canonical file for the full workflow (edit / add / rename / remove), files touched, locale parity rules, verification details, escalation triggers, and worked examples.
