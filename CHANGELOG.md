@@ -84,7 +84,7 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 - **Docs link check CI (lychee):** removed the `docs-link-check` job from **`.github/workflows/ci.yml`** and deleted the repo-root **`lychee.toml`**. Why: the check kept failing on third-party targets we do not control (rate limits, bot blocks, transient outages) without flagging real issues in our own docs. **`AGENTS.md`** §Testing updated to drop the mention.
 
-- **Docs:** **`docs/alt-text-review.md`** and **`docs/alt-text-review.html`** (one-off review artifacts; use **`docs/phase-3-component-usage.md`**, **`docs/responsive-image-workflow.md`**, and **`docs/Tone of Voice.md`** for ongoing work).
+- **Docs:** removed one-off alt-text sign-off pages from **`docs/`**; ongoing guidance in **`docs/phase-3-component-usage.md`**, **`docs/responsive-image-workflow.md`**, and **`docs/Tone of Voice.md`**.
 
 - **Stockholm home (EN + SV):** the time-bound **“1,000 Hours of Stillness”** event block and **`hannoRodgerStillnessBody`**; related CSS **`.page-stockholm-home__event-stillness`** removed.
 
