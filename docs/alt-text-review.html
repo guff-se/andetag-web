@@ -262,11 +262,11 @@
 </div>
 
 <!-- ================================================ -->
-<h2>7. Gallery alt text: AI-written replacements <span class="status-fix">NEEDS REWRITE</span></h2>
+<h2>7. Gallery alt text: AI-written replacements <span class="status-ok">IMPLEMENTED</span></h2>
 <p class="section-warn"><strong>Image source:</strong> <code>stockholm-marketing-gallery.ts</code><br>
 <strong>Used on:</strong> Stockholm home (sv + en), SEO landing pages (sv + en), Vilken Typ pages (sv + en)</p>
 <p>Each gallery image was viewed and described in all three languages so the Swedish pages can get dedicated <code>sv</code> alts instead of reusing English.</p>
-<p class="section-note"><strong>Implementation note:</strong> <code>stockholm-marketing-gallery.ts</code> currently exports HOME alts (English) that Swedish pages fall back to. Add a dedicated <code>sv</code> array and, for the DE-facing Berlin pages using this gallery, a <code>de</code> array.</p>
+<p class="section-note"><strong>Implementation note:</strong> <code>stockholm-marketing-gallery.ts</code> uses locale-specific exports (<code>stockholmMarketingGalleryHomeEn</code>, <code>stockholmMarketingGalleryHomeSv</code>, <code>stockholmMarketingGalleryHomeDe</code>, <code>stockholmMarketingGallerySeoEn</code>). Alts are descriptive copy in the page language.</p>
 
 <div class="gallery-grid">
 
@@ -437,20 +437,19 @@
     <tr><td>Artist portraits</td><td>6 uses</td><td>No change</td></tr>
     <tr><td>Home intro/yoga images</td><td>4 uses</td><td>No change</td></tr>
     <tr><td>Berlin After Hours</td><td>2 uses</td><td>No change</td></tr>
-    <tr><td><strong>Empty content alts</strong></td><td><strong>~13 uses across sv/en/de</strong></td><td><strong>Add AI-written alt</strong></td></tr>
-    <tr><td><strong>Gallery keyword-stuffed alts</strong></td><td><strong>8 images × 3 languages</strong></td><td><strong>Replace all + add sv/de arrays</strong></td></tr>
-    <tr><td><strong>Shared body keyword-stuffed alt</strong></td><td><strong>1 image</strong></td><td><strong>Replace</strong></td></tr>
-    <tr><td>Schema.org caption</td><td>1</td><td>Minor tweak</td></tr>
-    <tr><td><strong>Total changes</strong></td><td><strong>~30 alt text edits</strong></td><td></td></tr>
+    <tr><td><strong>Empty content alts</strong></td><td><strong>~13 uses across sv/en/de</strong></td><td><strong>Done (site)</strong></td></tr>
+    <tr><td><strong>Gallery keyword-stuffed alts</strong></td><td><strong>8 images × 3 languages</strong></td><td><strong>Done (locale exports)</strong></td></tr>
+    <tr><td><strong>Shared body keyword-stuffed alt</strong></td><td><strong>1 image</strong></td><td><strong>Done</strong></td></tr>
+    <tr><td>Schema.org caption</td><td>1</td><td>Done</td></tr>
+    <tr><td><strong>Total changes</strong></td><td><strong>~30 alt text edits</strong></td><td><em>shipped</em></td></tr>
   </tbody>
 </table>
 
 <!-- ================================================ -->
 <h2>Next steps</h2>
 <ol class="intro-list">
-  <li>Gustaf reviews <code>alt-text-review.html</code> (AI-written descriptions next to each photo) and approves, edits, or rejects each one.</li>
-  <li>Update <code>stockholm-marketing-gallery.ts</code> (add <code>sv</code>/<code>de</code> arrays, replace HOME alts), individual page bodies (fill empty alts), and <code>schema-org.ts</code> (caption).</li>
-  <li>Run <code>npm test</code> and <code>npm run build</code>.</li>
+  <li>Spot-check on staging or production that gallery and key hero/testimonial/figure alts read well in context (EN/SV/DE as applicable).</li>
+  <li>When adding new first-party images, follow <code>docs/responsive-image-workflow.md</code> and extend <code>docs/alt-text-review.md</code> if the batch is large enough to need a sign-off list.</li>
 </ol>
 
 <!-- ================================================ -->

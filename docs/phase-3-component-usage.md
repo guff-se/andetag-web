@@ -72,6 +72,7 @@ Purpose: provide implementation-facing usage guidance for approved Phase 3 compo
   - `headingLevel?: "h1" | "h2"`
   - `ctas?: Cta[]` (optional; supports **`external`** on each item via `ButtonGroup` / `StyledLink`; omit or **`[]`** when the band uses only the default **slot**)
   - `ariaLabel?: string` (set when `heading` is omitted so the band has an accessible name)
+  - `coverImageAlt?: string` (descriptive **`alt`** on the cover **`img`**; pass in the page language; default empty string)
 - Default **slot:** optional rich content inside **`.component-hero-content`** (after eyebrow / heading / body, before CTAs). Use for structured HTML that is not a single lead paragraph (for example **`DejtSv.astro`** visitor **`blockquote`**s on the photo band). Slot markup should use light-on-overlay typography; cover-specific rules live under **`.component-hero.is-cover .component-hero-slot`** in **`components.css`**.
 - Notes:
   - Use `h1` only when this is the page primary heading.
@@ -110,7 +111,7 @@ Purpose: provide implementation-facing usage guidance for approved Phase 3 compo
   - Visual: **`+`** / **minus** (U+2212) on the **`summary`** left via **`::before`** (legacy Elementor plus/minus icons); default disclosure marker hidden. **`accordion-section`** is **border-only** (no fill), **`transparent`** background.
   - Motion: content sits in **`.accordion-item-expand`** > **`.accordion-item-expand-inner`**; **`components.css`** animates height with **`grid-template-rows`** **`0fr`→`1fr`** (smooth open). Bottom padding on **`.accordion-item-expand-inner`** applies only when **`.accordion-item.is-open`** so the closed row does not keep a **`0fr`** min height from padding. **`prefers-reduced-motion: reduce`** disables the transition.
   - Behavior: **`button.accordion-item-toggle`** + **`.is-open`** on **`accordion-item`** (not native **`<details>`**) so **`.accordion-item-expand`** **`grid-template-rows`** animates on every open and close in Chromium/WebKit. Within each **`accordion-section`**, only one panel stays open (**`accordion-section-exclusive.ts`** click handler closes siblings). Multiple **`AccordionSection`** instances on a page (for example FAQ columns) are independent. The user can still close the open row so none are expanded.
-  - **`FragorSvarSv.astro`:** two **`AccordionSection`** instances in **`.page-faq-accordions`** (two-column grid, stacks under **`900px`**) to match legacy Elementor **`e-grid`** + twin nested accordions on **`/sv/stockholm/fragor-svar/`**.
+  - **`FragorSvarEn.astro`** / **`FragorSvarSv.astro`:** two **`AccordionSection`** instances in **`.page-faq-accordions`** (two-column grid, stacks under **`900px`**). FAQ copy is imported from **`site/src/lib/content/stockholm-faq.ts`** (single source with **`schema-org.ts`** **`FAQPage`** JSON-LD on those routes).
 
 ### `GallerySection`
 
@@ -122,7 +123,7 @@ Purpose: provide implementation-facing usage guidance for approved Phase 3 compo
 - Notes:
   - Use **`mobileMode: "carousel"`** by default, aligned with **`site-html/index.html`**: **four-column grid** from **`1025px`** up; at **`1024px`** and below, a **horizontal slider** (scroll-snap, prev/next, autoplay unless **`prefers-reduced-motion`**) like the legacy Elementor **image carousel** (desktop-only grid + **`elementor-hidden-desktop`** carousel).
   - **`mobileMode: "grid"`** keeps the **grid** at all breakpoints (no slider).
-  - The eight-image Stockholm marketing set lives in **`site/src/lib/content/stockholm-marketing-gallery.ts`** (**`stockholmMarketingGalleryHome`**, **`stockholmMarketingGallerySeoEn`** for English SEO landing alts); responsive thumbs are **`site/public/wp-content/uploads/.../*-gallery-*`** next to each full JPEG.
+  - The eight-image Stockholm marketing set lives in **`site/src/lib/content/stockholm-marketing-gallery.ts`**: locale-specific descriptive **`alt`** strings via **`stockholmMarketingGalleryHomeEn`**, **`stockholmMarketingGalleryHomeSv`**, **`stockholmMarketingGalleryHomeDe`**, and **`stockholmMarketingGallerySeoEn`** (alias of the English set for SEO landings). Responsive thumbs are **`site/public/wp-content/uploads/.../*-gallery-*`** next to each full JPEG.
   - Hover overlay and click open a full-screen lightbox (**`site/src/client-scripts/gallery-lightbox.ts`**, no jQuery); **`gallery-section-carousel.ts`** handles the mobile carousel only.
 
 ### `PartnersSection`
@@ -143,6 +144,7 @@ Purpose: provide implementation-facing usage guidance for approved Phase 3 compo
 - Key props:
   - `items: Array<{ quote: string; author?: string }>`
   - `backgroundImage?: string | BodyPictureSources` (**`BodyPictureSources`** in **`site/src/lib/content/stockholm-body-responsive-images.ts`**: string = single CSS **`url()`** on **`testimonial-block__bg`**; object = **`<picture>`** with WebP **`srcset`** + JPEG **`img`** inside **`testimonial-block__bg--picture`**, **`sizes="100vw"`**)
+  - `backgroundImageAlt?: string` (descriptive **`alt`** for the responsive background **`img`**; page language)
   - `autoplayMs?: number`
   - `aggregate?: { eyebrow, score, scoreCaption, meta, linkHref, linkLabel, linkAriaLabel?, regionAriaLabel?, showTripAdvisorBrand? }`: optional Tripadvisor (or similar) summary **below** the quotes; the **same** **`backgroundImage`** fills **`testimonial-block__bg`**, with a single **`testimonial-block__overlay`** (light veil) over the **whole** band (carousel + aggregate). Omit on pages that should show quotes only. By default (**`showTripAdvisorBrand`** omitted or true) the aggregate shows self-hosted **`/assets/tripadvisor/tripadvisor-5dots.png`** (decorative, **`alt=""`**) and **`/assets/tripadvisor/tripadvisor-logo.svg`** (**`alt="Tripadvisor"`**); keep **`meta`** and **`linkLabel`** free of repeating the numeric score or the word Tripadvisor when those are already clear from **`score`** / **`scoreCaption`** and the wordmark. Use **`linkAriaLabel`** when the visible link text is shortened (for example **`Läs alla recensioner`**) but assistive tech should name the destination (**`… på Tripadvisor`**). Set **`showTripAdvisorBrand: false`** to use the previous Unicode star row instead (non-Tripadvisor aggregates).
 - Notes:

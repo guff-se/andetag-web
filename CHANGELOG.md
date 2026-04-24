@@ -49,6 +49,14 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ### Changed
 
+- **Image accessibility (Stockholm and related pages):** **`stockholm-marketing-gallery.ts`** now uses per-locale descriptive alts (**`stockholmMarketingGalleryHomeEn`**, **`HomeSv`**, **`HomeDe`**, **`stockholmMarketingGallerySeoEn`**). **`HeroSection`** and **`TestimonialCarousel`** support **`coverImageAlt`** and **`backgroundImageAlt`**; page bodies updated for non-empty, language-appropriate alts. **`docs/alt-text-review.md`**, **`docs/alt-text-review.html`**, and **`docs/phase-3-component-usage.md`** updated accordingly.
+
+- **AGENTS.md:** multilingual page parity (edit all language variants of the same logical page in one change unless asked otherwise).
+
+- **`docs/Andetag SEO Manual.md`:** §1.2 literal product facts (optical fibre, planetary motion, non-repeating light, live sync) safe for SEO/GEO and schema.
+
+- **Stockholm home layout:** slightly larger **`margin-bottom`** on the “Take a breath / Boka” book-ticket **HeroSection** (**.page-stockholm-home**), before the Art Yoga block.
+
 - **Public contact email:** All former **`info@tadaa.se`** strings in the Astro workspace now use **`mailto:info@andetag.museum`** (including FAQ accordions, Stockholm home and SEO landings, group and corporate mailto buttons, NPF and accessibility pages, JSON-LD **`email`**, and press footer lines). **`docs/migration-exceptions.md`** **EX-0010** decision text updated accordingly.
 
 - **Worker entry routing:** **`/`** and **`/en/`** use Cloudflare **`cf.country`** when **`Accept-Language`** has no **`sv`**/**`de`** primary ( **`SE`** → **`/en/stockholm/`** + **`v1:en-s`**, **`DE`** → **`/en/berlin/`** + **`v1:en-b`** ). **`/en/`** also redirects **`sv`**/**`de`** browsers to **`/sv/stockholm/`** / **`/de/berlin/`** with matching cookies. **`site/workers/entry-routing-logic.ts`**, **`entry-router.ts`**, tests, **`site/scripts/verify-staging-entry-routing.mjs`** (geo-aware **E2**/**E5**/**E7**/**E11**), **`docs/url-migration-policy.md`**, **`docs/phase-4-redirect-tests.md`** table **B**.
@@ -75,6 +83,8 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 ### Removed
 
 - **Docs link check CI (lychee):** removed the `docs-link-check` job from **`.github/workflows/ci.yml`** and deleted the repo-root **`lychee.toml`**. Why: the check kept failing on third-party targets we do not control (rate limits, bot blocks, transient outages) without flagging real issues in our own docs. **`AGENTS.md`** §Testing updated to drop the mention.
+
+- **Stockholm home (EN + SV):** the time-bound **“1,000 Hours of Stillness”** event block and **`hannoRodgerStillnessBody`**; related CSS **`.page-stockholm-home__event-stillness`** removed.
 
 - **`docs/gtm-cookieyes-migration-runbook.md`** (superseded by **`docs/gtm-consent-migration-runbook.md`**).
 

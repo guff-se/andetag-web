@@ -253,6 +253,7 @@ Required schema types (Stockholm):
 * Place
 * TouristAttraction
 * Event (only if non-recurring special events)
+* FAQPage (only on **`/en/stockholm/faq/`** and **`/sv/stockholm/fragor-svar/`**; questions and answers match visible accordions; single source **`site/src/lib/content/stockholm-faq.ts`** with **`site/src/lib/chrome/schema-org.ts`**)
 
 Museum schema (Stockholm) required properties:
 

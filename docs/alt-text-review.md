@@ -254,7 +254,7 @@ Each gallery image was viewed and described in all three languages so the Swedis
 | 8   | `Andetag-10-69-copy.jpg`   | `things to do in stockholm`               | `Close-up of peach-and-pink jacquard textile at ANDETAG Stockholm with dark leopard-like patterning`                 | `Närbild av persika- och rosafärgad jacquardvävd textil på ANDETAG Stockholm med mörkt leopardliknande mönster`     | `Nahaufnahme eines pfirsich-rosa Jacquardstoffs im ANDETAG mit dunklem leopardenartigem Muster`                           |
 
 
-**Implementation note:** `stockholm-marketing-gallery.ts` currently exports HOME alts (English) that Swedish pages fall back to. Add a dedicated `sv` array and, for the DE-facing Berlin pages using this gallery, a `de` array.
+**Implementation note:** `stockholm-marketing-gallery.ts` uses locale-specific arrays (`stockholmMarketingGalleryHomeEn`, `stockholmMarketingGalleryHomeSv`, `stockholmMarketingGalleryHomeDe`, `stockholmMarketingGallerySeoEn`). Alts are descriptive copy in the page language, aligned with this section.
 
 ---
 
@@ -292,23 +292,22 @@ Each gallery image was viewed and described in all three languages so the Swedis
 | Category                                 | Count                        | Action                             |
 | ---------------------------------------- | ---------------------------- | ---------------------------------- |
 | Decorative images                        | 3 types                      | No change                          |
-| **Previously-decorative content images** | **4 images × sv/en**         | **Add AI-written alt (§1a)**       |
+| **Previously-decorative content images** | **4 images × sv/en**         | Done (site)                        |
 | Partner logos                            | 9                            | No change                          |
 | Artist portraits                         | 6 uses                       | No change                          |
 | Home intro/yoga images                   | 4 uses                       | No change                          |
 | Berlin After Hours                       | 2 uses                       | No change                          |
-| **Empty content alts**                   | **~13 uses across sv/en/de** | **Add AI-written alt**             |
-| **Gallery keyword-stuffed alts**         | **8 images × 3 languages**   | **Replace all + add sv/de arrays** |
-| **Shared body keyword-stuffed alt**      | **1 image**                  | **Replace**                        |
-| Schema.org caption                       | 1                            | Minor tweak                        |
-| **Total changes**                        | **~38 alt text edits**       |                                    |
+| **Empty content alts**                   | **~13 uses across sv/en/de** | Done (site)                        |
+| **Gallery keyword-stuffed alts**         | **8 images × 3 languages**   | Done (locale exports)              |
+| **Shared body keyword-stuffed alt**      | **1 image**                  | Done                               |
+| Schema.org caption                       | 1                            | Done                               |
+| **Total changes**                        | **~38 alt text edits**       | *shipped*                          |
 
 
 ---
 
 ## Next steps
 
-1. Gustaf reviews `alt-text-review.html` (AI-written descriptions next to each photo) and approves, edits, or rejects each one.
-2. Update `stockholm-marketing-gallery.ts` (add `sv`/`de` arrays, replace HOME alts), individual page bodies (fill empty alts), and `schema-org.ts` (caption).
-3. Run `npm test` and `npm run build`.
+1. Spot-check on staging or production that gallery and key hero/testimonial/figure alts read well in context (EN/SV/DE as applicable).
+2. When adding new first-party images, follow `docs/responsive-image-workflow.md` and extend `docs/alt-text-review.md` if the batch is large enough to need a sign-off list.
 
