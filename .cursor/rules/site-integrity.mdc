@@ -1,0 +1,28 @@
+---
+description: Use when running internal-consistency and link-health audits on the ANDETAG Astro site (site/). Triggers include "audit the site", "check every link", "verify hreflang", "is the sitemap clean", "are any images orphaned", or before a structural PR merge. Produces a read-only report. Canonical skill lives at /skills/site-integrity/SKILL.md.
+globs:
+  - site/dist/**
+  - site/public/_redirects
+  - site/src/lib/routes/**
+  - site/src/lib/page-registry/**
+  - site/src/lib/chrome/navigation.ts
+  - site/src/data/page-shell-meta.json
+  - docs/url-matrix.csv
+  - assets/images/photos.yaml
+alwaysApply: false
+---
+
+# Site integrity skill (pointer)
+
+Canonical: [`/skills/site-integrity/SKILL.md`](../../skills/site-integrity/SKILL.md). Read it before acting.
+
+Key points:
+
+- **Read-only** — the skill reports findings only; fixes belong to the responsible content skill (page, faq, events, operational-facts, images, testimonials, rollback).
+- Always start with a clean `npm test && npm run build` from `site/`. A stale `dist/` makes the audit meaningless.
+- Eight dimensions: (1) internal link resolution, (2) external link health (HEAD-check opt-in), (3) locale parity, (4) canonical + hreflang, (5) registry coherence, (6) image reference integrity, (7) sitemap canonicalness, (8) redirect chain length.
+- Rely on existing tests (`build-output-structure.test.ts`, `page-shell-registry.test.ts`, `url-matrix-parity.test.ts`, `chrome-navigation-resolve.test.ts`) for structural coverage; this skill catches drift between source modules and what actually ships in `dist/`.
+- Berlin English story shells canonicalise to Stockholm English by design (per `BERLIN_EN_STORY_SEO_CANONICAL` + documented exceptions) — do not flag this as an error.
+- External HEAD-checks are opt-in only; TripAdvisor and social domains block bots aggressively and will false-positive.
+- Output a markdown report grouped by dimension, with `- none.` under clean dimensions (do not omit headings).
+- Escalate: build failures (fix those first via page / rollback skills), shipped SEO regressions (needs SEO skill or Gustaf), intentional multi-hop redirects that pre-date the audit.

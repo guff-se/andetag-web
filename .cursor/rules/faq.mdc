@@ -1,0 +1,25 @@
+---
+description: Use when adding, editing, or removing FAQ entries on the ANDETAG Astro site (site/). Canonical skill lives at /skills/faq/SKILL.md.
+globs:
+  - site/src/lib/content/stockholm-faq.ts
+  - site/src/lib/page-registry/stockholm-what-is-andetag-faq-copy.ts
+  - site/src/lib/page-registry/stockholm-marketing-faq-*.ts
+  - site/src/components/page-bodies/FragorSvar*.astro
+  - site/src/lib/chrome/schema-org.ts
+  - site/src/lib/chrome/schema-org.test.ts
+alwaysApply: false
+---
+
+# FAQ skill (pointer)
+
+Canonical version: [`/skills/faq/SKILL.md`](../../skills/faq/SKILL.md). Read it before acting.
+
+Key points:
+
+- Stockholm FAQ is `sv + en` and must stay paired — every add/edit/remove lands in both languages in the same change.
+- Single source of truth: `site/src/lib/content/stockholm-faq.ts` (exports `STOCKHOLM_FAQ_EN_LEFT/RIGHT/EN` + the Swedish equivalents).
+- Shared "What is ANDETAG?" copy lives in `site/src/lib/page-registry/stockholm-what-is-andetag-faq-copy.ts` — edit there to keep home accordions and the `/faq/` page from drifting.
+- Marketing FAQ (home + SEO landings) is a curated subset in `site/src/lib/page-registry/stockholm-marketing-faq-{sv,en}.ts`.
+- FAQPage JSON-LD is emitted from `site/src/lib/chrome/schema-org.ts` (`FAQ_PATHS` map + `faqPageNode()`); counts are pinned in `schema-org.test.ts`.
+- **No Berlin FAQ data exists yet** — escalate, do not scaffold.
+- Verify with `npm test && npm run build` from `site/`. Update expected `mainEntity` counts if adding or removing entries.

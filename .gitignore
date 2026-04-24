@@ -1,5 +1,7 @@
 .DS_Store
-.cursor/
+.claude/settings.local.json
+.cursor/*
+!.cursor/rules/
 node_modules/
 site/node_modules/
 site/dist/

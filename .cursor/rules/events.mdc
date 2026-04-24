@@ -1,0 +1,28 @@
+---
+description: Use when adding, updating, or removing an event (recurring Art Yoga or a one-off block on the Stockholm home) on the ANDETAG Astro site. Canonical skill lives at /skills/events/SKILL.md.
+globs:
+  - site/src/lib/content/stockholm-offers.ts
+  - site/src/lib/chrome/art-yoga-next-occurrence.ts
+  - site/src/lib/chrome/art-yoga-next-occurrence.test.ts
+  - site/src/components/page-bodies/ArtYoga*.astro
+  - site/src/components/page-bodies/StockholmHome*.astro
+  - site/src/components/embeds/BookingEmbed.astro
+  - site/src/lib/content/stockholm-body-responsive-images.ts
+  - site/src/lib/chrome/schema-org.ts
+  - site/src/lib/chrome/schema-org.test.ts
+alwaysApply: false
+---
+
+# Events skill (pointer)
+
+Canonical: [`/skills/events/SKILL.md`](../../skills/events/SKILL.md). Read it before acting.
+
+Key points:
+
+- Two event shapes exist: **recurring Art Yoga** (own page, dynamic JSON-LD via `computeArtYogaOccurrenceSeriesIso`) and **one-off blocks** on Stockholm home pages with an Understory booking CTA.
+- Single source for metadata: `site/src/lib/content/stockholm-offers.ts` (`STOCKHOLM_ART_YOGA_EVENT`). Do not hardcode event names, performers, or prices in page bodies.
+- `sv + en` parity is non-negotiable. No German Stockholm events. No Berlin events (escalate).
+- Understory booking URLs must come from the user; never invent experience IDs. Event hero images follow `docs/responsive-image-workflow.md`.
+- JSON-LD for one-off events is optional — only add if the user requests schema coverage.
+- Verify with `npm test && npm run build` from `site/`. Update `schema-org.test.ts` and `art-yoga-next-occurrence.test.ts` when counts or cadence change.
+- Escalate: skipping a single Art Yoga occurrence (no mechanism), Berlin events, booking URL domain mismatch, single-locale requests.
