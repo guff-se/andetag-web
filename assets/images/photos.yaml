@@ -2,7 +2,7 @@ version: 1
 # Photo catalog for the ANDETAG image library.
 #
 # Contents described by image recognition. Alt text follows the Andetag tone:
-# calm, concrete, sensory. See docs/Tone of Voice.md and docs/alt-text-review.md.
+# calm, concrete, sensory. See docs/Tone of Voice.md.
 # In low light, attribute visible hue to the emitted light on the textile, not to
 # the cloth being intrinsically multicolored, unless a daylight frame shows material color.
 #
