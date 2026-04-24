@@ -286,9 +286,9 @@ Task-level checklist: `docs/phase-8-todo.md`.
 
 ### Phase 9, Maintenance program (post-migration)
 
-Goal: transition this repository from a **migration project** (scrape-driven parity, phased URL and locale rollout) to a **maintenance project** (ongoing content, performance, and compliance work on a live **`www`** stack). Detailed scope, governance, and cadence will be defined later.
+Goal: transition this repository from a **migration project** (scrape-driven parity, phased URL and locale rollout) to a **maintenance project** (ongoing content, performance, and compliance work on a live **`www`** stack). Normative scope and governance: **`docs/phase-9-plan.md`**; execution checklist: **`docs/phase-9-todo.md`**.
 
-**Status:** **Partially active** (**2026-04-14**). **Phase 8** is **complete**; **P9-25** (release discipline) and **P9-26** (organic monitoring) are open operational carries. **Agent Skills** (**P9-10**–**P9-15**), **production PR gate** (**P9-20**–**P9-22**), and **P9-00** remain **TBD** until scoped.
+**Status:** **Partially active** (**2026-04-14**; normative plan **`docs/phase-9-plan.md`** scoped **2026-04-24**). **Phase 8** is **complete**. **P9-00** governance is **satisfied** by the published plan (maintainer + director collaborators, PR-only workflow, preview as practical gate, Berlin deferred). **P9-25** (release discipline) and **P9-26** (organic monitoring) are open operational carries. **Agent Skills**, **production PR gate** (**P9-20**–**P9-22**), and other exit criteria: **`docs/phase-9-plan.md`**, **`docs/phase-9-todo.md`**.
 
 **Direction (to be expanded):**
 
@@ -387,7 +387,7 @@ These items are **still open** for governance nuance. **SEO evolution** (allow i
 
 ### Content operations
 
-- Content ownership and review model (who signs off content and translations).
+- Content ownership and review model (who signs off content and translations) for broader org or off-repo translation workflows; **for changes in this repository**, maintainer + director collaborators and PR rights are set in **`docs/phase-9-plan.md`** (**P9-00**).
 - Translation policy for future updates (manual, agent-assisted, external reviewer).
 - Operational workflow for recurring event schedule updates (frequency, reviewer, and publish SLA).
 
@@ -407,7 +407,7 @@ These items are **still open** for governance nuance. **SEO evolution** (allow i
 As of **2026-04-14**, Phases **0 through 8** are **closed**. **`https://www.andetag.museum`** is on this stack; evidence **`docs/phase-8-verification-record.md`**. Default execution focus:
 
 1. **Phase 9 (operational carries):** Execute **`docs/phase-9-todo.md`** **P9-25** (PR + preview release discipline) and **P9-26** (post-cutover organic monitoring vs **P8-08** baseline, **2–4 weeks** from cutover **2026-04-14**).
-2. **Phase 9 (when scoped):** **`docs/phase-9-todo.md`** **P9-00**, **P9-10**–**P9-15** (Agent Skills), **P9-20**–**P9-22** (production PR gate). **`docs/grand-plan.md`** Phase 9 deliverables for detail.
+2. **Phase 9 (remaining):** **`docs/phase-9-todo.md`** and **`docs/phase-9-plan.md`** — **P9-00** is complete; other ids (skills, **P9-20**–**P9-22** PR-gate convention, exit criteria) as listed.
 3. **Routing hygiene:** Before changing **`docs/url-matrix.csv`**, **`site/public/_redirects`**, registry, or **`site/workers/`**, read **`docs/phase-4-routing-reopen.md`** and **`docs/url-migration-policy.md`**; after entry changes, run **`npm run verify:staging-entry`** from **`site/`** (see **`docs/phase-4-redirect-tests.md`**); on **`www`**, use **`STAGING_BASE=https://www.andetag.museum`** for production table **B**.
 4. **Carry-forward:** **EX-0006** Phase 7 embed-pattern follow-up is closed in **P7-15** (**`docs/phase-7-verification-record.md`**); optional lazy iframe deferral for marketing embeds remains **P7-12** in **`docs/phase-7-todo.md`** (historical backlog).
 

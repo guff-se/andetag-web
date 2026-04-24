@@ -7,6 +7,10 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ## [Unreleased]
 
+### Changed
+
+- **Phase 9 · P9-00 governance** marked **complete** in **`docs/phase-9-todo.md`**: normative definition is **`docs/phase-9-plan.md`** (§A; **North-star user and operating model**). **`AGENTS.md`** and **`docs/grand-plan.md`** status lines updated so **P9-00** is no longer **TBD**.
+
 ### Added
 
 - **Phase 9 plan (`docs/phase-9-plan.md`):** Normative scope for the maintenance-program phase. Defines the operating model (museum directors as non-technical collaborators via Cloud Claude Code or OpenClaw + local Claude Code), exit criteria (skills cover every routine workflow, GSC readable by agents via andetag-stats bridge, build-era docs archived, `AGENTS.md` rewritten as a maintenance guide), and the work-stream + id map (**P9-00**, **P9-02**, **P9-03**, **P9-10**–**P9-19**, **P9-30**–**P9-31**, **P9-40**–**P9-41**, **P9-50**, **P9-90**–**P9-99**). Phase 9 is the last phase; closure archives all phase vocabulary. Supersedes the placeholder scope in **`docs/phase-9-todo.md`** (kept as a living checklist pending rewrite) and the Phase 9 section of **`docs/grand-plan.md`**.

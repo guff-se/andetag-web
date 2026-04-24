@@ -30,7 +30,7 @@ This project works with real scraped website artifacts and SEO language constrai
 
 **What:** Migrating `andetag.museum` from WordPress/Elementor to an Astro static site on Cloudflare Workers.
 
-**Status:** Phases **0–8** closed (**`docs/phase-8-verification-record.md`** §Closure). **Phase 9** is **partially active**: **`docs/phase-9-todo.md`** **P9-25** (release discipline) and **P9-26** (post-cutover organic monitoring). **Agent Skills**, production **PR** gate, and **P9-00** governance remain **TBD** until scoped.
+**Status:** Phases **0–8** closed (**`docs/phase-8-verification-record.md`** §Closure). **Phase 9** is **partially active**: **`docs/phase-9-todo.md`** **P9-25** (release discipline) and **P9-26** (post-cutover organic monitoring). **P9-00** governance is **complete**: **`docs/phase-9-plan.md`** (§A, **North-star**). Remaining Phase 9 exit work and id rows: that checklist and the plan.
 
 **Languages:** Swedish (`sv`), English (`en`), German (`de`) with preserved hreflang relationships.
 
@@ -89,7 +89,7 @@ Consult before implementation. All active docs are in `docs/`.
 | `docs/grand-plan.md` | Roadmap, phase gates, business objectives, decision log |
 | `docs/phase-8-todo.md` | **Closed** Phase 8: deployment checklist, URL parity, `www` cutover |
 | `docs/phase-8-verification-record.md` | Phase 8 evidence and Gustaf sign-off (§Closure) |
-| `docs/phase-9-todo.md` | **Current ops:** **P9-25**, **P9-26**; **TBD** when scoped: **P9-00**, **P9-10**–**P9-15** (skills), **P9-20**+ (production PR gate) |
+| `docs/phase-9-todo.md` | **Current ops:** **P9-25**, **P9-26**; **P9-00** done (**`docs/phase-9-plan.md`**). Other Phase 9 ids: see checklist (skills, **P9-20**+ PR-gate convention, exit criteria) |
 | `docs/Andetag SEO Manual.md` | SEO/GEO decisions, page intent, language strategy, schema |
 | `docs/Tone of Voice.md` | User-facing copy and metadata text |
 | `docs/Visual Identity.md` | Typography, color palette, CTA mapping |
