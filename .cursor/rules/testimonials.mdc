@@ -1,0 +1,28 @@
+---
+description: Use when updating Stockholm TripAdvisor testimonials, ratings, review counts, or the TripAdvisor URL on the ANDETAG Astro site (site/). Triggers include refreshing TripAdvisor numbers, swapping a featured review, reordering the carousel, or changing the TripAdvisor link. Canonical skill lives at /skills/testimonials/SKILL.md.
+globs:
+  - site/src/lib/content/stockholm-reviews.ts
+  - site/src/lib/content/stockholm-testimonial-aggregate.ts
+  - site/src/lib/chrome/schema-org.ts
+  - site/src/lib/chrome/schema-org.test.ts
+  - site/src/components/page-bodies/Besokaromdomen*.astro
+  - site/src/components/page-bodies/StockholmHome*.astro
+  - site/src/components/page-bodies/StockholmSeoLanding*.astro
+  - site/src/components/content/TestimonialCarousel.astro
+alwaysApply: false
+---
+
+# Testimonials skill (pointer)
+
+Canonical: [`/skills/testimonials/SKILL.md`](../../skills/testimonials/SKILL.md). Read it before acting.
+
+Key points:
+
+- Single source of truth: `site/src/lib/content/stockholm-reviews.ts` (`STOCKHOLM_TRIPADVISOR_URL`, `STOCKHOLM_RATING`, `STOCKHOLM_FEATURED_REVIEWS`, `stockholmTripadvisorRatingCommaDecimal()`). Bump `Last verified` on every edit.
+- Auto-propagating consumers: JSON-LD (`schema-org.ts` aggregateRating + review), aggregate strip (`stockholm-testimonial-aggregate.ts`), Stockholm home pages (`StockholmHomeSv/En.astro` via `.map(r => …)`), besökaromdömen copy (`BesokaromdomenSv/En.astro`).
+- **Drift hotspots (hand-sync every quote edit):** `StockholmSeoLandingSv.astro`, `StockholmSeoLandingEn.astro`, `StockholmHomeSharedBody.astro` each inline their own `testimonialItems` array with literal quotes. Run `git grep -n 'const testimonialItems' -- 'site/src/components/page-bodies/'` after a quote edit.
+- `reviewCount` stays a JSON **number** (not a string) per `docs/Andetag SEO Manual.md` §6 / `EX-0017`.
+- Quotes are **not** translated across locales (TripAdvisor policy); author names render verbatim in every locale.
+- Berlin has no review data — escalate.
+- Verify with `npm test && npm run build` from `site/`. Schema-org test uses loose bounds and should not need edits.
+- Escalate: translating a quote, Berlin review, material rating drop without explanation, removing the TripAdvisor link (touches EX-0002/EX-0012), or fabricated quotes.
