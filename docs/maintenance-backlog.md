@@ -26,7 +26,8 @@ Done rows stay in the backlog for one iteration (until obviously safe to prune),
 
 | Id | Title | Status | Owner | Notes |
 |----|-------|--------|-------|-------|
-| _(no rows yet)_ | | | | |
+| M-0001 | Centralise Stockholm opening hours | open | skills/operational-facts | Added 2026-04-24. Hours are duplicated in `site/src/components/page-bodies/OppettiderSv.astro`, `OppettiderEn.astro`, and `STOCKHOLM_OPENING_HOURS` in `site/src/lib/chrome/schema-org.ts`. Consider a single `STOCKHOLM_HOURS` export in `stockholm-offers.ts` (or a new `stockholm-hours.ts`) with both schema-ready `OpeningHoursSpecification[]` and localized prose strings; consumed by both page bodies and `schema-org.ts`. Track drift between prose and schema as the driver. |
+| M-0002 | Centralise public contact email | open | skills/operational-facts | Added 2026-04-24. `info@andetag.museum` appears in `site/src/lib/ui-logic/booking-embed-contact.ts`, the Museum node in `site/src/lib/chrome/schema-org.ts`, and ~13 page bodies (grep `info@andetag.museum`). Propose a single `STOCKHOLM_CONTACT_EMAIL` export consumed via import; any `mailto:` in page bodies should reference the constant. Decision record lives in `docs/migration-exceptions.md` EX-0010. |
 
 ---
 

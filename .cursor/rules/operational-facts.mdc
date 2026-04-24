@@ -1,0 +1,29 @@
+---
+description: Use when updating operational facts on the ANDETAG Astro site (site/). Triggers include changes to Stockholm opening hours, ticket prices, season pass, the weekday daytime window, public contact email, street address, or geo coordinates. Canonical skill lives at /skills/operational-facts/SKILL.md.
+globs:
+  - site/src/lib/content/stockholm-offers.ts
+  - site/src/lib/chrome/schema-org.ts
+  - site/src/lib/chrome/schema-org.test.ts
+  - site/src/lib/ui-logic/booking-embed-contact.ts
+  - site/src/components/page-bodies/OppettiderSv.astro
+  - site/src/components/page-bodies/OppettiderEn.astro
+  - site/src/components/page-bodies/HittaHit*.astro
+  - site/src/components/page-bodies/Biljetter*.astro
+  - site/src/components/page-bodies/Sasongskort*.astro
+alwaysApply: false
+---
+
+# Operational facts skill (pointer)
+
+Canonical: [`/skills/operational-facts/SKILL.md`](../../skills/operational-facts/SKILL.md). Read it before acting.
+
+Key points:
+
+- **Centralised facts** (edit one place, trust the imports): ticket prices + categories (`STOCKHOLM_TICKETS`), season pass (`STOCKHOLM_SEASON_PASS`), daytime window text (`STOCKHOLM_DAYTIME_WINDOW`), Art Yoga metadata (`STOCKHOLM_ART_YOGA_EVENT`), currency (`STOCKHOLM_CURRENCY`) — all in `site/src/lib/content/stockholm-offers.ts`. Address (`STOCKHOLM_ADDRESS`) and geo (`STOCKHOLM_GEO`) live in `site/src/lib/chrome/schema-org.ts`.
+- **Not centralised** (every listed file must change together): **opening hours** (`OppettiderSv.astro`, `OppettiderEn.astro`, and `STOCKHOLM_OPENING_HOURS` in `schema-org.ts`); **contact email** (`booking-embed-contact.ts`, the Museum node `email` in `schema-org.ts`, and ~13 page bodies — grep first).
+- `sv + en` parity is non-negotiable. Stockholm only — Berlin operational facts are pre-launch; escalate.
+- Price change → update `schema-org.test.ts` (pins the regular price and offer-count bound).
+- Hours change → diff `dist/sv/stockholm/oppettider/index.html`, the English equivalent, and any page embedding the Museum JSON-LD.
+- Email change → `git grep "info@andetag.museum" -- 'site/'` before editing, and confirm the grep is empty after.
+- Verify with `npm test && npm run build` from `site/`.
+- Escalate: holiday hours override (no date-bounded schema mechanism), new fact types (phone, secondary address), currency-ambiguous price change, moving away from the `andetag.museum` email domain without updating `docs/migration-exceptions.md` EX-0010, or Berlin operational facts.
