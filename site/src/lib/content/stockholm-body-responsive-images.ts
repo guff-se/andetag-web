@@ -77,10 +77,3 @@ export const malinVaver2OpticalFibertextil: BodyPictureSources = {
   webp640: "/wp-content/uploads/2026/02/malin-vaver2-768x1024-body-640w.webp",
   webp960: "/wp-content/uploads/2026/02/malin-vaver2-768x1024-body-960w.webp",
 };
-
-/** Hanno Rödger portrait for the 1,000 Hours of Stillness section. Source: understory.io media. */
-export const hannoRodgerStillnessBody: BodyPictureSources = {
-  jpeg960: "/wp-content/uploads/2026/04/hanno-rodger-1000-hours-of-stillness-body-960w.jpg",
-  webp640: "/wp-content/uploads/2026/04/hanno-rodger-1000-hours-of-stillness-body-640w.webp",
-  webp960: "/wp-content/uploads/2026/04/hanno-rodger-1000-hours-of-stillness-body-960w.webp",
-};

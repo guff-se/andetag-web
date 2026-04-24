@@ -1666,15 +1666,6 @@ body.lightbox-open {
   justify-content: center;
 }
 
-.page-stockholm-home__event-stillness {
-  margin-top: 3rem;
-  margin-bottom: 2.25rem;
-}
-
-.page-stockholm-home__event-stillness.page-layout-with-aside {
-  gap: 1rem;
-}
-
 .page-stockholm-home__loc-mobile {
   margin-top: 1.5rem;
 }
@@ -1729,6 +1720,11 @@ body.lightbox-open {
 /* Wider slot so the booking title fits; heading needs room for Jost uppercase + 0.3em tracking. */
 .page-stockholm-home .component-hero-slot:has(.page-stockholm-home__book-hero-heading) {
   max-width: min(60rem, 100%);
+}
+
+/* Extra breathing room before Art Yoga / following sections (default hero margin is 2.25rem). */
+.page-stockholm-home .component-hero:has(.page-stockholm-home__book-hero-heading) {
+  margin-bottom: 3.25rem;
 }
 
 /*

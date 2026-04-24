@@ -1,98 +1,18 @@
 ---
 import AccordionSection from "../content/AccordionSection.astro";
 import ContentSection from "../content/ContentSection.astro";
-import { WHAT_IS_ANDETAG_FAQ_EN_BODY_HTML } from "../../lib/page-registry/stockholm-what-is-andetag-faq-copy";
+import {
+  STOCKHOLM_FAQ_EN_LEFT,
+  STOCKHOLM_FAQ_EN_RIGHT,
+} from "../../lib/content/stockholm-faq";
 
-/**
- * Body from `site-html/en-stockholm-faq.html` wp-page (two nested accordions).
- * Links normalized to `/en/stockholm/...`. Titles use `titleHtml` where ANDETAG appears in source.
- * “What is ANDETAG?” body matches home accordion (`WHAT_IS_ANDETAG_FAQ_EN_BODY_HTML`) plus read-more link.
- */
 const introHtml = "<h1>Frequently Asked Questions (FAQ)</h1>";
-
-const faqColumnLeft = [
-  {
-    title: "What is ANDETAG?",
-    titleHtml: 'What is <span class="brand-wordmark">ANDETAG</span>?',
-    bodyHtml: `${WHAT_IS_ANDETAG_FAQ_EN_BODY_HTML}<p><a href="/en/stockholm/what-kind-of-experience/">Read more about the experience.</a></p>`,
-  },
-  {
-    title: "How long does the experience take?",
-    bodyHtml:
-      "<p>You move at your own pace. Many visitors stay around 50 minutes, some shorter, some for several hours.</p><p>The music for the exhibition is about <strong>1 hour and 15 minutes</strong> long and plays in a loop. The light animations, however, never repeat.</p>",
-  },
-  {
-    title: "Do I need to book in advance?",
-    bodyHtml:
-      "<p>We recommend <a href=\"/en/stockholm/tickets/\">booking ahead</a> to get a time that suits you. Walk-in tickets are sometimes available if there is space.</p>",
-  },
-  {
-    title: "Can I buy tickets on site?",
-    bodyHtml:
-      "<p>Yes, if there is availability for the current slot, you can purchase at the entrance.</p>",
-  },
-  {
-    title: "What happens if I'm late?",
-    bodyHtml:
-      "<p>If you miss your scheduled start time, we&#8217;ll do our best to find a solution based on the flow of the day and space in the room. Don&#8217;t stress. We&#8217;ll work it out.</p>",
-  },
-  {
-    title: "How early can I arrive?",
-    bodyHtml:
-      "<p>You are welcome to arrive a little before your time, as long as regular opening hours apply. Many people like to settle in for a moment first.</p>",
-  },
-  {
-    title: "Is ANDETAG suitable for children?",
-    titleHtml:
-      'Is <span class="brand-wordmark">ANDETAG</span> suitable for children?',
-    bodyHtml:
-      "<p>Yes, many children have visited us. The experience is calm and some parts are dark, so younger children may prefer to stay close to an adult.</p><p>We ask that children, too, respect the quiet and stillness of the space.</p>",
-  },
-] as const;
-
-const faqColumnRight = [
-  {
-    title: "Can I bring a stroller?",
-    bodyHtml:
-      "<p>Not inside the venue. You can lock a stroller at the bike parking on Sveavägen.</p>",
-  },
-  {
-    title: "Is the experience accessible?",
-    bodyHtml:
-      "<p>There are elevators from both the metro and street level. The exhibition is wheelchair accessible, but unfortunately we do not have a fully equipped wheelchair-accessible restroom.</p><p>Some parts of the exhibition are dark, but navigation is relatively straightforward. Guide dogs are welcome.</p><p>Caregivers or personal assistants are admitted free of charge.</p><p><a href=\"/en/stockholm/accessibility/\">Read more about accessibility</a>.</p>",
-  },
-  {
-    title: "Is there a hearing loop?",
-    bodyHtml:
-      "<p>No, there is no hearing loop available. The music is available online if you would like to play it on your own device.</p><p><a href=\"/en/stockholm/accessibility/\">Read more about accessibility</a>.</p>",
-  },
-  {
-    title: "Can we visit as a group?",
-    bodyHtml:
-      "<p>Yes. <span class=\"brand-wordmark\">ANDETAG</span> can be visited as a group, both as a <a href=\"/en/stockholm/group-bookings/\">private gathering</a> and as a corporate event.</p><p>For groups, school classes, day activity programs, or companies, we recommend booking in advance. This allows us to welcome you in a calm and considered way.</p><p>We offer a <a href=\"/en/stockholm/group-bookings/\">group discount </a>for group bookings.</p><p>For arrangements and bookings, please contact: <a href=\"mailto:info@andetag.museum\">info@andetag.museum</a></p>",
-  },
-  {
-    title: "Do you offer a membership?",
-    bodyHtml:
-      "<p>Yes. The season pass gives unlimited access over time and has its own page with details. <a href=\"/en/stockholm/season-pass/\">Read more here.</a></p>",
-  },
-  {
-    title: "Can I book for a company event or private group?",
-    bodyHtml:
-      "<p>Yes, there are options for <a href=\"/en/stockholm/corporate-events/\">corporate events</a> and private viewings. Separate pages include details and booking information. Contact <a href=\"mailto:info@andetag.museum\">info@andetag.museum</a> and we&#8217;ll help you out.</p>",
-  },
-  {
-    title: "Can I take photos?",
-    bodyHtml:
-      "<p>Yes. We appreciate when visitors want to share their experience of <span class=\"brand-wordmark\">ANDETAG</span>.</p><p>You are welcome to take photos and short video clips, as long as it&#8217;s done with consideration for other visitors and the calm nature of the space.</p><p>If you plan to photograph or film with larger equipment, or for a specific project, please contact us in advance.</p>",
-  },
-] as const;
 ---
 
 <div class="page-migrated page-faq-sv">
   <ContentSection markdown={introHtml} />
   <div class="page-faq-accordions">
-    <AccordionSection items={[...faqColumnLeft]} />
-    <AccordionSection items={[...faqColumnRight]} />
+    <AccordionSection items={[...STOCKHOLM_FAQ_EN_LEFT]} />
+    <AccordionSection items={[...STOCKHOLM_FAQ_EN_RIGHT]} />
   </div>
 </div>

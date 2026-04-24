@@ -13,8 +13,8 @@ import TestimonialCarousel from "../content/TestimonialCarousel.astro";
 import VideoEmbed from "../embeds/VideoEmbed.astro";
 import ResponsiveInlinePicture from "../ui/ResponsiveInlinePicture.astro";
 import { STOCKHOLM_BOOK_HERO_COVER } from "../../lib/chrome/assets";
-import { mainRoomLookingBody, mainRoomMeditationBody, hannoRodgerStillnessBody } from "../../lib/content/stockholm-body-responsive-images";
-import { stockholmMarketingGalleryHome } from "../../lib/content/stockholm-marketing-gallery";
+import { mainRoomLookingBody, mainRoomMeditationBody } from "../../lib/content/stockholm-body-responsive-images";
+import { stockholmMarketingGalleryHomeEn } from "../../lib/content/stockholm-marketing-gallery";
 import { stockholmTestimonialAggregateEn } from "../../lib/content/stockholm-testimonial-aggregate";
 import { stockholmMarketingFaqEn } from "../../lib/page-registry/stockholm-marketing-faq-en";
 import {
@@ -58,7 +58,7 @@ const homeAccordionItems = [...stockholmMarketingFaqEn];
 const biljetterIntroHtml = [
   "<p><span class=\"brand-wordmark\">ANDETAG</span> is an experience that takes you from the stress of everyday life into a peaceful, magical world.</p>",
   "<p>You are welcome to arrive before your scheduled time, providing we are open normally. Explore the exhibition at your own pace and stay until you feel ready to leave.</p>",
-  "<p>We use time slots to ensure that too many people don&#8217;t arrive at the same time. Spots fill up quickly, so make sure to book in advance.</p>",
+  "<p>We use time slots to ensure that too many people don&#8217;t arrive at the same time. Spots fill up quickly, so make sure to <a href=\"/en/stockholm/tickets/\">book in advance</a>.</p>",
 ].join("");
 
 const _r = STOCKHOLM_TICKETS.find((t) => t.id === "regular")!;
@@ -82,12 +82,6 @@ const seasonMarkdown = [
 const privatMarkdown = [
   "<p><span class=\"brand-wordmark\">ANDETAG</span> offer tailored events in the morning, daytime, evening, or weekends, perfect for <a href=\"/en/stockholm/corporate-events/\">companies</a>, <a href=\"/en/stockholm/group-bookings/\">groups</a>, or special occasions. We can also offer group discounts.</p>",
   '<p>Please send an email to <a href="mailto:info@andetag.museum">info@andetag.museum</a> and we will assist you!</p>',
-].join("");
-
-const stillnessMarkdown = [
-  "<p>A 180-minute live performance by German artist <strong>Hanno Rödger</strong> – a silent, wordless meeting in 1:1 and radical presence.</p>",
-  "<p>Write a personal worry or hope on paper and place it in a bowl. Then sit facing the artist in silence – look into his eyes or look away. Choose the duration and leave whenever you are ready.</p>",
-  "<p>Free admission. No booking required – just drop in.</p>",
 ].join("");
 
 const artYogaMarkdown = [
@@ -231,7 +225,7 @@ const vimeoSrc = "https://player.vimeo.com/video/1077937338";
   </div>
 
   <GallerySection
-    images={[...stockholmMarketingGalleryHome]}
+    images={[...stockholmMarketingGalleryHomeEn]}
     mobileMode="carousel"
     galleryId="stockholm-home-en"
     carouselAriaLabel="Image gallery"
@@ -251,6 +245,7 @@ const vimeoSrc = "https://player.vimeo.com/video/1077937338";
 
   <HeroSection
     backgroundImage={STOCKHOLM_BOOK_HERO_COVER}
+    coverImageAlt="Visitor's silhouette beside Andetag no. 21, a glowing violet light sculpture at ANDETAG museum"
     ariaLabel="Take a breath, book a ticket"
     ctas={[{ label: "Book now", href: "#book", variant: "outline" }]}
   >
@@ -259,23 +254,6 @@ const vimeoSrc = "https://player.vimeo.com/video/1077937338";
       <span class="page-stockholm-home__book-hero-heading-short">Take a breath</span>
     </h2>
   </HeroSection>
-
-  <div class="page-layout-with-aside page-stockholm-home__art-yoga page-stockholm-home__event-stillness">
-    <div class="page-layout-with-aside__main">
-      <ContentSection heading="1,000 Hours of Stillness – Tuesday Apr 21, 17.00–20.00" headingLevel="h2" markdown={stillnessMarkdown} />
-    </div>
-    <aside class="page-layout-with-aside__aside" aria-label="1,000 Hours of Stillness, photo">
-      <figure class="page-stockholm-home__art-yoga-figure">
-        <ResponsiveInlinePicture
-          sources={hannoRodgerStillnessBody}
-          width={960}
-          height={640}
-          alt="Performance artist Hanno Rödger carrying a chair on a city street"
-          sizes="(max-width: 900px) 100vw, min(42vw, 520px)"
-        />
-      </figure>
-    </aside>
-  </div>
 
   <div class="page-layout-with-aside page-stockholm-home__art-yoga">
     <div class="page-layout-with-aside__main">
@@ -299,7 +277,11 @@ const vimeoSrc = "https://player.vimeo.com/video/1077937338";
     </aside>
   </div>
 
-  <TestimonialCarousel items={[...testimonialItems]} aggregate={{ ...stockholmTestimonialAggregateEn }} />
+  <TestimonialCarousel
+    items={[...testimonialItems]}
+    aggregate={{ ...stockholmTestimonialAggregateEn }}
+    backgroundImageAlt="Close-up of Andetag no. 27 — sweeping folds of optical fibre textile in magenta and deep purple glowing from within at ANDETAG museum"
+  />
 
   <div class="page-migrated-cta page-stockholm-home__cta-after-testimonials">
     <ButtonGroup buttons={[{ label: "Experience Andetag!", href: "#book", variant: "secondary" }]} />

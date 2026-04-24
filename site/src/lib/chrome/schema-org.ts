@@ -10,7 +10,39 @@ import {
   STOCKHOLM_CURRENCY,
   STOCKHOLM_TICKETS,
 } from "../content/stockholm-offers";
+import {
+  STOCKHOLM_FAQ_EN,
+  STOCKHOLM_FAQ_SV,
+  type FaqItem,
+} from "../content/stockholm-faq";
 import { computeArtYogaOccurrenceSeriesIso } from "./art-yoga-next-occurrence";
+
+const FAQ_PATHS = {
+  "/en/stockholm/faq/": STOCKHOLM_FAQ_EN,
+  "/sv/stockholm/fragor-svar/": STOCKHOLM_FAQ_SV,
+} as const;
+
+function faqPageNode(
+  ctx: SchemaPageContext,
+  items: readonly FaqItem[],
+): object {
+  return {
+    "@type": "FAQPage",
+    "@id": `${ctx.pageUrl}#faq`,
+    url: ctx.pageUrl,
+    inLanguage: languageToHreflangAttribute(ctx.language),
+    isPartOf: { "@id": `${ctx.pageUrl}#webpage` },
+    about: { "@id": `${CANONICAL_HOST}/#museum-stockholm` },
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.title,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.bodyHtml,
+      },
+    })),
+  };
+}
 
 /** Explicit dated Event nodes for Rich Results; refreshed each static build. */
 const ART_YOGA_SCHEMA_WEEKS = 4;
@@ -101,7 +133,7 @@ function heroImageNode() {
     "@id": `${CANONICAL_HOST}/#image-hero-stockholm`,
     url: heroUrl,
     contentUrl: heroUrl,
-    caption: "ANDETAG Stockholm",
+    caption: "Breathing textile art installation at ANDETAG Stockholm",
   };
 }
 
@@ -351,5 +383,9 @@ function buildStockholmVenueSchema(ctx: SchemaPageContext): { "@context": string
     ...artYogaEventNodes(ctx.language),
     logoNode(),
   ];
+  const faqItems = FAQ_PATHS[ctx.canonicalPath as keyof typeof FAQ_PATHS];
+  if (faqItems) {
+    graph.push(faqPageNode(ctx, faqItems));
+  }
   return { "@context": "https://schema.org", "@graph": graph };
 }

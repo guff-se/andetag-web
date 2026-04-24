@@ -1,7 +1,7 @@
 ---
 import ContentSection from "../content/ContentSection.astro";
 import GallerySection from "../content/GallerySection.astro";
-import { stockholmMarketingGalleryHome } from "../../lib/content/stockholm-marketing-gallery";
+import { stockholmMarketingGalleryHomeSv } from "../../lib/content/stockholm-marketing-gallery";
 
 /**
  * `site-html/stockholm-vilken-typ-av-upplevelse.html` wp-page **2930**.
@@ -49,7 +49,7 @@ const heroImage = {
   src: "/wp-content/uploads/2026/01/TADAA-LONG-V1.00_07_24_06.Still008-2-1024x576.jpg",
   width: 1024,
   height: 576,
-  alt: "",
+  alt: "Besökare vilar tillsammans på kuddar i ett mörklagt rum omgivna av färgade ljus på ANDETAG Stockholm",
 } as const;
 ---
 
@@ -75,7 +75,7 @@ const heroImage = {
     <ContentSection markdown={notForYouMarkdown} />
   </div>
   <GallerySection
-    images={[...stockholmMarketingGalleryHome]}
+    images={[...stockholmMarketingGalleryHomeSv]}
     mobileMode="carousel"
     galleryId="vilken-typ-upplevelse"
     carouselAriaLabel="Bildgalleri"

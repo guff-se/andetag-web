@@ -29,6 +29,8 @@ type Props = {
   items: TestimonialItem[];
   /** CSS `url()` string, or responsive WebP + JPEG (default: optimized testimonial band still). */
   backgroundImage?: string | BodyPictureSources;
+  /** Descriptive alt for responsive background `<img>` (page language). */
+  backgroundImageAlt?: string;
   autoplayMs?: number;
   aggregate?: TestimonialAggregate;
   prevLabel?: string;
@@ -38,6 +40,7 @@ type Props = {
 const {
   items,
   backgroundImage: backgroundImageProp = testimonialCarouselDefaultBg,
+  backgroundImageAlt = "",
   autoplayMs = 6000,
   aggregate,
   prevLabel = "Previous testimonial",
@@ -73,7 +76,7 @@ const showTripAdvisorBrand = aggregate ? aggregate.showTripAdvisorBrand !== fals
           />
           <img
             src={responsiveBg.jpeg960}
-            alt=""
+            alt={backgroundImageAlt}
             class="testimonial-block__bg-img"
             loading="lazy"
             decoding="async"

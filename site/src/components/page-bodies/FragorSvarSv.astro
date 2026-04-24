@@ -1,106 +1,18 @@
 ---
 import AccordionSection from "../content/AccordionSection.astro";
 import ContentSection from "../content/ContentSection.astro";
-import { WHAT_IS_ANDETAG_FAQ_SV_BODY_HTML } from "../../lib/page-registry/stockholm-what-is-andetag-faq-copy";
+import {
+  STOCKHOLM_FAQ_SV_LEFT,
+  STOCKHOLM_FAQ_SV_RIGHT,
+} from "../../lib/content/stockholm-faq";
 
-/**
- * Body migrated from `site-html/stockholm-fragor-svar.html`
- * (`data-elementor-type="wp-page"` post id 2881). Head from `page-shell-meta.json`.
- * Legacy `e-grid` with two nested accordions → **`.page-faq-accordions`** + two **`AccordionSection`** instances.
- * Internal links normalized to canonical **`/sv/stockholm/...`** paths.
- * FAQ contact lines use **`mailto:info@andetag.museum`** (**EX-0010** alignment).
- * Design approved: **`docs/phase-5-verification-record.md`** (2026-03-23, Gustaf).
- * “Vad är ANDETAG?” body matches home accordion (`WHAT_IS_ANDETAG_FAQ_SV_BODY_HTML`) plus read-more link.
- */
 const introHtml = "<h1>Frågor och svar</h1>";
-
-const faqColumnLeft = [
-  {
-    title: "Vad är ANDETAG?",
-    titleHtml: 'Vad är <span class="brand-wordmark">ANDETAG</span>?',
-    bodyHtml: `${WHAT_IS_ANDETAG_FAQ_SV_BODY_HTML}<p><a href="/sv/stockholm/vilken-typ-av-upplevelse/">Läs mer om upplevelsen.</a></p>`,
-  },
-  {
-    title: "Hur lång tid tar upplevelsen?",
-    bodyHtml:
-      "<p>Du bestämmer tempot själv. Många stannar omkring 50 minuter, vissa kortare, vissa flera timmar. Musiken till utställningen är ca. 1 timme och 15 minuter, sedan börjar den om, men ljusanimationerna upprepar sig aldrig.</p>",
-  },
-  {
-    title: "Måste jag boka i förväg?",
-    bodyHtml:
-      "<p>Vi rekommenderar att <a href=\"/sv/stockholm/biljetter/\">boka i förväg</a> för att få en tid som passar, men det går ofta att köpa på i entrén, i mån av plats.</p>",
-  },
-  {
-    title: "Kan jag köpa biljetter på plats?",
-    bodyHtml:
-      "<p>Ja, om det finns plats kvar för den aktuella tiden kan du köpa i entrén.</p>",
-  },
-  {
-    title: "Kan jag boka om eller avboka?",
-    bodyHtml:
-      "<p>Du kan avboka fram till din bokade tid. Återbetalning sker som presentkort som du kan använda för att boka en ny tid. Länk finns i ditt bekräftelsemejl.<br />Vid frågor kontakta <a href=\"mailto:info@andetag.museum\">info@andetag.museum</a> så löser vi det!</p>",
-  },
-  {
-    title: "Hur tidigt kan jag komma?",
-    bodyHtml:
-      "<p>Du är välkommen att komma lite före din tid, så länge ordinarie öppettid råder. Det är ofta skönt att landa en stund innan.</p>",
-  },
-  {
-    title: "Vad händer om jag blir sen?",
-    bodyHtml:
-      "<p>Oroa dig inte. Vi gör alltid vårt bästa för att alla skall få uppleva ANDETAG i sin egen takt.</p>",
-  },
-  {
-    title: "Är ANDETAG lämpligt för barn?",
-    titleHtml: 'Är <span class="brand-wordmark">ANDETAG</span> lämpligt för barn?',
-    bodyHtml:
-      "<p>Ja, många barn har besökt oss. Upplevelsen är stillsam och vissa delar är mörka, så yngre barn kan vilja sitta nära en vuxen.</p><p>Vi vill att även barn respekterar rummets lugn och tystnad.</p><p>Observera att vi inte har plats för barnvagnar inne i lokalen. Barnvagn kan låsas vid cykelparkeringen på Sveavägen.</p>",
-  },
-] as const;
-
-const faqColumnRight = [
-  {
-    title: "Kan jag ta med barnvagn?",
-    bodyHtml:
-      "<p>Tyvärr inte in i lokalen. Barnvagn kan låsas vid cykelparkeringen på Sveavägen.</p>",
-  },
-  {
-    title: "Är upplevelsen tillgänglig?",
-    bodyHtml:
-      "<p>Det finns hiss från både tunnelbana och gatuplan. Utställningen är rullstolsanpassad, men vi har tyvärr inte en fullt utrustad rullstolsanpassad toalett.</p><p>Vissa delar är mörka, men navigeringen är relativt enkel. Ledhundar är välkomna.</p><p>Ledsagare eller personliga assistenter går in utan kostnad.</p><p><a href=\"/sv/stockholm/tillganglighet/\">Läs mer om tillgänglighet.</a></p>",
-  },
-  {
-    title: "Finns det hörslinga?",
-    bodyHtml:
-      "<p>Nej, det finns ingen hörslinga i lokalen. Musiken finns online om du vill spela den via din egen enhet.</p><p><a href=\"/sv/stockholm/tillganglighet/\">Läs mer om tillgänglighet.</a></p>",
-  },
-  {
-    title: "Kan jag komma i grupp?",
-    bodyHtml:
-      "<p>Ja. <span class=\"brand-wordmark\">ANDETAG</span> kan besökas i grupp, både som <a href=\"/sv/stockholm/gruppbokning/\">privat sällskap</a> och som företagsevent.</p><p>För grupper, skolklasser, daglig verksamhet eller företag rekommenderar vi att boka i förväg. Det gör att vi kan ta emot er på ett lugnt och samlat sätt.</p><p>Vi erbjuder <a href=\"/sv/stockholm/gruppbokning/\">grupprabatt</a> vid samlad bokning.</p><p>Kontakta oss för upplägg och bokning:<br /><a href=\"mailto:info@andetag.museum\"><strong>info@andetag.museum</strong></a></p>",
-  },
-  {
-    title: "Finns det klippkort?",
-    bodyHtml:
-      "<p>Ja. Säsongskort ger fri tillgång under en längre period. <a href=\"/sv/stockholm/sasongskort/\">Läs mer här.</a></p>",
-  },
-  {
-    title: "Kan jag boka för företag eller privat sällskap?",
-    bodyHtml:
-      "<p>Ja, det finns möjligheter för både <a href=\"/sv/stockholm/foretagsevent/\">företagsevent</a> och <a href=\"/sv/stockholm/gruppbokning/\">gruppbokningar</a> kontakta <a href=\"mailto:info@andetag.museum\">info@andetag.museum</a>, så hjälper vi dig.</p>",
-  },
-  {
-    title: "Kan jag fotografera?",
-    bodyHtml:
-      "<p>Ja! Vi tycker om när besökare vill dela sin upplevelse av <span class=\"brand-wordmark\">ANDETAG</span>.</p><p>Det går bra att fotografera och ta korta videoklipp, så länge det sker med hänsyn till andra besökare och rummets stillsamhet.</p><p>Om du vill fotografera eller filma med större utrustning, eller för ett specifikt projekt, hör gärna av dig i förväg.</p>",
-  },
-] as const;
 ---
 
 <div class="page-migrated page-faq-sv">
   <ContentSection markdown={introHtml} />
   <div class="page-faq-accordions">
-    <AccordionSection items={[...faqColumnLeft]} />
-    <AccordionSection items={[...faqColumnRight]} />
+    <AccordionSection items={[...STOCKHOLM_FAQ_SV_LEFT]} />
+    <AccordionSection items={[...STOCKHOLM_FAQ_SV_RIGHT]} />
   </div>
 </div>

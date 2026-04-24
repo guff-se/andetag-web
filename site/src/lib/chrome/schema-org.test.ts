@@ -160,6 +160,57 @@ describe("buildSchemaJsonLd", () => {
     expect(offers.find((o) => o.name === "Ordinarie biljett")).toBeDefined();
   });
 
+  it("emits FAQPage on the English FAQ route only", () => {
+    const doc = buildSchemaJsonLd({
+      ...base,
+      pageUrl: "https://www.andetag.museum/en/stockholm/faq/",
+      destination: "stockholm",
+      canonicalPath: "/en/stockholm/faq/",
+    });
+    const faq = graphNodeWithSchemaType(doc["@graph"], "FAQPage");
+    expect(faq).toBeDefined();
+    expect(faq!.url).toBe("https://www.andetag.museum/en/stockholm/faq/");
+    expect(faq!["@id"]).toBe("https://www.andetag.museum/en/stockholm/faq/#faq");
+    const mainEntity = faq!.mainEntity as Record<string, unknown>[];
+    expect(mainEntity.length).toBe(14);
+    for (const q of mainEntity) {
+      expect(q["@type"]).toBe("Question");
+      expect(typeof q.name).toBe("string");
+      const ans = q.acceptedAnswer as Record<string, unknown>;
+      expect(ans["@type"]).toBe("Answer");
+      expect(typeof ans.text).toBe("string");
+      expect((ans.text as string).length).toBeGreaterThan(0);
+    }
+    expect(mainEntity[0].name).toBe("What is ANDETAG?");
+  });
+
+  it("emits FAQPage on the Swedish FAQ route", () => {
+    const doc = buildSchemaJsonLd({
+      ...base,
+      pageUrl: "https://www.andetag.museum/sv/stockholm/fragor-svar/",
+      destination: "stockholm",
+      canonicalPath: "/sv/stockholm/fragor-svar/",
+      language: "sv",
+    });
+    const faq = graphNodeWithSchemaType(doc["@graph"], "FAQPage");
+    expect(faq).toBeDefined();
+    expect(faq!.inLanguage).toBe("sv-SE");
+    const mainEntity = faq!.mainEntity as Record<string, unknown>[];
+    expect(mainEntity.length).toBe(15);
+    expect(mainEntity[0].name).toBe("Vad är ANDETAG?");
+  });
+
+  it("does not emit FAQPage on non-FAQ routes", () => {
+    const doc = buildSchemaJsonLd({
+      ...base,
+      pageUrl: "https://www.andetag.museum/en/stockholm/tickets/",
+      destination: "stockholm",
+      canonicalPath: "/en/stockholm/tickets/",
+    });
+    const faq = graphNodeWithSchemaType(doc["@graph"], "FAQPage");
+    expect(faq).toBeUndefined();
+  });
+
   it("produces parseable JSON-LD", () => {
     const doc = buildSchemaJsonLd({
       ...base,
