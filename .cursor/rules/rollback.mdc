@@ -1,0 +1,24 @@
+---
+description: Use when a recent content change on the ANDETAG Astro site (site/) needs to be reverted — page copy regression, incorrect FAQ, broken event, wrong price, bad image wiring, regretted testimonial update. Triggers include "revert", "undo", "roll back", "take it off". Canonical skill lives at /skills/rollback/SKILL.md.
+globs:
+  - site/**
+  - CHANGELOG.md
+  - docs/migration-exceptions.md
+  - docs/maintenance-backlog.md
+alwaysApply: false
+---
+
+# Rollback skill (pointer)
+
+Canonical: [`/skills/rollback/SKILL.md`](../../skills/rollback/SKILL.md). Read it before acting.
+
+Key points:
+
+- Always additive: `git revert` produces a new commit that inverts a prior one. Never amend or rewrite `main` history.
+- Post-cutover release discipline (**P9-25**): branch → revert commit → push → PR → Cloudflare preview → merge. No direct pushes to `main`.
+- Scope shapes: **full** (`git revert <sha>`), **partial** (`git revert --no-commit <sha>` + `git restore --staged --worktree -- <keep>`), **range** (revert newest-first, separate commits).
+- Locale parity is non-negotiable: reverting a `sv` body implies reverting the paired `en` body too (or `en` + `de` for Berlin). Check the original commit's full diff.
+- Verify with `npm test && npm run build` from `site/`. Spot-check `dist/<locale>/<path>/index.html` for both pair locales and any affected JSON-LD.
+- Document: `CHANGELOG.md` under `### Removed` or `### Fixed`; update any `EX-NNNN` row with the revert date; open `M-NNNN` in `docs/maintenance-backlog.md` if a forward fix is planned.
+- PR template: "What this reverts", "Why", "Verification" checklist, "Forward fix" pointer.
+- Escalate: DNS/Workers/TLS rollback (cutover-runbook territory), force-push requests, cascading conflicts, cross-cutting migrations, approval-lineage conflicts, or urgent takedowns that cannot wait for a preview cycle.
