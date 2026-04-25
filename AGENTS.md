@@ -18,7 +18,7 @@ The migration from WordPress closed on **2026-04-14**. The Phase 9 maintenance p
 
 These are the invariants. Treat them as a contract; let them drive judgment on every change.
 
-1. **Source integrity.** This site ships real content for a public museum. Never fabricate URLs, prices, hours, ratings, review quotes, photo credits, or schema fields. Anchor every change to a runtime source (`stockholm-*.ts`, `schema-org.ts`, `page-shell-meta.json`, `photos.yaml`) or to a doctrine doc. If required data is missing or ambiguous, stop and ask. The `archive/legacy-wordpress-site/` mirror is reference only — never a source of truth.
+1. **Source integrity.** This site ships real content for a public museum. Never fabricate URLs, prices, hours, ratings, review quotes, photo credits, or schema fields. Anchor every change to a runtime source (`stockholm-*.ts`, `schema-org.ts`, `page-shell-meta.json`, `photos.yaml`) or to a live doctrine doc under `docs/` (outside `docs/archive/`). If required data is missing or ambiguous, stop and ask. **Do not** open, search, or use **`archive/`** (including `archive/legacy-wordpress-site/`) for content, copy, SEO, or “what did the old site say.” It exists for repository history, not for maintenance work. The same rule applies to **`docs/archive/`**: do not extend it or treat it as an active manual.
 
 2. **Doc/code coherence.** Every behavior change updates the doc that describes it, in the same task. Doctrine docs (`docs/seo/`, `docs/Tone of Voice.md`, `docs/Andetag SEO Manual.md`, `docs/Visual Identity.md`, `docs/content-model.md`) are normative. When code drifts from doctrine, fix the code or revise the doctrine — never both silently, never neither.
 
@@ -54,9 +54,9 @@ Full current-state description: [`docs/project-overview.md`](docs/project-overvi
 web/
 ├── AGENTS.md              # This guide
 ├── CHANGELOG.md           # See docs/changelog-standards.md
-├── archive/legacy-wordpress-site/  # Frozen WP mirror; read-only reference
+├── archive/               # Do not use for agent work (see Source integrity)
 ├── docs/                  # Live operational references
-│   └── archive/           # Closed migration-era artifacts (reference-only)
+│   └── archive/           # Closed records — do not use for agent work
 ├── skills/                # Canonical SKILL.md per task
 ├── .claude/skills/        # Claude Code pointers (symlinks to /skills/<name>)
 ├── .cursor/rules/         # Cursor pointers (.mdc wrappers)
@@ -129,7 +129,7 @@ Read each doc when the work intersects its topic. Mental model lives in `docs/pr
 | [`docs/changelog-standards.md`](docs/changelog-standards.md) | How to write `CHANGELOG.md` entries. |
 | [`docs/url-matrix.csv`](docs/url-matrix.csv) | Canonical / redirect / status matrix; referenced by `site-integrity` and `page`. |
 | [`docs/maintenance-backlog.md`](docs/maintenance-backlog.md) | One-time tasks tracked across maintenance work (`M-NNNN`). |
-| `docs/archive/` | Closed-phase records, superseded plans. **Reference-only — do not extend.** |
+| `docs/archive/` | **Agents must not** read or cite for ongoing work. Maintainers may consult humans-only; the live stack is in non-archive docs and `site/src/`. |
 
 **Rule:** if behavior changes, update the relevant doc in the same task.
 
@@ -196,8 +196,8 @@ The preview is the merge gate. Open it, walk the change, then merge.
 - **Self-host all first-party assets.** No absolute `https://www.andetag.museum/...` URLs in `site/`. Use root-relative paths backed by files in `site/public/`.
 - **Missing media:** Download from production and commit under `site/public/` on the serving path. No hotlinks, no placeholders.
 - **Responsive images:** Follow `docs/responsive-image-workflow.md` for any new photograph or large raster.
-- **CSS:** Fresh local styles in `site/src/styles/` or component-scoped. Do not copy legacy WordPress CSS.
-- **JS:** Reimplement with local code and package-managed deps. Do not load legacy WP scripts.
+- **CSS:** Fresh local styles in `site/src/styles/` or component-scoped. Do not import styles from the pre-Astro platform.
+- **JS:** Reimplement with local code and package-managed deps. No legacy third-party scripts from retired stacks.
 - **Fonts:** Maintain `site/src/lib/fonts/sources.json`; regenerate via `npm run fonts:sync`.
 - **Copy:** Follow `docs/Tone of Voice.md` and SEO doctrine exactly.
 - **Prose docs:** Avoid em dash; use commas, colons, or parentheses.

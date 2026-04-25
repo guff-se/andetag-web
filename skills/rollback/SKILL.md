@@ -9,7 +9,7 @@ Cleanly roll back a recent content change using Git — creating a new commit th
 
 This skill is **not** for:
 
-- **Infrastructure rollback** (DNS, Workers custom domain, TLS). That lives in `docs/archive/phase-8-cutover-runbook.md` §Rollback procedure and requires Cloudflare dashboard access; escalate.
+- **Infrastructure rollback** (DNS, Workers custom domain, TLS) — not covered here. Requires Cloudflare dashboard access; escalate to the maintainer.
 - **Schema-wide migrations** or anything that would force-push `main` — out of scope; escalate to Gustaf.
 - **Amending or rebasing shipped commits.** Rollback is always *additive* (a new commit that inverts a prior one). Never rewrite history on `main`.
 - Re-doing an edit the way it should have been done the first time — that is a regular content skill (`page`, `faq`, `events`, `operational-facts`, `images`, `testimonials`). Use rollback only to get back to a known-good state first; forward fixes follow separately.
@@ -26,7 +26,7 @@ This skill is **not** for:
 Rollback touches whatever the original commit touched. The skill does not list specific site files; it **lists the git operations** and **the non-negotiable post-revert checks**. Auxiliary files that usually need parallel edits:
 
 - `CHANGELOG.md` — add a `### Removed` or `### Fixed` entry under `[Unreleased]` naming the reverted PR/commit and the reason. One short bullet.
-- `docs/seo/decisions.md` — if the reverted change had a `SEO-NNNN` decision row, append a dated note to the row ("reverted 2026-04-24 in commit abc1234"). For domain-specific decisions (operational facts, testimonials), check the §Decisions section of the relevant skill instead. Migration-era `EX-NNNN` rows in `docs/archive/migration-exceptions.md` only matter for archived deviations.
+- `docs/seo/decisions.md` — if the reverted change had a `SEO-NNNN` decision row, append a dated note to the row ("reverted 2026-04-24 in commit abc1234"). For domain-specific decisions (operational facts, testimonials), check the §Decisions section of the relevant skill instead.
 - `docs/maintenance-backlog.md` — open a row (`M-NNNN`) describing the forward fix that needs to happen, if any.
 
 ## Locale parity rules
@@ -175,7 +175,7 @@ Spot-check `dist/`:
    ```
 
 3. Wait for the Cloudflare preview deployment. Open the preview URL(s) of the affected page(s) and confirm the reverted state visually.
-4. Merge to `main` once CI is green and the preview matches expectations. `main` → `www` via the existing `wrangler deploy` flow (see `docs/archive/phase-8-cutover-runbook.md` §Post-cutover release discipline).
+4. Merge to `main` once CI is green and the preview matches expectations. `main` → `www` via `npm run worker:deploy` from `site/` (see `AGENTS.md` §Cloudflare).
 
 ### G. Document the revert
 
@@ -197,9 +197,9 @@ Covered inline in §E. Additional checks for specific revert shapes:
 
 Stop and ask before proceeding if:
 
-- The revert would remove a change that Gustaf explicitly approved (check `AGENTS.md` §Decision authority and `docs/archive/phase-8-verification-record.md` §Closure sign-off lineage).
+- The revert would remove a change that Gustaf explicitly approved — confirm intent with the maintainer first.
 - The target commit has been built upon by many later commits and a revert would introduce a cascade of conflicts — treat as a forward fix instead; escalate for a plan.
-- The regression is on **DNS, Workers custom domain, TLS, or edge caching** — that is the cutover-runbook rollback procedure, not this skill.
+- The regression is on **DNS, Workers custom domain, TLS, or edge caching** — escalate; not covered by this skill.
 - The user requests a **force-push** or **amend** on `main`. Branch protection forbids this; escalate.
 - The target commit includes a database-style migration (content structure change in `page-shell-meta.json`, registry moves, hreflang pair changes). Coordinate with `skills/page/SKILL.md` — a naïve revert can orphan routes.
 - The revert would leave `www` in a state inconsistent with external decisions already communicated (pricing announcement, event marketing). Confirm the user's intent before merging.

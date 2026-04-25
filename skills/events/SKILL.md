@@ -137,7 +137,7 @@ Use when the user wants a **full page** for a single date (concert, special even
 **Remove (ended / cancelled):**
 
 1. Remove home-block `const` pairs and the `<div class="page-stockholm-home__<slug>">` from **both** home files **if** the event appeared there.
-2. If the one-off has **dedicated pages**, follow **`skills/page/SKILL.md`** to remove the pair (redirect, drop registries, delete bodies) or archive per product direction — do not leave orphan routes.
+2. If the one-off has **dedicated pages**, follow **`skills/page/SKILL.md`** to remove the pair (redirect, drop registries, delete bodies) or retire the URLs per product direction — do not leave orphan routes.
 3. Drop unused `BodyPictureSources` from `stockholm-body-responsive-images.ts` if nothing else references them. Image files on disk are optional cleanup.
 4. Remove CSS for a removed home block slug.
 5. If the event had JSON-LD, remove the emitter and tests.

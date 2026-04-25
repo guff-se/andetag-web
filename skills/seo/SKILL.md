@@ -184,7 +184,7 @@ The most common failure mode for SEO work with an agent is **invented facts**. T
 3. **Metadata.** No fabricated titles / descriptions. If `docs/meta-texts-catalog.md` has the row, use it; if not, draft and add the row to the catalog first.
 4. **Schema fields.** Never hand-type a `ratingValue`, `reviewCount`, price, opening hour, or address into `schema-org.ts`. Those come from their source-of-truth files (`stockholm-reviews.ts`, `stockholm-offers.ts`, the `STOCKHOLM_*` constants). If a field is missing from Google's documented schema for that type, do not add it.
 5. **Quotes.** Testimonial text is verbatim TripAdvisor copy. No rewording for tone. No translation across locales (see `skills/testimonials`, `SEO-0012`, `SEO-0017`).
-6. **Source artifacts.** `archive/legacy-wordpress-site/site-html/` is the **frozen** WP scrape — reference only. `SEO-0019` (utställning spelling) and the archived `EX-0007` (en-stockholm Yoast drift, in `docs/archive/migration-exceptions.md`) document where the scrape cannot be trusted. Always prefer `page-shell-meta.json` + `stockholm-*.ts` + `schema-org.ts` over the archived HTML.
+6. **Source artifacts.** Titles, descriptions, and body truth live in `page-shell-meta.json`, `docs/meta-texts-catalog.md`, and the `site/src/lib/content/*.ts` + `schema-org.ts` graph — not in any frozen legacy export. Shell edge cases (e.g. `SEO-0019`, `EX-0007`) are recorded in `docs/seo/decisions.md`. **Do not** read `archive/` (see `AGENTS.md`).
 7. **"Agreed sources."** A `seo-content/` directory for approved SEO drafts has not been created (April 2026); until it is, approved sources are the docs and runtime modules above.
 
 If source data is missing, say so. Do not fabricate.
