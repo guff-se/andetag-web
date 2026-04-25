@@ -14,7 +14,7 @@ It is **not** for:
 - Operational facts like opening hours or ticket prices (see `skills/operational-facts/SKILL.md`).
 - **Choosing and cataloguing photographs** — ingest, alt text, and responsive wiring (see `skills/images/SKILL.md`). The page skill **coordinates** with that skill (see **§Coordination** below) but does not invent image assets.
 - Testimonial or review updates (see `skills/testimonials/SKILL.md`).
-- Redirect-only work with no page body change (edit `site/public/_redirects` directly, following `docs/url-migration-policy.md`).
+- Redirect-only work with no page body change (edit `site/public/_redirects` directly, following `docs/seo/url-architecture.md`).
 
 If the request is a content tweak inside an existing page body (`*Sv.astro` / `*En.astro` / `*De.astro`) and nothing else, skip most of the Workflow and apply only §A and §Verification — still apply **§Coordination** for imagery if the edit materially changes length or sectioning.
 
@@ -157,7 +157,7 @@ Stop and ask the user (or Gustaf) before proceeding if:
 - The rename would create a redirect chain (the old path already redirects somewhere). Resolve by flattening to single-hop.
 - The new page needs a new page-body **shell variant** (header or footer beyond the existing `HeaderVariantId` / `FooterVariantId` set in `site/src/lib/chrome/types.ts`). Shell variant work is out of scope for content-level skills.
 - The change touches routing for `/` or `/en/` (entry routing). These live in `site/workers/entry-routing-logic.ts`; edits belong to a routing-layer task, not a page task.
-- A migration exception row (`EX-NNNN` in `docs/migration-exceptions.md`) covers the affected path. Re-read the exception before editing.
+- A decision row (`SEO-NNNN` in `docs/seo/decisions.md`) covers the affected path. Re-read the row before editing. Migration-only `EX-NNNN` rows in `docs/migration-exceptions.md` are reference for archived deviations.
 
 ## Examples
 

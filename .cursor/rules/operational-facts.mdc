@@ -26,4 +26,4 @@ Key points:
 - Hours change → diff `dist/sv/stockholm/oppettider/index.html`, the English equivalent, and any page embedding the Museum JSON-LD.
 - Email change → `git grep "info@andetag.museum" -- 'site/'` before editing, and confirm the grep is empty after.
 - Verify with `npm test && npm run build` from `site/`.
-- Escalate: holiday hours override (no date-bounded schema mechanism), new fact types (phone, secondary address), currency-ambiguous price change, moving away from the `andetag.museum` email domain without updating `docs/migration-exceptions.md` EX-0010, or Berlin operational facts.
+- Escalate: holiday hours override (no date-bounded schema mechanism), new fact types (phone, secondary address), currency-ambiguous price change, moving away from the `andetag.museum` email domain without updating the §Decisions block in `skills/operational-facts/SKILL.md` ("Public contact inbox"), or Berlin operational facts.

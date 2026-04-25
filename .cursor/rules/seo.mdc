@@ -8,7 +8,8 @@ globs:
   - site/src/data/page-shell-meta.json
   - docs/Andetag SEO Manual.md
   - docs/Tone of Voice.md
-  - docs/url-migration-policy.md
+  - docs/seo/url-architecture.md
+  - docs/seo/decisions.md
 alwaysApply: false
 ---
 

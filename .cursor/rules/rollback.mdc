@@ -3,7 +3,7 @@ description: Use when a recent content change on the ANDETAG Astro site (site/) 
 globs:
   - site/**
   - CHANGELOG.md
-  - docs/migration-exceptions.md
+  - docs/seo/decisions.md
   - docs/maintenance-backlog.md
 alwaysApply: false
 ---
@@ -19,6 +19,6 @@ Key points:
 - Scope shapes: **full** (`git revert <sha>`), **partial** (`git revert --no-commit <sha>` + `git restore --staged --worktree -- <keep>`), **range** (revert newest-first, separate commits).
 - Locale parity is non-negotiable: reverting a `sv` body implies reverting the paired `en` body too (or `en` + `de` for Berlin). Check the original commit's full diff.
 - Verify with `npm test && npm run build` from `site/`. Spot-check `dist/<locale>/<path>/index.html` for both pair locales and any affected JSON-LD.
-- Document: `CHANGELOG.md` under `### Removed` or `### Fixed`; update any `EX-NNNN` row with the revert date; open `M-NNNN` in `docs/maintenance-backlog.md` if a forward fix is planned.
+- Document: `CHANGELOG.md` under `### Removed` or `### Fixed`; update any `SEO-NNNN` row in `docs/seo/decisions.md` (or the §Decisions block in a domain skill) with the revert date; open `M-NNNN` in `docs/maintenance-backlog.md` if a forward fix is planned.
 - PR template: "What this reverts", "Why", "Verification" checklist, "Forward fix" pointer.
 - Escalate: DNS/Workers/TLS rollback (cutover-runbook territory), force-push requests, cascading conflicts, cross-cutting migrations, approval-lineage conflicts, or urgent takedowns that cannot wait for a preview cycle.

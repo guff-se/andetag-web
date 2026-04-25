@@ -21,8 +21,8 @@ Key points:
 - Single source of truth: `site/src/lib/content/stockholm-reviews.ts` (`STOCKHOLM_TRIPADVISOR_URL`, `STOCKHOLM_RATING`, `STOCKHOLM_FEATURED_REVIEWS`, `stockholmTripadvisorRatingCommaDecimal()`). Bump `Last verified` on every edit.
 - Auto-propagating consumers: JSON-LD (`schema-org.ts` aggregateRating + review), aggregate strip (`stockholm-testimonial-aggregate.ts`), Stockholm home pages (`StockholmHomeSv/En.astro` via `.map(r => …)`), besökaromdömen copy (`BesokaromdomenSv/En.astro`).
 - **Drift hotspots (hand-sync every quote edit):** `StockholmSeoLandingSv.astro`, `StockholmSeoLandingEn.astro`, `StockholmHomeSharedBody.astro` each inline their own `testimonialItems` array with literal quotes. Run `git grep -n 'const testimonialItems' -- 'site/src/components/page-bodies/'` after a quote edit.
-- `reviewCount` stays a JSON **number** (not a string) per `docs/Andetag SEO Manual.md` §6 / `EX-0017`.
+- `reviewCount` stays a JSON **number** (not a string) per `docs/Andetag SEO Manual.md` §6 / `docs/seo/decisions.md` `SEO-0017`.
 - Quotes are **not** translated across locales (TripAdvisor policy); author names render verbatim in every locale.
 - Berlin has no review data — escalate.
 - Verify with `npm test && npm run build` from `site/`. Schema-org test uses loose bounds and should not need edits.
-- Escalate: translating a quote, Berlin review, material rating drop without explanation, removing the TripAdvisor link (touches EX-0002/EX-0012), or fabricated quotes.
+- Escalate: translating a quote, Berlin review, material rating drop without explanation, removing the TripAdvisor link (touches `docs/seo/decisions.md` `SEO-0012`), or fabricated quotes.

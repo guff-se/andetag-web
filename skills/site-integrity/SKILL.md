@@ -48,7 +48,7 @@ Primary tests (already present — rely on them; do not duplicate):
 ## Locale parity rules
 
 - Stockholm pairs: every `sv` path in `STOCKHOLM_SV_EN_PAIRS` must have a matching `en` path built, with symmetric hreflang and mutual canonicals per `docs/Andetag SEO Manual.md` §hreflang.
-- Berlin story pairs: every `de` path in `BERLIN_DE_EN_STORY_PAIRS` must have a matching `en` path built. Berlin English story shells canonicalise to Stockholm English per `BERLIN_EN_STORY_SEO_CANONICAL` — this is **expected asymmetry** documented in `docs/migration-exceptions.md`; do not flag it.
+- Berlin story pairs: every `de` path in `BERLIN_DE_EN_STORY_PAIRS` must have a matching `en` path built. Berlin English story shells canonicalise to Stockholm English per `BERLIN_EN_STORY_SEO_CANONICAL` — this is **expected asymmetry** documented in `docs/seo/decisions.md` `SEO-0016`; do not flag it.
 - `x-default` required on Berlin English shells per registry test; confirm in the built HTML head.
 
 ## Workflow
@@ -261,7 +261,7 @@ Stop and ask before proceeding if:
 - The build fails. Run the `page` or `rollback` skill on the failing change; this skill cannot audit a stale `dist/`.
 - A finding suggests a shipped SEO regression on `www` (missing canonical, broken hreflang). Flag for the SEO skill (**P9-13**) when that lands; until then, escalate to Gustaf.
 - The user asks for a full external-link HEAD-check sweep. The number of external links and the domains' bot-blocking make this fragile; confirm scope and live with false positives.
-- Multi-hop redirects are found that were apparently intentional (e.g. two-stage locale migration). Do not collapse them without checking `docs/migration-exceptions.md` and `docs/url-migration-policy.md`.
+- Multi-hop redirects are found that were apparently intentional (e.g. two-stage locale migration). Do not collapse them without checking `docs/seo/url-architecture.md` and `docs/seo/decisions.md` (and the legacy `docs/migration-exceptions.md` for archived migration deviations).
 - The audit reveals a registry or sitemap anomaly that the existing tests did not catch. That is a test gap — document it in `docs/maintenance-backlog.md` before fixing the data.
 
 ## Examples

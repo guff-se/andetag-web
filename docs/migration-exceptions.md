@@ -1,5 +1,12 @@
 # Migration Exceptions Log
 
+> **Forward pointer (2026-04-24):** the **durable, ongoing** decisions that originated as `EX-NNNN` rows have moved to dedicated locations:
+>
+> - **SEO-relevant decisions** — `EX-0012` (TripAdvisor static rendering), `EX-0015` (`/en/` hub copy), `EX-0016` (Berlin English canonicals → Stockholm English), `EX-0017` (Museum + LocalBusiness pairing), `EX-0019` (konstutställning spelling) — now live as `SEO-NNNN` rows in **`docs/seo/decisions.md`** (IDs preserve the trailing number).
+> - **Public contact inbox** (`EX-0010`, `info@andetag.museum`) — captured as the §Decisions block in **`skills/operational-facts/SKILL.md`**.
+>
+> **This file** stays in place as the migration-era record (Phase 1–8 deviations, resolved exceptions, build/scaffolding waivers) and is archived to `docs/archive/` at Phase 9 closure. New ongoing decisions go to the locations above, not here.
+
 Purpose: record approved deviations from source parity in a consistent and reviewable format.
 
 ## What Counts as an Exception

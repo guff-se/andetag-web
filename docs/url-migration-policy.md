@@ -1,5 +1,9 @@
 # URL Migration Policy
 
+> **Forward pointer (2026-04-24):** the **ongoing** URL contract (canonical rules, redirects, hreflang, entry routing, sitemap, location-scoped story URLs, privacy URL policy, query-parameter rules, asset locality, Berlin transition) has moved to **`docs/seo/url-architecture.md`**. That file is the post-migration successor and is what skills (`seo`, `page`, `quicklinks`, `site-integrity`, `rollback`) now reference. **This file** stays in place as the migration-era record (Phase 0–8 framing, "scope: source of truth is `site-html/sitemap.xml`", implementation requirements, policy status) and is archived to `docs/archive/` at Phase 9 closure.
+>
+> If the two files disagree, **`docs/seo/url-architecture.md` wins**.
+
 Purpose: preserve SEO value and inbound links while rebuilding `andetag.museum` as a static site.
 
 ## Scope

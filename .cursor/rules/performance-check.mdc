@@ -19,6 +19,6 @@ Key points:
 - Drilldowns (diagnostic only, not gates): `npm run perf:impact` (third-party), `npm run perf:blocking` (render-blocking), `npm run perf:consent` (consent timing).
 - Scope picker: copy-only edits skip Lighthouse; image wiring → subset; chrome / CSS / JS / new routes / structural changes → full; GTM or consent changes → full + drilldowns.
 - **P9-40 stats bridge** lives inside this skill per P9-41: use `../stats/cli` (sibling `andetag-data` repo, sparse-checkout) for GSC / GA4 / sales queries. Read-only. Credentials live in that project's `.env`; this repo holds no extra secrets.
-- Pass = no URL below `LIGHTHOUSE_MIN`, no new CLS > 0.05 that was not already flagged, no mean-score regression > 3 points vs. the documented run. Anything else → log waiver in `docs/migration-exceptions.md` (owner Gustaf, SHA) or a Phase 9 verification note.
+- Pass = no URL below `LIGHTHOUSE_MIN`, no new CLS > 0.05 that was not already flagged, no mean-score regression > 3 points vs. the documented run. Anything else → log waiver as a dated note in `docs/performance-improvement-plan.md` Summary (owner Gustaf, SHA) or a Phase 9 verification note.
 - Report line for PRs: `Perf: <sha> on <target> — <command>, min <X>, mean <Y>, slowest LCP <path> <Zs>, CLS <clean/outliers>. Pass/needs-exception.`
 - Escalate: vendor drift (GTM/CMP/Understory) with no PR-side culprit, headless-Chrome crashes, PSI requests, or stats-bridge gaps.

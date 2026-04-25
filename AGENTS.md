@@ -91,15 +91,17 @@ Consult before implementation. All active docs are in `docs/`.
 | `docs/phase-8-verification-record.md` | Phase 8 evidence and Gustaf sign-off (§Closure) |
 | `docs/phase-9-todo.md` | **Current ops:** **P9-25**, **P9-26**; **P9-00** done (**`docs/phase-9-plan.md`**). Other Phase 9 ids: see checklist (skills, **P9-20**+ PR-gate convention, exit criteria) |
 | `docs/Andetag SEO Manual.md` | SEO/GEO decisions, page intent, language strategy, schema |
+| `docs/seo/url-architecture.md` | **Ongoing** URL contract: canonical, redirects, hreflang, entry routing, sitemap, location-scoped stories, privacy, query/non-HTML/asset rules, Berlin transition. Successor to `docs/url-migration-policy.md` |
+| `docs/seo/decisions.md` | **Ongoing** SEO decision log (`SEO-NNNN`): durable deviations from default rules. Successor to the SEO-relevant rows of `docs/migration-exceptions.md` |
 | `docs/Tone of Voice.md` | User-facing copy and metadata text |
 | `docs/Visual Identity.md` | Typography, color palette, CTA mapping |
-| `docs/url-migration-policy.md` | Canonical URLs, redirects, entry routing (`andetag_entry`), sitemap |
+| `docs/url-migration-policy.md` | **Migration-era reference** — canonical URLs, redirects, entry routing, sitemap. Ongoing successor: `docs/seo/url-architecture.md`. Archived at Phase 9 closure |
 | `docs/phase-4-routing-reopen.md` | Routing decisions, open questions, location/language matrix |
 | `docs/phase-4-redirect-tests.md` | Redirect test tables and execution log |
 | `docs/content-model.md` | Page frontmatter, shared data contracts, component props |
 | `docs/phase-3-component-usage.md` | Component API reference and usage patterns |
 | `docs/definition-of-done.md` | Measurable exit checks per phase |
-| `docs/migration-exceptions.md` | Exception log for source parity deviations |
+| `docs/migration-exceptions.md` | **Migration-era reference** — `EX-NNNN` deviations from Phase 1–8. Ongoing SEO decisions live in `docs/seo/decisions.md`; ongoing operational decisions live as §Decisions blocks in the relevant skill. Archived at Phase 9 closure |
 | `docs/performance-improvement-plan.md` | Lighthouse, responsive images, script loading |
 | `docs/responsive-image-workflow.md` | **Mandatory** when adding photos: derivative generation, suffix rules, wiring |
 | `docs/tracking-and-consent-requirements.md` | GTM, Brevo, consent categories |
