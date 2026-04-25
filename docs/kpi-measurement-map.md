@@ -4,10 +4,10 @@ Purpose: align conversion goals with **GTM** behavior, consent, and optional eve
 
 ## Reused Inputs
 
-- `docs/grand-plan.md`
+- `docs/project-overview.md`
 - `docs/tracking-and-consent-requirements.md`
-- `docs/existing-site-structure.md`
-- `docs/phase-1-analysis-schema.md`
+- `docs/archive/existing-site-structure.md`
+- `docs/archive/phase-1-analysis-schema.md`
 
 ## Primary KPI
 
@@ -22,13 +22,9 @@ Many stacks only need:
 
 The **extended taxonomy** below (§ Event taxonomy) is **optional** for reporting. Keep or drop tags in GTM based on product need; do not treat every row as mandatory for launch.
 
-## Staged rollout: staging now, finish at production cutover
+## Staged rollout (historical, completed at cutover 2026-04-14)
 
-**Accepted approach (Gustaf):** **Phase 7** ships the **CookieConsent** embed and **GTM** loader in **`TrackingHead.astro`**; **full GTM container migration** (this runbook) is **Phase 8 · P8-07**, timed **just before** **`P8-11`** cutover (**`docs/phase-8-todo.md`**). Optional early **dual triggers** on **staging** while **`www`** still runs **WordPress + Complianz** remains allowed but is **not** required before Phase 7 closure. **Complete** removal of **`cmplz_*`**-only dependence and full **CookieConsent + Consent Mode** verification on **`www`** land in **Phase 8** (**P8-07**, **P8-13**, **P8-22**).
-
-**Risk:** On **cutover day**, if the container is updated before legacy traffic is gone, **WordPress** tags that still rely only on **`cmplz_*`** can misbehave; if the container is updated after static **`www`** goes live, **static** pages may have **gaps** in analytics or marketing tags until GTM is published. **Brief tracking loss during the migration window is acceptable** (not a launch blocker). Prefer **dual triggers** (Complianz **or** Consent Mode / CookieConsent path) if you want continuity on both stacks until WordPress is retired; see § Complianz trigger coupling.
-
-**Logged:** **`docs/migration-exceptions.md`** **EX-0018**.
+The **CookieConsent** embed and **GTM** loader (**`TrackingHead.astro`**) were paired with a full **GTM container migration** at the **`www`** cutover on **2026-04-14**, replacing legacy **`cmplz_*`** triggers with **CookieConsent + Consent Mode v2** wiring. Operator runbook (archived): **`docs/archive/gtm-consent-migration-runbook.md`**. The brief tracking gap on cutover day is recorded in the archived **`docs/archive/migration-exceptions.md`** **EX-0018**.
 
 ## Legacy GTM container export (live WordPress, v15)
 
@@ -46,10 +42,10 @@ On the legacy site, **GA4** and the **Google Ads** “all pages” **Google tag*
 
 **Required maintainer action:**
 
-- Reconfigure GTM so tags fire under **CookieConsent + Google Consent Mode v2** per **`docs/gtm-consent-migration-runbook.md`** (consent-aware triggers, tag consent checks), **or**
+- Reconfigure GTM so tags fire under **CookieConsent + Google Consent Mode v2** per **`docs/archive/gtm-consent-migration-runbook.md`** (consent-aware triggers, tag consent checks), **or**
 - Replace **`cmplz_*`** custom-event triggers with **Consent Initialization** / **All Pages** plus **tag-level consent** settings that match **`analytics_storage`**, **`ad_storage`**, etc.
 
-Re-verify in **GTM Preview** on **`andetag-web.guff.workers.dev`** after **P8-07** publish, again on **`www`** after **P8-13**.
+Both options were applied at cutover; this section is kept for reference if a future container audit reopens the question.
 
 ### Understory `dataLayer` events (already wired in legacy GTM)
 
@@ -77,27 +73,13 @@ Legacy container includes **outbound link**, **file download**, **tel/mailto**, 
 
 - **Google Ads** “all pages” tag in the export lists **`analytics_storage`** as required consent; **Meta** lists **`ad_storage`**. Confirm against current Google and Meta guidance for your use case.
 
-## GTM migration checklist (static site + CookieConsent)
+## GTM migration checklist (historical reference)
 
-**Phase 7 (in-repo, closed):** **CookieConsent** + **Consent Mode** defaults + **GTM** bootstrap in **`TrackingHead.astro`** (**`docs/phase-7-todo.md`** **P7-10**, **P7-11**).
+The CookieConsent + Consent Mode wiring shipped in **`TrackingHead.astro`**; the GTM container was migrated off **`cmplz_*`** triggers at the **2026-04-14** cutover. Operator runbook (archived): **`docs/archive/gtm-consent-migration-runbook.md`**. For ongoing GTM audits:
 
-**Phase 8 · P8-07 (scheduled operator work, just before `P8-11`):**
-
-**Operator steps (click-by-click):** **`docs/gtm-consent-migration-runbook.md`**.
-
-1. In **GTM**, add **Consent Mode**-compatible triggers **alongside** or **instead of** legacy **`cmplz_*`** triggers so **static staging** can fire tags (same container as **WordPress** until cutover), per **`docs/gtm-consent-migration-runbook.md`**.
-2. **Dual-trigger** or **replace** pattern per runbook §4 for **GA4**, **Ads**, **Meta**.
-3. **GTM Preview** on **`andetag-web.guff.workers.dev`**: consent flow + minimum **page_view** / conversion path smoke test; watch **WordPress** for double-counting if both stacks still share the container.
-
-**Phase 8 (post-cutover and live finish, **`docs/phase-8-todo.md`**):**
-
-4. **Replace or narrow** **`cmplz_*`**-only triggers once **`www`** serves the static stack (or keep dual triggers until WP is fully off **`www`**).
-5. **Confirm Understory** still emits **`understory_*`** and **`on_receipt`** on parent **`dataLayer`** on Astro pages.
-6. **Review conversion linker** domain list for **`www`**, Understory, Stripe, and preview hosts.
-7. **Audit tags** with **`consentStatus`: `NOT_SET`** for alignment with **`docs/tracking-and-consent-requirements.md`**.
-8. **P8-13** and **P8-22:** switch **GTM** primary domain focus to **`www`**, publish, live verification (consent + tags on live host).
-
-Staged acceptance of cutover-day gaps: **`docs/migration-exceptions.md`** **EX-0018** and § **Staged rollout** above.
+1. **Confirm Understory** still emits **`understory_*`** and **`on_receipt`** on parent **`dataLayer`** on Astro pages.
+2. **Review conversion linker** domain list for **`www`**, Understory, Stripe, and preview hosts.
+3. **Audit tags** with **`consentStatus`: `NOT_SET`** for alignment with **`docs/tracking-and-consent-requirements.md`**.
 
 ## Funnel Stages (conceptual)
 

@@ -1,6 +1,6 @@
-# Phase 3 Component Usage Reference
+# Component usage reference
 
-Purpose: provide implementation-facing usage guidance for approved Phase 3 components before page migration in Phase 5.
+Purpose: implementation-facing usage guidance for the approved Astro components used across page bodies. The migration-era component inventory and QA checklist are in `docs/archive/`.
 
 ## Global typography
 
@@ -10,7 +10,7 @@ Purpose: provide implementation-facing usage guidance for approved Phase 3 compo
 
 ## Usage Rules
 
-- Use the approved prop contracts from `docs/phase-3-component-inventory.md`.
+- Use the approved prop contracts from `docs/archive/phase-3-component-inventory.md`.
 - Keep heading semantics aligned to the documented hierarchy (`h1`, `h2`, `h3`).
 - Use shared link variants and CTA variants only, do not invent one-off link styles.
 - Apply the reusable `ANDETAG` wordmark style (`.brand-wordmark`) where brand treatment is required.
@@ -225,6 +225,6 @@ Purpose: provide implementation-facing usage guidance for approved Phase 3 compo
 
 ## Verification Notes
 
-- Historical review route: `/component-showcase/` (retired after Phase 3 sign-off; see `docs/phase-3-verification-record.md`)
+- Historical review route: `/component-showcase/` (retired after Phase 3 sign-off; see `docs/archive/phase-3-verification-record.md`)
 - Review mode was one consolidated sign-off pass for all required states
-- Quality checklist: `docs/phase-3-component-qa-checklist.md`
+- Quality checklist: `docs/archive/phase-3-component-qa-checklist.md`

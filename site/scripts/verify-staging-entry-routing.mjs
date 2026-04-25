@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * HTTP checks for `docs/phase-4-redirect-tests.md` table B (entry router).
+ * HTTP checks for entry-router behavior (see `docs/seo/url-architecture.md` §4).
  * Default host: staging Workers preview. Override: STAGING_BASE=https://...
  *
  * Usage: npm run verify:staging-entry

@@ -28,7 +28,7 @@ magick "$INPUT" -resize 960x -strip -quality 82 "${BASE}-${SUFFIX}-960w.jpg"
 
 ## 4. Wire and verify
 
-Use `sizes` and `<picture>` as in `docs/phase-3-component-usage.md`. Add or extend a Vitest check on new path constants. Run `npm test` and `npm run build` in `site/`.
+Use `sizes` and `<picture>` as in `docs/component-usage.md`. Add or extend a Vitest check on new path constants. Run `npm test` and `npm run build` in `site/`.
 
 ## 5. Docs and changelog
 

@@ -65,7 +65,7 @@ Keep SKILL.md tight. Supporting reference material can live as sibling files ins
 | [`seo`](seo/SKILL.md) | P9-13 | active | On-page SEO + entity graph. **`§H`** = scoped page-pair content review when **`skills/page`** (or a page PR) needs pre-merge feedback. Titles, meta, canonical, hreflang, OG, JSON-LD, internal linking, tone. Same doctrine docs and EX rows as before. |
 | [`quicklinks`](quicklinks/SKILL.md) | — | active | Add, edit, or remove **302** shortlink rows in the Quicklinks block of `site/public/_redirects` (only that section; never legacy **301** rules or `/stockholm/*`). Slash pairs, optional `url-matrix.csv` for new paths. See `docs/seo/url-architecture.md` §5 (SEO landing page policy, Pretty Links–style paths). |
 
-Rows are added as each skill lands. Ids correspond to Phase 9 work items in [`docs/phase-9-plan.md`](../docs/phase-9-plan.md).
+Rows reflect the active maintenance skill set. The numeric ids carry from the original Phase 9 work items (now archived at [`docs/archive/phase-9-plan.md`](../docs/archive/phase-9-plan.md)).
 
 ---
 

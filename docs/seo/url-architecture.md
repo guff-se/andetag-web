@@ -1,6 +1,6 @@
 # URL architecture
 
-Ongoing contract for canonical URLs, redirects, hreflang, entry routing, and the XML sitemap on `andetag.museum`. This is the post-migration successor to `docs/url-migration-policy.md` (which retains the migration-era framing for archive). When a rule and the migration doc disagree, this file wins.
+Ongoing contract for canonical URLs, redirects, hreflang, entry routing, and the XML sitemap on `andetag.museum`. This is the post-migration successor to `docs/archive/url-migration-policy.md` (kept for migration-era framing only). When a rule and the archived migration doc disagree, this file wins.
 
 Related runtime files: `site/workers/entry-router.ts`, `site/public/_redirects`, `site/src/lib/routes/page-shell-registry.ts`, `site/src/lib/chrome/seo.ts`, `site/wrangler.jsonc`.
 

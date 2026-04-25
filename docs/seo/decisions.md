@@ -2,7 +2,7 @@
 
 Durable, ongoing SEO decisions that deviate from a "naive default" rule (e.g. self-canonical everywhere, single `@type`, scrape-the-Yoast-title). Each row stays in force until explicitly overturned by a new dated entry.
 
-This file is the post-migration successor to the SEO-relevant rows in `docs/migration-exceptions.md`. IDs are preserved (`SEO-NNNN` retains the trailing number from the originating migration `EX-NNNN` row so links from skills, PRs, and code comments still resolve mentally). Migration-era rows about Phase-only deviations (build, scaffolding, deployment) live in `docs/migration-exceptions.md` and are archived at Phase 9 closure.
+This file is the post-migration successor to the SEO-relevant rows in `docs/archive/migration-exceptions.md`. IDs are preserved (`SEO-NNNN` retains the trailing number from the originating migration `EX-NNNN` row so links from skills, PRs, and code comments still resolve mentally). Migration-era rows about phase-only deviations (build, scaffolding, deployment) live in `docs/archive/migration-exceptions.md`.
 
 ## How to add a row
 

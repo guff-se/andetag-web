@@ -1,5 +1,5 @@
 /**
- * Pure helpers for `/` and `/en/` entry routing (`docs/url-migration-policy.md`).
+ * Pure helpers for `/` and `/en/` entry routing (`docs/seo/url-architecture.md` §4).
  * Covered by Vitest; Worker delegates to these for decisions.
  */
 
@@ -265,7 +265,7 @@ export function decideEnglishHubRouting(input: {
   return { type: "serve_asset" };
 }
 
-/** Refresh or set `andetag_entry` when the visitor receives a document under a language lane (`docs/url-migration-policy.md` **When to set or refresh**). */
+/** Refresh or set `andetag_entry` when the visitor receives a document under a language lane (`docs/seo/url-architecture.md` §4 **When to set or refresh**). */
 export function entryTokenForContentPath(pathname: string): EntryToken | null {
   if (pathname.startsWith("/sv/")) return "sv";
   if (pathname.startsWith("/de/berlin/")) return "de";

@@ -2,7 +2,7 @@
  * Shared Stockholm marketing gallery: same eight full-resolution JPEGs with
  * generated responsive thumbs (`*-gallery-{640,960}w.webp`, `*-gallery-960w.jpg`).
  *
- * Alt text per locale (EN/SV/DE); tone: `docs/Tone of Voice.md`, gallery component: `docs/phase-3-component-usage.md`.
+ * Alt text per locale (EN/SV/DE); tone: `docs/Tone of Voice.md`, gallery component: `docs/component-usage.md`.
  */
 
 export type StockholmMarketingGalleryImage = {

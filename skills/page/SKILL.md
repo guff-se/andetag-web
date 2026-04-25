@@ -66,7 +66,7 @@ Read before editing. Write paths are marked `write`.
 
 ## Locale parity rules
 
-**Non-negotiable** per `AGENTS.md` §Coherence Checklist and `docs/phase-9-plan.md`:
+**Non-negotiable** per `AGENTS.md` §Coherence checklist and `docs/seo/url-architecture.md` §3:
 
 - **Stockholm:** every canonical page exists in **Swedish + English**. Add both in the same PR. Declare the pair in `STOCKHOLM_SV_EN_PAIRS`.
 - **Berlin:** every story-style canonical page exists in **German + English**. Declare the pair in `BERLIN_DE_EN_STORY_PAIRS`.
@@ -157,7 +157,7 @@ Stop and ask the user (or Gustaf) before proceeding if:
 - The rename would create a redirect chain (the old path already redirects somewhere). Resolve by flattening to single-hop.
 - The new page needs a new page-body **shell variant** (header or footer beyond the existing `HeaderVariantId` / `FooterVariantId` set in `site/src/lib/chrome/types.ts`). Shell variant work is out of scope for content-level skills.
 - The change touches routing for `/` or `/en/` (entry routing). These live in `site/workers/entry-routing-logic.ts`; edits belong to a routing-layer task, not a page task.
-- A decision row (`SEO-NNNN` in `docs/seo/decisions.md`) covers the affected path. Re-read the row before editing. Migration-only `EX-NNNN` rows in `docs/migration-exceptions.md` are reference for archived deviations.
+- A decision row (`SEO-NNNN` in `docs/seo/decisions.md`) covers the affected path. Re-read the row before editing. Migration-only `EX-NNNN` rows in `docs/archive/migration-exceptions.md` are reference for archived deviations.
 
 ## Examples
 

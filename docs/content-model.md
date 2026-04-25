@@ -8,9 +8,9 @@ Contract version: `1.0.0`
 
 This contract reuses known extraction and structure findings from:
 
-- `docs/parser-plan.md`
-- `docs/existing-site-structure.md`
-- `docs/url-migration-policy.md`
+- `docs/archive/parser-plan.md`
+- `docs/archive/existing-site-structure.md`
+- `docs/seo/url-architecture.md`
 
 ## 1) Page Frontmatter Contract
 

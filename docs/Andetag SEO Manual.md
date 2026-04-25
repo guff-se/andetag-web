@@ -153,7 +153,7 @@ Every locale uses an explicit language segment in the path (symmetric IA):
 * **English:** **`/en/...`**
 * **German:** **`/de/...`**
 
-Normative redirect, cookie, and entry behavior for **`/`** and **`/en/`** is in **`docs/url-migration-policy.md`**.
+Normative redirect, cookie, and entry behavior for **`/`** and **`/en/`** is in **`docs/seo/url-architecture.md`**.
 
 3.2 Stockholm URL pattern (LOCKED)
 
@@ -173,7 +173,7 @@ One domain only. No language subdomains.
 
 **`/`** is not the Swedish home document in the target production model: it is an **edge router** (Worker) with **`Accept-Language`**, **`andetag_entry`**, and verified-bot rules. Canonical Swedish home for indexation and hreflang is **`/sv/stockholm/`**.
 
-Details: **`docs/url-migration-policy.md`** (sections on **`/`**, **`/en/`**, cookie, crawlers).
+Details: **`docs/seo/url-architecture.md`** §4 (entry routing for **`/`**, **`/en/`**, cookie, crawlers).
 
 3.4 Page types
 
@@ -235,7 +235,7 @@ Open Graph baseline (static shells, `site/src/layouts/SiteLayout.astro`, Phase 6
 * `og:url` matches `<link rel="canonical">` (absolute `https://www.andetag.museum` URL).
 * `og:title` and `og:description` use the same strings as `<title>` and `<meta name="description">` from `page-shell-meta.json` per shell.
 * `og:locale` uses underscore form: `sv_SE`, `en_US`, `de_DE`. Emit `og:locale:alternate` only for locales that have a non-null hreflang sibling URL on that shell.
-* Default `og:image` (and Twitter `summary_large_image`) uses the self-hosted Stockholm hero still frame (`HERO_SV_ASSETS.poster` in code). Per-page `og:image` overrides and card QA remain Phase 7 (`docs/grand-plan.md` Phase 7).
+* Default `og:image` (and Twitter `summary_large_image`) uses the self-hosted Stockholm hero still frame (`HERO_SV_ASSETS.poster` in code). Per-page `og:image` overrides ride along with the page body when needed.
 
 ---
 
@@ -268,7 +268,7 @@ Optional:
 
 * aggregateRating (include when stable and maintained)
 
-Implementation note: Google's review-snippet documentation lists valid parent types for nested `aggregateRating` / `Review` (for example `LocalBusiness`) and does not list `Museum` alone. The static site therefore declares **`@type`: [`Museum`, `LocalBusiness`]** on the Stockholm venue node so ratings stay valid for Rich Results tooling while keeping **`Museum`** as the primary entity (**`docs/migration-exceptions.md`** **EX-0017**). **`TouristAttraction`** remains omitted there because of earlier Rich Results conflicts.
+Implementation note: Google's review-snippet documentation lists valid parent types for nested `aggregateRating` / `Review` (for example `LocalBusiness`) and does not list `Museum` alone. The static site therefore declares **`@type`: [`Museum`, `LocalBusiness`]** on the Stockholm venue node so ratings stay valid for Rich Results tooling while keeping **`Museum`** as the primary entity (**`docs/seo/decisions.md`** **`SEO-0017`**). **`TouristAttraction`** remains omitted there because of earlier Rich Results conflicts.
 
 ---
 
@@ -517,7 +517,7 @@ Location hub
 * EN: /en/berlin/
 * Keywords: Andetag Berlin, breathing museum Berlin, breathing light art Berlin
 
-Note: Berlin shares the same story topics (About, Artists, Music, Textile) under **`/de/berlin/...`** and **`/en/berlin/...`**. English Berlin URLs are real addresses for users; HTML **`rel="canonical"`** for those four English topics points at the matching **`/en/stockholm/...`** URL (see **`docs/migration-exceptions.md`** **EX-0016**).
+Note: Berlin shares the same story topics (About, Artists, Music, Textile) under **`/de/berlin/...`** and **`/en/berlin/...`**. English Berlin URLs are real addresses for users; HTML **`rel="canonical"`** for those four English topics points at the matching **`/en/stockholm/...`** URL (see **`docs/seo/decisions.md`** **`SEO-0016`**).
 
 ---
 
@@ -571,7 +571,7 @@ Rules:
 
 ## 14. Root and entry behavior (LOCKED)
 
-Normative rules live in **`docs/url-migration-policy.md`** and **`docs/phase-4-routing-reopen.md`**. **Implementation:** Cloudflare Worker + static assets (**`site/workers/entry-router.ts`**, **`site/wrangler.jsonc`**, **`assets.run_worker_first`** for **`/`**, **`/en`**, **`/en/`**).
+Normative rules live in **`docs/seo/url-architecture.md`** §3–§4. **Implementation:** Cloudflare Worker + static assets (**`site/workers/entry-router.ts`**, **`site/wrangler.jsonc`**, **`assets.run_worker_first`** for **`/`**, **`/en`**, **`/en/`**).
 
 Summary:
 
@@ -596,7 +596,7 @@ Summary:
 | **`/en/`** | Cookie **`v1:en-b`** or **`v1:de`** | **`302`** → **`/en/berlin/`** |
 | **`/en/`** | Human, no routing cookie | **Static hub `200`** |
 
-Cookie shape and refresh rules: **`docs/url-migration-policy.md`** (**`andetag_entry`**). The Worker also appends **`Set-Cookie`** on **`200`** responses under **`/sv/...`**, **`/de/berlin...`**, **`/en/stockholm/...`**, and **`/en/berlin/...`** to match **When to set or refresh** (not on **`/en/`** hub alone). Redirect tests: **`docs/phase-4-redirect-tests.md`**.
+Cookie shape and refresh rules: **`docs/seo/url-architecture.md`** §4 (**`andetag_entry`**). The Worker also appends **`Set-Cookie`** on **`200`** responses under **`/sv/...`**, **`/de/berlin...`**, **`/en/stockholm/...`**, and **`/en/berlin/...`** to match **When to set or refresh** (not on **`/en/`** hub alone). Redirect tests: **`docs/archive/phase-4-redirect-tests.md`** (with the live runner at **`site/scripts/verify-staging-entry-routing.mjs`**).
 
 When Berlin opens and campaigns split by market, align ad landing URLs with the canonical location hubs (**`/sv/stockholm/`**, **`/en/stockholm/`**, **`/de/berlin/`**, **`/en/berlin/`**) and update this manual if examples change.
 

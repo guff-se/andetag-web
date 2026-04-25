@@ -183,7 +183,7 @@ Durable operational decisions that survive Phase 9 archive. Each row stays in fo
 ### Public contact inbox
 
 - **Decision:** Public contact email is `mailto:info@andetag.museum` (canonical ANDETAG domain). It propagates to: `BookingEmbed` `.booking-embed-contact` (`booking-embed-contact.ts`, sv/en/de), Stockholm home and SEO landings, FAQ accordions, group and corporate CTAs, NPF and accessibility copy, English FAQ, JSON-LD `email` (`schema-org.ts`), press footer line. Visible addresses use `mailto:` links.
-- **History:** Adopted 2026-03-23 (replacing legacy WP `mailto:info@tadaa.se`). Extended beyond booking-adjacent copy 2026-04-16. Carries from `EX-0010` in the legacy `docs/migration-exceptions.md`.
+- **History:** Adopted 2026-03-23 (replacing legacy WP `mailto:info@tadaa.se`). Extended beyond booking-adjacent copy 2026-04-16. Carries from `EX-0010` in the archived `docs/archive/migration-exceptions.md`.
 - **Rationale:** Align public inbox with the ANDETAG domain.
 - **Approval:** Gustaf.
 - **Override:** Update this row with a new date line and the new address; then re-run §F.

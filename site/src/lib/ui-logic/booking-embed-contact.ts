@@ -1,6 +1,6 @@
 /**
  * Contact line below the Understory widget inside `BookingEmbed` (not site footer).
- * Mail target: EX-0010 in `docs/migration-exceptions.md`.
+ * Mail target: §Decisions in `skills/operational-facts/SKILL.md`.
  */
 import type { Language } from "../chrome/types";
 
