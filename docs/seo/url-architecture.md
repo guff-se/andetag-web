@@ -231,4 +231,4 @@ After any sitemap or redirect change, spot-check sample legacy URLs from Search 
 
 - Never fabricate canonical paths, redirects, or entry-routing rules.
 - If a desired URL is missing from `docs/url-matrix.csv` and `site/public/_redirects`, add the row deliberately with rationale; do not silently invent a destination.
-- `archive/legacy-wordpress-site/site-html/` is a **frozen** WordPress scrape: reference only. Authoritative URL contract is this file, the page shell registry, and `_redirects`.
+- `archive/legacy-wordpress-site/site-html/` is a **frozen** WordPress scrape: reference only. Authoritative URL contract is this file, the page shell registry, `_redirects`, and per-shell head copy in `site/src/data/page-shell-meta.json` (not the archived HTML).

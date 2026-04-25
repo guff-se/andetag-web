@@ -1,7 +1,7 @@
 {
   "_meta": {
-    "source": "site-html/*.html via extract-page-shell-meta.mjs",
-    "notes": "Swedish canonical paths use /sv/stockholm/…; legacy unprefixed URLs redirect via site/public/_redirects. /en/stockholm/ shell row uses en.html as source file for title or description (EX-0007 resolved in Phase 6 P6-01). /en/: title and description aligned with minimal hub (EX-0015); re-extract may need a guard for this path. Coordinated title and description review: docs/meta-texts-catalog.md (apply edits to this JSON; extract-page-shell-meta.mjs alone will not preserve all curated copy)."
+    "source": "curated in-repo",
+    "notes": "Per-shell title and description are edited in this file (see docs/seo/decisions.md for SEO-0015, SEO-0019, EX-0007). Swedish paths use /sv/stockholm/…; legacy unprefixed URLs redirect via site/public/_redirects. sourceFile on each page row is historical lineage from the migration scrape, not a build input."
   },
   "pages": {
     "/de/berlin/": {
@@ -96,8 +96,8 @@
     },
     "/en/stockholm/corporate-events/": {
       "sourceFile": "en-stockholm-corporate-events.html",
-      "title": "Corporate events in Stockholm | ANDETAG Stockholm",
-      "description": "Calm corporate events in Stockholm. A shared experience of light, woven textile and music at ANDETAG. Suitable for kickoffs, team building and conference breaks."
+      "title": "Corporate events in Stockholm | Kickoff & conference | ANDETAG",
+      "description": "Calm corporate events in Stockholm at ANDETAG. 240 SEK per person during opening hours, or exclusive booking for up to 60 people at 5,000 SEK per hour. For kickoffs, conferences and team building."
     },
     "/en/stockholm/date/": {
       "sourceFile": "en-stockholm-date.html",
@@ -236,8 +236,8 @@
     },
     "/sv/stockholm/foretagsevent/": {
       "sourceFile": "stockholm-foretagsevent.html",
-      "title": "Företagsevent i Stockholm | ANDETAG Stockholm",
-      "description": "Stillsamma företagsevent i Stockholm. En gemensam upplevelse av ljus, textil och musik på ANDETAG. För kickoff, teambuilding och konferenspaus."
+      "title": "Företagsevent i Stockholm | Kickoff och konferens | ANDETAG",
+      "description": "Stillsamma företagsevent på ANDETAG i Stockholm. 240 kr per person under öppettider, eller exklusiv bokning för upp till 60 personer från 5 000 kr per timme. För kickoff, konferens och teambuilding."
     },
     "/sv/stockholm/fragor-svar/": {
       "sourceFile": "stockholm-fragor-svar.html",

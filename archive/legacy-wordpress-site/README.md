@@ -8,4 +8,4 @@ Frozen **HTML and Markdown** snapshots of the pre-Astro **WordPress/Elementor** 
 - **`tests/`** — unit tests for spider helper functions (no network). From this directory:  
   `python3 -m venv .venv && .venv/bin/pip install -r requirements.txt && PYTHONPATH=. .venv/bin/python -m unittest discover -s tests`
 
-The Astro build reads shell meta via `site/scripts/extract-page-shell-meta.mjs`, which points at **`site-html/` here** (not at a top-level `site-html/` folder).
+Per-shell **title** and **meta description** for the live site live in **`site/src/data/page-shell-meta.json`** (curated in-repo). The **`site-html/`** tree here is a historical snapshot only, not a build input.

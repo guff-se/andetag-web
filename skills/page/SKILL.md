@@ -49,8 +49,7 @@ Read before editing. Write paths are marked `write`.
 
 | Area | File | Notes |
 |------|------|-------|
-| Shell title + description (write) | `docs/meta-texts-catalog.md` and `site/src/data/page-shell-meta.json` | For **new** pages, add both locales: rows in the catalog, then `pages` entries with `title`, `description`, and `sourceFile: "curated"`. `PAGE_SHELL_PATHS` is `Object.keys(metaPages).sort()` — a path missing from this JSON is not a shell route. **Do not** run `npm run page-shell:meta` to add a new page: that script rebuilds the whole file from `site/scripts/extract-page-shell-meta.mjs` and paths under `archive/` (which agents must not use; see `AGENTS.md`). |
-| Meta bulk extraction (maintainer tooling only) | `site/scripts/extract-page-shell-meta.mjs` | Used with `npm run page-shell:meta` only in exceptional repo maintenance, not during normal page work. |
+| Shell title + description (write) | `site/src/data/page-shell-meta.json` | For **new** pages, add `pages` entries for both locales with `title`, `description`, and `sourceFile: "curated"`. `PAGE_SHELL_PATHS` is `Object.keys(metaPages).sort()` — a path missing from this JSON is not a shell route. This file is the only shell-meta source; there is no separate markdown catalog or batch extractor. |
 | Shell registry (`write`) | `site/src/lib/routes/page-shell-registry.ts` | Append the new hreflang pair to `STOCKHOLM_SV_EN_PAIRS` (Stockholm sv+en) or `BERLIN_DE_EN_STORY_PAIRS` (Berlin de+en story). For Berlin English story pages that should canonicalise to the Stockholm English equivalent, add a row to `BERLIN_EN_STORY_SEO_CANONICAL`. |
 | Body registry (`write`) | `site/src/lib/page-registry/page-body-registry.ts` | Add both new paths to the `PAGE_CUSTOM_BODY_PATHS` set. Paths in this set must have a matching entry in the `pageBodies` map in `[...slug].astro`. |
 | File-based route (`write`) | `site/src/pages/[...slug].astro` | Import the new body component(s) and add entries to the `pageBodies` map. Keys must match `PAGE_CUSTOM_BODY_PATHS` exactly. |
@@ -90,7 +89,7 @@ If the user asks for a single-locale change, confirm explicitly before skipping 
 
 Example: new Stockholm page `/sv/stockholm/new-page/` + `/en/stockholm/new-page/`.
 
-1. **Shell title and description** — Add rows to `docs/meta-texts-catalog.md` for both `sv` and `en` paths. Add matching objects under `pages` in `site/src/data/page-shell-meta.json` (with `sourceFile: "curated"`) for each path. **Do not fabricate** a title or description that does not reflect the page’s real content; follow `skills/seo/SKILL.md` and `docs/Andetag SEO Manual.md`. **Do not** run `npm run page-shell:meta` for this (it is not the hand-authoring path for new pages).
+1. **Shell title and description** — Add matching objects under `pages` in `site/src/data/page-shell-meta.json` (with `sourceFile: "curated"`) for each `sv` and `en` path. **Do not fabricate** a title or description that does not reflect the page’s real content; follow `skills/seo/SKILL.md` and `docs/Andetag SEO Manual.md`.
 2. **Hreflang pair** — in `site/src/lib/routes/page-shell-registry.ts`, append `["/sv/stockholm/new-page/", "/en/stockholm/new-page/"]` to `STOCKHOLM_SV_EN_PAIRS` (Berlin de+en story goes to `BERLIN_DE_EN_STORY_PAIRS`; add a `BERLIN_EN_STORY_SEO_CANONICAL` row if Berlin English).
 3. **Body registry** — add both paths to `PAGE_CUSTOM_BODY_PATHS` in `site/src/lib/page-registry/page-body-registry.ts`.
 4. **Body components** — create `site/src/components/page-bodies/NewPageSv.astro` and `NewPageEn.astro`. Structure them after an existing sibling of similar shape (e.g. `OppettiderSv.astro` + `OppettiderEn.astro` for factual anchors, `ArtYogaSv.astro` + `ArtYogaEn.astro` for event-style pages). Reuse section components from `content/` and UI helpers from `ui/`.
@@ -103,7 +102,7 @@ Example: new Stockholm page `/sv/stockholm/new-page/` + `/en/stockholm/new-page/
 
 1. **Add a 301** in `site/public/_redirects` from the old canonical path to the new one. Keep redirects single-hop (no chains).
 2. **Update the pair table** (`STOCKHOLM_SV_EN_PAIRS` or `BERLIN_DE_EN_STORY_PAIRS`) to use the new path.
-3. **Shell meta and catalog** — move or duplicate `title` / `description` in `page-shell-meta.json` from the old keys to the new keys; update `docs/meta-texts-catalog.md` to match. Remove the old path’s `pages` entry.
+3. **Shell meta** — move or duplicate `title` / `description` in `page-shell-meta.json` from the old keys to the new keys. Remove the old path’s `pages` entry.
 4. Update `PAGE_CUSTOM_BODY_PATHS` (swap old → new).
 5. Update `[...slug].astro` (swap the `pageBodies` map key).
 6. Rename the body component file(s) if the component name should track the new slug (not strictly required, but keeps the codebase scannable).
@@ -115,7 +114,7 @@ Example: new Stockholm page `/sv/stockholm/new-page/` + `/en/stockholm/new-page/
 
 1. Decide the landing experience for existing inbound links. Usually a 301 to the closest sibling or the location hub. Add the 301 to `site/public/_redirects`.
 2. Remove the pair row from `STOCKHOLM_SV_EN_PAIRS` or `BERLIN_DE_EN_STORY_PAIRS` (remove both locales in the same PR).
-3. Remove the path(s) from `page-shell-meta.json` and the catalog.
+3. Remove the path(s) from `page-shell-meta.json`.
 4. Remove the path(s) from `PAGE_CUSTOM_BODY_PATHS`.
 5. Remove the `pageBodies` imports and map entries in `[...slug].astro`.
 6. Delete the body component file(s) under `site/src/components/page-bodies/`.
@@ -169,7 +168,7 @@ The user says: *"Add a page about school group visits at `/sv/stockholm/skolgrup
 
 Action:
 
-1. Add shell rows: `docs/meta-texts-catalog.md` and `page-shell-meta.json` for `/sv/stockholm/skolgrupper/` and `/en/stockholm/school-groups/` (with `sourceFile: "curated"`). Do not run `npm run page-shell:meta` to create these.
+1. Add shell rows in `page-shell-meta.json` for `/sv/stockholm/skolgrupper/` and `/en/stockholm/school-groups/` (with `sourceFile: "curated"`).
 2. Append `["/sv/stockholm/skolgrupper/", "/en/stockholm/school-groups/"]` to `STOCKHOLM_SV_EN_PAIRS`.
 3. Add both paths to `PAGE_CUSTOM_BODY_PATHS`.
 4. Create `SkolgrupperSv.astro` and `SchoolGroupsEn.astro` under `page-bodies/`, modelled on an existing factual-anchor sibling.

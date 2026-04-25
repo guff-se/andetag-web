@@ -149,7 +149,7 @@ These counts match **`site/`** at Phase 6 closure; re-verify after large routing
 
 | Artifact | Role | Current scale |
 |----------|------|----------------|
-| **`site/src/data/page-shell-meta.json`** | Title or description source for shells (from **`site/scripts/extract-page-shell-meta.mjs`**) | **61** paths under **`pages`** |
+| **`site/src/data/page-shell-meta.json`** | Title and description for each shell (curated; see **`docs/seo/decisions.md`** for documented overrides) | **61** paths under **`pages`** |
 | **`site/src/lib/routes/page-shell-registry.ts`** | Shell layout, hreflang, **`seoCanonicalPath`** (Berlin English stories) | Aligned with matrix shells |
 | **`site/src/lib/page-registry/page-body-registry.ts`** **`PAGE_CUSTOM_BODY_PATHS`** | Routes with a dedicated page body component | **60** paths (**`/en/`** hub is **not** in the set) |
 | **`site/src/pages/[...slug].astro`** | Renders each shell and maps custom bodies | Single catch-all |

@@ -122,7 +122,6 @@ Read each doc when the work intersects its topic. Mental model lives in `docs/pr
 | [`docs/content-model.md`](docs/content-model.md) | Page frontmatter, shared data contracts, component props. |
 | [`docs/component-usage.md`](docs/component-usage.md) | Component API reference and usage patterns. |
 | [`docs/responsive-image-workflow.md`](docs/responsive-image-workflow.md) | **Mandatory** when adding photos: derivative generation, suffix rules, wiring. |
-| [`docs/meta-texts-catalog.md`](docs/meta-texts-catalog.md) | Shell title and meta description per canonical path. |
 | [`docs/performance-improvement-plan.md`](docs/performance-improvement-plan.md) | Lighthouse budgets, image and script playbook. |
 | [`docs/tracking-and-consent-requirements.md`](docs/tracking-and-consent-requirements.md) | GTM, Brevo, consent categories. |
 | [`docs/kpi-measurement-map.md`](docs/kpi-measurement-map.md) | Analytics measurement and GTM audit. |
@@ -143,7 +142,7 @@ Most changes touch multiple layers. Audit before concluding:
 |-------|---------------|
 | Astro site | `site/src/` components, pages, lib, styles, client scripts |
 | Workers / routing | `site/workers/`, `site/public/_redirects`, `_headers`, `docs/seo/url-architecture.md` |
-| SEO / shell meta | `docs/meta-texts-catalog.md`, `docs/Andetag SEO Manual.md`, `site/src/data/page-shell-meta.json`, `docs/seo/decisions.md` |
+| SEO / shell meta | `docs/Andetag SEO Manual.md`, `site/src/data/page-shell-meta.json`, `docs/seo/decisions.md` |
 | Doctrine docs | Tone, SEO, content model, URL architecture — update any doc that describes changed behavior |
 
 For cross-cutting changes:

@@ -12,7 +12,6 @@
     "astro": "astro",
     "test": "vitest run",
     "fonts:sync": "node scripts/sync-fonts.mjs",
-    "page-shell:meta": "node scripts/extract-page-shell-meta.mjs",
     "worker:dev": "npm run build && wrangler dev",
     "worker:deploy": "npm run build && wrangler deploy",
     "verify:staging-entry": "node scripts/verify-staging-entry-routing.mjs",

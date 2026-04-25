@@ -29,11 +29,11 @@ This file is the post-migration successor to the SEO-relevant rows in `docs/arch
 
 - **Date:** 2026-03-24
 - **Scope:** content / on-page metadata
-- **Decision:** `/en/` uses destination-neutral `<title>` and meta description aligned with `docs/Andetag SEO Manual.md` §1 and §1.1 (**breathing museum**, definite article where applicable). On-page copy is the header-selector hero only — no `<main>` body. The `page-shell-meta.json` row for `/en/` is the SEO source of truth and **must not** be overwritten by the legacy Yoast extractor.
+- **Decision:** `/en/` uses destination-neutral `<title>` and meta description aligned with `docs/Andetag SEO Manual.md` §1 and §1.1 (**breathing museum**, definite article where applicable). On-page copy is the header-selector hero only — no `<main>` body. The `page-shell-meta.json` row for `/en/` is the SEO source of truth; keep the hub row stable (do not replace with copy sourced from any legacy export).
 - **Rationale:** Legacy `en.html` is a full Stockholm marketing home, not a two-city chooser. The hub UX requires coherent copy that does not commit to a destination before the visitor picks one.
 - **SEO impact:** Low. Changes English `/en/` SERP snippet and social preview vs legacy Yoast.
 - **Approval:** Gustaf.
-- **Follow-up:** Re-run `npm run page-shell:meta` only when the extractor would not overwrite `/en/` without an override. Keep the hub row stable.
+- **Follow-up:** None beyond maintaining the hand-authored `/en/` row in `page-shell-meta.json`.
 
 ### `SEO-0016` — Berlin English story shells canonicalize to Stockholm English
 
@@ -71,7 +71,7 @@ This file is the post-migration successor to the SEO-relevant rows in `docs/arch
 - **Rationale:** Typo in scraped HTML; live WP footer was already corrected; aligns with dictionary form.
 - **SEO impact:** Low. SERP title and on-page H1 show corrected spelling vs legacy scrape.
 - **Approval:** Gustaf.
-- **Follow-up:** Running `node site/scripts/extract-page-shell-meta.mjs` would reintroduce the typo because the frozen mirror in `archive/legacy-wordpress-site/site-html/` still has Yoast’s spelling. Keep the `page-shell-meta.json` row stable, or re-apply the override after extract.
+- **Follow-up:** Keep the corrected spelling in `page-shell-meta.json` when editing this path (legacy frozen HTML, if still present in `archive/`, is not a source of truth).
 
 ### `SEO-0020` — x-default → English; verified-bot bare-host 301; `/en/` indexable for bots
 

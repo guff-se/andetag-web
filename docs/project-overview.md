@@ -67,7 +67,7 @@ Live, ongoing reference material:
 - **SEO contract:** `docs/seo/url-architecture.md`, `docs/seo/decisions.md`, `docs/Andetag SEO Manual.md`.
 - **Tone:** `docs/Tone of Voice.md`.
 - **Visual identity:** `docs/Visual Identity.md`.
-- **Content model:** `docs/content-model.md`, `docs/component-usage.md`, `docs/responsive-image-workflow.md`, `docs/meta-texts-catalog.md`.
+- **Content model:** `docs/content-model.md`, `docs/component-usage.md`, `docs/responsive-image-workflow.md`.
 - **Performance:** `docs/performance-improvement-plan.md`.
 - **Tracking and consent:** `docs/tracking-and-consent-requirements.md`, `docs/kpi-measurement-map.md`.
 - **Maintenance backlog:** `docs/maintenance-backlog.md`.
