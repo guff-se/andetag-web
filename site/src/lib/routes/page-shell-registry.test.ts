@@ -37,10 +37,18 @@ describe("page shell registry", () => {
     }
   });
 
-  it("uses Berlin x-default for English Berlin shell", () => {
+  it("uses English Berlin x-default for Berlin pair (SEO-0020)", () => {
     const shell = getPageShellRoute("/en/berlin/");
-    expect(shell.xDefaultPath).toBe("/de/berlin/");
+    expect(shell.xDefaultPath).toBe("/en/berlin/");
     expect(shell.hreflang.de).toBe("/de/berlin/");
+  });
+
+  it("x-default points to the English sibling for every shell (SEO-0020)", () => {
+    for (const path of PAGE_SHELL_PATHS) {
+      const shell = getPageShellRoute(path);
+      if (shell.xDefaultPath === null) continue;
+      expect(shell.xDefaultPath.startsWith("/en/")).toBe(true);
+    }
   });
 
   it("Berlin English story shells canonicalize to Stockholm English", () => {

@@ -9,10 +9,14 @@ export interface Env {
   ASSETS: Fetcher;
 }
 
-function redirect302(locationPath: string, setCookie?: string): Response {
+function redirectResponse(
+  locationPath: string,
+  setCookie?: string,
+  permanent?: boolean,
+): Response {
   const headers = new Headers({ Location: locationPath });
   if (setCookie) headers.append("Set-Cookie", setCookie);
-  return new Response(null, { status: 302, headers });
+  return new Response(null, { status: permanent ? 301 : 302, headers });
 }
 
 /** Set or refresh `andetag_entry` on HTML **200** responses under a lane path. */
@@ -90,9 +94,9 @@ export default {
         cf,
       });
       if (d.type === "redirect") {
-        return redirect302(d.locationPath, d.setCookie);
+        return redirectResponse(d.locationPath, d.setCookie, d.permanent);
       }
-      return redirect302(`/en/${url.search}`);
+      return redirectResponse(`/en/${url.search}`);
     }
 
     if (url.pathname === "/en/") {
@@ -105,7 +109,7 @@ export default {
         cf,
       });
       if (d.type === "redirect") {
-        return redirect302(d.locationPath, d.setCookie);
+        return redirectResponse(d.locationPath, d.setCookie, d.permanent);
       }
     }
 

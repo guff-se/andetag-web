@@ -33,6 +33,29 @@ describe("entry-router Worker", () => {
     expect(res.headers.get("Location")).toBeTruthy();
   });
 
+  it("redirects verified bots at / with 301 to /en/stockholm/ (SEO-0020)", async () => {
+    const env = makeEnv(() => Promise.resolve(htmlResponse("")));
+    const req = new Request("https://www.andetag.museum/", {
+      headers: { "User-Agent": "Googlebot" },
+    });
+    const res = await entryRouter.fetch(req, env);
+    expect(res.status).toBe(301);
+    expect(res.headers.get("Location")).toBe("/en/stockholm/");
+  });
+
+  it("serves /en/ asset to verified bots so the English hub stays indexable (SEO-0020)", async () => {
+    const assetFetch = vi.fn(() =>
+      Promise.resolve(htmlResponse("<html><body>EN hub</body></html>")),
+    );
+    const env = makeEnv(assetFetch);
+    const req = new Request("https://www.andetag.museum/en/", {
+      headers: { "User-Agent": "Googlebot" },
+    });
+    const res = await entryRouter.fetch(req, env);
+    expect(assetFetch).toHaveBeenCalled();
+    expect(res.status).toBe(200);
+  });
+
   it("normalizes /en to /en/ with 301", async () => {
     const env = makeEnv(() => Promise.resolve(htmlResponse("")));
     const req = new Request("https://www.andetag.museum/en", {

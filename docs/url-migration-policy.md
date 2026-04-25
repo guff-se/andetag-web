@@ -104,7 +104,7 @@ Do not set `andetag_entry` when sending a visitor to the **English hub** (`/en/`
 
 Handled at the **edge** for `GET` (and `HEAD` as appropriate).
 
-**Verified bots** (maintained allowlist or platform bot signal), **no cookie** (ignore any `andetag_entry` for routing): **`302`** to **`/en/stockholm/`**, **omit `Set-Cookie`**, **ignore `Accept-Language`**. Single hop is enough (conceptually “English lane, default location Stockholm”); no need to chain **`/`** → **`/en/`** → **`/en/stockholm/`**.
+**Verified bots** (maintained allowlist or platform bot signal), **no cookie** (ignore any `andetag_entry` for routing): **`301`** to **`/en/stockholm/`**, **omit `Set-Cookie`**, **ignore `Accept-Language`** (per `docs/seo/decisions.md` `SEO-0020`). Single hop is enough (conceptually “English lane, default location Stockholm”); no need to chain **`/`** → **`/en/`** → **`/en/stockholm/`**. The redirect is permanent so search engines stop indexing the bare host as a separate URL.
 
 **Everyone else, no** cookie:
 
@@ -127,7 +127,7 @@ Handled at the **edge** for `GET` (and `HEAD` as appropriate).
 
 Handled at the **edge** for exact entry URL only (respect trailing-slash normalization).
 
-- **Verified bots** (no routing cookie): **`302`** to **`/en/stockholm/`**, **omit `Set-Cookie`** (same default English location as bot handling on **`/`**).
+- **Verified bots** (no routing cookie): serve the **static English hub** (`200`), **omit `Set-Cookie`** (per `docs/seo/decisions.md` `SEO-0020`; **`/en/`** must remain crawlable so the English hub keeps its rankings).
 - Valid cookie **`v1:en-s`** or **`v1:en-b`:** **`302`** to `/en/stockholm/` or `/en/berlin/`.
 - Cookie **`v1:sv`:** **`302`** to `/en/stockholm/` (English counterpart of Swedish preference).
 - Cookie **`v1:de`:** **`302`** to `/en/berlin/`.
@@ -142,7 +142,7 @@ Do not apply this router to other `/en/*` paths.
 
 ### Crawlers and SEO
 
-**Verified bots** on **`/`** or **`/en/`** always reach **`/en/stockholm/`** in one hop (see sections above), not the English hub, so crawlers index a **full English Stockholm** page. **Humans** on **`/`** with **no** `sv`/`de` in **`Accept-Language`** go to **`/en/stockholm/`** or **`/en/berlin/`** when **`cf.country`** is **`SE`** or **`DE`**, else to the **`/en/`** hub. Document bot detection, **`cf.country`**, and sample **`User-Agent`** or platform signals in redirect tests.
+**Verified bots** on **`/`** receive a **`301`** to **`/en/stockholm/`** (one hop) so the bare host stops being indexed as a separate URL; bots on **`/en/`** are served the static English hub (`200`) so it stays indexable as the global English entry (per `docs/seo/decisions.md` `SEO-0020`). **Humans** on **`/`** with **no** `sv`/`de` in **`Accept-Language`** go to **`/en/stockholm/`** or **`/en/berlin/`** when **`cf.country`** is **`SE`** or **`DE`**, else to the **`/en/`** hub. Document bot detection, **`cf.country`**, and sample **`User-Agent`** or platform signals in redirect tests.
 
 Update `docs/Andetag SEO Manual.md` and hreflang examples when **`/sv/stockholm/`** and **`/en/`** entry behavior change so **`x-default`** and alternates match this policy.
 
