@@ -1,28 +1,69 @@
 ---
-import ContentSection from "../content/ContentSection.astro";
+import AccordionSection from "../content/AccordionSection.astro";
 import ButtonGroup from "../content/ButtonGroup.astro";
+import ContentSection from "../content/ContentSection.astro";
+import InfoFrame from "../content/InfoFrame.astro";
+import {
+  STOCKHOLM_CORPORATE_FAQ_SV,
+  STOCKHOLM_CORPORATE_PRICING,
+} from "../../lib/content/stockholm-corporate";
 
 /**
  * Body migrated from `site-html/stockholm-foretagsevent.html`
  * (`data-elementor-type="wp-page"` post id 2651). Head from `page-shell-meta.json`.
+ * Pricing/FAQ source of truth: `lib/content/stockholm-corporate.ts`.
  */
-const bodyHtml = [
-  "<h2>Företagsevent på ANDETAG i Stockholm</h2>",
-  "<p>ANDETAG tar emot företag som vill samlas i en stillsam och annorlunda konstupplevelse i Stockholm.<br />En paus från tempo, mitt i staden.</p>",
-  "<p>Det här passar för kickoff, teambuilding och mindre konferenssammanhang, när ni vill göra något tillsammans utan att fylla tiden med aktivitet. Ljus, vävd textil och musik rör sig i takt med ett gemensamt andetag. Det ger utrymme för närvaro, samtal och tystnad.</p>",
-  "<p>Besöket kan genomföras under ordinarie öppettider, eller bokas exklusivt där rummet är reserverat för er. Vid exklusiva bokningar kan tid och upplägg anpassas efter gruppens storlek och behov. Vi kan även servera dryck och lättare förtäring.</p>",
-  "<p>ANDETAG är inte ett traditionellt företagsevent.<br />Det är en gemensam upplevelse som ofta fungerar som inledning, avslut eller andrum i en arbetsdag.</p>",
-  "<p>ANDETAG ligger centralt i Stockholm och är lätt att kombinera med möten, konferens eller middag.</p>",
-  "<p>Kontakta oss för att diskutera ert företagsevent.</p>",
-].join("");
+const { exclusiveCapacity, groupPerPersonSek, exclusiveHourlySek } =
+  STOCKHOLM_CORPORATE_PRICING;
+
+const groupPriceSek = groupPerPersonSek.toLocaleString("sv-SE");
+const exclusivePriceSek = exclusiveHourlySek.toLocaleString("sv-SE");
+
+const leadMarkdown =
+  "<p><span class=\"brand-wordmark\">ANDETAG</span> tar emot företag som vill samlas i en stillsam konstupplevelse mitt i Stockholm. En paus från tempo, mitt i staden.</p>" +
+  "<p>Det här är inte ett traditionellt företagsevent. Ljus, vävd textil och musik rör sig i takt med ett gemensamt andetag — det ger utrymme för närvaro, samtal och tystnad utan ett pressat program.</p>";
+
+const fitMarkdown =
+  "<p><strong>Kickoff:</strong> en lugn inledning eller avslutning som samlar gruppen utan att tömma den.</p>" +
+  "<p><strong>Konferens:</strong> en paus mitt i en intensiv dag, eller en gemensam start innan workshoparbetet drar igång.</p>" +
+  "<p><strong>Teambuilding och företagsfest:</strong> en delad upplevelse som ger något att samtala kring efteråt, utan tävlingsmoment eller scenprogram.</p>" +
+  "<p>Är ni en större grupp som vill kombinera flera tider, eller funderar på upplägg, läs mer om <a href=\"/sv/stockholm/gruppbokning/\">gruppbokning</a>.</p>";
+
+const pricingMarkdown =
+  `<p><strong>Under öppettider — ${groupPriceSek} kr per person.</strong> Mindre grupper bokar in sig under ordinarie öppettider och möter andra besökare i lokalen. Samma pris som ordinarie biljett.</p>` +
+  `<p><strong>Exklusiv bokning — ${exclusivePriceSek} kr per timme.</strong> Hela museet reserveras för er, oavsett gruppstorlek upp till ${exclusiveCapacity} personer. Tid och upplägg anpassas efter gruppens behov.</p>` +
+  "<p>Hör av er om mat och dryck så löser vi det tillsammans. Inom själva upplevelsen serveras ingen alkohol.</p>";
+
+const practicalFrameHtml =
+  "<p><strong>Adress:</strong> Kungsgatan 39, Stockholm (Hötorgets tunnelbana)</p>" +
+  `<p><strong>Kapacitet:</strong> Upp till ${exclusiveCapacity} personer vid exklusiv bokning</p>` +
+  "<p><strong>Tidsåtgång:</strong> Cirka 60 minuter för själva upplevelsen, plus eventuell välkomst eller eftersnack</p>" +
+  "<p><strong>Tillgänglighet:</strong> Hela utställningen är rullstolsanpassad. Hiss från gatuplan och från tunnelbanans plattform. Se <a href=\"/sv/stockholm/tillganglighet/\">tillgänglighet</a> för fullständig information.</p>" +
+  "<p><strong>Boka:</strong> Skicka förfrågan till <a href=\"mailto:info@andetag.museum\">info@andetag.museum</a> så återkommer vi med tillgängliga tider.</p>";
 ---
 
-<div class="page-migrated">
+<div class="page-migrated page-foretagsevent-sv">
   <ContentSection
-    heading="En paus i arbetet?"
+    heading="Företagsevent i Stockholm — en stillsam paus mitt i staden"
     headingLevel="h1"
-    markdown={bodyHtml}
+    markdown={leadMarkdown}
   />
+  <ContentSection
+    heading="Vad det passar för"
+    headingLevel="h2"
+    markdown={fitMarkdown}
+  />
+  <ContentSection
+    heading="Två upplägg"
+    headingLevel="h2"
+    markdown={pricingMarkdown}
+  />
+  <ContentSection heading="Praktisk information" headingLevel="h2" markdown="" />
+  <div class="page-foretagsevent-sv__practical">
+    <InfoFrame heading="Detaljer inför bokning" headingLevel="h3" bodyHtml={practicalFrameHtml} />
+  </div>
+  <ContentSection heading="Vanliga frågor" headingLevel="h2" markdown="" />
+  <AccordionSection items={STOCKHOLM_CORPORATE_FAQ_SV.map((item) => ({ ...item }))} />
   <div class="page-migrated-cta">
     <ButtonGroup
       buttons={[{ label: "Skicka förfrågan", href: "mailto:info@andetag.museum", variant: "primary" }]}

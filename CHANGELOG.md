@@ -7,6 +7,26 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ## [Unreleased]
 
+### Added
+
+- **Single-source pricing tokens for shell meta (`site/src/lib/routes/page-shell-meta-tokens.ts`).** New `resolveMetaTokens(text, language)` interpolates `{REGULAR_SEK}`, `{REGULAR_DAYTIME_SEK}`, `{CORPORATE_PER_PERSON_SEK}`, `{CORPORATE_HOURLY_SEK}`, `{CORPORATE_CAPACITY}` from `STOCKHOLM_TICKETS` and `STOCKHOLM_CORPORATE_PRICING` at build time, with locale-aware thousands separators (SV regular space, DE period, EN comma). `getPageShellRoute()` runs the resolver on every shell title + description so prices in `page-shell-meta.json` cannot drift from the offer / corporate-pricing graph. Tokenized rows: `/sv/stockholm/dejt/`, `/en/stockholm/date/`, `/sv/stockholm/foretagsevent/`, `/en/stockholm/corporate-events/`. Three new `page-shell-registry.test.ts` cases pin the contract: no raw `{TOKEN}` survives in any shell title or description; dejt descriptions carry `daytimePrice` + `price` from the `regular` ticket tier in both locales; corporate descriptions carry per-person, exclusive-hourly, and capacity numbers with the right locale separators.
+
+- **Stockholm corporate-events single source (`site/src/lib/content/stockholm-corporate.ts`).** New module exporting `STOCKHOLM_CORPORATE_PRICING` (`groupPerPersonSek: 240`, `exclusiveHourlySek: 5000`, `exclusiveCapacity: 60`) and `STOCKHOLM_CORPORATE_FAQ_{SV,EN}` arrays. Consumed by `ForetagseventSv/En.astro` (lead, two-formats pricing block, practical info-frame, accordion FAQ), by `schema-org.ts` (`/sv/stockholm/foretagsevent/` and `/en/stockholm/corporate-events/` registered as `FAQPage` shells), and by the new pricing tokens above. Replaces the prior body that hand-typed prices and capacity into copy.
+
+### Changed
+
+- **SEO content fixes per `docs/Andetag SEO Manual.md` §2.8 / §2.9 / §16.1 / §16.2.**
+  - **`/sv/stockholm/att-gora-stockholm/` + `/en/stockholm/things-to-do-stockholm/`:** lead reframed in the locals-now register from §2.8 ("Något att göra i Stockholm idag?" / "Looking for things to do in Stockholm today?"), with year-round opening + Hötorget proximity in the same paragraph.
+  - **`/sv/stockholm/` + `/en/stockholm/` hub, `museum-stockholm` and `utstallning-stockholm` / `exhibition-stockholm`:** "immersive" used in the §2.9 infrastructural sense (light and textile *surround* the room, the room *closes around* the visitor) instead of the spectacle sense.
+  - **`/sv/stockholm/dejt/` + `/en/stockholm/date/`:** §16.2 CTR levers wired into `page-shell-meta.json` — title differentiator ("Lugn, inga krav, 1 timme" / "Calm, no demands, 1 hour"), and meta description with price band (sourced via the new tokens), duration, and "no demands" framing.
+  - **`/sv/stockholm/vilken-typ-av-upplevelse/` + `/en/stockholm/what-kind-of-experience/`:** §16.1 corporate-cluster anchor link to `/sv/stockholm/foretagsevent/` and `/en/stockholm/corporate-events/` ("kickoff, konferens eller team building" / "kickoffs, conferences, and team building") added in the closing paragraph before the welcome line.
+
+- **Stockholm corporate-events pages rebuilt.** `ForetagseventSv.astro` and `ForetagseventEn.astro` move from a single `bodyHtml` block to a structured pair: lead → "what it works for" (kickoff / conference / team building, with a link to `gruppbokning` for larger groups) → "two formats" (during opening hours per-person price; exclusive hourly price + capacity) → practical `InfoFrame` (address, capacity, duration, accessibility, booking email) → corporate FAQ accordion. All pricing and capacity numbers come from `STOCKHOLM_CORPORATE_PRICING`. `GruppbokningSv/En.astro` link to the corporate page in a work context.
+
+- **`/sv/stockholm/npf-stockholm/` + `/en/stockholm/npf-stockholm/`:** new ADHD, autism, and sensory-sensitivity subsections covering the §2.4 / §2.5 NPF clusters in both locales (predictable rhythm, low stimulation, sensory underlay, accompanying personnel free of charge).
+
+- **`docs/Andetag SEO Manual.md`:** restructured §2 keyword-constraints into volume-tiered clusters (High / Medium / Low / Watchlist), added §1.1.1 documenting the Swedish brand-recall cluster `andas` / `andas utställning` / `andas museum` / `andas hötorget` and how to treat it in measurement (brand cluster, not discovery), and added a normative note + "How to read this" map at the top.
+
 ### Removed
 
 - **Batch meta review tooling:** `docs/meta-texts-catalog.md`, `site/scripts/extract-page-shell-meta.mjs`, and the `page-shell:meta` npm script. Per-shell **title** and **meta description** are edited only in `site/src/data/page-shell-meta.json` (see `AGENTS.md`, `docs/seo/decisions.md`, and `skills/page` / `skills/seo`).

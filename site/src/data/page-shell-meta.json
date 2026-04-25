@@ -97,12 +97,12 @@
     "/en/stockholm/corporate-events/": {
       "sourceFile": "en-stockholm-corporate-events.html",
       "title": "Corporate events in Stockholm | Kickoff & conference | ANDETAG",
-      "description": "Calm corporate events in Stockholm at ANDETAG. 240 SEK per person during opening hours, or exclusive booking for up to 60 people at 5,000 SEK per hour. For kickoffs, conferences and team building."
+      "description": "Calm corporate events in Stockholm at ANDETAG. {CORPORATE_PER_PERSON_SEK} SEK per person during opening hours, or exclusive booking for up to {CORPORATE_CAPACITY} people at {CORPORATE_HOURLY_SEK} SEK per hour. For kickoffs, conferences and team building."
     },
     "/en/stockholm/date/": {
       "sourceFile": "en-stockholm-date.html",
-      "title": "Date in Stockholm | A Quiet Place to Be Together | ANDETAG Stockholm",
-      "description": "A still, immersive art experience in central Stockholm. A calm date where you can be close, be quiet, and share an hour together. Suitable for first dates and couples."
+      "title": "Date in Stockholm | Calm, no demands, 1 hour | ANDETAG Stockholm",
+      "description": "Calm date in central Stockholm, about 1 hour. No talking required, no tempo to keep. From {REGULAR_DAYTIME_SEK} SEK daytime, {REGULAR_SEK} SEK regular. Works for first dates and established couples."
     },
     "/en/stockholm/event-stockholm/": {
       "sourceFile": "stockholm-att-gora-stockholm.html",
@@ -226,8 +226,8 @@
     },
     "/sv/stockholm/dejt/": {
       "sourceFile": "stockholm-dejt.html",
-      "title": "Dejt i Stockholm | En lugn stund tillsammans | ANDETAG",
-      "description": "En stillsam konstupplevelse mitt i Stockholm. En lugn dejt där ni kan sitta nära, vara tysta och dela en stund tillsammans. Passar både första dejten och etablerade par."
+      "title": "Dejt i Stockholm | Lugn, inga krav, 1 timme | ANDETAG Stockholm",
+      "description": "Lugn dejt mitt i Stockholm, ca 1 timme. Inga krav på samtal, inget tempo att hålla. Från {REGULAR_DAYTIME_SEK} kr dagtid, {REGULAR_SEK} kr ordinarie. Passar både första dejten och etablerade par."
     },
     "/sv/stockholm/event-stockholm/": {
       "sourceFile": "stockholm-att-gora-stockholm.html",
@@ -237,7 +237,7 @@
     "/sv/stockholm/foretagsevent/": {
       "sourceFile": "stockholm-foretagsevent.html",
       "title": "Företagsevent i Stockholm | Kickoff och konferens | ANDETAG",
-      "description": "Stillsamma företagsevent på ANDETAG i Stockholm. 240 kr per person under öppettider, eller exklusiv bokning för upp till 60 personer från 5 000 kr per timme. För kickoff, konferens och teambuilding."
+      "description": "Stillsamma företagsevent på ANDETAG i Stockholm. {CORPORATE_PER_PERSON_SEK} kr per person under öppettider, eller exklusiv bokning för upp till {CORPORATE_CAPACITY} personer från {CORPORATE_HOURLY_SEK} kr per timme. För kickoff, konferens och teambuilding."
     },
     "/sv/stockholm/fragor-svar/": {
       "sourceFile": "stockholm-fragor-svar.html",

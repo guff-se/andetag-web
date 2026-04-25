@@ -21,6 +21,18 @@ const tempoMarkdown =
   "<p>Läs mer om <a href=\"/sv/stockholm/vilken-typ-av-upplevelse/\">vilken typ av upplevelse ANDETAG är</a>, eller titta i vanliga <a href=\"/sv/stockholm/fragor-svar/\">frågor och svar</a> inför besöket.</p>" +
   "<p>Upplevelsen ligger på ett plan. Tydliga flöden, lugna övergångar. En plats att andas ut när sinnesintrycken blir för mycket. Hela utställningen är rullstolsanpassad. Ledsagare eller personlig assistent går in utan kostnad – säg till i entrén. Se även <a href=\"/sv/stockholm/tillganglighet/\">tillgänglighet på ANDETAG</a> för fullständig information.</p>";
 
+const adhdMarkdown =
+  "<p>ANDETAG är en lågstimulerande miljö som ger uppmärksamheten en fast punkt: en långsam, förutsägbar rytm i ljus och musik. Inga köer i utställningen, inga moment som kräver svar, inget tempo att hålla. Du går igenom rummen när du själv vill, och stannar i det sista rummet så länge du behöver.</p>" +
+  "<p>De flesta besökare stannar runt 50 minuter, men du bestämmer själv. Många med ADHD beskriver att de plötsligt kan vila i intrycken — att uppmärksamheten får något att luta sig mot, utan att den dras isär.</p>";
+
+const autismMarkdown =
+  "<p>ANDETAG följer ett förutsägbart flöde: fyra rum med samma musik, samma andetagsrytm, samma ljussvar. Inga plötsliga förändringar, inga guider som pratar över upplevelsen, inga interaktiva moment som kräver svar. Du kan läsa igenom det sensoriska underlaget innan du kommer.</p>" +
+  "<p>Grupperna är små och du går i din egen takt. Ledsagare eller personlig assistent följer med utan kostnad — säg till i entrén. Vill du veta mer om en specifik del av besöket innan, mejla <a href=\"mailto:info@andetag.museum\">info@andetag.museum</a>.</p>";
+
+const sensoryMarkdown =
+  "<p>Ljuset kommer från själva textilierna och rör sig långsamt. Inga blinkande ljus, inga stroboskop, inget fluorescerande ljus. Musiken ligger på låg volym och följer samma rytm som ljuset — inga plötsliga ljudövergångar. Inga starka dofter.</p>" +
+  "<p>Vill du ha mer kontroll över ljudbilden kan du lyssna via egen enhet och egna hörlurar. Det sista rummet har filtar och kuddar där du kan vila om intrycken blir mycket. Du kan lämna upplevelsen när du vill.</p>";
+
 const advanceMarkdown =
   "<p><strong>Plats:</strong> Kungsgatan 39, Stockholm (Hötorgets tunnelbana). Hiss finns från plattformen och från gatuplan.</p>" +
   "<p><strong>Ljus:</strong> Mjukt, från verken. Vissa delar är mörka. Inget fluorescerande ljus. Inga blinkande eller plötsliga ljussignaler.</p>" +
@@ -52,6 +64,9 @@ const practicalFrameHtml =
     headingLevel="h2"
     markdown={tempoMarkdown}
   />
+  <ContentSection heading="ANDETAG och ADHD" headingLevel="h2" markdown={adhdMarkdown} />
+  <ContentSection heading="ANDETAG och autism" headingLevel="h2" markdown={autismMarkdown} />
+  <ContentSection heading="ANDETAG vid sensorisk känslighet" headingLevel="h2" markdown={sensoryMarkdown} />
   <div class="page-npf-stockholm-sv__cta">
     <ButtonGroup buttons={[{ label: "Boka biljetter nu!", href: "/sv/stockholm/biljetter/#book", variant: "secondary" }]} />
   </div>

@@ -1,5 +1,6 @@
 import type { Destination, FooterVariantId, HeaderVariantId, Language } from "../chrome/types";
 import pageShellMeta from "../../data/page-shell-meta.json";
+import { resolveMetaTokens } from "./page-shell-meta-tokens";
 
 export type PageShellSourceMeta = {
   sourceFile: string;
@@ -290,8 +291,8 @@ export function getPageShellRoute(canonicalPath: string): PageShellRoute {
     footerVariantId,
     hreflang,
     xDefaultPath,
-    title: meta.title,
-    description: meta.description,
+    title: resolveMetaTokens(meta.title, language),
+    description: resolveMetaTokens(meta.description, language),
     ogImage: meta.ogImage ?? null,
   };
 }
