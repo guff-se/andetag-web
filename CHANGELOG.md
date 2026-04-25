@@ -9,6 +9,8 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ### Changed
 
+- **Phase 9 · P9-25** post-cutover **release discipline** marked **complete** in **`docs/phase-9-todo.md`** (**2026-04-25**). **`AGENTS.md`**, **`docs/grand-plan.md`**, **`docs/phase-8-cutover-runbook.md`** (P9-25 branch-protection checklist row), and **`docs/phase-8-verification-record.md`** (P8-25 handoff line) updated for consistency.
+
 - **Phase 9 · P9-00 governance** marked **complete** in **`docs/phase-9-todo.md`**: normative definition is **`docs/phase-9-plan.md`** (§A; **North-star user and operating model**). **`AGENTS.md`** and **`docs/grand-plan.md`** status lines updated so **P9-00** is no longer **TBD**.
 
 ### Added

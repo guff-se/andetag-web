@@ -114,7 +114,7 @@ Captured on **`https://andetag-web.guff.workers.dev`**: _pending_
 - **P8-20:** **Pass 2026-04-14.** **`STAGING_BASE=https://www.andetag.museum npm run verify:staging-entry`** from **`site/`**: **E1**–**E11** all **ok** (log in **`docs/phase-4-redirect-tests.md`**). Closes **`P5-06`** production entry routing.
 - **P8-21 Redirect regression:** **Pass 2026-04-14.** Table **A** **`curl -sI`** on **`https://www.andetag.museum`**: **14/14** cases **301** with expected path-only **`Location`** (see **`docs/phase-4-redirect-tests.md`** execution log).
 - **P8-22 Live feature pass:** **Pass 2026-04-14.** **CMP + consent + tags** (**P8-12**/**P8-13**). **Lighthouse** mobile performance-only on **four** **`www`** URLs (table below). **Manual checkpoints** **1**, **5**–**7** (booking, locale, Berlin waitlist). **Closure:** operator Part **B** complete (**`dataLayer`** / booking receipt path per **`docs/kpi-measurement-map.md`**). See §P8-22 closure.
-- **P8-25 Release discipline:** **Moved** to **`docs/phase-9-todo.md`** **P9-25** **2026-04-14** (open checklist item; runbook **Post-cutover release discipline** section remains the how-to).
+- **P8-25 Release discipline:** **Moved** to **`docs/phase-9-todo.md`** **P9-25** **2026-04-14**; **P9-25** checklist **complete** **2026-04-25** (runbook **Post-cutover release discipline** section remains the how-to).
 
 ### Manual post-cutover checkpoints (operator)
 
