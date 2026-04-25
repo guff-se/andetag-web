@@ -1,8 +1,12 @@
 /**
- * Extracts <title> and og:description from site-html snapshots into JSON for Phase 4 shells.
+ * Extracts <title> and og:description from the archived WordPress HTML mirror into JSON for shells.
  * Run from repo root: node site/scripts/extract-page-shell-meta.mjs
  *
  * Swedish canonical paths use the /sv/ language prefix; legacy HTML filenames are unchanged.
+ * Snapshots live under archive/legacy-wordpress-site/site-html/ (the old site is gone; mirror is read-only).
+ * This script overwrites `page-shell-meta.json` with **only** the keys in `PATH_TO_HTML`. Do not run a full
+ * regen to “refresh” the file unless `PATH_TO_HTML` lists every live shell; prefer editing the catalog + JSON
+ * for curated rows (see `docs/meta-texts-catalog.md`).
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -10,7 +14,7 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.join(__dirname, "..", "..");
-const htmlDir = path.join(repoRoot, "site-html");
+const htmlDir = path.join(repoRoot, "archive", "legacy-wordpress-site", "site-html");
 const outFile = path.join(__dirname, "..", "src", "data", "page-shell-meta.json");
 
 /** @type {Record<string, string>} canonical path (with slashes) -> site-html filename */

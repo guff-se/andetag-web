@@ -15,3 +15,5 @@ __pycache__/
 
 # Crawler comparison snapshots (local only)
 crawl-versions/
+archive/legacy-wordpress-site/.venv/
+archive/legacy-wordpress-site/crawl-versions/

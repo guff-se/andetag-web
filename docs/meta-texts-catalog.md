@@ -6,7 +6,7 @@ This file lists every **HTML document title** and **meta description** wired thr
 
 1. Edit **Title** and **Description** under each canonical path below. Do not change the canonical path in each section heading (level-3 heading, path in backticks), so a later sync can match rows to `page-shell-meta.json` keys.
 2. When you are done, ask the maintainer or agent to **apply this catalog** to the codebase. That means updating `[page-shell-meta.json](../site/src/data/page-shell-meta.json)` (field `pages` → matching keys) and, if you changed the 404 block, `[404.astro](../site/src/pages/404.astro)`.
-3. **Do not** run `[extract-page-shell-meta.mjs](../site/scripts/extract-page-shell-meta.mjs)` expecting it to preserve hand-tuned copy across all routes. That script re-reads `site-html/` snapshots; use it only when you intentionally refresh from HTML sources.
+3. **Do not** run `[extract-page-shell-meta.mjs](../site/scripts/extract-page-shell-meta.mjs)` expecting it to preserve hand-tuned copy across all routes. That script re-reads the frozen mirror in `archive/legacy-wordpress-site/site-html/`; use it only when you intentionally refresh from those HTML files.
 
 ## Scope
 

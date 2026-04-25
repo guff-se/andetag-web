@@ -71,7 +71,7 @@ This file is the post-migration successor to the SEO-relevant rows in `docs/migr
 - **Rationale:** Typo in scraped HTML; live WP footer was already corrected; aligns with dictionary form.
 - **SEO impact:** Low. SERP title and on-page H1 show corrected spelling vs legacy scrape.
 - **Approval:** Gustaf.
-- **Follow-up:** Running `node site/scripts/extract-page-shell-meta.mjs` would reintroduce the typo until `site-html/` is replaced by a crawl where WP fixes the title. Keep the `page-shell-meta.json` row stable, or re-apply the override after extract.
+- **Follow-up:** Running `node site/scripts/extract-page-shell-meta.mjs` would reintroduce the typo because the frozen mirror in `archive/legacy-wordpress-site/site-html/` still has Yoast’s spelling. Keep the `page-shell-meta.json` row stable, or re-apply the override after extract.
 
 ---
 

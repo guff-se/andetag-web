@@ -1,16 +1,18 @@
 #!/usr/bin/env python3
 """
-Web spider to crawl andetag.museum and save content as markdown files.
+Web spider to crawl a site and save HTML + Markdown mirrors (archived under
+archive/legacy-wordpress-site/; the old WordPress host is gone — this is optional tooling only).
 
 Versioned mode (default): each run writes an immutable snapshot under crawl-versions/<id>/
 (html/ and md/ subtrees), writes MIGRATION_CHANGELOG.md in the new snapshot folder, updates
-manifest.json, then copies the snapshot to site-html/ and site-md/ unless --no-promote.
+manifest.json, then copies the snapshot to this directory's site-html/ and site-md/ unless
+--no-promote.
 
 Use --diff-against-canonical to compare the new crawl to the existing site-html/ and site-md/
 trees without treating the prior archived snapshot as the baseline. Pair with --no-promote to
 leave the workspace mirrors untouched.
 
-Legacy mode (--legacy): deletes and recreates site-html/ and site-md/ only, no archive or diff.
+Legacy mode (--legacy): deletes and recreates site-html/ and site-md/ in this directory only.
 """
 
 from __future__ import annotations

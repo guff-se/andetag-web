@@ -44,13 +44,12 @@ This project works with real scraped website artifacts and SEO language constrai
 web/
 ├── AGENTS.md              # This guide
 ├── CHANGELOG.md           # Human-readable change log (see docs/changelog-standards.md)
-├── .github/workflows/     # CI: Node tests + build, Python tests
-├── spider.py              # Crawler (HTML + Markdown snapshots + assets)
+├── .github/workflows/     # CI: Node tests + build
+├── archive/
+│   └── legacy-wordpress-site/  # spider.py, site-html/, site-md/ (frozen WP mirror; read-only)
 ├── docs/                  # Active migration and architecture specs
 │   └── archive/           # Closed-phase checklists, superseded plans, historical reference
 ├── skills/                # Agent skills (see skills/README.md); pointers in .claude/skills/ and .cursor/rules/
-├── site-html/             # Scraped HTML pages (canonical input, do not manually edit)
-├── site-md/               # Markdown snapshots from crawler
 ├── site/                  # Astro workspace
 │   ├── public/            # Static assets, _redirects, _headers
 │   ├── scripts/           # Node/shell tooling (meta, fonts, verify-staging, lighthouse)
@@ -75,7 +74,6 @@ web/
 │       │   └── ui-logic/    # TS helpers (carousel, booking, presentation)
 │       ├── pages/           # File-based routes (index, [...slug], 404)
 │       └── styles/          # Global CSS (layout, components, fonts, print, vendor)
-└── seo-content/             # SEO content drafts
 ```
 
 ---
@@ -125,8 +123,8 @@ Changes often affect multiple layers. Audit before concluding:
 |-------|---------------|
 | **Astro site** | `site/src/` components, pages, lib, styles, client scripts |
 | **Workers / routing** | `site/workers/`, `site/public/_redirects`, `_headers`, URL policy doc |
-| **Scraped source** | `site-html/` and `site-md/` coverage |
-| **SEO content** | `seo-content/` pages and SEO manual constraints |
+| **Legacy WP mirror (archived)** | `archive/legacy-wordpress-site/site-html/` and `.../site-md/` — not maintained |
+| **SEO / shell meta** | `docs/meta-texts-catalog.md`, `docs/Andetag SEO Manual.md`, `site/src/data/page-shell-meta.json` |
 | **Docs** | Architecture, tone, and SEO docs that describe changed behavior |
 
 For cross-cutting changes:
@@ -150,13 +148,9 @@ cd site && npm run build     # Static build (also CI on push/PR to main)
 # Optional
 cd site && npm run lighthouse:all   # Mobile perf sweep (needs built dist/)
 cd site && npm run verify:staging-entry  # Entry routing vs staging
-
-# Python crawler
-python3 -m py_compile spider.py
-python3 -m unittest tests.test_spider_versioning
 ```
 
-CI (`.github/workflows/ci.yml`) runs Node tests, build, and Python tests on push and PR to `main`.
+CI (`.github/workflows/ci.yml`) runs Node tests and build on push and PR to `main`. Optional: `cd archive/legacy-wordpress-site && PYTHONPATH=. python3 -m unittest discover -s tests` for the archived crawler unit tests.
 
 ---
 

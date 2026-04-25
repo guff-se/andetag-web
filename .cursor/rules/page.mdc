@@ -7,7 +7,7 @@ globs:
   - site/src/lib/page-registry/page-body-registry.ts
   - site/src/data/page-shell-meta.json
   - site/scripts/extract-page-shell-meta.mjs
-  - site-html/**
+  - archive/legacy-wordpress-site/site-html/**
   - site/public/_redirects
 alwaysApply: false
 ---
@@ -19,7 +19,7 @@ The canonical, always-current version of this skill lives at [`/skills/page/SKIL
 Short summary:
 
 - Stockholm pages always exist as a **Swedish + English pair**. Berlin story pages always exist as a **German + English pair**. Do not edit only one locale unless the user explicitly asks for a single-locale change.
-- Adding a page requires changes in `site-html/`, `site/scripts/extract-page-shell-meta.mjs` (`PATH_TO_HTML`), running `npm run page-shell:meta`, then updates to `STOCKHOLM_SV_EN_PAIRS` / `BERLIN_DE_EN_STORY_PAIRS`, `PAGE_CUSTOM_BODY_PATHS`, `[...slug].astro` imports and `pageBodies` map, new body components under `site/src/components/page-bodies/`, and `navigation.ts` entries.
+- Adding a page requires (for extractor-driven meta) optional stubs in `archive/legacy-wordpress-site/site-html/`, `site/scripts/extract-page-shell-meta.mjs` (`PATH_TO_HTML`), running `npm run page-shell:meta`, or editing `page-shell-meta.json` + `docs/meta-texts-catalog.md` directly; then `STOCKHOLM_SV_EN_PAIRS` / `BERLIN_DE_EN_STORY_PAIRS`, `PAGE_CUSTOM_BODY_PATHS`, `[...slug].astro` imports and `pageBodies` map, new body components under `site/src/components/page-bodies/`, and `navigation.ts` entries.
 - **`skills/events/SKILL.md`** may hand off here for a **new event URL** (shells + minimal bodies, then back to events for offers/schema). User **attachments** and **extra illustration**: **`skills/images/SKILL.md`** (ingest §E, pick/wire, compare photo/text to peer pages; add images on your own initiative if the page is text-heavy for its type).
 - New on-site image files: `docs/responsive-image-workflow.md` + the images skill (not raw ad-hoc `<img>`).
 - After `npm test && npm run build`, run **`skills/seo/SKILL.md` §H** on affected paths; record `§H pass` or resolved issues in the PR. If images changed, consider `skills/performance-check/SKILL.md`.
