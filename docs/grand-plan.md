@@ -288,7 +288,7 @@ Task-level checklist: `docs/phase-8-todo.md`.
 
 Goal: transition this repository from a **migration project** (scrape-driven parity, phased URL and locale rollout) to a **maintenance project** (ongoing content, performance, and compliance work on a live **`www`** stack). Normative scope and governance: **`docs/phase-9-plan.md`**; execution checklist: **`docs/phase-9-todo.md`**.
 
-**Status:** **Partially active** (**2026-04-14**; normative plan **`docs/phase-9-plan.md`** scoped **2026-04-24**). **Phase 8** is **complete**. **P9-00** governance is **satisfied** by the published plan (maintainer + director collaborators, PR-only workflow, preview as practical gate, Berlin deferred). **P9-25** (release discipline) and **P9-26** (organic monitoring) are open operational carries. **Agent Skills**, **production PR gate** (**P9-20**–**P9-22**), and other exit criteria: **`docs/phase-9-plan.md`**, **`docs/phase-9-todo.md`**.
+**Status:** **Partially active** (**2026-04-14**; normative plan **`docs/phase-9-plan.md`** scoped **2026-04-24**). **Phase 8** is **complete**. **P9-00** governance is **satisfied** by the published plan (maintainer + director collaborators, PR-only workflow, preview as practical gate, Berlin deferred). **P9-25** (release discipline) is **complete** **2026-04-25**; **P9-26** (organic monitoring) is an open operational carry. **Agent Skills**, **production PR gate** (**P9-20**–**P9-22**), and other exit criteria: **`docs/phase-9-plan.md`**, **`docs/phase-9-todo.md`**.
 
 **Direction (to be expanded):**
 
@@ -341,7 +341,7 @@ Task-level checklist: `docs/phase-9-todo.md`.
 - Stack and hosting were decided after Phase 1 analysis and accepted in **`docs/decisions/0001-static-stack-selection.md`** (Astro + Cloudflare; **Workers + static assets** from **`site/`** for staging and production entry routing, see ADR operational notes and **`AGENTS.md`**).
 - **Until `www` cutover:** pushes to **`main`** redeploy **staging** (**`andetag-web.guff.workers.dev`**); Gustaf approves **staging → production** when the maintainer confirms readiness.
 - **After `www` cutover:** content and code changes ship via **pull requests** only; each PR gets a **Cloudflare preview URL**; merging to **`main`** updates **`www`** (document exact project settings in **`docs/phase-8-cutover-runbook.md`** and **`docs/phase-9-todo.md`** **P9-25**).
-- Rollout order is fixed: Swedish Stockholm production first, then Phase 6 localization rollout, then Phase 7 launch hardening (in-repo scripts, **CookieConsent** embed, sitemap, schema; maintainer closure **2026-04-08**), then Phase 8 cutover of **`www.andetag.museum`** to this stack (**P8-07** **GTM** runbook just before **`P8-11`**; Phase 8 **complete** **2026-04-14**), then Phase 9 maintenance program (migration-to-operations handoff, **P9-25**/**P9-26** carries, performance skill, production PR gates).
+- Rollout order is fixed: Swedish Stockholm production first, then Phase 6 localization rollout, then Phase 7 launch hardening (in-repo scripts, **CookieConsent** embed, sitemap, schema; maintainer closure **2026-04-08**), then Phase 8 cutover of **`www.andetag.museum`** to this stack (**P8-07** **GTM** runbook just before **`P8-11`**; Phase 8 **complete** **2026-04-14**), then Phase 9 maintenance program (migration-to-operations handoff, **P9-25** **complete**, **P9-26** carry, performance skill, production PR gates).
 
 ### SEO and URL Policy
 
@@ -368,7 +368,7 @@ Task-level checklist: `docs/phase-9-todo.md`.
 
 ## Remaining inputs (open decisions)
 
-These items are **still open** for governance nuance. **SEO evolution** (allow improvements, AI-assisted work) and **sitemap / inbound-link rules** are **resolved** in **Decisions captured** and **`docs/url-migration-policy.md`**. **Staging vs production promotion** was **Phase 8** (see **`docs/phase-8-todo.md`**, **closed** **2026-04-14**). **Post-`www` PR workflow** (previews, merge to **`main`**, branch protection) is **Phase 9** (**`docs/phase-9-todo.md`** **P9-25**). Items that Phase 1 or later already decided stay in **Resolved inputs** below for audit trail only.
+These items are **still open** for governance nuance. **SEO evolution** (allow improvements, AI-assisted work) and **sitemap / inbound-link rules** are **resolved** in **Decisions captured** and **`docs/url-migration-policy.md`**. **Staging vs production promotion** was **Phase 8** (see **`docs/phase-8-todo.md`**, **closed** **2026-04-14**). **Post-`www` PR workflow** (previews, merge to **`main`**, branch protection) was **Phase 9 · P9-25** (**`docs/phase-9-todo.md`**, **complete 2026-04-25**). Items that Phase 1 or later already decided stay in **Resolved inputs** below for audit trail only.
 
 ### Platform and delivery
 
@@ -406,7 +406,7 @@ These items are **still open** for governance nuance. **SEO evolution** (allow i
 
 As of **2026-04-14**, Phases **0 through 8** are **closed**. **`https://www.andetag.museum`** is on this stack; evidence **`docs/phase-8-verification-record.md`**. Default execution focus:
 
-1. **Phase 9 (operational carries):** Execute **`docs/phase-9-todo.md`** **P9-25** (PR + preview release discipline) and **P9-26** (post-cutover organic monitoring vs **P8-08** baseline, **2–4 weeks** from cutover **2026-04-14**).
+1. **Phase 9 (operational carries):** **P9-25** (PR + preview release discipline) is **complete** **2026-04-25**; **P9-26** (post-cutover organic monitoring vs **P8-08** baseline, **2–4 weeks** from cutover **2026-04-14**) remains on **`docs/phase-9-todo.md`**.
 2. **Phase 9 (remaining):** **`docs/phase-9-todo.md`** and **`docs/phase-9-plan.md`** — **P9-00** is complete; other ids (skills, **P9-20**–**P9-22** PR-gate convention, exit criteria) as listed.
 3. **Routing hygiene:** Before changing **`docs/url-matrix.csv`**, **`site/public/_redirects`**, registry, or **`site/workers/`**, read **`docs/phase-4-routing-reopen.md`** and **`docs/url-migration-policy.md`**; after entry changes, run **`npm run verify:staging-entry`** from **`site/`** (see **`docs/phase-4-redirect-tests.md`**); on **`www`**, use **`STAGING_BASE=https://www.andetag.museum`** for production table **B**.
 4. **Carry-forward:** **EX-0006** Phase 7 embed-pattern follow-up is closed in **P7-15** (**`docs/phase-7-verification-record.md`**); optional lazy iframe deferral for marketing embeds remains **P7-12** in **`docs/phase-7-todo.md`** (historical backlog).

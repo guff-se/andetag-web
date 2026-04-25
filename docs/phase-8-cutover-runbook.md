@@ -165,5 +165,5 @@ After cutover is confirmed stable (after **Phase 9 · P9-26** organic monitoring
 | P8-12 Smoke test | Immediately after | Maintainer + Gustaf | Pending |
 | Edge cache purge | If needed | Gustaf or maintainer | Pending |
 | P8-13 GTM domain switch | Same day after smoke | Gustaf (GTM UI) | Pending |
-| P9-25 Branch protection | Same day or next | Gustaf or maintainer | Pending |
+| P9-25 Branch protection | Same day or next | Gustaf or maintainer | Done 2026-04-25 |
 | DNS TTL restoration | After P9-26 stable (or agreed early) | Gustaf | Pending |

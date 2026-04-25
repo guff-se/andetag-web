@@ -30,7 +30,7 @@ This project works with real scraped website artifacts and SEO language constrai
 
 **What:** Migrating `andetag.museum` from WordPress/Elementor to an Astro static site on Cloudflare Workers.
 
-**Status:** Phases **0–8** closed (**`docs/phase-8-verification-record.md`** §Closure). **Phase 9** is **partially active**: **`docs/phase-9-todo.md`** **P9-25** (release discipline) and **P9-26** (post-cutover organic monitoring). **P9-00** governance is **complete**: **`docs/phase-9-plan.md`** (§A, **North-star**). Remaining Phase 9 exit work and id rows: that checklist and the plan.
+**Status:** Phases **0–8** closed (**`docs/phase-8-verification-record.md`** §Closure). **Phase 9** is **partially active**: **`docs/phase-9-todo.md`** **P9-26** (post-cutover organic monitoring); **P9-25** (release discipline) is **complete**. **P9-00** governance is **complete**: **`docs/phase-9-plan.md`** (§A, **North-star**). Remaining Phase 9 exit work and id rows: that checklist and the plan.
 
 **Languages:** Swedish (`sv`), English (`en`), German (`de`) with preserved hreflang relationships.
 
@@ -89,7 +89,7 @@ Consult before implementation. All active docs are in `docs/`.
 | `docs/grand-plan.md` | Roadmap, phase gates, business objectives, decision log |
 | `docs/phase-8-todo.md` | **Closed** Phase 8: deployment checklist, URL parity, `www` cutover |
 | `docs/phase-8-verification-record.md` | Phase 8 evidence and Gustaf sign-off (§Closure) |
-| `docs/phase-9-todo.md` | **Current ops:** **P9-25**, **P9-26**; **P9-00** done (**`docs/phase-9-plan.md`**). Other Phase 9 ids: see checklist (skills, **P9-20**+ PR-gate convention, exit criteria) |
+| `docs/phase-9-todo.md` | **Current ops:** **P9-26**; **P9-25** done. **P9-00** done (**`docs/phase-9-plan.md`**). Other Phase 9 ids: see checklist (skills, **P9-20**+ PR-gate convention, exit criteria) |
 | `docs/Andetag SEO Manual.md` | SEO/GEO decisions, page intent, language strategy, schema |
 | `docs/Tone of Voice.md` | User-facing copy and metadata text |
 | `docs/Visual Identity.md` | Typography, color palette, CTA mapping |
@@ -105,7 +105,7 @@ Consult before implementation. All active docs are in `docs/`.
 | `docs/tracking-and-consent-requirements.md` | GTM, Brevo, consent categories |
 | `docs/kpi-measurement-map.md` | Analytics measurement, GTM audit, consent migration checklist |
 | `docs/gtm-consent-migration-runbook.md` | Step-by-step GTM work for Phase 8 P8-07 |
-| `docs/phase-8-cutover-runbook.md` | DNS, Workers custom domain, TLS, rollback, post-cutover PR discipline (P8-10, P8-11; checklist **P9-25** in `docs/phase-9-todo.md`) |
+| `docs/phase-8-cutover-runbook.md` | DNS, Workers custom domain, TLS, rollback, post-cutover PR discipline (P8-10, P8-11; **P9-25** **complete** in `docs/phase-9-todo.md`) |
 | `docs/decisions/0002-consent-platform-selection.md` | CMP selection ADR (CookieConsent implemented) |
 | `docs/changelog-standards.md` | How to write CHANGELOG.md entries |
 | `skills/README.md` | **Agent skills** index and authoring pattern. Canonical skill files live at `skills/<name>/SKILL.md`; pointers in `.claude/skills/` (Claude Code symlinks) and `.cursor/rules/<name>.mdc` (Cursor thin wrappers). Landed: `page` (P9-12), `faq` (P9-16), `events` (P9-17), `operational-facts` (P9-18), `images` (P9-19), `testimonials` (P9-14), `rollback` (P9-30), `site-integrity` (P9-31), `performance-check` (P9-10 + P9-40), `seo` (P9-13), `quicklinks`. |
