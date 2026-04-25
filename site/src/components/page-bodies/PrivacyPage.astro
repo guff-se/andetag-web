@@ -1,7 +1,22 @@
 ---
 import { privacyPolicyInnerHtml } from "../../lib/content/privacy-policy-inner-html";
+
+interface Props {
+  language: "sv" | "en" | "de";
+}
+
+const { language } = Astro.props;
+
+const headingByLanguage: Record<Props["language"], string> = {
+  sv: "Integritetspolicy",
+  en: "Privacy policy",
+  de: "Datenschutz",
+};
+
+const heading = headingByLanguage[language];
 ---
 
 <div class="page-migrated page-privacy">
+  <h1 class="privacy-policy__heading">{heading}</h1>
   <div class="shared-content-prose privacy-policy__inner" set:html={privacyPolicyInnerHtml} />
 </div>

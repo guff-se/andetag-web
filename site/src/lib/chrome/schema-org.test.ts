@@ -211,6 +211,46 @@ describe("buildSchemaJsonLd", () => {
     expect(faq).toBeUndefined();
   });
 
+  it("includes SiteNavigationElement listing in-locale primary subpages (SEO-0020)", () => {
+    const sv = buildSchemaJsonLd({
+      ...base,
+      pageUrl: "https://www.andetag.museum/sv/stockholm/",
+      destination: "stockholm",
+      canonicalPath: "/sv/stockholm/",
+      language: "sv",
+    });
+    const svNav = graphNodeWithSchemaType(sv["@graph"], "SiteNavigationElement");
+    expect(svNav).toBeDefined();
+    const svUrls = svNav!.url as string[];
+    expect(svUrls).toContain("https://www.andetag.museum/sv/stockholm/biljetter/");
+    expect(svUrls).toContain("https://www.andetag.museum/sv/stockholm/fragor-svar/");
+
+    const en = buildSchemaJsonLd({
+      ...base,
+      pageUrl: "https://www.andetag.museum/en/stockholm/",
+      destination: "stockholm",
+      canonicalPath: "/en/stockholm/",
+      language: "en",
+    });
+    const enNav = graphNodeWithSchemaType(en["@graph"], "SiteNavigationElement");
+    expect(enNav).toBeDefined();
+    const enUrls = enNav!.url as string[];
+    expect(enUrls).toContain("https://www.andetag.museum/en/stockholm/tickets/");
+    expect(enUrls).toContain("https://www.andetag.museum/en/stockholm/faq/");
+
+    const de = buildSchemaJsonLd({
+      ...base,
+      pageUrl: "https://www.andetag.museum/de/berlin/",
+      destination: "berlin",
+      canonicalPath: "/de/berlin/",
+      language: "de",
+    });
+    const deNav = graphNodeWithSchemaType(de["@graph"], "SiteNavigationElement");
+    expect(deNav).toBeDefined();
+    const deUrls = deNav!.url as string[];
+    expect(deUrls).toContain("https://www.andetag.museum/de/berlin/musik-von-andetag/");
+  });
+
   it("produces parseable JSON-LD", () => {
     const doc = buildSchemaJsonLd({
       ...base,

@@ -73,6 +73,21 @@ This file is the post-migration successor to the SEO-relevant rows in `docs/migr
 - **Approval:** Gustaf.
 - **Follow-up:** Running `node site/scripts/extract-page-shell-meta.mjs` would reintroduce the typo because the frozen mirror in `archive/legacy-wordpress-site/site-html/` still has Yoast’s spelling. Keep the `page-shell-meta.json` row stable, or re-apply the override after extract.
 
+### `SEO-0020` — x-default → English; verified-bot bare-host 301; `/en/` indexable for bots
+
+- **Date:** 2026-04-25
+- **Scope:** SEO / hreflang / entry routing / sitemap / on-page schema
+- **Decision:**
+  - **x-default flips to the English sibling** for every shell that emits hreflang. Stockholm pairs use `/en/stockholm/...`, Berlin pairs use `/en/berlin/...`, and the `/en/` hub uses `/en/`. Privacy shells use the English privacy URL of their location.
+  - **Verified bots at `/`** receive a `301` to `/en/stockholm/` (was `302`). Verified-bot detection uses `cf.botManagement.verifiedBot` with a User-Agent fallback (Googlebot, Bingbot, etc.) inside `site/workers/entry-routing-logic.ts`.
+  - **Verified bots at `/en/`** receive the static EN hub asset (`200`) instead of being routed onward by cookie or UA defaults, so the global English root remains directly indexable.
+  - **Sitemap excludes the four Berlin English story shells** that `SEO-0016` canonicalizes to Stockholm English (`/en/berlin/about-andetag/`, `/en/berlin/music/`, `/en/berlin/optical-fibre-textile/`, `/en/berlin/about-the-artists-malin-gustaf-tadaa/`); they continue to serve as `200` HTML to humans.
+  - **`SiteNavigationElement` JSON-LD** is added to the entity graph: one node per locale on Stockholm shells (`sv`, `en`) and one on Berlin shells (`de`, `en`), listing the in-locale primary subpages.
+- **Rationale:** English is the broadest-audience locale and the most defensible global default for unauthenticated requests; flipping x-default away from the Swedish hub aligns the international targeting with the actual content depth in English. Returning `301` to bots at the bare host stops engines from caching `/` as the canonical entry; serving `/en/` to bots prevents the indexed global hub from collapsing into a per-visitor router. The sitemap exclusion mirrors the canonical decision in `SEO-0016`. `SiteNavigationElement` gives crawlers an explicit primary-nav signal per locale.
+- **SEO impact:** Medium. International SERPs may shift toward the English page when no language match is determined. `/en/` and `/en/stockholm/` are the primary global landing pages for English-speaking discovery. Sitemap row count drops by four (consistent with the canonical decision, not a new exclusion of indexable content).
+- **Approval:** Gustaf, 2026-04-25.
+- **Follow-up:** Watch GSC International Targeting and the `/` and `/en/` entries in URL Inspection over the next 2-4 weeks; confirm the Stockholm English and `/en/` URLs continue to be indexed. Tests: `site/src/lib/routes/page-shell-registry.test.ts` (x-default parity), `site/workers/entry-routing-logic.test.ts` and `site/workers/entry-router.test.ts` (`301` + serve-asset), `site/src/lib/chrome/schema-org.test.ts` (`SiteNavigationElement`).
+
 ---
 
 ## Cross-references

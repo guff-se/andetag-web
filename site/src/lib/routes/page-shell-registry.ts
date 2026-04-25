@@ -170,32 +170,32 @@ function resolveSeo(canonicalPath: string): {
   if (canonicalPath === "/en/") {
     return {
       hreflang: { sv: "/sv/stockholm/", en: "/en/", de: null },
-      xDefaultPath: "/sv/stockholm/",
+      xDefaultPath: "/en/",
     };
   }
 
   if (canonicalPath === PRIVACY_STOCKHOLM_SV) {
     return {
       hreflang: { sv: PRIVACY_STOCKHOLM_SV, en: PRIVACY_STOCKHOLM_EN, de: null },
-      xDefaultPath: PRIVACY_STOCKHOLM_SV,
+      xDefaultPath: PRIVACY_STOCKHOLM_EN,
     };
   }
   if (canonicalPath === PRIVACY_STOCKHOLM_EN) {
     return {
       hreflang: { sv: PRIVACY_STOCKHOLM_SV, en: PRIVACY_STOCKHOLM_EN, de: null },
-      xDefaultPath: PRIVACY_STOCKHOLM_SV,
+      xDefaultPath: PRIVACY_STOCKHOLM_EN,
     };
   }
   if (canonicalPath === PRIVACY_BERLIN_DE) {
     return {
       hreflang: { sv: null, en: PRIVACY_BERLIN_EN, de: PRIVACY_BERLIN_DE },
-      xDefaultPath: PRIVACY_BERLIN_DE,
+      xDefaultPath: PRIVACY_BERLIN_EN,
     };
   }
   if (canonicalPath === PRIVACY_BERLIN_EN) {
     return {
       hreflang: { sv: null, en: PRIVACY_BERLIN_EN, de: PRIVACY_BERLIN_DE },
-      xDefaultPath: PRIVACY_BERLIN_DE,
+      xDefaultPath: PRIVACY_BERLIN_EN,
     };
   }
 
@@ -206,7 +206,7 @@ function resolveSeo(canonicalPath: string): {
         en: "/en/berlin/",
         de: "/de/berlin/",
       },
-      xDefaultPath: "/de/berlin/",
+      xDefaultPath: "/en/berlin/",
     };
   }
 
@@ -214,7 +214,7 @@ function resolveSeo(canonicalPath: string): {
   if (enPeerStockholm) {
     return {
       hreflang: { sv: canonicalPath, en: enPeerStockholm, de: null },
-      xDefaultPath: canonicalPath,
+      xDefaultPath: enPeerStockholm,
     };
   }
 
@@ -222,7 +222,7 @@ function resolveSeo(canonicalPath: string): {
   if (svPeer) {
     return {
       hreflang: { sv: svPeer, en: canonicalPath, de: null },
-      xDefaultPath: svPeer,
+      xDefaultPath: canonicalPath,
     };
   }
 
@@ -230,7 +230,7 @@ function resolveSeo(canonicalPath: string): {
   if (enPeerBerlin) {
     return {
       hreflang: { sv: null, en: enPeerBerlin, de: canonicalPath },
-      xDefaultPath: canonicalPath,
+      xDefaultPath: enPeerBerlin,
     };
   }
 
@@ -238,7 +238,7 @@ function resolveSeo(canonicalPath: string): {
   if (dePeer) {
     return {
       hreflang: { sv: null, en: canonicalPath, de: dePeer },
-      xDefaultPath: dePeer,
+      xDefaultPath: canonicalPath,
     };
   }
 

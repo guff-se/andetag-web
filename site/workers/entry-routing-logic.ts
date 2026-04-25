@@ -11,11 +11,11 @@ const ENTRY_PREFIX = "v1:";
 export type EntryToken = "sv" | "de" | "en-s" | "en-b";
 
 export type RootRoutingDecision =
-  | { type: "redirect"; locationPath: string; setCookie?: string }
+  | { type: "redirect"; locationPath: string; setCookie?: string; permanent?: boolean }
   | { type: "unexpected" };
 
 export type EnglishHubDecision =
-  | { type: "redirect"; locationPath: string; setCookie?: string }
+  | { type: "redirect"; locationPath: string; setCookie?: string; permanent?: boolean }
   | { type: "serve_asset" };
 
 /** Cloudflare `request.cf` fields used for entry routing (see Workers `IncomingRequestCfProperties`). */
@@ -147,7 +147,7 @@ export function decideRootRouting(input: {
   }
 
   if (isEntryVerifiedBot(input.userAgent, input.cf)) {
-    return { type: "redirect", locationPath: suffix("/en/stockholm/") };
+    return { type: "redirect", locationPath: suffix("/en/stockholm/"), permanent: true };
   }
 
   const token = parseEntryToken(parseEntryCookieValue(input.cookieHeader));
@@ -219,7 +219,7 @@ export function decideEnglishHubRouting(input: {
   }
 
   if (isEntryVerifiedBot(input.userAgent, input.cf)) {
-    return { type: "redirect", locationPath: suffix("/en/stockholm/") };
+    return { type: "serve_asset" };
   }
 
   const token = parseEntryToken(parseEntryCookieValue(input.cookieHeader));

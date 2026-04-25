@@ -126,6 +126,60 @@ function logoNode() {
   };
 }
 
+type NavItem = { name: string; path: string };
+
+const STOCKHOLM_NAV_ITEMS: Record<"sv" | "en", readonly NavItem[]> = {
+  sv: [
+    { name: "Biljetter", path: "/sv/stockholm/biljetter/" },
+    { name: "Öppettider", path: "/sv/stockholm/oppettider/" },
+    { name: "Hitta hit", path: "/sv/stockholm/hitta-hit/" },
+    { name: "Art Yoga", path: "/sv/stockholm/art-yoga/" },
+    { name: "Presentkort", path: "/sv/stockholm/presentkort/" },
+    { name: "Vanliga frågor", path: "/sv/stockholm/fragor-svar/" },
+  ],
+  en: [
+    { name: "Tickets", path: "/en/stockholm/tickets/" },
+    { name: "Opening hours", path: "/en/stockholm/opening-hours/" },
+    { name: "How to find us", path: "/en/stockholm/how-to-find-us/" },
+    { name: "Art Yoga", path: "/en/stockholm/art-yoga/" },
+    { name: "Gift card", path: "/en/stockholm/giftcard/" },
+    { name: "FAQ", path: "/en/stockholm/faq/" },
+  ],
+};
+
+const BERLIN_NAV_ITEMS: Record<"de" | "en", readonly NavItem[]> = {
+  de: [
+    { name: "Über ANDETAG", path: "/de/berlin/ueber-andetag/" },
+    { name: "Musik von ANDETAG", path: "/de/berlin/musik-von-andetag/" },
+    { name: "Optische Fasertextil", path: "/de/berlin/optische-fasertextil/" },
+    {
+      name: "Die Künstler",
+      path: "/de/berlin/die-kuenstler-malin-gustaf-tadaa/",
+    },
+  ],
+  en: [
+    { name: "About ANDETAG", path: "/en/berlin/about-andetag/" },
+    { name: "The Music", path: "/en/berlin/music/" },
+    { name: "The Textile", path: "/en/berlin/optical-fibre-textile/" },
+    {
+      name: "The Artists",
+      path: "/en/berlin/about-the-artists-malin-gustaf-tadaa/",
+    },
+  ],
+};
+
+function siteNavigationElementNode(
+  scope: "stockholm-sv" | "stockholm-en" | "berlin-de" | "berlin-en",
+  items: readonly NavItem[],
+): object {
+  return {
+    "@type": "SiteNavigationElement",
+    "@id": `${CANONICAL_HOST}/#nav-${scope}`,
+    name: items.map((i) => i.name),
+    url: items.map((i) => buildCanonicalUrl(i.path)),
+  };
+}
+
 function heroImageNode() {
   const heroUrl = buildCanonicalUrl(HERO_SV_ASSETS.poster);
   return {
@@ -233,6 +287,10 @@ function buildBerlinPlaceSchema(ctx: SchemaPageContext): { "@context": string; "
       url: `${CANONICAL_HOST}/de/berlin/`,
       sameAs: [...ORG_SAME_AS],
     },
+    siteNavigationElementNode(
+      ctx.language === "de" ? "berlin-de" : "berlin-en",
+      ctx.language === "de" ? BERLIN_NAV_ITEMS.de : BERLIN_NAV_ITEMS.en,
+    ),
   ];
   return { "@context": "https://schema.org", "@graph": graph };
 }
@@ -382,6 +440,10 @@ function buildStockholmVenueSchema(ctx: SchemaPageContext): { "@context": string
     },
     ...artYogaEventNodes(ctx.language),
     logoNode(),
+    siteNavigationElementNode(
+      ctx.language === "sv" ? "stockholm-sv" : "stockholm-en",
+      ctx.language === "sv" ? STOCKHOLM_NAV_ITEMS.sv : STOCKHOLM_NAV_ITEMS.en,
+    ),
   ];
   const faqItems = FAQ_PATHS[ctx.canonicalPath as keyof typeof FAQ_PATHS];
   if (faqItems) {

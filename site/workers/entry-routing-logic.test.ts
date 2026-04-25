@@ -59,23 +59,31 @@ describe("decideRootRouting", () => {
     cf: undefined,
   };
 
-  it("sends verified bots to English Stockholm", () => {
+  it("sends verified bots to English Stockholm with a permanent redirect (SEO-0020)", () => {
     const d = decideRootRouting({
       ...base,
       userAgent: "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
       acceptLanguage: "sv",
     });
-    expect(d).toEqual({ type: "redirect", locationPath: "/en/stockholm/" });
+    expect(d).toEqual({
+      type: "redirect",
+      locationPath: "/en/stockholm/",
+      permanent: true,
+    });
   });
 
-  it("uses cf.botManagement.verifiedBot when true", () => {
+  it("uses cf.botManagement.verifiedBot when true (permanent redirect, SEO-0020)", () => {
     const d = decideRootRouting({
       ...base,
       userAgent: "Mozilla/5.0",
       acceptLanguage: "sv",
       cf: { botManagement: { verifiedBot: true } },
     });
-    expect(d).toEqual({ type: "redirect", locationPath: "/en/stockholm/" });
+    expect(d).toEqual({
+      type: "redirect",
+      locationPath: "/en/stockholm/",
+      permanent: true,
+    });
   });
 
   it("with no cookie and no Accept-Language, sends humans to English hub when geo unknown", () => {
@@ -163,13 +171,13 @@ describe("decideEnglishHubRouting", () => {
     cf: undefined as { country?: string; botManagement?: { verifiedBot?: boolean } } | undefined,
   };
 
-  it("sends bots to English Stockholm", () => {
+  it("serves asset to verified bots so /en/ stays indexable (SEO-0020)", () => {
     expect(
       decideEnglishHubRouting({
         ...base,
         userAgent: "Googlebot",
       }),
-    ).toEqual({ type: "redirect", locationPath: "/en/stockholm/" });
+    ).toEqual({ type: "serve_asset" });
   });
 
   it("redirects en-s cookie to Stockholm", () => {

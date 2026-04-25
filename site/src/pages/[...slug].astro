@@ -230,7 +230,9 @@ const lcpBodyFontPreloadHref = LCP_BODY_FONT_PATHS.has(canonicalPath)
   ogImagePublicPath={shell.ogImage}
 >
   {
-    headerSelectorOnly ? null : PageBody ? (
+    headerSelectorOnly ? null : PageBody === PrivacyPage ? (
+      <PrivacyPage language={shell.language} />
+    ) : PageBody ? (
       <PageBody />
     ) : (
       <div class="page-shell-placeholder" aria-hidden="true"></div>
