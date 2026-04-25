@@ -99,7 +99,7 @@ Non-centralised — every `mailto:` and every prose occurrence must change toget
 2. Update **`site/src/lib/ui-logic/booking-embed-contact.ts`** — `CONTACT_HTML` for each locale (`sv`, `en`, `de`).
 3. Update the **Museum node `email`** in `site/src/lib/chrome/schema-org.ts` (search for the literal string; single occurrence).
 4. Update every page body returned by grep. Check both prose lines and `href="mailto:…"` links.
-5. If the change is also a policy change (migrating away from `info@andetag.museum` entirely), update `docs/migration-exceptions.md` **EX-0010** with the new decision and date.
+5. If the change is also a policy change (migrating away from `info@andetag.museum` entirely), update §Decisions below ("Public contact inbox") with the new decision and date.
 6. Consider raising maintenance-backlog item `M-0002` (centralisation) if not already open.
 7. Verification: §Verification. `git grep "<old-email>"` must return empty across `site/` after the change.
 
@@ -141,7 +141,7 @@ Stop and ask before proceeding if:
 - The user changes a price but does not provide a currency (assume `SEK` unless told otherwise — ask if unsure).
 - The user asks to introduce a **new** operational fact (phone number, secondary address) — decide the single source up front.
 - The user requests a **holiday hours override** (single-day exception). The current schema has no mechanism for date-bounded `OpeningHoursSpecification`; treat this as a design question and escalate.
-- The user changes the email to a non-`andetag.museum` address, which contradicts policy recorded in `docs/migration-exceptions.md` **EX-0010**.
+- The user changes the email to a non-`andetag.museum` address, which contradicts the policy recorded in §Decisions below ("Public contact inbox").
 - The user requests a price change that would break the daytime-price relationship (e.g. daytime higher than regular).
 
 ## Examples
@@ -172,6 +172,18 @@ Action:
 2. Update `booking-embed-contact.ts` (`CONTACT_HTML` for sv, en, de).
 3. Update `schema-org.ts` Museum node `email`.
 4. Update every page body in the grep result (sv + en pairs together). Preserve prose wording around the email.
-5. Update `docs/migration-exceptions.md` **EX-0010** with the new email and a dated decision line.
+5. Update §Decisions below ("Public contact inbox") with the new email and a dated decision line.
 6. `git grep "info@andetag.museum" -- 'site/'` must return empty.
 7. `npm test && npm run build`.
+
+## Decisions
+
+Durable operational decisions that survive Phase 9 archive. Each row stays in force until explicitly overturned by a new dated entry.
+
+### Public contact inbox
+
+- **Decision:** Public contact email is `mailto:info@andetag.museum` (canonical ANDETAG domain). It propagates to: `BookingEmbed` `.booking-embed-contact` (`booking-embed-contact.ts`, sv/en/de), Stockholm home and SEO landings, FAQ accordions, group and corporate CTAs, NPF and accessibility copy, English FAQ, JSON-LD `email` (`schema-org.ts`), press footer line. Visible addresses use `mailto:` links.
+- **History:** Adopted 2026-03-23 (replacing legacy WP `mailto:info@tadaa.se`). Extended beyond booking-adjacent copy 2026-04-16. Carries from `EX-0010` in the legacy `docs/migration-exceptions.md`.
+- **Rationale:** Align public inbox with the ANDETAG domain.
+- **Approval:** Gustaf.
+- **Override:** Update this row with a new date line and the new address; then re-run §F.

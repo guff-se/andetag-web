@@ -69,7 +69,7 @@ Consider opening a maintenance-backlog item (`M-0003` or next free id in `docs/m
 - The author name is rendered as provided; do not localise (for example, "Therese" stays "Therese" in every locale).
 - The aggregate strip's `score` uses comma decimal for sv and de (`4,9`) and point decimal for en (`4.9`). Enforced automatically by `stockholmTripadvisorRatingCommaDecimal()`.
 - `ratingValue` is a string in the catalog (`"4.9"`) — JSON-LD uses `Number()` conversions in tests only. Keep the string form in the source.
-- `reviewCount` is a JSON **number** (not a string) — required by Google's rich-results validator per `docs/migration-exceptions.md` **EX-0017** and `docs/Andetag SEO Manual.md` §6.
+- `reviewCount` is a JSON **number** (not a string) — required by Google's rich-results validator per `docs/seo/decisions.md` `SEO-0017` and `docs/Andetag SEO Manual.md` §6.
 
 ## Workflow
 
@@ -165,7 +165,7 @@ Stop and ask before proceeding if:
 - The user asks to translate a review quote. TripAdvisor policy (and this skill) requires preserving the original language of the reviewer's text.
 - The user asks to add a Berlin review. No Berlin data or Berlin JSON-LD `aggregateRating` exists; this is pre-launch work.
 - The requested rating or review count **decreases** the delta from TripAdvisor source materially (for example, rating jumps from `4.9` → `4.1` without a corresponding review-count surge that could explain the shift). Confirm with the user before committing — it is usually a fat-finger error on our side.
-- The user asks to remove the TripAdvisor link entirely (touches `docs/migration-exceptions.md` **EX-0002** and **EX-0012** — integration decision, not a content change).
+- The user asks to remove the TripAdvisor link entirely (touches `docs/seo/decisions.md` `SEO-0012` — review rendering integration decision, not a content change).
 - A new quote the user provides does not appear to come from the TripAdvisor page. JSON-LD `Review` nodes on the Museum page assert that these are real external reviews; fabricating them creates a Google Rich Results violation.
 
 ## Examples

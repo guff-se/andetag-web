@@ -1,6 +1,6 @@
 ---
 name: seo
-description: Use when changing SEO-sensitive elements on the ANDETAG Astro site (site/) — titles, meta descriptions, canonical tags, hreflang, Open Graph, Twitter cards, JSON-LD entity graph, robots directives, internal linking, sitemap inclusion, keyword framing, or tone; or when **`skills/page/SKILL.md` §Verification** (or a page PR) requires **per-page content feedback** (see **§H**). Triggers include "update the meta description", "change the title", "fix the hreflang", "add a schema field", "check canonicals", "is this a good SEO title", "can we target this keyword", "update the AggregateRating", "does this respect our tone", "review this copy for SEO", "SEO check for this new page". Enforces the locked architecture in docs/url-migration-policy.md, the keyword and schema doctrine in docs/Andetag SEO Manual.md, and the copy constraints in docs/Tone of Voice.md. Source integrity is non-negotiable — no fabricated URLs, keywords, ratings, prices, or schema fields. Rich Results validation is manual (live deploy, not lab). For organic-traffic correlation, routes through the performance-check skill's §E stats bridge.
+description: Use when changing SEO-sensitive elements on the ANDETAG Astro site (site/) — titles, meta descriptions, canonical tags, hreflang, Open Graph, Twitter cards, JSON-LD entity graph, robots directives, internal linking, sitemap inclusion, keyword framing, or tone; or when **`skills/page/SKILL.md` §Verification** (or a page PR) requires **per-page content feedback** (see **§H**). Triggers include "update the meta description", "change the title", "fix the hreflang", "add a schema field", "check canonicals", "is this a good SEO title", "can we target this keyword", "update the AggregateRating", "does this respect our tone", "review this copy for SEO", "SEO check for this new page". Enforces the locked architecture in docs/seo/url-architecture.md, the keyword and schema doctrine in docs/Andetag SEO Manual.md, and the copy constraints in docs/Tone of Voice.md. Source integrity is non-negotiable — no fabricated URLs, keywords, ratings, prices, or schema fields. Rich Results validation is manual (live deploy, not lab). For organic-traffic correlation, routes through the performance-check skill's §E stats bridge.
 ---
 
 ## Purpose
@@ -14,8 +14,8 @@ This skill is **not** for:
 - **Writing or shipping new pages.** Page creation/removal/renames are `skills/page`. When this skill finds an SEO regression it cannot fix in-body (a missing shell, a stale registry row), route to `page`.
 - **Changing operational facts** (hours, prices, contact, address). That is `skills/operational-facts`; however, this skill reviews the JSON-LD representation when those facts propagate to `schema-org.ts`.
 - **Running Lighthouse / Core Web Vitals.** That is `skills/performance-check`. CWV field data correlates with ranking but is measured elsewhere; the report template in §F cross-links.
-- **Rewriting the URL architecture.** Locked by `docs/url-migration-policy.md` and `site/workers/entry-router.ts`. Any proposed change is out of scope — escalate, do not "optimise" it.
-- **Inventing new schema types or markup patterns** not already grounded in `docs/Andetag SEO Manual.md` §6 and `docs/migration-exceptions.md` EX-0017. Expansion requires a new EX row approved by Gustaf.
+- **Rewriting the URL architecture.** Locked by `docs/seo/url-architecture.md` and `site/workers/entry-router.ts`. Any proposed change is out of scope — escalate, do not "optimise" it.
+- **Inventing new schema types or markup patterns** not already grounded in `docs/Andetag SEO Manual.md` §6 and `docs/seo/decisions.md` `SEO-0017`. Expansion requires a new row in `docs/seo/decisions.md` approved by Gustaf.
 
 ## When to use
 
@@ -36,8 +36,8 @@ Read-first in every invocation (the doctrine changes more often than the code):
 
 - `docs/Andetag SEO Manual.md` — positioning, keyword constraints, URL architecture, indexation, hreflang, schema strategy, GEO (AI-recommendability), internal linking. **Normative** for on-page SEO.
 - `docs/Tone of Voice.md` — copy constraints. Em dash (U+2014) is prohibited. Words we avoid (mind-blowing, magical, healing, transformative, life-changing, revolutionary, spiritual, must-see, unforgettable). Invitational, not instructional.
-- `docs/url-migration-policy.md` — URL architecture, canonical rules, redirect policy, sitemap membership rules, entry routing at `/` and `/en/`, location-scoped story URLs, privacy URL policy, query-parameter policy.
-- `docs/migration-exceptions.md` — especially EX-0015 (`/en/` hub copy), EX-0016 (Berlin English canonicals → Stockholm English), EX-0017 (Museum + LocalBusiness for AggregateRating/Review), EX-0019 (konstutställning spelling override vs the scraped Yoast title). Each drift from a "default" SEO rule has an EX row; edits that contradict an EX row must update or add an EX row.
+- `docs/seo/url-architecture.md` — URL architecture, canonical rules, redirect policy, sitemap membership rules, entry routing at `/` and `/en/`, location-scoped story URLs, privacy URL policy, query-parameter policy.
+- `docs/seo/decisions.md` — durable SEO deviations from default rules. Most-cited rows: `SEO-0015` (`/en/` hub copy), `SEO-0016` (Berlin English canonicals → Stockholm English), `SEO-0017` (Museum + LocalBusiness for AggregateRating/Review), `SEO-0019` (konstutställning spelling override vs the scraped Yoast title). Each drift from a "default" SEO rule has a row; edits that contradict a row must update it or add a new one.
 - `docs/meta-texts-catalog.md` — curated titles and descriptions per shell. **Edits apply here first**, then propagate to `site/src/data/page-shell-meta.json`. Do not rely on `site/scripts/extract-page-shell-meta.mjs` to preserve hand-tuned copy.
 
 Read for the runtime contract:
@@ -64,14 +64,14 @@ Write-path (only with explicit triggers):
 - `site/src/lib/chrome/schema-org.ts` — only to reflect already-approved data changes (new Offer because price changed, etc.); never to invent a new schema type without a new EX row.
 - `site/src/lib/routes/page-shell-registry.ts` — only when a new locale pair or a new Berlin English story canonical is being wired (coordinate with `skills/page`).
 - `CHANGELOG.md` — `### Changed` or `### Added` row per edit, per the project's `docs/changelog-standards.md`.
-- `docs/migration-exceptions.md` — new `EX-NNNN` row when a decision deviates from a default SEO rule.
+- `docs/seo/decisions.md` — new `SEO-NNNN` row when a decision deviates from a default SEO rule.
 
 ## Locale parity rules
 
 - **Stockholm `sv` ↔ `en`.** Every Stockholm shell in `STOCKHOLM_SV_EN_PAIRS` has both locales. A title or description edit on one side without the other is a regression; a hreflang entry without a live peer is a regression.
 - **Berlin `en` ↔ `de`.** Same rule for `BERLIN_DE_EN_STORY_PAIRS`. No Swedish alternate for Berlin.
 - **No cross-location hreflang.** Stockholm English and Berlin English are peers only on the **hub** `/en/` (whose hreflang record is `{ sv: /sv/stockholm/, en: /en/, de: null }` with `x-default: /sv/stockholm/`). For **topic** pages, Stockholm and Berlin do **not** hreflang-link to each other.
-- **Berlin English story pages** (`/en/berlin/about-andetag/`, `/en/berlin/music/`, `/en/berlin/optical-fibre-textile/`, `/en/berlin/about-the-artists-malin-gustaf-tadaa/`) use HTML `rel="canonical"` pointing to the Stockholm English equivalent (EX-0016). This is **intentional** — do not "fix" it to self-canonical. `og:url` in `SiteLayout.astro` follows the SEO canonical (so social shares also point to Stockholm English).
+- **Berlin English story pages** (`/en/berlin/about-andetag/`, `/en/berlin/music/`, `/en/berlin/optical-fibre-textile/`, `/en/berlin/about-the-artists-malin-gustaf-tadaa/`) use HTML `rel="canonical"` pointing to the Stockholm English equivalent (`SEO-0016`). This is **intentional** — do not "fix" it to self-canonical. `og:url` in `SiteLayout.astro` follows the SEO canonical (so social shares also point to Stockholm English).
 - **Swedish titles and descriptions** live under `/sv/` and use `sv-SE` for hreflang and `sv_SE` for OG locale. English uses `en` hreflang and `en_US` OG locale (by convention in this repo). German uses `de-DE` / `de_DE`.
 - **Quotes are not translated across locales** (TripAdvisor policy — see `skills/testimonials`).
 
@@ -84,13 +84,13 @@ Before editing anything, decide what kind of SEO change this is. The rest of the
 | Change shape | What it touches | Primary doc |
 |--------------|-----------------|-------------|
 | Title or meta description edit | `docs/meta-texts-catalog.md` + `site/src/data/page-shell-meta.json` | SEO Manual §1, §1.1, §12 (keyword line per page); Tone of Voice |
-| Canonical or hreflang change | `page-shell-registry.ts`, `seo.ts` | SEO Manual §5; url-migration-policy Entry routing |
+| Canonical or hreflang change | `page-shell-registry.ts`, `seo.ts` | SEO Manual §5; `docs/seo/url-architecture.md` §4 (entry routing) |
 | Robots directive | `SiteLayout.astro` (shell-level) or body `<meta name="robots">` | SEO Manual §4 |
 | Open Graph / Twitter | `SiteLayout.astro` + `ogImage` field on shell meta | SEO Manual §5 OG baseline |
-| JSON-LD / structured data | `schema-org.ts` (graph), `stockholm-*.ts` (data) | SEO Manual §6; EX-0017 |
+| JSON-LD / structured data | `schema-org.ts` (graph), `stockholm-*.ts` (data) | SEO Manual §6; `docs/seo/decisions.md` `SEO-0017` |
 | Internal link additions | in-body Astro files, `navigation.ts` | SEO Manual §15 |
-| Keyword targeting / page positioning | `docs/Andetag SEO Manual.md` §12 + body copy | SEO Manual §2, §12; url-migration-policy SEO Landing Page Policy |
-| Sitemap membership | `url-matrix.csv` + built `dist/sitemap-0.xml` | url-migration-policy XML sitemap (Phase 7) |
+| Keyword targeting / page positioning | `docs/Andetag SEO Manual.md` §12 + body copy | SEO Manual §2, §12; `docs/seo/url-architecture.md` §5 (SEO landing page policy) |
+| Sitemap membership | `url-matrix.csv` + built `dist/sitemap-0.xml` | `docs/seo/url-architecture.md` §11 (sitemap rules) |
 | New page | coordinate with `skills/page` | SEO Manual §12 + `page` skill |
 
 ### B. Technical SEO audit (mandatory before committing any change in scope)
@@ -100,18 +100,18 @@ Run these checks against the built `dist/` — a stale `dist/` makes the audit m
 1. **Title**
    - Exactly one `<title>` per page (`grep -c "<title>" dist/<path>/index.html`).
    - Length: aim for ~50–65 characters visible. The ANDETAG pattern appends `| ANDETAG Stockholm` (or `| ANDETAG Berlin`) as a brand suffix — common in `page-shell-meta.json`. Don't strip the suffix unless you add a new EX row.
-   - Matches the row in `docs/meta-texts-catalog.md`. If the catalog and `page-shell-meta.json` disagree, catalog wins (edit JSON to match) — unless the row carries an EX note (EX-0015 `/en/` hub, EX-0019 konstutställning spelling).
+   - Matches the row in `docs/meta-texts-catalog.md`. If the catalog and `page-shell-meta.json` disagree, catalog wins (edit JSON to match) — unless the row carries a decision note (`SEO-0015` `/en/` hub, `SEO-0019` konstutställning spelling) in `docs/seo/decisions.md`.
    - Contains the primary keyword from SEO Manual §12 for that page. For English hub + location `/en/`, `/en/stockholm/`, and English home-like pages, **"breathing museum"** must appear in title OR description per §1.1.
 2. **Meta description**
    - Present on every indexable shell (the hub and leaf shells; 404 has none intentionally).
    - Length: ~120–160 characters visible. Swedish tends slightly longer; allow up to ~170.
    - Not identical across shells in the same locale family (de-duplication).
-   - Tone: calm, concrete, invitational. No em dash (U+2014) — use commas, colons, or parentheses. No banned words (mind-blowing, magical, healing, transformative, life-changing, revolutionary, spiritual, must-see, unforgettable) unless quoting a review (reviews are fair game per EX-0017's lineage).
+   - Tone: calm, concrete, invitational. No em dash (U+2014) — use commas, colons, or parentheses. No banned words (mind-blowing, magical, healing, transformative, life-changing, revolutionary, spiritual, must-see, unforgettable) unless quoting a review (reviews are fair game per `SEO-0017`'s lineage).
 3. **Canonical**
    - Exactly one `<link rel="canonical">` per page.
    - Absolute URL rooted at `https://www.andetag.museum` (never `andetag.museum` bare or `http://`).
    - For standard shells: self-referential (matches the shell path with trailing slash).
-   - For Berlin English story shells (`/en/berlin/about-andetag/`, `/en/berlin/music/`, `/en/berlin/optical-fibre-textile/`, `/en/berlin/about-the-artists-malin-gustaf-tadaa/`): points to the **Stockholm English** equivalent per `BERLIN_EN_STORY_SEO_CANONICAL` (EX-0016). Do not flag this as an error.
+   - For Berlin English story shells (`/en/berlin/about-andetag/`, `/en/berlin/music/`, `/en/berlin/optical-fibre-textile/`, `/en/berlin/about-the-artists-malin-gustaf-tadaa/`): points to the **Stockholm English** equivalent per `BERLIN_EN_STORY_SEO_CANONICAL` (`SEO-0016`). Do not flag this as an error.
    - Never points through a `301` — destination must be a `200` in the built site.
 4. **Hreflang**
    - Self-referential entry present (except Berlin English story shells, where the SEO canonical pair means the English "self" is Stockholm; verify against `resolveSeo()` output).
@@ -133,7 +133,7 @@ Run these checks against the built `dist/` — a stale `dist/` makes the audit m
    - Transactional confirmation / cancellation links are external (Understory domain), not ours.
 7. **Structured data (JSON-LD)**
    - Exactly one `<script type="application/ld+json">` per page; `@graph` pattern (Organization, WebSite, WebPage, Museum-LocalBusiness or Place, plus topical nodes).
-   - Stockholm pages: `@type: ["Museum", "LocalBusiness"]` on the venue node (EX-0017 — not a drift, a documented decision).
+   - Stockholm pages: `@type: ["Museum", "LocalBusiness"]` on the venue node (`SEO-0017` — not a drift, a documented decision).
    - `aggregateRating.reviewCount` is a **JSON number**, not a string (`193`, not `"193"`). `ratingValue` is a **string** (`"4.9"`, not `4.9`) per Google's own doc examples. Mixing these breaks Rich Results.
    - `Offer.price` is a **string** (`"245"`), `priceCurrency` is `"SEK"` (ISO 4217).
    - `Event.startDate` / `endDate` are ISO 8601 with `+01:00`/`+02:00` offset per `computeArtYogaOccurrenceSeriesIso`. `eventSchedule` is preserved — do not remove the recurring rule in favour of the dated events alone.
@@ -183,8 +183,8 @@ The most common failure mode for SEO work with an agent is **invented facts**. T
 2. **Keywords.** Use the GSC-derived signals in SEO Manual §2 only. Do not introduce keywords "because they trend". If the request is to target a new keyword, check §2 for overlap; if absent, flag the gap and escalate — do not silently add it.
 3. **Metadata.** No fabricated titles / descriptions. If `docs/meta-texts-catalog.md` has the row, use it; if not, draft and add the row to the catalog first.
 4. **Schema fields.** Never hand-type a `ratingValue`, `reviewCount`, price, opening hour, or address into `schema-org.ts`. Those come from their source-of-truth files (`stockholm-reviews.ts`, `stockholm-offers.ts`, the `STOCKHOLM_*` constants). If a field is missing from Google's documented schema for that type, do not add it.
-5. **Quotes.** Testimonial text is verbatim TripAdvisor copy. No rewording for tone. No translation across locales (see `skills/testimonials`, EX-0017).
-6. **Source artifacts.** `site-html/` is the **legacy** WP scrape — reference only. EX-0007 (en-stockholm Yoast drift), EX-0019 (utställning spelling) document where the scrape cannot be trusted. Always prefer `page-shell-meta.json` + `stockholm-*.ts` + `schema-org.ts` over `site-html/`.
+5. **Quotes.** Testimonial text is verbatim TripAdvisor copy. No rewording for tone. No translation across locales (see `skills/testimonials`, `SEO-0012`, `SEO-0017`).
+6. **Source artifacts.** `archive/legacy-wordpress-site/site-html/` is the **frozen** WP scrape — reference only. `SEO-0019` (utställning spelling) and the migration-only `EX-0007` (en-stockholm Yoast drift, in `docs/migration-exceptions.md` until archive) document where the scrape cannot be trusted. Always prefer `page-shell-meta.json` + `stockholm-*.ts` + `schema-org.ts` over the archived HTML.
 7. **"Agreed sources."** The phase-9 todo names `seo-content/` as a potential future directory for approved SEO drafts. It does not exist yet (April 2026); until it does, approved sources are the docs and runtime modules above.
 
 If source data is missing, say so. Do not fabricate.
@@ -207,9 +207,9 @@ Use when **`skills/page/SKILL.md`** (or a PR that only adds/edits specific pages
 2. **Read doctrine first** — `docs/Andetag SEO Manual.md` §1, §2 (keyword line for that page type from §12 where applicable), §15 internal linking; `docs/Tone of Voice.md` for banned phrasing and em dash (U+2014) prohibition.
 3. **Shell / meta** — For each path, read `site/src/data/page-shell-meta.json` (and `docs/meta-texts-catalog.md` if the row is curated there). Check title and meta description against **§B.1** and **§B.2** (length, keyword presence where required e.g. §1.1 "breathing museum" on English home-like shells, de-duplication, no banned words). If **§B** or **§C** already covers international parity, confirm the peer locale row still makes sense.
 4. **On-page (body)** — For each edited `*Sv.astro` / `*En.astro` (or `*De.astro`), apply **§D**: single `h1` intent, heading hierarchy, first paragraph, internal links and anchor text (§15.1 / §15 contextual targets when the page has required peer links). If images changed, alts must stay aligned with `assets/images/photos.yaml` per `skills/images`.
-5. **Built HTML** — After `npm run build`, for each path run the relevant slices of **§B** on `site/dist/<path>/index.html`: **§B.1** title, **§B.2** description, **§B.3** canonical, **§B.4** hreflang, **§B.5** OG/Twitter mirror (Berlin English story **§B.3** self-canonical → Stockholm: EX-0016, not a bug).
+5. **Built HTML** — After `npm run build`, for each path run the relevant slices of **§B** on `site/dist/<path>/index.html`: **§B.1** title, **§B.2** description, **§B.3** canonical, **§B.4** hreflang, **§B.5** OG/Twitter mirror (Berlin English story **§B.3** self-canonical → Stockholm: `SEO-0016`, not a bug).
 6. **Source integrity** — **§F** for any new or edited in-body link: no invented paths; only canonical targets from the registry / url-matrix / known routes.
-7. **Output (required for page PRs)** — Write a **short review block**: `§H: pass` or a numbered list of **issues** (severity, file, suggested fix). If a fix would violate a default rule, flag **EX-NNNN** or escalation to Gustaf. The page-PR author resolves issues or documents an approved exception.
+7. **Output (required for page PRs)** — Write a **short review block**: `§H: pass` or a numbered list of **issues** (severity, file, suggested fix). If a fix would violate a default rule, flag **`SEO-NNNN`** (new row in `docs/seo/decisions.md`) or escalation to Gustaf. The page-PR author resolves issues or documents an approved deviation.
 
 **Not in §H by default:** full sitemap validation, all redirects, CWV — defer to `skills/site-integrity` and `skills/performance-check` when the page change has broader blast radius. **JSON-LD** — only re-audit **§B.7** if this task edited `schema-org.ts` or content sources that flow to the graph; otherwise note "graph unchanged" unless a page type always warrants a diff.
 
@@ -229,7 +229,7 @@ Before asking for merge, run:
 The PR or release note must contain a one-line SEO summary of the change, bindings to the doctrine, and the rollback target. Template:
 
 ```
-SEO: <change summary> — titles <N shells touched>, descriptions <N>, canonical/hreflang <none|updated>, JSON-LD <none|type/node>, robots <unchanged>. Docs: <SEO Manual §, Tone of Voice §, url-migration-policy §, EX-NNNN if new>. Rich Results: <pending live test|N/A>. Rollback: `git revert <sha>`.
+SEO: <change summary> — titles <N shells touched>, descriptions <N>, canonical/hreflang <none|updated>, JSON-LD <none|type/node>, robots <unchanged>. Docs: <SEO Manual §, Tone of Voice §, docs/seo/url-architecture.md §, SEO-NNNN if new>. Rich Results: <pending live test|N/A>. Rollback: `git revert <sha>`.
 ```
 
 Example:
@@ -239,7 +239,7 @@ Example:
 ### Pass vs needs-exception
 
 - **Pass** — §B audit clean for the affected dimensions, §C parity holds, §F source-integrity holds, existing tests green, build green. **Page-originated work:** **§H** is clean or all issues are resolved / documented.
-- **Needs exception** — any deviation from a default SEO rule that is intentional (Berlin English canonicals → Stockholm English is already EX-0016; a new intentional deviation needs a new EX-NNNN row). Do not ship silently; log the EX row with owner Gustaf and the commit SHA.
+- **Needs decision row** — any deviation from a default SEO rule that is intentional (Berlin English canonicals → Stockholm English is already `SEO-0016`; a new intentional deviation needs a new `SEO-NNNN` row in `docs/seo/decisions.md`). Do not ship silently; log the row with owner Gustaf and the commit SHA.
 
 ## When to escalate
 
@@ -247,12 +247,12 @@ Stop and ask before proceeding if:
 
 - A requested change would alter `CANONICAL_HOST`, `OG_SITE_NAME`, or the `languageToHreflangAttribute` mapping. These are locked; changing them is a migration, not a maintenance edit.
 - A requested keyword is outside SEO Manual §2 and the request is "target this new keyword". Run `../stats/cli` (read-only; see `skills/performance-check` §E for the stats bridge) to confirm whether GSC data supports the keyword before escalating; do not silently add it.
-- A requested schema type is not already in `schema-org.ts` and is not listed in SEO Manual §6 (for example `Product`, `Recipe`, `HowTo`). Flag to Gustaf — schema expansion requires an EX row and a Rich Results strategy.
+- A requested schema type is not already in `schema-org.ts` and is not listed in SEO Manual §6 (for example `Product`, `Recipe`, `HowTo`). Flag to Gustaf — schema expansion requires a `SEO-NNNN` row in `docs/seo/decisions.md` and a Rich Results strategy.
 - A requested Rich Results change requires Google-side validation beyond the Rich Results Test (for example manual verification of `aggregateRating` within Google Business Profile). That is operational, not a code change.
-- A `noindex` is being added to a page that was previously indexable. This is a traffic loss. Requires explicit approval and an EX row.
+- A `noindex` is being added to a page that was previously indexable. This is a traffic loss. Requires explicit approval and a `SEO-NNNN` row in `docs/seo/decisions.md`.
 - A canonical edit would orphan inbound links (legacy `/stockholm/*` pointed at the old path, new canonical lives elsewhere). Check `docs/url-matrix.csv` first; if the move is intentional, add a `redirect` row.
 - GSC / GA4 data requested but `../stats/cli` is not installed or authenticated. Do not fabricate numbers; report the gap (same rule as `skills/performance-check` §E).
-- `docs/meta-texts-catalog.md` has a row that disagrees with `page-shell-meta.json` and neither is marked with an EX. One of them is stale; ask Gustaf which wins.
+- `docs/meta-texts-catalog.md` has a row that disagrees with `page-shell-meta.json` and neither is marked with a `SEO-NNNN` decision row. One of them is stale; ask Gustaf which wins.
 - A Tone of Voice call is ambiguous (is "quietly striking" ok? is "life-changing" ever ok in a quoted review?). When in doubt, err calm. Escalate before shipping.
 - A Berlin page edit would contradict the pre-opening scope (SEO Manual §11: `Place` only, no Museum, no tickets, lead capture only). Berlin opening status change is Gustaf's call.
 
@@ -281,7 +281,7 @@ Action:
 
 1. **Escalate before editing.** SEO Manual §11: Berlin is pre-opening, `Place` only, no Museum, no aggregateRating.
 2. Ratings currently only exist for Stockholm (TripAdvisor). Berlin has no reviews yet — a rating on Berlin would be **fabricated**, violating §F source integrity.
-3. Report to Gustaf: "Berlin pre-opening scope does not include aggregateRating; no ratings source exists. This would require Berlin opening status change + a new reviews source + an EX row extending EX-0017. Recommending no action until opening."
+3. Report to Gustaf: "Berlin pre-opening scope does not include aggregateRating; no ratings source exists. This would require Berlin opening status change + a new reviews source + a new row in `docs/seo/decisions.md` extending `SEO-0017`. Recommending no action until opening."
 
 ### Example 3: a PR changed a canonical to Berlin English
 
@@ -289,9 +289,9 @@ Request: "I see the PR flipped `/en/berlin/music/` to self-canonical. Is that ri
 
 Action:
 
-1. **Check EX-0016.** Berlin English story shells have `rel="canonical"` pointing to Stockholm English (`/en/stockholm/music/`). This is an approved deviation.
+1. **Check `SEO-0016`.** Berlin English story shells have `rel="canonical"` pointing to Stockholm English (`/en/stockholm/music/`). This is an approved deviation.
 2. **Confirm behaviour.** `BERLIN_EN_STORY_SEO_CANONICAL` in `page-shell-registry.ts` is the runtime source. The PR likely removed or overrode it.
-3. **Block the PR.** The change is an SEO regression (duplicate English index target). Ask the PR author to revert that part and, if they want a different decision, escalate to Gustaf for an EX-0016 update.
+3. **Block the PR.** The change is an SEO regression (duplicate English index target). Ask the PR author to revert that part and, if they want a different decision, escalate to Gustaf for a `SEO-0016` update.
 4. If the PR is already merged, route through `skills/rollback` for the revert + `git revert` PR.
 
 ### Example 4: add a new Stockholm Swedish SEO landing page

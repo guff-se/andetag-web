@@ -26,7 +26,7 @@ This skill is **not** for:
 Rollback touches whatever the original commit touched. The skill does not list specific site files; it **lists the git operations** and **the non-negotiable post-revert checks**. Auxiliary files that usually need parallel edits:
 
 - `CHANGELOG.md` — add a `### Removed` or `### Fixed` entry under `[Unreleased]` naming the reverted PR/commit and the reason. One short bullet.
-- `docs/migration-exceptions.md` — if the reverted change had an exception row (`EX-NNNN`), update the row with the revert date and a short note ("reverted 2026-04-24 in commit abc1234").
+- `docs/seo/decisions.md` — if the reverted change had a `SEO-NNNN` decision row, append a dated note to the row ("reverted 2026-04-24 in commit abc1234"). For domain-specific decisions (operational facts, testimonials), check the §Decisions section of the relevant skill instead. Migration-era `EX-NNNN` rows in `docs/migration-exceptions.md` only matter for archived deviations.
 - `docs/maintenance-backlog.md` — open a row (`M-NNNN`) describing the forward fix that needs to happen, if any.
 
 ## Locale parity rules
@@ -180,7 +180,7 @@ Spot-check `dist/`:
 ### G. Document the revert
 
 1. Add a `CHANGELOG.md` entry under `[Unreleased]` — `### Removed` if the feature was taken back out, `### Fixed` if the revert corrected a visible regression. One bullet, link the original subject, name the reverting commit or PR.
-2. If the reverted commit had an `EX-NNNN` row in `docs/migration-exceptions.md`, append a dated note there.
+2. If the reverted commit had a `SEO-NNNN` row in `docs/seo/decisions.md` or a §Decisions entry in a domain skill (e.g. `skills/operational-facts/SKILL.md`), append a dated note there.
 3. If a forward fix is planned, open a `docs/maintenance-backlog.md` row (`M-NNNN`) with owner and notes.
 
 ## Verification

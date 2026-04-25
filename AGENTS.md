@@ -44,13 +44,12 @@ This project works with real scraped website artifacts and SEO language constrai
 web/
 ├── AGENTS.md              # This guide
 ├── CHANGELOG.md           # Human-readable change log (see docs/changelog-standards.md)
-├── .github/workflows/     # CI: Node tests + build, Python tests
-├── spider.py              # Crawler (HTML + Markdown snapshots + assets)
+├── .github/workflows/     # CI: Node tests + build
+├── archive/
+│   └── legacy-wordpress-site/  # spider.py, site-html/, site-md/ (frozen WP mirror; read-only)
 ├── docs/                  # Active migration and architecture specs
 │   └── archive/           # Closed-phase checklists, superseded plans, historical reference
 ├── skills/                # Agent skills (see skills/README.md); pointers in .claude/skills/ and .cursor/rules/
-├── site-html/             # Scraped HTML pages (canonical input, do not manually edit)
-├── site-md/               # Markdown snapshots from crawler
 ├── site/                  # Astro workspace
 │   ├── public/            # Static assets, _redirects, _headers
 │   ├── scripts/           # Node/shell tooling (meta, fonts, verify-staging, lighthouse)
@@ -75,7 +74,6 @@ web/
 │       │   └── ui-logic/    # TS helpers (carousel, booking, presentation)
 │       ├── pages/           # File-based routes (index, [...slug], 404)
 │       └── styles/          # Global CSS (layout, components, fonts, print, vendor)
-└── seo-content/             # SEO content drafts
 ```
 
 ---
@@ -91,15 +89,17 @@ Consult before implementation. All active docs are in `docs/`.
 | `docs/phase-8-verification-record.md` | Phase 8 evidence and Gustaf sign-off (§Closure) |
 | `docs/phase-9-todo.md` | **Current ops:** **P9-25**, **P9-26**; **P9-00** done (**`docs/phase-9-plan.md`**). Other Phase 9 ids: see checklist (skills, **P9-20**+ PR-gate convention, exit criteria) |
 | `docs/Andetag SEO Manual.md` | SEO/GEO decisions, page intent, language strategy, schema |
+| `docs/seo/url-architecture.md` | **Ongoing** URL contract: canonical, redirects, hreflang, entry routing, sitemap, location-scoped stories, privacy, query/non-HTML/asset rules, Berlin transition. Successor to `docs/url-migration-policy.md` |
+| `docs/seo/decisions.md` | **Ongoing** SEO decision log (`SEO-NNNN`): durable deviations from default rules. Successor to the SEO-relevant rows of `docs/migration-exceptions.md` |
 | `docs/Tone of Voice.md` | User-facing copy and metadata text |
 | `docs/Visual Identity.md` | Typography, color palette, CTA mapping |
-| `docs/url-migration-policy.md` | Canonical URLs, redirects, entry routing (`andetag_entry`), sitemap |
+| `docs/url-migration-policy.md` | **Migration-era reference** — canonical URLs, redirects, entry routing, sitemap. Ongoing successor: `docs/seo/url-architecture.md`. Archived at Phase 9 closure |
 | `docs/phase-4-routing-reopen.md` | Routing decisions, open questions, location/language matrix |
 | `docs/phase-4-redirect-tests.md` | Redirect test tables and execution log |
 | `docs/content-model.md` | Page frontmatter, shared data contracts, component props |
 | `docs/phase-3-component-usage.md` | Component API reference and usage patterns |
 | `docs/definition-of-done.md` | Measurable exit checks per phase |
-| `docs/migration-exceptions.md` | Exception log for source parity deviations |
+| `docs/migration-exceptions.md` | **Migration-era reference** — `EX-NNNN` deviations from Phase 1–8. Ongoing SEO decisions live in `docs/seo/decisions.md`; ongoing operational decisions live as §Decisions blocks in the relevant skill. Archived at Phase 9 closure |
 | `docs/performance-improvement-plan.md` | Lighthouse, responsive images, script loading |
 | `docs/responsive-image-workflow.md` | **Mandatory** when adding photos: derivative generation, suffix rules, wiring |
 | `docs/tracking-and-consent-requirements.md` | GTM, Brevo, consent categories |
@@ -123,8 +123,8 @@ Changes often affect multiple layers. Audit before concluding:
 |-------|---------------|
 | **Astro site** | `site/src/` components, pages, lib, styles, client scripts |
 | **Workers / routing** | `site/workers/`, `site/public/_redirects`, `_headers`, URL policy doc |
-| **Scraped source** | `site-html/` and `site-md/` coverage |
-| **SEO content** | `seo-content/` pages and SEO manual constraints |
+| **Legacy WP mirror (archived)** | `archive/legacy-wordpress-site/site-html/` and `.../site-md/` — not maintained |
+| **SEO / shell meta** | `docs/meta-texts-catalog.md`, `docs/Andetag SEO Manual.md`, `site/src/data/page-shell-meta.json` |
 | **Docs** | Architecture, tone, and SEO docs that describe changed behavior |
 
 For cross-cutting changes:
@@ -148,13 +148,9 @@ cd site && npm run build     # Static build (also CI on push/PR to main)
 # Optional
 cd site && npm run lighthouse:all   # Mobile perf sweep (needs built dist/)
 cd site && npm run verify:staging-entry  # Entry routing vs staging
-
-# Python crawler
-python3 -m py_compile spider.py
-python3 -m unittest tests.test_spider_versioning
 ```
 
-CI (`.github/workflows/ci.yml`) runs Node tests, build, and Python tests on push and PR to `main`.
+CI (`.github/workflows/ci.yml`) runs Node tests and build on push and PR to `main`. Optional: `cd archive/legacy-wordpress-site && PYTHONPATH=. python3 -m unittest discover -s tests` for the archived crawler unit tests.
 
 ---
 

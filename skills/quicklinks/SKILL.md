@@ -5,11 +5,11 @@ description: Manages 302 shortlink rules in the Quicklinks section of site/publi
 
 ## Purpose
 
-Maintain **302 quicklinks** in **`site/public/_redirects`**: short first-party paths (campaigns, print codes, press kit, external destinations) with flexible retargeting. Per **`docs/url-migration-policy.md`** (Pretty Links–style paths), these live in a **comment-marked block immediately before** the **`/stockholm/*`** rule.
+Maintain **302 quicklinks** in **`site/public/_redirects`**: short first-party paths (campaigns, print codes, press kit, external destinations) with flexible retargeting. Per **`docs/seo/url-architecture.md`** §5 (Pretty Links–style paths), these live in a **comment-marked block immediately before** the **`/stockholm/*`** rule.
 
 **Hard scope — `_redirects` file:** The agent may **only** change text **inside the Quicklinks section** of **`site/public/_redirects`**. It must **never** add, delete, or edit any line **outside** that section (all legacy **301** rules, **`/display`**, the **`/stockholm/*`** splat, the Worker/entry `index` comment at EOF, or any other line).
 
-**Not for:** canonical URL moves (**301**), new content pages, **`docs/url-migration-policy.md`** edits, or **Worker** / **entry-router** behavior. Those belong to **`skills/page/SKILL.md`**, **SEO** / **site-integrity** workflows, or infra owners.
+**Not for:** canonical URL moves (**301**), new content pages, **`docs/seo/url-architecture.md`** edits, or **Worker** / **entry-router** behavior. Those belong to **`skills/page/SKILL.md`**, **SEO** / **site-integrity** workflows, or infra owners.
 
 ## When to use
 
@@ -70,7 +70,7 @@ If the file structure ever changes, re-locate the block using: **"comment block 
 - Confirm the **`/stockholm/* /sv/stockholm/:splat 301`** line is still present **once** and unmodified.
 - `cd site && npm run build` — should succeed; `_redirects` is copied to **`dist/_redirects`**.
 
-Deeper redirect audits: **`skills/site-integrity/SKILL.md`**. Policy context: **`docs/url-migration-policy.md`** (Pretty Links–style paths).
+Deeper redirect audits: **`skills/site-integrity/SKILL.md`**. Policy context: **`docs/seo/url-architecture.md`** §5 (SEO landing page policy, Pretty Links–style paths).
 
 ## When to escalate
 

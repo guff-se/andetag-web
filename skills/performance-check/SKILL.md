@@ -21,7 +21,7 @@ This skill is **not** for:
 - A PR is about to merge to `main` that adds or renames pages (new routes go through the full Lighthouse sweep).
 - Weekly or monthly audit: "how is performance trending".
 - A finding from `skills/site-integrity/SKILL.md` or a GSC alert points at a performance regression.
-- Before asking for a waiver into `docs/migration-exceptions.md` or a Phase 9 verification note.
+- Before asking for a waiver: append a dated note to `docs/performance-improvement-plan.md` (Summary section), or open a Phase 9 verification note.
 
 ## Files touched
 
@@ -141,7 +141,7 @@ Example:
 ### Pass vs needs-exception
 
 - **Pass** — no URL below `LIGHTHOUSE_MIN` (85 baseline), no new CLS outlier > 0.05 that was not already flagged, no regression > 3 points mean vs. the previous documented run in `docs/performance-improvement-plan.md`.
-- **Needs exception** — any of the above, or a third-party / consent timing anomaly from §D that cannot be resolved in-PR. Log the waiver in `docs/migration-exceptions.md` with owner Gustaf and the commit SHA, or in a Phase 9 verification note. Linked from the PR.
+- **Needs exception** — any of the above, or a third-party / consent timing anomaly from §D that cannot be resolved in-PR. Log the waiver as a dated note in `docs/performance-improvement-plan.md` Summary (owner Gustaf, commit SHA), or in a Phase 9 verification note. Linked from the PR.
 
 ## When to escalate
 
