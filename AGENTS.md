@@ -108,7 +108,7 @@ Consult before implementation. All active docs are in `docs/`.
 | `docs/phase-8-cutover-runbook.md` | DNS, Workers custom domain, TLS, rollback, post-cutover PR discipline (P8-10, P8-11; checklist **P9-25** in `docs/phase-9-todo.md`) |
 | `docs/decisions/0002-consent-platform-selection.md` | CMP selection ADR (CookieConsent implemented) |
 | `docs/changelog-standards.md` | How to write CHANGELOG.md entries |
-| `skills/README.md` | **Agent skills** index and authoring pattern. Canonical skill files live at `skills/<name>/SKILL.md`; pointers in `.claude/skills/` (Claude Code symlinks) and `.cursor/rules/<name>.mdc` (Cursor thin wrappers). Landed: `page` (P9-12), `faq` (P9-16), `events` (P9-17), `operational-facts` (P9-18), `images` (P9-19), `testimonials` (P9-14), `rollback` (P9-30), `site-integrity` (P9-31), `performance-check` (P9-10 + P9-40), `seo` (P9-13). |
+| `skills/README.md` | **Agent skills** index and authoring pattern. Canonical skill files live at `skills/<name>/SKILL.md`; pointers in `.claude/skills/` (Claude Code symlinks) and `.cursor/rules/<name>.mdc` (Cursor thin wrappers). Landed: `page` (P9-12), `faq` (P9-16), `events` (P9-17), `operational-facts` (P9-18), `images` (P9-19), `testimonials` (P9-14), `rollback` (P9-30), `site-integrity` (P9-31), `performance-check` (P9-10 + P9-40), `seo` (P9-13), `quicklinks`. |
 | `docs/archive/` | Closed-phase checklists, verification records, superseded plans |
 
 **Rule:** If behavior changes, update the relevant doc in the same task.

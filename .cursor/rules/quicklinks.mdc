@@ -1,0 +1,14 @@
+---
+description: 302 shortlinks in site/public/_redirects (Quicklinks block only, above /stockholm/*). Canonical /skills/quicklinks/SKILL.md.
+globs:
+  - site/public/_redirects
+alwaysApply: false
+---
+
+# Quicklinks skill (pointer)
+
+Canonical: [`/skills/quicklinks/SKILL.md`](../../skills/quicklinks/SKILL.md). Read it before acting.
+
+- **In `_redirects`, edit only the Quicklinks section** (banner through blank line before `/stockholm/*`). Never change legacy **301** rules, **`/display`**, the **`/stockholm/*`** splat, or trailing comments.
+- **302**; **with- and without-trailing-slash** pair per path.
+- **New slugs:** add matching **`docs/url-matrix.csv`** **redirect/302** row; **retarget only:** update matrix destination if that slug was listed.

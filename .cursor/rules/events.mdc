@@ -1,5 +1,5 @@
 ---
-description: Use when adding, updating, or removing an event (recurring Art Yoga or a one-off block on the Stockholm home) on the ANDETAG Astro site. Canonical skill lives at /skills/events/SKILL.md.
+description: Use when adding, updating, or removing an event on the ANDETAG Astro site—recurring or one-off; own page or home block. New URLs (recurring or single-date) use page skill first. When editing a one-off, check home, page-bodies, offers, and schema. Canonical: /skills/events/SKILL.md.
 globs:
   - site/src/lib/content/stockholm-offers.ts
   - site/src/lib/chrome/art-yoga-next-occurrence.ts
@@ -19,10 +19,11 @@ Canonical: [`/skills/events/SKILL.md`](../../skills/events/SKILL.md). Read it be
 
 Key points:
 
-- Two event shapes exist: **recurring Art Yoga** (own page, dynamic JSON-LD via `computeArtYogaOccurrenceSeriesIso`) and **one-off blocks** on Stockholm home pages with an Understory booking CTA.
-- Single source for metadata: `site/src/lib/content/stockholm-offers.ts` (`STOCKHOLM_ART_YOGA_EVENT`). Do not hardcode event names, performers, or prices in page bodies.
+- **Recurring event with its own page** — `stockholm-offers.ts` + JSON-LD + optional occurrence helper + `*Sv` / `*En` bodies. *Art Yoga* is the only live example today and the **reference implementation**; new programs follow the same pattern (parallel offer object, `schema-org` emitter, tests).
+- **New page URLs (recurring or one-off concert/workshop)** — `skills/page/SKILL.md` first (pair, registries, shells, `pageBodies`, nav), **then** this skill for copy, CTAs, images, optional one-off or recurring JSON-LD.
+- **One-off** — may be home block only, **dedicated `sv`/`en` page** (if the user asked), or both. Optional JSON-LD with `startDate` / `endDate` for one-offs; only if the user asks.
+- **Editing a one-off** — Find every surface: `StockholmHome*`, relevant `page-bodies/`, `stockholm-offers.ts`, `schema-org.ts` — update in sync.
 - `sv + en` parity is non-negotiable. No German Stockholm events. No Berlin events (escalate).
 - Understory booking URLs must come from the user; never invent experience IDs. Event hero images follow `docs/responsive-image-workflow.md`.
-- JSON-LD for one-off events is optional — only add if the user requests schema coverage.
-- Verify with `npm test && npm run build` from `site/`. Update `schema-org.test.ts` and `art-yoga-next-occurrence.test.ts` when counts or cadence change.
-- Escalate: skipping a single Art Yoga occurrence (no mechanism), Berlin events, booking URL domain mismatch, single-locale requests.
+- Verify with `npm test && npm run build` from `site/`. Update schema and occurrence tests when counts or cadence change.
+- Escalate: skipping a single occurrence of a program that has no skip logic (e.g. Art Yoga), Berlin events, booking URL domain mismatch, single-locale requests.

@@ -40,6 +40,10 @@
 /privacy-policy/ /sv/stockholm/privacy/ 301
 /privacy/ /sv/stockholm/privacy/ 301
 
+# legacy Swedish slug → canonical shell (must precede /stockholm/*)
+/stockholm/aktivitet-stockholm /sv/stockholm/aktivitet-inomhus-stockholm/ 301
+/stockholm/aktivitet-stockholm/ /sv/stockholm/aktivitet-inomhus-stockholm/ 301
+
 # Legacy WordPress path served only on archive host
 /display https://old.andetag.museum/display/ 301
 /display/ https://old.andetag.museum/display/ 301
@@ -49,15 +53,12 @@
 /sv/stockholm/faq/ /sv/stockholm/fragor-svar/ 301
 
 # -----------------------------------------------------------------------------
+# Quicklinks
 # Legacy Pretty Links and ops short paths (see docs/url-migration-policy.md)
 #
-# Internal 301: slug or path fixes (same bar as other migration redirects).
 # Quicklinks 302: print or campaign codes and external targets (easy to retarget).
 # -----------------------------------------------------------------------------
 
-# Internal (301): legacy Swedish slug → canonical shell (must precede /stockholm/*)
-/stockholm/aktivitet-stockholm /sv/stockholm/aktivitet-inomhus-stockholm/ 301
-/stockholm/aktivitet-stockholm/ /sv/stockholm/aktivitet-inomhus-stockholm/ 301
 
 # Quicklinks (302)
 /spotify https://open.spotify.com/album/16JNuKeBQUK3RZHQjj4nDV 302
@@ -72,6 +73,8 @@
 /presskit/ https://drive.google.com/drive/folders/1ojWoIyQ-btaAJqyytRYA86IO0kDWVPir?usp=drive_link 302
 /oneyear https://e25384f2.sibforms.com/serve/MUIFAJtGi05TqhFGWEytkCy-2Dy4RimASqYhZmLGOV3JTUANXdQxBVxCgZKqHq-SqHlpZ6UC4TTHIm9TeX1FB9LeeZv3hRAn4911SIUQgWsSOWWDXb1ZQPaBhfMloKWIP7WP7bQy6HSlCo1I7xvPEAHfBKVOig3fyF8WqHX1kIFlUKIMYYal5AEIDziEo6a3oSYEqNHbyofm3RAy 302
 /oneyear/ https://e25384f2.sibforms.com/serve/MUIFAJtGi05TqhFGWEytkCy-2Dy4RimASqYhZmLGOV3JTUANXdQxBVxCgZKqHq-SqHlpZ6UC4TTHIm9TeX1FB9LeeZv3hRAn4911SIUQgWsSOWWDXb1ZQPaBhfMloKWIP7WP7bQy6HSlCo1I7xvPEAHfBKVOig3fyF8WqHX1kIFlUKIMYYal5AEIDziEo6a3oSYEqNHbyofm3RAy 302
+
+
 
 /stockholm/* /sv/stockholm/:splat 301
 # `/` entry routing: Cloudflare Worker (`site/workers/entry-router.ts`), not static `_redirects`.

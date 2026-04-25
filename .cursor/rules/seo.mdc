@@ -1,30 +1,20 @@
 ---
-description: Use when changing SEO-sensitive elements on the ANDETAG Astro site (site/) — titles, meta descriptions, canonical tags, hreflang, Open Graph, Twitter cards, JSON-LD entity graph, robots directives, internal linking, sitemap inclusion, keyword framing, or tone. Triggers include "update the meta description", "change the title", "fix the hreflang", "add a schema field", "check canonicals", "can we target this keyword". Canonical skill lives at /skills/seo/SKILL.md.
+description: On-page SEO, entity graph, and §H page-pair content review (when page skill or page PRs need pre-merge feedback). Canonical: /skills/seo/SKILL.md.
 globs:
-  - site/src/data/page-shell-meta.json
   - site/src/lib/routes/page-shell-registry.ts
   - site/src/lib/chrome/seo.ts
   - site/src/lib/chrome/schema-org.ts
   - site/src/layouts/SiteLayout.astro
+  - site/src/data/page-shell-meta.json
   - docs/Andetag SEO Manual.md
   - docs/Tone of Voice.md
   - docs/url-migration-policy.md
-  - docs/meta-texts-catalog.md
-  - docs/migration-exceptions.md
 alwaysApply: false
 ---
 
 # SEO skill (pointer)
 
-Canonical: [`/skills/seo/SKILL.md`](../../skills/seo/SKILL.md). Read it before acting.
+Canonical: [`/skills/seo/SKILL.md`](../../skills/seo/SKILL.md).
 
-Key points:
-
-- **Gatekeeper for on-page SEO and entity graph** — titles, meta descriptions, canonicals, hreflang, OG/Twitter, JSON-LD, robots, sitemap, keyword framing, internal links. Not a page author (that is `page`), not a performance skill (that is `performance-check`).
-- **Normative docs**: `docs/Andetag SEO Manual.md` (keyword + schema doctrine), `docs/Tone of Voice.md` (copy constraints — em dash U+2014 prohibited, banned word list), `docs/url-migration-policy.md` (URL architecture), `docs/meta-texts-catalog.md` (title + description source), `docs/migration-exceptions.md` (EX-0015 `/en/` hub, EX-0016 Berlin English → Stockholm English canonical, EX-0017 Museum + LocalBusiness for AggregateRating, EX-0019 utställning spelling).
-- **Runtime contract**: `page-shell-registry.ts` (canonical + hreflang), `seo.ts` (`CANONICAL_HOST`, `OG_SITE_NAME`, BCP47/OG locale), `schema-org.ts` (entity graph), `SiteLayout.astro` (emission).
-- **Locale parity**: Stockholm `sv+en`, Berlin `en+de`. No cross-location hreflang on topic pages. Berlin English story shells canonicalise to Stockholm English (EX-0016) — not a bug.
-- **Source integrity (non-negotiable)**: no fabricated URLs, keywords, ratings, prices, or schema fields. `page-shell-meta.json` / `stockholm-*.ts` / `schema-org.ts` are sources of truth; `site-html/` is legacy scrape, reference only. If the catalog doesn't have it, don't ship it — draft the catalog row first.
-- **Audit dimensions (§B)**: title, meta description, canonical, hreflang, OG+Twitter, robots, JSON-LD, internal links, sitemap. Report line template in §Verification.
-- **OSS lineage**: structural inspiration only from MIT-licensed `coreyhaines31/marketingskills/skills/seo-audit` and `JeffLi1993/seo-audit-skill`. Nothing vendored; substance is the ANDETAG docs.
-- **Escalate**: changes to `CANONICAL_HOST` / `OG_SITE_NAME` / hreflang attribute mapping; new keyword outside SEO Manual §2 without GSC support; new schema type not in §6; `noindex` addition to an indexable shell; Rich Results strategy changes; Tone of Voice edge cases; Berlin pre-opening scope violations.
+- **`§H` (page-pair review):** `skills/page` requires this before merge on touched paths — shell meta, on-page copy, `dist/` title/description/canonical/hreflang/OG, §F link integrity, scoped to those URLs.
+- Full workflow: `skills/seo/SKILL.md` (§A–G, verification, source integrity, PR report line).

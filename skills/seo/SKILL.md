@@ -1,11 +1,11 @@
 ---
 name: seo
-description: Use when changing SEO-sensitive elements on the ANDETAG Astro site (site/) — titles, meta descriptions, canonical tags, hreflang, Open Graph, Twitter cards, JSON-LD entity graph, robots directives, internal linking, sitemap inclusion, keyword framing, or tone. Triggers include "update the meta description", "change the title", "fix the hreflang", "add a schema field", "check canonicals", "is this a good SEO title", "can we target this keyword", "update the AggregateRating", "does this respect our tone", "review this copy for SEO". Enforces the locked architecture in docs/url-migration-policy.md, the keyword and schema doctrine in docs/Andetag SEO Manual.md, and the copy constraints in docs/Tone of Voice.md. Source integrity is non-negotiable — no fabricated URLs, keywords, ratings, prices, or schema fields. Rich Results validation is manual (live deploy, not lab). For organic-traffic correlation, routes through the performance-check skill's §E stats bridge.
+description: Use when changing SEO-sensitive elements on the ANDETAG Astro site (site/) — titles, meta descriptions, canonical tags, hreflang, Open Graph, Twitter cards, JSON-LD entity graph, robots directives, internal linking, sitemap inclusion, keyword framing, or tone; or when **`skills/page/SKILL.md` §Verification** (or a page PR) requires **per-page content feedback** (see **§H**). Triggers include "update the meta description", "change the title", "fix the hreflang", "add a schema field", "check canonicals", "is this a good SEO title", "can we target this keyword", "update the AggregateRating", "does this respect our tone", "review this copy for SEO", "SEO check for this new page". Enforces the locked architecture in docs/url-migration-policy.md, the keyword and schema doctrine in docs/Andetag SEO Manual.md, and the copy constraints in docs/Tone of Voice.md. Source integrity is non-negotiable — no fabricated URLs, keywords, ratings, prices, or schema fields. Rich Results validation is manual (live deploy, not lab). For organic-traffic correlation, routes through the performance-check skill's §E stats bridge.
 ---
 
 ## Purpose
 
-Keep the on-page SEO and entity-graph of `andetag.museum` coherent with the locked architecture and the brand doctrine. This skill is the **gatekeeper** for anything that a crawler, AI, or SERP preview will read — page titles, meta descriptions, canonicals, hreflang, Open Graph, Twitter cards, JSON-LD, robots, sitemap membership, keyword framing, internal links. It does **not** design new pages (that is `skills/page`), update operational facts (that is `skills/operational-facts`), or measure performance (that is `skills/performance-check`). It reviews, extends, and fixes the SEO contract of what already exists, and blocks edits that would silently break it.
+Keep the on-page SEO and entity-graph of `andetag.museum` coherent with the locked architecture and the brand doctrine. This skill is the **gatekeeper** for anything that a crawler, AI, or SERP preview will read — page titles, meta descriptions, canonicals, hreflang, Open Graph, Twitter cards, JSON-LD, robots, sitemap membership, keyword framing, internal links. It does **not** design new pages (that is `skills/page`), update operational facts (that is `skills/operational-facts`), or measure performance (that is `skills/performance-check`). It reviews, extends, and fixes the SEO contract of what already exists, and blocks edits that would silently break it. **`skills/page` invokes it for testing:** when a page task finishes implementable work, run **§H** to deliver **SEO content feedback** on the affected page pair(s) before merge (titles/descriptions, on-page copy signals, and built HTML checks scoped to those URLs — not a whole-site audit unless the change demands it).
 
 This skill draws structural inspiration from the MIT-licensed community skills at `coreyhaines31/marketingskills/skills/seo-audit` and `JeffLi1993/seo-audit-skill` — their section shape (initial assessment → technical → international → on-page → schema) is a reasonable baseline. Nothing is copied verbatim; the substance is the ANDETAG docs. See §G "OSS survey notes" for what was reviewed and why no full adoption happened.
 
@@ -22,6 +22,7 @@ This skill is **not** for:
 - A PR edits a `<title>`, `<meta name="description">`, `<meta property="og:*">`, `<link rel="canonical">`, hreflang link, robots meta, or any JSON-LD node on a shell.
 - A content change in `site/src/lib/content/` or `site/src/lib/chrome/schema-org.ts` propagates to structured data (prices, reviews, events, FAQ, opening hours).
 - A new page is being proposed or wired (coordinate with `skills/page`): confirm keyword fit, canonical path, hreflang parity, sitemap inclusion, shell meta.
+- **Page-skill verification** — `skills/page` requires a **§H** pass on each affected path before merge; run **§H** when acting as the SEO reviewer for that page work or when asked for "SEO feedback on this page" in isolation.
 - `docs/meta-texts-catalog.md` is being re-applied to `site/src/data/page-shell-meta.json`.
 - An agent is asked to write or review a page title, meta description, H1, H2, or in-body copy for SEO fit.
 - A GSC alert, a search snippet change, or a Rich Results console warning needs diagnosis.
@@ -198,13 +199,27 @@ Skills reviewed before authoring (all MIT-licensed, structural inspiration only)
 
 No skill was installed as a dependency; the frontmatter and workflow above are written to this project. If a future release of `seo-audit` adds a pattern worth adopting (for example a standardised Rich Results test checklist), extend §E rather than vendor the upstream file — ANDETAG's doctrine is specific enough that upstream drift would regress us.
 
+### H. Page-pair content review (invocation from `skills/page` or a focused page PR)
+
+Use when **`skills/page/SKILL.md`** (or a PR that only adds/edits specific pages) needs **SEO feedback on individual page content** before merge. This is a **scoped** pass — the touched canonical path(s) only — not a substitute for a full `skills/site-integrity` sweep or a whole-site GSC review.
+
+1. **Identify scope** — List every `sv` / `en` (or `de` / `en` for Berlin) path changed or introduced. If only body copy changed, both locales of the pair still get **§H** when the page skill runs verification.
+2. **Read doctrine first** — `docs/Andetag SEO Manual.md` §1, §2 (keyword line for that page type from §12 where applicable), §15 internal linking; `docs/Tone of Voice.md` for banned phrasing and em dash (U+2014) prohibition.
+3. **Shell / meta** — For each path, read `site/src/data/page-shell-meta.json` (and `docs/meta-texts-catalog.md` if the row is curated there). Check title and meta description against **§B.1** and **§B.2** (length, keyword presence where required e.g. §1.1 "breathing museum" on English home-like shells, de-duplication, no banned words). If **§B** or **§C** already covers international parity, confirm the peer locale row still makes sense.
+4. **On-page (body)** — For each edited `*Sv.astro` / `*En.astro` (or `*De.astro`), apply **§D**: single `h1` intent, heading hierarchy, first paragraph, internal links and anchor text (§15.1 / §15 contextual targets when the page has required peer links). If images changed, alts must stay aligned with `assets/images/photos.yaml` per `skills/images`.
+5. **Built HTML** — After `npm run build`, for each path run the relevant slices of **§B** on `site/dist/<path>/index.html`: **§B.1** title, **§B.2** description, **§B.3** canonical, **§B.4** hreflang, **§B.5** OG/Twitter mirror (Berlin English story **§B.3** self-canonical → Stockholm: EX-0016, not a bug).
+6. **Source integrity** — **§F** for any new or edited in-body link: no invented paths; only canonical targets from the registry / url-matrix / known routes.
+7. **Output (required for page PRs)** — Write a **short review block**: `§H: pass` or a numbered list of **issues** (severity, file, suggested fix). If a fix would violate a default rule, flag **EX-NNNN** or escalation to Gustaf. The page-PR author resolves issues or documents an approved exception.
+
+**Not in §H by default:** full sitemap validation, all redirects, CWV — defer to `skills/site-integrity` and `skills/performance-check` when the page change has broader blast radius. **JSON-LD** — only re-audit **§B.7** if this task edited `schema-org.ts` or content sources that flow to the graph; otherwise note "graph unchanged" unless a page type always warrants a diff.
+
 ## Verification
 
 Before asking for merge, run:
 
 1. `cd site && npm test` — all existing parity and registry tests must pass. Of direct relevance: `page-shell-registry.test.ts`, `url-matrix-parity.test.ts`, `schema-org.test.ts`, `build-output-structure.test.ts`, `chrome-navigation-resolve.test.ts`.
 2. `cd site && npm run build` — `dist/` rebuilt from the edited source.
-3. **SEO audit per §B** — every dimension that applies to the change. For a title / description edit, §B.1 + §B.2 + §B.5 (OG mirror) + §C parity are required; for a canonical / hreflang edit, §B.3 + §B.4 + §C; for a schema edit, §B.7 + §E.
+3. **SEO audit per §B** — every dimension that applies to the change. For a title / description edit, §B.1 + §B.2 + §B.5 (OG mirror) + §C parity are required; for a canonical / hreflang edit, §B.3 + §B.4 + §C; for a schema edit, §B.7 + §E. **When the work was triggered or reviewed from `skills/page`**, also complete **§H** and attach its outcome to the PR.
 4. **`skills/site-integrity`** for the cross-cutting sanity sweep (sitemap, redirect chains, image references).
 5. **`skills/performance-check`** only if the edit could affect LCP / CLS (new hero, new preload, new OG image) — most SEO-only edits do not.
 6. **Live Rich Results Test** (manual, deploy required): run on one affected live URL after merge. Expected outcomes: Stockholm pages eligible for AggregateRating / Review / Event / FAQPage rich results; Berlin pre-opening no rich results (Place only); 404 none.
@@ -223,7 +238,7 @@ Example:
 
 ### Pass vs needs-exception
 
-- **Pass** — §B audit clean for the affected dimensions, §C parity holds, §F source-integrity holds, existing tests green, build green.
+- **Pass** — §B audit clean for the affected dimensions, §C parity holds, §F source-integrity holds, existing tests green, build green. **Page-originated work:** **§H** is clean or all issues are resolved / documented.
 - **Needs exception** — any deviation from a default SEO rule that is intentional (Berlin English canonicals → Stockholm English is already EX-0016; a new intentional deviation needs a new EX-NNNN row). Do not ship silently; log the EX row with owner Gustaf and the commit SHA.
 
 ## When to escalate
@@ -290,4 +305,14 @@ Action:
 3. **Canonical.** If approved, shell path would be `/sv/stockholm/lugn-aktivitet-stockholm/`, English peer `/en/stockholm/calm-activity-stockholm/` (slug TBD). Add rows to `STOCKHOLM_SV_EN_PAIRS` and `page-shell-meta.json`.
 4. **Sitemap.** Will auto-include as a `keep` row in `docs/url-matrix.csv`.
 5. **Schema.** Inherits Museum + LocalBusiness graph; no new type. Tone + factual anchor linking per SEO Manual §15.
-6. Escalate to `skills/page` for the implementation; this skill signs off on the SEO contract before merge.
+6. Escalate to `skills/page` for the implementation; this skill signs off on the SEO contract before merge. After `skills/page` implements, run **§H** on the new pair before merge.
+
+### Example 5: page skill hands off for a scoped §H before merge
+
+Request: (implicit) a page PR added `SkolgrupperSv.astro` / `SchoolGroupsEn.astro` and `page-shell-meta.json` for `/sv/stockholm/skolgrupper/` and `/en/stockholm/school-groups/`.
+
+Action:
+
+1. **§H** — Scope both paths. Check meta, bodies (H1, first paragraph, §15 links), then `dist/.../index.html` for title, description, canonical, hreflang, OG.
+2. **Output** — `§H: pass` or a numbered list of fixes.
+3. Re-run after fixes until pass or an approved EX.

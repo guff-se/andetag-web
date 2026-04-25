@@ -1,6 +1,6 @@
 ---
 name: page
-description: Use when adding, editing, renaming, or removing a content page on the ANDETAG Astro site (site/). Triggers include "add a new Stockholm page", "create a German Berlin page", "rename /en/stockholm/faq/", "change the copy on the opening-hours page", "delete the art yoga page", and any task that touches files under site/src/pages/, site/src/components/page-bodies/, site/src/lib/routes/page-shell-registry.ts, or site/src/lib/page-registry/page-body-registry.ts.
+description: Use when adding, editing, renaming, or removing a content page on the ANDETAG Astro site (site/). Triggers include "add a new Stockholm page", "create a German Berlin page", a **new event that needs its own page** (often reached via `skills/events/SKILL.md` first), "rename /en/stockholm/faq/", "change the copy on the opening-hours page", "delete the art yoga page", and any task that touches site/src/pages/, page-bodies, page-shell-registry, or page-body-registry. User-attached images and proactive page illustration route through `skills/images/SKILL.md`. **Testing** includes a **content SEO pass** per `skills/seo/SKILL.md` **§H** (page-pair review) before merge.
 ---
 
 ## Purpose
@@ -10,22 +10,38 @@ This skill teaches an agent how to add, edit, rename, or remove a canonical cont
 It is **not** for:
 
 - FAQ entry changes (see `skills/faq/SKILL.md`).
-- Event additions or edits (see `skills/events/SKILL.md`).
+- **Event semantics** as such — offer rows, JSON-LD, Understory links, home blocks (see `skills/events/SKILL.md`). **Exception:** this skill **does** own **new canonical URLs and shells** for an event that should have its own page; the events skill often **hands off here first** (§B), then takes back offer/schema/copy wiring.
 - Operational facts like opening hours or ticket prices (see `skills/operational-facts/SKILL.md`).
-- Image selection suggestions (see `skills/image-suggestion/SKILL.md`).
+- **Choosing and cataloguing photographs** — ingest, alt text, and responsive wiring (see `skills/images/SKILL.md`). The page skill **coordinates** with that skill (see **§Coordination** below) but does not invent image assets.
 - Testimonial or review updates (see `skills/testimonials/SKILL.md`).
 - Redirect-only work with no page body change (edit `site/public/_redirects` directly, following `docs/url-migration-policy.md`).
 
-If the request is a content tweak inside an existing page body (`*Sv.astro` / `*En.astro` / `*De.astro`) and nothing else, skip most of the Workflow and apply only §Edit and §Verification.
+If the request is a content tweak inside an existing page body (`*Sv.astro` / `*En.astro` / `*De.astro`) and nothing else, skip most of the Workflow and apply only §A and §Verification — still apply **§Coordination** for imagery if the edit materially changes length or sectioning.
 
 ## When to use
 
 - The user wants a **new canonical page** at a URL that does not exist yet.
+- The workflow from **`skills/events/SKILL.md`** needs **Step 1: page pair and shells** — a recurring or one-off event that should live at its own `sv`/`en` paths. Run this skill’s **§B** (and minimal bodies), then continue in the events skill for data and booking wiring.
 - The user wants to **edit copy, sections, or structure** inside an existing page body.
 - The user wants to **rename** a page's canonical slug (this is a move, not just an edit).
 - The user wants to **remove** a page.
 
 Do **not** use this skill if the request only changes the header, footer, or a shared component that is not tied to a specific page.
+
+## Coordination: events skill and images skill
+
+### Events skill (handoff)
+
+If the user’s goal is an **event with a dedicated page**, **`skills/events/SKILL.md`** may trigger this skill explicitly: create the `sv`/`en` pair, registries, `pageBodies`, meta, and **minimal** `*Sv.astro` / `*En.astro` per **§B**. Event-specific offer objects, `schema-org.ts` emitters, booking CTAs, and filled marketing copy are **out of scope here**; they follow the events skill after routes exist. Model event-style bodies on `ArtYogaSv.astro` / `ArtYogaEn.astro` when useful.
+
+### Images skill (attachments and balance)
+
+- **User-attached images** (for this new page or page edit): do **not** only drop files into `public/`. Run **`skills/images/SKILL.md`**, especially **§E** (ingest: `assets/images/`, new canonical `file`, trilingual `alt`, `photos.yaml` row) and then wire per that skill (`ResponsiveInlinePicture`, `HeroSection`, `GallerySection`, derivatives). Attachments are part of the same PR as the page work unless the user says otherwise.
+- **Photo / text ratio (proactive):** When you **add a new page** or **add substantial new copy** to an existing page, **estimate** whether the result matches the project’s visual density for that page *type* (compare to a **peer**: e.g. experiential / event-style pages with a hero + one or more figures vs. a thin factual page with none). If the page is **over-weight text** for its type and nothing in the brief forbids photography, use **`skills/images/SKILL.md` on your own initiative** to select and wire additional images from `assets/images/photos.yaml` (or ingest new files if the user provided them). **Skip** proactive adds when the user explicitly asked for a text-only or intentionally minimal layout, or when the page type is text-dominant (e.g. hours-only anchor) with no visual gap vs. peers.
+
+### SEO skill (content feedback as part of testing)
+
+Before calling a page change **merge-ready**, run **`skills/seo/SKILL.md` §H** (page-pair content review) on the **affected canonical path(s)**. That pass reviews shell meta, on-page copy signals (headings, first paragraph, internal links, keyword fit, tone), and the matching **`dist/**`** HTML for title/description/canonical/hreflang/OG for those locales. Treat **§H** output as part of **§Verification** — fix issues or document an intentional exception (and **EX-NNNN** if the SEO skill says one is required) before merge. Full-site SEO sweeps and Rich Results live checks remain the SEO skill’s own verification matrix; **§H** is scoped to the page work at hand.
 
 ## Files touched
 
@@ -68,7 +84,8 @@ If the user asks for a single-locale change, confirm explicitly before skipping 
 1. Identify the body component(s) for the canonical path. Start at `site/src/pages/[...slug].astro` → `pageBodies` map. For Stockholm, edit **both** `*Sv.astro` and `*En.astro` files unless the user asked for a single locale.
 2. Apply the change. Keep tone consistent with `docs/Tone of Voice.md`. Copy follows `docs/Andetag SEO Manual.md` constraints (no fabricated URLs, metadata, or prices).
 3. If the edit touches shared data (offers, FAQ, reviews), change the single source listed in `docs/content-model.md`, not the consuming pages.
-4. Verification: §Verification.
+4. If the edit **substantially lengthens** the page or **adds sections** in a type that usually carries imagery, re-check **photo / text balance** (see **Coordination**) and, if needed, add figures or a hero via `skills/images/SKILL.md` in the same task.
+5. Verification: §Verification.
 
 ### B. Add a new page pair
 
@@ -82,7 +99,7 @@ Example: new Stockholm page `/sv/stockholm/new-page/` + `/en/stockholm/new-page/
 6. **Body components** — create `site/src/components/page-bodies/NewPageSv.astro` and `NewPageEn.astro`. Structure them after an existing sibling of similar shape (e.g. `OppettiderSv.astro` + `OppettiderEn.astro` for factual anchors, `ArtYogaSv.astro` + `ArtYogaEn.astro` for event-style pages). Reuse section components from `content/` and UI helpers from `ui/`.
 7. **Route wiring** — in `site/src/pages/[...slug].astro`, add imports for both components and add entries to the `pageBodies` map keyed by canonical path. Keys must exactly match `PAGE_CUSTOM_BODY_PATHS`.
 8. **Navigation** — in `site/src/lib/chrome/navigation.ts`, add nav entries under the right variant ids (`sv-main` + `en-main` for Stockholm; `en-main-berlin` + `de-main` for Berlin). Use keyword-aligned anchor text (≤5 words) per `docs/Andetag SEO Manual.md` §15. For cross-location topics, also update `GLOBAL_TRILINGUAL_TOPICS` in `site/src/lib/routes/chrome-navigation-resolve.ts`.
-9. **Images** — any new photograph or large raster goes through `docs/responsive-image-workflow.md`: master committed under `site/public/wp-content/uploads/.../`, three derivatives generated with ImageMagick (`-640w.webp`, `-960w.webp`, `-960w.jpg`), wired through `ResponsiveInlinePicture` / gallery helpers / hero constants depending on role. Do **not** hotlink or invent placeholders (`AGENTS.md` §Source Integrity).
+9. **Images** — follow **`skills/images/SKILL.md`** (catalog, ingest, derivatives, and components — not ad-hoc `<img>`). User-attached files: §E of that skill. Fulfil **photo / text balance** (see **Coordination**): if the new body is still text-heavy vs. a peer of the same kind, add figures or a hero from the catalog before calling the page done. Technical recipe remains `docs/responsive-image-workflow.md` for derivatives; do **not** hotlink or invent placeholders (`AGENTS.md` §Source Integrity).
 10. Verification: §Verification.
 
 ### C. Rename a page
@@ -124,11 +141,12 @@ Pass means:
 - `npm test` exits 0 with all files passing.
 - `npm run build` exits 0 and lists the expected page count (previously 65 for Stockholm + Berlin + privacy; recalculate if you added or removed pages).
 - For new or renamed pages, confirm the new path appears under `site/dist/<path>/index.html` after build, and the old path either no longer exists (renames handled by the 301) or is absent (removals).
+- **SEO content feedback** — Apply **`skills/seo/SKILL.md` §H** to every canonical path this task added or meaningfully changed (both locales of a pair when Stockholm/Berlin rules apply). Record the outcome in the PR: either **"§H pass"** or a short list of fixes applied / exceptions cited. Do not skip **§H** for substantial copy, meta, nav, or structure edits; a typo-only fix may not need a deep pass (use judgment).
 
 Optional:
 
 - If images changed, follow the performance recipe in `skills/performance-check/SKILL.md` (runs `npm run lighthouse:all` or a targeted `LIGHTHOUSE_PATHS` subset).
-- Spot-check the built shell meta: open `site/dist/<path>/index.html`, verify `<title>`, `<meta name="description">`, `<link rel="canonical">`, and hreflang alternates.
+- Beyond **§H**, spot-check the built shell meta if needed: `site/dist/<path>/index.html` for `<title>`, `<meta name="description">`, `<link rel="canonical">`, and hreflang alternates.
 
 ## When to escalate
 
@@ -147,7 +165,7 @@ Stop and ask the user (or Gustaf) before proceeding if:
 
 The user says: *"Change the note on the Stockholm opening-hours page so it says the museum is closed on 2026-06-06 (Swedish National Day). Add the same note in English."*
 
-Action: open `site/src/components/page-bodies/OppettiderSv.astro` and `OppettiderEn.astro`, add the closure note in the appropriate section of each. Run `npm test && npm run build`. Report both files edited.
+Action: open `site/src/components/page-bodies/OppettiderSv.astro` and `OppettiderEn.astro`, add the closure note in the appropriate section of each. Run `npm test && npm run build`. Run `skills/seo/SKILL.md` **§H** on the opening-hours paths; note `§H pass` or fixes in the PR. Report both files edited.
 
 ### Example 2: add a new Stockholm Swedish + English page
 
@@ -163,5 +181,11 @@ Action:
 6. Create `SkolgrupperSv.astro` and `SchoolGroupsEn.astro` under `page-bodies/`, modelled on an existing factual-anchor sibling.
 7. Wire imports + `pageBodies` entries in `[...slug].astro`.
 8. Add nav entries in `navigation.ts` under `sv-main` and `en-main`.
-9. For the two photos, follow `docs/responsive-image-workflow.md` to produce derivatives and wire via `ResponsiveInlinePicture`.
-10. `npm test && npm run build` from `site/`. Report all files touched in the PR body.
+9. For the two photos, follow `skills/images/SKILL.md` and `docs/responsive-image-workflow.md` (pick from `photos.yaml` or ingest if supplied); if the first draft is still text-heavy vs. a similar experience page, add another inline or hero per **Coordination** before finishing.
+10. `npm test && npm run build` from `site/`. `skills/seo/SKILL.md` **§H** for both new paths. Report all files and `§H` outcome in the PR body.
+
+### Example 3: new event page (handoff from the events skill)
+
+The user (via the events flow) needs `/sv/stockholm/<sv-slug>/` and `/en/stockholm/<en-slug>/` for a one-off or recurring program, with shells and minimal bodies before event data and schema.
+
+Action: run **§B** in this skill to create the pair, meta, registries, `pageBodies`, nav, and thin `*Sv.astro` / `*En.astro` (mirror `ArtYoga*.astro` if helpful). If the user attached hero photos, run **`skills/images/SKILL.md` §E** and wire. `npm test && npm run build`, then **`skills/seo/SKILL.md` §H** on the new paths. Return to **`skills/events/SKILL.md`** for `stockholm-offers.ts` (or equivalent), `schema-org.ts` occurrence emitters, and event copy; re-**§H** after event copy if it materially changes the page bodies or meta.
