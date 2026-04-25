@@ -2,13 +2,27 @@
 
 Purpose: track the transition from **migration** (phased rebuild, URL parity, locale rollout) to **maintenance** (ongoing updates on live **`www`**). Normative phase summary: **`docs/grand-plan.md`** (Phase 9).
 
-**Status:** **Phase 8 closed** **2026-04-14** (**`docs/phase-8-verification-record.md`** §Closure). **P9-00** governance is **complete** per **`docs/phase-9-plan.md`** (§A **Governance and collaborator onboarding**, **North-star user and operating model**). **P9-25** (post-cutover release discipline) is **complete** **2026-04-25**. **Active carry from Phase 8:** **P9-26** (post-cutover organic monitoring, former **P8-26**). Further Phase 9 ids: rows below and **`docs/phase-9-plan.md`**.
+**Status:** **Phase 8 closed** **2026-04-14** (**`docs/phase-8-verification-record.md`** §Closure). **P9-00** governance is **complete** per **`docs/phase-9-plan.md`** (§A **Governance and collaborator onboarding**, **North-star user and operating model**). **P9-25** (post-cutover release discipline) is **complete** **2026-04-25**. **P9-02, P9-03, P9-40, P9-41** (collaborator guide, validation note, stats bridge + skill documentation) and **P9-50** (maintenance backlog file) are **closed** in the checklist **2026-04-25**; see sections below. **P9-26, P9-20, P9-21, P9-22** are **closed** **2026-04-25** with evidence in **`docs/phase-9-verification-record.md`**. **Archive sweep** ids **P9-90**+ remain per **`docs/phase-9-plan.md`** §H. Further Phase 9 reference: this file and **`docs/phase-9-plan.md`**.
+
+## Collaborator onboarding (see **`docs/phase-9-plan.md`** §A)
+
+- [x] **P9-02** **`docs/collaborator-guide.md`** exists: non-technical onboarding for museum directors (Paths A/B, preview/merge, scope, escalation). **Complete** (shipped with Phase 9 plan rollout).
+- [x] **P9-03** **Validate the collaborator guide** (plan: one Stockholm test run, director opens a small content PR). **Complete** **2026-04-25** (maintainer). Full narrative may move to **`docs/phase-9-verification-record.md`** when that file is created; until then, the guide and PR workflow in **`AGENTS.md`** are the live contract.
+
+## Stats integration (see plan §C)
+
+- [x] **P9-40** **Stats bridge:** `../stats/cli` (andetag-data) for read-only GSC / GA4 / sales-style queries; credentials only in the stats project. **Complete:** recipe in **`skills/performance-check/SKILL.md`** §E (and **`../stats/cli/README.md`**). No **`site/scripts/stats.sh`** in this repo (not required; optional later).
+- [x] **P9-41** **Document the bridge in skills** (no standalone integration doc). **Complete:** **`skills/performance-check/SKILL.md`** §E; **`skills/seo/SKILL.md`** (escalation + keyword workflow → `../stats/cli` + pointer to performance-check).
+
+## Maintenance backlog (see plan §G)
+
+- [x] **P9-50** **`docs/maintenance-backlog.md`** **created** with **`M-NNNN`** row format, backlog + archive sections, and initial rows (**M-0001**–**M-0003** from operational-facts / testimonials). **Ongoing** work is *using* the file (triage, add rows, set **done** and move to archive) — not a one-time “close and delete” task.
 
 ## Governance and scope
 
 - [x] **P9-00** Governance is defined by the published plan (**`docs/phase-9-plan.md`**): sole maintainer (Gustaf) plus museum directors as collaborators; all have create and approve rights on **PRs**; **Cloudflare** preview URL is the practical merge check; no direct pushes to **`main`**; Berlin-specific work deferred to post–Phase 9. Content, locale copy (including **`de`**), and analytics-related changes that touch this repo ship through that same PR workflow; read-only **GSC** / **GA4** / sales queries for agents use the **andetag-stats** CLI (sibling project, no extra secrets in this repo) as in **`docs/phase-9-plan.md`** §C and **`skills/performance-check/SKILL.md`** (**P9-40**).
 - [x] **P9-25** **Post-cutover release discipline** (carried from Phase 8 **P8-25** **2026-04-14**; **complete** **2026-04-25**): Keep **`docs/phase-8-cutover-runbook.md`** **Post-cutover release discipline** section accurate; extend **`AGENTS.md`** if needed. **No direct pushes to `main`** for routine work; **PRs** with **Cloudflare preview deployments** per branch; **merge to `main`** promotes **`www`**. Align **GitHub** branch protection and **Cloudflare Workers** (or **Pages**) project settings with this flow.
-- [ ] **P9-26** **Post-cutover organic monitoring** (carried from Phase 8 **P8-26** **2026-04-14**): For **2–4 weeks** after **`www`** cutover (**2026-04-14** baseline), monitor **GSC** coverage (new **404**s, soft **404**s, crawl anomalies), organic traffic trend vs **P8-08** baseline (**`docs/phase-8-verification-record.md`** §GSC baseline snapshot), indexed page count, and **Core Web Vitals** field data. Check **Google cache** (URL Inspection **View Crawled Page**) on key pages. Log dated rows in **`docs/phase-8-verification-record.md`** §Organic monitoring log (this file stays the cutover-era record until **`docs/phase-9-verification-record.md`** exists). Cadence: daily the first week, then bi-weekly through week **4**. If organic traffic drops **>30%** for **3+ consecutive days** without external cause, investigate and escalate. Check this row when the window is complete and there is no unresolved SEO regression, or document resolution in **`docs/migration-exceptions.md`** / verification notes with owner.
+- [x] **P9-26** **Post-cutover organic monitoring** (carried from Phase 8 **P8-26** **2026-04-14**): **Complete** **2026-04-25**; narrative and sign-off in **`docs/phase-9-verification-record.md`** §P9-26. The §Organic monitoring log table in **`docs/phase-8-verification-record.md`** was not filled with dated metrics; ongoing GSC/GA4 work uses the stats bridge (**`skills/performance-check/SKILL.md`** §E, **`skills/seo/SKILL.md`**). Escalation rule (>30% traffic drop) remains good operational guidance.
 
 ## Performance optimization Agent Skill
 
@@ -33,10 +47,12 @@ Purpose: track the transition from **migration** (phased rebuild, URL parity, lo
 
 ## Production PR gate
 
-- [ ] **P9-20** Define **mandatory** pre-merge checks for PRs that deploy to **`www`**: at minimum, the performance workflow from **P9-10** must run and pass unless waived (logged in **`docs/migration-exceptions.md`** or a Phase 9 verification note with owner).
-- [ ] **P9-21** Optional: add or extend **CI** (GitHub Actions) for a performance budget or Lighthouse smoke on **`site/`** so the gate is not only manual.
-- [ ] **P9-22** Record evidence model (where PRs or releases note “performance pass completed”).
+Normative: **`docs/phase-9-plan.md`** §E. Evidence: **`docs/phase-9-verification-record.md`** §PR-gate convention (P9-20–P9-22).
 
-## Verification record (when Phase 9 starts)
+- [x] **P9-20** **Convention:** the agent runs the relevant skill’s **Verification** (and any **`AGENTS.md`** commands) before requesting merge; if skipped, state why in the **PR** body. **Complete** **2026-04-25** (not a CI hard gate; Cloudflare preview remains the visual merge check per **P9-25**).
+- [x] **P9-21** **Exceptions:** use **`EX-NNNN`** in **`docs/migration-exceptions.md`** (and SEO **`docs/seo/decisions.md`** where applicable) for standing waivers, not ad hoc text. **Complete** **2026-04-25**.
+- [x] **P9-22** **CI:** no in-repo Lighthouse budget; optional Actions smoke **deferred** until a concrete need (**plan** §E). **Evidence model** for “performance / verification discipline”: this checklist + **§PR-gate** in **`docs/phase-9-verification-record.md`**. **Complete** **2026-04-25**.
 
-- [ ] Create **`docs/phase-9-verification-record.md`** when the program is no longer placeholder and sign-off is required (mirror Phase 8 record pattern). Until then, **P9-26** monitoring rows live under **`docs/phase-8-verification-record.md`** §Organic monitoring log.
+## Verification record
+
+- [x] **`docs/phase-9-verification-record.md`** **created** **2026-04-25** (§P9-26, §PR-gate, sign-off). **P9-26** log template in **`docs/phase-8-verification-record.md`** §Organic monitoring log remains historical; closure narrative lives in the Phase 9 record.

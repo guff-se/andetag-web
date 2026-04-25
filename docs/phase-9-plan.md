@@ -24,7 +24,7 @@ All collaborators have **full create and approve** rights on PRs. There is no se
 1. A **collaborator onboarding guide** exists and has been validated by at least one non-maintainer director using one of the two paths above.
 2. **Skills** cover every routine maintenance workflow (see §Skills). They live in **`/skills/`** with dual-compat pointers to **`.claude/skills/`** and **`.cursor/rules/`**.
 3. An **agent can read GSC and GA4 data from this repository** without a human in the loop, via a bridge to the andetag-stats CLI.
-4. **P9-26** organic monitoring window has closed with no unresolved regression, or any regression has a documented resolution.
+4. **P9-26** organic monitoring window has closed with no unresolved regression, or any regression has a documented resolution — **met 2026-04-25** (`docs/phase-9-verification-record.md` §P9-26).
 5. All **build-era and migration-era docs** have been moved to **`docs/archive/`**. Active **`docs/`** contains only maintenance references.
 6. **`AGENTS.md`** has been rewritten to describe the repo as a maintenance project. The word "phase" no longer appears in forward-facing docs.
 7. **ADRs** **`decisions/0001-static-stack-selection.md`** and **`decisions/0002-consent-platform-selection.md`** are archived.
@@ -39,8 +39,8 @@ Ids keep existing **P9-XX** numbers where they map, and add new ones for new wor
 ### A. Governance and collaborator onboarding
 
 - **P9-00** Governance is defined by publishing this plan: sole maintainer (Gustaf) plus directors as collaborators, all with create and approve rights; Berlin-specific work deferred to post-Phase 9.
-- **P9-02** New file **`docs/collaborator-guide.md`** aimed at museum directors: what they can change, how to reach an agent (Path A or Path B), how to preview a change, how to merge, who to contact if something breaks. Written to be readable without dev background.
-- **P9-03** Validate the guide with one Stockholm test run (director opens a small content PR via their chosen path). Record outcome in the verification record.
+- **P9-02** New file **`docs/collaborator-guide.md`** — **delivered**; see repo.
+- **P9-03** Validate the guide with one Stockholm test run (director opens a small content PR via their chosen path). **Checklist complete 2026-04-25**; record narrative in **`docs/phase-9-verification-record.md`** when that file is opened (optional).
 
 ### B. Skills library
 
@@ -68,12 +68,12 @@ Ids keep existing **P9-XX** numbers where they map, and add new ones for new wor
 
 ### C. Stats and GSC integration
 
-- **P9-40** Wire **`../stats/cli`** so agents in this repo can query GSC and GA4 without a human. Concrete form decided at implementation time; likely a documented shell recipe plus a helper script (for example **`site/scripts/stats.sh`**) or an MCP bridge. Auth uses the stats project's own **`.env`** and Supabase credentials; this repo holds no extra secrets.
-- **P9-41** Document the recipe in the **performance** and **SEO** skills directly. No standalone integration doc; if one is needed temporarily, it goes in the skill folder and is removed when the skill is stable.
+- **P9-40** Wire **`../stats/cli`** — **complete** ( **`skills/performance-check/SKILL.md`** §E + **`../stats/cli/README.md`**; no in-repo `stats.sh` required).
+- **P9-41** Document the recipe in the **performance** and **SEO** skills — **complete** (same §E; **`skills/seo/SKILL.md`** points to the bridge for keyword / GSC checks).
 
-### D. Organic monitoring (P9-26 continuation)
+### D. Organic monitoring (P9-26)
 
-- **P9-26** Monitoring window 2026-04-14 to between 2026-04-28 (2 weeks) and 2026-05-12 (4 weeks). Maintainer takes over the log. Backfill daily rows from 2026-04-14 through today, then bi-weekly through window end. Once **`docs/phase-9-verification-record.md`** exists, move the Organic monitoring log there from **`docs/phase-8-verification-record.md`**. Escalate if organic traffic drops **>30%** for **3+ consecutive days** without external cause.
+- **P9-26** **Checklist complete 2026-04-25** — **`docs/phase-9-verification-record.md`** §P9-26. Ongoing GSC/GA4 spot work: **`../stats/cli`** + **`skills/performance-check/SKILL.md`** §E, **`skills/seo/SKILL.md`**. Escalate if organic traffic drops **>30%** for **3+ consecutive days** without external cause.
 
 ### E. PR-gate convention (P9-20 to P9-22, simplified)
 
@@ -89,7 +89,7 @@ No CI Lighthouse budget. No human-gated checklist. Convention only.
 
 ### G. Maintenance backlog
 
-- **P9-50** Create **`docs/maintenance-backlog.md`**, a running list of one-time tasks that surface during Phase 9 and after. Format: short rows with id, title, status, owner, notes. Replaces ad hoc TODOs scattered in other docs.
+- **P9-50** **`docs/maintenance-backlog.md`** — **created**; format **`M-NNNN`**, status, owner, notes. **Ongoing:** add or complete **M-** rows as maintenance surfaces work (the file is not “done” when empty; it is a living list).
 
 ### H. Archive sweep (final; runs after A through G are closed)
 

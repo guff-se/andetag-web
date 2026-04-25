@@ -30,7 +30,7 @@ This project works with real scraped website artifacts and SEO language constrai
 
 **What:** Migrating `andetag.museum` from WordPress/Elementor to an Astro static site on Cloudflare Workers.
 
-**Status:** Phases **0–8** closed (**`docs/phase-8-verification-record.md`** §Closure). **Phase 9** is **partially active**: **`docs/phase-9-todo.md`** **P9-26** (post-cutover organic monitoring); **P9-25** (release discipline) is **complete**. **P9-00** governance is **complete**: **`docs/phase-9-plan.md`** (§A, **North-star**). Remaining Phase 9 exit work and id rows: that checklist and the plan.
+**Status:** Phases **0–8** closed (**`docs/phase-8-verification-record.md`** §Closure). **Phase 9** was **partially active** on **`docs/phase-9-todo.md`**. Former open rows **P9-26, P9-20, P9-21, P9-22** and the **Phase 9 verification record** are **closed** **2026-04-25** — **`docs/phase-9-verification-record.md`**. **P9-25** (release discipline) and **P9-00** governance (**`docs/phase-9-plan.md`**) are **complete**. **P9-90+** (archive sweep and Phase 9 **closure** per plan §H) are **not** done.
 
 **Languages:** Swedish (`sv`), English (`en`), German (`de`) with preserved hreflang relationships.
 
@@ -87,7 +87,8 @@ Consult before implementation. All active docs are in `docs/`.
 | `docs/grand-plan.md` | Roadmap, phase gates, business objectives, decision log |
 | `docs/phase-8-todo.md` | **Closed** Phase 8: deployment checklist, URL parity, `www` cutover |
 | `docs/phase-8-verification-record.md` | Phase 8 evidence and Gustaf sign-off (§Closure) |
-| `docs/phase-9-todo.md` | **Current ops:** **P9-26**; **P9-25** done. **P9-00** done (**`docs/phase-9-plan.md`**). Other Phase 9 ids: see checklist (skills, **P9-20**+ PR-gate convention, exit criteria) |
+| `docs/phase-9-todo.md` | Phase 9 **execution** checklist (living); **P9-26** and **P9-20**–**P9-22** **complete** **2026-04-25** (see verification record). **P9-90+** in **`docs/phase-9-plan.md`** |
+| `docs/phase-9-verification-record.md` | **P9-26** sign-off, **P9-20**–**P9-22** evidence (**2026-04-25**); not the Phase 9 **closure** record (**P9-99**) |
 | `docs/Andetag SEO Manual.md` | SEO/GEO decisions, page intent, language strategy, schema |
 | `docs/seo/url-architecture.md` | **Ongoing** URL contract: canonical, redirects, hreflang, entry routing, sitemap, location-scoped stories, privacy, query/non-HTML/asset rules, Berlin transition. Successor to `docs/url-migration-policy.md` |
 | `docs/seo/decisions.md` | **Ongoing** SEO decision log (`SEO-NNNN`): durable deviations from default rules. Successor to the SEO-relevant rows of `docs/migration-exceptions.md` |
@@ -153,6 +154,10 @@ cd site && npm run verify:staging-entry  # Entry routing vs staging
 CI (`.github/workflows/ci.yml`) runs Node tests and build on push and PR to `main`. Optional: `cd archive/legacy-wordpress-site && PYTHONPATH=. python3 -m unittest discover -s tests` for the archived crawler unit tests.
 
 ---
+
+## Pull requests (Phase 9 convention)
+
+Before requesting merge, run the current skill’s **Verification** and any commands your change type needs (**Testing** above). If something is skipped, say so in the **PR** body. Standing exceptions: **`EX-NNNN`** in **`docs/migration-exceptions.md`** (and **`docs/seo/decisions.md`** for SEO), not unlogged waivers. Normative: **`docs/phase-9-plan.md`** §E; evidence: **`docs/phase-9-verification-record.md`**.
 
 ## Conventions
 

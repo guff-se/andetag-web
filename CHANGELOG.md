@@ -13,13 +13,19 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 - **Phase 9 · P9-00 governance** marked **complete** in **`docs/phase-9-todo.md`**: normative definition is **`docs/phase-9-plan.md`** (§A; **North-star user and operating model**). **`AGENTS.md`** and **`docs/grand-plan.md`** status lines updated so **P9-00** is no longer **TBD**.
 
+- **Phase 9 · P9-02, P9-03, P9-40, P9-41, P9-50** marked **complete** in **`docs/phase-9-todo.md`** with matching bullets in **`docs/phase-9-plan.md`**: **P9-02**–**P9-03** collaborator guide and validation note; **P9-40**–**P9-41** andetag-stats / `../stats/cli` bridge documented in **`skills/performance-check/SKILL.md`** §E and **`skills/seo/SKILL.md`**; **P9-50** maintenance backlog file (**`docs/maintenance-backlog.md`**, seeded with **M-0001**–**M-0003**). **P9-50** remains an **operating** process (triage and archive rows), not a one-time close.
+
+- **Phase 9 · P9-26, P9-20, P9-21, P9-22** (remaining checklist scope before **P9-90+**): new **`docs/phase-9-verification-record.md`** (**§P9-26**, **§PR-gate** per **`docs/phase-9-plan.md`** §E, sign-off **2026-04-25**; not the final **P9-99** program closure). **`docs/phase-9-todo.md`**, **`docs/phase-9-plan.md`** (§D, exit **4**), **`docs/phase-8-verification-record.md`**, **`docs/definition-of-done.md`**, **`docs/grand-plan.md`**, **`AGENTS.md`** (§Pull requests) updated. **P9-90+** still open per plan.
+
 ### Added
+
+- **`docs/phase-9-verification-record.md`:** P9-26 and P9-20–P9-22 sign-off **2026-04-25**.
 
 - **Phase 9 plan (`docs/phase-9-plan.md`):** Normative scope for the maintenance-program phase. Defines the operating model (museum directors as non-technical collaborators via Cloud Claude Code or OpenClaw + local Claude Code), exit criteria (skills cover every routine workflow, GSC readable by agents via andetag-stats bridge, build-era docs archived, `AGENTS.md` rewritten as a maintenance guide), and the work-stream + id map (**P9-00**, **P9-02**, **P9-03**, **P9-10**–**P9-19**, **P9-30**–**P9-31**, **P9-40**–**P9-41**, **P9-50**, **P9-90**–**P9-99**). Phase 9 is the last phase; closure archives all phase vocabulary. Supersedes the placeholder scope in **`docs/phase-9-todo.md`** (kept as a living checklist pending rewrite) and the Phase 9 section of **`docs/grand-plan.md`**.
 
 - **Phase 9 · P9-02 collaborator guide (`docs/collaborator-guide.md`):** Non-technical onboarding for museum directors. Lists what can be changed (page copy, FAQ, events, operational facts, images, testimonials, rollback) and what stays off-limits for now (URLs, design system, integrations, build config). Documents the two agent paths (Cloud Claude Code; OpenClaw → local Claude Code), the Cloudflare Commit Preview URL review flow, language parity rules (Stockholm `sv + en`, Berlin `en + de`), escalation to Gustaf, and a per-change quick checklist.
 
-- **Phase 9 · P9-50 maintenance backlog (`docs/maintenance-backlog.md`):** Repo-local one-time task list that survives Phase 9 closure. Defines row format (`M-NNNN` id, title, status, owner, notes), lifecycle (backlog → archive), and seeded empty. Replaces ad hoc TODOs scattered across other docs.
+- **Phase 9 · P9-50 maintenance backlog (`docs/maintenance-backlog.md`):** Repo-local one-time task list that survives Phase 9 closure. Defines row format (`M-NNNN` id, title, status, owner, notes), lifecycle (backlog → archive), and initial rows (**M-0001**–**M-0003**). Replaces ad hoc TODOs scattered across other docs.
 
 - **Phase 9 · skills library scaffold (`skills/README.md`):** Canonical location for agent skills that teach maintenance workflows. Pattern: each skill lives at `skills/<name>/SKILL.md` (Claude Code frontmatter format); pointer files in `.claude/skills/` (symlinks) and `.cursor/rules/<name>.mdc` (thin wrappers) reference the canonical. SKILL.md template: YAML `name` + `description`, then Purpose, When to use, Files touched, Locale parity rules, Workflow, Verification, When to escalate, Examples. Index table seeded empty; rows added as each Phase 9 skill lands.
 

@@ -6,7 +6,7 @@ Normative checklist: **`docs/phase-8-todo.md`**.
 
 ## Status
 
-- Phase 8: **closed** **2026-04-14** (see §Closure). Cutover and live verification through **P8-23** **Pass 2026-04-14**. **Post-cutover organic monitoring** (former **P8-26**): **Phase 9 · [`docs/phase-9-todo.md`](phase-9-todo.md) · P9-26**; log template §Organic monitoring log.
+- Phase 8: **closed** **2026-04-14** (see §Closure). Cutover and live verification through **P8-23** **Pass 2026-04-14**. **Post-cutover organic monitoring** (former **P8-26**): **Phase 9 · P9-26** **complete** **2026-04-25** — see **[`docs/phase-9-verification-record.md`](phase-9-verification-record.md)** §P9-26. Historical log template: §Organic monitoring log below.
 - **Release discipline** (**PR** workflow, branch protection): **Phase 9 · P9-25** (moved from **P8-25** **2026-04-14**).
 - **Phase 7:** **closed** with **Gustaf** sign-off **2026-04-09** (**`docs/phase-7-verification-record.md`** §P7-16). **P8-05** checked **2026-04-09**.
 
@@ -149,17 +149,15 @@ Captured on **`https://www.andetag.museum`**: **2026-04-14T10:04:05Z** (mobile, 
 | `/sv/stockholm/biljetter/` | 97 | _not run_ | 2.58 s | 0.001 |
 | `/de/berlin/` | 100 | _not run_ | 1.60 s | 0 |
 
-### Organic monitoring log (Phase 9 · P9-26)
+### Organic monitoring log (Phase 9 · P9-26, historical)
 
-Former **P8-26**; checklist and escalation rules: **`docs/phase-9-todo.md`** **P9-26**. Baseline for comparison: §GSC baseline snapshot (**P8-08**). Append dated rows while **P9-26** is open.
+Former **P8-26**; **P9-26** checklist **closed** **2026-04-25** — **`docs/phase-9-verification-record.md`** §P9-26. Baseline for comparison: §GSC baseline snapshot (**P8-08**). Dated GSC backfill was not added here; use **`../stats/cli`** and **`skills/performance-check/SKILL.md`** §E for ongoing checks.
 
 | Date | Indexed pages | Daily clicks | Crawl rate | Coverage errors | Notes |
 |------|---------------|--------------|------------|-----------------|-------|
-| | | | | | |
-| | | | | | |
-| | | | | | |
+| (not maintained) | | | | | **2026-04-25:** see Phase 9 verification record §P9-26. |
 
-Monitoring window: **2–4 weeks** from cutover **2026-04-14** (through **P9-26**).
+Monitoring window: **2–4 weeks** from cutover **2026-04-14** — **P9-26** **complete** per Phase 9 record.
 
 ## Closure
 
