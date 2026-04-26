@@ -13,7 +13,11 @@ export const STOCKHOLM_CORPORATE_PRICING = {
   exclusiveCapacity: 60,
   /** Per-person rate during regular opening hours (SEK). Matches regular ticket. */
   groupPerPersonSek: 240,
-  /** Hourly rate when the museum is reserved exclusively for one group (SEK). */
+  /**
+   * Starting hourly rate when the museum is reserved exclusively for one
+   * group (SEK). Final price depends on time of day and day of week — copy
+   * everywhere this number renders should say "from {price}", not a flat rate.
+   */
   exclusiveHourlySek: 5000,
 } as const;
 
@@ -26,12 +30,12 @@ export const STOCKHOLM_CORPORATE_FAQ_SV: readonly FaqItem[] = [
   {
     title: "Vad kostar ett företagsevent på ANDETAG?",
     bodyHtml:
-      "<p>Under öppettider: 240 kr per person. Exklusiv bokning utanför öppettider: 5 000 kr per timme för hela museet, oavsett gruppstorlek upp till 60 personer.</p>",
+      "<p>Under öppettider: 240 kr per person. Exklusiv bokning: från 5 000 kr per timme för hela museet, oavsett gruppstorlek upp till 60 personer. Slutpriset beror på tid på dygnet och veckodag.</p>",
   },
   {
     title: "Hur lång tid tar ett besök?",
     bodyHtml:
-      "<p>Själva upplevelsen tar omkring en timme. Många grupper kombinerar besöket med en kort välkomst eller eftersnack i ytterligare 30 minuter.</p>",
+      "<p>Från en timme och uppåt. Vi anpassar längden efter er &mdash; från en kort paus mitt i en konferens till ett event på tre eller fyra timmar med välkomst, mat och samtal omkring upplevelsen.</p>",
   },
   {
     title: "Hur långt i förväg behöver vi boka?",
@@ -64,12 +68,12 @@ export const STOCKHOLM_CORPORATE_FAQ_EN: readonly FaqItem[] = [
   {
     title: "What does a corporate event at ANDETAG cost?",
     bodyHtml:
-      "<p>During opening hours: 240 SEK per person. Exclusive booking outside opening hours: 5,000 SEK per hour for the entire museum, for groups of up to 60 people.</p>",
+      "<p>During opening hours: 240 SEK per person. Exclusive booking: from 5,000 SEK per hour for the entire museum, for groups of up to 60 people. The final rate depends on time of day and day of week.</p>",
   },
   {
     title: "How long does a visit take?",
     bodyHtml:
-      "<p>The experience itself lasts about one hour. Many groups extend the visit with a short welcome or follow-up conversation, adding around 30 minutes.</p>",
+      "<p>From one hour and up. We tailor the length to you &mdash; from a short pause inside a conference to a three- or four-hour event with welcome, food and conversation around the experience.</p>",
   },
   {
     title: "How far in advance do we need to book?",

@@ -107,3 +107,21 @@ export const corporateEventsConversationBody: BodyPictureSources = {
   webp960:
     "/wp-content/uploads/2026/04/corridor-lounge-illuminated-sculptures-body-960w.webp",
 };
+
+/**
+ * Corporate-events page (sv/en) inline foyer figure: the museum lobby with
+ * sofa, visitors, framed textile works and a large wall sculpture — the room
+ * a corporate group steps into when they arrive. Lives in the
+ * `Praktisk information` / `Practical information` MediaCopySection at
+ * `mediaWidth="half"` so the 3:2 landscape pairs reasonably with the
+ * InfoFrame's height. Source master:
+ * `assets/images/reception-lobby-with-sculpture.jpg` (2400x1600, landscape).
+ */
+export const corporateEventsFoyerBody: BodyPictureSources = {
+  jpeg960:
+    "/wp-content/uploads/2026/04/reception-lobby-with-sculpture-body-960w.jpg",
+  webp640:
+    "/wp-content/uploads/2026/04/reception-lobby-with-sculpture-body-640w.webp",
+  webp960:
+    "/wp-content/uploads/2026/04/reception-lobby-with-sculpture-body-960w.webp",
+};

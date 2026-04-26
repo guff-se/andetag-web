@@ -97,7 +97,7 @@
     "/en/stockholm/corporate-events/": {
       "sourceFile": "en-stockholm-corporate-events.html",
       "title": "Corporate events in Stockholm | Kickoff & conference | ANDETAG",
-      "description": "Calm corporate events in Stockholm at ANDETAG. {CORPORATE_PER_PERSON_SEK} SEK per person during opening hours, or exclusive booking for up to {CORPORATE_CAPACITY} people at {CORPORATE_HOURLY_SEK} SEK per hour. For kickoffs, conferences and team building."
+      "description": "Calm corporate events in Stockholm at ANDETAG. {CORPORATE_PER_PERSON_SEK} SEK per person during opening hours, or exclusive booking for up to {CORPORATE_CAPACITY} people from {CORPORATE_HOURLY_SEK} SEK per hour. For kickoffs, conferences and team building."
     },
     "/en/stockholm/date/": {
       "sourceFile": "en-stockholm-date.html",

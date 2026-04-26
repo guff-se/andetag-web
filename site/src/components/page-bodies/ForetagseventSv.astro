@@ -9,7 +9,7 @@ import {
   STOCKHOLM_CORPORATE_PRICING,
 } from "../../lib/content/stockholm-corporate";
 import {
-  corporateEventsConversationBody,
+  corporateEventsFoyerBody,
   corporateEventsGroupBody,
 } from "../../lib/content/stockholm-body-responsive-images";
 
@@ -18,12 +18,14 @@ import {
  * (`data-elementor-type="wp-page"` post id 2651). Head from `page-shell-meta.json`.
  * Pricing/FAQ source of truth: `lib/content/stockholm-corporate.ts`.
  *
- * Layout follows skills/images/SKILL.md §L1–L5: short experiential page, no
+ * Layout follows skills/images/SKILL.md §L1–L6: short experiential page, no
  * hero. Two `MediaCopySection`s pair figures with copy at ~35% and ~70% of
- * page height. Aspect-pairing rule (§L5): landscape image with short copy,
- * portrait image with the dense Practical Information block — heights then
- * sit close enough that `align-items: center` removes the dead-zone bug the
- * earlier ad-hoc grid wrapper produced.
+ * page height. Aspect-pairing per §L4: a landscape wall-of-light figure at
+ * `mediaWidth="third"` paired with the short "Vad det passar för" copy; a
+ * landscape foyer figure at `mediaWidth="half"` paired with the dense
+ * Practical-information `InfoFrame` (the half-width band lifts the figure
+ * height enough that `align-items: center` keeps the InfoFrame and the image
+ * close in height).
  */
 const { exclusiveCapacity, groupPerPersonSek, exclusiveHourlySek } =
   STOCKHOLM_CORPORATE_PRICING;
@@ -39,25 +41,30 @@ const fitBodyHtml =
   "<p><strong>Kickoff:</strong> en lugn inledning eller avslutning som samlar gruppen utan att tömma den.</p>" +
   "<p><strong>Konferens:</strong> en paus mitt i en intensiv dag, eller en gemensam start innan workshoparbetet drar igång.</p>" +
   "<p><strong>Teambuilding och företagsfest:</strong> en delad upplevelse som ger något att samtala kring efteråt, utan tävlingsmoment eller scenprogram.</p>" +
-  "<p>Är ni en större grupp som vill kombinera flera tider, eller funderar på upplägg, läs mer om <a href=\"/sv/stockholm/gruppbokning/\">gruppbokning</a>.</p>";
+  "<p>Mindre grupper som vill boka under ordinarie öppettider till paketpris kan också titta på <a href=\"/sv/stockholm/gruppbokning/\">gruppbokning</a>.</p>";
 
 const pricingMarkdown =
   `<p><strong>Under öppettider — ${groupPriceSek} kr per person.</strong> Mindre grupper bokar in sig under ordinarie öppettider och möter andra besökare i lokalen. Samma pris som ordinarie biljett.</p>` +
-  `<p><strong>Exklusiv bokning — ${exclusivePriceSek} kr per timme.</strong> Hela museet reserveras för er, oavsett gruppstorlek upp till ${exclusiveCapacity} personer. Tid och upplägg anpassas efter gruppens behov.</p>` +
-  "<p>Hör av er om mat och dryck så löser vi det tillsammans. Inom själva upplevelsen serveras ingen alkohol.</p>";
+  `<p><strong>Exklusiv bokning — från ${exclusivePriceSek} kr per timme.</strong> Hela museet reserveras för er, oavsett gruppstorlek upp till ${exclusiveCapacity} personer. Slutpriset beror på tid på dygnet och veckodag. Tid, längd och upplägg anpassas efter gruppen.</p>` +
+  "<p>Hör av er om mat och dryck så löser vi det tillsammans. Vid exklusiv bokning går det också bra med alkohol.</p>";
 
 const practicalFrameHtml =
   "<p><strong>Adress:</strong> Kungsgatan 39, Stockholm (Hötorgets tunnelbana)</p>" +
   `<p><strong>Kapacitet:</strong> Upp till ${exclusiveCapacity} personer vid exklusiv bokning</p>` +
-  "<p><strong>Tidsåtgång:</strong> Cirka 60 minuter för själva upplevelsen, plus eventuell välkomst eller eftersnack</p>" +
+  "<p><strong>Tidsåtgång:</strong> Från 60 minuter och uppåt — vi anpassar längden efter er, från en kort paus till ett event på flera timmar med välkomst, mat och samtal omkring upplevelsen.</p>" +
   "<p><strong>Tillgänglighet:</strong> Hela utställningen är rullstolsanpassad. Hiss från gatuplan och från tunnelbanans plattform. Se <a href=\"/sv/stockholm/tillganglighet/\">tillgänglighet</a> för fullständig information.</p>" +
-  "<p><strong>Boka:</strong> Skicka förfrågan till <a href=\"mailto:info@andetag.museum\">info@andetag.museum</a> så återkommer vi med tillgängliga tider.</p>";
+  "<p><strong>Boka:</strong> Mejla <a href=\"mailto:info@andetag.museum\">info@andetag.museum</a> med förslag på datum och tid, så återkommer vi.</p>";
 ---
 
 <div class="page-migrated">
   <ContentSection
-    heading="Företagsevent i Stockholm — en stillsam paus mitt i staden"
+    heading="Företagsevent i Stockholm"
     headingLevel="h1"
+    markdown=""
+  />
+  <ContentSection
+    heading="En stillsam paus mitt i staden"
+    headingLevel="h2"
     markdown={leadMarkdown}
   />
 
@@ -82,12 +89,12 @@ const practicalFrameHtml =
   <MediaCopySection
     heading="Praktisk information"
     headingLevel="h2"
-    imageSources={corporateEventsConversationBody}
-    imageAlt="Besökare samtalar i en korridor med orangea fåtöljer och lysande textilskulpturer på väggen i ANDETAG."
+    imageSources={corporateEventsFoyerBody}
+    imageAlt="Museets foajé med inramade textilverk, soffa med besökare och en stor väggskulptur i ANDETAG."
     imageWidth={960}
-    imageHeight={1440}
+    imageHeight={640}
     mediaSide="start"
-    mediaWidth="third"
+    mediaWidth="half"
   >
     <InfoFrame heading="Detaljer inför bokning" headingLevel="h3" bodyHtml={practicalFrameHtml} />
   </MediaCopySection>
