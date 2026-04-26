@@ -77,3 +77,31 @@ export const malinVaver2OpticalFibertextil: BodyPictureSources = {
   webp640: "/wp-content/uploads/2026/02/malin-vaver2-768x1024-body-640w.webp",
   webp960: "/wp-content/uploads/2026/02/malin-vaver2-768x1024-body-960w.webp",
 };
+
+/**
+ * Corporate-events page (sv/en) hero cover: four visitors seated together
+ * before a wall of luminous textile sculptures. Source master:
+ * `assets/images/main-room-wall-of-light-four-visitors.jpg` (2400x1718).
+ */
+export const corporateEventsHeroCover: BodyPictureSources = {
+  jpeg960:
+    "/wp-content/uploads/2026/04/main-room-wall-of-light-four-visitors-hero-960w.jpg",
+  webp640:
+    "/wp-content/uploads/2026/04/main-room-wall-of-light-four-visitors-hero-640w.webp",
+  webp960:
+    "/wp-content/uploads/2026/04/main-room-wall-of-light-four-visitors-hero-960w.webp",
+};
+
+/**
+ * Corporate-events page (sv/en) inline conversation figure: visitors
+ * conversing in the corridor lounge with orange armchairs. Source master:
+ * `assets/images/corridor-lounge-illuminated-sculptures.jpg` (2400x3600).
+ */
+export const corporateEventsConversationBody: BodyPictureSources = {
+  jpeg960:
+    "/wp-content/uploads/2026/04/corridor-lounge-illuminated-sculptures-body-960w.jpg",
+  webp640:
+    "/wp-content/uploads/2026/04/corridor-lounge-illuminated-sculptures-body-640w.webp",
+  webp960:
+    "/wp-content/uploads/2026/04/corridor-lounge-illuminated-sculptures-body-960w.webp",
+};

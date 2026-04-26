@@ -2,11 +2,17 @@
 import AccordionSection from "../content/AccordionSection.astro";
 import ButtonGroup from "../content/ButtonGroup.astro";
 import ContentSection from "../content/ContentSection.astro";
+import HeroSection from "../content/HeroSection.astro";
 import InfoFrame from "../content/InfoFrame.astro";
+import ResponsiveInlinePicture from "../ui/ResponsiveInlinePicture.astro";
 import {
   STOCKHOLM_CORPORATE_FAQ_EN,
   STOCKHOLM_CORPORATE_PRICING,
 } from "../../lib/content/stockholm-corporate";
+import {
+  corporateEventsConversationBody,
+  corporateEventsHeroCover,
+} from "../../lib/content/stockholm-body-responsive-images";
 
 /** `site-html/en-stockholm-corporate-events.html` wp-page **2666**.
  * Pricing/FAQ source of truth: `lib/content/stockholm-corporate.ts`. */
@@ -45,11 +51,26 @@ const practicalFrameHtml =
     headingLevel="h1"
     markdown={leadMarkdown}
   />
+  <HeroSection
+    backgroundImage={corporateEventsHeroCover}
+    coverImageAlt="Four visitors seated together before a large wall of luminous textile sculptures at ANDETAG."
+    ariaLabel="Corporate group in the ANDETAG main room"
+    loading="eager"
+    fetchpriority="high"
+  />
   <ContentSection
     heading="What it works for"
     headingLevel="h2"
     markdown={fitMarkdown}
   />
+  <figure class="page-foretagsevent-sv__conversation-figure">
+    <ResponsiveInlinePicture
+      sources={corporateEventsConversationBody}
+      width={960}
+      height={1440}
+      alt="Visitors conversing in a corridor with orange armchairs and wall-mounted luminous textile sculptures at ANDETAG."
+    />
+  </figure>
   <ContentSection
     heading="Two formats"
     headingLevel="h2"

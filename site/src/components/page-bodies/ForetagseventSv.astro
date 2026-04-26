@@ -2,11 +2,17 @@
 import AccordionSection from "../content/AccordionSection.astro";
 import ButtonGroup from "../content/ButtonGroup.astro";
 import ContentSection from "../content/ContentSection.astro";
+import HeroSection from "../content/HeroSection.astro";
 import InfoFrame from "../content/InfoFrame.astro";
+import ResponsiveInlinePicture from "../ui/ResponsiveInlinePicture.astro";
 import {
   STOCKHOLM_CORPORATE_FAQ_SV,
   STOCKHOLM_CORPORATE_PRICING,
 } from "../../lib/content/stockholm-corporate";
+import {
+  corporateEventsConversationBody,
+  corporateEventsHeroCover,
+} from "../../lib/content/stockholm-body-responsive-images";
 
 /**
  * Body migrated from `site-html/stockholm-foretagsevent.html`
@@ -48,11 +54,26 @@ const practicalFrameHtml =
     headingLevel="h1"
     markdown={leadMarkdown}
   />
+  <HeroSection
+    backgroundImage={corporateEventsHeroCover}
+    coverImageAlt="Fyra besökare sitter tillsammans framför en stor vägg av lysande textilskulpturer i ANDETAG."
+    ariaLabel="Företagsgrupp i ANDETAGs huvudrum"
+    loading="eager"
+    fetchpriority="high"
+  />
   <ContentSection
     heading="Vad det passar för"
     headingLevel="h2"
     markdown={fitMarkdown}
   />
+  <figure class="page-foretagsevent-sv__conversation-figure">
+    <ResponsiveInlinePicture
+      sources={corporateEventsConversationBody}
+      width={960}
+      height={1440}
+      alt="Besökare samtalar i en korridor med orangea fåtöljer och lysande textilskulpturer på väggen i ANDETAG."
+    />
+  </figure>
   <ContentSection
     heading="Två upplägg"
     headingLevel="h2"
