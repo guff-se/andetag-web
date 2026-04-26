@@ -2,9 +2,23 @@
 import ButtonGroup from "../content/ButtonGroup.astro";
 import ContentSection from "../content/ContentSection.astro";
 import InfoFrame from "../content/InfoFrame.astro";
+import MediaCopySection from "../content/MediaCopySection.astro";
 import { STOCKHOLM_TICKETS } from "../../lib/content/stockholm-offers";
+import {
+  npfBlueGlowBody,
+  npfOverheadRestingBody,
+} from "../../lib/content/stockholm-body-responsive-images";
 
-/** `site-html/stockholm-npf-stockholm.html` wp-page **4384**. */
+/** `site-html/stockholm-npf-stockholm.html` wp-page **4384**.
+ *
+ * Layout follows skills/images/SKILL.md §L1–L6: H1 + lead H2 (no hero), then
+ * two `MediaCopySection`s pair figures with the experiential copy. Aspect-
+ * pairing per §L4: a landscape blue-glow figure at `mediaWidth="half"` with
+ * the medium-density "What to expect" copy; a portrait overhead-resting
+ * figure at `mediaWidth="third"` with the denser "Low stimulus, small
+ * groups, quiet pace" block. The `Plats`/`Adress` duplication between the
+ * advance text and the InfoFrame is resolved by keeping address only in
+ * the InfoFrame at the bottom. */
 const leadMarkdown =
   "<p><span class=\"brand-wordmark\">ANDETAG</span> är utformat som en stillsam, lågstimulerande upplevelse.</p>" +
   "<p>För dig med autism, ADHD eller annan neuropsykiatrisk funktionsnedsättning (NPF), eller sensorisk överkänslighet, kan det vara viktigt att veta vad som väntar innan du besöker.</p>" +
@@ -34,7 +48,6 @@ const sensoryMarkdown =
   "<p>Vill du ha mer kontroll över ljudbilden kan du lyssna via egen enhet och egna hörlurar. Det sista rummet har filtar och kuddar där du kan vila om intrycken blir mycket. Du kan lämna upplevelsen när du vill.</p>";
 
 const advanceMarkdown =
-  "<p><strong>Plats:</strong> Kungsgatan 39, Stockholm (Hötorgets tunnelbana). Hiss finns från plattformen och från gatuplan.</p>" +
   "<p><strong>Ljus:</strong> Mjukt, från verken. Vissa delar är mörka. Inget fluorescerande ljus. Inga blinkande eller plötsliga ljussignaler.</p>" +
   "<p><strong>Ljud:</strong> Musik i låg volym, synkroniserad med ljuset. Ingen hörslinga. Ledhundar välkomna.</p>" +
   "<p><strong>Toalett:</strong> Vi har för närvarande inte en fullt utrustad rullstolsanpassad toalett. Kontakta oss i förväg om du vill diskutera praktiska lösningar.</p>" +
@@ -54,16 +67,40 @@ const practicalFrameHtml =
 
 <div class="page-migrated page-npf-stockholm-sv">
   <ContentSection
-    heading="NPF-vänlig utställning Stockholm - konstupplevelse i lugn miljö"
+    heading="NPF-vänlig utställning i Stockholm"
     headingLevel="h1"
+    markdown=""
+  />
+  <ContentSection
+    heading="Konstupplevelse i lugn miljö"
+    headingLevel="h2"
     markdown={leadMarkdown}
   />
-  <ContentSection heading="Vad du kan förvänta dig" headingLevel="h2" markdown={expectMarkdown} />
-  <ContentSection
+
+  <MediaCopySection
+    heading="Vad du kan förvänta dig"
+    headingLevel="h2"
+    bodyHtml={expectMarkdown}
+    imageSources={npfBlueGlowBody}
+    imageAlt="Lugn besökare i blått ljus med lysande textilformer som svävar omkring."
+    imageWidth={960}
+    imageHeight={640}
+    mediaSide="end"
+    mediaWidth="half"
+  />
+
+  <MediaCopySection
     heading="Låg stimulus, små grupper och lugnt tempo"
     headingLevel="h2"
-    markdown={tempoMarkdown}
+    bodyHtml={tempoMarkdown}
+    imageSources={npfOverheadRestingBody}
+    imageAlt="Översikt där besökare vilar bland lysande textilkonst i ANDETAGs huvudrum."
+    imageWidth={960}
+    imageHeight={1469}
+    mediaSide="start"
+    mediaWidth="third"
   />
+
   <ContentSection heading="ANDETAG och ADHD" headingLevel="h2" markdown={adhdMarkdown} />
   <ContentSection heading="ANDETAG och autism" headingLevel="h2" markdown={autismMarkdown} />
   <ContentSection heading="ANDETAG vid sensorisk känslighet" headingLevel="h2" markdown={sensoryMarkdown} />

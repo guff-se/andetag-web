@@ -125,3 +125,40 @@ export const corporateEventsFoyerBody: BodyPictureSources = {
   webp960:
     "/wp-content/uploads/2026/04/reception-lobby-with-sculpture-body-960w.webp",
 };
+
+/**
+ * Neurodiversity page (sv/en) inline figure paired with the "What to expect"
+ * section. A solo visitor held inside a calm, blue-lit field of luminous
+ * textile forms — the calm, low-stimulus tone the page promises. Wired
+ * through `MediaCopySection` at `mediaWidth="half"`; landscape 3:2 keeps
+ * the figure height close to the medium-density copy beside it.
+ * Source master: `assets/images/main-room-visitor-blue-glow-forms.jpg`
+ * (2400x1600, landscape).
+ */
+export const npfBlueGlowBody: BodyPictureSources = {
+  jpeg960:
+    "/wp-content/uploads/2026/04/main-room-visitor-blue-glow-forms-body-960w.jpg",
+  webp640:
+    "/wp-content/uploads/2026/04/main-room-visitor-blue-glow-forms-body-640w.webp",
+  webp960:
+    "/wp-content/uploads/2026/04/main-room-visitor-blue-glow-forms-body-960w.webp",
+};
+
+/**
+ * Neurodiversity page (sv/en) inline figure paired with "Low stimulus, small
+ * groups, quiet pace". Overhead frame of visitors at rest among the
+ * sculptures — shows the room with people lying down, the option the page
+ * tells visitors they have. Wired through `MediaCopySection` at
+ * `mediaWidth="third"`; portrait orientation balances the denser copy
+ * beside it. Source master:
+ * `assets/images/main-room-overhead-visitors-resting.jpg` (2400x3673,
+ * portrait).
+ */
+export const npfOverheadRestingBody: BodyPictureSources = {
+  jpeg960:
+    "/wp-content/uploads/2026/04/main-room-overhead-visitors-resting-body-960w.jpg",
+  webp640:
+    "/wp-content/uploads/2026/04/main-room-overhead-visitors-resting-body-640w.webp",
+  webp960:
+    "/wp-content/uploads/2026/04/main-room-overhead-visitors-resting-body-960w.webp",
+};
