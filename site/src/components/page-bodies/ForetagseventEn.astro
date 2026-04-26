@@ -3,7 +3,7 @@ import AccordionSection from "../content/AccordionSection.astro";
 import ButtonGroup from "../content/ButtonGroup.astro";
 import ContentSection from "../content/ContentSection.astro";
 import InfoFrame from "../content/InfoFrame.astro";
-import ResponsiveInlinePicture from "../ui/ResponsiveInlinePicture.astro";
+import MediaCopySection from "../content/MediaCopySection.astro";
 import {
   STOCKHOLM_CORPORATE_FAQ_EN,
   STOCKHOLM_CORPORATE_PRICING,
@@ -16,9 +16,10 @@ import {
 /** `site-html/en-stockholm-corporate-events.html` wp-page **2666**.
  * Pricing/FAQ source of truth: `lib/content/stockholm-corporate.ts`.
  *
- * Image layout follows skills/images/SKILL.md §L1–L4: short experiential page,
- * no hero. Two inline figures in 2-col grids alongside the copy they
- * illustrate (~35% and ~70% of page height). */
+ * Layout follows skills/images/SKILL.md §L1–L5: short experiential page, no
+ * hero. Two `MediaCopySection`s pair figures with copy; aspect-pairing rule
+ * (§L5) puts the landscape image with the short copy and the portrait image
+ * with the dense Practical Information block. */
 const { exclusiveCapacity, groupPerPersonSek, exclusiveHourlySek } =
   STOCKHOLM_CORPORATE_PRICING;
 
@@ -29,7 +30,7 @@ const leadMarkdown =
   "<p><span class=\"brand-wordmark\">ANDETAG</span> welcomes organizations looking for a calm corporate event in central Stockholm. A pause from pace, in the middle of the city.</p>" +
   "<p>This is not a traditional corporate event. Light, woven textile and music move with a shared breath — creating space for presence, conversation and silence without a high-energy program.</p>";
 
-const fitMarkdown =
+const fitBodyHtml =
   "<p><strong>Kickoff:</strong> a calm opening or closing that gathers the group without draining it.</p>" +
   "<p><strong>Conference:</strong> a pause inside an intense day, or a shared start before the workshop work begins.</p>" +
   "<p><strong>Team building and company celebrations:</strong> a shared experience that gives the group something to talk about afterwards, without competition or stage program.</p>" +
@@ -48,28 +49,24 @@ const practicalFrameHtml =
   "<p><strong>Booking:</strong> Send your request to <a href=\"mailto:info@andetag.museum\">info@andetag.museum</a> and we will reply with available times.</p>";
 ---
 
-<div class="page-migrated page-foretagsevent-sv">
+<div class="page-migrated">
   <ContentSection
     heading="Corporate events in Stockholm — a calm pause in the middle of the city"
     headingLevel="h1"
     markdown={leadMarkdown}
   />
 
-  <div class="page-foretagsevent-sv__fit-grid">
-    <ContentSection
-      heading="What it works for"
-      headingLevel="h2"
-      markdown={fitMarkdown}
-    />
-    <figure class="page-foretagsevent-sv__conversation-figure">
-      <ResponsiveInlinePicture
-        sources={corporateEventsConversationBody}
-        width={960}
-        height={1440}
-        alt="Visitors conversing in a corridor with orange armchairs and wall-mounted luminous textile sculptures at ANDETAG."
-      />
-    </figure>
-  </div>
+  <MediaCopySection
+    heading="What it works for"
+    headingLevel="h2"
+    bodyHtml={fitBodyHtml}
+    imageSources={corporateEventsGroupBody}
+    imageAlt="Four visitors seated together before a large wall of luminous textile sculptures at ANDETAG."
+    imageWidth={960}
+    imageHeight={687}
+    mediaSide="end"
+    mediaWidth="third"
+  />
 
   <ContentSection
     heading="Two formats"
@@ -77,20 +74,18 @@ const practicalFrameHtml =
     markdown={pricingMarkdown}
   />
 
-  <div class="page-foretagsevent-sv__practical-grid">
-    <figure class="page-foretagsevent-sv__group-figure">
-      <ResponsiveInlinePicture
-        sources={corporateEventsGroupBody}
-        width={960}
-        height={687}
-        alt="Four visitors seated together before a large wall of luminous textile sculptures at ANDETAG."
-      />
-    </figure>
-    <div class="page-foretagsevent-sv__practical-prose">
-      <ContentSection heading="Practical information" headingLevel="h2" markdown="" />
-      <InfoFrame heading="Details before booking" headingLevel="h3" bodyHtml={practicalFrameHtml} />
-    </div>
-  </div>
+  <MediaCopySection
+    heading="Practical information"
+    headingLevel="h2"
+    imageSources={corporateEventsConversationBody}
+    imageAlt="Visitors conversing in a corridor with orange armchairs and wall-mounted luminous textile sculptures at ANDETAG."
+    imageWidth={960}
+    imageHeight={1440}
+    mediaSide="start"
+    mediaWidth="third"
+  >
+    <InfoFrame heading="Details before booking" headingLevel="h3" bodyHtml={practicalFrameHtml} />
+  </MediaCopySection>
 
   <ContentSection heading="Frequently asked questions" headingLevel="h2" markdown="" />
   <AccordionSection items={STOCKHOLM_CORPORATE_FAQ_EN.map((item) => ({ ...item }))} />

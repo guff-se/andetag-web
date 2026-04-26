@@ -3,7 +3,7 @@ import AccordionSection from "../content/AccordionSection.astro";
 import ButtonGroup from "../content/ButtonGroup.astro";
 import ContentSection from "../content/ContentSection.astro";
 import InfoFrame from "../content/InfoFrame.astro";
-import ResponsiveInlinePicture from "../ui/ResponsiveInlinePicture.astro";
+import MediaCopySection from "../content/MediaCopySection.astro";
 import {
   STOCKHOLM_CORPORATE_FAQ_SV,
   STOCKHOLM_CORPORATE_PRICING,
@@ -18,9 +18,12 @@ import {
  * (`data-elementor-type="wp-page"` post id 2651). Head from `page-shell-meta.json`.
  * Pricing/FAQ source of truth: `lib/content/stockholm-corporate.ts`.
  *
- * Image layout follows skills/images/SKILL.md §L1–L4: short experiential page,
- * no hero. Two inline figures in 2-col grids alongside the copy they
- * illustrate (~35% and ~70% of page height).
+ * Layout follows skills/images/SKILL.md §L1–L5: short experiential page, no
+ * hero. Two `MediaCopySection`s pair figures with copy at ~35% and ~70% of
+ * page height. Aspect-pairing rule (§L5): landscape image with short copy,
+ * portrait image with the dense Practical Information block — heights then
+ * sit close enough that `align-items: center` removes the dead-zone bug the
+ * earlier ad-hoc grid wrapper produced.
  */
 const { exclusiveCapacity, groupPerPersonSek, exclusiveHourlySek } =
   STOCKHOLM_CORPORATE_PRICING;
@@ -32,7 +35,7 @@ const leadMarkdown =
   "<p><span class=\"brand-wordmark\">ANDETAG</span> tar emot företag som vill samlas i en stillsam konstupplevelse mitt i Stockholm. En paus från tempo, mitt i staden.</p>" +
   "<p>Det här är inte ett traditionellt företagsevent. Ljus, vävd textil och musik rör sig i takt med ett gemensamt andetag — det ger utrymme för närvaro, samtal och tystnad utan ett pressat program.</p>";
 
-const fitMarkdown =
+const fitBodyHtml =
   "<p><strong>Kickoff:</strong> en lugn inledning eller avslutning som samlar gruppen utan att tömma den.</p>" +
   "<p><strong>Konferens:</strong> en paus mitt i en intensiv dag, eller en gemensam start innan workshoparbetet drar igång.</p>" +
   "<p><strong>Teambuilding och företagsfest:</strong> en delad upplevelse som ger något att samtala kring efteråt, utan tävlingsmoment eller scenprogram.</p>" +
@@ -51,28 +54,24 @@ const practicalFrameHtml =
   "<p><strong>Boka:</strong> Skicka förfrågan till <a href=\"mailto:info@andetag.museum\">info@andetag.museum</a> så återkommer vi med tillgängliga tider.</p>";
 ---
 
-<div class="page-migrated page-foretagsevent-sv">
+<div class="page-migrated">
   <ContentSection
     heading="Företagsevent i Stockholm — en stillsam paus mitt i staden"
     headingLevel="h1"
     markdown={leadMarkdown}
   />
 
-  <div class="page-foretagsevent-sv__fit-grid">
-    <ContentSection
-      heading="Vad det passar för"
-      headingLevel="h2"
-      markdown={fitMarkdown}
-    />
-    <figure class="page-foretagsevent-sv__conversation-figure">
-      <ResponsiveInlinePicture
-        sources={corporateEventsConversationBody}
-        width={960}
-        height={1440}
-        alt="Besökare samtalar i en korridor med orangea fåtöljer och lysande textilskulpturer på väggen i ANDETAG."
-      />
-    </figure>
-  </div>
+  <MediaCopySection
+    heading="Vad det passar för"
+    headingLevel="h2"
+    bodyHtml={fitBodyHtml}
+    imageSources={corporateEventsGroupBody}
+    imageAlt="Fyra besökare sitter tillsammans framför en stor vägg av lysande textilskulpturer i ANDETAG."
+    imageWidth={960}
+    imageHeight={687}
+    mediaSide="end"
+    mediaWidth="third"
+  />
 
   <ContentSection
     heading="Två upplägg"
@@ -80,20 +79,18 @@ const practicalFrameHtml =
     markdown={pricingMarkdown}
   />
 
-  <div class="page-foretagsevent-sv__practical-grid">
-    <figure class="page-foretagsevent-sv__group-figure">
-      <ResponsiveInlinePicture
-        sources={corporateEventsGroupBody}
-        width={960}
-        height={687}
-        alt="Fyra besökare sitter tillsammans framför en stor vägg av lysande textilskulpturer i ANDETAG."
-      />
-    </figure>
-    <div class="page-foretagsevent-sv__practical-prose">
-      <ContentSection heading="Praktisk information" headingLevel="h2" markdown="" />
-      <InfoFrame heading="Detaljer inför bokning" headingLevel="h3" bodyHtml={practicalFrameHtml} />
-    </div>
-  </div>
+  <MediaCopySection
+    heading="Praktisk information"
+    headingLevel="h2"
+    imageSources={corporateEventsConversationBody}
+    imageAlt="Besökare samtalar i en korridor med orangea fåtöljer och lysande textilskulpturer på väggen i ANDETAG."
+    imageWidth={960}
+    imageHeight={1440}
+    mediaSide="start"
+    mediaWidth="third"
+  >
+    <InfoFrame heading="Detaljer inför bokning" headingLevel="h3" bodyHtml={practicalFrameHtml} />
+  </MediaCopySection>
 
   <ContentSection heading="Vanliga frågor" headingLevel="h2" markdown="" />
   <AccordionSection items={STOCKHOLM_CORPORATE_FAQ_SV.map((item) => ({ ...item }))} />
