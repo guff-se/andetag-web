@@ -2,7 +2,6 @@
 import AccordionSection from "../content/AccordionSection.astro";
 import ButtonGroup from "../content/ButtonGroup.astro";
 import ContentSection from "../content/ContentSection.astro";
-import HeroSection from "../content/HeroSection.astro";
 import InfoFrame from "../content/InfoFrame.astro";
 import ResponsiveInlinePicture from "../ui/ResponsiveInlinePicture.astro";
 import {
@@ -11,11 +10,15 @@ import {
 } from "../../lib/content/stockholm-corporate";
 import {
   corporateEventsConversationBody,
-  corporateEventsHeroCover,
+  corporateEventsGroupBody,
 } from "../../lib/content/stockholm-body-responsive-images";
 
 /** `site-html/en-stockholm-corporate-events.html` wp-page **2666**.
- * Pricing/FAQ source of truth: `lib/content/stockholm-corporate.ts`. */
+ * Pricing/FAQ source of truth: `lib/content/stockholm-corporate.ts`.
+ *
+ * Image layout follows skills/images/SKILL.md §L1–L4: short experiential page,
+ * no hero. Two inline figures in 2-col grids alongside the copy they
+ * illustrate (~35% and ~70% of page height). */
 const { exclusiveCapacity, groupPerPersonSek, exclusiveHourlySek } =
   STOCKHOLM_CORPORATE_PRICING;
 
@@ -51,35 +54,44 @@ const practicalFrameHtml =
     headingLevel="h1"
     markdown={leadMarkdown}
   />
-  <HeroSection
-    backgroundImage={corporateEventsHeroCover}
-    coverImageAlt="Four visitors seated together before a large wall of luminous textile sculptures at ANDETAG."
-    ariaLabel="Corporate group in the ANDETAG main room"
-    loading="eager"
-    fetchpriority="high"
-  />
-  <ContentSection
-    heading="What it works for"
-    headingLevel="h2"
-    markdown={fitMarkdown}
-  />
-  <figure class="page-foretagsevent-sv__conversation-figure">
-    <ResponsiveInlinePicture
-      sources={corporateEventsConversationBody}
-      width={960}
-      height={1440}
-      alt="Visitors conversing in a corridor with orange armchairs and wall-mounted luminous textile sculptures at ANDETAG."
+
+  <div class="page-foretagsevent-sv__fit-grid">
+    <ContentSection
+      heading="What it works for"
+      headingLevel="h2"
+      markdown={fitMarkdown}
     />
-  </figure>
+    <figure class="page-foretagsevent-sv__conversation-figure">
+      <ResponsiveInlinePicture
+        sources={corporateEventsConversationBody}
+        width={960}
+        height={1440}
+        alt="Visitors conversing in a corridor with orange armchairs and wall-mounted luminous textile sculptures at ANDETAG."
+      />
+    </figure>
+  </div>
+
   <ContentSection
     heading="Two formats"
     headingLevel="h2"
     markdown={pricingMarkdown}
   />
-  <ContentSection heading="Practical information" headingLevel="h2" markdown="" />
-  <div class="page-foretagsevent-sv__practical">
-    <InfoFrame heading="Details before booking" headingLevel="h3" bodyHtml={practicalFrameHtml} />
+
+  <div class="page-foretagsevent-sv__practical-grid">
+    <figure class="page-foretagsevent-sv__group-figure">
+      <ResponsiveInlinePicture
+        sources={corporateEventsGroupBody}
+        width={960}
+        height={687}
+        alt="Four visitors seated together before a large wall of luminous textile sculptures at ANDETAG."
+      />
+    </figure>
+    <div class="page-foretagsevent-sv__practical-prose">
+      <ContentSection heading="Practical information" headingLevel="h2" markdown="" />
+      <InfoFrame heading="Details before booking" headingLevel="h3" bodyHtml={practicalFrameHtml} />
+    </div>
   </div>
+
   <ContentSection heading="Frequently asked questions" headingLevel="h2" markdown="" />
   <AccordionSection items={STOCKHOLM_CORPORATE_FAQ_EN.map((item) => ({ ...item }))} />
   <div class="page-migrated-cta">

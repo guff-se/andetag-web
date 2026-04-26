@@ -44,6 +44,74 @@ Paths are relative to the repo root.
   - `assets/images/photos.yaml` — new rows when ingesting a new photograph; preserve field order and the header comment block. Never append a row without a real file in `assets/images/`.
   - `assets/images/<new-slug>.jpg` — write when ingesting: this is the **archived** original under the **new** `file` name; set `original` in YAML to the **uploaded** filename (e.g. `IMG_1234.jpg`).
 
+## Layout rules (read before §A)
+
+These four rules are non-negotiable. They are what separates a wired image from a horrible-looking page. Violating any of them ships a regression even if `npm test` and `npm run build` are green — tests do not catch layout.
+
+### L1. Heroes are midpoints, not headers
+
+`HeroSection` is a **break between large blocks**, not a decoration under the page H1. Use it only when:
+
+- The page has **enough body** for the hero to split: each chunk above and below the hero must contain **≥80% of one viewport's worth** of body content (roughly ≥3–4 substantial paragraphs/sections each, or one full InfoFrame + one ContentSection). If the page is shorter than that, **drop the hero** and use one or two inline figures instead (§L3).
+- The hero is **not** the second element on the page. There must be at least one full content section (lead `<h1>` + intro is **not** enough; you need at least one full `ContentSection` or equivalent block) above the hero. A hero immediately after the lead, with a few paragraphs above and the rest of the page below, looks like a header decoration and reads as broken.
+- The hero is **not** the last element on the page either (footer-adjacent heroes leave nothing below to "break to").
+
+A short experiential page (lead + 2–3 sections + FAQ) **does not need a hero**; it needs 1–2 inline figures (§L3). Reach for `HeroSection` on location hubs, the home, or pages tall enough that a viewport-height visual band has body on both sides of it.
+
+### L2. Every `<figure>` needs a matching CSS hook
+
+The wiring is incomplete until the layout-hook class on the `<figure>` is **either** an existing class with rules in `site/src/styles/components.css` **or** a new class added to `components.css` in the same PR. A `<figure>` whose class has no CSS rule lets `<picture>`/`<img>` render at the column's intrinsic max-width — a portrait master then renders 1.5× as tall as the column is wide and dominates the page. This is **always** a bug.
+
+Minimum CSS for any new figure hook (mirror the peer pattern, e.g. `.optisk-fibertextil-figure`, `.page-om-konstnarerna-sv__figure`, `.page-stockholm-home__intro-figure`):
+
+```css
+.page-<slug>__<slot>-figure {
+  margin: 0;
+  /* If used outside a 2-col grid: cap so the image is not full main-column width. */
+  max-width: min(52rem, 88%);
+  margin-inline: auto;
+}
+.page-<slug>__<slot>-figure :is(picture, img) {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px; /* mirror peers; drop only if a peer of the same family does too */
+}
+```
+
+Before wiring with a brand-new hook class, **grep `components.css`** for an existing peer hook of the same shape (portrait inset, landscape band, hero figure beside text). Re-using a peer hook is cheaper than adding new CSS.
+
+### L3. Inline figures live in column layouts, not full-width bands
+
+A **`ResponsiveInlinePicture`** wired between two `ContentSection`s as a full-width block reads as a banner — and a portrait master in that slot is a wall. Inline figures should sit **inside a 2-column grid alongside the copy they illustrate**:
+
+- Image left, copy right (1:2 grid for portrait + body text). See `optisk-fibertextil-grid` row 1 (image | text).
+- Copy left, image right (2:1). See `optisk-fibertextil-grid` row 2 (text | image).
+- Inset on the main column (centered, capped at ~52rem). See `page-stockholm-home__intro-figure`. Use only when the surrounding copy already has its own width constraint and the figure is part of a tight intro pair.
+
+Reach for the column-layout pattern by default. Reach for the inset pattern only when the section has no natural copy partner. Never let an inline figure fill the page width as its own band between two `ContentSection`s — that is what `HeroSection` is for, and `HeroSection` has its own constraints (§L1).
+
+The grid wrapper goes around the **section copy + the figure**, not just the figure. CSS pattern (mirror `optisk-fibertextil-grid`):
+
+```css
+.page-<slug>__<section>-grid {
+  display: grid;
+  gap: 1.5rem;
+  align-items: start;
+}
+@media (min-width: 768px) {
+  .page-<slug>__<section>-grid {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); /* or 1fr 2fr, or 1fr 1fr */
+  }
+}
+```
+
+### L4. Spread images evenly down the page
+
+If a page has two figures, place them roughly at **~35–40%** and **~65–70%** of the page height (counting collapsed accordions at their collapsed height). Both images in the first 1/3 leaves the bottom 2/3 visually empty; both at the bottom leaves the top text-heavy. A rough check: list the page's sections in order, count blocks, and place figure 1 after the first **third** of blocks and figure 2 after the second **third**. For one figure, place it near the visual middle.
+
+This rule cooperates with §L1 (heroes already act as a break in the middle): if you ship a hero, that *is* the middle break, and inline figures should land before and after it — not stacked next to it.
+
 ## Locale parity rules
 
 - Stockholm pages render in `sv + en`. Both bodies read the **same** `BodyPictureSources` constant, so a single wiring change reaches both locales. The `alt=` attribute on the `<ResponsiveInlinePicture>` is locale-specific — pull `alt.sv` into the Swedish body and `alt.en` into the English body from `photos.yaml`.
@@ -62,29 +130,58 @@ Paths are relative to the repo root.
 4. Pick a **count** that matches the page:
    - Location hub (`/sv/stockholm/`, `/en/stockholm/`): 1 hero cover + 1–2 inline figures + a gallery if present. Typically 4–6 photos.
    - Factual anchor (hours, how-to-find-us, accessibility, tickets): 0–1 inline figure. Text-dominant.
-   - Experiential page (Art Yoga, Dejt, NPF Stockholm, Vilken typ av upplevelse): 1 hero + 1–2 inline. Lean on mood.
-   - SEO landing: 1 hero (reuse parent location's cover) + 1 inline if the copy asks for one.
+   - Experiential page (Art Yoga, Dejt, NPF Stockholm, Vilken typ av upplevelse, corporate-events): 1–2 inline figures by default. **Reach for `HeroSection` only if §L1 holds** — short experiential pages should drop the hero and ship inline only.
+   - SEO landing: 1 hero (reuse parent location's cover) only if §L1 holds, otherwise 1 inline. 1 extra inline if the copy asks for one.
    - Testimonials strip / background: exactly one `testimonial` background, reused across consumers.
 5. Balance **relevance** against **variation**:
    - Relevance: tags overlap the page's anchor concepts.
    - Variation: do not pick three frames that are visually identical (same angle, same lighting). Across a page, prefer one wide room shot, one human-scale moment, one detail.
-6. **Wire immediately** using §B (inline), §C (hero), and/or §D (gallery) as needed. **Unless the user said otherwise:** use the same **components and props shape** as similar pages—`HeroSection` with a cover from `stockholm-body-responsive-images` or `assets.ts`, `ResponsiveInlinePicture` in a `<figure>`, `GallerySection` with data from `stockholm-marketing-gallery.ts`. Copy structure from a peer `page-bodies` file rather than inventing a one-off `<img>` or raw `<picture>` if a component already exists.
-7. **Document for review** in the PR body (or a short `## Images` section in the PR description): for each slot, the chosen `file` from the catalog, one line of rationale, and the components/constants touched. The **human approves** the preview/merge, not a separate "pick one of three" step in chat. If **§E** added new files, note the new `file` and `original` in the PR.
+6. **Plan placement** before wiring. List the page's sections in order, decide which sections are the natural copy partners for each figure (per **§L3**), and check that the resulting positions meet **§L4** (~35–40% and ~65–70% of page height for two images). If a hero is in the plan, confirm **§L1** (≥80% viewport on each side; not the second element). Adjust before touching code: re-placing a wired figure costs more than picking the right slot first.
+7. **Wire immediately** using §B (inline, column-layout), §C (hero), and/or §D (gallery) as needed. **Unless the user said otherwise:** use the same **components and props shape** as similar pages—`HeroSection` with a cover from `stockholm-body-responsive-images` or `assets.ts`, `ResponsiveInlinePicture` in a `<figure>` inside a column-layout grid, `GallerySection` with data from `stockholm-marketing-gallery.ts`. Copy structure **and the matching CSS hook** from a peer `page-bodies` file rather than inventing a one-off `<img>` or raw `<picture>` if a component already exists.
+8. **Add or re-use the CSS hook** per **§L2**. A new `<figure>` class without a matching rule in `site/src/styles/components.css` is **always** a bug — fix it in the same edit pass, never as a follow-up.
+9. **Document for review** in the PR body (or a short `## Images` section in the PR description): for each slot, the chosen `file` from the catalog, one line of rationale, the components/constants touched, **and the CSS hook** (existing-and-reused, or new-and-added). The **human approves** the preview/merge, not a separate "pick one of three" step in chat. If **§E** added new files, note the new `file` and `original` in the PR.
 
 ### B. Wire a selected image as an inline body figure
 
-Use after selecting a file in §A, or when the catalog choice is already fixed.
+Use after selecting a file in §A, or when the catalog choice is already fixed. **Default pattern is a 2-column grid with the figure beside its copy partner** (§L3). Full-width bands between sections are not allowed.
 
 1. Confirm the master file is served under `site/public/wp-content/uploads/<year>/<month>/<slug>.jpg`. If not:
    - Copy or generate the master at the target path. Use the published year/month if the photo is pre-existing; use the current year/month if the photograph is new. Keep the slug readable.
    - Generate the three derivatives per `docs/responsive-image-workflow.md` §2, with `SUFFIX=body` (or `aside` for sidebar figures). Verify all four files (master + three derivatives) land in the same directory.
 2. Add a `BodyPictureSources` export in `site/src/lib/content/stockholm-body-responsive-images.ts`. Name it after the photo and slot (for example `mainRoomLookingBody`, `introAside18_058Body`). Three string fields: `jpeg960`, `webp640`, `webp960`, all pointing to the derivative paths under `/wp-content/uploads/…`.
-3. In the Stockholm body pair (`FooSv.astro`, `FooEn.astro`):
-   - Import `ResponsiveInlinePicture` from `../ui/ResponsiveInlinePicture.astro` (or the project’s existing relative path) and the new `BodyPictureSources` constant.
-   - Add `<ResponsiveInlinePicture sources={…} width={<master_width>} height={<master_height>} alt="<alt>" />` where `alt` is `alt.sv` (Swedish) or `alt.en` (English) from `photos.yaml`.
-   - Wrap in `<figure class="page-<slug>__<slot>-figure">` for layout hooks, matching other pages that use the same pattern.
+3. **Pick the copy partner.** The figure must be the alongside-content for one specific section on the page (per §L3) — not a free-floating band. Identify which `ContentSection`, `InfoFrame`, or paragraph block the figure illustrates. That section + the figure are the two columns of the grid.
+4. In the Stockholm body pair (`FooSv.astro`, `FooEn.astro`):
+   - Import `ResponsiveInlinePicture` from `../ui/ResponsiveInlinePicture.astro` (or the project's existing relative path) and the new `BodyPictureSources` constant.
+   - Wrap the **section copy + figure** in a grid container: `<div class="page-<slug>__<section>-grid">…</div>`. Inside it, place the existing copy block (e.g. `<ContentSection …/>`) and the figure as the two children, in the visual order you want at desktop (image-left or image-right).
+   - The figure: `<figure class="page-<slug>__<slot>-figure"> <ResponsiveInlinePicture sources={…} width={<master_width>} height={<master_height>} alt="<alt>" /> </figure>`. `alt` is `alt.sv` (Swedish) or `alt.en` (English) from `photos.yaml`.
    - Pass `width`/`height` matching the master for correct aspect ratio; do not invent dimensions.
-4. Verify: §Verification.
+5. **Add the CSS hooks** in `site/src/styles/components.css` (per §L2 and §L3) — both the grid wrapper and the figure class, in the same edit pass. Mirror `optisk-fibertextil-grid` + `optisk-fibertextil-figure`:
+
+   ```css
+   .page-<slug>__<section>-grid {
+     display: grid;
+     gap: 1.5rem;
+     align-items: start;
+   }
+   @media (min-width: 768px) {
+     .page-<slug>__<section>-grid {
+       grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); /* or 1fr 2fr to flip image side */
+     }
+   }
+   .page-<slug>__<slot>-figure {
+     margin: 0;
+   }
+   .page-<slug>__<slot>-figure :is(picture, img) {
+     display: block;
+     width: 100%;
+     height: auto;
+     border-radius: 12px;
+   }
+   ```
+
+   The grid stacks to a single column on mobile (no `grid-template-columns` rule below 768px), so the figure renders full-column-width on phones and alongside copy on tablet+.
+6. **Inset variant (rare).** If the section has no natural copy partner — e.g. a single intro paragraph that already caps its width — use the inset pattern instead (`max-width: min(52rem, 88%); margin-inline: auto;` on the figure class, no grid). See `page-stockholm-home__intro-figure`. Default is still the grid.
+7. Verify: §Verification.
 
 ### C. Wire a selected image as a hero cover
 

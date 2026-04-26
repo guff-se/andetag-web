@@ -79,17 +79,19 @@ export const malinVaver2OpticalFibertextil: BodyPictureSources = {
 };
 
 /**
- * Corporate-events page (sv/en) hero cover: four visitors seated together
- * before a wall of luminous textile sculptures. Source master:
- * `assets/images/main-room-wall-of-light-four-visitors.jpg` (2400x1718).
+ * Corporate-events page (sv/en) inline group figure: four visitors seated
+ * together before a wall of luminous textile sculptures. Lives inside the
+ * `Praktisk information` / `Practical information` 2-col grid (text + image).
+ * Source master: `assets/images/main-room-wall-of-light-four-visitors.jpg`
+ * (2400x1718, landscape).
  */
-export const corporateEventsHeroCover: BodyPictureSources = {
+export const corporateEventsGroupBody: BodyPictureSources = {
   jpeg960:
-    "/wp-content/uploads/2026/04/main-room-wall-of-light-four-visitors-hero-960w.jpg",
+    "/wp-content/uploads/2026/04/main-room-wall-of-light-four-visitors-body-960w.jpg",
   webp640:
-    "/wp-content/uploads/2026/04/main-room-wall-of-light-four-visitors-hero-640w.webp",
+    "/wp-content/uploads/2026/04/main-room-wall-of-light-four-visitors-body-640w.webp",
   webp960:
-    "/wp-content/uploads/2026/04/main-room-wall-of-light-four-visitors-hero-960w.webp",
+    "/wp-content/uploads/2026/04/main-room-wall-of-light-four-visitors-body-960w.webp",
 };
 
 /**
