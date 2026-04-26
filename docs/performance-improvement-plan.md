@@ -29,7 +29,7 @@ Mobile [PageSpeed Insights](https://pagespeed.web.dev/analysis/https-andetag-web
 
 | Track | Status | What shipped / notes |
 |-------|--------|----------------------|
-| **P0** Hero poster | **Done** | Responsive **AVIF / WebP / JPEG** (`stockholm-hero-poster-{960,1920}w.*`), `<picture>` under video + **CSS fade-in** on `playing`. **LCP preload** uses **art-directed AVIF** (`lcpImagePreloads` in **`[...slug].astro`**, **`SiteLayout`**) so the preloaded file matches the **first** `<source>` (Chrome picks **AVIF**, not legacy **`960w.webp`** preload). **`HERO_SV_ASSETS.poster`** → **`1920w.jpg`** for default **`og:image`** / JSON-LD (must be served on **`www`** after Phase 8; see **`docs/phase-8-todo.md`** **P8-23** Facebook Sharing Debugger). |
+| **P0** Hero poster | **Done** | Responsive **AVIF / WebP / JPEG** (`stockholm-hero-poster-{960,1920}w.*`), `<picture>` under video + **CSS fade-in** on `playing`. **LCP preload** uses **art-directed AVIF** (`lcpImagePreloads` in **`[...slug].astro`**, **`SiteLayout`**) so the preloaded file matches the **first** `<source>` (Chrome picks **AVIF**, not legacy **`960w.webp`** preload). **`HERO_SV_ASSETS.poster`** → **`1920w.jpg`** for default **`og:image`** / JSON-LD (live on **`www`** since cutover **2026-04-14**). |
 | **P1** Gallery / body images | **Done** | **Gallery** (**`stockholm-marketing-gallery.ts`**). **Marketing bodies:** **`stockholm-body-responsive-images.ts`** (home, SEO, book **`HeroSection`**, **Art Yoga** / **Dejt** covers, **Berlin** After Hours teaser, default **`TestimonialCarousel`** band, **about-the-artists** lead aside **`artWeekOpeningLeadAside`**, **optical-fibre** **`malinVaver*`**) with **`{640,960}w` WebP** + **`960w` JPEG** beside sources. **`ResponsiveInlinePicture`** (**`fetchpriority`** optional for LCP candidates), **`HeroSection`** / **`TestimonialCarousel`** responsive modes. **Small header (`shared-hero-header.is-small`):** portrait mobile still (**`Mobile-BG.*-header-mobile-*`**) AVIF/WebP/JPEG; desktop uses same **`stockholm-hero-poster-*`** stack as the video hero; **`HEADER_SMALL_LCP_PRELOAD_WEBP`** with **`media=(max-width:767px)`**; **`fetchpriority=high`** on fallback **`img`**. **Optional hygiene:** circular **portrait** JPEGs on about-the-artists (**`1024x1024`**) still ship as single files; batch derivatives if a future sweep flags them. |
 | **P2** Third-party + first-party JS | **Done** | **`BookingEmbed`:** Understory script **`defer`** via **`booking-embed-lazy.ts`** (viewport **`IntersectionObserver`**, ~**`400px`** **`rootMargin`**). **Gallery lightbox:** vanilla **`gallery-lightbox.ts`**. **Hero parallax:** vanilla **`hero-cover-parallax.ts`**; **`jquery`** dependency **removed** from **`site/package.json`**. **Consent:** interim third-party CMP (April 2026) moved to **`async`** + **`autoBlock=off`** (consent gated by GTM Consent Mode, not vendor auto-blocker); production now uses self-hosted **CookieConsent** (no third-party CMP origin). **GTM** deferred to **`window.load`** event. **`SiteLayout`** places **`<link rel="preconnect">`** for `googletagmanager.com` where needed and **LCP preloads** above **`<TrackingHead />`** so the preload scanner discovers them before any script. **FCP recovered from ~2.7 s to ~1.66 s** (lab) on Stockholm home during the interim CMP tuning window. |
 | **P3** Booking API compression | **Vendor** | Ask Understory for **gzip/Brotli** on API Gateway JSON. |
@@ -86,7 +86,7 @@ The article’s checklist maps to this codebase as follows (gaps are where we st
 | **Browser caching** (`Cache-Control`, etc.) | Strong for fingerprints | `site/public/_headers` covers `/_astro/*`, fonts, uploads (**`/wp-content/uploads/*`** ~**30d** `max-age` + long **`stale-while-revalidate`** for large video or poster repeat visits; replace-in-place at the same URL should use a new filename per **`AGENTS.md`**). HTML stays short TTL or revalidate. |
 | **Remove render-blocking JS** | Mixed | GTM in head; Understory booking script uses **`defer`** (**P2** partial). |
 | **Limit external scripts** | Understory, GTM, consent bundle | Defer, lazy-load, or isolate (Partytown) where tags allow; reduces **layout shift** risk from late-injected widgets. |
-| **Limit redirects** | Policy-heavy | Entry **`/`** / **`/en/`** routing is intentional ([`url-migration-policy.md`](url-migration-policy.md)); avoid **chains** and extra hops on marketing landing URLs. |
+| **Limit redirects** | Policy-heavy | Entry **`/`** / **`/en/`** routing is intentional (see [`seo/url-architecture.md`](seo/url-architecture.md) §4); avoid **chains** and extra hops on marketing landing URLs. |
 | **Minify CSS/JS** | Default via Astro build | Still verify no large inline blocks; marginal gains but standard hygiene. |
 | **Fast hosting / DNS / CDN** | Workers + Cloudflare DNS | TTFB for HTML is edge + Worker path; static assets benefit from POP proximity. |
 | **Security without slowing users** | Zone + Worker | Tune bot/WAF rules so legitimate traffic is not over-challenged on HTML and assets. |
@@ -299,7 +299,7 @@ Cloudflare’s overview ([speed up a website](https://www.cloudflare.com/en-gb/l
 
 1. Use **Cloudflare as DNS** for the production zone with **proxied** (`orange cloud`) records as intended. Slow DNS undermines every first visit.
 2. Keep **TLS** modern (Full Strict); stale clients are rare; botched TLS modes add retries and latency.
-3. **Worker path length:** Entry routing that does extra lookups or redirects adds **TTFB**; keep the **`200`** path for locale HTML as direct as possible (see [`url-migration-policy.md`](url-migration-policy.md)).
+3. **Worker path length:** Entry routing that does extra lookups or redirects adds **TTFB**; keep the **`200`** path for locale HTML as direct as possible (see [`seo/url-architecture.md`](seo/url-architecture.md) §4).
 
 ### Recommended dashboard checks (Speed → Optimization)
 
@@ -343,7 +343,7 @@ Cloudflare’s overview ([speed up a website](https://www.cloudflare.com/en-gb/l
 - [ ] GTM + consent: tags still fire correctly after any future load deferral (**P2** completion).
 - [x] Visual parity on hero poster and video fade (stakeholder sign-off when possible).
 - [ ] **P3** API responses carry **`Content-Encoding`** when Understory enables compression (verify in Network).
-- [ ] **Production `www`:** Facebook Sharing Debugger on key URLs after cutover (**`docs/phase-8-todo.md`** **P8-23**).
+- [ ] **Production `www`:** Facebook Sharing Debugger on key URLs after content updates that change `og:image` or canonical paths.
 
 ---
 

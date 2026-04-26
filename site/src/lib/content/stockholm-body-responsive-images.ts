@@ -77,3 +77,88 @@ export const malinVaver2OpticalFibertextil: BodyPictureSources = {
   webp640: "/wp-content/uploads/2026/02/malin-vaver2-768x1024-body-640w.webp",
   webp960: "/wp-content/uploads/2026/02/malin-vaver2-768x1024-body-960w.webp",
 };
+
+/**
+ * Corporate-events page (sv/en) inline group figure: four visitors seated
+ * together before a wall of luminous textile sculptures. Lives inside the
+ * `Praktisk information` / `Practical information` 2-col grid (text + image).
+ * Source master: `assets/images/main-room-wall-of-light-four-visitors.jpg`
+ * (2400x1718, landscape).
+ */
+export const corporateEventsGroupBody: BodyPictureSources = {
+  jpeg960:
+    "/wp-content/uploads/2026/04/main-room-wall-of-light-four-visitors-body-960w.jpg",
+  webp640:
+    "/wp-content/uploads/2026/04/main-room-wall-of-light-four-visitors-body-640w.webp",
+  webp960:
+    "/wp-content/uploads/2026/04/main-room-wall-of-light-four-visitors-body-960w.webp",
+};
+
+/**
+ * Corporate-events page (sv/en) inline conversation figure: visitors
+ * conversing in the corridor lounge with orange armchairs. Source master:
+ * `assets/images/corridor-lounge-illuminated-sculptures.jpg` (2400x3600).
+ */
+export const corporateEventsConversationBody: BodyPictureSources = {
+  jpeg960:
+    "/wp-content/uploads/2026/04/corridor-lounge-illuminated-sculptures-body-960w.jpg",
+  webp640:
+    "/wp-content/uploads/2026/04/corridor-lounge-illuminated-sculptures-body-640w.webp",
+  webp960:
+    "/wp-content/uploads/2026/04/corridor-lounge-illuminated-sculptures-body-960w.webp",
+};
+
+/**
+ * Corporate-events page (sv/en) inline foyer figure: the museum lobby with
+ * sofa, visitors, framed textile works and a large wall sculpture — the room
+ * a corporate group steps into when they arrive. Lives in the
+ * `Praktisk information` / `Practical information` MediaCopySection at
+ * `mediaWidth="half"` so the 3:2 landscape pairs reasonably with the
+ * InfoFrame's height. Source master:
+ * `assets/images/reception-lobby-with-sculpture.jpg` (2400x1600, landscape).
+ */
+export const corporateEventsFoyerBody: BodyPictureSources = {
+  jpeg960:
+    "/wp-content/uploads/2026/04/reception-lobby-with-sculpture-body-960w.jpg",
+  webp640:
+    "/wp-content/uploads/2026/04/reception-lobby-with-sculpture-body-640w.webp",
+  webp960:
+    "/wp-content/uploads/2026/04/reception-lobby-with-sculpture-body-960w.webp",
+};
+
+/**
+ * Neurodiversity page (sv/en) inline figure paired with the "What to expect"
+ * section. A solo visitor held inside a calm, blue-lit field of luminous
+ * textile forms — the calm, low-stimulus tone the page promises. Wired
+ * through `MediaCopySection` at `mediaWidth="half"`; landscape 3:2 keeps
+ * the figure height close to the medium-density copy beside it.
+ * Source master: `assets/images/main-room-visitor-blue-glow-forms.jpg`
+ * (2400x1600, landscape).
+ */
+export const npfBlueGlowBody: BodyPictureSources = {
+  jpeg960:
+    "/wp-content/uploads/2026/04/main-room-visitor-blue-glow-forms-body-960w.jpg",
+  webp640:
+    "/wp-content/uploads/2026/04/main-room-visitor-blue-glow-forms-body-640w.webp",
+  webp960:
+    "/wp-content/uploads/2026/04/main-room-visitor-blue-glow-forms-body-960w.webp",
+};
+
+/**
+ * Neurodiversity page (sv/en) inline figure paired with "Low stimulus, small
+ * groups, quiet pace". Overhead frame of visitors at rest among the
+ * sculptures — shows the room with people lying down, the option the page
+ * tells visitors they have. Wired through `MediaCopySection` at
+ * `mediaWidth="third"`; portrait orientation balances the denser copy
+ * beside it. Source master:
+ * `assets/images/main-room-overhead-visitors-resting.jpg` (2400x3673,
+ * portrait).
+ */
+export const npfOverheadRestingBody: BodyPictureSources = {
+  jpeg960:
+    "/wp-content/uploads/2026/04/main-room-overhead-visitors-resting-body-960w.jpg",
+  webp640:
+    "/wp-content/uploads/2026/04/main-room-overhead-visitors-resting-body-640w.webp",
+  webp960:
+    "/wp-content/uploads/2026/04/main-room-overhead-visitors-resting-body-960w.webp",
+};

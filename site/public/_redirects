@@ -1,5 +1,5 @@
 # Path redirects (repo-owned). Apex, www, and HTTPS are handled in Cloudflare DNS or Pages custom domains.
-# See docs/phase-4-route-coverage.md and docs/url-migration-policy.md.
+# See docs/seo/url-architecture.md.
 # Swedish: legacy unprefixed URLs 301 straight to final /sv/stockholm/… paths (single hop).
 
 /de /de/berlin/ 301
@@ -54,7 +54,7 @@
 
 # -----------------------------------------------------------------------------
 # Quicklinks
-# Legacy Pretty Links and ops short paths (see docs/url-migration-policy.md)
+# Legacy Pretty Links and ops short paths (see docs/seo/url-architecture.md)
 #
 # Quicklinks 302: print or campaign codes and external targets (easy to retarget).
 # -----------------------------------------------------------------------------

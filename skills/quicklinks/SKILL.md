@@ -37,7 +37,7 @@ Maintain **302 quicklinks** in **`site/public/_redirects`**: short first-party p
 
 **Immutable fence — do not touch:**
 
-- **Above** the start banner: the entire legacy **301** block, privacy rules, **WordPress** archive redirects, and every other line.
+- **Above** the start banner: the entire legacy **301** block, privacy rules, pre-Astro path redirects, and every other line.
 - **At or below** `/stockholm/*` through end of file: the splat rule and trailing comments (e.g. Worker note).
 
 If the file structure ever changes, re-locate the block using: **"comment block immediately before `/stockholm/*`"** and still **do not** edit anything outside the quicklinks `302` group.

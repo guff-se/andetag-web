@@ -26,6 +26,8 @@
 .info-frame > :is(h2, h3, h4),
 .info-frame-body :is(h1, h2, h3, h4),
 .partners-section > :is(h1, h2, h3, h4),
+.media-copy__prose :is(h1, h2, h3, h4),
+.media-copy__body :is(h1, h2, h3, h4),
 .component-hero :is(h1, h2, h3),
 .component-eyebrow {
   font-family: "JostLocal", "Jost", Arial, sans-serif;
@@ -49,7 +51,8 @@
 
 /* Direct section headings in ContentSection (h2–h4 as children of the section). */
 .content-section > :is(h2, h3, h4),
-.info-frame > :is(h2, h3, h4) {
+.info-frame > :is(h2, h3, h4),
+.media-copy__prose > :is(h2, h3, h4) {
   color: var(--component-surface);
   font-weight: 500;
   text-transform: uppercase;
@@ -62,7 +65,8 @@
 
 /* Subheadings inside migrated or markdown body HTML. */
 .content-section-body :is(h2, h3, h4),
-.info-frame-body :is(h2, h3, h4) {
+.info-frame-body :is(h2, h3, h4),
+.media-copy__body :is(h2, h3, h4) {
   color: var(--component-surface);
   font-weight: 500;
   text-transform: uppercase;
@@ -74,20 +78,24 @@
 }
 
 .content-section-body h2,
-.info-frame-body h2 {
+.info-frame-body h2,
+.media-copy__body h2 {
   font-size: clamp(1.1rem, 2.2vw, 1.4rem);
 }
 
-.content-section-body ul {
+.content-section-body ul,
+.media-copy__body ul {
   margin: 0 0 1rem;
   padding-left: 1.25rem;
 }
 
-.content-section-body li {
+.content-section-body li,
+.media-copy__body li {
   margin-bottom: 0.35em;
 }
 
-.content-section-body li:last-child {
+.content-section-body li:last-child,
+.media-copy__body li:last-child {
   margin-bottom: 0;
 }
 
@@ -2203,6 +2211,90 @@ body.lightbox-open {
 @media (min-width: 768px) {
   .page-vilken-typ-sv__lists {
     grid-template-columns: 1fr 1fr;
+  }
+}
+
+/*
+ * MediaCopySection (`site/src/components/content/MediaCopySection.astro`):
+ * single section that pairs a figure with copy in a 2-col grid at ≥768px and
+ * stacks on mobile. The component owns the grid so page bodies never wrap a
+ * `ContentSection` (or other top-level page block) in an ad-hoc grid div —
+ * that pattern produced empty cells when image height ≠ copy height (see
+ * 2026-04 corporate-events rebuild and `skills/images/SKILL.md` §L5).
+ *
+ * `align-items: center` keeps the shorter sibling vertically centered in its
+ * row, so a tall portrait next to short copy reads as "image with caption
+ * floating beside it" instead of leaving a dead block under the prose. The
+ * companion rule lives in the images skill: pair portrait images with dense
+ * copy, landscapes with short copy.
+ */
+.media-copy {
+  display: grid;
+  gap: clamp(1rem, 3vw, 2rem);
+  align-items: center;
+  margin-block: 2rem;
+}
+
+.media-copy__prose {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.media-copy__prose > :is(h1, h2, h3) {
+  margin: 0;
+}
+
+.media-copy__prose > :is(p, ul, ol) {
+  margin: 0;
+}
+
+.media-copy__prose .info-frame,
+.media-copy__prose .accordion-section,
+.media-copy__prose .content-section {
+  margin: 0;
+}
+
+.media-copy__media {
+  margin: 0;
+  align-self: center;
+}
+
+.media-copy__media :is(picture, img) {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+
+@media (min-width: 768px) {
+  /* media-end (default): copy left, image right. */
+  .media-copy--media-end.media-copy--media-third {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  }
+
+  .media-copy--media-end.media-copy--media-half {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  /* media-start: image left, copy right. Reorder children via grid-column. */
+  .media-copy--media-start.media-copy--media-third {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  }
+
+  .media-copy--media-start.media-copy--media-half {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .media-copy--media-start .media-copy__prose {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .media-copy--media-start .media-copy__media {
+    grid-column: 1;
+    grid-row: 1;
   }
 }
 

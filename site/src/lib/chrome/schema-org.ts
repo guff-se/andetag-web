@@ -15,11 +15,17 @@ import {
   STOCKHOLM_FAQ_SV,
   type FaqItem,
 } from "../content/stockholm-faq";
+import {
+  STOCKHOLM_CORPORATE_FAQ_EN,
+  STOCKHOLM_CORPORATE_FAQ_SV,
+} from "../content/stockholm-corporate";
 import { computeArtYogaOccurrenceSeriesIso } from "./art-yoga-next-occurrence";
 
 const FAQ_PATHS = {
   "/en/stockholm/faq/": STOCKHOLM_FAQ_EN,
   "/sv/stockholm/fragor-svar/": STOCKHOLM_FAQ_SV,
+  "/en/stockholm/corporate-events/": STOCKHOLM_CORPORATE_FAQ_EN,
+  "/sv/stockholm/foretagsevent/": STOCKHOLM_CORPORATE_FAQ_SV,
 } as const;
 
 function faqPageNode(

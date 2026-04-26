@@ -6,7 +6,7 @@ export const CANONICAL_HOST = "https://www.andetag.museum";
 /** Open Graph `og:site_name` (matches `docs/content-model.md` shared `seo.siteName`). */
 export const OG_SITE_NAME = "ANDETAG";
 
-/** BCP47 values emitted in `<link rel="alternate" hreflang="…">` (see docs/phase-4-todo.md). */
+/** BCP47 values emitted in `<link rel="alternate" hreflang="…">` (see `docs/seo/url-architecture.md`). */
 export function languageToHreflangAttribute(language: Language): string {
   switch (language) {
     case "sv":

@@ -23,7 +23,6 @@ This skill is **not** for:
 - A content change in `site/src/lib/content/` or `site/src/lib/chrome/schema-org.ts` propagates to structured data (prices, reviews, events, FAQ, opening hours).
 - A new page is being proposed or wired (coordinate with `skills/page`): confirm keyword fit, canonical path, hreflang parity, sitemap inclusion, shell meta.
 - **Page-skill verification** — `skills/page` requires a **§H** pass on each affected path before merge; run **§H** when acting as the SEO reviewer for that page work or when asked for "SEO feedback on this page" in isolation.
-- `docs/meta-texts-catalog.md` is being re-applied to `site/src/data/page-shell-meta.json`.
 - An agent is asked to write or review a page title, meta description, H1, H2, or in-body copy for SEO fit.
 - A GSC alert, a search snippet change, or a Rich Results console warning needs diagnosis.
 - Someone asks "can we target keyword X", "should this be a separate page", "is this going to help us rank", or "this page is not ranking — what's wrong".
@@ -38,7 +37,7 @@ Read-first in every invocation (the doctrine changes more often than the code):
 - `docs/Tone of Voice.md` — copy constraints. Em dash (U+2014) is prohibited. Words we avoid (mind-blowing, magical, healing, transformative, life-changing, revolutionary, spiritual, must-see, unforgettable). Invitational, not instructional.
 - `docs/seo/url-architecture.md` — URL architecture, canonical rules, redirect policy, sitemap membership rules, entry routing at `/` and `/en/`, location-scoped story URLs, privacy URL policy, query-parameter policy.
 - `docs/seo/decisions.md` — durable SEO deviations from default rules. Most-cited rows: `SEO-0015` (`/en/` hub copy), `SEO-0016` (Berlin English canonicals → Stockholm English), `SEO-0017` (Museum + LocalBusiness for AggregateRating/Review), `SEO-0019` (konstutställning spelling override vs the scraped Yoast title). Each drift from a "default" SEO rule has a row; edits that contradict a row must update it or add a new one.
-- `docs/meta-texts-catalog.md` — curated titles and descriptions per shell. **Edits apply here first**, then propagate to `site/src/data/page-shell-meta.json`. Do not rely on `site/scripts/extract-page-shell-meta.mjs` to preserve hand-tuned copy.
+- `site/src/data/page-shell-meta.json` — per-shell `title` and `description` (and optional `ogImage`). The single source for shell head copy; edit this JSON for title/description changes, coordinated with the SEO Manual and `docs/seo/decisions.md`.
 
 Read for the runtime contract:
 
@@ -46,7 +45,6 @@ Read for the runtime contract:
 - `site/src/lib/chrome/seo.ts` — `CANONICAL_HOST` (`https://www.andetag.museum`), `OG_SITE_NAME` (`ANDETAG`), `languageToHreflangAttribute` (sv → `sv-SE`, en → `en`, de → `de-DE`), `languageToOgLocale` (underscore form `sv_SE` / `en_US` / `de_DE`), `ogLocaleAlternates`, `buildHreflangLinks`. **Do not edit these without checking the SEO Manual §5.**
 - `site/src/lib/chrome/schema-org.ts` — entity graph. Museum + LocalBusiness, Organization, WebSite, WebPage, ImageObject, Event (Art Yoga), FAQPage (when on `/sv/stockholm/fragor-svar/` or `/en/stockholm/faq/`), Place (Berlin). Addresses, opening hours, offers, aggregateRating, review sourced from `stockholm-*.ts` in `site/src/lib/content/`.
 - `site/src/layouts/SiteLayout.astro` — where `<title>`, `<meta name="description">`, canonical + hreflang, OG, Twitter, and JSON-LD are emitted per shell. `robots?: "index,follow" | "noindex,nofollow"` prop (default indexable).
-- `site/src/data/page-shell-meta.json` — per-shell `title`, `description`, optional `ogImage`. Keyed by canonical path.
 
 Read for content-level SEO:
 
@@ -59,8 +57,7 @@ Read for content-level SEO:
 
 Write-path (only with explicit triggers):
 
-- `site/src/data/page-shell-meta.json` — after applying `docs/meta-texts-catalog.md`.
-- `docs/meta-texts-catalog.md` — when updating titles/descriptions (edit here first).
+- `site/src/data/page-shell-meta.json` — when updating titles, descriptions, or per-shell `ogImage`.
 - `site/src/lib/chrome/schema-org.ts` — only to reflect already-approved data changes (new Offer because price changed, etc.); never to invent a new schema type without a new EX row.
 - `site/src/lib/routes/page-shell-registry.ts` — only when a new locale pair or a new Berlin English story canonical is being wired (coordinate with `skills/page`).
 - `CHANGELOG.md` — `### Changed` or `### Added` row per edit, per the project's `docs/changelog-standards.md`.
@@ -83,7 +80,7 @@ Before editing anything, decide what kind of SEO change this is. The rest of the
 
 | Change shape | What it touches | Primary doc |
 |--------------|-----------------|-------------|
-| Title or meta description edit | `docs/meta-texts-catalog.md` + `site/src/data/page-shell-meta.json` | SEO Manual §1, §1.1, §12 (keyword line per page); Tone of Voice |
+| Title or meta description edit | `site/src/data/page-shell-meta.json` | SEO Manual §1, §1.1, §12 (keyword line per page); Tone of Voice |
 | Canonical or hreflang change | `page-shell-registry.ts`, `seo.ts` | SEO Manual §5; `docs/seo/url-architecture.md` §4 (entry routing) |
 | Robots directive | `SiteLayout.astro` (shell-level) or body `<meta name="robots">` | SEO Manual §4 |
 | Open Graph / Twitter | `SiteLayout.astro` + `ogImage` field on shell meta | SEO Manual §5 OG baseline |
@@ -100,7 +97,7 @@ Run these checks against the built `dist/` — a stale `dist/` makes the audit m
 1. **Title**
    - Exactly one `<title>` per page (`grep -c "<title>" dist/<path>/index.html`).
    - Length: aim for ~50–65 characters visible. The ANDETAG pattern appends `| ANDETAG Stockholm` (or `| ANDETAG Berlin`) as a brand suffix — common in `page-shell-meta.json`. Don't strip the suffix unless you add a new EX row.
-   - Matches the row in `docs/meta-texts-catalog.md`. If the catalog and `page-shell-meta.json` disagree, catalog wins (edit JSON to match) — unless the row carries a decision note (`SEO-0015` `/en/` hub, `SEO-0019` konstutställning spelling) in `docs/seo/decisions.md`.
+   - Matches the `title` / `description` in `page-shell-meta.json` for that path, except where `docs/seo/decisions.md` documents an intentional override (`SEO-0015` `/en/` hub, `SEO-0019` konstutställning spelling).
    - Contains the primary keyword from SEO Manual §12 for that page. For English hub + location `/en/`, `/en/stockholm/`, and English home-like pages, **"breathing museum"** must appear in title OR description per §1.1.
 2. **Meta description**
    - Present on every indexable shell (the hub and leaf shells; 404 has none intentionally).
@@ -181,11 +178,11 @@ The most common failure mode for SEO work with an agent is **invented facts**. T
 
 1. **URLs.** Every URL in a title, description, canonical, hreflang, `og:url`, JSON-LD `url`, or in-body link **must** come from one of: `STOCKHOLM_SV_EN_PAIRS` / `BERLIN_DE_EN_STORY_PAIRS` / `PAGE_SHELL_PATHS` / `docs/url-matrix.csv` / `site/public/_redirects`. If it is not there, it does not exist. Do not invent paths; propose them via `skills/page`.
 2. **Keywords.** Use the GSC-derived signals in SEO Manual §2 only. Do not introduce keywords "because they trend". If the request is to target a new keyword, check §2 for overlap; if absent, flag the gap and escalate — do not silently add it.
-3. **Metadata.** No fabricated titles / descriptions. If `docs/meta-texts-catalog.md` has the row, use it; if not, draft and add the row to the catalog first.
+3. **Metadata.** No fabricated titles / descriptions. Draft in alignment with the SEO Manual, then add or edit the path in `page-shell-meta.json`.
 4. **Schema fields.** Never hand-type a `ratingValue`, `reviewCount`, price, opening hour, or address into `schema-org.ts`. Those come from their source-of-truth files (`stockholm-reviews.ts`, `stockholm-offers.ts`, the `STOCKHOLM_*` constants). If a field is missing from Google's documented schema for that type, do not add it.
 5. **Quotes.** Testimonial text is verbatim TripAdvisor copy. No rewording for tone. No translation across locales (see `skills/testimonials`, `SEO-0012`, `SEO-0017`).
-6. **Source artifacts.** `archive/legacy-wordpress-site/site-html/` is the **frozen** WP scrape — reference only. `SEO-0019` (utställning spelling) and the migration-only `EX-0007` (en-stockholm Yoast drift, in `docs/migration-exceptions.md` until archive) document where the scrape cannot be trusted. Always prefer `page-shell-meta.json` + `stockholm-*.ts` + `schema-org.ts` over the archived HTML.
-7. **"Agreed sources."** The phase-9 todo names `seo-content/` as a potential future directory for approved SEO drafts. It does not exist yet (April 2026); until it does, approved sources are the docs and runtime modules above.
+6. **Source artifacts.** Titles, descriptions, and body truth live in `page-shell-meta.json` and the `site/src/lib/content/*.ts` + `schema-org.ts` graph — not in any frozen legacy export. Shell edge cases (e.g. `SEO-0019`, `EX-0007`) are recorded in `docs/seo/decisions.md`. **Do not** read `archive/` (see `AGENTS.md`).
+7. **"Agreed sources."** A `seo-content/` directory for approved SEO drafts has not been created (April 2026); until it is, approved sources are the docs and runtime modules above.
 
 If source data is missing, say so. Do not fabricate.
 
@@ -205,7 +202,7 @@ Use when **`skills/page/SKILL.md`** (or a PR that only adds/edits specific pages
 
 1. **Identify scope** — List every `sv` / `en` (or `de` / `en` for Berlin) path changed or introduced. If only body copy changed, both locales of the pair still get **§H** when the page skill runs verification.
 2. **Read doctrine first** — `docs/Andetag SEO Manual.md` §1, §2 (keyword line for that page type from §12 where applicable), §15 internal linking; `docs/Tone of Voice.md` for banned phrasing and em dash (U+2014) prohibition.
-3. **Shell / meta** — For each path, read `site/src/data/page-shell-meta.json` (and `docs/meta-texts-catalog.md` if the row is curated there). Check title and meta description against **§B.1** and **§B.2** (length, keyword presence where required e.g. §1.1 "breathing museum" on English home-like shells, de-duplication, no banned words). If **§B** or **§C** already covers international parity, confirm the peer locale row still makes sense.
+3. **Shell / meta** — For each path, read `site/src/data/page-shell-meta.json`. Check title and meta description against **§B.1** and **§B.2** (length, keyword presence where required e.g. §1.1 "breathing museum" on English home-like shells, de-duplication, no banned words). If **§B** or **§C** already covers international parity, confirm the peer locale row still makes sense.
 4. **On-page (body)** — For each edited `*Sv.astro` / `*En.astro` (or `*De.astro`), apply **§D**: single `h1` intent, heading hierarchy, first paragraph, internal links and anchor text (§15.1 / §15 contextual targets when the page has required peer links). If images changed, alts must stay aligned with `assets/images/photos.yaml` per `skills/images`.
 5. **Built HTML** — After `npm run build`, for each path run the relevant slices of **§B** on `site/dist/<path>/index.html`: **§B.1** title, **§B.2** description, **§B.3** canonical, **§B.4** hreflang, **§B.5** OG/Twitter mirror (Berlin English story **§B.3** self-canonical → Stockholm: `SEO-0016`, not a bug).
 6. **Source integrity** — **§F** for any new or edited in-body link: no invented paths; only canonical targets from the registry / url-matrix / known routes.
@@ -252,7 +249,7 @@ Stop and ask before proceeding if:
 - A `noindex` is being added to a page that was previously indexable. This is a traffic loss. Requires explicit approval and a `SEO-NNNN` row in `docs/seo/decisions.md`.
 - A canonical edit would orphan inbound links (legacy `/stockholm/*` pointed at the old path, new canonical lives elsewhere). Check `docs/url-matrix.csv` first; if the move is intentional, add a `redirect` row.
 - GSC / GA4 data requested but `../stats/cli` is not installed or authenticated. Do not fabricate numbers; report the gap (same rule as `skills/performance-check` §E).
-- `docs/meta-texts-catalog.md` has a row that disagrees with `page-shell-meta.json` and neither is marked with a `SEO-NNNN` decision row. One of them is stale; ask Gustaf which wins.
+- Title/description intent is ambiguous and would require contradicting a peer locale or a `SEO-NNNN` row. Escalate before shipping.
 - A Tone of Voice call is ambiguous (is "quietly striking" ok? is "life-changing" ever ok in a quoted review?). When in doubt, err calm. Escalate before shipping.
 - A Berlin page edit would contradict the pre-opening scope (SEO Manual §11: `Place` only, no Museum, no tickets, lead capture only). Berlin opening status change is Gustaf's call.
 
@@ -265,9 +262,9 @@ Request: "Rewrite the English Stockholm home meta description to lead with 'brea
 Action:
 
 1. **Clarify**. Title or description edit (§A).
-2. **Read** `docs/meta-texts-catalog.md` `/en/stockholm/` row and `page-shell-meta.json` matching key. Confirm current copy and length.
+2. **Read** `page-shell-meta.json` for `/en/stockholm/`. Confirm current copy and length.
 3. **Draft.** Keep under ~160 chars. Include **breathing museum** (SEO Manual §1.1). Include Hötorget (location signal §2). Calm, concrete, invitational (Tone of Voice). No em dash. No banned word.
-4. **Apply** to `docs/meta-texts-catalog.md` first, then propagate to `page-shell-meta.json`.
+4. **Apply** the final strings to `page-shell-meta.json`.
 5. **Parity.** Swedish `/sv/stockholm/` uses Swedish signals; confirm it still reads naturally (it does not need to translate the English change — keyword asymmetry is allowed §C).
 6. **Audit** §B.2, §B.5 (og:description mirror), §C parity, §F no fabricated facts.
 7. **`npm test && npm run build`**, spot-check `dist/en/stockholm/index.html` for the new description + og:description + twitter:description agreement.

@@ -7,7 +7,7 @@ description: Use when selecting and wiring photographs for a page on the ANDETAG
 
 Help an agent **pick and wire** photographs that match a page's intent in one pass, using the **existing UI components** the site already uses (unless the user asks for a different pattern). The agent does **not** stop to ask "which of these do you want?" before wiring. Put candidate reasoning, `file` names, and slot decisions in the **PR / commit message**; the user reviews the built page in preview and approves at merge.
 
-Markup, alt text, derivatives, and path constants stay consistent with peers. The **catalog** of photo metadata (alt in `sv + en + de`, tags) is `assets/images/photos.yaml`. **Archival originals** (source-of-truth before derivatives) live under `assets/images/<canonical-filename>.jpg` alongside the catalog. The **served** masters and their derivatives live under `site/public/wp-content/uploads/<year>/<month>/` (see `docs/responsive-image-workflow.md`). New uploads must land in **`assets/images/`** first, get a **new canonical `file` name** and full **`alt` block + `tags`**, then—when the site should show them—copy or sync the file to `site/public/…`, generate derivatives, and wire. Wiring constants live in `site/src/lib/content/stockholm-body-responsive-images.ts` (body figures, testimonial backgrounds, most hero covers) and `site/src/lib/chrome/assets.ts` (chrome-level hero assets). **Default wiring:** `ResponsiveInlinePicture` for in-flow figures, `HeroSection` for page heroes, `GallerySection` (plus `stockholm-marketing-gallery.ts` / gallery props) for gallery-style strips — follow nearby bodies on the same page or route family.
+Markup, alt text, derivatives, and path constants stay consistent with peers. The **catalog** of photo metadata (alt in `sv + en + de`, tags) is `assets/images/photos.yaml`. **Archival originals** (source-of-truth before derivatives) live under `assets/images/<canonical-filename>.jpg` alongside the catalog. The **served** masters and their derivatives live under `site/public/wp-content/uploads/<year>/<month>/` (see `docs/responsive-image-workflow.md`). New uploads must land in **`assets/images/`** first, get a **new canonical `file` name** and full **`alt` block + `tags`**, then—when the site should show them—copy or sync the file to `site/public/…`, generate derivatives, and wire. Wiring constants live in `site/src/lib/content/stockholm-body-responsive-images.ts` (body figures, testimonial backgrounds, most hero covers) and `site/src/lib/chrome/assets.ts` (chrome-level hero assets). **Default wiring:** `<MediaCopySection>` for any inline image-beside-copy figure (it wraps `ResponsiveInlinePicture` and owns the grid + figure CSS), `HeroSection` for page heroes, `GallerySection` (plus `stockholm-marketing-gallery.ts` / gallery props) for gallery-style strips, bare `ResponsiveInlinePicture` only for the rare inset variant (§B step 7) — follow nearby bodies on the same page or route family.
 
 This skill is **not** for:
 
@@ -40,9 +40,75 @@ Paths are relative to the repo root.
   - `site/src/lib/content/stockholm-body-responsive-images.ts` — new `BodyPictureSources` export (jpeg960, webp640, webp960).
   - `site/src/lib/chrome/assets.ts` — for chrome-level hero covers (for example `STOCKHOLM_BOOK_HERO_COVER`).
   - `site/src/lib/content/stockholm-marketing-gallery.ts` — gallery tiles (`thumbWebp640`, `thumbWebp960`, `src`, `fullSrc`).
-  - The page body component under `site/src/components/page-bodies/*.astro` (both `*Sv.astro` and `*En.astro` for Stockholm) — by default, wire through **`ResponsiveInlinePicture`** (`site/src/components/ui/ResponsiveInlinePicture.astro`), **`HeroSection`** (`site/src/components/content/HeroSection.astro`), and/or **`GallerySection`** (`site/src/components/content/GallerySection.astro`) the same way sibling pages in the project do, unless the user specified a different component or layout.
+  - The page body component under `site/src/components/page-bodies/*.astro` (both `*Sv.astro` and `*En.astro` for Stockholm) — by default, wire through **`MediaCopySection`** (`site/src/components/content/MediaCopySection.astro`, which internally renders a `ResponsiveInlinePicture`), **`HeroSection`** (`site/src/components/content/HeroSection.astro`), and/or **`GallerySection`** (`site/src/components/content/GallerySection.astro`) the same way sibling pages in the project do, unless the user specified a different component or layout. Bare `ResponsiveInlinePicture` (`site/src/components/ui/ResponsiveInlinePicture.astro`) is reserved for the rare inset variant — see §B step 7.
   - `assets/images/photos.yaml` — new rows when ingesting a new photograph; preserve field order and the header comment block. Never append a row without a real file in `assets/images/`.
   - `assets/images/<new-slug>.jpg` — write when ingesting: this is the **archived** original under the **new** `file` name; set `original` in YAML to the **uploaded** filename (e.g. `IMG_1234.jpg`).
+
+## Layout rules (read before §A)
+
+These five rules are non-negotiable. They are what separates a wired image from a horrible-looking page. Violating any of them ships a regression even if `npm test` and `npm run build` are green — tests do not catch layout. **Always verify with Claude Preview** (`mcp__Claude_Preview__preview_*`) at desktop and mobile before calling the work done; build success is not visual success.
+
+### L1. Heroes are midpoints, not headers
+
+`HeroSection` is a **break between large blocks**, not a decoration under the page H1. Use it only when:
+
+- The page has **enough body** for the hero to split: each chunk above and below the hero must contain **≥80% of one viewport's worth** of body content (roughly ≥3–4 substantial paragraphs/sections each, or one full InfoFrame + one ContentSection). If the page is shorter than that, **drop the hero** and use one or two inline figures instead (§L3).
+- The hero is **not** the second element on the page. There must be at least one full content section (lead `<h1>` + intro is **not** enough; you need at least one full `ContentSection` or equivalent block) above the hero. A hero immediately after the lead, with a few paragraphs above and the rest of the page below, looks like a header decoration and reads as broken.
+- The hero is **not** the last element on the page either (footer-adjacent heroes leave nothing below to "break to").
+
+A short experiential page (lead + 2–3 sections + FAQ) **does not need a hero**; it needs 1–2 inline figures (§L3). Reach for `HeroSection` on location hubs, the home, or pages tall enough that a viewport-height visual band has body on both sides of it.
+
+### L2. Pair figures with copy via `<MediaCopySection>` — never wrap a section component in a grid div
+
+The sanctioned way to put an image beside copy is the **`<MediaCopySection>`** component (`site/src/components/content/MediaCopySection.astro`). It owns the 2-column grid, the figure CSS, and the vertical alignment, so page bodies stay readable and layout bugs stay scoped to one component.
+
+**Forbidden anti-pattern:** wrapping a `<ContentSection>`, `<InfoFrame>`, or `<AccordionSection>` inside an ad-hoc `<div class="page-X__Y-grid">` to put a `<ResponsiveInlinePicture>` next to it. Those components are **page-block** primitives — they own their outer margins, vertical rhythm, and width assumptions and assume they are the only child of their slot. Inside a grid cell, they terminate at their natural content height while the figure fills its cell, leaving a dead block under the prose. This pattern shipped twice in 2026-04 corporate-events PRs before being replaced by `<MediaCopySection>`; do not bring it back.
+
+**Forbidden anti-pattern:** `<ResponsiveInlinePicture>` placed as a free-floating block between two `<ContentSection>`s. That is a banner, and a portrait master in that slot is a wall. If the figure has no natural copy partner, use the **inset variant** (single `<figure class="page-<slug>__<slot>-figure">` with `max-width: min(52rem, 88%); margin-inline: auto;`) — see `page-stockholm-home__intro-figure`. The inset variant is reserved for tight intro pairs where the surrounding copy already has its own width constraint.
+
+### L3. `<MediaCopySection>` contract
+
+```astro
+<MediaCopySection
+  heading="Section heading"
+  headingLevel="h2"
+  bodyHtml={trustedHtmlString}        /* optional — for paragraph copy without nested components */
+  imageSources={someBodyPictureSources}
+  imageAlt={photoAltSv /* or .en, .de */}
+  imageWidth={masterWidth}
+  imageHeight={masterHeight}
+  mediaSide="end"                     /* "end" = image right (default); "start" = image left */
+  mediaWidth="third"                  /* "third" = image 1/3 + copy 2/3 (default); "half" = 1/1 */
+>
+  <InfoFrame … />                     {/* anything that needs Astro components goes in the slot */}
+</MediaCopySection>
+```
+
+- **Heading** renders inside the prose half via `heading` + `headingLevel`. Do **not** put a `<ContentSection heading="…" markdown="" />` next to a MediaCopySection to "label" it — that produces an orphan H2.
+- **Mobile:** the grid stacks to a single column, prose first, image second, regardless of `mediaSide`. Source order matters; the component places the prose div before the figure on purpose.
+- **Image aspect:** the component does **not** crop. It centers the shorter sibling vertically (`align-items: center`). Pair aspects to copy length per **§L4** so neither side has a long dead zone.
+
+### L4. Image aspect must match copy length
+
+Even with `<MediaCopySection>`, a portrait at column-1/3 width is ~1.5× the column width tall. Pair the aspect to the copy:
+
+| Copy length (rough) | Best aspect | Why |
+|---|---|---|
+| Short: heading + 2–4 short paragraphs (~250–300px tall at 2/3 column) | **Landscape** (3:2 / 16:9) at 1/3 width → ~165–245px | Image height matches prose height |
+| Medium: heading + 4–6 paragraphs or a small InfoFrame (~400–500px) | **Landscape** at 1/2 width → ~300–360px, or **portrait** at 1/3 width → ~535px (slightly taller, OK) | Both work; lean landscape if copy is short within the band |
+| Dense: heading + InfoFrame, or 6+ paragraphs (~500–650px) | **Portrait** (2:3 / 3:4) at 1/3 width → ~535–710px | Portrait pairs cleanly with dense vertical copy |
+
+If the copy and image aspect mismatch, the prose centers vertically with whitespace above and below — readable but ugly. **Pick the image to match the copy**, not the other way around. When wiring two figures on one page, reach for **one landscape + one portrait** so each section has its right partner.
+
+### L5. Spread images evenly down the page
+
+If a page has two figures, place them roughly at **~35–40%** and **~65–70%** of the page height (counting collapsed accordions at their collapsed height). Both images in the first 1/3 leaves the bottom 2/3 visually empty; both at the bottom leaves the top text-heavy. A rough check: list the page's sections in order, count blocks, and place figure 1 after the first **third** of blocks and figure 2 after the second **third**. For one figure, place it near the visual middle.
+
+This rule cooperates with §L1 (heroes already act as a break in the middle): if you ship a hero, that *is* the middle break, and inline figures should land before and after it — not stacked next to it.
+
+### L6. Verify with Claude Preview before declaring done
+
+`npm test && npm run build` only proves the code parses and the dist HTML emits. They do **not** detect: empty grid cells from height mismatch, orphan H2s, font / casing regressions, mobile stack order bugs, or images that overflow their column. **Run Claude Preview** (`mcp__Claude_Preview__preview_start` against `.claude/launch.json`'s `site-dev`, then `preview_screenshot` + `preview_inspect`) at **desktop (1280)** and **mobile (375)** widths. Iterate on CSS / props until the screenshot looks balanced. Only then commit.
 
 ## Locale parity rules
 
@@ -62,29 +128,56 @@ Paths are relative to the repo root.
 4. Pick a **count** that matches the page:
    - Location hub (`/sv/stockholm/`, `/en/stockholm/`): 1 hero cover + 1–2 inline figures + a gallery if present. Typically 4–6 photos.
    - Factual anchor (hours, how-to-find-us, accessibility, tickets): 0–1 inline figure. Text-dominant.
-   - Experiential page (Art Yoga, Dejt, NPF Stockholm, Vilken typ av upplevelse): 1 hero + 1–2 inline. Lean on mood.
-   - SEO landing: 1 hero (reuse parent location's cover) + 1 inline if the copy asks for one.
+   - Experiential page (Art Yoga, Dejt, NPF Stockholm, Vilken typ av upplevelse, corporate-events): 1–2 inline figures by default. **Reach for `HeroSection` only if §L1 holds** — short experiential pages should drop the hero and ship inline only.
+   - SEO landing: 1 hero (reuse parent location's cover) only if §L1 holds, otherwise 1 inline. 1 extra inline if the copy asks for one.
    - Testimonials strip / background: exactly one `testimonial` background, reused across consumers.
 5. Balance **relevance** against **variation**:
    - Relevance: tags overlap the page's anchor concepts.
    - Variation: do not pick three frames that are visually identical (same angle, same lighting). Across a page, prefer one wide room shot, one human-scale moment, one detail.
-6. **Wire immediately** using §B (inline), §C (hero), and/or §D (gallery) as needed. **Unless the user said otherwise:** use the same **components and props shape** as similar pages—`HeroSection` with a cover from `stockholm-body-responsive-images` or `assets.ts`, `ResponsiveInlinePicture` in a `<figure>`, `GallerySection` with data from `stockholm-marketing-gallery.ts`. Copy structure from a peer `page-bodies` file rather than inventing a one-off `<img>` or raw `<picture>` if a component already exists.
-7. **Document for review** in the PR body (or a short `## Images` section in the PR description): for each slot, the chosen `file` from the catalog, one line of rationale, and the components/constants touched. The **human approves** the preview/merge, not a separate "pick one of three" step in chat. If **§E** added new files, note the new `file` and `original` in the PR.
+6. **Plan placement** before wiring. List the page's sections in order, decide which sections are the natural copy partners for each figure (per **§L3**), and check that the resulting positions meet **§L4** (~35–40% and ~65–70% of page height for two images). If a hero is in the plan, confirm **§L1** (≥80% viewport on each side; not the second element). Adjust before touching code: re-placing a wired figure costs more than picking the right slot first.
+7. **Wire immediately** using §B (inline via `<MediaCopySection>`), §C (hero), and/or §D (gallery) as needed. **Unless the user said otherwise:** use the same **components and props shape** as similar pages — `HeroSection` with a cover from `stockholm-body-responsive-images` or `assets.ts`, `<MediaCopySection>` for any inline image-beside-copy figure, `GallerySection` with data from `stockholm-marketing-gallery.ts`. Copy structure from a peer `page-bodies` file rather than inventing a one-off `<img>`, raw `<picture>`, or ad-hoc grid wrapper.
+8. **Verify in Claude Preview** per **§L6**. Build success is not visual success.
+9. **Document for review** in the PR body (or a short `## Images` section in the PR description): for each slot, the chosen `file` from the catalog, one line of rationale, the components/constants touched, and the aspect-pairing decision per **§L4**. The **human approves** the preview/merge, not a separate "pick one of three" step in chat. If **§E** added new files, note the new `file` and `original` in the PR.
 
 ### B. Wire a selected image as an inline body figure
 
-Use after selecting a file in §A, or when the catalog choice is already fixed.
+Use after selecting a file in §A, or when the catalog choice is already fixed. **Default pattern: `<MediaCopySection>` pairing the figure with one specific copy block on the page** (§L2, §L3). Free-floating full-width bands between sections are not allowed; ad-hoc `<div class="page-<slug>__<section>-grid">` wrappers around `<ContentSection>` / `<InfoFrame>` / `<AccordionSection>` are forbidden (§L2).
 
 1. Confirm the master file is served under `site/public/wp-content/uploads/<year>/<month>/<slug>.jpg`. If not:
    - Copy or generate the master at the target path. Use the published year/month if the photo is pre-existing; use the current year/month if the photograph is new. Keep the slug readable.
    - Generate the three derivatives per `docs/responsive-image-workflow.md` §2, with `SUFFIX=body` (or `aside` for sidebar figures). Verify all four files (master + three derivatives) land in the same directory.
-2. Add a `BodyPictureSources` export in `site/src/lib/content/stockholm-body-responsive-images.ts`. Name it after the photo and slot (for example `mainRoomLookingBody`, `introAside18_058Body`). Three string fields: `jpeg960`, `webp640`, `webp960`, all pointing to the derivative paths under `/wp-content/uploads/…`.
-3. In the Stockholm body pair (`FooSv.astro`, `FooEn.astro`):
-   - Import `ResponsiveInlinePicture` from `../ui/ResponsiveInlinePicture.astro` (or the project’s existing relative path) and the new `BodyPictureSources` constant.
-   - Add `<ResponsiveInlinePicture sources={…} width={<master_width>} height={<master_height>} alt="<alt>" />` where `alt` is `alt.sv` (Swedish) or `alt.en` (English) from `photos.yaml`.
-   - Wrap in `<figure class="page-<slug>__<slot>-figure">` for layout hooks, matching other pages that use the same pattern.
-   - Pass `width`/`height` matching the master for correct aspect ratio; do not invent dimensions.
-4. Verify: §Verification.
+2. Add a `BodyPictureSources` export in `site/src/lib/content/stockholm-body-responsive-images.ts`. Name it after the photo and slot (for example `corporateEventsGroupBody`, `introAside18_058Body`). Three string fields: `jpeg960`, `webp640`, `webp960`, all pointing to the derivative paths under `/wp-content/uploads/…`.
+3. **Pick the copy partner.** The figure must be the alongside-content for one specific section on the page (per §L3) — not a free-floating band. The natural partner is usually a heading + a `bodyHtml` paragraph block, an `InfoFrame`, an `AccordionSection`, or a `ButtonGroup`. Choose the partner whose copy length **matches the image aspect** (§L4).
+4. In the Stockholm body pair (`FooSv.astro`, `FooEn.astro`):
+   - Import `MediaCopySection` from `../content/MediaCopySection.astro` and the new `BodyPictureSources` constant.
+   - Replace the section's existing `<ContentSection heading=…/>` (when paired with the figure) with a `<MediaCopySection>` that carries the heading via the `heading` + `headingLevel` props and the body via `bodyHtml` (for trusted HTML strings) and/or `<slot>` content (for nested Astro components like `<InfoFrame>` / `<AccordionSection>`).
+   - Pass `imageSources`, `imageAlt` (locale-specific from `photos.yaml`), `imageWidth` and `imageHeight` (master dimensions — do not invent them), `mediaSide` (`"end"` for image-right, `"start"` for image-left), and `mediaWidth` (`"third"` default; `"half"` only when copy is short and you want a 1/1 split).
+5. Example — section with paragraph copy and a trailing `InfoFrame`:
+
+   ```astro
+   ---
+   import MediaCopySection from "../content/MediaCopySection.astro";
+   import InfoFrame from "../content/InfoFrame.astro";
+   import { practicalInfoBody } from "../../lib/content/stockholm-body-responsive-images";
+
+   const practicalFrameHtml = "<p><strong>Address:</strong> …</p>" + "<p><strong>Capacity:</strong> …</p>";
+   ---
+   <MediaCopySection
+     heading="Practical information"
+     headingLevel="h2"
+     imageSources={practicalInfoBody}
+     imageAlt="Visitors conversing in a corridor with luminous textile sculptures."
+     imageWidth={960}
+     imageHeight={1440}
+     mediaSide="start"
+     mediaWidth="third"
+   >
+     <InfoFrame heading="Details before booking" headingLevel="h3" bodyHtml={practicalFrameHtml} />
+   </MediaCopySection>
+   ```
+6. **No new CSS hook needed.** `<MediaCopySection>` owns its grid, figure, alignment, and responsive stacking centrally in `site/src/styles/components.css` under `.media-copy*`. Do not add per-page grid rules; if the layout looks wrong, fix it inside the component (and tell the user — that's a structural change, not a wiring change).
+7. **Inset variant (rare).** If the figure has **no** natural copy partner — e.g. a single intro paragraph that already caps its width and reads as a self-contained masthead — use the inset pattern instead: a bare `<figure class="page-<slug>__<slot>-figure"><ResponsiveInlinePicture …/></figure>` with `max-width: min(52rem, 88%); margin-inline: auto;` on the figure class. See `page-stockholm-home__intro-figure`. This is rare; the default is `<MediaCopySection>`.
+8. Verify per **§L6** (Claude Preview at desktop + mobile) and §Verification (`npm test && npm run build`).
 
 ### C. Wire a selected image as a hero cover
 
@@ -176,11 +269,12 @@ Action:
 
 1. Read the NPF body intent: calm entry, predictability, optional skip of main room, low sensory load.
 2. Scan `photos.yaml` for tags: `accessibility`, `calm`, `solo`, `rest`, `lockers`, `entrance`.
-3. Pick and wire in one go:
-   - Hero: `main-room-visitor-profile-blue-sculptures.jpg` — `HeroSection` + hero derivatives (`SUFFIX=hero`).
-   - Inline 1: `lockers-visitors-preparing.jpg` — `ResponsiveInlinePicture` + `BodyPictureSources` (`SUFFIX=aside` or `body` per layout).
-   - Inline 2 (if the layout has a second slot): `corridor-lounge-illuminated-sculptures.jpg` — same pattern as the first inline.
-4. In the PR: short table of slot, `file`, and rationale; `alt.sv` / `alt.en` verbatim from the catalog. `npm test && npm run build`.
+3. Plan placement (§A.6): hero only if §L1 holds; otherwise drop and use two inline figures at ~35% / ~70% page height. Pair aspects to copy length per §L4 — landscape with the short "what to expect" copy, portrait with the dense practical-info block.
+4. Pick and wire in one go:
+   - Hero (only if §L1): `main-room-visitor-profile-blue-sculptures.jpg` — `HeroSection` + hero derivatives (`SUFFIX=hero`).
+   - Inline 1: `lockers-visitors-preparing.jpg` (landscape) → `<MediaCopySection mediaSide="end" mediaWidth="third">` next to the short "what to expect" copy. `SUFFIX=body`.
+   - Inline 2: `corridor-lounge-illuminated-sculptures.jpg` (portrait) → `<MediaCopySection mediaSide="start" mediaWidth="third">` wrapping the practical-info `<InfoFrame>` in its slot.
+5. Verify in Claude Preview at 1280 + 375 (§L6); `npm test && npm run build`. In the PR: short table of slot, `file`, aspect, copy partner, `alt.sv` / `alt.en` verbatim from the catalog.
 
 ### Example 2: replace the Stockholm home intro figure
 

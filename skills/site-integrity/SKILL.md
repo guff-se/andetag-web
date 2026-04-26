@@ -259,9 +259,9 @@ Automated coverage that already runs in CI (do not duplicate in this skill):
 Stop and ask before proceeding if:
 
 - The build fails. Run the `page` or `rollback` skill on the failing change; this skill cannot audit a stale `dist/`.
-- A finding suggests a shipped SEO regression on `www` (missing canonical, broken hreflang). Flag for the SEO skill (**P9-13**) when that lands; until then, escalate to Gustaf.
+- A finding suggests a shipped SEO regression on `www` (missing canonical, broken hreflang). Route to `skills/seo/SKILL.md`; if that skill cannot resolve it, escalate to Gustaf.
 - The user asks for a full external-link HEAD-check sweep. The number of external links and the domains' bot-blocking make this fragile; confirm scope and live with false positives.
-- Multi-hop redirects are found that were apparently intentional (e.g. two-stage locale migration). Do not collapse them without checking `docs/seo/url-architecture.md` and `docs/seo/decisions.md` (and the legacy `docs/migration-exceptions.md` for archived migration deviations).
+- Multi-hop redirects are found that were apparently intentional (e.g. two-stage locale migration). Do not collapse them without checking `docs/seo/url-architecture.md` and `docs/seo/decisions.md` and confirming with the maintainer.
 - The audit reveals a registry or sitemap anomaly that the existing tests did not catch. That is a test gap — document it in `docs/maintenance-backlog.md` before fixing the data.
 
 ## Examples

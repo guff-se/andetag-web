@@ -2,12 +2,27 @@
 import ButtonGroup from "../content/ButtonGroup.astro";
 import ContentSection from "../content/ContentSection.astro";
 import InfoFrame from "../content/InfoFrame.astro";
+import MediaCopySection from "../content/MediaCopySection.astro";
 import { STOCKHOLM_TICKETS } from "../../lib/content/stockholm-offers";
+import {
+  npfBlueGlowBody,
+  npfOverheadRestingBody,
+} from "../../lib/content/stockholm-body-responsive-images";
 
-/** English peer of `NpfStockholmSv.astro`; Swedish source `site-html/stockholm-npf-stockholm.html` wp-page **4384**. */
+/** English peer of `NpfStockholmSv.astro`; Swedish source `site-html/stockholm-npf-stockholm.html` wp-page **4384**.
+ *
+ * Layout follows skills/images/SKILL.md §L1–L6: H1 + lead H2 (no hero), then
+ * two `MediaCopySection`s pair figures with the experiential copy. Aspect-
+ * pairing per §L4: a landscape blue-glow figure at `mediaWidth="half"` with
+ * the medium-density "What to expect" copy; a portrait overhead-resting
+ * figure at `mediaWidth="third"` with the denser "Low stimulus, small
+ * groups, quiet pace" block. The Location/Address duplication between the
+ * advance text and the InfoFrame is resolved by keeping address only in
+ * the InfoFrame at the bottom. The Swedish "NPF" abbreviation is dropped
+ * from the English lead — readers in English do not use that term. */
 const leadMarkdown =
   "<p><span class=\"brand-wordmark\">ANDETAG</span> is designed as a calm, low-stimulation experience.</p>" +
-  "<p>If you are autistic, ADHD, or have another neurodevelopmental profile (often called NPF in Swedish), or sensory sensitivity, it can help to know what to expect before you visit.</p>" +
+  "<p>If you are autistic, ADHD, or have another neurodevelopmental profile, or sensory sensitivity, it can help to know what to expect before you visit.</p>" +
   "<p>Here is information to help you plan.</p>";
 
 const expectMarkdown =
@@ -21,8 +36,19 @@ const tempoMarkdown =
   "<p>Read more about <a href=\"/en/stockholm/what-kind-of-experience/\">what kind of experience ANDETAG is</a>, or browse the <a href=\"/en/stockholm/faq/\">FAQ</a> before your visit.</p>" +
   "<p>The experience is on one level. Clear flow, calm transitions. A place to exhale when input feels like too much. The whole exhibition is wheelchair accessible. Carers or personal assistants enter free of charge; let us know at the entrance. See also <a href=\"/en/stockholm/accessibility/\">accessibility at ANDETAG</a> for full details.</p>";
 
+const adhdMarkdown =
+  "<p>ANDETAG is a low-stimulation environment that gives attention something to rest on: a slow, predictable rhythm in light and music. No queues inside the exhibition, no moments that demand a reply, no pace to keep. You move through the rooms when you choose, and stay in the final room for as long as you need.</p>" +
+  "<p>Most visitors stay around 50 minutes, but the choice is yours. Many people with ADHD describe a sudden ease — attention finds something to lean on, instead of pulling apart.</p>";
+
+const autismMarkdown =
+  "<p>ANDETAG follows a predictable flow: four rooms with the same music, the same breath rhythm, the same response in light. No sudden changes, no guide talking over the experience, no interactive elements that demand a response. You can read through the sensory profile before your visit.</p>" +
+  "<p>Groups are small and you move at your own pace. Carers or personal assistants enter free of charge — let us know at the entrance. If you want to know more about a specific part of the visit beforehand, write to <a href=\"mailto:info@andetag.museum\">info@andetag.museum</a>.</p>";
+
+const sensoryMarkdown =
+  "<p>The light comes from the textiles themselves and moves slowly. No flashing lights, no strobes, no fluorescent lighting. Music plays at low volume and follows the same rhythm as the light — no sudden audio cues. No strong scents.</p>" +
+  "<p>If you want more control over the sound, you can listen on your own device with your own headphones. The final room has blankets and cushions where you can rest if input becomes too much. You can leave the experience whenever you wish.</p>";
+
 const advanceMarkdown =
-  "<p><strong>Location:</strong> Kungsgatan 39, Stockholm (Hötorget metro). Lifts from the platform and from street level.</p>" +
   "<p><strong>Light:</strong> Soft, from the works. Some areas are dark. No fluorescent lighting. No flashing or sudden light signals.</p>" +
   "<p><strong>Sound:</strong> Music at low volume, synced with the light. No hearing loop. Guide dogs welcome.</p>" +
   "<p><strong>Toilet:</strong> We do not currently have a fully accessible toilet. Contact us in advance if you want to discuss practical options.</p>" +
@@ -42,16 +68,43 @@ const practicalFrameHtml =
 
 <div class="page-migrated page-npf-stockholm-sv">
   <ContentSection
-    heading="Neurodiversity-friendly exhibition in Stockholm: calm, predictable, low stimulus"
+    heading="Neurodiversity-friendly exhibition in Stockholm"
     headingLevel="h1"
+    markdown=""
+  />
+  <ContentSection
+    heading="Calm, predictable, low stimulus"
+    headingLevel="h2"
     markdown={leadMarkdown}
   />
-  <ContentSection heading="What to expect" headingLevel="h2" markdown={expectMarkdown} />
-  <ContentSection
+
+  <MediaCopySection
+    heading="What to expect"
+    headingLevel="h2"
+    bodyHtml={expectMarkdown}
+    imageSources={npfBlueGlowBody}
+    imageAlt="Calm visitor in blue light, luminous textile forms floating around."
+    imageWidth={960}
+    imageHeight={640}
+    mediaSide="end"
+    mediaWidth="half"
+  />
+
+  <MediaCopySection
     heading="Low stimulus, small groups, quiet pace"
     headingLevel="h2"
-    markdown={tempoMarkdown}
+    bodyHtml={tempoMarkdown}
+    imageSources={npfOverheadRestingBody}
+    imageAlt="Overhead view of visitors resting among luminous textile art in the main room at ANDETAG."
+    imageWidth={960}
+    imageHeight={1469}
+    mediaSide="start"
+    mediaWidth="third"
   />
+
+  <ContentSection heading="ANDETAG and ADHD" headingLevel="h2" markdown={adhdMarkdown} />
+  <ContentSection heading="ANDETAG and autism" headingLevel="h2" markdown={autismMarkdown} />
+  <ContentSection heading="ANDETAG for sensory sensitivity" headingLevel="h2" markdown={sensoryMarkdown} />
   <div class="page-npf-stockholm-sv__cta">
     <ButtonGroup buttons={[{ label: "Book tickets now", href: "/en/stockholm/tickets/#book", variant: "secondary" }]} />
   </div>

@@ -2,8 +2,8 @@ import type { Destination, Language } from "../chrome/types";
 import { STOCKHOLM_SV_EN_PAIRS } from "./page-shell-registry";
 
 /**
- * Phase 6 site chrome: single resolver for language and destination controls.
- * Normative coupling rules: docs/phase-4-routing-reopen.md (Decided: site chrome switcher).
+ * Site chrome: single resolver for language and destination controls.
+ * Normative coupling rules: `docs/seo/url-architecture.md` §3.
  */
 
 type TopicSlots = {

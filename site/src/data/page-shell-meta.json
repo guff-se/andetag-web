@@ -1,7 +1,7 @@
 {
   "_meta": {
-    "source": "site-html/*.html via extract-page-shell-meta.mjs",
-    "notes": "Swedish canonical paths use /sv/stockholm/…; legacy unprefixed URLs redirect via site/public/_redirects. /en/stockholm/ shell row uses en.html as source file for title or description (EX-0007 resolved in Phase 6 P6-01). /en/: title and description aligned with minimal hub (EX-0015); re-extract may need a guard for this path. Coordinated title and description review: docs/meta-texts-catalog.md (apply edits to this JSON; extract-page-shell-meta.mjs alone will not preserve all curated copy)."
+    "source": "curated in-repo",
+    "notes": "Per-shell title and description are edited in this file (see docs/seo/decisions.md for SEO-0015, SEO-0019, EX-0007). Swedish paths use /sv/stockholm/…; legacy unprefixed URLs redirect via site/public/_redirects. sourceFile on each page row is historical lineage from the migration scrape, not a build input."
   },
   "pages": {
     "/de/berlin/": {
@@ -96,13 +96,13 @@
     },
     "/en/stockholm/corporate-events/": {
       "sourceFile": "en-stockholm-corporate-events.html",
-      "title": "Corporate events in Stockholm | ANDETAG Stockholm",
-      "description": "Calm corporate events in Stockholm. A shared experience of light, woven textile and music at ANDETAG. Suitable for kickoffs, team building and conference breaks."
+      "title": "Corporate events in Stockholm | Kickoff & conference | ANDETAG",
+      "description": "Calm corporate events in Stockholm at ANDETAG. {CORPORATE_PER_PERSON_SEK} SEK per person during opening hours, or exclusive booking for up to {CORPORATE_CAPACITY} people from {CORPORATE_HOURLY_SEK} SEK per hour. For kickoffs, conferences and team building."
     },
     "/en/stockholm/date/": {
       "sourceFile": "en-stockholm-date.html",
-      "title": "Date in Stockholm | A Quiet Place to Be Together | ANDETAG Stockholm",
-      "description": "A still, immersive art experience in central Stockholm. A calm date where you can be close, be quiet, and share an hour together. Suitable for first dates and couples."
+      "title": "Date in Stockholm | Calm, no demands, 1 hour | ANDETAG Stockholm",
+      "description": "Calm date in central Stockholm, about 1 hour. No talking required, no tempo to keep. From {REGULAR_DAYTIME_SEK} SEK daytime, {REGULAR_SEK} SEK regular. Works for first dates and established couples."
     },
     "/en/stockholm/event-stockholm/": {
       "sourceFile": "stockholm-att-gora-stockholm.html",
@@ -226,8 +226,8 @@
     },
     "/sv/stockholm/dejt/": {
       "sourceFile": "stockholm-dejt.html",
-      "title": "Dejt i Stockholm | En lugn stund tillsammans | ANDETAG",
-      "description": "En stillsam konstupplevelse mitt i Stockholm. En lugn dejt där ni kan sitta nära, vara tysta och dela en stund tillsammans. Passar både första dejten och etablerade par."
+      "title": "Dejt i Stockholm | Lugn, inga krav, 1 timme | ANDETAG Stockholm",
+      "description": "Lugn dejt mitt i Stockholm, ca 1 timme. Inga krav på samtal, inget tempo att hålla. Från {REGULAR_DAYTIME_SEK} kr dagtid, {REGULAR_SEK} kr ordinarie. Passar både första dejten och etablerade par."
     },
     "/sv/stockholm/event-stockholm/": {
       "sourceFile": "stockholm-att-gora-stockholm.html",
@@ -236,8 +236,8 @@
     },
     "/sv/stockholm/foretagsevent/": {
       "sourceFile": "stockholm-foretagsevent.html",
-      "title": "Företagsevent i Stockholm | ANDETAG Stockholm",
-      "description": "Stillsamma företagsevent i Stockholm. En gemensam upplevelse av ljus, textil och musik på ANDETAG. För kickoff, teambuilding och konferenspaus."
+      "title": "Företagsevent i Stockholm | Kickoff och konferens | ANDETAG",
+      "description": "Stillsamma företagsevent på ANDETAG i Stockholm. {CORPORATE_PER_PERSON_SEK} kr per person under öppettider, eller exklusiv bokning för upp till {CORPORATE_CAPACITY} personer från {CORPORATE_HOURLY_SEK} kr per timme. För kickoff, konferens och teambuilding."
     },
     "/sv/stockholm/fragor-svar/": {
       "sourceFile": "stockholm-fragor-svar.html",

@@ -8,8 +8,8 @@ Purpose: define tracking and consent guardrails before implementation decisions 
 
 This document extends requirements already stated in:
 
-- `docs/grand-plan.md` (retain GTM, replace Complianz, preserve attribution)
-- `docs/existing-site-structure.md` (current integrations and script behavior)
+- `docs/project-overview.md` (current stack and operating model)
+- `docs/archive/existing-site-structure.md` (legacy WordPress integrations and script behavior)
 
 ## Scope Decision
 
@@ -18,11 +18,11 @@ This document extends requirements already stated in:
 
 ## 1) Tag Management Requirements (GTM)
 
-- Step-by-step GTM clicks for **CookieConsent** vs legacy **Complianz** triggers: **`docs/gtm-consent-migration-runbook.md`** (**execute in Phase 8 · P8-07**, just before **`www`** cutover; Phase 7 ships embed + defaults only).
+- Step-by-step GTM clicks for **CookieConsent** vs legacy **Complianz** triggers (executed at cutover **2026-04-14**): **`docs/archive/gtm-consent-migration-runbook.md`**.
 - GTM is mandatory as the orchestration layer for analytics and marketing tags.
 - GTM container must be environment-aware (`dev`, `staging`, `prod`).
 - All non-essential tags must be controlled by consent state.
-- Event naming must support funnel mapping in `docs/kpi-measurement-map.md` (Phase 1 deliverable).
+- Event naming must support funnel mapping in `docs/kpi-measurement-map.md`.
 
 Minimum event categories to support:
 
@@ -33,11 +33,11 @@ Minimum event categories to support:
 
 ### 1a) Legacy WordPress GTM + Complianz vs CookieConsent (static site)
 
-The **live** container export **`Google Tag Manager v15.json`** (root of this repo) shows **Complianz**-specific **`dataLayer`** events (**`cmplz_event_statistics`**, **`cmplz_event_marketing`**) used as **GTM triggers** for **GA4**, **Google Ads**, and **Meta**. **CookieConsent does not emit those names.** Maintainer updates GTM triggers per **`docs/gtm-consent-migration-runbook.md`** in **Phase 8 · P8-07** (not a Phase 7 gate). Until then, static pages may not fire those tags even though **CookieConsent** and **GTM** load.
+The legacy container export **`Google Tag Manager v15.json`** (root of this repo) showed **Complianz**-specific **`dataLayer`** events (**`cmplz_event_statistics`**, **`cmplz_event_marketing`**) used as **GTM triggers** for **GA4**, **Google Ads**, and **Meta**. **CookieConsent does not emit those names.** GTM triggers were migrated at cutover (**2026-04-14**) per **`docs/archive/gtm-consent-migration-runbook.md`**.
 
 **Understory** already supplies parent-page **`dataLayer`** events (**`understory_add_to_cart`**, **`understory_view_item`**, **`understory_begin_checkout`**, **`on_receipt`**) that the legacy container maps to analytics and conversion tags. The Astro app does not push those; parity depends on Understory.
 
-**Action list and export details:** **`docs/kpi-measurement-map.md`** (§ Legacy GTM container export, § GTM migration checklist, § Staged rollout). **EX-0018** documents accepted brief tracking gaps during **`www`** migration if GTM and CMP timing do not align perfectly.
+**Action list and export details:** **`docs/kpi-measurement-map.md`** (§ Legacy GTM container export, § GTM migration checklist, § Staged rollout).
 
 ## 2) Brevo (waitlist) Requirements
 
@@ -66,7 +66,7 @@ Policy:
 
 | Category | Allowed examples | Blocked until consent |
 |----------|------------------|-----------------------|
-| `necessary` | consent manager runtime, security/session essentials, Understory booking widget runtime, **`andetag_entry` routing cookie** (see `docs/url-migration-policy.md` entry routing section) | no |
+| `necessary` | consent manager runtime, security/session essentials, Understory booking widget runtime, **`andetag_entry` routing cookie** (see `docs/seo/url-architecture.md` §4) | no |
 | `analytics` | GA4 via GTM | yes |
 | `marketing` | Meta Pixel, Google Ads conversion tags, **Brevo tracking or remarketing tags** (via GTM), not the waitlist HTML form | yes |
 
@@ -88,7 +88,7 @@ Normative consent **category** labels match **§3** (`necessary`, `analytics`, `
 | Google Tag Manager | All pages (when tracking on) | **`TrackingHead.astro`**, **`TrackingBody.astro`** | **`analytics` / `marketing`** for tags inside GTM; loader **after** consent default | Consent Mode v2 default denied before interaction. **GTM deferred to `window.load`** to avoid blocking first paint. |
 | CookieConsent | All pages | **`TrackingHead.astro`** + **`cookie-consent-init.ts`** | **`necessary`** | Self-hosted CMP bundle and config callbacks update Google Consent Mode. |
 
-Out-of-scope for this inventory: **first-party** media (hero video poster, gallery, self-hosted MP4), **external links** (for example Understory gift card URL opened in a new tab), and **Worker `andetag_entry`** (cookie policy in **`docs/url-migration-policy.md`**).
+Out-of-scope for this inventory: **first-party** media (hero video poster, gallery, self-hosted MP4), **external links** (for example Understory gift card URL opened in a new tab), and **Worker `andetag_entry`** (cookie policy in **`docs/seo/url-architecture.md`** §4).
 
 ## 5) Compliance and UX Requirements
 

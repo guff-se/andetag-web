@@ -1,6 +1,6 @@
 # URL architecture
 
-Ongoing contract for canonical URLs, redirects, hreflang, entry routing, and the XML sitemap on `andetag.museum`. This is the post-migration successor to `docs/url-migration-policy.md` (which retains the migration-era framing for archive). When a rule and the migration doc disagree, this file wins.
+Ongoing contract for canonical URLs, redirects, hreflang, entry routing, and the XML sitemap on `andetag.museum`. This is the post-migration successor to `docs/archive/url-migration-policy.md` (kept for migration-era framing only). When a rule and the archived migration doc disagree, this file wins.
 
 Related runtime files: `site/workers/entry-router.ts`, `site/public/_redirects`, `site/src/lib/routes/page-shell-registry.ts`, `site/src/lib/chrome/seo.ts`, `site/wrangler.jsonc`.
 
@@ -231,4 +231,4 @@ After any sitemap or redirect change, spot-check sample legacy URLs from Search 
 
 - Never fabricate canonical paths, redirects, or entry-routing rules.
 - If a desired URL is missing from `docs/url-matrix.csv` and `site/public/_redirects`, add the row deliberately with rationale; do not silently invent a destination.
-- `archive/legacy-wordpress-site/site-html/` is a **frozen** WordPress scrape: reference only. Authoritative URL contract is this file, the page shell registry, and `_redirects`.
+- `archive/legacy-wordpress-site/site-html/` is a **frozen** WordPress scrape: reference only. Authoritative URL contract is this file, the page shell registry, `_redirects`, and per-shell head copy in `site/src/data/page-shell-meta.json` (not the archived HTML).

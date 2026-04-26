@@ -1,13 +1,13 @@
 # SEO doctrine
 
-This directory holds the **ongoing** SEO doctrine for `andetag.museum`. Migration-era files (`docs/url-migration-policy.md`, `docs/migration-exceptions.md`) are reference-only and are archived at Phase 9 closure; their durable SEO substance lives here.
+This directory holds the **ongoing** SEO doctrine for `andetag.museum`. Migration-era files (`docs/archive/url-migration-policy.md`, `docs/archive/migration-exceptions.md`) are reference-only; their durable SEO substance lives here.
 
 ## Files
 
 | File | Purpose |
 |------|---------|
 | [`url-architecture.md`](url-architecture.md) | Canonical URL rules, redirect rules, language and destination routing, location-scoped story URLs, entry routing + `andetag_entry` cookie contract, SEO landing page policy, privacy URLs, query/non-HTML/asset-locality rules, Berlin transition, sitemap and canonicalization. |
-| [`decisions.md`](decisions.md) | Durable SEO decisions log: deviations from default rules (canonical override, schema parent type, on-page copy override). Successor to the SEO-relevant rows of `docs/migration-exceptions.md`; IDs preserved as `SEO-NNNN`. |
+| [`decisions.md`](decisions.md) | Durable SEO decisions log: deviations from default rules (canonical override, schema parent type, on-page copy override). Successor to the SEO-relevant rows of `docs/archive/migration-exceptions.md`; IDs preserved as `SEO-NNNN`. |
 
 ## When to read what
 
@@ -22,7 +22,7 @@ This directory holds the **ongoing** SEO doctrine for `andetag.museum`. Migratio
 
 ## Sister doctrine docs
 
-These are not in `docs/seo/` because they pre-date the migration and survive Phase 9 closure as-is:
+These are not in `docs/seo/` because they pre-date the migration and survive as-is:
 
 - `docs/Andetag SEO Manual.md` — page intent, keyword strategy, hreflang baseline, schema strategy, Berlin rollout, internal linking, locked positioning.
 - `docs/Tone of Voice.md` — copy register, banned words, locale handling.
