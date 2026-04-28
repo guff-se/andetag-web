@@ -97,7 +97,9 @@ Reading ANDETAG copy should feel like slowing down.
 
 ## Punctuation
 
-**The em dash (U+2014) is absolutely prohibited under all circumstances.** Use commas, colons, or parentheses instead.
+**The em dash (U+2014) is absolutely prohibited under all circumstances.** Use commas, colons, or parentheses instead. The en dash (U+2013, `–`) is likewise prohibited in editorial prose.
+
+**For agents and automated tools:** before committing any copy change, run `grep -rn $'—' site/src/components/page-bodies/ site/src/lib/content/` (em dash) and `grep -rn $'–' site/src/components/page-bodies/` (en dash). The only permitted exception is `stockholm-reviews.ts`, which contains verbatim TripAdvisor review text.
 
 ## Language Nuance: Swedish, English, German
 

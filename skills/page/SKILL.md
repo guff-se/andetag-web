@@ -196,7 +196,8 @@ Pass means:
 - `npm test` exits 0 with all files passing.
 - `npm run build` exits 0 and lists the expected page count (previously 65 for Stockholm + Berlin + privacy; recalculate if you added or removed pages).
 - For new or renamed pages, confirm the new path appears under `site/dist/<path>/index.html` after build, and the old path either no longer exists (renames handled by the 301) or is absent (removals).
-- **SEO content feedback** — Apply **`skills/seo/SKILL.md` §H** to every canonical path this task added or meaningfully changed (both locales of a pair when Stockholm/Berlin rules apply). Record the outcome in the PR: either **"§H pass"** or a short list of fixes applied / exceptions cited. Do not skip **§H** for substantial copy, meta, nav, or structure edits; a typo-only fix may not need a deep pass (use judgment).
+- **SEO content feedback** — Apply **`skills/seo/SKILL.md` §H** to every canonical path this task added or meaningfully changed (both locales of a pair when Stockholm/Berlin rules apply). Record the outcome in the PR: either **"§H pass"** or a short list of fixes applied / exceptions cited. **For any PR that adds or fully rewrites a body component (`*Sv.astro`, `*En.astro`, `*De.astro`), §H is a blocking pre-merge gate — not a post-preview optional.** Deferring §H to after the Cloudflare preview is only acceptable for shell-only changes (meta, registry, schema) where body copy is untouched. A typo-only fix may not need a full §H pass (use judgment); a body rewrite always does.
+- **Em dash scan** — Before committing any body component change, run `grep -rn $'—' site/src/components/page-bodies/ site/src/lib/content/` (U+2014 em dash) and `grep -rn $'–' site/src/components/page-bodies/` (U+2013 en dash). Neither is permitted in editorial prose per `docs/Tone of Voice.md` §Punctuation. Exclude `stockholm-reviews.ts` (verbatim TripAdvisor quotes are exempt).
 
 Optional:
 

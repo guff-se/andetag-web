@@ -58,7 +58,8 @@ Read before editing. All paths relative to repo root.
      bodyHtml: "<p>Answer paragraph. <a href=\"/en/stockholm/tickets/\">Contextual link.</a></p>",
    }
    ```
-3. Repeat for the Swedish array (`STOCKHOLM_FAQ_SV_LEFT` or `_RIGHT`). Swedish copy follows `docs/Tone of Voice.md`; use Swedish conventions (no em dash; commas or colons).
+   Copy follows `docs/Tone of Voice.md` — no em dash (U+2014) or en dash (U+2013) in answer prose; use commas, colons, or parentheses.
+3. Repeat for the Swedish array (`STOCKHOLM_FAQ_SV_LEFT` or `_RIGHT`). Same Tone of Voice rules apply: no em dash, no en dash, commas or colons instead.
 4. If the new question belongs on the home accordion too, append a summarised object to `stockholmMarketingFaqSv` **and** `stockholmMarketingFaqEn`. Keep the marketing list ≤ 6 items; if it's already full, do not grow it — ask the user which existing marketing question to replace.
 5. **Internal links:** answers that reference other pages must link using canonical URLs (`/sv/stockholm/biljetter/`, `/en/stockholm/tickets/`, etc.), same-language, and anchor text keyword-aligned (`docs/Andetag SEO Manual.md` §15). Never link across languages.
 6. Verification: §Verification. FAQPage tests assert exact mainEntity counts — update `schema-org.test.ts` expectations if the total per locale changed.

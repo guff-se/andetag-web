@@ -162,6 +162,7 @@ Pass means:
 - `npm run build` exits 0 and the page count matches the project’s current expectation.
 - If you changed schema occurrence counts, tests match.
 - If you changed schedule cadence, occurrence test expectations match.
+- **Em dash scan:** `grep -rn $’—‘ site/src/components/page-bodies/` returns no hits in the changed files (U+2014 is absolutely prohibited per `docs/Tone of Voice.md` §Punctuation).
 
 Spot-check:
 
