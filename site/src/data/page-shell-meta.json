@@ -27,12 +27,12 @@
     "/de/berlin/privacy/": {
       "sourceFile": "privacy.html",
       "title": "Datenschutz | ANDETAG Berlin",
-      "description": "Datenschutzerklärung für ANDETAG Berlin. Wie Tadaa Art AB personenbezogene Daten erhebt, verarbeitet und schützt, wenn Sie andetag.museum besuchen, Tickets buchen oder uns kontaktieren."
+      "description": "Datenschutzerklärung für ANDETAG Berlin. Wie Tadaa Art AB personenbezogene Daten erhebt, verarbeitet und schützt, wenn Sie andetag.museum besuchen oder Tickets buchen."
     },
     "/de/berlin/ueber-andetag/": {
       "sourceFile": "de-ueber-andetag.html",
       "title": "Über ANDETAG | Ein gemeinsamer Atemzug als Kunst | Berlin",
-      "description": "ANDETAG: ein fortlaufendes Kunstprojekt, in dem Licht, Textil und Musik sich im Rhythmus eines gemeinsamen menschlichen Atemzugs bewegen. Nie abgeschlossen, immer in Bewegung."
+      "description": "ANDETAG: ein fortlaufendes Kunstprojekt, in dem Licht, Textil und Musik sich im Rhythmus eines gemeinsamen Atemzugs bewegen. Nie abgeschlossen, immer in Bewegung."
     },
     "/en/": {
       "sourceFile": "en.html",
@@ -52,7 +52,7 @@
     "/en/berlin/about-the-artists-malin-gustaf-tadaa/": {
       "sourceFile": "en-about-the-artists-malin-gustaf-tadaa.html",
       "title": "Malin & Gustaf Tadaa | The Artists Behind ANDETAG | Stockholm",
-      "description": "Malin and Gustaf Tadaa are a Stockholm-based artist duo working with light, textile, and technology in participatory and spatial art installations. They are the artists behind Andetag."
+      "description": "Malin and Gustaf Tadaa are the artists behind Andetag: a Stockholm-based duo working with light, textile, and technology in spatial art installations."
     },
     "/en/berlin/music/": {
       "sourceFile": "en-music.html",
@@ -82,7 +82,7 @@
     "/en/stockholm/about-the-artists-malin-gustaf-tadaa/": {
       "sourceFile": "en-about-the-artists-malin-gustaf-tadaa.html",
       "title": "Malin & Gustaf Tadaa | The Artists Behind ANDETAG | Stockholm",
-      "description": "Malin and Gustaf Tadaa are a Stockholm-based artist duo working with light, textile, and technology in participatory and spatial art installations. They are the artists behind Andetag."
+      "description": "Malin and Gustaf Tadaa are the artists behind Andetag: a Stockholm-based duo working with light, textile, and technology in spatial art installations."
     },
     "/en/stockholm/accessibility/": {
       "sourceFile": "en-stockholm-accessibility.html",
@@ -97,7 +97,7 @@
     "/en/stockholm/corporate-events/": {
       "sourceFile": "en-stockholm-corporate-events.html",
       "title": "Corporate events in Stockholm | Kickoff & conference | ANDETAG",
-      "description": "Calm corporate events in Stockholm at ANDETAG. {CORPORATE_PER_PERSON_SEK} SEK per person during opening hours, or exclusive booking for up to {CORPORATE_CAPACITY} people from {CORPORATE_HOURLY_SEK} SEK per hour. For kickoffs, conferences and team building."
+      "description": "Calm corporate events at ANDETAG, Stockholm. {CORPORATE_PER_PERSON_SEK} SEK per person during opening hours, or exclusive booking for up to {CORPORATE_CAPACITY} people from {CORPORATE_HOURLY_SEK} SEK per hour."
     },
     "/en/stockholm/date/": {
       "sourceFile": "en-stockholm-date.html",
@@ -107,7 +107,7 @@
     "/en/stockholm/event-stockholm/": {
       "sourceFile": "stockholm-att-gora-stockholm.html",
       "title": "ANDETAG | Event in Stockholm: a quiet pause | ANDETAG Stockholm",
-      "description": "What happens in Stockholm when you want calm? ANDETAG, the breathing museum, is a still event in central Stockholm: light, textile, and breath at Hötorget. Book your visit."
+      "description": "What happens in Stockholm when you want calm? ANDETAG, the breathing museum, is a still event in central Stockholm: light, textile, and breath at Hötorget."
     },
     "/en/stockholm/exhibition-stockholm/": {
       "sourceFile": "stockholm-utstallning-stockholm.html",
@@ -117,12 +117,12 @@
     "/en/stockholm/faq/": {
       "sourceFile": "en-stockholm-faq.html",
       "title": "ANDETAG Stockholm FAQ | Frequently Asked Questions",
-      "description": "Answers to frequently asked questions about ANDETAG in Stockholm. Practical information about your visit, tickets, accessibility, children, groups, and how the experience works."
+      "description": "Frequently asked questions about ANDETAG Stockholm. Practical information about tickets, accessibility, children, groups, and how the experience works."
     },
     "/en/stockholm/giftcard/": {
       "sourceFile": "en-stockholm-giftcard.html",
-      "title": "Give ANDETAG as a gift in Stockholm | Gift cards & tickets | ANDETAG Stockholm",
-      "description": "Give ANDETAG as a gift in Stockholm. A gift card or ticket to a calm art experience where light, woven textile, and music move with a shared breath. A pause from pace, in the centre of the city."
+      "title": "Give ANDETAG as a Gift | Gift Cards & Tickets | Stockholm",
+      "description": "Give ANDETAG as a gift: a calm art experience where light, textile, and music move with a shared breath. Gift cards and tickets available in Stockholm."
     },
     "/en/stockholm/group-bookings/": {
       "sourceFile": "en-stockholm-group-bookings.html",
@@ -237,7 +237,7 @@
     "/sv/stockholm/foretagsevent/": {
       "sourceFile": "stockholm-foretagsevent.html",
       "title": "Företagsevent i Stockholm | Kickoff och konferens | ANDETAG",
-      "description": "Stillsamma företagsevent på ANDETAG i Stockholm. {CORPORATE_PER_PERSON_SEK} kr per person under öppettider, eller exklusiv bokning för upp till {CORPORATE_CAPACITY} personer från {CORPORATE_HOURLY_SEK} kr per timme. För kickoff, konferens och teambuilding."
+      "description": "Stillsamma företagsevent på ANDETAG i Stockholm. {CORPORATE_PER_PERSON_SEK} kr per person under öppettider, eller exklusiv bokning för upp till {CORPORATE_CAPACITY} personer från {CORPORATE_HOURLY_SEK} kr per timme."
     },
     "/sv/stockholm/fragor-svar/": {
       "sourceFile": "stockholm-fragor-svar.html",
@@ -277,7 +277,7 @@
     "/sv/stockholm/om-konstnarerna-malin-gustaf-tadaa/": {
       "sourceFile": "om-konstnarerna-malin-gustaf-tadaa.html",
       "title": "Malin & Gustaf Tadaa | Konstnärerna bakom ANDETAG | Stockholm",
-      "description": "Malin och Gustaf Tadaa är ett konstnärspar baserat i Stockholm som arbetar med ljus, textil och teknologi i deltagarbaserade och rumsliga konstverk. De står bakom Andetag och flera uppmärksammade utställningar."
+      "description": "Malin och Gustaf Tadaa är konstnärsparet bakom Andetag. De arbetar med ljus, textil och teknologi i deltagarbaserade och rumsliga konstverk i Stockholm."
     },
     "/sv/stockholm/oppettider/": {
       "sourceFile": "stockholm-oppettider.html",
