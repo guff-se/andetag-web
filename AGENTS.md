@@ -28,6 +28,8 @@ These are the invariants. Treat them as a contract; let them drive judgment on e
 
 5. **PR, preview, merge.** No direct pushes to `main`. Every change ships via PR. Cloudflare posts a per-commit preview URL; that preview is the practical merge gate. Open it, walk the change, then merge.
 
+   **Follow-up work goes on a fresh branch.** Once a PR is merged, its branch is dead — never push more commits to it. When the user asks for a follow-up fix after a PR has shipped, **before** staging or pushing anything, check the state of the current branch's PR (`gh pr view --json state,mergedAt` or `git log origin/main..HEAD` — if `HEAD` is in `main`'s history, the PR is merged). If the previous PR is `MERGED`, cut a new branch from `origin/main` and open a new PR. Stranded commits on a merged branch are invisible to review and never reach production.
+
 6. **Scope discipline.** Match the scope of the action to what was asked. A copy edit is not a refactor. A bug fix does not need surrounding cleanup. No half-finished implementations, no speculative abstractions, no "while I'm here" diffs bundled into unrelated PRs.
 
 7. **Maintenance vocabulary, not migration.** Phase numbers, cutover steps, and grand-plan terminology belong to `docs/archive/` only. Live docs, code, and PRs refer to live concepts.
