@@ -57,7 +57,7 @@ Read for content-level SEO:
 
 Write-path (only with explicit triggers):
 
-- `site/src/data/page-shell-meta.json` — when updating titles, descriptions, or per-shell `ogImage`.
+- `site/src/data/page-shell-meta.json` — when updating titles, descriptions, or per-shell `ogImage`. **Before editing descriptions:** `grep -n "toContain" site/src/lib/routes/page-shell-registry.test.ts` and identify any assertion on the path being changed — token-interpolated values (`{REGULAR_SEK}`, `{CORPORATE_CAPACITY}`, `{CORPORATE_HOURLY_SEK}`, etc.) are asserted by their resolved form and must be preserved in any rewrite.
 - `site/src/lib/chrome/schema-org.ts` — only to reflect already-approved data changes (new Offer because price changed, etc.); never to invent a new schema type without a new EX row.
 - `site/src/lib/routes/page-shell-registry.ts` — only when a new locale pair or a new Berlin English story canonical is being wired (coordinate with `skills/page`).
 - `CHANGELOG.md` — `### Changed` or `### Added` row per edit, per the project's `docs/changelog-standards.md`.
@@ -97,6 +97,7 @@ Run these checks against the built `dist/` — a stale `dist/` makes the audit m
 1. **Title**
    - Exactly one `<title>` per page (`grep -c "<title>" dist/<path>/index.html`).
    - Length: aim for ~50–65 characters visible. The ANDETAG pattern appends `| ANDETAG Stockholm` (or `| ANDETAG Berlin`) as a brand suffix — common in `page-shell-meta.json`. Don't strip the suffix unless you add a new EX row.
+   - **Entity inflation gotcha:** built HTML encodes `&` as `&amp;` (5 bytes), inflating the apparent character count by 4 per ampersand. Measure visible title length from `page-shell-meta.json` raw value, not from the dist HTML. In Python: `import html; len(html.unescape(title_string))`.
    - Matches the `title` / `description` in `page-shell-meta.json` for that path, except where `docs/seo/decisions.md` documents an intentional override (`SEO-0015` `/en/` hub, `SEO-0019` konstutställning spelling).
    - Contains the primary keyword from SEO Manual §12 for that page. For English hub + location `/en/`, `/en/stockholm/`, and English home-like pages, **"breathing museum"** must appear in title OR description per §1.1.
 2. **Meta description**
@@ -104,6 +105,7 @@ Run these checks against the built `dist/` — a stale `dist/` makes the audit m
    - Length: ~120–160 characters visible. Swedish tends slightly longer; allow up to ~170.
    - Not identical across shells in the same locale family (de-duplication).
    - Tone: calm, concrete, invitational. No em dash (U+2014) — use commas, colons, or parentheses. No banned words (mind-blowing, magical, healing, transformative, life-changing, revolutionary, spiritual, must-see, unforgettable) unless quoting a review (reviews are fair game per `SEO-0017`'s lineage).
+   - **Em dash scan (body copy too):** before committing, run `grep -rn $'—' site/src/components/page-bodies/ site/src/lib/content/` to catch U+2014 in editorial copy. Exclude `stockholm-reviews.ts` (review quote text is permitted). Also check U+2013 (en dash `–`): `grep -rn $'–' site/src/components/page-bodies/`. Neither dash is permitted in editorial prose or meta descriptions.
 3. **Canonical**
    - Exactly one `<link rel="canonical">` per page.
    - Absolute URL rooted at `https://www.andetag.museum` (never `andetag.museum` bare or `http://`).
@@ -214,7 +216,7 @@ Use when **`skills/page/SKILL.md`** (or a PR that only adds/edits specific pages
 
 Before asking for merge, run:
 
-1. `cd site && npm test` — all existing parity and registry tests must pass. Of direct relevance: `page-shell-registry.test.ts`, `url-matrix-parity.test.ts`, `schema-org.test.ts`, `build-output-structure.test.ts`, `chrome-navigation-resolve.test.ts`.
+1. `cd site && npm test` — all existing parity and registry tests must pass. Of direct relevance: `page-shell-registry.test.ts`, `url-matrix-parity.test.ts`, `schema-org.test.ts`, `build-output-structure.test.ts`, `chrome-navigation-resolve.test.ts`. **Prerequisite:** if `site/node_modules/` is absent, run `cd site && npm install` first — `vitest` is a dev dependency and the command fails with "vitest: not found" without it.
 2. `cd site && npm run build` — `dist/` rebuilt from the edited source.
 3. **SEO audit per §B** — every dimension that applies to the change. For a title / description edit, §B.1 + §B.2 + §B.5 (OG mirror) + §C parity are required; for a canonical / hreflang edit, §B.3 + §B.4 + §C; for a schema edit, §B.7 + §E. **When the work was triggered or reviewed from `skills/page`**, also complete **§H** and attach its outcome to the PR.
 4. **`skills/site-integrity`** for the cross-cutting sanity sweep (sitemap, redirect chains, image references).
