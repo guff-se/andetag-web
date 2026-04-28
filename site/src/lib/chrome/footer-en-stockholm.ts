@@ -75,6 +75,7 @@ export function getEnglishStockholmFooterModel() {
     { label: "Things to do", href: "/en/stockholm/things-to-do-stockholm/" },
     { label: "Event", href: "/en/stockholm/event-stockholm/" },
     { label: "Exhibition", href: "/en/stockholm/exhibition-stockholm/" },
+    { label: "Meditation", href: "/en/stockholm/meditation-stockholm/" },
   ];
 
   const socialLinks: FooterSocialLink[] = [

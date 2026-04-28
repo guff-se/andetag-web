@@ -786,6 +786,7 @@ Five pages exist in addition to the location hub specifically to rank on broad S
 | `/sv/stockholm/att-gora-stockholm/` | `/en/stockholm/things-to-do-stockholm/` | Things-to-do / locals-now | `att göra i stockholm idag`, `things to do stockholm`, `göra idag stockholm` |
 | `/sv/stockholm/event-stockholm/` | `/en/stockholm/event-stockholm/` | Event / outing | `event stockholm`, `evenemang stockholm`, `event in stockholm` |
 | `/sv/stockholm/utstallning-stockholm/` | `/en/stockholm/exhibition-stockholm/` | Exhibition / show | `utställning stockholm`, `bästa utställningarna i stockholm nu`, `exhibition stockholm` |
+| `/sv/stockholm/meditation-stockholm/` | `/en/stockholm/meditation-stockholm/` | Meditation / stillness / quiet place (§2.10 watchlist) | `meditation stockholm`, `stillsam plats stockholm`, `meditation in stockholm`, `quiet place stockholm` — §17.2b greenfield, six-month review M-0004 |
 
 ### 17.2 Criteria for adding a new SEO landing
 

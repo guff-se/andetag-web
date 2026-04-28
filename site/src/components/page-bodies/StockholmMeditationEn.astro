@@ -1,0 +1,24 @@
+---
+import StockholmSeoLandingEn from "./StockholmSeoLandingEn.astro";
+
+/**
+ * English peer of `StockholmMeditationSv.astro`. Greenfield SEO landing for
+ * the §2.10 yoga / breath / mindfulness / stillness cluster (Andetag SEO
+ * Manual §17.2b). Targets `meditation stockholm`, `meditation in stockholm`,
+ * `mindfulness stockholm`, `quiet place stockholm`. Body inherits from
+ * `StockholmSeoLandingEn` — only h1 + lead intro change. The phrase
+ * "breathing museum" appears once per §1.1.
+ */
+const introMarkdown = [
+  "<p>Looking for a calm place to meditate in Stockholm?</p>",
+  "<p><span class=\"brand-wordmark\">ANDETAG</span>, the breathing museum near Hötorget, is not a meditation studio. There are no classes, no instructions, no goals to reach, just light, woven textile, and music moving at a slow pace.</p>",
+  "<p>A room shaped so the body can find its own breath.</p>",
+  "<p>A place to settle.<br />A place to breathe.</p>",
+].join("");
+---
+
+<StockholmSeoLandingEn
+  galleryId="stockholm-en-meditation"
+  h1Text="A calm place for meditation in Stockholm"
+  introMarkdown={introMarkdown}
+/>
