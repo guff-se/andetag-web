@@ -22,6 +22,7 @@ describe("english stockholm footer model", () => {
       "Things to do",
       "Event",
       "Exhibition",
+      "Meditation",
     ]);
 
     const experience = model.sections[1]?.links ?? [];
@@ -32,6 +33,7 @@ describe("english stockholm footer model", () => {
       "/en/stockholm/things-to-do-stockholm/",
       "/en/stockholm/event-stockholm/",
       "/en/stockholm/exhibition-stockholm/",
+      "/en/stockholm/meditation-stockholm/",
     ]);
   });
 

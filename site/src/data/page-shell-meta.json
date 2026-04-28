@@ -139,6 +139,11 @@
       "title": "ANDETAG | A calm indoor activity in Stockholm | ANDETAG Stockholm",
       "description": "Indoor activity in Stockholm. ANDETAG, the breathing museum, is a calm experience for presence. Light, textile, and music in one breath. Ideal in any weather."
     },
+    "/en/stockholm/meditation-stockholm/": {
+      "sourceFile": "curated",
+      "title": "ANDETAG | A calm place for meditation in Stockholm | ANDETAG Stockholm",
+      "description": "A calm place for meditation in Stockholm. ANDETAG, the breathing museum near Hötorget, holds light, textile, and music that move with one shared breath."
+    },
     "/en/stockholm/museum-stockholm/": {
       "sourceFile": "stockholm-museum-stockholm.html",
       "title": "ANDETAG | A calm museum in Stockholm | ANDETAG Stockholm",
@@ -253,6 +258,11 @@
       "sourceFile": "stockholm-hitta-hit.html",
       "title": "Hitta till ANDETAG | Hötorget, Stockholm",
       "description": "ANDETAG ligger i Hötorgets tunnelbanestation i centrala Stockholm. En stillsam plats precis under stadens tempo, lätt att nå med tunnelbana."
+    },
+    "/sv/stockholm/meditation-stockholm/": {
+      "sourceFile": "curated",
+      "title": "ANDETAG | En stillsam plats för meditation i Stockholm",
+      "description": "Stillsam meditation och andning i Stockholm. ANDETAG vid Hötorget – ljus, textil och musik som rör sig i ett gemensamt andetag. En lugn plats att landa i."
     },
     "/sv/stockholm/museum-stockholm/": {
       "sourceFile": "stockholm-museum-stockholm.html",

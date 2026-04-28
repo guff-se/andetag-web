@@ -70,6 +70,7 @@ export function getSwedishFooterModel() {
     { label: "Att göra", href: "/sv/stockholm/att-gora-stockholm/" },
     { label: "Event", href: "/sv/stockholm/event-stockholm/" },
     { label: "Utställning", href: "/sv/stockholm/utstallning-stockholm/" },
+    { label: "Meditation", href: "/sv/stockholm/meditation-stockholm/" },
   ];
 
   const socialLinks: FooterSocialLink[] = [

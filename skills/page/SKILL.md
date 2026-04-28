@@ -1,6 +1,6 @@
 ---
 name: page
-description: Use when adding, editing, renaming, or removing a content page on the ANDETAG Astro site (site/). Triggers include "add a new Stockholm page", "create a German Berlin page", a **new event that needs its own page** (often reached via `skills/events/SKILL.md` first), "rename /en/stockholm/faq/", "change the copy on the opening-hours page", "delete the art yoga page", and any task that touches site/src/pages/, page-bodies, page-shell-registry, or page-body-registry. User-attached images and proactive page illustration route through `skills/images/SKILL.md`. **Testing** includes a **content SEO pass** per `skills/seo/SKILL.md` **§H** (page-pair review) before merge.
+description: Use when adding, editing, renaming, or removing a content page on the ANDETAG Astro site (site/). Triggers include "add a new Stockholm page", "create a German Berlin page", a **new event that needs its own page** (often reached via `skills/events/SKILL.md` first), **"add a landing page"** or any request whose primary purpose is to rank for a query rather than introduce new content (see **§Page classification**), "rename /en/stockholm/faq/", "change the copy on the opening-hours page", "delete the art yoga page", and any task that touches site/src/pages/, page-bodies, page-shell-registry, or page-body-registry. User-attached images and proactive page illustration route through `skills/images/SKILL.md`. **Testing** includes a **content SEO pass** per `skills/seo/SKILL.md` **§H** (page-pair review) before merge.
 ---
 
 ## Purpose
@@ -21,12 +21,52 @@ If the request is a content tweak inside an existing page body (`*Sv.astro` / `*
 ## When to use
 
 - The user wants a **new canonical page** at a URL that does not exist yet.
+- The user wants a **new SEO landing page** — a thin clone of the home page tuned for one query family (see **§Page classification** below). Run **§E**, not **§B**.
 - The workflow from **`skills/events/SKILL.md`** needs **Step 1: page pair and shells** — a recurring or one-off event that should live at its own `sv`/`en` paths. Run this skill’s **§B** (and minimal bodies), then continue in the events skill for data and booking wiring.
 - The user wants to **edit copy, sections, or structure** inside an existing page body.
 - The user wants to **rename** a page's canonical slug (this is a move, not just an edit).
 - The user wants to **remove** a page.
 
 Do **not** use this skill if the request only changes the header, footer, or a shared component that is not tied to a specific page.
+
+## Page classification: standard vs SEO landing
+
+Two structural classes of canonical page exist on this site. **Decide which class the request is** before running a workflow — they touch different files and have different parity, navigation, and verification rules.
+
+### Standard page (default)
+
+A page that introduces unique content: factual anchors (`oppettider`, `hitta-hit`), story pages (`om-andetag`, `optisk-fibertextil`), event pages (`art-yoga`), audience pages with substantive copy of their own (`foretagsevent`, `npf-stockholm`, `vilken-typ-av-upplevelse`). Its body is bespoke; it lives in the **main navigation**; it warrants its own imagery and copy decisions. **Default to this class.** Use **§A**–**§D**.
+
+### SEO landing page
+
+A thin clone of the Stockholm home page that exists **only to rank for a query family**. The body delegates to the shared `StockholmSeoLandingSv` / `StockholmSeoLandingEn` component and overrides only:
+
+- `h1Text` (or `h1Html`)
+- `introMarkdown` (the lead paragraph beside the booking aside)
+- `galleryId` (unique per page, for lightbox grouping)
+
+Everything else (FAQ, gallery, tickets columns, testimonials, video, map, CTAs) is inherited unchanged. Landings are **not in the main menu**; they appear in the **footer `seoLinks` strip** in `footer-sv.ts` and `footer-en-stockholm.ts`. Hreflang parity rules still apply (sv + en pair, both shipped together). Use **§E**, not **§B**.
+
+The five existing landings (per `docs/Andetag SEO Manual.md` §17.1):
+
+| Topic | sv slug | en slug |
+|-------|---------|---------|
+| Activity | `/sv/stockholm/aktivitet-inomhus-stockholm/` | `/en/stockholm/indoor-activity-stockholm/` |
+| Museum | `/sv/stockholm/museum-stockholm/` | `/en/stockholm/museum-stockholm/` |
+| Things to do | `/sv/stockholm/att-gora-stockholm/` | `/en/stockholm/things-to-do-stockholm/` |
+| Event | `/sv/stockholm/event-stockholm/` | `/en/stockholm/event-stockholm/` |
+| Exhibition | `/sv/stockholm/utstallning-stockholm/` | `/en/stockholm/exhibition-stockholm/` |
+
+### How to classify a new request
+
+Run this in order; first match wins.
+
+1. **Did the user say "landing page", "SEO landing", or describe the page as a clone / variant of the home page targeted at a search term?** → SEO landing (§E).
+2. **Is the user's brief essentially "rank on the word X"?** Does it boil down to picking a slug, an H1 phrase, and a lead paragraph that re-uses the brand pitch with X swapped in? → SEO landing (§E). Examples: *Activity*, *Museum*, *Things to do*, *Event*, *Exhibition* — they all promote brand keywords without adding new substance.
+3. **Does the request require unique sections, distinct facts, audience-specific guidance, or a different page shape than the home page?** → Standard page (§B). Examples: *Corporate events* needs booking flows, group sizes, and B2B copy. *Neurodiversity / NPF* needs sensory guidance, accessibility specifics, and bespoke imagery. Both are SEO-motivated, but neither fits the shared-body template.
+4. **When unclear, ask Gustaf.** Do not silently choose the heavier path — a standard page that should have been a landing is wasted effort, and a landing that should have been standard ships thin content.
+
+A request can also start as a landing and become a standard page later if substantive content is added; that is a class **upgrade** (rewrite the body to bespoke sections, move the link from `seoLinks` to the main nav). Treat it as a separate task and confirm with the user.
 
 ## Coordination: events skill and images skill
 
@@ -54,7 +94,8 @@ Read before editing. Write paths are marked `write`.
 | Body registry (`write`) | `site/src/lib/page-registry/page-body-registry.ts` | Add both new paths to the `PAGE_CUSTOM_BODY_PATHS` set. Paths in this set must have a matching entry in the `pageBodies` map in `[...slug].astro`. |
 | File-based route (`write`) | `site/src/pages/[...slug].astro` | Import the new body component(s) and add entries to the `pageBodies` map. Keys must match `PAGE_CUSTOM_BODY_PATHS` exactly. |
 | Page body components (`write`, new) | `site/src/components/page-bodies/<Name>Sv.astro`, `<Name>En.astro`, `<Name>De.astro` | Naming convention: locale suffix last. Shared-locale bodies use no suffix. Import section components from `site/src/components/content/` (`ContentSection`, `MediaCopySection` for any image-beside-copy figure, `HeroSection`, `GallerySection`, `InfoFrame`, `AccordionSection`, `ButtonGroup`), UI from `ui/`, embeds from `embeds/`. **Never** wrap a `ContentSection` / `InfoFrame` / `AccordionSection` in an ad-hoc grid `<div>` to add a side image — use `<MediaCopySection>` (see `skills/images/SKILL.md` §L2). |
-| Chrome navigation (`write`) | `site/src/lib/chrome/navigation.ts` | Edit `NAVIGATION_VARIANTS` for the locale(s) that should list the page. Ids include `sv-main`, `en-main`, `en-main-berlin`, `de-main`. |
+| Chrome navigation (`write`) | `site/src/lib/chrome/navigation.ts` | Edit `NAVIGATION_VARIANTS` for the locale(s) that should list the page. Ids include `sv-main`, `en-main`, `en-main-berlin`, `de-main`. **SEO landing pages do not go here** — they belong in the footer `seoLinks` strip below. |
+| Footer SEO links (`write`, landings only) | `site/src/lib/chrome/footer-sv.ts`, `site/src/lib/chrome/footer-en-stockholm.ts` | The `seoLinks` array is the **only** surface that lists SEO landing pages (footer strip, separate from the main navigation). Add an entry for each new landing in the matching locale. Update `site/src/lib/chrome/footer-en-stockholm.test.ts` if the order/contents are asserted. |
 | Cross-location nav (`write`, if global) | `site/src/lib/routes/chrome-navigation-resolve.ts` | Only if the page exists across multiple destinations (e.g. a topic shared by Stockholm + Berlin). Add a `TopicSlots` row to `GLOBAL_TRILINGUAL_TOPICS` so `resolveChromeNavigationHref()` can find peers. |
 | Redirects (`write`, renames only) | `site/public/_redirects` | When renaming, add a single-hop 301 from the old path to the new path. Follow existing formatting. Keep chains single-hop. |
 | URL matrix (`write`, renames or adds) | `docs/url-matrix.csv` | Reference table. Add a row for the new canonical or a redirect row for the old path. |
@@ -79,7 +120,7 @@ If the user asks for a single-locale change, confirm explicitly before skipping 
 
 ### A. Edit existing page (copy or sections only)
 
-1. Identify the body component(s) for the canonical path. Start at `site/src/pages/[...slug].astro` → `pageBodies` map. For Stockholm, edit **both** `*Sv.astro` and `*En.astro` files unless the user asked for a single locale.
+1. Identify the body component(s) for the canonical path. Start at `site/src/pages/[...slug].astro` → `pageBodies` map. For Stockholm, edit **both** `*Sv.astro` and `*En.astro` files unless the user asked for a single locale. **For SEO landings** the body is a thin delegator (it imports `StockholmSeoLandingSv` / `…En`); edits to `h1Text` / `h1Html` and `introMarkdown` go in that delegator. Do **not** edit `StockholmSeoLandingSv.astro` / `StockholmSeoLandingEn.astro` directly to change copy for one landing — those files are shared by every landing and changes propagate to all of them.
 2. Apply the change. Keep tone consistent with `docs/Tone of Voice.md`. Copy follows `docs/Andetag SEO Manual.md` constraints (no fabricated URLs, metadata, or prices).
 3. If the edit touches shared data (offers, FAQ, reviews), change the single source listed in `docs/content-model.md`, not the consuming pages.
 4. If the edit **substantially lengthens** the page or **adds sections** in a type that usually carries imagery, re-check **photo / text balance** (see **Coordination**) and, if needed, add figures or a hero via `skills/images/SKILL.md` in the same task.
@@ -118,9 +159,28 @@ Example: new Stockholm page `/sv/stockholm/new-page/` + `/en/stockholm/new-page/
 4. Remove the path(s) from `PAGE_CUSTOM_BODY_PATHS`.
 5. Remove the `pageBodies` imports and map entries in `[...slug].astro`.
 6. Delete the body component file(s) under `site/src/components/page-bodies/`.
-7. Remove nav entries in `navigation.ts`. If the page was a cross-location topic, remove its row from `GLOBAL_TRILINGUAL_TOPICS`.
+7. Remove nav entries in `navigation.ts`. **For SEO landings:** remove the entry from `seoLinks` in `footer-sv.ts` and `footer-en-stockholm.ts` (and update `footer-en-stockholm.test.ts`) instead. If the page was a cross-location topic, remove its row from `GLOBAL_TRILINGUAL_TOPICS`.
 8. Update `docs/url-matrix.csv`.
 9. Verification: §Verification.
+
+### E. Add a new SEO landing page
+
+Use this when **§Page classification** classified the request as an SEO landing. The page is a thin clone of the Stockholm home, surfaced only via the footer `seoLinks` strip. **Stockholm only** — there is no Berlin landing pattern; if the user asks for a Berlin landing, stop and confirm with Gustaf.
+
+Before starting, confirm the new landing meets `docs/Andetag SEO Manual.md` **§17.2** (criteria for a new SEO landing — either §17.2a validated cluster or §17.2b greenfield positioning). If the slug is already in §17.3 (candidate landings under evaluation), reference that row in the PR. If neither path applies, escalate.
+
+Example: a new "Stillness" landing at `/sv/stockholm/stillhet-stockholm/` + `/en/stockholm/stillness-stockholm/`.
+
+1. **Slug pair.** Pick the Swedish lexical anchor as the slug stem and append `-stockholm`. The English slug is its translation, also with `-stockholm` (existing `museum-stockholm` and `event-stockholm` keep the same word in both locales — that is fine when the noun is identical). Pair table row goes into `STOCKHOLM_SV_EN_PAIRS` in `site/src/lib/routes/page-shell-registry.ts`.
+2. **Shell meta.** Add `pages` entries for both paths in `site/src/data/page-shell-meta.json` with `sourceFile: "curated"`, a title in the `ANDETAG | <descriptor> | ANDETAG Stockholm` shape used by existing landings, and a description that names the entity, location, and core attribute (per `docs/Andetag SEO Manual.md` §17 and the one-sentence opener rule). Do not invent unique facts that the shared body does not actually carry.
+3. **Body registry.** Add both paths to `PAGE_CUSTOM_BODY_PATHS` in `site/src/lib/page-registry/page-body-registry.ts`.
+4. **Body components — thin delegators.** Create `site/src/components/page-bodies/Stockholm<Topic>Sv.astro` and `Stockholm<Topic>En.astro`. Each file is a few lines: import `StockholmSeoLandingSv` (or `…En`), define `introMarkdown` (the lead paragraphs beside the booking aside), and pass `galleryId`, `h1Text` (or `h1Html`), and `introMarkdown` as props. Model on `StockholmAktivitetInomhusSv.astro` / `StockholmIndoorActivityEn.astro`. **Do not** duplicate the FAQ, gallery, tickets, testimonials, video, or map blocks — they live in the shared body and must be inherited unchanged so the existing landings stay structurally identical.
+5. **Route wiring.** In `site/src/pages/[...slug].astro`, import both new components and add entries to the `pageBodies` map keyed by the canonical paths. Keys must exactly match `PAGE_CUSTOM_BODY_PATHS`.
+6. **Footer surface (not main nav).** Add an entry to the `seoLinks` array in `site/src/lib/chrome/footer-sv.ts` and `site/src/lib/chrome/footer-en-stockholm.ts`. Use a one- or two-word label aligned with the H1 keyword (existing labels: `Aktivitet` / `Activity`, `Museum`, `Att göra` / `Things to do`, `Event`, `Utställning` / `Exhibition`). Do **not** edit `NAVIGATION_VARIANTS` in `site/src/lib/chrome/navigation.ts` — landings are deliberately absent from the main menu.
+7. **Footer test.** If `site/src/lib/chrome/footer-en-stockholm.test.ts` (or an sv peer, if added later) asserts the `seoLinks` list, update the expected labels and hrefs to include the new landing. Run `npm test` and confirm the assertions pass.
+8. **Internal linking.** Per `docs/Andetag SEO Manual.md` §15 / §17.2, the new landing must link back to ≥2 cluster pages and receive ≥2 inbound in-body links. Inbound links go in body copy on at least two existing pages (typically the Stockholm hub plus one topical sibling). Outbound links are usually already covered by the shared body (booking, biljetter, säsongskort, etc.) — verify by reading the rendered output, do not add bespoke link blocks to a landing.
+9. **Imagery.** Skip the **photo / text balance** check for landings — the page reuses the home's gallery, intro figure, and testimonial backgrounds. Adding new imagery to the shared body changes every landing at once and is out of scope here.
+10. **Verification.** §Verification, plus a **`skills/seo/SKILL.md` §H** pass on both new paths (the title / meta / H1 / first paragraph are the entire SEO surface for landings — get them right). Confirm the new entries render in the footer `seoLinks` strip on the live preview, and that the page is **absent** from the main navigation.
 
 ## Verification
 
@@ -154,6 +214,8 @@ Stop and ask the user (or Gustaf) before proceeding if:
 - The new page needs a new page-body **shell variant** (header or footer beyond the existing `HeaderVariantId` / `FooterVariantId` set in `site/src/lib/chrome/types.ts`). Shell variant work is out of scope for content-level skills.
 - The change touches routing for `/` or `/en/` (entry routing). These live in `site/workers/entry-routing-logic.ts`; edits belong to a routing-layer task, not a page task.
 - A decision row (`SEO-NNNN` in `docs/seo/decisions.md`) covers the affected path. Re-read the row before editing.
+- **Landing classification ambiguity.** A request that could plausibly be either an SEO landing or a standard page (e.g. an audience or use-case page that the user has not framed as a search-target clone). Pick a class only after asking — silently choosing wrong wastes work or thins the page below the §17.2 bar.
+- **Berlin landing requested.** No Berlin SEO landing pattern exists; the shared body is Stockholm-only. Confirm with Gustaf before inventing a Berlin variant.
 
 ## Examples
 
@@ -178,7 +240,24 @@ Action:
 7. For the two photos, follow `skills/images/SKILL.md` and `docs/responsive-image-workflow.md` (pick from `photos.yaml` or ingest if supplied); if the first draft is still text-heavy vs. a similar experience page, add another inline or hero per **Coordination** before finishing.
 8. `npm test && npm run build` from `site/`. `skills/seo/SKILL.md` **§H** for both new paths. Report all files and `§H` outcome in the PR body.
 
-### Example 3: new event page (handoff from the events skill)
+### Example 3: add a new SEO landing page
+
+The user says: *"Add a Stockholm landing page targeting `lugn aktivitet stockholm` and the English equivalent. Same structure as the existing landings."*
+
+Action:
+
+1. Classify per **§Page classification**: this is a search-target clone with no unique content — **SEO landing (§E)**, not a standard page.
+2. Confirm `docs/Andetag SEO Manual.md` §17.2 fit (validated cluster vs greenfield). Note which path applies in the PR.
+3. Pick the slug pair (e.g. `/sv/stockholm/lugn-aktivitet-stockholm/` + `/en/stockholm/calm-activity-stockholm/`) and append to `STOCKHOLM_SV_EN_PAIRS`.
+4. Add shell meta entries (curated title + description) in `page-shell-meta.json` for both paths.
+5. Add both paths to `PAGE_CUSTOM_BODY_PATHS`.
+6. Create thin delegators `StockholmLugnAktivitetSv.astro` + `StockholmCalmActivityEn.astro` modelled on `StockholmAktivitetInomhusSv.astro` / `StockholmIndoorActivityEn.astro` — H1, lead `introMarkdown`, unique `galleryId`, nothing else.
+7. Wire imports + `pageBodies` entries in `[...slug].astro`.
+8. Add the link to `seoLinks` in `footer-sv.ts` and `footer-en-stockholm.ts` (label e.g. `Lugn aktivitet` / `Calm activity`). Update `footer-en-stockholm.test.ts` if the list is asserted. **Do not** touch `navigation.ts`.
+9. Add ≥2 inbound in-body links from existing cluster pages (typically the Stockholm hub + one topical sibling) per §17.2 / §15.
+10. `npm test && npm run build`. Run `skills/seo/SKILL.md` **§H** on both new paths and record the outcome in the PR. Confirm the new link appears in the footer `seoLinks` strip on the preview and **not** in the main menu.
+
+### Example 4: new event page (handoff from the events skill)
 
 The user (via the events flow) needs `/sv/stockholm/<sv-slug>/` and `/en/stockholm/<en-slug>/` for a one-off or recurring program, with shells and minimal bodies before event data and schema.
 
