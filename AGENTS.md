@@ -149,7 +149,7 @@ For cross-cutting changes:
 
 1. Search for old field names, slugs, URL paths.
 2. Verify language-specific impacts (`sv` / `en` / `de`) and hreflang/canonical consistency.
-3. Confirm no contradiction with tone or SEO doctrine.
+3. Confirm no contradiction with tone or SEO doctrine. For body copy changes, run the em dash scan (`grep -rn $'—' site/src/components/page-bodies/`) and check against the banned-words list in `docs/Tone of Voice.md`.
 
 **Multilingual page parity:** When the same logical page exists in more than one language (paired bodies such as `*En.astro` / `*Sv.astro`, mirrored FAQ modules, or Berlin `de`/`en` pairs), update **every** language variant in the **same task** unless the collaborator explicitly requests a single-locale change. Editing one locale and not the others causes structural and copy drift, breaks hreflang intent, and is easy to miss in review.
 
@@ -199,7 +199,7 @@ The preview is the merge gate. Open it, walk the change, then merge.
 - **JS:** Reimplement with local code and package-managed deps. No legacy third-party scripts from retired stacks.
 - **Fonts:** Maintain `site/src/lib/fonts/sources.json`; regenerate via `npm run fonts:sync`.
 - **Copy:** Follow `docs/Tone of Voice.md` and SEO doctrine exactly.
-- **Prose docs:** Avoid em dash; use commas, colons, or parentheses.
+- **Editorial copy and prose docs:** The em dash (U+2014) is absolutely prohibited in all user-facing copy — page body components, FAQ answers, event copy, component strings, metadata, and documentation prose. Use commas, colons, or parentheses instead (`docs/Tone of Voice.md` §Punctuation). Before committing body components: `grep -rn $'—' site/src/components/page-bodies/ site/src/lib/content/` (see also `skills/seo/SKILL.md` §B.2 for the full detection command).
 - **Design tokens** are universal across languages. Language changes content and variants, not core styling, unless an approved exception is logged in `docs/seo/decisions.md` (SEO) or the relevant skill's §Decisions block (operational).
 
 ---
