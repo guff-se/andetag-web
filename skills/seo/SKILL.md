@@ -212,6 +212,59 @@ Use when **`skills/page/SKILL.md`** (or a PR that only adds/edits specific pages
 
 **Not in §H by default:** full sitemap validation, all redirects, CWV — defer to `skills/site-integrity` and `skills/performance-check` when the page change has broader blast radius. **JSON-LD** — only re-audit **§B.7** if this task edited `schema-org.ts` or content sources that flow to the graph; otherwise note "graph unchanged" unless a page type always warrants a diff.
 
+### I. Direct GSC queries
+
+The `andetag-stats` CLI (`../stats/cli` — i.e. `andetag-data/cli/`) can query Google Search Console **live** without going through the ETL/Supabase layer. Use these commands when you need fresh keyword data, page performance, URL index status, or sitemap health.
+
+**Prerequisites:** `GOOGLE_APPLICATION_CREDENTIALS=secrets/google-credentials.json` set in the project root `.env` of `andetag-data`, and the JSON key file present at that path. If the file is missing, the command reports a clear error — do not fabricate numbers.
+
+```bash
+cd ../stats/cli   # or andetag-data/cli if sparse-checked out
+
+# Top keywords for last 28 days (default)
+node dist/index.js gsc-search
+
+# Top keywords for last 90 days, return up to 50 rows
+node dist/index.js gsc-search --days 90 --limit 50
+
+# Page-level data (traffic by URL)
+node dist/index.js gsc-search --dimension page
+
+# Keyword data for a single page
+node dist/index.js gsc-search --page "https://www.andetag.museum/en/stockholm/"
+
+# Swedish-market only
+node dist/index.js gsc-search --country swe --days 28
+
+# Check if a URL is indexed
+node dist/index.js gsc-inspect "https://www.andetag.museum/en/stockholm/"
+
+# Sitemap list with submitted/indexed counts
+node dist/index.js gsc-sitemaps
+
+# Table output (easier to read in terminal)
+node dist/index.js --output table gsc-search
+node dist/index.js --output table gsc-inspect "https://www.andetag.museum/sv/stockholm/"
+node dist/index.js --output table gsc-sitemaps
+```
+
+**When to use:**
+
+| Task | Command |
+|------|---------|
+| Validate keyword targeting before editing a title/description | `gsc-search --days 90 --limit 50` |
+| Check whether a specific page is indexed (post-deploy, post-rollback) | `gsc-inspect <url>` |
+| Diagnose a "not indexed" sitemap warning | `gsc-sitemaps` |
+| Compare keyword performance before/after a copy change | `gsc-search` on two date windows |
+| Confirm a page is ranking for its target keyword | `gsc-search --page <url>` |
+
+**Interpretation notes:**
+- GSC data has a ~3-day lag; the CLI subtracts this automatically from the end date.
+- `position` is the average position in search results (1.0 = top result); lower is better.
+- `ctr_%` is click-through rate as a percentage.
+- A `gsc-inspect` verdict of `PASS` means Google considers the URL indexed and valid; `FAIL` / `NEUTRAL` need investigation.
+- The old ETL-backed `gsc-health` command (`node dist/index.js gsc-health`) still works for Supabase-synced snapshots; prefer the direct commands for freshness.
+
 ## Verification
 
 Before asking for merge, run:
@@ -245,12 +298,12 @@ Example:
 Stop and ask before proceeding if:
 
 - A requested change would alter `CANONICAL_HOST`, `OG_SITE_NAME`, or the `languageToHreflangAttribute` mapping. These are locked; changing them is a migration, not a maintenance edit.
-- A requested keyword is outside SEO Manual §2 and the request is "target this new keyword". Run `../stats/cli` (read-only; see `skills/performance-check` §E for the stats bridge) to confirm whether GSC data supports the keyword before escalating; do not silently add it.
+- A requested keyword is outside SEO Manual §2 and the request is "target this new keyword". Run `node dist/index.js gsc-search --days 90 --limit 50` from `../stats/cli` (see **§I** for the full command reference) to confirm whether GSC data supports the keyword before escalating; do not silently add it.
 - A requested schema type is not already in `schema-org.ts` and is not listed in SEO Manual §6 (for example `Product`, `Recipe`, `HowTo`). Flag to Gustaf — schema expansion requires a `SEO-NNNN` row in `docs/seo/decisions.md` and a Rich Results strategy.
 - A requested Rich Results change requires Google-side validation beyond the Rich Results Test (for example manual verification of `aggregateRating` within Google Business Profile). That is operational, not a code change.
 - A `noindex` is being added to a page that was previously indexable. This is a traffic loss. Requires explicit approval and a `SEO-NNNN` row in `docs/seo/decisions.md`.
 - A canonical edit would orphan inbound links (legacy `/stockholm/*` pointed at the old path, new canonical lives elsewhere). Check `docs/url-matrix.csv` first; if the move is intentional, add a `redirect` row.
-- GSC / GA4 data requested but `../stats/cli` is not installed or authenticated. Do not fabricate numbers; report the gap (same rule as `skills/performance-check` §E).
+- GSC data requested but `../stats/cli` is not installed or credentials are missing. Do not fabricate numbers; report the gap. See **§I** for setup and the three direct GSC commands (`gsc-search`, `gsc-inspect`, `gsc-sitemaps`).
 - Title/description intent is ambiguous and would require contradicting a peer locale or a `SEO-NNNN` row. Escalate before shipping.
 - A Tone of Voice call is ambiguous (is "quietly striking" ok? is "life-changing" ever ok in a quoted review?). When in doubt, err calm. Escalate before shipping.
 - A Berlin page edit would contradict the pre-opening scope (SEO Manual §11: `Place` only, no Museum, no tickets, lead capture only). Berlin opening status change is Gustaf's call.
