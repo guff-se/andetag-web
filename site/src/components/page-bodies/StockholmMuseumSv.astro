@@ -1,4 +1,5 @@
 ---
+import { corporateEventsFoyerBody } from "../../lib/content/stockholm-body-responsive-images";
 import StockholmSeoLandingSv from "./StockholmSeoLandingSv.astro";
 
 /**
@@ -9,10 +10,18 @@ const introMarkdown = [
   "<p>Här finns ingen traditionell samling. Här finns en plats att stanna upp, slå dig ned, ta din tid och landa. En immersiv konstmiljö där ljus och textil omsluter rummet snarare än hänger på väggen.<br />Ljus- och textilkonst som vävs samman med musik av ett gemensamt andetag.</p>",
   "<p>En plats att stanna upp.<br />En plats att andas.</p>",
 ].join("");
+
+const introImage = {
+  sources: corporateEventsFoyerBody,
+  alt: "Museets foajé med inramade textilverk, soffa med besökare och en stor väggskulptur i ANDETAG.",
+  width: 960,
+  height: 640,
+};
 ---
 
 <StockholmSeoLandingSv
   galleryId="stockholm-museum"
   h1Text="Ett stillsamt museum i Stockholm"
   introMarkdown={introMarkdown}
+  introImage={introImage}
 />

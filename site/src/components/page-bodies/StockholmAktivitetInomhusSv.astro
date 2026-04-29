@@ -1,4 +1,5 @@
 ---
+import { mainRoomLookingBody } from "../../lib/content/stockholm-body-responsive-images";
 import StockholmSeoLandingSv from "./StockholmSeoLandingSv.astro";
 
 /**
@@ -9,10 +10,18 @@ const introMarkdown = [
   "<p><span class=\"brand-wordmark\">ANDETAG</span> är en stillsam aktivitet i centrala Stockholm. Inga skärmar. Ingen interaktion som kräver svar. Bara ljus, textil och musik – och mjuka rum att vistas i.</p>",
   "<p>Här du får ta den tid du behöver.<br />Här får du andas.</p>",
 ].join("");
+
+const introImage = {
+  sources: mainRoomLookingBody,
+  alt: "Besökare i silhuett som blickar upp mot lysande konst i ANDETAG",
+  width: 960,
+  height: 540,
+};
 ---
 
 <StockholmSeoLandingSv
   galleryId="stockholm-aktivitet-inomhus"
   h1Text="En lugn och vacker aktivitet inomhus."
   introMarkdown={introMarkdown}
+  introImage={introImage}
 />

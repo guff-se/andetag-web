@@ -1,9 +1,10 @@
 ---
+import { npfBlueGlowBody } from "../../lib/content/stockholm-body-responsive-images";
 import StockholmSeoLandingSv from "./StockholmSeoLandingSv.astro";
 
 /**
  * SEO landing cloned from `StockholmAttGoraSv.astro` (same shell as `stockholm-att-gora-stockholm.html`).
- * Distinct URL and meta for “event i Stockholm” / “vad händer i Stockholm”.
+ * Distinct URL and meta for "event i Stockholm" / "vad händer i Stockholm".
  */
 const introMarkdown = [
   "<p>Söker du tips på vad som händer i Stockholm, eller ett event i Stockholm utan speaker, mingel och stress?</p>",
@@ -13,10 +14,18 @@ const introMarkdown = [
   "<p>Andas.</p>",
   "<p>Det räcker.</p>",
 ].join("");
+
+const introImage = {
+  sources: npfBlueGlowBody,
+  alt: "Lugn besökare i blått ljus med lysande textilformer som svävar omkring.",
+  width: 960,
+  height: 640,
+};
 ---
 
 <StockholmSeoLandingSv
   galleryId="stockholm-event-stockholm"
   h1Text="Event i Stockholm när du vill välja stillhet"
   introMarkdown={introMarkdown}
+  introImage={introImage}
 />

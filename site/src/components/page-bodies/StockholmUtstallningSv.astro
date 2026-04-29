@@ -1,4 +1,5 @@
 ---
+import { mainRoomMeditationBody } from "../../lib/content/stockholm-body-responsive-images";
 import StockholmSeoLandingSv from "./StockholmSeoLandingSv.astro";
 
 /**
@@ -9,10 +10,18 @@ const introMarkdown = [
   "<p>Utställningen ligger i centrala Stockholm, vid Hötorget. Fyra rum med ljusbaserad textilkonst och specialskriven musik som leder dig fram. En immersiv utställning där rummet sluter sig om dig: du går inte runt och tittar, du sätter dig i konsten. Konstverken rör sig i takt med ett gemensamt andetag: långsamt, stilla, utan brådska.</p>",
   "<p>Här bjuds du in att sitta ner.<br />Att andas.<br />Att ta den tid du behöver.</p>",
 ].join("");
+
+const introImage = {
+  sources: mainRoomMeditationBody,
+  alt: "Person som sitter stilla omgiven av lysande textilkonst i ANDETAG",
+  width: 960,
+  height: 611,
+};
 ---
 
 <StockholmSeoLandingSv
   galleryId="stockholm-utstallning"
   h1Text="En stillsam konstutställning i Stockholm"
   introMarkdown={introMarkdown}
+  introImage={introImage}
 />
