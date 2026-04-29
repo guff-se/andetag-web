@@ -20,6 +20,7 @@ import {
   STOCKHOLM_CORPORATE_FAQ_SV,
 } from "../content/stockholm-corporate";
 import { computeArtYogaOccurrenceSeriesIso } from "./art-yoga-next-occurrence";
+import { ARTWORKS, type Artwork } from "../content/artworks";
 
 const FAQ_PATHS = {
   "/en/stockholm/faq/": STOCKHOLM_FAQ_EN,
@@ -455,5 +456,84 @@ function buildStockholmVenueSchema(ctx: SchemaPageContext): { "@context": string
   if (faqItems) {
     graph.push(faqPageNode(ctx, faqItems));
   }
+  if (ARTWORK_PAGE_PATHS.has(ctx.canonicalPath)) {
+    graph.push(artworkCollectionNode(ctx));
+    for (const a of ARTWORKS) {
+      graph.push(visualArtworkNode(ctx, a));
+    }
+  }
   return { "@context": "https://schema.org", "@graph": graph };
+}
+
+const ARTWORK_PAGE_PATHS: ReadonlySet<string> = new Set([
+  "/sv/stockholm/konstverk/",
+  "/en/stockholm/artworks/",
+]);
+
+function artworkCollectionNode(ctx: SchemaPageContext): object {
+  return {
+    "@type": "CollectionPage",
+    "@id": `${ctx.pageUrl}#artworks`,
+    url: ctx.pageUrl,
+    name: ctx.pageTitle,
+    description: ctx.pageDescription,
+    inLanguage: languageToHreflangAttribute(ctx.language),
+    isPartOf: { "@id": `${ctx.pageUrl}#webpage` },
+    about: { "@id": `${CANONICAL_HOST}/#museum-stockholm` },
+    hasPart: ARTWORKS.map((a) => ({ "@id": `${CANONICAL_HOST}/#artwork-${a.id}` })),
+  };
+}
+
+function visualArtworkNode(ctx: SchemaPageContext, a: Artwork): object {
+  const node: Record<string, unknown> = {
+    "@type": "VisualArtwork",
+    "@id": `${CANONICAL_HOST}/#artwork-${a.id}`,
+    name: a.title[ctx.language],
+    artMedium: ctx.language === "sv" ? "Optisk fibertextil" : "Optical fibre textile",
+    artform: ctx.language === "sv" ? "Textilkonst" : "Textile art",
+    creator: { "@id": `${CANONICAL_HOST}/#organization` },
+    dateCreated: String(a.year),
+    image: a.images.map((img) => `${CANONICAL_HOST}${img.fullSrc ?? img.src}`),
+    width: { "@type": "QuantitativeValue", value: a.dimensionsCm.w, unitCode: "CMT" },
+    height: { "@type": "QuantitativeValue", value: a.dimensionsCm.h, unitCode: "CMT" },
+    locationCreated: { "@id": `${CANONICAL_HOST}/#museum-stockholm` },
+    isPartOf: { "@id": `${ctx.pageUrl}#artworks` },
+  };
+  if (a.dimensionsCm.d !== undefined) {
+    node.depth = { "@type": "QuantitativeValue", value: a.dimensionsCm.d, unitCode: "CMT" };
+  }
+  if (a.edition) {
+    node.additionalProperty = [
+      {
+        "@type": "PropertyValue",
+        name: ctx.language === "sv" ? "Upplaga" : "Edition",
+        value: `${a.edition.size}`,
+      },
+      {
+        "@type": "PropertyValue",
+        name: ctx.language === "sv" ? "Tillgängliga" : "Available",
+        value: `${a.edition.available}`,
+      },
+    ];
+  }
+  if (a.status === "for-sale") {
+    const offer: Record<string, unknown> = {
+      "@type": "Offer",
+      availability: "https://schema.org/InStock",
+      priceCurrency: STOCKHOLM_CURRENCY,
+      seller: { "@id": `${CANONICAL_HOST}/#organization` },
+      url: ctx.pageUrl + `#artwork-${a.id}`,
+    };
+    if (a.priceSek !== undefined) {
+      offer.price = a.priceSek;
+    }
+    node.offers = offer;
+  } else {
+    node.offers = {
+      "@type": "Offer",
+      availability: "https://schema.org/SoldOut",
+      seller: { "@id": `${CANONICAL_HOST}/#organization` },
+    };
+  }
+  return node;
 }

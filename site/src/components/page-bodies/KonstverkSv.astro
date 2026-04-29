@@ -1,0 +1,83 @@
+---
+import "../../styles/artworks.css";
+import { ARTWORKS, getCatalogueTotals } from "../../lib/content/artworks";
+import ArtworkFilterBar from "../content/ArtworkFilterBar.astro";
+import ArtworkGrid from "../content/ArtworkGrid.astro";
+import ArtworkMap from "../embeds/ArtworkMap.astro";
+import InquiryForm from "../embeds/InquiryForm.astro";
+
+const originals = ARTWORKS.filter((a) => a.series === "original");
+const gems = ARTWORKS.filter((a) => a.series === "gem");
+const totals = getCatalogueTotals(ARTWORKS);
+
+const counts = {
+  statusAll: originals.length,
+  statusForSale: originals.filter((a) => a.status === "for-sale").length,
+  statusSold: originals.filter((a) => a.status === "sold").length,
+  formatAll: originals.length,
+  formatLandscape: originals.filter((a) => a.format === "landscape").length,
+  formatPortrait: originals.filter((a) => a.format === "portrait").length,
+  formatDiptych: originals.filter((a) => a.format === "diptych").length,
+};
+---
+
+<div class="page-migrated page-artworks" lang="sv">
+  <header class="page-artworks__lead">
+    <h1>Andetagverken</h1>
+    <p>
+      Femtio originalverk i optisk fibertextil, vävda för att andas med rummet de hänger i.
+      Att förvärva ett verk är att gå in i ett tyst nätverk av samtidigt andande rum, från
+      Stockholm och vidare ut i världen.
+    </p>
+    <p>
+      Bredvid originalserien finns tre Gems, mindre verk i upplagor om sex eller tio.
+      Skriv till oss om något fångar din blick. Vi svarar i lugn takt.
+    </p>
+    <p class="page-artworks__counts" aria-label="Antal verk i serien">
+      <span>Originalserie: 50 verk</span>
+      <span>Gems: 3 verk i upplagor</span>
+    </p>
+  </header>
+
+  <ArtworkMap artworks={ARTWORKS} language="sv" />
+
+  <section class="page-artworks__section" aria-labelledby="originals-heading">
+    <header class="page-artworks__section-head">
+      <p class="page-artworks__section-eyebrow">Original</p>
+      <h2 class="page-artworks__section-heading" id="originals-heading">Andetag no. 1 till 50</h2>
+      <p class="page-artworks__section-intro">
+        Varje original är ett unikt verk. Storlek, ljus och rörelse skiljer dem åt; samma
+        andning bär dem alla.
+      </p>
+    </header>
+
+    <ArtworkFilterBar language="sv" counts={counts} />
+    <ArtworkGrid artworks={originals} language="sv" gridId="originals" eagerFirst={true} />
+  </section>
+
+  <section class="page-artworks__section" aria-labelledby="gems-heading">
+    <header class="page-artworks__section-head">
+      <p class="page-artworks__section-eyebrow">Gems</p>
+      <h2 class="page-artworks__section-heading" id="gems-heading">Tre verk i upplagor</h2>
+      <p class="page-artworks__section-intro">
+        Tre mindre verk i optisk fibertextil, vävda i upplagor om sex eller tio. Samma
+        material, samma andetag, en lugnare skala.
+      </p>
+    </header>
+
+    <ArtworkGrid artworks={gems} language="sv" gridId="gems" />
+  </section>
+
+  <InquiryForm language="sv" />
+
+  <section class="content-section align-left">
+    <div class="content-section-body">
+      <p>
+        Vill du veta mer om hur verken görs? Läs om
+        <a href="/sv/stockholm/optisk-fibertextil/">den optiska fibertextilen</a>
+        och om
+        <a href="/sv/stockholm/om-konstnarerna-malin-gustaf-tadaa/">konstnärerna bakom serien</a>.
+      </p>
+    </div>
+  </section>
+</div>

@@ -2,6 +2,8 @@
 import SiteLayout from "../layouts/SiteLayout.astro";
 import ArtYogaEn from "../components/page-bodies/ArtYogaEn.astro";
 import ArtYogaSv from "../components/page-bodies/ArtYogaSv.astro";
+import ArtworksEn from "../components/page-bodies/ArtworksEn.astro";
+import KonstverkSv from "../components/page-bodies/KonstverkSv.astro";
 import BesokaromdomenEn from "../components/page-bodies/BesokaromdomenEn.astro";
 import BesokaromdomenSv from "../components/page-bodies/BesokaromdomenSv.astro";
 import BiljetterEn from "../components/page-bodies/BiljetterEn.astro";
@@ -96,6 +98,7 @@ const pageBodies: Partial<Record<string, ShellPageBody>> = {
   "/en/stockholm/": StockholmHomeEn,
   "/en/stockholm/accessibility/": TillganglighetEn,
   "/en/stockholm/art-yoga/": ArtYogaEn,
+  "/en/stockholm/artworks/": ArtworksEn,
   "/en/stockholm/corporate-events/": ForetagseventEn,
   "/en/stockholm/date/": DejtEn,
   "/en/stockholm/exhibition-stockholm/": StockholmExhibitionEn,
@@ -135,6 +138,7 @@ const pageBodies: Partial<Record<string, ShellPageBody>> = {
   "/sv/stockholm/fragor-svar/": FragorSvarSv,
   "/sv/stockholm/gruppbokning/": GruppbokningSv,
   "/sv/stockholm/hitta-hit/": HittaHitSv,
+  "/sv/stockholm/konstverk/": KonstverkSv,
   "/sv/stockholm/museum-stockholm/": StockholmMuseumSv,
   "/sv/stockholm/npf-stockholm/": NpfStockholmSv,
   "/sv/stockholm/oppettider/": OppettiderSv,

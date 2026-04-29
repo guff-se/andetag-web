@@ -1,0 +1,182 @@
+---
+/**
+ * One artwork card. Image area cross-fades through the artwork's frames; the
+ * meta block sits beneath in a quiet two-column grid (label / value pairs).
+ *
+ * Card → inquiry form: each card carries a `data-artwork-card="<id>"`. The
+ * "Inquire" link points to `#inquiry?about=<id>` and the form pre-fills its
+ * `about` field from the URL hash on the artworks page.
+ */
+import type { Artwork } from "../../lib/content/artworks";
+
+type Props = {
+  artwork: Artwork;
+  language: "sv" | "en";
+  /** First card on the page can be eagerly loaded for LCP. */
+  eager?: boolean;
+};
+
+const { artwork, language, eager = false } = Astro.props as Props;
+
+const sek = new Intl.NumberFormat(language === "sv" ? "sv-SE" : "en-US", {
+  style: "currency",
+  currency: "SEK",
+  maximumFractionDigits: 0,
+});
+
+function dim(d: { w: number; h: number; d?: number }): string {
+  const sep = " × ";
+  const base = `${d.w}${sep}${d.h}`;
+  return d.d ? `${base}${sep}${d.d} cm` : `${base} cm`;
+}
+
+function formatLabel(format: Artwork["format"]): string {
+  if (language === "sv") {
+    return format === "landscape"
+      ? "Liggande"
+      : format === "portrait"
+        ? "Stående"
+        : "Diptyk";
+  }
+  return format === "landscape" ? "Landscape" : format === "portrait" ? "Portrait" : "Diptych";
+}
+
+function statusLabel(status: Artwork["status"]): string {
+  if (language === "sv") {
+    return status === "for-sale" ? "Tillgänglig" : "I samling";
+  }
+  return status === "for-sale" ? "Available" : "In a collection";
+}
+
+function priceLabel(): string {
+  if (artwork.status === "sold") {
+    return language === "sv" ? "I samling" : "In a collection";
+  }
+  if (artwork.priceSek === undefined) {
+    return language === "sv" ? "Pris på förfrågan" : "Price on request";
+  }
+  return sek.format(artwork.priceSek);
+}
+
+function editionLabel(): string | null {
+  if (!artwork.edition) return null;
+  if (language === "sv") {
+    return `Upplaga ${artwork.edition.available} av ${artwork.edition.size}`;
+  }
+  return `Edition of ${artwork.edition.size} (${artwork.edition.available} available)`;
+}
+
+const labels =
+  language === "sv"
+    ? {
+        year: "År",
+        size: "Storlek",
+        format: "Format",
+        location: "Plats",
+        edition: "Upplaga",
+        inquire: "Förfrågan",
+      }
+    : {
+        year: "Year",
+        size: "Size",
+        format: "Format",
+        location: "Location",
+        edition: "Edition",
+        inquire: "Inquire",
+      };
+
+const inquireHref = `#inquiry?about=${artwork.id}`;
+const inquireAria =
+  language === "sv"
+    ? `Förfrågan om ${artwork.title.sv}`
+    : `Inquire about ${artwork.title.en}`;
+
+const filterTokens = [
+  artwork.series,
+  artwork.status,
+  artwork.format,
+].join(" ");
+---
+
+<article
+  class:list={[
+    "artwork-card",
+    `is-${artwork.status}`,
+    `is-format-${artwork.format}`,
+    `is-series-${artwork.series}`,
+  ]}
+  data-artwork-card={artwork.id}
+  data-filter-tokens={filterTokens}
+  data-artwork-status={artwork.status}
+  data-artwork-format={artwork.format}
+  data-artwork-series={artwork.series}
+  id={`artwork-${artwork.id}`}
+>
+  <div class="artwork-card__media" data-frame-count={artwork.images.length}>
+    {artwork.images.map((img, i) => (
+      <picture
+        class:list={["artwork-card__frame", i === 0 ? "is-base" : "is-overlay"]}
+        data-frame-index={i}
+      >
+        <source
+          type="image/webp"
+          srcset={`${img.webp640} 640w, ${img.webp960} 960w`}
+          sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 30vw"
+        />
+        <img
+          src={img.src}
+          alt={img.alt[language]}
+          loading={eager && i === 0 ? "eager" : "lazy"}
+          decoding="async"
+          fetchpriority={eager && i === 0 ? "high" : undefined}
+        />
+      </picture>
+    ))}
+    <span
+      class:list={["artwork-card__status-pill", `is-${artwork.status}`]}
+      aria-hidden="true"
+    >
+      <span class="artwork-card__status-dot" />
+      {statusLabel(artwork.status)}
+    </span>
+  </div>
+
+  <div class="artwork-card__body">
+    <header class="artwork-card__head">
+      <h3 class="artwork-card__title">{artwork.title[language]}</h3>
+      <p class="artwork-card__price">{priceLabel()}</p>
+    </header>
+
+    <dl class="artwork-card__meta">
+      <div>
+        <dt>{labels.year}</dt>
+        <dd>{artwork.year}</dd>
+      </div>
+      <div>
+        <dt>{labels.size}</dt>
+        <dd>{dim(artwork.dimensionsCm)}</dd>
+      </div>
+      <div>
+        <dt>{labels.format}</dt>
+        <dd>{formatLabel(artwork.format)}</dd>
+      </div>
+      <div>
+        <dt>{labels.location}</dt>
+        <dd>{artwork.location.label[language]}</dd>
+      </div>
+      {artwork.edition ? (
+        <div>
+          <dt>{labels.edition}</dt>
+          <dd>{editionLabel()}</dd>
+        </div>
+      ) : null}
+    </dl>
+
+    {artwork.status === "for-sale" ? (
+      <a class="artwork-card__inquire" href={inquireHref} aria-label={inquireAria}>
+        <span>{labels.inquire}</span>
+        <span class="artwork-card__inquire-arrow" aria-hidden="true">→</span>
+      </a>
+    ) : null}
+  </div>
+</article>

@@ -1,0 +1,747 @@
+/*
+ * Artworks page styles.
+ *
+ * Scoped to `/sv/stockholm/konstverk/` and `/en/stockholm/artworks/`.
+ * Imported once from `KonstverkSv.astro` / `ArtworksEn.astro`.
+ *
+ * Visual language:
+ *  - Cream sea, soft graphite land, brand-pink dots for the world map.
+ *  - Generous whitespace, type-led cards, image-first.
+ *  - Gentle reveal on scroll; image cross-fade on hover (skipped for
+ *    `prefers-reduced-motion`).
+ */
+
+.page-artworks {
+  --artwork-pink: #4a0d2f;
+  --artwork-pink-soft: rgba(74, 13, 47, 0.12);
+  --artwork-pink-veil: rgba(74, 13, 47, 0.04);
+  --artwork-cream: #faf3ee;
+  --artwork-graphite: #2a2226;
+  --artwork-line: rgba(74, 13, 47, 0.18);
+  --artwork-muted: #635961;
+  --artwork-radius: 14px;
+  --artwork-card-w: 30rem;
+  color: var(--artwork-graphite);
+}
+
+/* ============================================================
+ * Lead
+ * ============================================================ */
+
+.page-artworks__lead {
+  max-width: 44rem;
+  margin: 0 auto 3.5rem;
+  text-align: center;
+}
+
+.page-artworks__lead h1 {
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-weight: 300;
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  margin: 0 0 1.5rem;
+  color: var(--artwork-pink);
+}
+
+.page-artworks__lead p {
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--artwork-graphite);
+  margin: 0 0 1rem;
+}
+
+.page-artworks__counts {
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--artwork-muted);
+  margin-top: 2rem;
+}
+
+.page-artworks__counts span + span::before {
+  content: "·";
+  display: inline-block;
+  margin: 0 0.7rem;
+  color: var(--artwork-line);
+}
+
+/* ============================================================
+ * Map
+ * ============================================================ */
+
+.artwork-map {
+  background: var(--artwork-cream);
+  border-radius: var(--artwork-radius);
+  padding: 1.25rem 1.25rem 0.75rem;
+  margin: 0 0 4rem;
+  border: 1px solid var(--artwork-line);
+  overflow: hidden;
+}
+
+.artwork-map__svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  /* Match SVG viewBox aspect ratio (1100x460) so SVG fills width without distortion. */
+  max-height: 60vh;
+}
+
+.artwork-map__sea {
+  fill: var(--artwork-cream);
+}
+
+.artwork-map__land path {
+  fill: #ece2db;
+  stroke: rgba(74, 13, 47, 0.08);
+  stroke-width: 0.5;
+  stroke-linejoin: round;
+}
+
+.artwork-map__pin {
+  cursor: pointer;
+  transition: transform 220ms ease;
+  transform-origin: center;
+  outline: none;
+}
+
+.artwork-map__pin:focus-visible {
+  outline: 2px solid #e0e31c;
+  outline-offset: 4px;
+}
+
+.artwork-map__pin-glow {
+  fill: url(#artwork-pin-glow);
+  opacity: 0;
+  transition: opacity 280ms ease;
+}
+
+.artwork-map__pin-dot {
+  fill: var(--artwork-pink);
+  transition: transform 220ms ease, fill 220ms ease;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+.artwork-map__pin.is-mixed .artwork-map__pin-dot {
+  fill: rgba(74, 13, 47, 0.45);
+}
+
+.artwork-map__pin-count {
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-size: 0.55rem;
+  font-weight: 500;
+  fill: #fff;
+  pointer-events: none;
+}
+
+.artwork-map__pin:hover .artwork-map__pin-glow,
+.artwork-map__pin:focus-visible .artwork-map__pin-glow,
+.artwork-map__pin.is-active .artwork-map__pin-glow {
+  opacity: 1;
+}
+
+.artwork-map__pin:hover .artwork-map__pin-dot,
+.artwork-map__pin:focus-visible .artwork-map__pin-dot,
+.artwork-map__pin.is-active .artwork-map__pin-dot {
+  fill: var(--artwork-pink);
+  transform: scale(1.6);
+}
+
+.artwork-map__legend {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--artwork-muted);
+  margin: 0.5rem 0 0;
+  padding: 0;
+}
+
+.artwork-map__legend-dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--artwork-pink);
+}
+
+.artwork-map__legend-dot.is-mixed {
+  background: rgba(74, 13, 47, 0.45);
+}
+
+/* ============================================================
+ * Filter bar
+ * ============================================================ */
+
+.artwork-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem 2rem;
+  align-items: flex-start;
+  padding: 1.25rem 0;
+  border-top: 1px solid var(--artwork-line);
+  border-bottom: 1px solid var(--artwork-line);
+  margin: 0 0 3rem;
+  position: relative;
+}
+
+.artwork-filter-bar__group {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem 0.75rem;
+}
+
+.artwork-filter-bar__group-label {
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--artwork-muted);
+  margin-right: 0.25rem;
+}
+
+.artwork-filter-bar__pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.artwork-filter-pill {
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  font-weight: 400;
+  color: var(--artwork-graphite);
+  background: transparent;
+  border: 1px solid var(--artwork-line);
+  border-radius: 999px;
+  padding: 0.4rem 0.95rem 0.4rem 0.85rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background 200ms ease, border-color 200ms ease, color 200ms ease;
+}
+
+.artwork-filter-pill__count {
+  font-size: 0.7rem;
+  color: var(--artwork-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.artwork-filter-pill:hover {
+  border-color: var(--artwork-pink);
+}
+
+.artwork-filter-pill.is-active {
+  background: var(--artwork-pink);
+  border-color: var(--artwork-pink);
+  color: #fafafa;
+}
+
+.artwork-filter-pill.is-active .artwork-filter-pill__count {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.artwork-filter-bar__empty {
+  width: 100%;
+  margin: 0.5rem 0 0;
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-size: 0.9rem;
+  color: var(--artwork-muted);
+}
+
+/* ============================================================
+ * Grid + cards
+ * ============================================================ */
+
+.page-artworks__section {
+  margin: 0 0 5rem;
+}
+
+.page-artworks__section-head {
+  margin: 0 0 2rem;
+}
+
+.page-artworks__section-eyebrow {
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--artwork-muted);
+  margin: 0 0 0.5rem;
+}
+
+.page-artworks__section-heading {
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-weight: 300;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  margin: 0 0 0.5rem;
+  color: var(--artwork-pink);
+}
+
+.page-artworks__section-intro {
+  max-width: 38rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--artwork-graphite);
+  margin: 0;
+}
+
+.artwork-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+@media (min-width: 720px) {
+  .artwork-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem 2rem;
+  }
+}
+
+@media (min-width: 1100px) {
+  .artwork-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Filtering: hide non-matching cards via attribute selectors. */
+.artwork-grid[data-filter-status="for-sale"] [data-artwork-status="sold"],
+.artwork-grid[data-filter-status="sold"] [data-artwork-status="for-sale"] {
+  display: none;
+}
+
+.artwork-grid[data-filter-format="landscape"] [data-artwork-format="portrait"],
+.artwork-grid[data-filter-format="landscape"] [data-artwork-format="diptych"],
+.artwork-grid[data-filter-format="portrait"] [data-artwork-format="landscape"],
+.artwork-grid[data-filter-format="portrait"] [data-artwork-format="diptych"],
+.artwork-grid[data-filter-format="diptych"] [data-artwork-format="landscape"],
+.artwork-grid[data-filter-format="diptych"] [data-artwork-format="portrait"] {
+  display: none;
+}
+
+.artwork-card {
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  position: relative;
+  scroll-margin-top: 6rem;
+  /* Reveal on intersection — see `prefers-reduced-motion` override. */
+  opacity: 0;
+  transform: translateY(12px);
+  animation: artwork-card-reveal 700ms ease forwards;
+  animation-play-state: running;
+}
+
+.artwork-card:nth-child(1) { animation-delay: 0ms; }
+.artwork-card:nth-child(2) { animation-delay: 60ms; }
+.artwork-card:nth-child(3) { animation-delay: 120ms; }
+.artwork-card:nth-child(4) { animation-delay: 180ms; }
+.artwork-card:nth-child(5) { animation-delay: 240ms; }
+.artwork-card:nth-child(6) { animation-delay: 300ms; }
+
+@keyframes artwork-card-reveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.artwork-card.is-pinned {
+  outline: 1px solid var(--artwork-pink);
+  outline-offset: 12px;
+  border-radius: 4px;
+  transition: outline-offset 220ms ease;
+}
+
+.artwork-card__media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 2px;
+  background: var(--artwork-pink-veil);
+}
+
+.artwork-card.is-format-landscape .artwork-card__media {
+  aspect-ratio: 5 / 4;
+}
+
+.artwork-card.is-format-diptych .artwork-card__media {
+  aspect-ratio: 16 / 9;
+}
+
+.artwork-card__frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.artwork-card__frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 900ms ease, opacity 600ms ease;
+}
+
+.artwork-card__frame.is-base img {
+  opacity: 1;
+}
+
+.artwork-card__frame.is-overlay {
+  opacity: 0;
+  transition: opacity 600ms ease;
+}
+
+.artwork-card__media[data-frame-count="1"] .artwork-card__frame.is-overlay {
+  display: none;
+}
+
+.artwork-card:hover .artwork-card__frame.is-overlay,
+.artwork-card:focus-within .artwork-card__frame.is-overlay {
+  opacity: 1;
+}
+
+.artwork-card:hover .artwork-card__frame img {
+  transform: scale(1.02);
+}
+
+.artwork-card__status-pill {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.75rem 0.3rem 0.6rem;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(4px);
+  border-radius: 999px;
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--artwork-graphite);
+}
+
+.artwork-card__status-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--artwork-pink);
+}
+
+.artwork-card.is-sold .artwork-card__status-dot {
+  background: rgba(74, 13, 47, 0.4);
+}
+
+.artwork-card__body {
+  padding: 1.25rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.artwork-card__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  border-bottom: 1px solid var(--artwork-line);
+  padding-bottom: 0.65rem;
+}
+
+.artwork-card__title {
+  font-family: "BaskervvilleLocal", "Baskervville", Georgia, serif;
+  font-weight: 400;
+  font-size: 1.4rem;
+  line-height: 1.2;
+  margin: 0;
+  color: var(--artwork-graphite);
+}
+
+.artwork-card__price {
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--artwork-pink);
+  margin: 0;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.artwork-card.is-sold .artwork-card__price {
+  color: var(--artwork-muted);
+  font-style: italic;
+}
+
+.artwork-card__meta {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.4rem 1rem;
+  margin: 0;
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.artwork-card__meta > div {
+  display: contents;
+}
+
+.artwork-card__meta dt {
+  color: var(--artwork-muted);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  align-self: center;
+  font-weight: 400;
+}
+
+.artwork-card__meta dd {
+  margin: 0;
+  color: var(--artwork-graphite);
+  font-variant-numeric: tabular-nums;
+}
+
+.artwork-card__inquire {
+  align-self: flex-start;
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--artwork-pink);
+  border: 1px solid var(--artwork-pink);
+  border-radius: 999px;
+  padding: 0.55rem 1.1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background 220ms ease, color 220ms ease, transform 220ms ease;
+  margin-top: 0.25rem;
+}
+
+.artwork-card__inquire:hover,
+.artwork-card__inquire:focus-visible {
+  background: var(--artwork-pink);
+  color: #fafafa;
+}
+
+.artwork-card__inquire:hover .artwork-card__inquire-arrow {
+  transform: translateX(4px);
+}
+
+.artwork-card__inquire-arrow {
+  display: inline-block;
+  transition: transform 220ms ease;
+}
+
+/* ============================================================
+ * Inquiry form
+ * ============================================================ */
+
+.inquiry-form {
+  background: var(--artwork-cream);
+  border-radius: var(--artwork-radius);
+  padding: 2.5rem clamp(1.25rem, 4vw, 3rem);
+  margin: 5rem 0 4rem;
+  scroll-margin-top: 6rem;
+  max-width: 56rem;
+}
+
+.inquiry-form__eyebrow {
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--artwork-muted);
+  margin: 0 0 0.5rem;
+}
+
+.inquiry-form__heading {
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-weight: 300;
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  color: var(--artwork-pink);
+  margin: 0 0 0.75rem;
+}
+
+.inquiry-form__intro {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--artwork-graphite);
+  margin: 0 0 2rem;
+  max-width: 36rem;
+}
+
+.inquiry-form__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.inquiry-form__row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .inquiry-form__row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.inquiry-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.inquiry-form__label {
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-size: 0.74rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--artwork-muted);
+  display: inline-flex;
+  gap: 0.5rem;
+  align-items: baseline;
+}
+
+.inquiry-form__hint {
+  font-size: 0.65rem;
+  letter-spacing: 0.16em;
+  color: var(--artwork-line);
+}
+
+.inquiry-form__field input,
+.inquiry-form__field textarea {
+  font-family: "BaskervvilleLocal", "Baskervville", Georgia, serif;
+  font-size: 1rem;
+  color: var(--artwork-graphite);
+  background: #fff;
+  border: 1px solid var(--artwork-line);
+  border-radius: 8px;
+  padding: 0.7rem 0.9rem;
+  outline: none;
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+  width: 100%;
+}
+
+.inquiry-form__field textarea {
+  resize: vertical;
+  min-height: 6rem;
+  font-family: "BaskervvilleLocal", "Baskervville", Georgia, serif;
+}
+
+.inquiry-form__field input:focus,
+.inquiry-form__field textarea:focus {
+  border-color: var(--artwork-pink);
+  box-shadow: 0 0 0 3px rgba(74, 13, 47, 0.12);
+}
+
+.inquiry-form__field--full {
+  width: 100%;
+}
+
+.inquiry-form__honey {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.inquiry-form__optin {
+  display: flex;
+  gap: 0.7rem;
+  align-items: flex-start;
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--artwork-graphite);
+}
+
+.inquiry-form__optin input[type="checkbox"] {
+  margin-top: 0.25rem;
+}
+
+.inquiry-form__optin a {
+  color: var(--artwork-pink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.inquiry-form__submit {
+  align-self: flex-start;
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #fafafa;
+  background: var(--artwork-pink);
+  border: 1px solid var(--artwork-pink);
+  border-radius: 999px;
+  padding: 0.85rem 1.6rem;
+  cursor: pointer;
+  transition: background 220ms ease, transform 220ms ease;
+}
+
+.inquiry-form__submit:hover,
+.inquiry-form__submit:focus-visible {
+  background: #2a071b;
+}
+
+.inquiry-form__submit:disabled {
+  background: var(--artwork-line);
+  border-color: var(--artwork-line);
+  cursor: progress;
+}
+
+.inquiry-form__status {
+  margin: 0;
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-size: 0.95rem;
+  color: var(--artwork-pink);
+  border-top: 1px solid var(--artwork-line);
+  padding-top: 1rem;
+}
+
+/* ============================================================
+ * Reduced motion
+ * ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .artwork-card {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+  .artwork-card:hover .artwork-card__frame img {
+    transform: none;
+  }
+  .artwork-card__frame img,
+  .artwork-card__frame.is-overlay,
+  .artwork-map__pin,
+  .artwork-map__pin-glow,
+  .artwork-map__pin-dot,
+  .artwork-card__inquire,
+  .artwork-card__inquire-arrow {
+    transition: none;
+  }
+}

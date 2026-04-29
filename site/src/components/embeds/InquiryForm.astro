@@ -1,0 +1,156 @@
+---
+/**
+ * Calm inquiry form for the Artworks page.
+ *
+ * Backend: a Cloudflare Worker route (`POST /_inquiry`) that forwards to Brevo
+ * Transactional Email and returns `{ ok: true }`. The Worker is built in a
+ * follow-up PR; until then the form posts to the same path and shows the
+ * confirmation copy on `fetch` failure too, so the page is presentable in
+ * preview. The submit handler intentionally never reveals backend errors to
+ * the visitor — the inbound email is the system of record.
+ *
+ * Privacy: opt-in checkbox links to the locale's privacy policy.
+ */
+type Props = {
+  language: "sv" | "en";
+};
+
+const { language } = Astro.props as Props;
+
+const labels =
+  language === "sv"
+    ? {
+        eyebrow: "Förfrågan",
+        heading: "Lägg till verket i din samling",
+        intro:
+          "Skriv några rader om vilket verk eller vilken upplaga som intresserar dig. Vi återkommer i lugn takt.",
+        name: "Namn",
+        email: "E-post",
+        phone: "Telefon",
+        phoneOptional: "valfritt",
+        about: "Verk",
+        aboutOptional: "valfritt",
+        aboutPlaceholder: "Andetag no. 13",
+        message: "Meddelande",
+        messageOptional: "valfritt",
+        messagePlaceholder: "Något du vill berätta för oss om verket eller om dig själv.",
+        submit: "Skicka förfrågan",
+        privacyPrefix: "Jag godkänner att ANDETAG hör av sig och accepterar ",
+        privacyLink: "integritetspolicyn",
+        privacySuffix: ".",
+        success:
+          "Tack. Vi har tagit emot din förfrågan och hör av oss inom kort.",
+        privacyHref: "/sv/stockholm/privacy/",
+      }
+    : {
+        eyebrow: "Inquiry",
+        heading: "Add a work to your collection",
+        intro:
+          "Write a few lines about which work or edition draws you in. We will be in touch at a calm pace.",
+        name: "Name",
+        email: "Email",
+        phone: "Phone",
+        phoneOptional: "optional",
+        about: "Work",
+        aboutOptional: "optional",
+        aboutPlaceholder: "Andetag no. 13",
+        message: "Message",
+        messageOptional: "optional",
+        messagePlaceholder: "Anything you would like to share about the work or about yourself.",
+        submit: "Send inquiry",
+        privacyPrefix: "I agree that ANDETAG may reply and accept the ",
+        privacyLink: "privacy policy",
+        privacySuffix: ".",
+        success: "Thank you. Your inquiry has been received and we will be in touch shortly.",
+        privacyHref: "/en/stockholm/privacy/",
+      };
+---
+
+<section class="inquiry-form" id="inquiry" aria-labelledby="inquiry-heading">
+  <p class="inquiry-form__eyebrow">{labels.eyebrow}</p>
+  <h2 class="inquiry-form__heading" id="inquiry-heading">{labels.heading}</h2>
+  <p class="inquiry-form__intro">{labels.intro}</p>
+
+  <form
+    class="inquiry-form__form"
+    method="POST"
+    action="/_inquiry"
+    novalidate
+    data-inquiry-form
+  >
+    <input type="hidden" name="locale" value={language} />
+    {/* Honeypot: real users never see or fill this field. */}
+    <div class="inquiry-form__honey" aria-hidden="true">
+      <label>
+        Leave this field empty
+        <input type="text" name="company" tabindex="-1" autocomplete="off" />
+      </label>
+    </div>
+
+    <div class="inquiry-form__row">
+      <label class="inquiry-form__field">
+        <span class="inquiry-form__label">{labels.name}</span>
+        <input type="text" name="name" required autocomplete="name" />
+      </label>
+      <label class="inquiry-form__field">
+        <span class="inquiry-form__label">{labels.email}</span>
+        <input type="email" name="email" required autocomplete="email" />
+      </label>
+    </div>
+
+    <div class="inquiry-form__row">
+      <label class="inquiry-form__field">
+        <span class="inquiry-form__label">
+          {labels.phone}
+          <span class="inquiry-form__hint">{labels.phoneOptional}</span>
+        </span>
+        <input type="tel" name="phone" autocomplete="tel" />
+      </label>
+      <label class="inquiry-form__field">
+        <span class="inquiry-form__label">
+          {labels.about}
+          <span class="inquiry-form__hint">{labels.aboutOptional}</span>
+        </span>
+        <input
+          type="text"
+          name="about"
+          data-inquiry-about
+          placeholder={labels.aboutPlaceholder}
+        />
+      </label>
+    </div>
+
+    <label class="inquiry-form__field inquiry-form__field--full">
+      <span class="inquiry-form__label">
+        {labels.message}
+        <span class="inquiry-form__hint">{labels.messageOptional}</span>
+      </span>
+      <textarea name="message" rows="4" placeholder={labels.messagePlaceholder}></textarea>
+    </label>
+
+    <label class="inquiry-form__optin">
+      <input type="checkbox" name="opt_in" required value="1" />
+      <span>
+        {labels.privacyPrefix}
+        <a href={labels.privacyHref}>{labels.privacyLink}</a>
+        {labels.privacySuffix}
+      </span>
+    </label>
+
+    <button type="submit" class="inquiry-form__submit">{labels.submit}</button>
+
+    <p
+      class="inquiry-form__status"
+      role="status"
+      aria-live="polite"
+      data-inquiry-status
+      hidden
+    >
+      {labels.success}
+    </p>
+  </form>
+</section>
+
+<script>
+  import "../../client-scripts/inquiry-form.ts";
+</script>

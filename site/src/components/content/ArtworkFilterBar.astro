@@ -1,0 +1,122 @@
+---
+/**
+ * Filter pills above the grid. Two filter dimensions: status and format. Series
+ * (originals vs gems) is a section split, not a filter — gems live in a
+ * dedicated section beneath the originals.
+ *
+ * Filter state lives in the URL hash so a filtered view is shareable. The
+ * `artworks-filter.ts` client script reads `#filter=status:for-sale,format:portrait`
+ * (or any subset) on load and on `hashchange`.
+ */
+type Props = {
+  language: "sv" | "en";
+  /** Counts shown beside each pill so visitors don't tap an empty filter. */
+  counts: {
+    statusAll: number;
+    statusForSale: number;
+    statusSold: number;
+    formatAll: number;
+    formatLandscape: number;
+    formatPortrait: number;
+    formatDiptych: number;
+  };
+};
+
+const { language, counts } = Astro.props as Props;
+
+const labels =
+  language === "sv"
+    ? {
+        heading: "Bläddra",
+        statusGroup: "Status",
+        statusAll: "Alla",
+        statusForSale: "Tillgängliga",
+        statusSold: "I samling",
+        formatGroup: "Format",
+        formatAll: "Alla",
+        formatLandscape: "Liggande",
+        formatPortrait: "Stående",
+        formatDiptych: "Diptyk",
+        clear: "Återställ",
+        empty: "Inga verk matchar filtret.",
+      }
+    : {
+        heading: "Browse",
+        statusGroup: "Status",
+        statusAll: "All",
+        statusForSale: "Available",
+        statusSold: "In a collection",
+        formatGroup: "Format",
+        formatAll: "All",
+        formatLandscape: "Landscape",
+        formatPortrait: "Portrait",
+        formatDiptych: "Diptych",
+        clear: "Reset",
+        empty: "No works match this filter.",
+      };
+
+type PillSpec = {
+  group: "status" | "format";
+  value: string;
+  label: string;
+  count: number;
+  defaultActive?: boolean;
+};
+
+const statusPills: PillSpec[] = [
+  { group: "status", value: "all", label: labels.statusAll, count: counts.statusAll, defaultActive: true },
+  { group: "status", value: "for-sale", label: labels.statusForSale, count: counts.statusForSale },
+  { group: "status", value: "sold", label: labels.statusSold, count: counts.statusSold },
+];
+
+const formatPills: PillSpec[] = [
+  { group: "format", value: "all", label: labels.formatAll, count: counts.formatAll, defaultActive: true },
+  { group: "format", value: "landscape", label: labels.formatLandscape, count: counts.formatLandscape },
+  { group: "format", value: "portrait", label: labels.formatPortrait, count: counts.formatPortrait },
+  { group: "format", value: "diptych", label: labels.formatDiptych, count: counts.formatDiptych },
+];
+---
+
+<section class="artwork-filter-bar" aria-label={labels.heading}>
+  <div class="artwork-filter-bar__group" role="group" aria-label={labels.statusGroup}>
+    <span class="artwork-filter-bar__group-label">{labels.statusGroup}</span>
+    <div class="artwork-filter-bar__pills">
+      {statusPills.map((pill) => (
+        <button
+          type="button"
+          class:list={["artwork-filter-pill", pill.defaultActive ? "is-active" : null]}
+          data-filter-group={pill.group}
+          data-filter-value={pill.value}
+          aria-pressed={pill.defaultActive ? "true" : "false"}
+        >
+          <span class="artwork-filter-pill__label">{pill.label}</span>
+          <span class="artwork-filter-pill__count" aria-hidden="true">{pill.count}</span>
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <div class="artwork-filter-bar__group" role="group" aria-label={labels.formatGroup}>
+    <span class="artwork-filter-bar__group-label">{labels.formatGroup}</span>
+    <div class="artwork-filter-bar__pills">
+      {formatPills.map((pill) => (
+        <button
+          type="button"
+          class:list={["artwork-filter-pill", pill.defaultActive ? "is-active" : null]}
+          data-filter-group={pill.group}
+          data-filter-value={pill.value}
+          aria-pressed={pill.defaultActive ? "true" : "false"}
+        >
+          <span class="artwork-filter-pill__label">{pill.label}</span>
+          <span class="artwork-filter-pill__count" aria-hidden="true">{pill.count}</span>
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <p class="artwork-filter-bar__empty" data-filter-empty hidden>{labels.empty}</p>
+</section>
+
+<script>
+  import "../../client-scripts/artworks-filter.ts";
+</script>
