@@ -1,4 +1,5 @@
 ---
+import { mainRoomMeditationBody } from "../../lib/content/stockholm-body-responsive-images";
 import StockholmSeoLandingEn from "./StockholmSeoLandingEn.astro";
 
 /**
@@ -15,10 +16,18 @@ const introMarkdown = [
   "<p>A room shaped so the body can find its own breath.</p>",
   "<p>A place to settle.<br />A place to breathe.</p>",
 ].join("");
+
+const introImage = {
+  sources: mainRoomMeditationBody,
+  alt: "Person sitting still, surrounded by luminous textile art at ANDETAG",
+  width: 960,
+  height: 611,
+};
 ---
 
 <StockholmSeoLandingEn
   galleryId="stockholm-en-meditation"
   h1Text="A calm place for meditation in Stockholm"
   introMarkdown={introMarkdown}
+  introImage={introImage}
 />

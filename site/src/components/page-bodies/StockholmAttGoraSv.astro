@@ -1,4 +1,5 @@
 ---
+import { corporateEventsGroupBody } from "../../lib/content/stockholm-body-responsive-images";
 import StockholmSeoLandingSv from "./StockholmSeoLandingSv.astro";
 
 /**
@@ -13,10 +14,18 @@ const introMarkdown = [
   "<p>Andas.</p>",
   "<p>Det räcker.</p>",
 ].join("");
+
+const introImage = {
+  sources: corporateEventsGroupBody,
+  alt: "Fyra besökare sitter tillsammans framför en stor vägg av lysande textilskulpturer i ANDETAG.",
+  width: 960,
+  height: 687,
+};
 ---
 
 <StockholmSeoLandingSv
   galleryId="stockholm-att-gora"
   h1Text="Något lugnt att göra i Stockholm"
   introMarkdown={introMarkdown}
+  introImage={introImage}
 />

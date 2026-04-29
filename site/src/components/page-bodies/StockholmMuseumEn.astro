@@ -1,4 +1,5 @@
 ---
+import { corporateEventsFoyerBody } from "../../lib/content/stockholm-body-responsive-images";
 import StockholmSeoLandingEn from "./StockholmSeoLandingEn.astro";
 
 /** English peer of `StockholmMuseumSv.astro`; Swedish source `stockholm-museum-stockholm.html`. */
@@ -7,10 +8,18 @@ const introMarkdown = [
   "<p>There is no traditional collection on the walls. There is a place to pause, sit down, take your time, and land. An immersive art environment where light and woven textile surround the room rather than hang on a wall.<br />Light and textile art woven together with music that shares one breath.</p>",
   "<p>A place to pause.<br />A place to breathe.</p>",
 ].join("");
+
+const introImage = {
+  sources: corporateEventsFoyerBody,
+  alt: "The museum lobby with framed textile works, a sofa with visitors, and a large wall sculpture at ANDETAG.",
+  width: 960,
+  height: 640,
+};
 ---
 
 <StockholmSeoLandingEn
   galleryId="stockholm-en-museum"
   h1Text="A calm museum in Stockholm"
   introMarkdown={introMarkdown}
+  introImage={introImage}
 />

@@ -47,22 +47,14 @@ A thin clone of the Stockholm home page that exists **only to rank for a query f
 
 Everything else (FAQ, gallery, tickets columns, testimonials, video, map, CTAs) is inherited unchanged. Landings are **not in the main menu**; they appear in the **footer `seoLinks` strip** in `footer-sv.ts` and `footer-en-stockholm.ts`. Hreflang parity rules still apply (sv + en pair, both shipped together). Use **§E**, not **§B**.
 
-The five existing landings (per `docs/Andetag SEO Manual.md` §17.1):
-
-| Topic | sv slug | en slug |
-|-------|---------|---------|
-| Activity | `/sv/stockholm/aktivitet-inomhus-stockholm/` | `/en/stockholm/indoor-activity-stockholm/` |
-| Museum | `/sv/stockholm/museum-stockholm/` | `/en/stockholm/museum-stockholm/` |
-| Things to do | `/sv/stockholm/att-gora-stockholm/` | `/en/stockholm/things-to-do-stockholm/` |
-| Event | `/sv/stockholm/event-stockholm/` | `/en/stockholm/event-stockholm/` |
-| Exhibition | `/sv/stockholm/utstallning-stockholm/` | `/en/stockholm/exhibition-stockholm/` |
+To see the current set of landings, read the `seoLinks` arrays in `site/src/lib/chrome/footer-sv.ts` and `site/src/lib/chrome/footer-en-stockholm.ts` — those are the only surfaces that exclusively list SEO landing pages, so they are always up to date. Each entry's `href` is the canonical slug for that landing.
 
 ### How to classify a new request
 
 Run this in order; first match wins.
 
 1. **Did the user say "landing page", "SEO landing", or describe the page as a clone / variant of the home page targeted at a search term?** → SEO landing (§E).
-2. **Is the user's brief essentially "rank on the word X"?** Does it boil down to picking a slug, an H1 phrase, and a lead paragraph that re-uses the brand pitch with X swapped in? → SEO landing (§E). Examples: *Activity*, *Museum*, *Things to do*, *Event*, *Exhibition* — they all promote brand keywords without adding new substance.
+2. **Is the user's brief essentially "rank on the word X"?** Does it boil down to picking a slug, an H1 phrase, and a lead paragraph that re-uses the brand pitch with X swapped in? → SEO landing (§E). Examples: *Activity*, *Museum*, *Meditation* — they all promote brand keywords without adding new substance. (Read `footer-sv.ts` `seoLinks` for the current full list.)
 3. **Does the request require unique sections, distinct facts, audience-specific guidance, or a different page shape than the home page?** → Standard page (§B). Examples: *Corporate events* needs booking flows, group sizes, and B2B copy. *Neurodiversity / NPF* needs sensory guidance, accessibility specifics, and bespoke imagery. Both are SEO-motivated, but neither fits the shared-body template.
 4. **When unclear, ask Gustaf.** Do not silently choose the heavier path — a standard page that should have been a landing is wasted effort, and a landing that should have been standard ships thin content.
 
@@ -176,7 +168,7 @@ Example: a new "Stillness" landing at `/sv/stockholm/stillhet-stockholm/` + `/en
 3. **Body registry.** Add both paths to `PAGE_CUSTOM_BODY_PATHS` in `site/src/lib/page-registry/page-body-registry.ts`.
 4. **Body components — thin delegators.** Create `site/src/components/page-bodies/Stockholm<Topic>Sv.astro` and `Stockholm<Topic>En.astro`. Each file is a few lines: import `StockholmSeoLandingSv` (or `…En`), define `introMarkdown` (the lead paragraphs beside the booking aside), and pass `galleryId`, `h1Text` (or `h1Html`), and `introMarkdown` as props. Model on `StockholmAktivitetInomhusSv.astro` / `StockholmIndoorActivityEn.astro`. **Do not** duplicate the FAQ, gallery, tickets, testimonials, video, or map blocks — they live in the shared body and must be inherited unchanged so the existing landings stay structurally identical.
 5. **Route wiring.** In `site/src/pages/[...slug].astro`, import both new components and add entries to the `pageBodies` map keyed by the canonical paths. Keys must exactly match `PAGE_CUSTOM_BODY_PATHS`.
-6. **Footer surface (not main nav).** Add an entry to the `seoLinks` array in `site/src/lib/chrome/footer-sv.ts` and `site/src/lib/chrome/footer-en-stockholm.ts`. Use a one- or two-word label aligned with the H1 keyword (existing labels: `Aktivitet` / `Activity`, `Museum`, `Att göra` / `Things to do`, `Event`, `Utställning` / `Exhibition`). Do **not** edit `NAVIGATION_VARIANTS` in `site/src/lib/chrome/navigation.ts` — landings are deliberately absent from the main menu.
+6. **Footer surface (not main nav).** Add an entry to the `seoLinks` array in `site/src/lib/chrome/footer-sv.ts` and `site/src/lib/chrome/footer-en-stockholm.ts`. Use a one- or two-word label aligned with the H1 keyword (read the existing `seoLinks` entries in `footer-sv.ts` for the label style). Do **not** edit `NAVIGATION_VARIANTS` in `site/src/lib/chrome/navigation.ts` — landings are deliberately absent from the main menu.
 7. **Footer test.** If `site/src/lib/chrome/footer-en-stockholm.test.ts` (or an sv peer, if added later) asserts the `seoLinks` list, update the expected labels and hrefs to include the new landing. Run `npm test` and confirm the assertions pass.
 8. **Internal linking.** Per `docs/Andetag SEO Manual.md` §15 / §17.2, the new landing must link back to ≥2 cluster pages and receive ≥2 inbound in-body links. Inbound links go in body copy on at least two existing pages (typically the Stockholm hub plus one topical sibling). Outbound links are usually already covered by the shared body (booking, biljetter, säsongskort, etc.) — verify by reading the rendered output, do not add bespoke link blocks to a landing.
 9. **Imagery.** Skip the **photo / text balance** check for landings — the page reuses the home's gallery, intro figure, and testimonial backgrounds. Adding new imagery to the shared body changes every landing at once and is out of scope here.

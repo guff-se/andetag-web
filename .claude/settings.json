@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "input=$(cat); cmd=$(echo \"$input\" | jq -r '.tool_input.command // \"\"'); case \"$cmd\" in *\"git push\"*) merged=$(git log HEAD..origin/main --oneline 2>/dev/null | head -3); if [ -n \"$merged\" ]; then echo '{\"continue\": false, \"stopReason\": \"BLOCKED: The current branch appears to already be merged into origin/main. Any new commits must go on a fresh branch cut from origin/main (git checkout -b new-branch origin/main). Verify with: git log HEAD..origin/main --oneline\"}'; exit 0; fi;; esac; echo '{\"continue\": true}'",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
