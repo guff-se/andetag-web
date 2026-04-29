@@ -6,9 +6,10 @@
  *
  * Visual language:
  *  - Cream sea, soft graphite land, brand-pink dots for the world map.
- *  - Generous whitespace, type-led cards, image-first.
- *  - Gentle reveal on scroll; image cross-fade on hover (skipped for
- *    `prefers-reduced-motion`).
+ *  - Gallery-wall grid of square tiles; image-first, type in modal.
+ *  - Hover cross-fade to dark mood; tooltip on desktop pointer only.
+ *  - Modal opens on tile click; mood switcher, full meta, prev/next.
+ *  - Gentle reduced-motion overrides throughout.
  */
 
 .page-artworks {
@@ -20,7 +21,6 @@
   --artwork-line: rgba(74, 13, 47, 0.18);
   --artwork-muted: #635961;
   --artwork-radius: 14px;
-  --artwork-card-w: 30rem;
   color: var(--artwork-graphite);
 }
 
@@ -84,7 +84,6 @@
   width: 100%;
   height: auto;
   display: block;
-  /* Match SVG viewBox aspect ratio (1100x460) so SVG fills width without distortion. */
   max-height: 60vh;
 }
 
@@ -176,7 +175,7 @@
 }
 
 /* ============================================================
- * Filter bar
+ * Filter bar — format only
  * ============================================================ */
 
 .artwork-filter-bar {
@@ -187,7 +186,7 @@
   padding: 1.25rem 0;
   border-top: 1px solid var(--artwork-line);
   border-bottom: 1px solid var(--artwork-line);
-  margin: 0 0 3rem;
+  margin: 0 0 2rem;
   position: relative;
 }
 
@@ -259,7 +258,7 @@
 }
 
 /* ============================================================
- * Grid + cards
+ * Section headings
  * ============================================================ */
 
 .page-artworks__section {
@@ -295,92 +294,86 @@
   margin: 0;
 }
 
+/* ============================================================
+ * Gallery grid — square tiles
+ *
+ * 2 col < 600px | 3 col 600–1099px | 4 col 1100–1399px | 5 col ≥ 1400px
+ * ============================================================ */
+
+.artwork-grid-section {
+  /* wrapper for the main grid + the sold accordion */
+}
+
 .artwork-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 3rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
 }
 
-@media (min-width: 720px) {
-  .artwork-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 3rem 2rem;
-  }
-}
-
-@media (min-width: 1100px) {
+@media (min-width: 600px) {
   .artwork-grid {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-/* Filtering: hide non-matching cards via attribute selectors. */
-.artwork-grid[data-filter-status="for-sale"] [data-artwork-status="sold"],
-.artwork-grid[data-filter-status="sold"] [data-artwork-status="for-sale"] {
-  display: none;
-}
-
-.artwork-grid[data-filter-format="landscape"] [data-artwork-format="portrait"],
-.artwork-grid[data-filter-format="landscape"] [data-artwork-format="diptych"],
-.artwork-grid[data-filter-format="portrait"] [data-artwork-format="landscape"],
-.artwork-grid[data-filter-format="portrait"] [data-artwork-format="diptych"],
-.artwork-grid[data-filter-format="diptych"] [data-artwork-format="landscape"],
-.artwork-grid[data-filter-format="diptych"] [data-artwork-format="portrait"] {
-  display: none;
-}
-
-.artwork-card {
-  display: flex;
-  flex-direction: column;
-  background: transparent;
-  position: relative;
-  scroll-margin-top: 6rem;
-  /* Reveal on intersection — see `prefers-reduced-motion` override. */
-  opacity: 0;
-  transform: translateY(12px);
-  animation: artwork-card-reveal 700ms ease forwards;
-  animation-play-state: running;
-}
-
-.artwork-card:nth-child(1) { animation-delay: 0ms; }
-.artwork-card:nth-child(2) { animation-delay: 60ms; }
-.artwork-card:nth-child(3) { animation-delay: 120ms; }
-.artwork-card:nth-child(4) { animation-delay: 180ms; }
-.artwork-card:nth-child(5) { animation-delay: 240ms; }
-.artwork-card:nth-child(6) { animation-delay: 300ms; }
-
-@keyframes artwork-card-reveal {
-  to {
-    opacity: 1;
-    transform: translateY(0);
+@media (min-width: 1100px) {
+  .artwork-grid {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
-.artwork-card.is-pinned {
-  outline: 1px solid var(--artwork-pink);
-  outline-offset: 12px;
-  border-radius: 4px;
-  transition: outline-offset 220ms ease;
+@media (min-width: 1400px) {
+  .artwork-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
 }
 
-.artwork-card__media {
+/* Filtering: hide non-matching tiles via attribute selectors. */
+.artwork-grid[data-filter-format="landscape"] [data-artwork-format="portrait"] {
+  display: none;
+}
+
+.artwork-grid[data-filter-format="portrait"] [data-artwork-format="landscape"] {
+  display: none;
+}
+
+/* ============================================================
+ * Tile (Tier 1)
+ * ============================================================ */
+
+.artwork-tile {
+  /* Button reset */
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+  /* Tile layout */
   position: relative;
+  display: block;
   width: 100%;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
-  border-radius: 2px;
-  background: var(--artwork-pink-veil);
+  border-radius: 0;
+  background-color: var(--artwork-pink-veil);
 }
 
-.artwork-card.is-format-landscape .artwork-card__media {
-  aspect-ratio: 5 / 4;
+.artwork-tile:focus-visible {
+  outline: 2px solid #e0e31c;
+  outline-offset: -2px;
+  z-index: 1;
 }
 
-.artwork-card.is-format-diptych .artwork-card__media {
-  aspect-ratio: 16 / 9;
+/* Pinned (highlighted by map hover) */
+.artwork-tile.is-pinned {
+  outline: 2px solid var(--artwork-pink);
+  outline-offset: -2px;
+  z-index: 1;
 }
 
-.artwork-card__frame {
+/* ---- frames ---- */
+
+.artwork-tile__frame {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -388,136 +381,391 @@
   display: block;
 }
 
-.artwork-card__frame img {
+.artwork-tile__frame img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
-  transition: transform 900ms ease, opacity 600ms ease;
+  display: block;
 }
 
-.artwork-card__frame.is-base img {
-  opacity: 1;
+.artwork-tile__frame.is-base img {
+  transition: transform 900ms ease;
 }
 
-.artwork-card__frame.is-overlay {
+.artwork-tile__frame.is-overlay {
   opacity: 0;
   transition: opacity 600ms ease;
 }
 
-.artwork-card__media[data-frame-count="1"] .artwork-card__frame.is-overlay {
-  display: none;
-}
-
-.artwork-card:hover .artwork-card__frame.is-overlay,
-.artwork-card:focus-within .artwork-card__frame.is-overlay {
+.artwork-tile:hover .artwork-tile__frame.is-overlay,
+.artwork-tile:focus-visible .artwork-tile__frame.is-overlay {
   opacity: 1;
 }
 
-.artwork-card:hover .artwork-card__frame img {
-  transform: scale(1.02);
+.artwork-tile:hover .artwork-tile__frame.is-base img {
+  transform: scale(1.03);
 }
 
-.artwork-card__status-pill {
+/* ---- foot bar (label + dot) ---- */
+
+.artwork-tile__foot {
   position: absolute;
-  top: 0.75rem;
-  left: 0.75rem;
-  display: inline-flex;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.5rem 0.6rem;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.55));
+  display: flex;
   align-items: center;
   gap: 0.4rem;
-  padding: 0.3rem 0.75rem 0.3rem 0.6rem;
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(4px);
-  border-radius: 999px;
+}
+
+.artwork-tile__dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: var(--artwork-pink);
+  box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.6);
+}
+
+.artwork-tile.is-sold .artwork-tile__dot {
+  background: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.25);
+}
+
+.artwork-tile__label {
   font-family: "JostLocal", "Jost", sans-serif;
-  font-size: 0.7rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: lowercase;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1;
+}
+
+/* ---- tooltip (Tier 2 — desktop hover only) ---- */
+
+.artwork-tile__tooltip {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  background: rgba(42, 34, 38, 0.92);
+  backdrop-filter: blur(4px);
+  color: rgba(255, 255, 255, 0.95);
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  padding: 0.35rem 0.7rem;
+  border-radius: 4px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 180ms ease;
+  z-index: 10;
+  /* Prevent tooltip from overflowing viewport edges */
+  max-width: min(28rem, 90vw);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.artwork-tile:hover .artwork-tile__tooltip,
+.artwork-tile:focus-visible .artwork-tile__tooltip {
+  opacity: 1;
+}
+
+/* Hide tooltip on touch devices */
+@media (pointer: coarse) {
+  .artwork-tile__tooltip {
+    display: none;
+  }
+}
+
+/* ============================================================
+ * Sold accordion
+ * ============================================================ */
+
+.artwork-sold-details {
+  margin-top: 1.5rem;
+}
+
+.artwork-sold-summary {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  list-style: none;
+  padding: 0.85rem 0;
+  border-top: 1px solid var(--artwork-line);
+  border-bottom: 1px solid var(--artwork-line);
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-size: 0.8rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--artwork-graphite);
+  color: var(--artwork-muted);
+  user-select: none;
+  margin-bottom: 0;
 }
 
-.artwork-card__status-dot {
+.artwork-sold-summary::-webkit-details-marker {
+  display: none;
+}
+
+.artwork-sold-summary__arrow {
+  font-size: 1.1rem;
+  line-height: 1;
+  transition: transform 280ms ease;
   display: inline-block;
-  width: 7px;
-  height: 7px;
+}
+
+.artwork-sold-details[open] .artwork-sold-summary__arrow {
+  transform: rotate(90deg);
+}
+
+.artwork-sold-details[open] .artwork-sold-summary {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+/* Muted sold grid — slightly desaturated */
+.artwork-grid--sold {
+  margin-top: 0;
+  opacity: 0.85;
+}
+
+/* Animate open/close — best-effort (no CSS-only for details content height) */
+.artwork-sold-details .artwork-grid--sold {
+  animation: none;
+}
+
+/* ============================================================
+ * Modal (Tier 3)
+ * ============================================================ */
+
+body.is-modal-open {
+  overflow: hidden;
+}
+
+.artwork-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+}
+
+.artwork-modal[hidden] {
+  display: none;
+}
+
+.artwork-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(42, 34, 38, 0.72);
+  backdrop-filter: blur(3px);
+  cursor: pointer;
+}
+
+.artwork-modal__panel {
+  position: relative;
+  background: #fff;
+  border-radius: 16px;
+  max-width: 900px;
+  width: calc(100% - 2rem);
+  max-height: 90vh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  box-shadow: 0 24px 64px rgba(42, 34, 38, 0.28);
+}
+
+.artwork-modal__close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid var(--artwork-line);
   border-radius: 50%;
+  width: 2.2rem;
+  height: 2.2rem;
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--artwork-graphite);
+  transition: background 200ms ease, color 200ms ease;
+}
+
+.artwork-modal__close:hover,
+.artwork-modal__close:focus-visible {
   background: var(--artwork-pink);
+  color: #fff;
+  border-color: var(--artwork-pink);
 }
 
-.artwork-card.is-sold .artwork-card__status-dot {
-  background: rgba(74, 13, 47, 0.4);
+/* Panel body: image + meta side-by-side on wide, stacked on narrow */
+.artwork-modal__body {
+  display: grid;
+  grid-template-columns: 1fr;
 }
 
-.artwork-card__body {
-  padding: 1.25rem 0 0;
+@media (min-width: 640px) {
+  .artwork-modal__body {
+    grid-template-columns: 1fr 1fr;
+    min-height: 420px;
+  }
+}
+
+/* Image area */
+.artwork-modal__img-area {
+  display: flex;
+  flex-direction: column;
+  background: var(--artwork-pink-veil);
+  border-radius: 16px 16px 0 0;
+}
+
+@media (min-width: 640px) {
+  .artwork-modal__img-area {
+    border-radius: 16px 0 0 16px;
+  }
+}
+
+.artwork-modal__img-wrap {
+  flex: 1;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.artwork-modal__img-wrap picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.artwork-modal__img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  min-height: 260px;
+}
+
+@media (min-width: 640px) {
+  .artwork-modal__img-wrap img {
+    min-height: 380px;
+  }
+}
+
+/* Mood switcher */
+.artwork-modal__moods {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 0.6rem;
+  background: rgba(42, 34, 38, 0.04);
+  border-top: 1px solid var(--artwork-line);
+}
+
+.artwork-modal__mood-btn {
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--artwork-muted);
+  background: transparent;
+  border: 1px solid var(--artwork-line);
+  border-radius: 999px;
+  padding: 0.3rem 0.7rem;
+  cursor: pointer;
+  transition: background 180ms ease, color 180ms ease, border-color 180ms ease;
+}
+
+.artwork-modal__mood-btn.is-active {
+  background: var(--artwork-pink);
+  border-color: var(--artwork-pink);
+  color: #fff;
+}
+
+.artwork-modal__mood-btn:hover:not(.is-active) {
+  border-color: var(--artwork-pink);
+  color: var(--artwork-pink);
+}
+
+/* Meta sidebar */
+.artwork-modal__meta {
+  padding: 2rem 1.5rem 2rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-.artwork-card__head {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 1rem;
-  border-bottom: 1px solid var(--artwork-line);
-  padding-bottom: 0.65rem;
-}
-
-.artwork-card__title {
+.artwork-modal__title {
   font-family: "BaskervvilleLocal", "Baskervville", Georgia, serif;
   font-weight: 400;
-  font-size: 1.4rem;
+  font-size: clamp(1.2rem, 2.5vw, 1.7rem);
   line-height: 1.2;
   margin: 0;
   color: var(--artwork-graphite);
+  /* leave room for the close button */
+  padding-right: 2.5rem;
 }
 
-.artwork-card__price {
+@media (min-width: 640px) {
+  .artwork-modal__title {
+    padding-right: 0;
+  }
+}
+
+.artwork-modal__price {
   font-family: "JostLocal", "Jost", sans-serif;
-  font-size: 0.95rem;
-  font-weight: 400;
+  font-size: 1rem;
+  font-weight: 500;
   color: var(--artwork-pink);
   margin: 0;
-  white-space: nowrap;
   font-variant-numeric: tabular-nums;
 }
 
-.artwork-card.is-sold .artwork-card__price {
+.artwork-modal__price.is-sold {
   color: var(--artwork-muted);
   font-style: italic;
-}
-
-.artwork-card__meta {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 0.4rem 1rem;
-  margin: 0;
-  font-family: "JostLocal", "Jost", sans-serif;
-  font-size: 0.85rem;
-  line-height: 1.4;
-}
-
-.artwork-card__meta > div {
-  display: contents;
-}
-
-.artwork-card__meta dt {
-  color: var(--artwork-muted);
-  font-size: 0.7rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  align-self: center;
   font-weight: 400;
 }
 
-.artwork-card__meta dd {
+/* Details dl */
+.artwork-modal__details {
+  margin: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.35rem 1rem;
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-size: 0.85rem;
+}
+
+.artwork-modal__details > div {
+  display: contents;
+}
+
+.artwork-modal__details dt {
+  color: var(--artwork-muted);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  align-self: center;
+}
+
+.artwork-modal__details dd {
   margin: 0;
   color: var(--artwork-graphite);
   font-variant-numeric: tabular-nums;
 }
 
-.artwork-card__inquire {
+/* Inquire link */
+.artwork-modal__inquire {
   align-self: flex-start;
   font-family: "JostLocal", "Jost", sans-serif;
   font-size: 0.78rem;
@@ -530,23 +778,60 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  transition: background 220ms ease, color 220ms ease, transform 220ms ease;
-  margin-top: 0.25rem;
+  transition: background 220ms ease, color 220ms ease;
+  margin-top: auto;
 }
 
-.artwork-card__inquire:hover,
-.artwork-card__inquire:focus-visible {
+.artwork-modal__inquire:hover,
+.artwork-modal__inquire:focus-visible {
   background: var(--artwork-pink);
   color: #fafafa;
 }
 
-.artwork-card__inquire:hover .artwork-card__inquire-arrow {
-  transform: translateX(4px);
+/* Nav arrows */
+.artwork-modal__nav {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(4px);
+  border: 1px solid var(--artwork-line);
+  border-radius: 50%;
+  width: 2.8rem;
+  height: 2.8rem;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--artwork-graphite);
+  z-index: 201;
+  transition: background 200ms ease, color 200ms ease;
 }
 
-.artwork-card__inquire-arrow {
-  display: inline-block;
-  transition: transform 220ms ease;
+.artwork-modal__nav:hover,
+.artwork-modal__nav:focus-visible {
+  background: var(--artwork-pink);
+  color: #fff;
+  border-color: var(--artwork-pink);
+}
+
+.artwork-modal__nav.is-prev {
+  left: 0.5rem;
+}
+
+.artwork-modal__nav.is-next {
+  right: 0.5rem;
+}
+
+@media (min-width: 960px) {
+  .artwork-modal__nav.is-prev {
+    left: 1rem;
+  }
+  .artwork-modal__nav.is-next {
+    right: 1rem;
+  }
 }
 
 /* ============================================================
@@ -727,21 +1012,23 @@
  * ============================================================ */
 
 @media (prefers-reduced-motion: reduce) {
-  .artwork-card {
-    opacity: 1;
-    transform: none;
-    animation: none;
-  }
-  .artwork-card:hover .artwork-card__frame img {
-    transform: none;
-  }
-  .artwork-card__frame img,
-  .artwork-card__frame.is-overlay,
+  .artwork-tile__frame.is-base img,
+  .artwork-tile__frame.is-overlay,
+  .artwork-tile__tooltip,
   .artwork-map__pin,
   .artwork-map__pin-glow,
   .artwork-map__pin-dot,
-  .artwork-card__inquire,
-  .artwork-card__inquire-arrow {
+  .artwork-modal__close,
+  .artwork-modal__nav,
+  .artwork-modal__mood-btn,
+  .artwork-modal__inquire,
+  .artwork-sold-summary__arrow,
+  .artwork-filter-pill,
+  .inquiry-form__submit {
     transition: none;
+  }
+
+  .artwork-tile:hover .artwork-tile__frame.is-base img {
+    transform: none;
   }
 }

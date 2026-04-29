@@ -1,27 +1,43 @@
 ---
 import "../../styles/artworks.css";
-import { ARTWORKS, getCatalogueTotals } from "../../lib/content/artworks";
+import { ARTWORKS } from "../../lib/content/artworks";
 import ArtworkFilterBar from "../content/ArtworkFilterBar.astro";
 import ArtworkGrid from "../content/ArtworkGrid.astro";
 import ArtworkMap from "../embeds/ArtworkMap.astro";
+import ArtworkModal from "../content/ArtworkModal.astro";
 import InquiryForm from "../embeds/InquiryForm.astro";
 
 const originals = ARTWORKS.filter((a) => a.series === "original");
+const available = originals.filter((a) => a.status === "for-sale");
+const sold = originals.filter((a) => a.status === "sold");
 const gems = ARTWORKS.filter((a) => a.series === "gem");
-const totals = getCatalogueTotals(ARTWORKS);
 
 const counts = {
-  statusAll: originals.length,
-  statusForSale: originals.filter((a) => a.status === "for-sale").length,
-  statusSold: originals.filter((a) => a.status === "sold").length,
   formatAll: originals.length,
   formatLandscape: originals.filter((a) => a.format === "landscape").length,
   formatPortrait: originals.filter((a) => a.format === "portrait").length,
-  formatDiptych: originals.filter((a) => a.format === "diptych").length,
 };
+
+// Serialize artworks for modal JS — order: available originals, sold originals, gems
+const modalOrder = [...available, ...sold, ...gems];
+const artworksJson = JSON.stringify(modalOrder.map((a) => ({
+  id: a.id, series: a.series, number: a.number ?? null,
+  edition: a.edition ?? null,
+  titleSv: a.title.sv, titleEn: a.title.en,
+  year: a.year, w: a.dimensionsCm.w, h: a.dimensionsCm.h,
+  format: a.format, status: a.status, priceSek: a.priceSek ?? null,
+  locationSv: a.location.label.sv, locationEn: a.location.label.en,
+  images: a.images.map((img) => ({
+    src: img.src, webp640: img.webp640, webp960: img.webp960,
+    fullSrc: img.fullSrc ?? null, mood: img.mood,
+    altSv: img.alt.sv, altEn: img.alt.en,
+  })),
+})));
 ---
 
 <div class="page-migrated page-artworks" lang="sv">
+  <script type="application/json" id="artworks-json" set:html={artworksJson}></script>
+
   <header class="page-artworks__lead">
     <h1>Andetagverken</h1>
     <p>
@@ -41,10 +57,10 @@ const counts = {
 
   <ArtworkMap artworks={ARTWORKS} language="sv" />
 
-  <section class="page-artworks__section" aria-labelledby="originals-heading">
+  <section class="page-artworks__section" aria-labelledby="originals-heading-sv">
     <header class="page-artworks__section-head">
       <p class="page-artworks__section-eyebrow">Original</p>
-      <h2 class="page-artworks__section-heading" id="originals-heading">Andetag no. 1 till 50</h2>
+      <h2 class="page-artworks__section-heading" id="originals-heading-sv">Andetag no. 1 till 50</h2>
       <p class="page-artworks__section-intro">
         Varje original är ett unikt verk. Storlek, ljus och rörelse skiljer dem åt; samma
         andning bär dem alla.
@@ -52,22 +68,27 @@ const counts = {
     </header>
 
     <ArtworkFilterBar language="sv" counts={counts} />
-    <ArtworkGrid artworks={originals} language="sv" gridId="originals" eagerFirst={true} />
+    <ArtworkGrid
+      available={available} sold={sold}
+      language="sv" gridId="originals" eagerFirst={true}
+      soldLabel={`I samling (${sold.length})`}
+    />
   </section>
 
-  <section class="page-artworks__section" aria-labelledby="gems-heading">
+  <section class="page-artworks__section" aria-labelledby="gems-heading-sv">
     <header class="page-artworks__section-head">
       <p class="page-artworks__section-eyebrow">Gems</p>
-      <h2 class="page-artworks__section-heading" id="gems-heading">Tre verk i upplagor</h2>
+      <h2 class="page-artworks__section-heading" id="gems-heading-sv">Tre verk i upplagor</h2>
       <p class="page-artworks__section-intro">
         Tre mindre verk i optisk fibertextil, vävda i upplagor om sex eller tio. Samma
         material, samma andetag, en lugnare skala.
       </p>
     </header>
 
-    <ArtworkGrid artworks={gems} language="sv" gridId="gems" />
+    <ArtworkGrid available={gems} language="sv" gridId="gems" />
   </section>
 
+  <ArtworkModal language="sv" />
   <InquiryForm language="sv" />
 
   <section class="content-section align-left">

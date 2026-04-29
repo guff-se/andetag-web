@@ -1,31 +1,45 @@
 ---
 /**
- * Grid of artwork cards. Filter classes are applied to the `[data-artwork-grid]`
+ * Grid of artwork tiles. Filter classes are applied to the `[data-artwork-grid]`
  * container by `client-scripts/artworks-filter.ts`; CSS handles visibility.
+ *
+ * Section split: available artworks shown first in the main grid; sold artworks
+ * collapsed inside a <details> accordion below (originals only). Gems caller
+ * passes only `available` with no `sold`.
  */
 import type { Artwork } from "../../lib/content/artworks";
 import ArtworkCard from "./ArtworkCard.astro";
 
 type Props = {
-  artworks: readonly Artwork[];
+  available: readonly Artwork[];
+  sold?: readonly Artwork[];
   language: "sv" | "en";
-  /** First card on the page can be eagerly loaded for LCP. */
   eagerFirst?: boolean;
-  /** Suffix used for unique grid id (e.g. "originals", "gems"). */
   gridId: string;
+  soldLabel?: string; // e.g. "I samling (20)"
 };
 
-const { artworks, language, eagerFirst = false, gridId } = Astro.props as Props;
+const { available, sold = [], language, eagerFirst = false, gridId, soldLabel = "" } = Astro.props as Props;
 ---
 
-<div
-  class="artwork-grid"
-  data-artwork-grid
-  data-grid-id={gridId}
-  data-filter-status="all"
-  data-filter-format="all"
->
-  {artworks.map((artwork, i) => (
-    <ArtworkCard artwork={artwork} language={language} eager={eagerFirst && i === 0} />
-  ))}
+<div class="artwork-grid-section" data-grid-section={gridId}>
+  <div class="artwork-grid" data-artwork-grid data-grid-id={gridId} data-filter-format="all">
+    {available.map((artwork, i) => (
+      <ArtworkCard artwork={artwork} language={language} eager={eagerFirst && i === 0} />
+    ))}
+  </div>
+
+  {sold.length > 0 && (
+    <details class="artwork-sold-details">
+      <summary class="artwork-sold-summary">
+        <span class="artwork-sold-summary__label">{soldLabel}</span>
+        <span class="artwork-sold-summary__arrow" aria-hidden="true">›</span>
+      </summary>
+      <div class="artwork-grid artwork-grid--sold" data-artwork-grid data-grid-id={`${gridId}-sold`} data-filter-format="all">
+        {sold.map((artwork) => (
+          <ArtworkCard artwork={artwork} language={language} />
+        ))}
+      </div>
+    </details>
+  )}
 </div>
