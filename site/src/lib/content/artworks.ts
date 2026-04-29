@@ -157,10 +157,17 @@ const CHARLOTTESVILLE: ArtworkLocation = {
   privacy: "city",
 };
 
-const PORTUGAL: ArtworkLocation = {
-  label: { sv: "Portugal", en: "Portugal" },
-  lat: 38.7169,
-  lon: -9.1399,
+const SAN_JOSE_CR: ArtworkLocation = {
+  label: { sv: "San José, CR", en: "San José, CR" },
+  lat: 9.9281,
+  lon: -84.0907,
+  privacy: "city",
+};
+
+const FARO: ArtworkLocation = {
+  label: { sv: "Faro, PT", en: "Faro, PT" },
+  lat: 37.0194,
+  lon: -7.9322,
   privacy: "city",
 };
 
@@ -435,7 +442,7 @@ export const ARTWORKS: readonly Artwork[] = [
     dimensionsCm: { w: 90, h: 110 },
     format: "portrait",
     status: "sold",
-    location: MIAMI,
+    location: SAN_JOSE_CR,
     images: origPhotos(15),
   },
   {
@@ -471,7 +478,7 @@ export const ARTWORKS: readonly Artwork[] = [
     dimensionsCm: { w: 85, h: 110 },
     format: "portrait",
     status: "sold",
-    location: PORTUGAL,
+    location: FARO,
     images: origPhotos(18),
   },
   {
