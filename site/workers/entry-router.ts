@@ -96,6 +96,7 @@ export default {
         location,
         search: url.search,
         cookieHeader: request.headers.get("Cookie"),
+        acceptLanguage: request.headers.get("Accept-Language"),
       });
       return redirectResponse(target);
     }
