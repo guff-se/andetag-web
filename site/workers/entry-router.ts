@@ -1,5 +1,6 @@
 import {
   decideEnglishHubRouting,
+  decideLocationShortcutRouting,
   decideRootRouting,
   entrySetCookieHeader,
   entryTokenForContentPath,
@@ -83,6 +84,22 @@ export default {
 
     const deSvNorm = normalizeDeSvRoots(url.pathname, url.search);
     if (deSvNorm) return deSvNorm;
+
+    if (
+      url.pathname === "/berlin" ||
+      url.pathname === "/berlin/" ||
+      url.pathname === "/stockholm" ||
+      url.pathname === "/stockholm/"
+    ) {
+      const location = url.pathname.startsWith("/berlin") ? "berlin" : "stockholm";
+      const target = decideLocationShortcutRouting({
+        location,
+        search: url.search,
+        cookieHeader: request.headers.get("Cookie"),
+        acceptLanguage: request.headers.get("Accept-Language"),
+      });
+      return redirectResponse(target);
+    }
 
     if (url.pathname === "/" || url.pathname === "") {
       const d = decideRootRouting({
