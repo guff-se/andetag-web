@@ -3,6 +3,10 @@
  * One artwork card. Image area cross-fades through the artwork's frames; the
  * meta block sits beneath in a quiet two-column grid (label / value pairs).
  *
+ * Image order: images[0] (mood=light) is the base; images[1] (mood=dark) is
+ * the overlay that cross-fades in on hover. Remaining images are for the
+ * lightbox only.
+ *
  * Card → inquiry form: each card carries a `data-artwork-card="<id>"`. The
  * "Inquire" link points to `#inquiry?about=<id>` and the form pre-fills its
  * `about` field from the URL hash on the artworks page.

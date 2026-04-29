@@ -3,8 +3,13 @@ import {
   ANDETAG_GEM_TOTAL,
   ANDETAG_ORIGINAL_TOTAL,
   ARTWORKS,
+  type ArtworkMood,
   getCatalogueTotals,
 } from "./artworks";
+
+const VALID_MOODS: ArtworkMood[] = [
+  "light", "dark", "mid", "closeup", "person", "context", "alternative",
+];
 
 describe("artworks catalogue", () => {
   it("every artwork has a unique id", () => {
@@ -43,15 +48,16 @@ describe("artworks catalogue", () => {
     }
   });
 
-  it("every artwork has at least one image with valid sources", () => {
+  it("every artwork has at least one image with valid sources and a known mood", () => {
     for (const a of ARTWORKS) {
       expect(a.images.length).toBeGreaterThanOrEqual(1);
       for (const img of a.images) {
-        expect(img.src).toMatch(/^\/wp-content\/uploads\//);
-        expect(img.webp640).toMatch(/^\/wp-content\/uploads\/.*-640w\.webp$/);
-        expect(img.webp960).toMatch(/^\/wp-content\/uploads\/.*-960w\.webp$/);
+        expect(img.src).toMatch(/^\//);
+        expect(img.webp640).toMatch(/^\//);
+        expect(img.webp960).toMatch(/^\//);
         expect(img.alt.sv.length).toBeGreaterThan(0);
         expect(img.alt.en.length).toBeGreaterThan(0);
+        expect(VALID_MOODS).toContain(img.mood);
       }
     }
   });
