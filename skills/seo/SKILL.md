@@ -115,7 +115,7 @@ Run these checks against the built `dist/` — a stale `dist/` makes the audit m
 4. **Hreflang**
    - Self-referential entry present (except Berlin English story shells, where the SEO canonical pair means the English "self" is Stockholm; verify against `resolveSeo()` output).
    - All referenced alternates must be `200` in `dist/`.
-   - `x-default` present per registry; Stockholm pairs point to the Swedish URL, Berlin pairs point to the German URL, `/en/` hub points to `/sv/stockholm/`.
+   - `x-default` present per registry; Stockholm pairs point to the **English** URL (`/en/stockholm/` for both sv and en sides — English is the international default), Berlin pairs point to the English URL (`/en/berlin/`), `/en/` hub points to `/sv/stockholm/`.
    - Same-location only. No Stockholm ↔ Berlin hreflang on topic pages.
    - BCP47 values: `sv-SE`, `en`, `de-DE`, `x-default`.
 5. **Open Graph + Twitter**
