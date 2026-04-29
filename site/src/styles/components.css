@@ -1720,6 +1720,7 @@ body.lightbox-open {
     display: flex;
     flex-direction: column;
     row-gap: 0;
+    align-items: stretch;
   }
 
   .page-stockholm-home__intro-booking .page-layout-with-aside__main,
