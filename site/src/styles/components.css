@@ -1712,6 +1712,47 @@ body.lightbox-open {
   }
 }
 
+/* Mobile: promote booking widget above FAQ and getting-here.
+   Uses display:contents on __main/__aside so all grandchildren participate
+   in the flex order without changing the desktop two-column grid. */
+@media (max-width: 900px) {
+  .page-stockholm-home__intro-booking {
+    display: flex;
+    flex-direction: column;
+    row-gap: 0;
+    align-items: stretch;
+  }
+
+  .page-stockholm-home__intro-booking .page-layout-with-aside__main,
+  .page-stockholm-home__intro-booking .page-layout-with-aside__aside {
+    display: contents;
+  }
+
+  .page-stockholm-home__intro-booking .page-layout-with-aside__main > .content-section {
+    order: 1;
+  }
+
+  .page-stockholm-home__intro-booking .page-stockholm-home__intro-figure {
+    order: 2;
+  }
+
+  .page-stockholm-home__intro-booking .embed-shell {
+    order: 3;
+  }
+
+  .page-stockholm-home__intro-booking .page-stockholm-seo-landing__booking-aside-note {
+    order: 3;
+  }
+
+  .page-stockholm-home__intro-booking .accordion-section {
+    order: 4;
+  }
+
+  .page-stockholm-home__intro-booking .page-stockholm-home__loc-mobile {
+    order: 5;
+  }
+}
+
 .page-stockholm-home__tickets-columns {
   display: grid;
   gap: 2rem;
