@@ -1,4 +1,5 @@
 ---
+import { mainRoomMeditationBody } from "../../lib/content/stockholm-body-responsive-images";
 import StockholmSeoLandingEn from "./StockholmSeoLandingEn.astro";
 
 /** English peer of `StockholmUtstallningSv.astro`; Swedish source `stockholm-utstallning-stockholm.html`. */
@@ -7,10 +8,18 @@ const introMarkdown = [
   "<p>The exhibition is in central Stockholm, at Hötorget. Four rooms of light-based textile art and music written for the journey. An immersive exhibition where the room closes around you: you do not walk past, you sit inside it. The works move to a shared breath: slow, quiet, unhurried.</p>",
   "<p>You are invited to sit down.<br />To breathe.<br />To take the time you need.</p>",
 ].join("");
+
+const introImage = {
+  sources: mainRoomMeditationBody,
+  alt: "Person sitting still, surrounded by luminous textile art at ANDETAG",
+  width: 960,
+  height: 611,
+};
 ---
 
 <StockholmSeoLandingEn
   galleryId="stockholm-en-exhibition"
   h1Text="A calm art exhibition in Stockholm"
   introMarkdown={introMarkdown}
+  introImage={introImage}
 />

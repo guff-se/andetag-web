@@ -36,9 +36,16 @@ export interface Props {
   h1Html?: string;
   /** Intro copy beside the booking column; trusted HTML (same as `ContentSection` `markdown` prop). */
   introMarkdown: string;
+  /** Per-landing intro figure. Falls back to the default optical-fibre close-up when omitted. */
+  introImage?: {
+    sources: { jpeg960: string; webp640: string; webp960: string };
+    alt: string;
+    width: number;
+    height: number;
+  };
 }
 
-const { galleryId, h1Text, h1Html, introMarkdown } = Astro.props as Props;
+const { galleryId, h1Text, h1Html, introMarkdown, introImage } = Astro.props as Props;
 
 const understoryCompanyId = "3b3aa7a7c2cd455b8f3a56cd81033110";
 
@@ -121,10 +128,10 @@ const faqItems = [...stockholmMarketingFaqSv];
       <AccordionSection items={faqItems} initialOpenIndex={null} />
       <figure class="page-stockholm-home__intro-figure">
         <ResponsiveInlinePicture
-          sources={introAside18_058Body}
-          width={introAsideImage.width}
-          height={introAsideImage.height}
-          alt={introAsideImage.alt}
+          sources={introImage?.sources ?? introAside18_058Body}
+          width={introImage?.width ?? introAsideImage.width}
+          height={introImage?.height ?? introAsideImage.height}
+          alt={introImage?.alt ?? introAsideImage.alt}
         />
       </figure>
       <div class="page-stockholm-home__loc-mobile" aria-label="Adress">

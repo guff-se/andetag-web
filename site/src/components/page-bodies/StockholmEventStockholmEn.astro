@@ -1,4 +1,5 @@
 ---
+import { npfBlueGlowBody } from "../../lib/content/stockholm-body-responsive-images";
 import StockholmSeoLandingEn from "./StockholmSeoLandingEn.astro";
 
 /**
@@ -12,10 +13,18 @@ const introMarkdown = [
   "<p>Breathe.</p>",
   "<p>That is enough.</p>",
 ].join("");
+
+const introImage = {
+  sources: npfBlueGlowBody,
+  alt: "Calm visitor in blue light, luminous textile forms floating around.",
+  width: 960,
+  height: 640,
+};
 ---
 
 <StockholmSeoLandingEn
   galleryId="stockholm-en-event-stockholm"
   h1Text="An event in Stockholm when you want a quiet pause"
   introMarkdown={introMarkdown}
+  introImage={introImage}
 />
