@@ -1,0 +1,79 @@
+---
+/**
+ * Format-only filter pills above the grid. Status split is handled by the
+ * available/sold section accordion. Format pills remain: all / landscape / portrait.
+ *
+ * Filter state lives in the URL hash so a filtered view is shareable. The
+ * `artworks-filter.ts` client script reads `#filter=format:portrait`
+ * (or "all") on load and on `hashchange`.
+ */
+type Props = {
+  language: "sv" | "en";
+  counts: {
+    formatAll: number;
+    formatLandscape: number;
+    formatPortrait: number;
+  };
+};
+
+const { language, counts } = Astro.props as Props;
+
+const labels =
+  language === "sv"
+    ? {
+        heading: "Filtrera format",
+        formatGroup: "Format",
+        formatAll: "Alla",
+        formatLandscape: "Liggande",
+        formatPortrait: "Stående",
+        empty: "Inga verk matchar filtret.",
+      }
+    : {
+        heading: "Filter format",
+        formatGroup: "Format",
+        formatAll: "All",
+        formatLandscape: "Landscape",
+        formatPortrait: "Portrait",
+        empty: "No works match this filter.",
+      };
+
+type PillSpec = {
+  group: "format";
+  value: string;
+  label: string;
+  count: number;
+  defaultActive?: boolean;
+};
+
+const formatPills: PillSpec[] = [
+  { group: "format", value: "all", label: labels.formatAll, count: counts.formatAll, defaultActive: true },
+  { group: "format", value: "landscape", label: labels.formatLandscape, count: counts.formatLandscape },
+  { group: "format", value: "portrait", label: labels.formatPortrait, count: counts.formatPortrait },
+];
+---
+
+<section class="artwork-filter-bar" aria-label={labels.heading}>
+  <div class="artwork-filter-bar__group" role="group" aria-label={labels.formatGroup}>
+    <span class="artwork-filter-bar__group-label">{labels.formatGroup}</span>
+    <div class="artwork-filter-bar__pills">
+      {formatPills.map((pill) => (
+        <button
+          type="button"
+          class:list={["artwork-filter-pill", pill.defaultActive ? "is-active" : null]}
+          data-filter-group={pill.group}
+          data-filter-value={pill.value}
+          aria-pressed={pill.defaultActive ? "true" : "false"}
+        >
+          <span class="artwork-filter-pill__label">{pill.label}</span>
+          <span class="artwork-filter-pill__count" aria-hidden="true">{pill.count}</span>
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <p class="artwork-filter-bar__empty" data-filter-empty hidden>{labels.empty}</p>
+</section>
+
+<script>
+  import "../../client-scripts/artworks-filter.ts";
+</script>

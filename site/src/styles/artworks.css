@@ -1,0 +1,1034 @@
+/*
+ * Artworks page styles.
+ *
+ * Scoped to `/sv/stockholm/konstverk/` and `/en/stockholm/artworks/`.
+ * Imported once from `KonstverkSv.astro` / `ArtworksEn.astro`.
+ *
+ * Visual language:
+ *  - Cream sea, soft graphite land, brand-pink dots for the world map.
+ *  - Gallery-wall grid of square tiles; image-first, type in modal.
+ *  - Hover cross-fade to dark mood; tooltip on desktop pointer only.
+ *  - Modal opens on tile click; mood switcher, full meta, prev/next.
+ *  - Gentle reduced-motion overrides throughout.
+ */
+
+.page-artworks {
+  --artwork-pink: #4a0d2f;
+  --artwork-pink-soft: rgba(74, 13, 47, 0.12);
+  --artwork-pink-veil: rgba(74, 13, 47, 0.04);
+  --artwork-cream: #faf3ee;
+  --artwork-graphite: #2a2226;
+  --artwork-line: rgba(74, 13, 47, 0.18);
+  --artwork-muted: #635961;
+  --artwork-radius: 14px;
+  color: var(--artwork-graphite);
+}
+
+/* ============================================================
+ * Lead
+ * ============================================================ */
+
+.page-artworks__lead {
+  max-width: 44rem;
+  margin: 0 auto 3.5rem;
+  text-align: center;
+}
+
+.page-artworks__lead h1 {
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-weight: 300;
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  margin: 0 0 1.5rem;
+  color: var(--artwork-pink);
+}
+
+.page-artworks__lead p {
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--artwork-graphite);
+  margin: 0 0 1rem;
+}
+
+.page-artworks__counts {
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--artwork-muted);
+  margin-top: 2rem;
+}
+
+.page-artworks__counts span + span::before {
+  content: "·";
+  display: inline-block;
+  margin: 0 0.7rem;
+  color: var(--artwork-line);
+}
+
+/* ============================================================
+ * Map
+ * ============================================================ */
+
+.artwork-map {
+  background: var(--artwork-cream);
+  border-radius: var(--artwork-radius);
+  padding: 1.25rem 1.25rem 0.75rem;
+  margin: 0 0 4rem;
+  border: 1px solid var(--artwork-line);
+  overflow: hidden;
+}
+
+.artwork-map__svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  max-height: 60vh;
+}
+
+.artwork-map__sea {
+  fill: var(--artwork-cream);
+}
+
+.artwork-map__land path {
+  fill: #ece2db;
+  stroke: rgba(74, 13, 47, 0.08);
+  stroke-width: 0.5;
+  stroke-linejoin: round;
+}
+
+.artwork-map__pin {
+  cursor: pointer;
+  transition: transform 220ms ease;
+  transform-origin: center;
+  outline: none;
+}
+
+.artwork-map__pin:focus-visible {
+  outline: 2px solid #e0e31c;
+  outline-offset: 4px;
+}
+
+.artwork-map__pin-glow {
+  fill: url(#artwork-pin-glow);
+  opacity: 0;
+  transition: opacity 280ms ease;
+}
+
+.artwork-map__pin-dot {
+  fill: var(--artwork-pink);
+  transition: transform 220ms ease, fill 220ms ease;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+.artwork-map__pin.is-mixed .artwork-map__pin-dot {
+  fill: rgba(74, 13, 47, 0.45);
+}
+
+.artwork-map__pin-count {
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-size: 0.55rem;
+  font-weight: 500;
+  fill: #fff;
+  pointer-events: none;
+}
+
+.artwork-map__pin:hover .artwork-map__pin-glow,
+.artwork-map__pin:focus-visible .artwork-map__pin-glow,
+.artwork-map__pin.is-active .artwork-map__pin-glow {
+  opacity: 1;
+}
+
+.artwork-map__pin:hover .artwork-map__pin-dot,
+.artwork-map__pin:focus-visible .artwork-map__pin-dot,
+.artwork-map__pin.is-active .artwork-map__pin-dot {
+  fill: var(--artwork-pink);
+  transform: scale(1.6);
+}
+
+.artwork-map__legend {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--artwork-muted);
+  margin: 0.5rem 0 0;
+  padding: 0;
+}
+
+.artwork-map__legend-dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--artwork-pink);
+}
+
+.artwork-map__legend-dot.is-mixed {
+  background: rgba(74, 13, 47, 0.45);
+}
+
+/* ============================================================
+ * Filter bar — format only
+ * ============================================================ */
+
+.artwork-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem 2rem;
+  align-items: flex-start;
+  padding: 1.25rem 0;
+  border-top: 1px solid var(--artwork-line);
+  border-bottom: 1px solid var(--artwork-line);
+  margin: 0 0 2rem;
+  position: relative;
+}
+
+.artwork-filter-bar__group {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem 0.75rem;
+}
+
+.artwork-filter-bar__group-label {
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--artwork-muted);
+  margin-right: 0.25rem;
+}
+
+.artwork-filter-bar__pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.artwork-filter-pill {
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  font-weight: 400;
+  color: var(--artwork-graphite);
+  background: transparent;
+  border: 1px solid var(--artwork-line);
+  border-radius: 999px;
+  padding: 0.4rem 0.95rem 0.4rem 0.85rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background 200ms ease, border-color 200ms ease, color 200ms ease;
+}
+
+.artwork-filter-pill__count {
+  font-size: 0.7rem;
+  color: var(--artwork-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.artwork-filter-pill:hover {
+  border-color: var(--artwork-pink);
+}
+
+.artwork-filter-pill.is-active {
+  background: var(--artwork-pink);
+  border-color: var(--artwork-pink);
+  color: #fafafa;
+}
+
+.artwork-filter-pill.is-active .artwork-filter-pill__count {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.artwork-filter-bar__empty {
+  width: 100%;
+  margin: 0.5rem 0 0;
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-size: 0.9rem;
+  color: var(--artwork-muted);
+}
+
+/* ============================================================
+ * Section headings
+ * ============================================================ */
+
+.page-artworks__section {
+  margin: 0 0 5rem;
+}
+
+.page-artworks__section-head {
+  margin: 0 0 2rem;
+}
+
+.page-artworks__section-eyebrow {
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--artwork-muted);
+  margin: 0 0 0.5rem;
+}
+
+.page-artworks__section-heading {
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-weight: 300;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  margin: 0 0 0.5rem;
+  color: var(--artwork-pink);
+}
+
+.page-artworks__section-intro {
+  max-width: 38rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--artwork-graphite);
+  margin: 0;
+}
+
+/* ============================================================
+ * Gallery grid — square tiles
+ *
+ * 2 col < 600px | 3 col 600–1099px | 4 col 1100–1399px | 5 col ≥ 1400px
+ * ============================================================ */
+
+.artwork-grid-section {
+  /* wrapper for the main grid + the sold accordion */
+}
+
+.artwork-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+}
+
+@media (min-width: 600px) {
+  .artwork-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1100px) {
+  .artwork-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1400px) {
+  .artwork-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+/* Filtering: hide non-matching tiles via attribute selectors. */
+.artwork-grid[data-filter-format="landscape"] [data-artwork-format="portrait"] {
+  display: none;
+}
+
+.artwork-grid[data-filter-format="portrait"] [data-artwork-format="landscape"] {
+  display: none;
+}
+
+/* ============================================================
+ * Tile (Tier 1)
+ * ============================================================ */
+
+.artwork-tile {
+  /* Button reset */
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+  /* Tile layout */
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 0;
+  background-color: var(--artwork-pink-veil);
+}
+
+.artwork-tile:focus-visible {
+  outline: 2px solid #e0e31c;
+  outline-offset: -2px;
+  z-index: 1;
+}
+
+/* Pinned (highlighted by map hover) */
+.artwork-tile.is-pinned {
+  outline: 2px solid var(--artwork-pink);
+  outline-offset: -2px;
+  z-index: 1;
+}
+
+/* ---- frames ---- */
+
+.artwork-tile__frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.artwork-tile__frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.artwork-tile__frame.is-base img {
+  transition: transform 900ms ease;
+}
+
+.artwork-tile__frame.is-overlay {
+  opacity: 0;
+  transition: opacity 600ms ease;
+}
+
+.artwork-tile:hover .artwork-tile__frame.is-overlay,
+.artwork-tile:focus-visible .artwork-tile__frame.is-overlay {
+  opacity: 1;
+}
+
+.artwork-tile:hover .artwork-tile__frame.is-base img {
+  transform: scale(1.03);
+}
+
+/* ---- foot bar (label + dot) ---- */
+
+.artwork-tile__foot {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.5rem 0.6rem;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.55));
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.artwork-tile__dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: var(--artwork-pink);
+  box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.6);
+}
+
+.artwork-tile.is-sold .artwork-tile__dot {
+  background: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.25);
+}
+
+.artwork-tile__label {
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: lowercase;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1;
+}
+
+/* ---- tooltip (Tier 2 — desktop hover only) ---- */
+
+.artwork-tile__tooltip {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  background: rgba(42, 34, 38, 0.92);
+  backdrop-filter: blur(4px);
+  color: rgba(255, 255, 255, 0.95);
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  padding: 0.35rem 0.7rem;
+  border-radius: 4px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 180ms ease;
+  z-index: 10;
+  /* Prevent tooltip from overflowing viewport edges */
+  max-width: min(28rem, 90vw);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.artwork-tile:hover .artwork-tile__tooltip,
+.artwork-tile:focus-visible .artwork-tile__tooltip {
+  opacity: 1;
+}
+
+/* Hide tooltip on touch devices */
+@media (pointer: coarse) {
+  .artwork-tile__tooltip {
+    display: none;
+  }
+}
+
+/* ============================================================
+ * Sold accordion
+ * ============================================================ */
+
+.artwork-sold-details {
+  margin-top: 1.5rem;
+}
+
+.artwork-sold-summary {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  list-style: none;
+  padding: 0.85rem 0;
+  border-top: 1px solid var(--artwork-line);
+  border-bottom: 1px solid var(--artwork-line);
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--artwork-muted);
+  user-select: none;
+  margin-bottom: 0;
+}
+
+.artwork-sold-summary::-webkit-details-marker {
+  display: none;
+}
+
+.artwork-sold-summary__arrow {
+  font-size: 1.1rem;
+  line-height: 1;
+  transition: transform 280ms ease;
+  display: inline-block;
+}
+
+.artwork-sold-details[open] .artwork-sold-summary__arrow {
+  transform: rotate(90deg);
+}
+
+.artwork-sold-details[open] .artwork-sold-summary {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+/* Muted sold grid — slightly desaturated */
+.artwork-grid--sold {
+  margin-top: 0;
+  opacity: 0.85;
+}
+
+/* Animate open/close — best-effort (no CSS-only for details content height) */
+.artwork-sold-details .artwork-grid--sold {
+  animation: none;
+}
+
+/* ============================================================
+ * Modal (Tier 3)
+ * ============================================================ */
+
+body.is-modal-open {
+  overflow: hidden;
+}
+
+.artwork-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+}
+
+.artwork-modal[hidden] {
+  display: none;
+}
+
+.artwork-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(42, 34, 38, 0.72);
+  backdrop-filter: blur(3px);
+  cursor: pointer;
+}
+
+.artwork-modal__panel {
+  position: relative;
+  background: #fff;
+  border-radius: 16px;
+  max-width: 900px;
+  width: calc(100% - 2rem);
+  max-height: 90vh;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  box-shadow: 0 24px 64px rgba(42, 34, 38, 0.28);
+}
+
+.artwork-modal__close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid var(--artwork-line);
+  border-radius: 50%;
+  width: 2.2rem;
+  height: 2.2rem;
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--artwork-graphite);
+  transition: background 200ms ease, color 200ms ease;
+}
+
+.artwork-modal__close:hover,
+.artwork-modal__close:focus-visible {
+  background: var(--artwork-pink);
+  color: #fff;
+  border-color: var(--artwork-pink);
+}
+
+/* Panel body: image + meta side-by-side on wide, stacked on narrow */
+.artwork-modal__body {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .artwork-modal__body {
+    grid-template-columns: 1fr 1fr;
+    min-height: 420px;
+  }
+}
+
+/* Image area */
+.artwork-modal__img-area {
+  display: flex;
+  flex-direction: column;
+  background: var(--artwork-pink-veil);
+  border-radius: 16px 16px 0 0;
+}
+
+@media (min-width: 640px) {
+  .artwork-modal__img-area {
+    border-radius: 16px 0 0 16px;
+  }
+}
+
+.artwork-modal__img-wrap {
+  flex: 1;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.artwork-modal__img-wrap picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.artwork-modal__img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  min-height: 260px;
+}
+
+@media (min-width: 640px) {
+  .artwork-modal__img-wrap img {
+    min-height: 380px;
+  }
+}
+
+/* Mood switcher */
+.artwork-modal__moods {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 0.6rem;
+  background: rgba(42, 34, 38, 0.04);
+  border-top: 1px solid var(--artwork-line);
+}
+
+.artwork-modal__mood-btn {
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--artwork-muted);
+  background: transparent;
+  border: 1px solid var(--artwork-line);
+  border-radius: 999px;
+  padding: 0.3rem 0.7rem;
+  cursor: pointer;
+  transition: background 180ms ease, color 180ms ease, border-color 180ms ease;
+}
+
+.artwork-modal__mood-btn.is-active {
+  background: var(--artwork-pink);
+  border-color: var(--artwork-pink);
+  color: #fff;
+}
+
+.artwork-modal__mood-btn:hover:not(.is-active) {
+  border-color: var(--artwork-pink);
+  color: var(--artwork-pink);
+}
+
+/* Meta sidebar */
+.artwork-modal__meta {
+  padding: 2rem 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.artwork-modal__title {
+  font-family: "BaskervvilleLocal", "Baskervville", Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(1.2rem, 2.5vw, 1.7rem);
+  line-height: 1.2;
+  margin: 0;
+  color: var(--artwork-graphite);
+  /* leave room for the close button */
+  padding-right: 2.5rem;
+}
+
+@media (min-width: 640px) {
+  .artwork-modal__title {
+    padding-right: 0;
+  }
+}
+
+.artwork-modal__price {
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--artwork-pink);
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.artwork-modal__price.is-sold {
+  color: var(--artwork-muted);
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* Details dl */
+.artwork-modal__details {
+  margin: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.35rem 1rem;
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-size: 0.85rem;
+}
+
+.artwork-modal__details > div {
+  display: contents;
+}
+
+.artwork-modal__details dt {
+  color: var(--artwork-muted);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  align-self: center;
+}
+
+.artwork-modal__details dd {
+  margin: 0;
+  color: var(--artwork-graphite);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Inquire link */
+.artwork-modal__inquire {
+  align-self: flex-start;
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--artwork-pink);
+  border: 1px solid var(--artwork-pink);
+  border-radius: 999px;
+  padding: 0.55rem 1.1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background 220ms ease, color 220ms ease;
+  margin-top: auto;
+}
+
+.artwork-modal__inquire:hover,
+.artwork-modal__inquire:focus-visible {
+  background: var(--artwork-pink);
+  color: #fafafa;
+}
+
+/* Nav arrows */
+.artwork-modal__nav {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(4px);
+  border: 1px solid var(--artwork-line);
+  border-radius: 50%;
+  width: 2.8rem;
+  height: 2.8rem;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--artwork-graphite);
+  z-index: 201;
+  transition: background 200ms ease, color 200ms ease;
+}
+
+.artwork-modal__nav:hover,
+.artwork-modal__nav:focus-visible {
+  background: var(--artwork-pink);
+  color: #fff;
+  border-color: var(--artwork-pink);
+}
+
+.artwork-modal__nav.is-prev {
+  left: 0.5rem;
+}
+
+.artwork-modal__nav.is-next {
+  right: 0.5rem;
+}
+
+@media (min-width: 960px) {
+  .artwork-modal__nav.is-prev {
+    left: 1rem;
+  }
+  .artwork-modal__nav.is-next {
+    right: 1rem;
+  }
+}
+
+/* ============================================================
+ * Inquiry form
+ * ============================================================ */
+
+.inquiry-form {
+  background: var(--artwork-cream);
+  border-radius: var(--artwork-radius);
+  padding: 2.5rem clamp(1.25rem, 4vw, 3rem);
+  margin: 5rem 0 4rem;
+  scroll-margin-top: 6rem;
+  max-width: 56rem;
+}
+
+.inquiry-form__eyebrow {
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--artwork-muted);
+  margin: 0 0 0.5rem;
+}
+
+.inquiry-form__heading {
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-weight: 300;
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  color: var(--artwork-pink);
+  margin: 0 0 0.75rem;
+}
+
+.inquiry-form__intro {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--artwork-graphite);
+  margin: 0 0 2rem;
+  max-width: 36rem;
+}
+
+.inquiry-form__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.inquiry-form__row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .inquiry-form__row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.inquiry-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.inquiry-form__label {
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-size: 0.74rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--artwork-muted);
+  display: inline-flex;
+  gap: 0.5rem;
+  align-items: baseline;
+}
+
+.inquiry-form__hint {
+  font-size: 0.65rem;
+  letter-spacing: 0.16em;
+  color: var(--artwork-line);
+}
+
+.inquiry-form__field input,
+.inquiry-form__field textarea {
+  font-family: "BaskervvilleLocal", "Baskervville", Georgia, serif;
+  font-size: 1rem;
+  color: var(--artwork-graphite);
+  background: #fff;
+  border: 1px solid var(--artwork-line);
+  border-radius: 8px;
+  padding: 0.7rem 0.9rem;
+  outline: none;
+  transition: border-color 200ms ease, box-shadow 200ms ease;
+  width: 100%;
+}
+
+.inquiry-form__field textarea {
+  resize: vertical;
+  min-height: 6rem;
+  font-family: "BaskervvilleLocal", "Baskervville", Georgia, serif;
+}
+
+.inquiry-form__field input:focus,
+.inquiry-form__field textarea:focus {
+  border-color: var(--artwork-pink);
+  box-shadow: 0 0 0 3px rgba(74, 13, 47, 0.12);
+}
+
+.inquiry-form__field--full {
+  width: 100%;
+}
+
+.inquiry-form__honey {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.inquiry-form__optin {
+  display: flex;
+  gap: 0.7rem;
+  align-items: flex-start;
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--artwork-graphite);
+}
+
+.inquiry-form__optin input[type="checkbox"] {
+  margin-top: 0.25rem;
+}
+
+.inquiry-form__optin a {
+  color: var(--artwork-pink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.inquiry-form__submit {
+  align-self: flex-start;
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #fafafa;
+  background: var(--artwork-pink);
+  border: 1px solid var(--artwork-pink);
+  border-radius: 999px;
+  padding: 0.85rem 1.6rem;
+  cursor: pointer;
+  transition: background 220ms ease, transform 220ms ease;
+}
+
+.inquiry-form__submit:hover,
+.inquiry-form__submit:focus-visible {
+  background: #2a071b;
+}
+
+.inquiry-form__submit:disabled {
+  background: var(--artwork-line);
+  border-color: var(--artwork-line);
+  cursor: progress;
+}
+
+.inquiry-form__status {
+  margin: 0;
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-size: 0.95rem;
+  color: var(--artwork-pink);
+  border-top: 1px solid var(--artwork-line);
+  padding-top: 1rem;
+}
+
+/* ============================================================
+ * Reduced motion
+ * ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .artwork-tile__frame.is-base img,
+  .artwork-tile__frame.is-overlay,
+  .artwork-tile__tooltip,
+  .artwork-map__pin,
+  .artwork-map__pin-glow,
+  .artwork-map__pin-dot,
+  .artwork-modal__close,
+  .artwork-modal__nav,
+  .artwork-modal__mood-btn,
+  .artwork-modal__inquire,
+  .artwork-sold-summary__arrow,
+  .artwork-filter-pill,
+  .inquiry-form__submit {
+    transition: none;
+  }
+
+  .artwork-tile:hover .artwork-tile__frame.is-base img {
+    transform: none;
+  }
+}

@@ -1,0 +1,104 @@
+---
+import "../../styles/artworks.css";
+import { ARTWORKS } from "../../lib/content/artworks";
+import ArtworkFilterBar from "../content/ArtworkFilterBar.astro";
+import ArtworkGrid from "../content/ArtworkGrid.astro";
+import ArtworkMap from "../embeds/ArtworkMap.astro";
+import ArtworkModal from "../content/ArtworkModal.astro";
+import InquiryForm from "../embeds/InquiryForm.astro";
+
+const originals = ARTWORKS.filter((a) => a.series === "original");
+const available = originals.filter((a) => a.status === "for-sale");
+const sold = originals.filter((a) => a.status === "sold");
+const gems = ARTWORKS.filter((a) => a.series === "gem");
+
+const counts = {
+  formatAll: originals.length,
+  formatLandscape: originals.filter((a) => a.format === "landscape").length,
+  formatPortrait: originals.filter((a) => a.format === "portrait").length,
+};
+
+// Serialize artworks for modal JS — order: available originals, sold originals, gems
+const modalOrder = [...available, ...sold, ...gems];
+const artworksJson = JSON.stringify(modalOrder.map((a) => ({
+  id: a.id, series: a.series, number: a.number ?? null,
+  edition: a.edition ?? null,
+  titleSv: a.title.sv, titleEn: a.title.en,
+  year: a.year, w: a.dimensionsCm.w, h: a.dimensionsCm.h,
+  format: a.format, status: a.status, priceSek: a.priceSek ?? null,
+  locationSv: a.location.label.sv, locationEn: a.location.label.en,
+  images: a.images.map((img) => ({
+    src: img.src, webp640: img.webp640, webp960: img.webp960,
+    fullSrc: img.fullSrc ?? null, mood: img.mood,
+    altSv: img.alt.sv, altEn: img.alt.en,
+  })),
+})));
+---
+
+<div class="page-migrated page-artworks" lang="en">
+  <script type="application/json" id="artworks-json" set:html={artworksJson}></script>
+
+  <header class="page-artworks__lead">
+    <h1>The Andetag Artworks</h1>
+    <p>
+      Fifty original works in optical fibre textile, woven to breathe with the rooms
+      they live in. To acquire one is to step into a quiet network of breathing rooms,
+      from Stockholm and out into the world.
+    </p>
+    <p>
+      Alongside the original series are three Gems, smaller works in editions of six
+      or ten. Write to us if a piece holds your gaze. We will reply at a calm pace.
+    </p>
+    <p class="page-artworks__counts" aria-label="Number of works in the series">
+      <span>Original series: 50 works</span>
+      <span>Gems: 3 works in editions</span>
+    </p>
+  </header>
+
+  <ArtworkMap artworks={ARTWORKS} language="en" />
+
+  <section class="page-artworks__section" aria-labelledby="originals-heading-en">
+    <header class="page-artworks__section-head">
+      <p class="page-artworks__section-eyebrow">Originals</p>
+      <h2 class="page-artworks__section-heading" id="originals-heading-en">Andetag no. 1 to 50</h2>
+      <p class="page-artworks__section-intro">
+        Each original is one of a kind. Their size, light, and motion differ; the same
+        breath carries them all.
+      </p>
+    </header>
+
+    <ArtworkFilterBar language="en" counts={counts} />
+    <ArtworkGrid
+      available={available} sold={sold}
+      language="en" gridId="originals" eagerFirst={true}
+      soldLabel={`In a collection (${sold.length})`}
+    />
+  </section>
+
+  <section class="page-artworks__section" aria-labelledby="gems-heading-en">
+    <header class="page-artworks__section-head">
+      <p class="page-artworks__section-eyebrow">Gems</p>
+      <h2 class="page-artworks__section-heading" id="gems-heading-en">Three works in editions</h2>
+      <p class="page-artworks__section-intro">
+        Three smaller works in optical fibre textile, woven in editions of six or ten.
+        The same material, the same breath, on a quieter scale.
+      </p>
+    </header>
+
+    <ArtworkGrid available={gems} language="en" gridId="gems" />
+  </section>
+
+  <ArtworkModal language="en" />
+  <InquiryForm language="en" />
+
+  <section class="content-section align-left">
+    <div class="content-section-body">
+      <p>
+        Curious about how the works are made? Read about
+        <a href="/en/stockholm/optical-fibre-textile/">the optical fibre textile</a>
+        and
+        <a href="/en/stockholm/about-the-artists-malin-gustaf-tadaa/">the artists behind the series</a>.
+      </p>
+    </div>
+  </section>
+</div>
