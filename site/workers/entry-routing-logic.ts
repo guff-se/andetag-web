@@ -1,5 +1,5 @@
 /**
- * Pure helpers for `/` and `/en/` entry routing (`docs/seo/url-architecture.md` §4).
+ * Pure helpers for `/`, `/en/`, and location-shortcut entry routing (`docs/seo/url-architecture.md` §4).
  * Covered by Vitest; Worker delegates to these for decisions.
  */
 
@@ -263,6 +263,24 @@ export function decideEnglishHubRouting(input: {
   }
 
   return { type: "serve_asset" };
+}
+
+/**
+ * Location shortcut routing for `/berlin` and `/stockholm` (`docs/seo/url-architecture.md` §3).
+ * Uses only the `andetag_entry` cookie — no Accept-Language, no geo — because the visitor
+ * explicitly named a destination. Always 302; no cookie is set or modified.
+ */
+export function decideLocationShortcutRouting(input: {
+  location: "berlin" | "stockholm";
+  search: string;
+  cookieHeader: string | null;
+}): string {
+  const q = input.search;
+  const token = parseEntryToken(parseEntryCookieValue(input.cookieHeader));
+  if (input.location === "berlin") {
+    return (token === "de" ? "/de/berlin/" : "/en/berlin/") + q;
+  }
+  return (token === "sv" ? "/sv/stockholm/" : "/en/stockholm/") + q;
 }
 
 /** Refresh or set `andetag_entry` when the visitor receives a document under a language lane (`docs/seo/url-architecture.md` §4 **When to set or refresh**). */

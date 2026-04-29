@@ -34,6 +34,17 @@ Trailing-slash normalization applies only to HTML content routes, never to file-
 | English Berlin | `/en/berlin/` | `/en/berlin-en/` → `/en/berlin/` (`301`) |
 | English Art Yoga | `/en/stockholm/art-yoga/` | `/en/stockholm/art-yoga-en/` → `/en/stockholm/art-yoga/` (`301`) |
 
+### Location shortcut paths
+
+`/berlin` and `/stockholm` (with or without trailing slash) are convenience entry paths that route to the correct localised home via the Worker:
+
+| Path | Cookie `v1:de` | Cookie `v1:sv` | Any other / no cookie |
+|------|---------------|---------------|----------------------|
+| `/berlin` | `302` → `/de/berlin/` | `302` → `/en/berlin/` | `302` → `/en/berlin/` |
+| `/stockholm` | `302` → `/en/stockholm/` | `302` → `/sv/stockholm/` | `302` → `/en/stockholm/` |
+
+These are always `302` (never `301`) — they are routing helpers, not canonical URLs. No cookie is set or modified. Query parameters are preserved. Accept-Language and geo are intentionally ignored: the visitor named a destination explicitly, so only their stored language preference (if any) matters.
+
 ### Location-scoped story URLs
 
 Normative path list: `docs/url-matrix.csv` and `site/public/_redirects`. Single-hop `301` to final canonicals.

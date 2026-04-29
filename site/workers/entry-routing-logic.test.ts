@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   decideEnglishHubRouting,
+  decideLocationShortcutRouting,
   decideRootRouting,
   entryTokenForContentPath,
   parseAcceptLanguagePrimaryTags,
@@ -241,5 +242,44 @@ describe("decideEnglishHubRouting", () => {
       expect(d.locationPath).toBe("/en/berlin/");
       expect(d.setCookie).toContain("andetag_entry=v1:en-b");
     }
+  });
+});
+
+describe("decideLocationShortcutRouting", () => {
+  it("/berlin: no cookie → /en/berlin/", () => {
+    expect(decideLocationShortcutRouting({ location: "berlin", search: "", cookieHeader: null })).toBe("/en/berlin/");
+  });
+
+  it("/berlin: de cookie → /de/berlin/", () => {
+    expect(decideLocationShortcutRouting({ location: "berlin", search: "", cookieHeader: "andetag_entry=v1%3Ade" })).toBe("/de/berlin/");
+  });
+
+  it("/berlin: sv cookie → /en/berlin/ (no Swedish Berlin)", () => {
+    expect(decideLocationShortcutRouting({ location: "berlin", search: "", cookieHeader: "andetag_entry=v1%3Asv" })).toBe("/en/berlin/");
+  });
+
+  it("/berlin: en-b cookie → /en/berlin/", () => {
+    expect(decideLocationShortcutRouting({ location: "berlin", search: "", cookieHeader: "andetag_entry=v1%3Aen-b" })).toBe("/en/berlin/");
+  });
+
+  it("/stockholm: no cookie → /en/stockholm/", () => {
+    expect(decideLocationShortcutRouting({ location: "stockholm", search: "", cookieHeader: null })).toBe("/en/stockholm/");
+  });
+
+  it("/stockholm: sv cookie → /sv/stockholm/", () => {
+    expect(decideLocationShortcutRouting({ location: "stockholm", search: "", cookieHeader: "andetag_entry=v1%3Asv" })).toBe("/sv/stockholm/");
+  });
+
+  it("/stockholm: de cookie → /en/stockholm/ (no German Stockholm)", () => {
+    expect(decideLocationShortcutRouting({ location: "stockholm", search: "", cookieHeader: "andetag_entry=v1%3Ade" })).toBe("/en/stockholm/");
+  });
+
+  it("/stockholm: en-s cookie → /en/stockholm/", () => {
+    expect(decideLocationShortcutRouting({ location: "stockholm", search: "", cookieHeader: "andetag_entry=v1%3Aen-s" })).toBe("/en/stockholm/");
+  });
+
+  it("preserves query string", () => {
+    expect(decideLocationShortcutRouting({ location: "berlin", search: "?utm_source=ig", cookieHeader: null })).toBe("/en/berlin/?utm_source=ig");
+    expect(decideLocationShortcutRouting({ location: "stockholm", search: "?ref=x", cookieHeader: "andetag_entry=v1%3Asv" })).toBe("/sv/stockholm/?ref=x");
   });
 });
