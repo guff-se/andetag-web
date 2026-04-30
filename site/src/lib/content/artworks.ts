@@ -15,7 +15,7 @@
  * Images live in assets/artworks/ (source) and are served from
  * site/public/images/artworks/{id}/ (derivatives). Each original has
  * light, dark, and mid photos (nos. 22 and 29 have dark + mid only).
- * Gems use placeholder images until their own photos are processed.
+ * Gems have dedicated photos processed into site/public/images/artworks/gem-{name}/.
  */
 
 export type ArtworkSeries = "original" | "gem";
@@ -221,42 +221,85 @@ function origPhotos(n: number): readonly ArtworkImage[] {
   return arr;
 }
 
-// Gem placeholder images — replace once dedicated gem photos are processed.
-const GEM_EMERALD_PH: ArtworkImage = {
-  src: "/wp-content/uploads/2024/11/Andetag-10-53-copy-2-gallery-960w.jpg",
-  webp640: "/wp-content/uploads/2024/11/Andetag-10-53-copy-2-gallery-640w.webp",
-  webp960: "/wp-content/uploads/2024/11/Andetag-10-53-copy-2-gallery-960w.webp",
-  fullSrc: "/wp-content/uploads/2024/11/Andetag-10-53-copy-2.jpg",
-  mood: "light",
-  alt: {
-    sv: "Verket Andetag no. 10 i magenta och lila toner, med en besökares profil i mjukt ljus.",
-    en: "The artwork Andetag no. 10 in magenta and violet tones, with a visitor's profile in soft light.",
-  },
-};
+function gemPhoto(
+  id: string,
+  file: string,
+  mood: ArtworkMood,
+  sv: string,
+  en: string,
+): ArtworkImage {
+  return {
+    src: `/images/artworks/${id}/${file}-960w.jpg`,
+    webp640: `/images/artworks/${id}/${file}-640w.webp`,
+    webp960: `/images/artworks/${id}/${file}-960w.webp`,
+    fullSrc: `/images/artworks/${id}/${file}-1920w.jpg`,
+    mood,
+    alt: { sv, en },
+  };
+}
 
-const GEM_RUBY_PH: ArtworkImage = {
-  src: "/wp-content/uploads/2024/11/Andetag-19-508-copy-gallery-960w.jpg",
-  webp640: "/wp-content/uploads/2024/11/Andetag-19-508-copy-gallery-640w.webp",
-  webp960: "/wp-content/uploads/2024/11/Andetag-19-508-copy-gallery-960w.webp",
-  fullSrc: "/wp-content/uploads/2024/11/Andetag-19-508-copy.jpg",
-  mood: "light",
-  alt: {
-    sv: "Närbild av verket Andetag no. 19, persika och rosa textil med leopardliknande mönster.",
-    en: "Close-up of the artwork Andetag no. 19, peach and pink textile with a leopard-like pattern.",
-  },
-};
+const GEM_EMERALD_IMAGES: readonly ArtworkImage[] = [
+  gemPhoto("gem-emerald", "light", "light",
+    "Emerald i spotlight, lysande i gröna och guldgula toner.",
+    "Emerald in spotlight, luminous in green and golden-yellow tones."),
+  gemPhoto("gem-emerald", "dark", "dark",
+    "Emerald i mörker, textilskulpturen glöder i djupa smaragdgröna nyanser.",
+    "Emerald in darkness, the textile sculpture glows in deep emerald-green hues."),
+  gemPhoto("gem-emerald", "mid", "mid",
+    "Emerald i omgivningsljus, mjuka gröna och gula toner mot vit bakgrund.",
+    "Emerald in ambient light, soft green and yellow tones against a white backdrop."),
+  gemPhoto("gem-emerald", "closeup-1", "closeup",
+    "Närbild av Emeralds vävda textil, intrikata gröna och guldgula trådar.",
+    "Close-up of Emerald's woven textile, intricate green and golden-yellow threads."),
+  gemPhoto("gem-emerald", "closeup-2", "closeup",
+    "Detaljbild av Emeralds tätväv i smaragdgrönt och amber.",
+    "Detail shot of Emerald's dense weave in emerald green and amber."),
+  gemPhoto("gem-emerald", "alt-1", "alternative",
+    "Emerald sedd från sidan, skulpturens djup och textur framhävs.",
+    "Emerald viewed from the side, the sculpture's depth and texture emphasized."),
+];
 
-const GEM_SAPPHIRE_PH: ArtworkImage = {
-  src: "/wp-content/uploads/2024/11/Andetag-21-399-scaled-hero-960w.jpg",
-  webp640: "/wp-content/uploads/2024/11/Andetag-21-399-scaled-hero-640w.webp",
-  webp960: "/wp-content/uploads/2024/11/Andetag-21-399-scaled-hero-960w.webp",
-  fullSrc: "/wp-content/uploads/2024/11/Andetag-21-399-scaled.jpg",
-  mood: "light",
-  alt: {
-    sv: "Verket Andetag no. 21, lysande textilskulptur i rosa och violetta toner.",
-    en: "The artwork Andetag no. 21, a luminous textile sculpture in pink and violet tones.",
-  },
-};
+const GEM_RUBY_IMAGES: readonly ArtworkImage[] = [
+  gemPhoto("gem-ruby", "light", "light",
+    "Ruby i spotlight, lysande i djupa röda och karmosinröda toner.",
+    "Ruby in spotlight, luminous in deep red and crimson tones."),
+  gemPhoto("gem-ruby", "dark", "dark",
+    "Ruby i mörker, textilskulpturen glöder i varma rubinröda nyanser.",
+    "Ruby in darkness, the textile sculpture glows in warm ruby-red hues."),
+  gemPhoto("gem-ruby", "mid", "mid",
+    "Ruby i omgivningsljus, rika röda och bordeauxröda toner mot vit bakgrund.",
+    "Ruby in ambient light, rich red and bordeaux tones against a white backdrop."),
+  gemPhoto("gem-ruby", "closeup-1", "closeup",
+    "Närbild av Rubys vävda textil, intrikata röda och karmosinröda trådar.",
+    "Close-up of Ruby's woven textile, intricate red and crimson threads."),
+  gemPhoto("gem-ruby", "closeup-2", "closeup",
+    "Detaljbild av Rubys tätväv i djupt rött och rosa.",
+    "Detail shot of Ruby's dense weave in deep red and rose."),
+  gemPhoto("gem-ruby", "closeup-3", "closeup",
+    "Makrobild av Rubys struktur, varma röda trådar i lager.",
+    "Macro shot of Ruby's structure, warm red threads in layers."),
+];
+
+const GEM_SAPPHIRE_IMAGES: readonly ArtworkImage[] = [
+  gemPhoto("gem-sapphire", "light", "light",
+    "Sapphire i spotlight, lysande i djupa blå och indigo toner.",
+    "Sapphire in spotlight, luminous in deep blue and indigo tones."),
+  gemPhoto("gem-sapphire", "dark", "dark",
+    "Sapphire i mörker, textilskulpturen glöder i djupa safirblå nyanser.",
+    "Sapphire in darkness, the textile sculpture glows in deep sapphire-blue hues."),
+  gemPhoto("gem-sapphire", "mid", "mid",
+    "Sapphire i omgivningsljus, mjuka blå och violetta toner mot vit bakgrund.",
+    "Sapphire in ambient light, soft blue and violet tones against a white backdrop."),
+  gemPhoto("gem-sapphire", "closeup-1", "closeup",
+    "Närbild av Sapphires vävda textil, intrikata blå och indigo trådar.",
+    "Close-up of Sapphire's woven textile, intricate blue and indigo threads."),
+  gemPhoto("gem-sapphire", "closeup-2", "closeup",
+    "Detaljbild av Sapphires tätväv i djupt blått och violett.",
+    "Detail shot of Sapphire's dense weave in deep blue and violet."),
+  gemPhoto("gem-sapphire", "alt-1", "alternative",
+    "Sapphire sedd från sidan, skulpturens djup och textur framhävs.",
+    "Sapphire viewed from the side, the sculpture's depth and texture emphasized."),
+];
 
 // ─── Catalogue ────────────────────────────────────────────────────────────────
 
@@ -661,7 +704,6 @@ export const ARTWORKS: readonly Artwork[] = [
 
   // ── Gems ───────────────────────────────────────────────────────────────────
   // Each entry represents the series; `edition.available` = total size − sold units.
-  // Images are placeholders until dedicated Gem photos are processed.
   {
     id: "gem-emerald",
     series: "gem",
@@ -673,7 +715,7 @@ export const ARTWORKS: readonly Artwork[] = [
     status: "for-sale",
     priceSek: 85000,
     location: ANDETAG_MUSEUM,
-    images: [GEM_EMERALD_PH],
+    images: GEM_EMERALD_IMAGES,
   },
   {
     id: "gem-ruby",
@@ -686,7 +728,7 @@ export const ARTWORKS: readonly Artwork[] = [
     status: "for-sale",
     priceSek: 85000,
     location: ANDETAG_MUSEUM,
-    images: [GEM_RUBY_PH],
+    images: GEM_RUBY_IMAGES,
   },
   {
     id: "gem-sapphire",
@@ -699,7 +741,7 @@ export const ARTWORKS: readonly Artwork[] = [
     status: "for-sale",
     priceSek: 85000,
     location: ANDETAG_MUSEUM,
-    images: [GEM_SAPPHIRE_PH],
+    images: GEM_SAPPHIRE_IMAGES,
   },
 ];
 
