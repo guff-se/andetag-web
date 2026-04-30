@@ -142,8 +142,8 @@ if (!w.__andetagModal) {
       : (a.format === "landscape" ? "Landscape" : a.format === "diptych" ? "Diptych" : "Portrait");
     const med = lang === "sv" ? "Material" : "Medium";
     const medVal = lang === "sv"
-      ? "Optisk fibertextil — bomullsvarp med optisk fiber, bomull, chenille och krympgarn i inslaget; polyesterfyllning; adresserbara RGB-lysdioder; mikrodator; träram"
-      : "Optical fibre fabric — cotton warp with optical fibre, cotton, chenille and shrinking yarn in weft; polyester fill; addressable RGB LEDs; microcomputer; wooden frame";
+      ? "Optisk fibertextil: bomullsvarp med optisk fiber, bomull, chenille och krympgarn i inslaget; polyesterfyllning; adresserbara RGB-lysdioder; mikrodator; träram"
+      : "Optical fibre fabric: cotton warp with optical fibre, cotton, chenille and shrinking yarn in weft; polyester fill; addressable RGB LEDs; microcomputer; wooden frame";
     const yr  = lang === "sv" ? "År" : "Year";
     const sz  = lang === "sv" ? "Storlek" : "Size";
     const fmt = "Format";
