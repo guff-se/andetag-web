@@ -183,6 +183,7 @@ if (!w.__andetagModal) {
     if (t.closest("[data-modal-backdrop]") || t.closest("[data-modal-close]")) {
       closeModal(); return;
     }
+    if (t.closest("[data-modal-inquire]")) { closeModal(); return; }
     if (t.closest("[data-modal-prev]")) { navigate(-1); return; }
     if (t.closest("[data-modal-next]")) { navigate(1); return; }
     const tile = t.closest<HTMLElement>("[data-artwork-tile]");

@@ -841,7 +841,7 @@ body.is-modal-open {
   background: var(--artwork-cream);
   border-radius: var(--artwork-radius);
   padding: 2.5rem clamp(1.25rem, 4vw, 3rem);
-  margin: 5rem 0 4rem;
+  margin: 5rem auto 4rem;
   scroll-margin-top: 6rem;
   max-width: 56rem;
 }

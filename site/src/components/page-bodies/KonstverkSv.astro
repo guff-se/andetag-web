@@ -13,13 +13,13 @@ const sold = originals.filter((a) => a.status === "sold");
 const gems = ARTWORKS.filter((a) => a.series === "gem");
 
 const counts = {
-  formatAll: originals.length,
-  formatLandscape: originals.filter((a) => a.format === "landscape").length,
-  formatPortrait: originals.filter((a) => a.format === "portrait").length,
+  formatAll: available.length,
+  formatLandscape: available.filter((a) => a.format === "landscape").length,
+  formatPortrait: available.filter((a) => a.format === "portrait").length,
 };
 
-// Serialize artworks for modal JS — order: available originals, sold originals, gems
-const modalOrder = [...available, ...sold, ...gems];
+// Serialize artworks for modal JS — order: available originals, gems, sold originals
+const modalOrder = [...available, ...gems, ...sold];
 const artworksJson = JSON.stringify(modalOrder.map((a) => ({
   id: a.id, series: a.series, number: a.number ?? null,
   edition: a.edition ?? null,
@@ -55,12 +55,10 @@ const artworksJson = JSON.stringify(modalOrder.map((a) => ({
     </p>
   </header>
 
-  <ArtworkMap artworks={ARTWORKS} language="sv" />
-
   <section class="page-artworks__section" aria-labelledby="originals-heading-sv">
     <header class="page-artworks__section-head">
-      <p class="page-artworks__section-eyebrow">Original</p>
-      <h2 class="page-artworks__section-heading" id="originals-heading-sv">Andetag no. 1 till 50</h2>
+      <p class="page-artworks__section-eyebrow">Andetag no. 1 till 50</p>
+      <h2 class="page-artworks__section-heading" id="originals-heading-sv">Andetag Originals</h2>
       <p class="page-artworks__section-intro">
         Varje original är ett unikt verk. Storlek, ljus och rörelse skiljer dem åt; samma
         andning bär dem alla.
@@ -68,17 +66,13 @@ const artworksJson = JSON.stringify(modalOrder.map((a) => ({
     </header>
 
     <ArtworkFilterBar language="sv" counts={counts} />
-    <ArtworkGrid
-      available={available} sold={sold}
-      language="sv" gridId="originals" eagerFirst={true}
-      soldLabel={`I samling (${sold.length})`}
-    />
+    <ArtworkGrid available={available} language="sv" gridId="originals" eagerFirst={true} />
   </section>
 
   <section class="page-artworks__section" aria-labelledby="gems-heading-sv">
     <header class="page-artworks__section-head">
-      <p class="page-artworks__section-eyebrow">Gems</p>
-      <h2 class="page-artworks__section-heading" id="gems-heading-sv">Tre verk i upplagor</h2>
+      <p class="page-artworks__section-eyebrow">Tre verk i upplagor</p>
+      <h2 class="page-artworks__section-heading" id="gems-heading-sv">Andetag Gems</h2>
       <p class="page-artworks__section-intro">
         En förfinad fortsättning på Andetagserien. Varje verk bär samma kontemplativa djup
         och fina energi som de större originalen, destillerat till en mer intim skala.
@@ -86,6 +80,17 @@ const artworksJson = JSON.stringify(modalOrder.map((a) => ({
     </header>
 
     <ArtworkGrid available={gems} language="sv" gridId="gems" />
+  </section>
+
+  <ArtworkMap artworks={sold} language="sv" />
+
+  <section class="page-artworks__section" aria-labelledby="sold-heading-sv">
+    <header class="page-artworks__section-head">
+      <p class="page-artworks__section-eyebrow">Original</p>
+      <h2 class="page-artworks__section-heading" id="sold-heading-sv">I samling ({sold.length})</h2>
+    </header>
+
+    <ArtworkGrid available={sold} language="sv" gridId="sold" />
   </section>
 
   <ArtworkModal language="sv" />
