@@ -1,6 +1,6 @@
 ---
 name: images
-description: Use when selecting and wiring photographs for a page on the ANDETAG Astro site (site/)—inline figure, hero cover, gallery tile, or testimonial background, refreshing an existing image, or ingesting a new upload (save under `assets/images/`, canonical filename + trilingual alt + `photos.yaml`, then `site/public` + derivatives + wire as needed). Triggers include "add a hero here", "add this new photo to the site", "images for the NPF page", "replace the intro figure", "this page needs a photograph of the main room". Document in the PR; approval at merge. Default components `ResponsiveInlinePicture`, `HeroSection`, `GallerySection`.
+description: Use when selecting and wiring photographs for a page on the ANDETAG Astro site (site/)—inline figure, hero cover, gallery tile, or testimonial background, refreshing an existing image, or ingesting a new upload (save under `assets/images/`, canonical filename + trilingual alt + `photos.yaml`, then `site/public` + derivatives + wire as needed). Also use for the artwork catalogue photo pipeline: calibrating and generating derivatives for artwork photos in `assets/artworks/` → `site/public/images/artworks/<id>/`, and adding or updating entries in `artworks.ts`. Triggers include "add a hero here", "add this new photo to the site", "images for the NPF page", "replace the intro figure", "add photos for andetag 40", "rescale the artwork images". Default components `ResponsiveInlinePicture`, `HeroSection`, `GallerySection`.
 ---
 
 ## Purpose
@@ -224,6 +224,121 @@ Use when the user (or a shoot handoff) provides **a new image file** not yet in 
 3. Update `alt` on every call site where the old image appeared (grep the constant name across `site/src/components/page-bodies/`).
 4. Leave the old master and derivatives on disk unless the user asks for cleanup — retention costs are near zero and broken external references are not.
 5. Document the swap in the PR. Verify: §Verification.
+
+### G. Artwork photo pipeline (artworks catalogue — separate from page photos)
+
+This is a **completely separate pipeline** from §B–F. Artwork photos do not go through `assets/images/`, `photos.yaml`, `wp-content/uploads/`, or any `BodyPictureSources` constant. Use this section whenever the task involves adding or replacing photos for a specific artwork in the catalogue (Andetag originals or Gems).
+
+#### G.1 File locations
+
+| Role | Path |
+|---|---|
+| Source archive (full-res originals) | `assets/artworks/<Artwork Name>-<mood>.jpg` |
+| Served directory | `site/public/images/artworks/<artwork-id>/` |
+| Catalogue entry | `site/src/lib/content/artworks.ts` |
+
+`<artwork-id>` follows the pattern `andetag-N` for originals (e.g. `andetag-40`) and `gem-<name>` for gems (e.g. `gem-emerald`).
+
+#### G.2 Mood variants and derivative set
+
+Each artwork typically has up to 6 moods. Each mood gets **4 derivatives** (not 3 as in the standard workflow):
+
+| Mood stem | `ArtworkMood` | Source filename pattern |
+|---|---|---|
+| `light` | `"light"` | `Andetag N-light.jpg` |
+| `dark` | `"dark"` | `Andetag N-dark.jpg` |
+| `mid` | `"mid"` | `Andetag N-mid.jpg` |
+| `alt-1` | `"alternative"` | `Andetag N-alt.jpg` |
+| `alt-2` | `"alternative"` | `Andetag N-alt2.jpg` |
+| `alt-3` | `"alternative"` | `Andetag N-altN.jpg` |
+
+Derivatives per mood (ImageMagick from repo root, `INPUT` = source file, `DIR` = served directory):
+
+```bash
+magick "$INPUT" -resize 640x  -strip -define webp:method=6 -quality 82 "$DIR/<mood>-640w.webp"
+magick "$INPUT" -resize 960x  -strip -define webp:method=6 -quality 82 "$DIR/<mood>-960w.webp"
+magick "$INPUT" -resize 960x  -strip -quality 82            "$DIR/<mood>-960w.jpg"
+magick "$INPUT" -resize 1920x -strip -quality 82            "$DIR/<mood>-1920w.jpg"
+```
+
+#### G.3 Calibrating -light images before generating derivatives
+
+The `-light` photos are shown side by side in the artworks gallery. Their wall-background brightness and white balance must match. **Always calibrate a new or replaced `-light` image before generating derivatives**, and **recalibrate + regenerate all existing `-light` derivatives whenever the fleet median shifts** (e.g. after a batch of new works lands).
+
+**Calibration algorithm** (Python / Pillow):
+
+```python
+# 1. Sample the white wall from each -light image:
+#    - Take all pixels with brightness > 120 AND max-min channel < 30
+#    - These are bright near-neutral pixels = wall, not artwork
+#    - Corner sampling is NOT used — vignetting varies by lens and zoom,
+#      making corners unrepresentative. Full-frame wall-pixel sampling
+#      naturally excludes vignette-darkened areas (they fall below brightness threshold).
+px = arr.reshape(-1, 3).astype(float)
+wall = px[(px.mean(1) > 120) & (px.max(1) - px.min(1) < 30)]
+cr, cg, cb = wall[:,0].mean(), wall[:,1].mean(), wall[:,2].mean()
+
+# 2. Compute per-channel gain against the fleet median (R≈186, G≈185, B≈188 as of 2026-04):
+gain_r, gain_g, gain_b = med_r / cr, med_g / cg, med_b / cb
+
+# 3. Apply gain and clamp:
+corrected = np.clip(arr * [gain_r, gain_g, gain_b], 0, 255).astype(uint8)
+
+# 4. Save at quality=95, subsampling=0 to minimise recompression loss.
+```
+
+**Fleet median** (re-derive whenever a substantial batch is added or replaced — run the sampling script across all current `-light` masters and take `statistics.median` per channel):
+
+- As of 2026-04-30: R ≈ 186, G ≈ 185, B ≈ 188 (nearly neutral, slight blue cast)
+- Store calibrated masters back to `assets/artworks/` in-place; the original commit history is the backup.
+
+**Exception**: if a calibrated image looks visually over-brightened after review, revert that specific image to its original (`git checkout`) and leave it uncalibrated. Document exceptions in the commit message.
+
+#### G.4 Wiring into `artworks.ts`
+
+The `origPhotos(n)` helper auto-generates light/dark/mid entries for any `andetag-N` id. For additional moods (alt variants), use `gemPhoto()` with the artwork's own id:
+
+```typescript
+// Standard 3 moods — use helper:
+images: origPhotos(40),
+
+// With additional alt images — spread helper + manual entries:
+images: [
+  ...origPhotos(40),
+  gemPhoto("andetag-40", "alt-1", "alternative",
+    "Verket Andetag no. 40, alternativ vy av textilskulpturen.",
+    "The artwork Andetag no. 40, alternative view of the textile sculpture."),
+  gemPhoto("andetag-40", "alt-2", "alternative", "…sv…", "…en…"),
+],
+```
+
+Catalogue fields required for a new original:
+
+```typescript
+{
+  id: "andetag-N",
+  series: "original",
+  number: N,
+  title: { sv: "Andetag no. N", en: "Andetag no. N" },
+  year: YYYY,
+  dimensionsCm: { w: W, h: H },   // width × height in cm
+  format: "landscape" | "portrait" | "diptych",
+  status: "for-sale" | "sold",
+  priceSek: NNNNNN,               // omit if price on request
+  location: ANDETAG_MUSEUM,       // or a city constant for sold works
+  images: origPhotos(N),
+}
+```
+
+#### G.5 Checklist for adding a new artwork
+
+1. Pull the branch; confirm source files land in `assets/artworks/`.
+2. Calibrate the `-light` image against the current fleet median (§G.3). Save in-place.
+3. `mkdir -p site/public/images/artworks/<artwork-id>`.
+4. Generate 4 derivatives per mood present (§G.2). Loop all moods in one script run.
+5. Add the catalogue entry to `artworks.ts` (after the last existing original, before gems).
+6. `cd site && npm test && npm run build`. Both must pass.
+7. Commit: source calibration change + derivatives + catalogue entry in one commit.
 
 ## Verification
 
