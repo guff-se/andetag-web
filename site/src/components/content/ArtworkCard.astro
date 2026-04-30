@@ -3,8 +3,10 @@ import type { Artwork } from "../../lib/content/artworks";
 type Props = { artwork: Artwork; language: "sv" | "en"; eager?: boolean };
 const { artwork, language, eager = false } = Astro.props as Props;
 
-const base = artwork.images[0]!;
-const dark = artwork.images.find(i => i.mood === "dark") ?? artwork.images[1];
+const base = artwork.images.find(i => i.mood === "light")
+  ?? artwork.images.find(i => i.mood === "mid")
+  ?? artwork.images[0]!;
+const dark = artwork.images.find(i => i.mood === "dark");
 const label = artwork.series === "original" ? `no. ${artwork.number}` : artwork.title[language];
 const tooltip = `${artwork.title[language]} · ${artwork.year} · ${artwork.dimensionsCm.w} × ${artwork.dimensionsCm.h} cm`;
 ---
