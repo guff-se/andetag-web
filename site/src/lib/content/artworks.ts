@@ -20,7 +20,7 @@
 
 export type ArtworkSeries = "original" | "gem";
 export type ArtworkStatus = "for-sale" | "sold";
-export type ArtworkFormat = "landscape" | "portrait";
+export type ArtworkFormat = "landscape" | "portrait" | "diptych";
 
 export type ArtworkMood =
   /** Spotlight on, room lit — primary card image. */
@@ -76,8 +76,6 @@ export type Artwork = {
   year: number;
   /** Width × height, centimetres. */
   dimensionsCm: { w: number; h: number };
-  /** Optional artwork type label, e.g. "Diptych". Displayed in the detail modal. */
-  type?: string;
   format: ArtworkFormat;
   status: ArtworkStatus;
   /** SEK. Optional even when `for-sale` (renders as "price on request" when absent). */
@@ -338,7 +336,7 @@ export const ARTWORKS: readonly Artwork[] = [
     title: { sv: "Andetag no. 3", en: "Andetag no. 3" },
     year: 2023,
     dimensionsCm: { w: 110, h: 190 },
-    format: "portrait",
+    format: "diptych",
     status: "sold",
     location: STOCKHOLM,
     images: origPhotos(3),
@@ -436,7 +434,7 @@ export const ARTWORKS: readonly Artwork[] = [
     title: { sv: "Andetag no. 11", en: "Andetag no. 11" },
     year: 2023,
     dimensionsCm: { w: 99, h: 226 },
-    format: "portrait",
+    format: "diptych",
     status: "sold",
     location: STOCKHOLM,
     images: origPhotos(11),
@@ -672,7 +670,7 @@ export const ARTWORKS: readonly Artwork[] = [
     title: { sv: "Andetag no. 30", en: "Andetag no. 30" },
     year: 2025,
     dimensionsCm: { w: 99, h: 226 },
-    format: "portrait",
+    format: "diptych",
     status: "sold",
     location: LISBON,
     images: origPhotos(30),
@@ -697,7 +695,7 @@ export const ARTWORKS: readonly Artwork[] = [
     title: { sv: "Andetag no. 35", en: "Andetag no. 35" },
     year: 2025,
     dimensionsCm: { w: 110, h: 190 },
-    format: "portrait",
+    format: "diptych",
     status: "for-sale",
     priceSek: 340000,
     location: ANDETAG_MUSEUM,
@@ -710,8 +708,7 @@ export const ARTWORKS: readonly Artwork[] = [
     title: { sv: "Andetag no. 40", en: "Andetag no. 40" },
     year: 2026,
     dimensionsCm: { w: 105, h: 205 },
-    type: "Diptych",
-    format: "portrait",
+    format: "diptych",
     status: "for-sale",
     priceSek: 340000,
     location: ANDETAG_MUSEUM,

@@ -1,7 +1,7 @@
 /**
  * Client filter for the Artworks page.
  *
- * Single filter dimension: `format` (all|landscape|portrait). Status split is
+ * Single filter dimension: `format` (all|landscape|portrait|diptych). Status split is
  * handled by the section accordion (available vs sold). Tiles carry
  * `data-artwork-format`; we set `data-filter-format` on each `[data-artwork-grid]`
  * element and let CSS hide non-matching tiles. This avoids layout thrash from
@@ -12,7 +12,7 @@
  */
 
 type FilterState = {
-  format: "all" | "landscape" | "portrait";
+  format: "all" | "landscape" | "portrait" | "diptych";
 };
 
 const w = window as Window & { __andetagArtworksFilter?: boolean };
@@ -32,7 +32,7 @@ if (!w.__andetagArtworksFilter) {
         const [group, value] = pair.split(":");
         if (
           group === "format" &&
-          (value === "all" || value === "landscape" || value === "portrait")
+          (value === "all" || value === "landscape" || value === "portrait" || value === "diptych")
         ) {
           state.format = value;
         }

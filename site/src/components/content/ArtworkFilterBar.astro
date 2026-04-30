@@ -13,6 +13,7 @@ type Props = {
     formatAll: number;
     formatLandscape: number;
     formatPortrait: number;
+    formatDiptych: number;
   };
 };
 
@@ -26,6 +27,7 @@ const labels =
         formatAll: "Alla",
         formatLandscape: "Liggande",
         formatPortrait: "Stående",
+        formatDiptych: "Diptyk",
         empty: "Inga verk matchar filtret.",
       }
     : {
@@ -34,6 +36,7 @@ const labels =
         formatAll: "All",
         formatLandscape: "Landscape",
         formatPortrait: "Portrait",
+        formatDiptych: "Diptych",
         empty: "No works match this filter.",
       };
 
@@ -49,6 +52,7 @@ const formatPills: PillSpec[] = [
   { group: "format", value: "all", label: labels.formatAll, count: counts.formatAll, defaultActive: true },
   { group: "format", value: "landscape", label: labels.formatLandscape, count: counts.formatLandscape },
   { group: "format", value: "portrait", label: labels.formatPortrait, count: counts.formatPortrait },
+  { group: "format", value: "diptych", label: labels.formatDiptych, count: counts.formatDiptych },
 ];
 ---
 
