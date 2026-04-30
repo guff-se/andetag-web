@@ -81,7 +81,19 @@ const artworksJson = JSON.stringify(modalOrder.map((a) => ({
     <ArtworkGrid available={gems} language="sv" gridId="gems" />
   </section>
 
-  <ArtworkMap artworks={sold} language="sv" />
+  <section class="page-artworks__section" aria-labelledby="map-heading-sv">
+    <header class="page-artworks__section-head">
+      <h2 class="page-artworks__section-heading" id="map-heading-sv">I samlingar runt om i världen</h2>
+      <p class="page-artworks__section-intro">
+        Mer än tjugo Andetagverk finns hos privata samlare runt om i världen —
+        i Seattle, New York, Miami, Costa Rica, Portugal och Sverige. Vart och ett
+        är kopplat till alla andra via internet och andas tillsammans i samma
+        gemensamma rytm.
+      </p>
+    </header>
+
+    <ArtworkMap artworks={sold} language="sv" />
+  </section>
 
   <section class="page-artworks__section" aria-labelledby="sold-heading-sv">
     <header class="page-artworks__section-head">
