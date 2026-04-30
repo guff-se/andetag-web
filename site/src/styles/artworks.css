@@ -135,13 +135,11 @@
   pointer-events: none;
 }
 
-.artwork-map__pin:hover .artwork-map__pin-glow,
 .artwork-map__pin:focus-visible .artwork-map__pin-glow,
 .artwork-map__pin.is-active .artwork-map__pin-glow {
   opacity: 1;
 }
 
-.artwork-map__pin:hover .artwork-map__pin-dot,
 .artwork-map__pin:focus-visible .artwork-map__pin-dot,
 .artwork-map__pin.is-active .artwork-map__pin-dot {
   fill: var(--artwork-pink);
