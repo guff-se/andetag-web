@@ -140,6 +140,10 @@ if (!w.__andetagModal) {
     const fmtLabel = lang === "sv"
       ? (a.format === "landscape" ? "Liggande" : "Stående")
       : (a.format === "landscape" ? "Landscape" : "Portrait");
+    const med = lang === "sv" ? "Material" : "Medium";
+    const medVal = lang === "sv"
+      ? "Optisk fibertextil — bomullsvarp med optisk fiber, bomull, chenille och krympgarn i inslaget; polyesterfyllning; adresserbara RGB-lysdioder; mikrodator; träram"
+      : "Optical fibre fabric — cotton warp with optical fibre, cotton, chenille and shrinking yarn in weft; polyester fill; addressable RGB LEDs; microcomputer; wooden frame";
     const yr  = lang === "sv" ? "År" : "Year";
     const sz  = lang === "sv" ? "Storlek" : "Size";
     const fmt = "Format";
@@ -147,6 +151,7 @@ if (!w.__andetagModal) {
     const ed  = lang === "sv" ? "Upplaga" : "Edition";
 
     let html = `
+      <div><dt>${med}</dt><dd>${medVal}</dd></div>
       <div><dt>${yr}</dt><dd>${a.year}</dd></div>
       <div><dt>${sz}</dt><dd>${a.w} × ${a.h} cm</dd></div>
       <div><dt>${fmt}</dt><dd>${fmtLabel}</dd></div>
