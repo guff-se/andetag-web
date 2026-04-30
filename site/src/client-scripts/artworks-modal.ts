@@ -13,6 +13,7 @@ type ModalArtwork = {
   edition?: { size: number; available: number };
   titleSv: string; titleEn: string;
   year: number; w: number; h: number;
+  type?: string;
   format: string; status: string; priceSek?: number;
   locationSv: string; locationEn: string;
   images: ModalImage[];
@@ -146,6 +147,7 @@ if (!w.__andetagModal) {
       : "Optical fibre fabric — cotton warp with optical fibre, cotton, chenille and shrinking yarn in weft; polyester fill; addressable RGB LEDs; microcomputer; wooden frame";
     const yr  = lang === "sv" ? "År" : "Year";
     const sz  = lang === "sv" ? "Storlek" : "Size";
+    const typ = lang === "sv" ? "Typ" : "Type";
     const fmt = "Format";
     const loc = lang === "sv" ? "Plats" : "Location";
     const ed  = lang === "sv" ? "Upplaga" : "Edition";
@@ -153,7 +155,11 @@ if (!w.__andetagModal) {
     let html = `
       <div><dt>${med}</dt><dd>${medVal}</dd></div>
       <div><dt>${yr}</dt><dd>${a.year}</dd></div>
-      <div><dt>${sz}</dt><dd>${a.w} × ${a.h} cm</dd></div>
+      <div><dt>${sz}</dt><dd>${a.w} × ${a.h} cm</dd></div>`;
+    if (a.type) {
+      html += `<div><dt>${typ}</dt><dd>${esc(a.type)}</dd></div>`;
+    }
+    html += `
       <div><dt>${fmt}</dt><dd>${fmtLabel}</dd></div>
       <div><dt>${loc}</dt><dd>${esc(location)}</dd></div>`;
     if (a.edition) {

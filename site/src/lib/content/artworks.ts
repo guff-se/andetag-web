@@ -76,6 +76,8 @@ export type Artwork = {
   year: number;
   /** Width × height, centimetres. */
   dimensionsCm: { w: number; h: number };
+  /** Optional artwork type label, e.g. "Diptych". Displayed in the detail modal. */
+  type?: string;
   format: ArtworkFormat;
   status: ArtworkStatus;
   /** SEK. Optional even when `for-sale` (renders as "price on request" when absent). */
@@ -700,6 +702,31 @@ export const ARTWORKS: readonly Artwork[] = [
     priceSek: 340000,
     location: ANDETAG_MUSEUM,
     images: origPhotos(35),
+  },
+  {
+    id: "andetag-40",
+    series: "original",
+    number: 40,
+    title: { sv: "Andetag no. 40", en: "Andetag no. 40" },
+    year: 2026,
+    dimensionsCm: { w: 105, h: 205 },
+    type: "Diptych",
+    format: "portrait",
+    status: "for-sale",
+    priceSek: 340000,
+    location: ANDETAG_MUSEUM,
+    images: [
+      ...origPhotos(40),
+      gemPhoto("andetag-40", "alt-1", "alternative",
+        "Verket Andetag no. 40, alternativ vy av textilskulpturen.",
+        "The artwork Andetag no. 40, alternative view of the textile sculpture."),
+      gemPhoto("andetag-40", "alt-2", "alternative",
+        "Verket Andetag no. 40, detaljvy av textilskulpturen.",
+        "The artwork Andetag no. 40, detail view of the textile sculpture."),
+      gemPhoto("andetag-40", "alt-3", "alternative",
+        "Verket Andetag no. 40, ytterligare vy av textilskulpturen.",
+        "The artwork Andetag no. 40, further view of the textile sculpture."),
+    ],
   },
 
   // ── Gems ───────────────────────────────────────────────────────────────────

@@ -25,6 +25,7 @@ const artworksJson = JSON.stringify(modalOrder.map((a) => ({
   edition: a.edition ?? null,
   titleSv: a.title.sv, titleEn: a.title.en,
   year: a.year, w: a.dimensionsCm.w, h: a.dimensionsCm.h,
+  type: a.type ?? null,
   format: a.format, status: a.status, priceSek: a.priceSek ?? null,
   locationSv: a.location.label.sv, locationEn: a.location.label.en,
   images: a.images.map((img) => ({
