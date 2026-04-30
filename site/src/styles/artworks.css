@@ -837,6 +837,14 @@ body.is-modal-open {
  * Inquiry form
  * ============================================================ */
 
+.page-artworks__commissioned {
+  max-width: 44rem;
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--artwork-graphite);
+  margin: 4rem 0 0;
+}
+
 .inquiry-form {
   background: var(--artwork-cream);
   border-radius: var(--artwork-radius);
