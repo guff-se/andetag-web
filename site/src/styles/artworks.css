@@ -328,11 +328,18 @@
 }
 
 /* Filtering: hide non-matching tiles via attribute selectors. */
-.artwork-grid[data-filter-format="landscape"] [data-artwork-format="portrait"] {
+.artwork-grid[data-filter-format="landscape"] [data-artwork-format="portrait"],
+.artwork-grid[data-filter-format="landscape"] [data-artwork-format="diptych"] {
   display: none;
 }
 
-.artwork-grid[data-filter-format="portrait"] [data-artwork-format="landscape"] {
+.artwork-grid[data-filter-format="portrait"] [data-artwork-format="landscape"],
+.artwork-grid[data-filter-format="portrait"] [data-artwork-format="diptych"] {
+  display: none;
+}
+
+.artwork-grid[data-filter-format="diptych"] [data-artwork-format="landscape"],
+.artwork-grid[data-filter-format="diptych"] [data-artwork-format="portrait"] {
   display: none;
 }
 
