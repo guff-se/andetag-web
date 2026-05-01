@@ -83,6 +83,24 @@ const artworksJson = JSON.stringify(modalOrder.map((a) => ({
     <ArtworkGrid available={gems} language="sv" gridId="gems" />
   </section>
 
+  <section class="page-artworks__section" aria-labelledby="app-heading-sv">
+    <header class="page-artworks__section-head">
+      <h2 class="page-artworks__section-heading" id="app-heading-sv">Andetag-appen</h2>
+      <p class="page-artworks__section-intro">
+        Appen spelar musiken från Stockholm-utställningen i synk med ditt verk — den
+        väntar in nästa globala andetag och andas sedan med det. Musik och andningsljud
+        kan justeras eller stängas av var för sig.
+        Ladda ner för <a href="https://apps.apple.com/se/app/andetag/id6749811621">iPhone</a> eller
+        <a href="https://play.google.com/store/apps/details?id=se.tadaa.andetag&hl=en">Android</a>.
+      </p>
+      <p class="page-artworks__section-intro">
+        Konstruerad med utbytbara standardkomponenter beräknade för ungefär tio års
+        kontinuerlig drift. Reservdelar förvaras hos konstnären. Ett års garanti på
+        elektroniken.
+      </p>
+    </header>
+  </section>
+
   <section class="page-artworks__section" aria-labelledby="map-heading-sv">
     <header class="page-artworks__section-head">
       <h2 class="page-artworks__section-heading" id="map-heading-sv">I samlingar runt om i världen</h2>
@@ -103,24 +121,6 @@ const artworksJson = JSON.stringify(modalOrder.map((a) => ({
     </header>
 
     <ArtworkGrid available={sold} language="sv" gridId="sold" />
-  </section>
-
-  <section class="page-artworks__section" aria-labelledby="app-heading-sv">
-    <header class="page-artworks__section-head">
-      <h2 class="page-artworks__section-heading" id="app-heading-sv">Andetag-appen</h2>
-      <p class="page-artworks__section-intro">
-        Appen spelar musiken från Stockholm-utställningen i synk med ditt verk — den
-        väntar in nästa globala andetag och andas sedan med det. Musik och andningsljud
-        kan justeras eller stängas av var för sig.
-        Ladda ner för <a href="https://tadaa.se/andetag-app-iphone">iPhone</a> eller
-        <a href="https://tadaa.se/andetag-app-android">Android</a>.
-      </p>
-      <p class="page-artworks__section-intro">
-        Konstruerad med utbytbara standardkomponenter beräknade för ungefär tio års
-        kontinuerlig drift. Reservdelar förvaras hos konstnären. Ett års garanti på
-        elektroniken.
-      </p>
-    </header>
   </section>
 
   <ArtworkModal language="sv" />

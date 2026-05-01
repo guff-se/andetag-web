@@ -83,6 +83,23 @@ const artworksJson = JSON.stringify(modalOrder.map((a) => ({
     <ArtworkGrid available={gems} language="en" gridId="gems" />
   </section>
 
+  <section class="page-artworks__section" aria-labelledby="app-heading-en">
+    <header class="page-artworks__section-head">
+      <h2 class="page-artworks__section-heading" id="app-heading-en">The Andetag App</h2>
+      <p class="page-artworks__section-intro">
+        The app plays the music from the Stockholm exhibition in sync with your artwork —
+        waiting for the next global breath, then breathing with it. Music and breath sound
+        can be adjusted or muted independently.
+        Download for <a href="https://apps.apple.com/se/app/andetag/id6749811621">iPhone</a> or
+        <a href="https://play.google.com/store/apps/details?id=se.tadaa.andetag&hl=en">Android</a>.
+      </p>
+      <p class="page-artworks__section-intro">
+        Built from industry-standard, replaceable components rated for around ten years of
+        continuous use. Spare parts are held by the artist. One-year electronics warranty.
+      </p>
+    </header>
+  </section>
+
   <section class="page-artworks__section" aria-labelledby="map-heading-en">
     <header class="page-artworks__section-head">
       <h2 class="page-artworks__section-heading" id="map-heading-en">In collections around the world</h2>
@@ -104,23 +121,6 @@ const artworksJson = JSON.stringify(modalOrder.map((a) => ({
     </header>
 
     <ArtworkGrid available={sold} language="en" gridId="sold" />
-  </section>
-
-  <section class="page-artworks__section" aria-labelledby="app-heading-en">
-    <header class="page-artworks__section-head">
-      <h2 class="page-artworks__section-heading" id="app-heading-en">The Andetag App</h2>
-      <p class="page-artworks__section-intro">
-        The app plays the music from the Stockholm exhibition in sync with your artwork —
-        waiting for the next global breath, then breathing with it. Music and breath sound
-        can be adjusted or muted independently.
-        Download for <a href="https://tadaa.se/andetag-app-iphone">iPhone</a> or
-        <a href="https://tadaa.se/andetag-app-android">Android</a>.
-      </p>
-      <p class="page-artworks__section-intro">
-        Built from industry-standard, replaceable components rated for around ten years of
-        continuous use. Spare parts are held by the artist. One-year electronics warranty.
-      </p>
-    </header>
   </section>
 
   <ArtworkModal language="en" />
