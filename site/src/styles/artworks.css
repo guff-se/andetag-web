@@ -844,12 +844,16 @@ body.is-modal-open {
  * Inquiry form
  * ============================================================ */
 
+.page-artworks__commissioned-heading {
+  margin: 4rem 0 0.5rem;
+}
+
 .page-artworks__commissioned {
   max-width: 44rem;
   font-size: 1.05rem;
   line-height: 1.65;
   color: var(--artwork-graphite);
-  margin: 4rem 0 0;
+  margin: 0;
 }
 
 .inquiry-form {
