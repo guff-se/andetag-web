@@ -3,7 +3,7 @@
  *
  * Data imported from artworks.csv (2026-04-29). Fields used:
  *   Name → id + series + number/title
- *   Status → "Andetag Stockholm" | "In storage" → for-sale  /  "Sold" → sold
+ *   Status → "Andetag Stockholm" → on-exhibition / "In storage" → in-studio / "Sold" → sold
  *   Size → dimensionsCm (WxH in centimetres)
  *   Price SEK → priceSek (for-sale works only)
  *   Year → year
@@ -19,7 +19,7 @@
  */
 
 export type ArtworkSeries = "original" | "gem";
-export type ArtworkStatus = "for-sale" | "sold";
+export type ArtworkStatus = "on-exhibition" | "in-studio" | "sold";
 export type ArtworkFormat = "landscape" | "portrait" | "diptych";
 
 export type ArtworkMood =
@@ -78,6 +78,8 @@ export type Artwork = {
   dimensionsCm: { w: number; h: number };
   format: ArtworkFormat;
   status: ArtworkStatus;
+  /** Where collectors can view the work in person. Defaults to the location label when absent. */
+  exhibitionVenue?: string;
   /** SEK. Optional even when `for-sale` (renders as "price on request" when absent). */
   priceSek?: number;
   location: ArtworkLocation;
@@ -91,6 +93,13 @@ const ANDETAG_MUSEUM: ArtworkLocation = {
   label: { sv: "ANDETAG, Stockholm", en: "ANDETAG, Stockholm" },
   lat: 59.3358,
   lon: 18.0631,
+  privacy: "exhibition",
+};
+
+const STUDIO: ArtworkLocation = {
+  label: { sv: "Ateljé, Stockholm", en: "Studio, Stockholm" },
+  lat: 59.3412,
+  lon: 18.0518,
   privacy: "exhibition",
 };
 
@@ -361,7 +370,7 @@ export const ARTWORKS: readonly Artwork[] = [
     year: 2023,
     dimensionsCm: { w: 85, h: 110 },
     format: "portrait",
-    status: "for-sale",
+    status: "on-exhibition",
     priceSek: 190000,
     location: ANDETAG_MUSEUM,
     images: origPhotos(5),
@@ -386,7 +395,7 @@ export const ARTWORKS: readonly Artwork[] = [
     year: 2023,
     dimensionsCm: { w: 110, h: 90 },
     format: "landscape",
-    status: "for-sale",
+    status: "on-exhibition",
     priceSek: 190000,
     location: ANDETAG_MUSEUM,
     images: origPhotos(7),
@@ -459,7 +468,7 @@ export const ARTWORKS: readonly Artwork[] = [
     year: 2023,
     dimensionsCm: { w: 90, h: 110 },
     format: "portrait",
-    status: "for-sale",
+    status: "on-exhibition",
     priceSek: 190000,
     location: ANDETAG_MUSEUM,
     images: origPhotos(13),
@@ -544,7 +553,7 @@ export const ARTWORKS: readonly Artwork[] = [
     year: 2024,
     dimensionsCm: { w: 90, h: 110 },
     format: "portrait",
-    status: "for-sale",
+    status: "on-exhibition",
     priceSek: 190000,
     location: ANDETAG_MUSEUM,
     images: origPhotos(20),
@@ -569,7 +578,7 @@ export const ARTWORKS: readonly Artwork[] = [
     year: 2024,
     dimensionsCm: { w: 110, h: 90 },
     format: "landscape",
-    status: "for-sale",
+    status: "on-exhibition",
     priceSek: 190000,
     location: ANDETAG_MUSEUM,
     images: origPhotos(22),
@@ -594,7 +603,7 @@ export const ARTWORKS: readonly Artwork[] = [
     year: 2024,
     dimensionsCm: { w: 110, h: 90 },
     format: "landscape",
-    status: "for-sale",
+    status: "on-exhibition",
     priceSek: 190000,
     location: ANDETAG_MUSEUM,
     images: origPhotos(24),
@@ -607,7 +616,7 @@ export const ARTWORKS: readonly Artwork[] = [
     year: 2024,
     dimensionsCm: { w: 110, h: 90 },
     format: "landscape",
-    status: "for-sale",
+    status: "on-exhibition",
     priceSek: 190000,
     location: ANDETAG_MUSEUM,
     images: origPhotos(25),
@@ -620,7 +629,7 @@ export const ARTWORKS: readonly Artwork[] = [
     year: 2024,
     dimensionsCm: { w: 85, h: 110 },
     format: "portrait",
-    status: "for-sale",
+    status: "on-exhibition",
     priceSek: 190000,
     location: ANDETAG_MUSEUM,
     images: origPhotos(26),
@@ -645,7 +654,7 @@ export const ARTWORKS: readonly Artwork[] = [
     year: 2025,
     dimensionsCm: { w: 110, h: 90 },
     format: "landscape",
-    status: "for-sale",
+    status: "on-exhibition",
     priceSek: 190000,
     location: ANDETAG_MUSEUM,
     images: origPhotos(28),
@@ -658,7 +667,7 @@ export const ARTWORKS: readonly Artwork[] = [
     year: 2025,
     dimensionsCm: { w: 85, h: 110 },
     format: "portrait",
-    status: "for-sale",
+    status: "on-exhibition",
     priceSek: 190000,
     location: ANDETAG_MUSEUM,
     images: origPhotos(29),
@@ -683,9 +692,9 @@ export const ARTWORKS: readonly Artwork[] = [
     year: 2025,
     dimensionsCm: { w: 110, h: 90 },
     format: "landscape",
-    status: "for-sale",
+    status: "in-studio",
     priceSek: 190000,
-    location: ANDETAG_MUSEUM,
+    location: STUDIO,
     images: origPhotos(31),
   },
   {
@@ -696,7 +705,7 @@ export const ARTWORKS: readonly Artwork[] = [
     year: 2025,
     dimensionsCm: { w: 110, h: 190 },
     format: "diptych",
-    status: "for-sale",
+    status: "on-exhibition",
     priceSek: 340000,
     location: ANDETAG_MUSEUM,
     images: origPhotos(35),
@@ -709,7 +718,7 @@ export const ARTWORKS: readonly Artwork[] = [
     year: 2026,
     dimensionsCm: { w: 105, h: 205 },
     format: "diptych",
-    status: "for-sale",
+    status: "on-exhibition",
     priceSek: 340000,
     location: ANDETAG_MUSEUM,
     images: [
@@ -736,7 +745,7 @@ export const ARTWORKS: readonly Artwork[] = [
     year: 2025,
     dimensionsCm: { w: 60, h: 75 },
     format: "portrait",
-    status: "for-sale",
+    status: "on-exhibition",
     priceSek: 95000,
     location: ANDETAG_MUSEUM,
     images: GEM_EMERALD_IMAGES,
@@ -749,7 +758,7 @@ export const ARTWORKS: readonly Artwork[] = [
     year: 2025,
     dimensionsCm: { w: 75, h: 60 },
     format: "landscape",
-    status: "for-sale",
+    status: "on-exhibition",
     priceSek: 95000,
     location: ANDETAG_MUSEUM,
     images: GEM_RUBY_IMAGES,
@@ -762,7 +771,7 @@ export const ARTWORKS: readonly Artwork[] = [
     year: 2025,
     dimensionsCm: { w: 75, h: 56 },
     format: "landscape",
-    status: "for-sale",
+    status: "on-exhibition",
     priceSek: 95000,
     location: ANDETAG_MUSEUM,
     images: GEM_SAPPHIRE_IMAGES,
@@ -775,8 +784,8 @@ export const ANDETAG_GEM_TOTAL = 3;
 
 /** Catalogue totals derived from actual data (used by intro copy + schema). */
 export function getCatalogueTotals(artworks: readonly Artwork[]): {
-  originals: { listed: number; forSale: number; sold: number };
-  gems: { listed: number; forSale: number; soldUnits: number; totalUnits: number };
+  originals: { listed: number; available: number; sold: number };
+  gems: { listed: number; available: number; soldUnits: number; totalUnits: number };
 } {
   const originals = artworks.filter((a) => a.series === "original");
   const gems = artworks.filter((a) => a.series === "gem");
@@ -787,12 +796,12 @@ export function getCatalogueTotals(artworks: readonly Artwork[]): {
   return {
     originals: {
       listed: originals.length,
-      forSale: originals.filter((a) => a.status === "for-sale").length,
+      available: originals.filter((a) => a.status !== "sold").length,
       sold: originals.filter((a) => a.status === "sold").length,
     },
     gems: {
       listed: gems.length,
-      forSale: gems.filter((a) => a.status === "for-sale").length,
+      available: gems.filter((a) => a.status !== "sold").length,
       totalUnits,
       soldUnits: totalUnits - availableUnits,
     },

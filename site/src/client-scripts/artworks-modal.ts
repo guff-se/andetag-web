@@ -14,6 +14,7 @@ type ModalArtwork = {
   titleSv: string; titleEn: string;
   year: number; w: number; h: number;
   format: string; status: string; priceSek?: number;
+  exhibitionVenue?: string | null;
   locationSv: string; locationEn: string;
   images: ModalImage[];
 };
@@ -147,7 +148,12 @@ if (!w.__andetagModal) {
     const yr  = lang === "sv" ? "År" : "Year";
     const sz  = lang === "sv" ? "Storlek" : "Size";
     const fmt = "Format";
-    const loc = lang === "sv" ? "Plats" : "Location";
+    const locLabel = a.status === "on-exhibition"
+      ? (lang === "sv" ? "Visas på" : "On view at")
+      : (lang === "sv" ? "Plats" : "Location");
+    const locValue = a.status === "on-exhibition"
+      ? (a.exhibitionVenue ?? location)
+      : location;
     const ed  = lang === "sv" ? "Upplaga" : "Edition";
 
     let html = `
@@ -155,7 +161,7 @@ if (!w.__andetagModal) {
       <div><dt>${yr}</dt><dd>${a.year}</dd></div>
       <div><dt>${sz}</dt><dd>${a.w} × ${a.h} cm</dd></div>
       <div><dt>${fmt}</dt><dd>${fmtLabel}</dd></div>
-      <div><dt>${loc}</dt><dd>${esc(location)}</dd></div>`;
+      <div><dt>${locLabel}</dt><dd>${esc(locValue)}</dd></div>`;
     if (a.edition) {
       const edTxt = lang === "sv"
         ? `Upplaga ${a.edition.available} av ${a.edition.size}`
@@ -165,7 +171,7 @@ if (!w.__andetagModal) {
     detailsEl.innerHTML = html;
 
     // Inquire
-    if (a.status === "for-sale") {
+    if (a.status !== "sold") {
       (inquireEl as HTMLAnchorElement).href = `#inquiry?about=${a.id}`;
       inquireEl.removeAttribute("hidden");
     } else {

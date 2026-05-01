@@ -293,6 +293,10 @@
   margin: 0;
 }
 
+.page-artworks__section-intro + .page-artworks__section-intro {
+  margin-top: 0.75rem;
+}
+
 /* ============================================================
  * Gallery grid — square tiles
  *
@@ -437,6 +441,11 @@
   box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.6);
 }
 
+.artwork-tile.is-in-studio .artwork-tile__dot {
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.4);
+}
+
 .artwork-tile.is-sold .artwork-tile__dot {
   background: rgba(255, 255, 255, 0.35);
   box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.25);
@@ -535,10 +544,29 @@
   margin-bottom: 0;
 }
 
-/* Muted sold grid — slightly desaturated */
+/* Muted sold grid — more columns to reduce visual weight */
 .artwork-grid--sold {
   margin-top: 0;
   opacity: 0.85;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (min-width: 600px) {
+  .artwork-grid--sold {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1100px) {
+  .artwork-grid--sold {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+@media (min-width: 1400px) {
+  .artwork-grid--sold {
+    grid-template-columns: repeat(8, 1fr);
+  }
 }
 
 /* Animate open/close — best-effort (no CSS-only for details content height) */

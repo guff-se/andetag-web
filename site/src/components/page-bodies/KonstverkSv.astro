@@ -8,7 +8,7 @@ import ArtworkModal from "../content/ArtworkModal.astro";
 import InquiryForm from "../embeds/InquiryForm.astro";
 
 const originals = ARTWORKS.filter((a) => a.series === "original");
-const available = originals.filter((a) => a.status === "for-sale");
+const available = originals.filter((a) => a.status !== "sold");
 const sold = originals.filter((a) => a.status === "sold");
 const gems = ARTWORKS.filter((a) => a.series === "gem");
 
@@ -27,6 +27,7 @@ const artworksJson = JSON.stringify(modalOrder.map((a) => ({
   titleSv: a.title.sv, titleEn: a.title.en,
   year: a.year, w: a.dimensionsCm.w, h: a.dimensionsCm.h,
   format: a.format, status: a.status, priceSek: a.priceSek ?? null,
+  exhibitionVenue: a.exhibitionVenue ?? null,
   locationSv: a.location.label.sv, locationEn: a.location.label.en,
   images: a.images.map((img) => ({
     src: img.src, webp640: img.webp640, webp960: img.webp960,
@@ -102,6 +103,24 @@ const artworksJson = JSON.stringify(modalOrder.map((a) => ({
     </header>
 
     <ArtworkGrid available={sold} language="sv" gridId="sold" />
+  </section>
+
+  <section class="page-artworks__section" aria-labelledby="app-heading-sv">
+    <header class="page-artworks__section-head">
+      <h2 class="page-artworks__section-heading" id="app-heading-sv">Andetag-appen</h2>
+      <p class="page-artworks__section-intro">
+        Appen spelar musiken från Stockholm-utställningen i synk med ditt verk — den
+        väntar in nästa globala andetag och andas sedan med det. Musik och andningsljud
+        kan justeras eller stängas av var för sig.
+        Ladda ner för <a href="https://tadaa.se/andetag-app-iphone">iPhone</a> eller
+        <a href="https://tadaa.se/andetag-app-android">Android</a>.
+      </p>
+      <p class="page-artworks__section-intro">
+        Konstruerad med utbytbara standardkomponenter beräknade för ungefär tio års
+        kontinuerlig drift. Reservdelar förvaras hos konstnären. Ett års garanti på
+        elektroniken.
+      </p>
+    </header>
   </section>
 
   <ArtworkModal language="sv" />

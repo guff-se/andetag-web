@@ -8,7 +8,7 @@ import ArtworkModal from "../content/ArtworkModal.astro";
 import InquiryForm from "../embeds/InquiryForm.astro";
 
 const originals = ARTWORKS.filter((a) => a.series === "original");
-const available = originals.filter((a) => a.status === "for-sale");
+const available = originals.filter((a) => a.status !== "sold");
 const sold = originals.filter((a) => a.status === "sold");
 const gems = ARTWORKS.filter((a) => a.series === "gem");
 
@@ -27,6 +27,7 @@ const artworksJson = JSON.stringify(modalOrder.map((a) => ({
   titleSv: a.title.sv, titleEn: a.title.en,
   year: a.year, w: a.dimensionsCm.w, h: a.dimensionsCm.h,
   format: a.format, status: a.status, priceSek: a.priceSek ?? null,
+  exhibitionVenue: a.exhibitionVenue ?? null,
   locationSv: a.location.label.sv, locationEn: a.location.label.en,
   images: a.images.map((img) => ({
     src: img.src, webp640: img.webp640, webp960: img.webp960,
@@ -103,6 +104,23 @@ const artworksJson = JSON.stringify(modalOrder.map((a) => ({
     </header>
 
     <ArtworkGrid available={sold} language="en" gridId="sold" />
+  </section>
+
+  <section class="page-artworks__section" aria-labelledby="app-heading-en">
+    <header class="page-artworks__section-head">
+      <h2 class="page-artworks__section-heading" id="app-heading-en">The Andetag App</h2>
+      <p class="page-artworks__section-intro">
+        The app plays the music from the Stockholm exhibition in sync with your artwork —
+        waiting for the next global breath, then breathing with it. Music and breath sound
+        can be adjusted or muted independently.
+        Download for <a href="https://tadaa.se/andetag-app-iphone">iPhone</a> or
+        <a href="https://tadaa.se/andetag-app-android">Android</a>.
+      </p>
+      <p class="page-artworks__section-intro">
+        Built from industry-standard, replaceable components rated for around ten years of
+        continuous use. Spare parts are held by the artist. One-year electronics warranty.
+      </p>
+    </header>
   </section>
 
   <ArtworkModal language="en" />
