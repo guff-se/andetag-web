@@ -656,10 +656,37 @@ body.is-modal-open {
 
 /* Image area */
 .artwork-modal__img-area {
+  position: relative;
   display: flex;
   flex-direction: column;
   background: var(--artwork-pink-veil);
   border-radius: 16px 16px 0 0;
+}
+
+.artwork-modal__expand {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 2;
+  width: 2rem;
+  height: 2rem;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--artwork-graphite);
+  padding: 0;
+  transition: background 180ms ease, color 180ms ease;
+}
+
+.artwork-modal__expand:hover,
+.artwork-modal__expand:focus-visible {
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--artwork-pink);
 }
 
 @media (min-width: 640px) {
@@ -873,6 +900,72 @@ body.is-modal-open {
 }
 
 /* ============================================================
+ * Lightbox (full-resolution image overlay)
+ * ============================================================ */
+
+.artwork-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: grid;
+  place-items: center;
+}
+
+.artwork-lightbox[hidden] {
+  display: none;
+}
+
+.artwork-lightbox__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 6, 8, 0.93);
+  cursor: zoom-out;
+}
+
+.artwork-lightbox__close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 50%;
+  width: 2.2rem;
+  height: 2.2rem;
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.85);
+  transition: background 200ms ease, color 200ms ease;
+}
+
+.artwork-lightbox__close:hover,
+.artwork-lightbox__close:focus-visible {
+  background: rgba(255, 255, 255, 0.28);
+  color: #fff;
+}
+
+.artwork-lightbox__img-wrap {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.artwork-lightbox__img-wrap img {
+  max-width: 95vw;
+  max-height: 95vh;
+  width: auto;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+/* ============================================================
  * Inquiry form
  * ============================================================ */
 
@@ -1072,6 +1165,8 @@ body.is-modal-open {
   .artwork-modal__nav,
   .artwork-modal__mood-btn,
   .artwork-modal__inquire,
+  .artwork-modal__expand,
+  .artwork-lightbox__close,
   .artwork-sold-summary__arrow,
   .artwork-filter-pill,
   .inquiry-form__submit {

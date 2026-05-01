@@ -31,6 +31,15 @@ const L = language === "sv" ? {
         <div class="artwork-modal__img-wrap" data-modal-img-wrap>
           <!-- JS populates picture elements here -->
         </div>
+        <button class="artwork-modal__expand" type="button" data-modal-expand
+          aria-label={language === "sv" ? "Fullskärm" : "Full screen"}>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <polyline points="9,1 13,1 13,5"/>
+            <polyline points="5,13 1,13 1,9"/>
+            <line x1="13" y1="1" x2="8.5" y2="5.5"/>
+            <line x1="1" y1="13" x2="5.5" y2="8.5"/>
+          </svg>
+        </button>
         <div class="artwork-modal__moods" data-modal-moods aria-label={language === "sv" ? "Visa i annat ljus" : "View in different light"}>
           <!-- JS populates mood buttons here -->
         </div>
@@ -49,6 +58,16 @@ const L = language === "sv" ? {
 
   <button class="artwork-modal__nav is-prev" type="button" data-modal-prev aria-label={L.prev}>‹</button>
   <button class="artwork-modal__nav is-next" type="button" data-modal-next aria-label={L.next}>›</button>
+</div>
+
+<div id="artwork-lightbox" class="artwork-lightbox" hidden
+  role="dialog" aria-modal="true" aria-label={language === "sv" ? "Fullskärm" : "Full screen"}>
+  <div class="artwork-lightbox__backdrop" data-lightbox-backdrop></div>
+  <button class="artwork-lightbox__close" type="button" data-lightbox-close
+    aria-label={language === "sv" ? "Stäng" : "Close"}>×</button>
+  <div class="artwork-lightbox__img-wrap" data-lightbox-img-wrap>
+    <!-- JS populates img here -->
+  </div>
 </div>
 
 <script>

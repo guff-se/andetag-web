@@ -47,6 +47,10 @@ if (!w.__andetagModal) {
   const detailsEl = modal.querySelector<HTMLElement>("[data-modal-details]")!;
   const inquireEl = modal.querySelector<HTMLElement>("[data-modal-inquire]")!;
 
+  const lightbox        = document.getElementById("artwork-lightbox")!;
+  const lightboxImgWrap = lightbox?.querySelector<HTMLElement>("[data-lightbox-img-wrap]");
+  let currentFullSrc    = "";
+
   const sek = new Intl.NumberFormat(lang === "sv" ? "sv-SE" : "en-US", {
     style: "currency", currency: "SEK", maximumFractionDigits: 0,
   });
@@ -77,9 +81,23 @@ if (!w.__andetagModal) {
     render();
   }
 
+  function openLightbox() {
+    if (!lightbox || !lightboxImgWrap || !currentFullSrc) return;
+    lightboxImgWrap.innerHTML = `<img src="${esc(currentFullSrc)}" alt="" loading="eager" decoding="async" />`;
+    lightbox.removeAttribute("hidden");
+    lightbox.querySelector<HTMLElement>("[data-lightbox-close]")?.focus();
+  }
+
+  function closeLightbox() {
+    if (!lightbox) return;
+    lightbox.setAttribute("hidden", "");
+    if (lightboxImgWrap) lightboxImgWrap.innerHTML = "";
+  }
+
   function renderImg(img: ModalImage) {
     const alt = lang === "sv" ? img.altSv : img.altEn;
     const full = img.fullSrc ?? img.src;
+    currentFullSrc = full;
     imgWrap.innerHTML = `
       <picture>
         <source type="image/webp" srcset="${esc(img.webp640)} 640w, ${esc(img.webp960)} 960w"
@@ -186,6 +204,10 @@ if (!w.__andetagModal) {
   document.addEventListener("click", (e) => {
     const t = e.target as Element | null;
     if (!t) return;
+    if (t.closest("[data-lightbox-backdrop]") || t.closest("[data-lightbox-close]")) {
+      closeLightbox(); return;
+    }
+    if (t.closest("[data-modal-expand]")) { openLightbox(); return; }
     if (t.closest("[data-modal-backdrop]") || t.closest("[data-modal-close]")) {
       closeModal(); return;
     }
@@ -201,6 +223,10 @@ if (!w.__andetagModal) {
 
   // Keyboard
   document.addEventListener("keydown", (e) => {
+    if (lightbox && !lightbox.hidden) {
+      if (e.key === "Escape") { closeLightbox(); return; }
+      return;
+    }
     if (modal.hidden) return;
     if (e.key === "Escape") { closeModal(); return; }
     if (e.key === "ArrowLeft") navigate(-1);
