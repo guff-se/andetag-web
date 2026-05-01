@@ -35,7 +35,7 @@ The brand Andetag (Swedish for “a breath”) is used globally. For English mar
 English-specific rules:
 
 * **breathing museum** is a primary keyword for all English index and hub pages.
-* It must appear in the page title and meta description of `/en/` and `/en/stockholm/`.
+* It must appear in the page title and meta description of `/en/stockholm/` and the English location hubs that are intended to rank.
 * Frame the concept naturally: “a museum with breathing light art”, “breathing art museum”.
 * Do not replace “Andetag” with “breathing museum” in branding; use it for discoverability and recall.
 
@@ -216,6 +216,7 @@ Indexable:
 
 Non-indexable:
 
+* `/en/` selector hub
 * Understory endpoints
 * Ticket modal URLs
 * Confirmation or cancellation links
@@ -223,6 +224,7 @@ Non-indexable:
 Implementation:
 
 * robots.txt allows all content paths
+* meta robots `noindex,follow` on the `/en/` selector hub
 * meta robots noindex on transactional endpoints
 
 ---
@@ -239,7 +241,7 @@ Hreflang example (Stockholm opening hours):
 ```
 <link rel="alternate" hreflang="sv-SE" href="/sv/stockholm/oppettider/" />
 <link rel="alternate" hreflang="en" href="/en/stockholm/opening-hours/" />
-<link rel="alternate" hreflang="x-default" href="/sv/stockholm/oppettider/" />
+<link rel="alternate" hreflang="x-default" href="/en/stockholm/opening-hours/" />
 ```
 
 Rules:
@@ -456,8 +458,9 @@ Exhibition
 English hub (city chooser; static `200` for humans when edge routing applies)
 
 * EN: **`/en/`**
-* Keywords: **breathing museum** (primary: must appear in title and meta description where this hub is indexed), breathing art museum, Andetag Stockholm, Berlin, breathing light art
-* Entry: humans hitting **`/`** with no `sv` or `de` match in **`Accept-Language`** receive **`302`** to **`/en/`** (see section 14). Verified crawlers on **`/`** or **`/en/`** receive **`302`** to **`/en/stockholm/`** so the indexed English default is the full Stockholm home, not the hub.
+* Role: human selector utility for uncookied visitors who need to choose Stockholm or Berlin.
+* Indexation: **not** an SEO target. The shell emits `noindex,follow`, is excluded from the XML sitemap, and verified crawlers on **`/`** or **`/en/`** are routed to **`/en/stockholm/`** instead.
+* Entry: humans hitting **`/`** with no `sv` or `de` match in **`Accept-Language`** receive **`302`** to **`/en/`** (see section 14).
 
 About Andetag (canonical shells; legacy global URLs **`301`** to Stockholm English where applicable)
 
@@ -661,7 +664,7 @@ Normative rules live in **`docs/seo/url-architecture.md`** §3–§4. **Implemen
 Summary:
 
 * **`/`** is an **entry router** at the edge (not the Swedish home document). Canonical Swedish home for indexation and hreflang is **`/sv/stockholm/`**.
-* **`/en/`** is the **English hub** (static **`200`**) when the visitor is in the English lane without a committed Stockholm or Berlin preference and is not treated as a verified crawler on entry URLs.
+* **`/en/`** is the **English hub** (static **`200`**) when the visitor is in the English lane without a committed Stockholm or Berlin preference. It is a human selector utility, not an index target: `noindex,follow`, no sitemap row, and verified crawlers are routed onward to **`/en/stockholm/`**.
 * Legacy Swedish paths without **`/sv/`** **`301`** to **`/sv/stockholm/...`** per the URL matrix and **`site/public/_redirects`**.
 * **Static `_redirects` does not define `/` → Swedish home**; that hop would bypass the Worker. Local **`astro preview`** still serves **`/`** as a client redirect stub to **`/sv/stockholm/`** (development convenience only).
 

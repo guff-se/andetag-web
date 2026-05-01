@@ -14,6 +14,8 @@ export default defineConfig({
         // Root `index.html` is only a 301 to `/sv/stockholm/`; not canonical indexable HTML (see `docs/seo/url-architecture.md`).
         const root = "https://www.andetag.museum";
         if (page === `${root}/` || page === root) return false;
+        // `/en/` is a human selector utility: live for visitors, but not an index target.
+        if (page === `${root}/en/`) return false;
         // Berlin English story shells canonicalize to Stockholm English (`SEO-0016`); exclude them so the sitemap
         // doesn't list a URL whose canonical lives elsewhere (see `docs/seo/decisions.md`).
         const berlinEnStoryShells = [

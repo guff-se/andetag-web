@@ -44,7 +44,7 @@ Read for the runtime contract:
 - `site/src/lib/routes/page-shell-registry.ts` — `STOCKHOLM_SV_EN_PAIRS`, `BERLIN_DE_EN_STORY_PAIRS`, `BERLIN_EN_STORY_SEO_CANONICAL`, `resolveSeo()` builds the hreflang record and `x-default`. Canonical/hreflang changes start here.
 - `site/src/lib/chrome/seo.ts` — `CANONICAL_HOST` (`https://www.andetag.museum`), `OG_SITE_NAME` (`ANDETAG`), `languageToHreflangAttribute` (sv → `sv-SE`, en → `en`, de → `de-DE`), `languageToOgLocale` (underscore form `sv_SE` / `en_US` / `de_DE`), `ogLocaleAlternates`, `buildHreflangLinks`. **Do not edit these without checking the SEO Manual §5.**
 - `site/src/lib/chrome/schema-org.ts` — entity graph. Museum + LocalBusiness, Organization, WebSite, WebPage, ImageObject, Event (Art Yoga), FAQPage (when on `/sv/stockholm/fragor-svar/` or `/en/stockholm/faq/`), Place (Berlin). Addresses, opening hours, offers, aggregateRating, review sourced from `stockholm-*.ts` in `site/src/lib/content/`.
-- `site/src/layouts/SiteLayout.astro` — where `<title>`, `<meta name="description">`, canonical + hreflang, OG, Twitter, and JSON-LD are emitted per shell. `robots?: "index,follow" | "noindex,nofollow"` prop (default indexable).
+- `site/src/layouts/SiteLayout.astro` — where `<title>`, `<meta name="description">`, canonical + hreflang, OG, Twitter, and JSON-LD are emitted per shell. `robots?: "index,follow" | "noindex,follow" | "noindex,nofollow"` prop (default indexable).
 
 Read for content-level SEO:
 
@@ -52,7 +52,7 @@ Read for content-level SEO:
 - `site/src/lib/content/stockholm-offers.ts` — Offer nodes + Art Yoga Event (`skills/operational-facts`, `skills/events`).
 - `site/src/lib/content/stockholm-faq.ts` — FAQPage source (`skills/faq`).
 - `site/public/_redirects` — canonical targets for legacy URLs. Every SEO canonical **must** resolve as `200`, never through a `301`.
-- `docs/url-matrix.csv` — `keep` rows are indexable; `redirect` rows must not appear in the sitemap; `remove` rows must 404 or gone.
+- `docs/url-matrix.csv` — `keep` rows are canonical live shells unless a decision says otherwise; today the only noindex exception is `/en/` (selector utility, see `SEO-0021`). `redirect` rows must not appear in the sitemap; `remove` rows must 404 or gone.
 - `site/dist/sitemap-0.xml` (built artifact) — list of canonical indexable URLs. Excludes `/` (router), `_redirects` aliases, noindex.
 
 Write-path (only with explicit triggers):
@@ -67,7 +67,7 @@ Write-path (only with explicit triggers):
 
 - **Stockholm `sv` ↔ `en`.** Every Stockholm shell in `STOCKHOLM_SV_EN_PAIRS` has both locales. A title or description edit on one side without the other is a regression; a hreflang entry without a live peer is a regression.
 - **Berlin `en` ↔ `de`.** Same rule for `BERLIN_DE_EN_STORY_PAIRS`. No Swedish alternate for Berlin.
-- **No cross-location hreflang.** Stockholm English and Berlin English are peers only on the **hub** `/en/` (whose hreflang record is `{ sv: /sv/stockholm/, en: /en/, de: null }` with `x-default: /sv/stockholm/`). For **topic** pages, Stockholm and Berlin do **not** hreflang-link to each other.
+- **No cross-location hreflang.** Stockholm English and Berlin English are peers only on the **hub** `/en/` (whose hreflang record is `{ sv: /sv/stockholm/, en: /en/, de: null }` with `x-default: /en/`). For **topic** pages, Stockholm and Berlin do **not** hreflang-link to each other.
 - **Berlin English story pages** (`/en/berlin/about-andetag/`, `/en/berlin/music/`, `/en/berlin/optical-fibre-textile/`, `/en/berlin/about-the-artists-malin-gustaf-tadaa/`) use HTML `rel="canonical"` pointing to the Stockholm English equivalent (`SEO-0016`). This is **intentional** — do not "fix" it to self-canonical. `og:url` in `SiteLayout.astro` follows the SEO canonical (so social shares also point to Stockholm English).
 - **Swedish titles and descriptions** live under `/sv/` and use `sv-SE` for hreflang and `sv_SE` for OG locale. English uses `en` hreflang and `en_US` OG locale (by convention in this repo). German uses `de-DE` / `de_DE`.
 - **Quotes are not translated across locales** (TripAdvisor policy — see `skills/testimonials`).
@@ -99,9 +99,9 @@ Run these checks against the built `dist/` — a stale `dist/` makes the audit m
    - Length: aim for ~50–65 characters visible. The ANDETAG pattern appends `| ANDETAG Stockholm` (or `| ANDETAG Berlin`) as a brand suffix — common in `page-shell-meta.json`. Don't strip the suffix unless you add a new EX row.
    - **Entity inflation gotcha:** built HTML encodes `&` as `&amp;` (5 bytes), inflating the apparent character count by 4 per ampersand. Measure visible title length from `page-shell-meta.json` raw value, not from the dist HTML. In Python: `import html; len(html.unescape(title_string))`.
    - Matches the `title` / `description` in `page-shell-meta.json` for that path, except where `docs/seo/decisions.md` documents an intentional override (`SEO-0015` `/en/` hub, `SEO-0019` konstutställning spelling).
-   - Contains the primary keyword from SEO Manual §12 for that page. For English hub + location `/en/`, `/en/stockholm/`, and English home-like pages, **"breathing museum"** must appear in title OR description per §1.1.
+   - Contains the primary keyword from SEO Manual §12 for that page. For English ranking targets such as `/en/stockholm/` and the other English location hubs, **"breathing museum"** must appear in title OR description per §1.1. `/en/` is a noindex selector utility (`SEO-0021`), so treat its head copy as UX/supporting metadata, not a ranking target.
 2. **Meta description**
-   - Present on every indexable shell (the hub and leaf shells; 404 has none intentionally).
+   - Present on every indexable shell (leaf shells plus the location hubs that are meant to rank; `/en/` is intentionally `noindex,follow`).
    - Length: ~120–160 characters visible. Swedish tends slightly longer; allow up to ~170.
    - Not identical across shells in the same locale family (de-duplication).
    - Tone: calm, concrete, invitational. No em dash (U+2014) — use commas, colons, or parentheses. No banned words (mind-blowing, magical, healing, transformative, life-changing, revolutionary, spiritual, must-see, unforgettable) unless quoting a review (reviews are fair game per `SEO-0017`'s lineage).
@@ -115,7 +115,7 @@ Run these checks against the built `dist/` — a stale `dist/` makes the audit m
 4. **Hreflang**
    - Self-referential entry present (except Berlin English story shells, where the SEO canonical pair means the English "self" is Stockholm; verify against `resolveSeo()` output).
    - All referenced alternates must be `200` in `dist/`.
-   - `x-default` present per registry; Stockholm pairs point to the **English** URL (`/en/stockholm/` for both sv and en sides — English is the international default), Berlin pairs point to the English URL (`/en/berlin/`), `/en/` hub points to `/sv/stockholm/`.
+   - `x-default` present per registry; Stockholm pairs point to the **English** URL (`/en/stockholm/` for both sv and en sides — English is the international default), Berlin pairs point to the English URL (`/en/berlin/`), `/en/` hub points to `/en/`.
    - Same-location only. No Stockholm ↔ Berlin hreflang on topic pages.
    - BCP47 values: `sv-SE`, `en`, `de-DE`, `x-default`.
 5. **Open Graph + Twitter**
@@ -128,7 +128,7 @@ Run these checks against the built `dist/` — a stale `dist/` makes the audit m
    - Twitter card: `summary_large_image`. `twitter:image` = `og:image` (same URL).
 6. **Robots**
    - Indexable shells have **no** `<meta name="robots">` (or `index,follow`).
-   - Non-indexable routes: 404 has `noindex,nofollow`; `/component-showcase/` retired 2026-03-23 (no live noindex needed); Understory endpoints / ticket modals never served as HTML shells.
+   - Non-indexable routes: `/en/` is `noindex,follow` (selector utility; `SEO-0021`), 404 has `noindex,follow`, `/component-showcase/` retired 2026-03-23 (no live noindex needed); Understory endpoints / ticket modals never served as HTML shells.
    - Transactional confirmation / cancellation links are external (Understory domain), not ours.
 7. **Structured data (JSON-LD)**
    - Exactly one `<script type="application/ld+json">` per page; `@graph` pattern (Organization, WebSite, WebPage, Museum-LocalBusiness or Place, plus topical nodes).
@@ -144,8 +144,8 @@ Run these checks against the built `dist/` — a stale `dist/` makes the audit m
    - Anchor text descriptive, ≤5 words, keyword-aligned; no "click here" / "read more" on its own.
    - Density 1–3 per prose block target; pillar hubs allowed more.
 9. **Sitemap**
-   - `dist/sitemap-0.xml` lists exactly the canonical indexable URLs: same set as `keep` indexable rows in `docs/url-matrix.csv` plus shell registry.
-   - Excludes `/` (router), `_redirects` aliases, noindex, Berlin English story shells (they are indexed via the Stockholm English canonical they point to — confirm current behavior against registry when editing).
+   - `dist/sitemap-0.xml` lists exactly the canonical indexable URLs: same set as `keep` rows that are intended to rank in `docs/url-matrix.csv` plus shell registry.
+   - Excludes `/` (router), `/en/` (selector utility, `noindex,follow`), `_redirects` aliases, noindex, Berlin English story shells (they are indexed via the Stockholm English canonical they point to — confirm current behavior against registry when editing).
    - After edit: `npm run build` and re-grep the sitemap.
 
 ### C. International SEO (Stockholm sv+en, Berlin en+de)

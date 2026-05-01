@@ -125,7 +125,7 @@ Handled at the edge for `GET` (and `HEAD` as appropriate).
 
 ### English hub `/en/`
 
-Handled at the edge for the exact entry URL only (respect trailing-slash normalization). Does not apply to other `/en/*` paths.
+Handled at the edge for the exact entry URL only (respect trailing-slash normalization). Does not apply to other `/en/*` paths. The shell is a **human selector utility**: canonical to itself for browser UX, but emitted with `meta robots="noindex,follow"` and excluded from the XML sitemap.
 
 - Verified bots (no routing cookie): `302` to `/en/stockholm/`, omit `Set-Cookie` (same default English location as bot handling on `/`).
 - Valid cookie `v1:en-s` or `v1:en-b`: `302` to `/en/stockholm/` or `/en/berlin/`.
@@ -230,7 +230,7 @@ The published XML sitemap at `https://www.andetag.museum/sitemap-0.xml` follows 
    - Non-HTML resources (PDFs, images, video files, feeds, `xml`, `json`).
    - Query-string variants as separate entries: canonical URLs are path-only.
 3. **Pagination or filters:** if the static site ever exposes them, list only the canonical page URL unless a deliberate exception is logged in `docs/seo/decisions.md`.
-4. **Entry URLs:** include `/sv/stockholm/`, hubs, and inner pages per matrix `keep` rules. `/` and `/en/` are routing URLs (`302` / hub `200` per §4) — the Astro sitemap excludes the root URL `https://www.andetag.museum/` because `site/src/pages/index.astro` is only a `301` to `/sv/stockholm/`.
+4. **Entry URLs:** include `/sv/stockholm/`, the location hubs, and inner pages per matrix `keep` rules. `/` is a routing URL and is excluded because `site/src/pages/index.astro` is only a `301` to `/sv/stockholm/`. `/en/` is also excluded: it remains a live selector shell for humans, but its own HTML emits `noindex,follow` and it is not an index target.
 5. **Media and deep links:** keep stable `/wp-content/uploads/...` paths in `site/public/` so bookmarks and external embeds keep working. If a media path must change, add a `301` and a matrix or decision note; do not leave old URLs `404` without approval.
 
 ### Regression checks

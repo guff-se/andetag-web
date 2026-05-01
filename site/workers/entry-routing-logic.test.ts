@@ -172,13 +172,13 @@ describe("decideEnglishHubRouting", () => {
     cf: undefined as { country?: string; botManagement?: { verifiedBot?: boolean } } | undefined,
   };
 
-  it("serves asset to verified bots so /en/ stays indexable (SEO-0020)", () => {
+  it("redirects verified bots to English Stockholm so /en/ stays a human-only selector (SEO-0021)", () => {
     expect(
       decideEnglishHubRouting({
         ...base,
         userAgent: "Googlebot",
       }),
-    ).toEqual({ type: "serve_asset" });
+    ).toEqual({ type: "redirect", locationPath: "/en/stockholm/" });
   });
 
   it("redirects en-s cookie to Stockholm", () => {
