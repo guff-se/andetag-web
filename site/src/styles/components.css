@@ -1807,6 +1807,62 @@ body.lightbox-open {
   }
 }
 
+/* ── Artwork collection sales band (`StockholmHome*`) ─────────────────────── */
+.page-stockholm-home__collect-band {
+  background: #1c1115;
+  margin: 2.25rem calc(50% - 50vw);
+  padding: clamp(3.5rem, 7vw, 5.5rem) clamp(2rem, 8vw, 6rem);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Berry glow — references the artwork colour palette without needing a photo */
+.page-stockholm-home__collect-band::before {
+  content: "";
+  position: absolute;
+  top: -40%;
+  right: -5%;
+  width: 65%;
+  height: 180%;
+  background: radial-gradient(ellipse at 75% 50%, rgba(74, 13, 47, 0.55) 0%, transparent 58%);
+  pointer-events: none;
+}
+
+.page-stockholm-home__collect-inner {
+  position: relative;
+  max-width: 44rem;
+}
+
+.page-stockholm-home__collect-eyebrow {
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(250, 243, 238, 0.45);
+  margin: 0 0 1rem;
+}
+
+.page-stockholm-home__collect-heading {
+  font-family: "BaskervvilleLocal", "Baskervville", Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  line-height: 1.1;
+  color: #faf3ee;
+  margin: 0 0 1.5rem;
+}
+
+.page-stockholm-home__collect-body {
+  font-size: 1.05rem;
+  line-height: 1.72;
+  color: rgba(250, 243, 238, 0.7);
+  margin: 0 0 2.5rem;
+  max-width: 38rem;
+}
+
+.page-stockholm-home__collect-band .button-group {
+  margin: 0;
+}
+
 /* Full-bleed Vimeo band on locale home pages (`StockholmHome*`, `BerlinHomeEn`). */
 .page-stockholm-home__video-band,
 .page-berlin-home__video-band {
