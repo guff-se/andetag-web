@@ -75,12 +75,6 @@ if (!w.__andetagArtworksMapSync) {
     const firstId = ids[0]!;
     if (typeof w.__andetagOpenArtworkModal === "function") {
       w.__andetagOpenArtworkModal(firstId);
-    } else {
-      const tile = root.querySelector<HTMLElement>(`[data-artwork-id="${CSS.escape(firstId)}"]`);
-      if (tile) {
-        tile.scrollIntoView({ behavior: "smooth", block: "center" });
-        tile.focus({ preventScroll: true });
-      }
     }
   }
 

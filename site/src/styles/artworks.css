@@ -816,6 +816,10 @@ body.is-modal-open {
   margin-top: auto;
 }
 
+.artwork-modal__inquire[hidden] {
+  display: none;
+}
+
 .artwork-modal__inquire:hover,
 .artwork-modal__inquire:focus-visible {
   background: var(--artwork-pink);
