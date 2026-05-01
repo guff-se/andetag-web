@@ -27,7 +27,7 @@ Three locales, two locations:
 
 The four Berlin English story shells canonicalize to their Stockholm English siblings (`SEO-0016`); their hreflang stays Berlin-internal.
 
-The `/` and `/en/` entry routes are handled by the Worker (`site/workers/entry-router.ts`) using `Accept-Language`, Cloudflare `cf.country`, and the `andetag_entry` cookie. Verified bots land on `/en/stockholm/` (`301`) from `/`; `/en/` itself stays directly indexable for crawlers (`SEO-0020`).
+The `/` and `/en/` entry routes are handled by the Worker (`site/workers/entry-router.ts`) using `Accept-Language`, Cloudflare `cf.country`, and the `andetag_entry` cookie. Verified bots land on `/en/stockholm/` from both `/` and `/en/`; `/en/` remains a human selector utility, emitted as `noindex,follow` and excluded from the sitemap (`SEO-0021`).
 
 ## Stack
 

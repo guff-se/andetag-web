@@ -36,7 +36,7 @@ type Props = {
   seoCanonicalPath?: string | null;
   hreflang: Record<Language, string | null>;
   xDefaultPath?: string | null;
-  robots?: "index,follow" | "noindex,nofollow";
+  robots?: "index,follow" | "noindex,follow" | "noindex,nofollow";
   fullWidthMain?: boolean;
   bodyClass?: string;
   /** When set, emits an early high-priority image preload (LCP: small-header mobile WebP, etc.). */
