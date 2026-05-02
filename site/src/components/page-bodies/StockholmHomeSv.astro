@@ -285,20 +285,13 @@ const vimeoSrc = "https://player.vimeo.com/video/1077937338";
     <ButtonGroup buttons={[{ label: "Upplev Andetag!", href: "#book", variant: "secondary" }]} />
   </div>
 
-  <section class="page-stockholm-home__collect-band" aria-labelledby="collect-heading-sv">
-    <div class="page-stockholm-home__collect-inner">
-      <p class="page-stockholm-home__collect-eyebrow">Samlingen</p>
-      <h2 class="page-stockholm-home__collect-heading" id="collect-heading-sv">
-        Ta hem ett Andetag
-      </h2>
-      <p class="page-stockholm-home__collect-body">
-        Femtio originalverk i optisk fibertextil, vart och ett unikt i storlek, ljus och rörelse.
-        Mer än tjugo bor nu hos privata samlare runt om i världen, i Seattle, New York, Miami och Stockholm.
-        Varje verk andas i takt med alla andra, var det än hänger.
-      </p>
-      <ButtonGroup buttons={[{ label: "Se verken", href: "/sv/stockholm/konstverk/", variant: "outline" }]} />
-    </div>
-  </section>
+  <HeroSection
+    eyebrow="Samlingen"
+    heading="Ta hem ett Andetag"
+    headingLevel="h2"
+    body="Femtio originalverk i optisk fibertextil, vart och ett unikt i storlek, ljus och rörelse. Mer än tjugo bor nu hos privata samlare runt om i världen, i Seattle, New York, Miami och Stockholm. Varje verk andas i takt med alla andra, var det än hänger."
+    ctas={[{ label: "Se verken", href: "/sv/stockholm/konstverk/", variant: "outline" }]}
+  />
 
   <div class="page-stockholm-home__video-band">
     <p class="page-stockholm-home__video-heading">Se det andas</p>
