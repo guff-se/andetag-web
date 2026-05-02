@@ -237,8 +237,7 @@
   margin: 0.5rem 0 2rem;
 }
 
-/* Home + SEO landings: CTA band below testimonials (extra top air below testimonial band). */
-.page-stockholm-home__cta-after-testimonials,
+/* Berlin home: CTA band below testimonials. */
 .page-berlin-home__cta-after-testimonials {
   margin: 4rem 0 6rem;
 }
@@ -945,6 +944,18 @@ body.lightbox-open {
   position: relative;
   z-index: 1;
   min-height: 360px;
+}
+
+.testimonial-block__cta {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  padding: 0 1.25rem 2.5rem;
+}
+
+.testimonial-block__cta .button-group {
+  margin: 0;
 }
 
 .testimonial-block__aggregate {
