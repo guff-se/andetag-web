@@ -4,6 +4,7 @@ import BookingEmbed from "../embeds/BookingEmbed.astro";
 import ButtonGroup from "../content/ButtonGroup.astro";
 import ContentSection from "../content/ContentSection.astro";
 import GallerySection from "../content/GallerySection.astro";
+import ArtworkSalesSlider from "../content/ArtworkSalesSlider.astro";
 import HeroSection from "../content/HeroSection.astro";
 import InfoFrame from "../content/InfoFrame.astro";
 import MapEmbed from "../embeds/MapEmbed.astro";
@@ -17,6 +18,7 @@ import { mainRoomLookingBody, mainRoomMeditationBody } from "../../lib/content/s
 import { stockholmMarketingGalleryHomeEn } from "../../lib/content/stockholm-marketing-gallery";
 import { stockholmTestimonialAggregateEn } from "../../lib/content/stockholm-testimonial-aggregate";
 import { stockholmMarketingFaqEn } from "../../lib/page-registry/stockholm-marketing-faq-en";
+import { ARTWORKS } from "../../lib/content/artworks";
 import {
   STOCKHOLM_TICKETS,
   STOCKHOLM_DAYTIME_WINDOW,
@@ -168,6 +170,11 @@ const contentsamarbetenMarkdown = [
 const mapSrc =
   "https://maps.google.com/maps?q=Andetag%2C%20Kungsgatan%2039%2C%20111%2056%20Stockholm&t=m&z=15&output=embed&iwloc=near";
 
+const saleArtworks = ARTWORKS.filter((a) => a.status !== "sold");
+
+const collectMarkdown =
+  "<p>Fifty original works in optical fibre textile, each one unique in size, light, and motion. More than twenty live with private collectors across Seattle, New York, Miami, and Stockholm. Every piece breathes in sync with every other, wherever it hangs.</p>";
+
 const mapLocationMarkdown =
   "<p>You&#8217;ll find <span class=\"brand-wordmark\">ANDETAG</span> in the central mezzanine of the Hötorget Subway Station.</p><p><strong>From the subway:</strong> Take the Kungsgatan escalator (middle of the platform), then the Kungsgatan exit towards Stureplan, and Sveavägen towards Sergels Torg.</p><p><strong>From the street:</strong> Just below the stairs of the subway entrance on Kungsgatan 39.</p>";
 
@@ -287,16 +294,16 @@ const vimeoSrc = "https://player.vimeo.com/video/1077937338";
     <ButtonGroup buttons={[{ label: "Experience Andetag!", href: "#book", variant: "secondary" }]} />
   </div>
 
-  <HeroSection
-    eyebrow="The Collection"
-    heading="Bring Andetag home"
-    headingLevel="h2"
-    body="Fifty original works in optical fibre textile, each one unique in size, light, and motion. More than twenty live with private collectors across Seattle, New York, Miami, and Stockholm. Every piece breathes in sync with every other, wherever it hangs."
-    ctas={[{ label: "View the artworks", href: "/en/stockholm/artworks/", variant: "outline" }]}
+  <ContentSection heading="Bring Andetag home" headingLevel="h2" markdown={collectMarkdown} />
+  <ArtworkSalesSlider
+    artworks={saleArtworks}
+    lang="en"
+    artworksHref="/en/stockholm/artworks/"
+    ctaLabel="View all artworks"
   />
 
   <div class="page-stockholm-home__video-band">
-    <p class="page-stockholm-home__video-heading">See it breathe</p>
+    <h2 class="component-eyebrow page-stockholm-home__video-heading">The Story of ANDETAG</h2>
     <VideoEmbed
       title="ANDETAG on Vimeo"
       src={vimeoSrc}

@@ -516,7 +516,7 @@ function visualArtworkNode(ctx: SchemaPageContext, a: Artwork): object {
       },
     ];
   }
-  if (a.status === "for-sale") {
+  if (a.status !== "sold") {
     const offer: Record<string, unknown> = {
       "@type": "Offer",
       availability: "https://schema.org/InStock",

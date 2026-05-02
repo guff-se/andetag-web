@@ -1,0 +1,97 @@
+---
+import type { Artwork } from "../../lib/content/artworks";
+import ButtonGroup from "./ButtonGroup.astro";
+
+type Props = {
+  artworks: readonly Artwork[];
+  lang: "sv" | "en";
+  artworksHref: string;
+  ctaLabel: string;
+};
+
+const { artworks, lang, artworksHref, ctaLabel } = Astro.props;
+
+const sek = new Intl.NumberFormat(lang === "sv" ? "sv-SE" : "en-US", {
+  style: "currency", currency: "SEK", maximumFractionDigits: 0,
+});
+---
+
+<div class="artwork-sales-slider">
+  <div class="artwork-sales-slider__viewport">
+    <button
+      class="artwork-sales-slider__btn artwork-sales-slider__btn--prev"
+      type="button"
+      data-slider-prev
+      aria-label={lang === "sv" ? "Föregående" : "Previous"}
+    >&#8249;</button>
+
+    <ul class="artwork-sales-slider__track">
+      {artworks.map((artwork) => {
+        const img = artwork.images[0]!;
+        const alt = lang === "sv" ? img.alt.sv : img.alt.en;
+        const title = lang === "sv" ? artwork.title.sv : artwork.title.en;
+        const { w, h } = artwork.dimensionsCm;
+        const priceLabel = artwork.priceSek
+          ? sek.format(artwork.priceSek)
+          : (lang === "sv" ? "Pris på förfrågan" : "Price on request");
+        return (
+          <li class="artwork-sales-slider__item">
+            <a class="artwork-sales-slider__card" href={artworksHref}>
+              <div class="artwork-sales-slider__img-wrap">
+                <picture>
+                  <source
+                    type="image/webp"
+                    srcset={`${img.webp640} 640w, ${img.webp960} 960w`}
+                    sizes="280px"
+                  />
+                  <img src={img.src} alt={alt} loading="lazy" decoding="async" />
+                </picture>
+              </div>
+              <div class="artwork-sales-slider__info">
+                <p class="artwork-sales-slider__title">{title}</p>
+                <p class="artwork-sales-slider__dims">{w} × {h} cm</p>
+                <p class="artwork-sales-slider__price">{priceLabel}</p>
+              </div>
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+
+    <button
+      class="artwork-sales-slider__btn artwork-sales-slider__btn--next"
+      type="button"
+      data-slider-next
+      aria-label={lang === "sv" ? "Nästa" : "Next"}
+    >&#8250;</button>
+  </div>
+
+  <div class="artwork-sales-slider__footer">
+    <ButtonGroup buttons={[{ label: ctaLabel, href: artworksHref, variant: "secondary" }]} />
+  </div>
+</div>
+
+<script>
+  for (const slider of document.querySelectorAll(".artwork-sales-slider")) {
+    const track = slider.querySelector(".artwork-sales-slider__track") as HTMLElement | null;
+    if (!track) continue;
+    const prev = slider.querySelector("[data-slider-prev]") as HTMLButtonElement | null;
+    const next = slider.querySelector("[data-slider-next]") as HTMLButtonElement | null;
+
+    const scroll = (dir: number) => {
+      const item = track.querySelector(".artwork-sales-slider__item") as HTMLElement | null;
+      const w = item ? item.getBoundingClientRect().width + 16 : 292;
+      track.scrollBy({ left: dir * w * 2, behavior: "smooth" });
+    };
+
+    const updateState = () => {
+      if (prev) prev.disabled = track.scrollLeft <= 0;
+      if (next) next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 1;
+    };
+
+    prev?.addEventListener("click", () => scroll(-1));
+    next?.addEventListener("click", () => scroll(1));
+    track.addEventListener("scroll", updateState, { passive: true });
+    updateState();
+  }
+</script>

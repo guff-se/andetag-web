@@ -83,11 +83,11 @@ describe("artworks catalogue", () => {
     }
   });
 
-  it("every for-sale artwork either has a price or signals price-on-request via an absent priceSek", () => {
+  it("every available artwork either has a price or signals price-on-request via an absent priceSek", () => {
     for (const a of ARTWORKS) {
       if (a.priceSek !== undefined) {
         expect(a.priceSek).toBeGreaterThan(0);
-        expect(a.status).toBe("for-sale");
+        expect(["on-exhibition", "in-studio"]).toContain(a.status);
       }
     }
   });

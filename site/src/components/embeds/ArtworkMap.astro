@@ -85,7 +85,7 @@ for (const a of artworks) {
 
 const pins = [...pinGroups.values()].map((g) => {
   const [cx, cy] = project(g.lon, g.lat);
-  const onlyAvailable = g.members.every((m) => m.status === "for-sale");
+  const onlyAvailable = g.members.every((m) => m.status !== "sold");
   const labelLocale = g.members[0]!.location.label[language];
   return {
     key: g.key,

@@ -4,6 +4,7 @@ import BookingEmbed from "../embeds/BookingEmbed.astro";
 import ButtonGroup from "../content/ButtonGroup.astro";
 import ContentSection from "../content/ContentSection.astro";
 import GallerySection from "../content/GallerySection.astro";
+import ArtworkSalesSlider from "../content/ArtworkSalesSlider.astro";
 import HeroSection from "../content/HeroSection.astro";
 import InfoFrame from "../content/InfoFrame.astro";
 import MapEmbed from "../embeds/MapEmbed.astro";
@@ -17,6 +18,7 @@ import { mainRoomLookingBody, mainRoomMeditationBody } from "../../lib/content/s
 import { stockholmMarketingGalleryHomeSv } from "../../lib/content/stockholm-marketing-gallery";
 import { stockholmTestimonialAggregateSv } from "../../lib/content/stockholm-testimonial-aggregate";
 import { stockholmMarketingFaqSv } from "../../lib/page-registry/stockholm-marketing-faq-sv";
+import { ARTWORKS } from "../../lib/content/artworks";
 import {
   STOCKHOLM_TICKETS,
   STOCKHOLM_SEASON_PASS,
@@ -167,6 +169,11 @@ const contentsamarbetenMarkdown = [
 const mapSrc =
   "https://maps.google.com/maps?q=Andetag%2C%20Kungsgatan%2039%2C%20111%2056%20Stockholm&t=m&z=15&output=embed&iwloc=near";
 
+const saleArtworks = ARTWORKS.filter((a) => a.status !== "sold");
+
+const collectMarkdown =
+  "<p>Femtio originalverk i optisk fibertextil, vart och ett unikt i storlek, ljus och rörelse. Mer än tjugo bor nu hos privata samlare i Seattle, New York, Miami och Stockholm. Varje verk andas i takt med alla andra, var det än hänger.</p>";
+
 const mapLocationMarkdown =
   "<p>Du hittar <span class=\"brand-wordmark\">ANDETAG</span> i den centrala uppgången av Hötorgets Tunnelbanestation.</p><p><strong>Från tunnelbanan:</strong> Uppgång Kungsgatan (mitten av plattformen), sedan uppgång Kungsgatan mot Stureplan, Sveavägen mot Sergels torg.</p><p><strong>Från gatan:</strong> precis nedanför trappan i tunnelbanenedgången på Kungsgatan 39.</p>";
 
@@ -285,16 +292,16 @@ const vimeoSrc = "https://player.vimeo.com/video/1077937338";
     <ButtonGroup buttons={[{ label: "Upplev Andetag!", href: "#book", variant: "secondary" }]} />
   </div>
 
-  <HeroSection
-    eyebrow="Samlingen"
-    heading="Ta hem ett Andetag"
-    headingLevel="h2"
-    body="Femtio originalverk i optisk fibertextil, vart och ett unikt i storlek, ljus och rörelse. Mer än tjugo bor nu hos privata samlare runt om i världen, i Seattle, New York, Miami och Stockholm. Varje verk andas i takt med alla andra, var det än hänger."
-    ctas={[{ label: "Se verken", href: "/sv/stockholm/konstverk/", variant: "outline" }]}
+  <ContentSection heading="Ta hem ett Andetag" headingLevel="h2" markdown={collectMarkdown} />
+  <ArtworkSalesSlider
+    artworks={saleArtworks}
+    lang="sv"
+    artworksHref="/sv/stockholm/konstverk/"
+    ctaLabel="Se alla verk"
   />
 
   <div class="page-stockholm-home__video-band">
-    <p class="page-stockholm-home__video-heading">Se det andas</p>
+    <h2 class="component-eyebrow page-stockholm-home__video-heading">Berättelsen om ANDETAG</h2>
     <VideoEmbed
       title="ANDETAG på Vimeo"
       src={vimeoSrc}
