@@ -1863,6 +1863,17 @@ body.lightbox-open {
   margin: 0;
 }
 
+.page-stockholm-home__video-heading {
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(250, 243, 238, 0.6);
+  text-align: center;
+  margin: 0;
+  padding: 2rem 1.5rem 1.5rem;
+}
+
 /* Full-bleed Vimeo band on locale home pages (`StockholmHome*`, `BerlinHomeEn`). */
 .page-stockholm-home__video-band,
 .page-berlin-home__video-band {
