@@ -1613,6 +1613,26 @@ body.lightbox-open {
   margin-inline: auto !important;
 }
 
+.page-stockholm-home {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.page-stockholm-home > * {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.page-stockholm-home__intro > :first-child,
+.page-stockholm-home__collect > :first-child {
+  margin-top: 0;
+}
+
+.page-stockholm-home__collect > :last-child {
+  margin-bottom: 0;
+}
+
 /* Swedish Stockholm home (`StockholmHomeSv.astro`, legacy `index.html` wp-page 2). */
 .page-stockholm-home__lead-eyebrow {
   margin-top: 0;
