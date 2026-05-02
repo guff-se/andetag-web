@@ -39,6 +39,23 @@ The legacy container export **`Google Tag Manager v15.json`** (root of this repo
 
 **Action list and export details:** **`docs/kpi-measurement-map.md`** (§ Legacy GTM container export, § GTM migration checklist, § Staged rollout).
 
+### 1b) First consent measurement (`cmp_first_consent`)
+
+The static site pushes a **one-time** (per device, until the CMP cookie is cleared) `dataLayer` object when the user saves consent for the **first** time (CookieConsent `onFirstConsent`):
+
+| Field | Values | Meaning |
+|-------|--------|--------|
+| `event` | `cmp_first_consent` | GTM custom event name |
+| `cmp_tier` | `all` | `analytics` + `marketing` accepted |
+| | `necessary_only` | neither optional category accepted |
+| | `partial` | exactly one of `analytics` / `marketing` accepted |
+
+**No PII** is included. Implementation: `site/src/lib/chrome/cookie-consent-config.ts` (`pushCmpFirstConsentDataLayer`).
+
+**GTM / GA4 (required for reporting):** A GA4 (or other) tag that listens for event name **`cmp_first_consent`** must be allowed to fire when **`analytics_storage` is denied**, otherwise users who choose **necessary only** will not appear in reports and acceptance rates will be **biased high**. In Google Tag Manager, set that tag’s **consent** / **consent settings** so it is **not** gated on `analytics_storage` (treat as essential consent-statistics collection; align with your legal / DPO). Map `cmp_tier` to a **GA4 event parameter** (e.g. custom definition on the same name) to split **all** vs **necessary_only** vs **partial**.
+
+**Not in scope in source:** GTM container JSON in the repo is a legacy export; **live** GTM must be updated in the GTM UI for production.
+
 ## 2) Brevo (waitlist) Requirements
 
 The Berlin early-bird waitlist is implemented as **`WaitlistFormEmbed.astro`**: a **server-rendered HTML form** that **`POST`s** to Brevo’s form endpoint. There is **no Brevo JavaScript** on the page and **no Brevo cookie** set by that flow on first-party page load.
