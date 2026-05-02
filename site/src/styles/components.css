@@ -1841,8 +1841,25 @@ body.lightbox-open {
   position: relative;
 }
 
-.artwork-sales-slider__viewport--second {
-  margin-top: 1.25rem;
+.artwork-sales-slider__row--second {
+  margin-top: 2.5rem;
+}
+
+.artwork-sales-slider__row-header {
+  margin-bottom: 0.85rem;
+}
+
+.artwork-sales-slider__row-label {
+  margin-bottom: 0.3rem;
+  font-size: 0.7rem;
+}
+
+.artwork-sales-slider__row-intro {
+  margin: 0;
+  font-family: "BaskervvilleLocal", "Baskervville", Georgia, serif;
+  font-size: 0.9rem;
+  color: #555;
+  line-height: 1.5;
 }
 
 .artwork-sales-slider__track {

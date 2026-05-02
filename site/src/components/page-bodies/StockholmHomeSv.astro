@@ -292,8 +292,18 @@ const vimeoSrc = "https://player.vimeo.com/video/1077937338";
 
   <ContentSection heading="Ta hem ett Andetag" headingLevel="h2" markdown={collectMarkdown} />
   <ArtworkSalesSlider
-    artworks={saleArtworks}
-    secondRow={gemArtworks}
+    rows={[
+      {
+        artworks: saleArtworks,
+        label: "Originalverk",
+        intro: "Handvävda textilskulpturer i optisk fibertextil. Varje verk är unikt.",
+      },
+      {
+        artworks: gemArtworks,
+        label: "Gems",
+        intro: "En limiterad serie i mindre format, tillgänglig i begränsad upplaga.",
+      },
+    ]}
     lang="sv"
     artworksHref="/sv/stockholm/konstverk/"
     ctaLabel="Se alla verk"

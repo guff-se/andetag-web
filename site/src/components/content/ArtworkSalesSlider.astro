@@ -2,71 +2,80 @@
 import type { Artwork } from "../../lib/content/artworks";
 import ButtonGroup from "./ButtonGroup.astro";
 
-type Props = {
+type SliderRow = {
   artworks: readonly Artwork[];
-  secondRow?: readonly Artwork[];
+  label?: string;
+  intro?: string;
+};
+
+type Props = {
+  rows: [SliderRow, ...SliderRow[]];
   lang: "sv" | "en";
   artworksHref: string;
   ctaLabel: string;
 };
 
-const { artworks, secondRow, lang, artworksHref, ctaLabel } = Astro.props;
-
-function cardList(works: readonly Artwork[]) {
-  return works.map((artwork) => {
-    const img = artwork.images[0]!;
-    const alt = lang === "sv" ? img.alt.sv : img.alt.en;
-    const title = lang === "sv" ? artwork.title.sv : artwork.title.en;
-    const { w, h } = artwork.dimensionsCm;
-    return { img, alt, title, w, h, artworksHref };
-  });
-}
-
-const row1 = cardList(artworks);
-const row2 = secondRow ? cardList(secondRow) : null;
+const { rows, lang, artworksHref, ctaLabel } = Astro.props;
 ---
 
 <div class="artwork-sales-slider">
-  {[row1, row2].filter(Boolean).map((cards, rowIdx) => (
-    <div class:list={["artwork-sales-slider__viewport", rowIdx > 0 && "artwork-sales-slider__viewport--second"]}>
-      <button
-        class="artwork-sales-slider__btn artwork-sales-slider__btn--prev"
-        type="button"
-        data-slider-prev
-        aria-label={lang === "sv" ? "Föregående" : "Previous"}
-      >&#8249;</button>
+  {rows.map((row, rowIdx) => {
+    const isSecond = rowIdx > 0;
+    return (
+      <div class:list={["artwork-sales-slider__row", isSecond && "artwork-sales-slider__row--second"]}>
+        {(row.label || row.intro) && (
+          <div class="artwork-sales-slider__row-header">
+            {row.label && <h3 class="artwork-sales-slider__row-label component-eyebrow">{row.label}</h3>}
+            {row.intro && <p class="artwork-sales-slider__row-intro">{row.intro}</p>}
+          </div>
+        )}
+        <div class="artwork-sales-slider__viewport">
+          <button
+            class="artwork-sales-slider__btn artwork-sales-slider__btn--prev"
+            type="button"
+            data-slider-prev
+            aria-label={lang === "sv" ? "Föregående" : "Previous"}
+          >&#8249;</button>
 
-      <ul class="artwork-sales-slider__track">
-        {cards!.map(({ img, alt, title, w, h }) => (
-          <li class="artwork-sales-slider__item">
-            <a class="artwork-sales-slider__card" href={artworksHref}>
-              <div class="artwork-sales-slider__img-wrap">
-                <picture>
-                  <source
-                    type="image/webp"
-                    srcset={`${img.webp640} 640w, ${img.webp960} 960w`}
-                    sizes="280px"
-                  />
-                  <img src={img.src} alt={alt} loading="lazy" decoding="async" />
-                </picture>
-              </div>
-              <div class="artwork-sales-slider__info">
-                <p class="artwork-sales-slider__title">{title}</p>
-                <p class="artwork-sales-slider__dims">{w} × {h} cm</p>
-              </div>
-            </a>
-          </li>
-        ))}
-      </ul>
+          <ul class="artwork-sales-slider__track">
+            {row.artworks.map((artwork) => {
+              const img = artwork.images[0]!;
+              const alt = lang === "sv" ? img.alt.sv : img.alt.en;
+              const title = lang === "sv" ? artwork.title.sv : artwork.title.en;
+              const { w, h } = artwork.dimensionsCm;
+              return (
+                <li class="artwork-sales-slider__item">
+                  <a class="artwork-sales-slider__card" href={artworksHref}>
+                    <div class="artwork-sales-slider__img-wrap">
+                      <picture>
+                        <source
+                          type="image/webp"
+                          srcset={`${img.webp640} 640w, ${img.webp960} 960w`}
+                          sizes="280px"
+                        />
+                        <img src={img.src} alt={alt} loading="lazy" decoding="async" />
+                      </picture>
+                    </div>
+                    <div class="artwork-sales-slider__info">
+                      <p class="artwork-sales-slider__title">{title}</p>
+                      <p class="artwork-sales-slider__dims">{w} × {h} cm</p>
+                    </div>
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
 
-      <button
-        class="artwork-sales-slider__btn artwork-sales-slider__btn--next"
-        type="button"
-        data-slider-next
-        aria-label={lang === "sv" ? "Nästa" : "Next"}
-      >&#8250;</button>
-    </div>
-  ))}
+          <button
+            class="artwork-sales-slider__btn artwork-sales-slider__btn--next"
+            type="button"
+            data-slider-next
+            aria-label={lang === "sv" ? "Nästa" : "Next"}
+          >&#8250;</button>
+        </div>
+      </div>
+    );
+  })}
 
   <div class="artwork-sales-slider__footer">
     <ButtonGroup buttons={[{ label: ctaLabel, href: artworksHref, variant: "secondary" }]} />

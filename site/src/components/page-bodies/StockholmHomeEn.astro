@@ -294,8 +294,18 @@ const vimeoSrc = "https://player.vimeo.com/video/1077937338";
 
   <ContentSection heading="Bring Andetag home" headingLevel="h2" markdown={collectMarkdown} />
   <ArtworkSalesSlider
-    artworks={saleArtworks}
-    secondRow={gemArtworks}
+    rows={[
+      {
+        artworks: saleArtworks,
+        label: "Original artworks",
+        intro: "Hand-woven textile sculptures in optical fibre. Each piece is one of a kind.",
+      },
+      {
+        artworks: gemArtworks,
+        label: "Gems",
+        intro: "A limited series in a smaller format, available in a limited edition.",
+      },
+    ]}
     lang="en"
     artworksHref="/en/stockholm/artworks/"
     ctaLabel="View all artworks"
