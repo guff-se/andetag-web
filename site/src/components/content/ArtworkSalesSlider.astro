@@ -11,9 +11,6 @@ type Props = {
 
 const { artworks, lang, artworksHref, ctaLabel } = Astro.props;
 
-const sek = new Intl.NumberFormat(lang === "sv" ? "sv-SE" : "en-US", {
-  style: "currency", currency: "SEK", maximumFractionDigits: 0,
-});
 ---
 
 <div class="artwork-sales-slider">
@@ -31,9 +28,6 @@ const sek = new Intl.NumberFormat(lang === "sv" ? "sv-SE" : "en-US", {
         const alt = lang === "sv" ? img.alt.sv : img.alt.en;
         const title = lang === "sv" ? artwork.title.sv : artwork.title.en;
         const { w, h } = artwork.dimensionsCm;
-        const priceLabel = artwork.priceSek
-          ? sek.format(artwork.priceSek)
-          : (lang === "sv" ? "Pris på förfrågan" : "Price on request");
         return (
           <li class="artwork-sales-slider__item">
             <a class="artwork-sales-slider__card" href={artworksHref}>
@@ -50,7 +44,6 @@ const sek = new Intl.NumberFormat(lang === "sv" ? "sv-SE" : "en-US", {
               <div class="artwork-sales-slider__info">
                 <p class="artwork-sales-slider__title">{title}</p>
                 <p class="artwork-sales-slider__dims">{w} × {h} cm</p>
-                <p class="artwork-sales-slider__price">{priceLabel}</p>
               </div>
             </a>
           </li>

@@ -1947,15 +1947,6 @@ body.lightbox-open {
   line-height: 1.3;
 }
 
-.artwork-sales-slider__price {
-  margin: 0;
-  font-family: "JostLocal", "Jost", Arial, sans-serif;
-  font-size: 0.82rem;
-  font-weight: 500;
-  color: var(--component-surface);
-  letter-spacing: 0.05em;
-}
-
 /* Prev/next buttons: always visible, disabled when at scroll boundary. */
 .artwork-sales-slider__btn {
   position: absolute;
