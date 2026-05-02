@@ -884,7 +884,7 @@ body.lightbox-open {
   position: relative;
   overflow: hidden;
   border-radius: 0;
-  margin: 4rem 0 1rem;
+  margin: 2.25rem 0;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
   width: 100vw;
@@ -1834,7 +1834,7 @@ body.lightbox-open {
 
 /* Artwork sales slider (home page collect section). */
 .artwork-sales-slider {
-  margin: 1.5rem 0 0.5rem;
+  margin: 1.5rem 0;
 }
 
 .artwork-sales-slider__viewport {
