@@ -21,6 +21,14 @@
   --cc-modal-transition-duration: 0.2s;
   --cc-text: #4a0d2f;
   --cc-secondary-text: #4a0d2f;
+  /* Consent banner footer: same surface as the modal, no separate tinted strip */
+  --cc-footer-bg: var(--cc-bg);
+  --cc-footer-border-color: transparent;
+  --cc-footer-color: var(--cc-secondary-text);
+  /* Inner gap between desc / button / hint (each side of the separator contributes). */
+  --cm-section-gap: 0.4rem;
+  /* Card edge inset: matches stacked inner gaps (≈2× section gap) so the rim does not read tighter than between elements. */
+  --cm-card-inset-block: calc(var(--cm-section-gap) * 2);
 }
 
 #cc-main .cm__btn,
@@ -58,7 +66,67 @@
   font-family: "BaskervvilleLocal", "Baskervville", Georgia, serif;
 }
 
+/* Equal inset at top and bottom of the consent card (see --cm-card-inset-block) */
+#cc-main .cm__texts {
+  padding-bottom: 0;
+  padding-top: var(--cm-card-inset-block);
+}
+
+/* Equal air above and below the consent primary button: desc pad + btns pad == btns pad + footer hint */
+#cc-main .cm__desc {
+  padding-bottom: var(--cm-section-gap);
+}
+
+#cc-main .cm__btns {
+  padding-bottom: var(--cm-section-gap);
+  padding-top: var(--cm-section-gap);
+}
+
 #cc-main .pm__badge {
   background: #d0a4cc;
   color: #4a0d2f;
+}
+
+#cc-main .cm__footer {
+  background: transparent;
+  border-top: none;
+  padding-bottom: var(--cm-card-inset-block);
+  padding-top: 0;
+}
+
+#cc-main .cm__links {
+  padding-bottom: 0;
+  padding-top: 0;
+}
+
+#cc-main .cm-footer-manual-hint {
+  font-family: "BaskervvilleLocal", "Baskervville", Georgia, serif;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  margin: var(--cm-section-gap) 0 0;
+  text-align: center;
+}
+
+#cc-main .cm-footer-manual-link {
+  appearance: none;
+  background: none;
+  border: none;
+  box-shadow: none;
+  color: inherit;
+  cursor: pointer;
+  display: inline;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: normal;
+  line-height: inherit;
+  margin: 0;
+  padding: 0;
+  text-decoration: underline;
+  text-transform: none;
+}
+
+#cc-main .cm-footer-manual-link:hover,
+#cc-main .cm-footer-manual-link:focus-visible {
+  text-decoration-thickness: 1px;
 }

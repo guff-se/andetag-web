@@ -120,12 +120,10 @@ export function createCookieConsentConfig(language: SupportedLanguage): CookieCo
       translations: {
         sv: {
           consentModal: {
-            title: "Vi använder cookies",
-            description:
-              "Vi använder cookies för att webbplatsen ska fungera och för anonym statistik när du tillåter det.",
-            acceptAllBtn: "Acceptera alla",
-            acceptNecessaryBtn: "Endast nödvändiga",
-            showPreferencesBtn: "Välj cookies",
+            description: "Vi använder cookies på den här webbplatsen.",
+            acceptAllBtn: "Acceptera",
+            footer:
+              '<p class="cm-footer-manual-hint">Du kan också ange <button type="button" class="cm-footer-manual-link" data-consent-preferences>cookieinställningar</button> manuellt.</p>',
           },
           preferencesModal: {
             title: "Cookieinställningar",
@@ -175,12 +173,10 @@ export function createCookieConsentConfig(language: SupportedLanguage): CookieCo
         },
         en: {
           consentModal: {
-            title: "We use cookies",
-            description:
-              "Cookies keep the site working. With your permission, we also use analytics cookies.",
-            acceptAllBtn: "Accept all",
-            acceptNecessaryBtn: "Only necessary",
-            showPreferencesBtn: "Cookie settings",
+            description: "We use cookies on this site.",
+            acceptAllBtn: "Accept",
+            footer:
+              '<p class="cm-footer-manual-hint">You may also set your <button type="button" class="cm-footer-manual-link" data-consent-preferences>cookie preferences</button> manually.</p>',
           },
           preferencesModal: {
             title: "Cookie settings",
@@ -230,12 +226,10 @@ export function createCookieConsentConfig(language: SupportedLanguage): CookieCo
         },
         de: {
           consentModal: {
-            title: "Wir verwenden Cookies",
-            description:
-              "Cookies halten die Website funktionsfähig. Mit deiner Zustimmung nutzen wir auch Analyse-Cookies.",
-            acceptAllBtn: "Alle akzeptieren",
-            acceptNecessaryBtn: "Nur notwendige",
-            showPreferencesBtn: "Cookie-Einstellungen",
+            description: "Wir verwenden Cookies auf dieser Website.",
+            acceptAllBtn: "Akzeptieren",
+            footer:
+              '<p class="cm-footer-manual-hint">Du kannst auch <button type="button" class="cm-footer-manual-link" data-consent-preferences>Cookie-Einstellungen</button> manuell vornehmen.</p>',
           },
           preferencesModal: {
             title: "Cookie-Einstellungen",

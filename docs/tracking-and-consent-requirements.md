@@ -86,13 +86,13 @@ Normative consent **category** labels match **§3** (`necessary`, `analytics`, `
 | Google Maps | Stockholm home, Hitta hit, SEO landings | **`MapEmbed.astro`** | **`marketing`** (third-party map) | Google may set cookies in the iframe context; align CMP disclosure with your legal review. |
 | Spotify album | Musik pages (SV/EN/DE) | Inline **`iframe`** in page bodies | **`marketing`** | Lazy-loaded where wired; third-party Spotify player. |
 | Google Tag Manager | All pages (when tracking on) | **`TrackingHead.astro`**, **`TrackingBody.astro`** | **`analytics` / `marketing`** for tags inside GTM; loader **after** consent default | Consent Mode v2 default denied before interaction. **GTM deferred to `window.load`** to avoid blocking first paint. |
-| CookieConsent | All pages | **`TrackingHead.astro`** + **`cookie-consent-init.ts`** | **`necessary`** | Self-hosted CMP bundle and config callbacks update Google Consent Mode. |
+| CookieConsent | All pages | **`TrackingHead.astro`** + **`cookie-consent-init.ts`** | **`necessary`** | Self-hosted CMP bundle and config callbacks update Google Consent Mode. First-layer banner: one primary accept action plus footer copy that opens the preference modal; per-category decline (including turning off analytics and marketing, then saving) lives in that modal (`site/src/lib/chrome/cookie-consent-config.ts`). |
 
 Out-of-scope for this inventory: **first-party** media (hero video poster, gallery, self-hosted MP4), **external links** (for example Understory gift card URL opened in a new tab), and **Worker `andetag_entry`** (cookie policy in **`docs/seo/url-architecture.md`** §4).
 
 ## 5) Compliance and UX Requirements
 
-- Consent UI must provide clear accept/reject controls by category.
+- Consent UI must provide clear accept/reject controls by category (first-layer shortcut to accept optional categories plus a persistent path to the preference center where each category may be declined and saved).
 - Default state must be privacy-preserving for optional categories.
 - User must be able to change consent later from any page.
 - Consent log data must be exportable for audit needs.
