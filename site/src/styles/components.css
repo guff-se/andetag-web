@@ -1613,26 +1613,6 @@ body.lightbox-open {
   margin-inline: auto !important;
 }
 
-.page-stockholm-home {
-  display: flex;
-  flex-direction: column;
-  gap: 3rem;
-}
-
-.page-stockholm-home > * {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-.page-stockholm-home__intro > :first-child,
-.page-stockholm-home__collect > :first-child {
-  margin-top: 0;
-}
-
-.page-stockholm-home__collect > :last-child {
-  margin-bottom: 0;
-}
-
 /* Swedish Stockholm home (`StockholmHomeSv.astro`, legacy `index.html` wp-page 2). */
 .page-stockholm-home__lead-eyebrow {
   margin-top: 0;
@@ -1800,11 +1780,6 @@ body.lightbox-open {
 /* Wider slot so the booking title fits; heading needs room for Jost uppercase + 0.3em tracking. */
 .page-stockholm-home .component-hero-slot:has(.page-stockholm-home__book-hero-heading) {
   max-width: min(60rem, 100%);
-}
-
-/* Extra breathing room before Art Yoga / following sections (default hero margin is 2.25rem). */
-.page-stockholm-home .component-hero:has(.page-stockholm-home__book-hero-heading) {
-  margin-bottom: 3.25rem;
 }
 
 /*
@@ -2121,6 +2096,26 @@ body.lightbox-open {
   .page-stockholm-home__map-grid {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
+}
+
+.page-stockholm-home {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.page-stockholm-home > * {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.page-stockholm-home__intro > :first-child,
+.page-stockholm-home__collect > :first-child {
+  margin-top: 0;
+}
+
+.page-stockholm-home__collect > :last-child {
+  margin-bottom: 0;
 }
 
 /* `OmAndetagSv.astro` (wp-page 2945): dictionary-style gloss, centered framed block. */
