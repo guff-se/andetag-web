@@ -1808,13 +1808,6 @@ body.lightbox-open {
 }
 
 
-.page-stockholm-home__video-heading {
-  font-size: 0.78rem;
-  text-align: center;
-  margin: 0;
-  padding: 2rem 1.5rem 1.5rem;
-}
-
 /* Full-bleed Vimeo band on locale home pages (`StockholmHome*`, `BerlinHomeEn`). */
 .page-stockholm-home__video-band,
 .page-berlin-home__video-band {
