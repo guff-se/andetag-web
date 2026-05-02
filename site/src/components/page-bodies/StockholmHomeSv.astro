@@ -169,7 +169,8 @@ const contentsamarbetenMarkdown = [
 const mapSrc =
   "https://maps.google.com/maps?q=Andetag%2C%20Kungsgatan%2039%2C%20111%2056%20Stockholm&t=m&z=15&output=embed&iwloc=near";
 
-const saleArtworks = ARTWORKS.filter((a) => a.status !== "sold");
+const saleArtworks = ARTWORKS.filter((a) => a.status !== "sold" && a.series === "original");
+const gemArtworks = ARTWORKS.filter((a) => a.series === "gem");
 
 const collectMarkdown =
   "<p>Femtio originalverk i optisk fibertextil, vart och ett unikt i storlek, ljus och rörelse. Mer än tjugo bor nu hos privata samlare i Seattle, New York, Miami och Stockholm. Varje verk andas i takt med alla andra, var det än hänger.</p>";
@@ -292,6 +293,7 @@ const vimeoSrc = "https://player.vimeo.com/video/1077937338";
   <ContentSection heading="Ta hem ett Andetag" headingLevel="h2" markdown={collectMarkdown} />
   <ArtworkSalesSlider
     artworks={saleArtworks}
+    secondRow={gemArtworks}
     lang="sv"
     artworksHref="/sv/stockholm/konstverk/"
     ctaLabel="Se alla verk"

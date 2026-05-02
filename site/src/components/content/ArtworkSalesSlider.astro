@@ -4,31 +4,40 @@ import ButtonGroup from "./ButtonGroup.astro";
 
 type Props = {
   artworks: readonly Artwork[];
+  secondRow?: readonly Artwork[];
   lang: "sv" | "en";
   artworksHref: string;
   ctaLabel: string;
 };
 
-const { artworks, lang, artworksHref, ctaLabel } = Astro.props;
+const { artworks, secondRow, lang, artworksHref, ctaLabel } = Astro.props;
 
+function cardList(works: readonly Artwork[]) {
+  return works.map((artwork) => {
+    const img = artwork.images[0]!;
+    const alt = lang === "sv" ? img.alt.sv : img.alt.en;
+    const title = lang === "sv" ? artwork.title.sv : artwork.title.en;
+    const { w, h } = artwork.dimensionsCm;
+    return { img, alt, title, w, h, artworksHref };
+  });
+}
+
+const row1 = cardList(artworks);
+const row2 = secondRow ? cardList(secondRow) : null;
 ---
 
 <div class="artwork-sales-slider">
-  <div class="artwork-sales-slider__viewport">
-    <button
-      class="artwork-sales-slider__btn artwork-sales-slider__btn--prev"
-      type="button"
-      data-slider-prev
-      aria-label={lang === "sv" ? "Föregående" : "Previous"}
-    >&#8249;</button>
+  {[row1, row2].filter(Boolean).map((cards, rowIdx) => (
+    <div class:list={["artwork-sales-slider__viewport", rowIdx > 0 && "artwork-sales-slider__viewport--second"]}>
+      <button
+        class="artwork-sales-slider__btn artwork-sales-slider__btn--prev"
+        type="button"
+        data-slider-prev
+        aria-label={lang === "sv" ? "Föregående" : "Previous"}
+      >&#8249;</button>
 
-    <ul class="artwork-sales-slider__track">
-      {artworks.map((artwork) => {
-        const img = artwork.images[0]!;
-        const alt = lang === "sv" ? img.alt.sv : img.alt.en;
-        const title = lang === "sv" ? artwork.title.sv : artwork.title.en;
-        const { w, h } = artwork.dimensionsCm;
-        return (
+      <ul class="artwork-sales-slider__track">
+        {cards!.map(({ img, alt, title, w, h }) => (
           <li class="artwork-sales-slider__item">
             <a class="artwork-sales-slider__card" href={artworksHref}>
               <div class="artwork-sales-slider__img-wrap">
@@ -47,17 +56,17 @@ const { artworks, lang, artworksHref, ctaLabel } = Astro.props;
               </div>
             </a>
           </li>
-        );
-      })}
-    </ul>
+        ))}
+      </ul>
 
-    <button
-      class="artwork-sales-slider__btn artwork-sales-slider__btn--next"
-      type="button"
-      data-slider-next
-      aria-label={lang === "sv" ? "Nästa" : "Next"}
-    >&#8250;</button>
-  </div>
+      <button
+        class="artwork-sales-slider__btn artwork-sales-slider__btn--next"
+        type="button"
+        data-slider-next
+        aria-label={lang === "sv" ? "Nästa" : "Next"}
+      >&#8250;</button>
+    </div>
+  ))}
 
   <div class="artwork-sales-slider__footer">
     <ButtonGroup buttons={[{ label: ctaLabel, href: artworksHref, variant: "secondary" }]} />
@@ -65,11 +74,11 @@ const { artworks, lang, artworksHref, ctaLabel } = Astro.props;
 </div>
 
 <script>
-  for (const slider of document.querySelectorAll(".artwork-sales-slider")) {
-    const track = slider.querySelector(".artwork-sales-slider__track") as HTMLElement | null;
+  for (const viewport of document.querySelectorAll(".artwork-sales-slider__viewport")) {
+    const track = viewport.querySelector(".artwork-sales-slider__track") as HTMLElement | null;
     if (!track) continue;
-    const prev = slider.querySelector("[data-slider-prev]") as HTMLButtonElement | null;
-    const next = slider.querySelector("[data-slider-next]") as HTMLButtonElement | null;
+    const prev = viewport.querySelector("[data-slider-prev]") as HTMLButtonElement | null;
+    const next = viewport.querySelector("[data-slider-next]") as HTMLButtonElement | null;
 
     const scroll = (dir: number) => {
       const item = track.querySelector(".artwork-sales-slider__item") as HTMLElement | null;

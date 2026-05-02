@@ -170,7 +170,8 @@ const contentsamarbetenMarkdown = [
 const mapSrc =
   "https://maps.google.com/maps?q=Andetag%2C%20Kungsgatan%2039%2C%20111%2056%20Stockholm&t=m&z=15&output=embed&iwloc=near";
 
-const saleArtworks = ARTWORKS.filter((a) => a.status !== "sold");
+const saleArtworks = ARTWORKS.filter((a) => a.status !== "sold" && a.series === "original");
+const gemArtworks = ARTWORKS.filter((a) => a.series === "gem");
 
 const collectMarkdown =
   "<p>Fifty original works in optical fibre textile, each one unique in size, light, and motion. More than twenty live with private collectors across Seattle, New York, Miami, and Stockholm. Every piece breathes in sync with every other, wherever it hangs.</p>";
@@ -294,6 +295,7 @@ const vimeoSrc = "https://player.vimeo.com/video/1077937338";
   <ContentSection heading="Bring Andetag home" headingLevel="h2" markdown={collectMarkdown} />
   <ArtworkSalesSlider
     artworks={saleArtworks}
+    secondRow={gemArtworks}
     lang="en"
     artworksHref="/en/stockholm/artworks/"
     ctaLabel="View all artworks"

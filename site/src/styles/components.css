@@ -1841,6 +1841,10 @@ body.lightbox-open {
   position: relative;
 }
 
+.artwork-sales-slider__viewport--second {
+  margin-top: 1.25rem;
+}
+
 .artwork-sales-slider__track {
   list-style: none;
   padding: 0.25rem 0 0.75rem;
