@@ -54,6 +54,7 @@ describe("buildSchemaJsonLd", () => {
     const first = reviews[0] as Record<string, unknown>;
     expect(first["@type"]).toBe("Review");
     expect(first.reviewBody).toBeTruthy();
+    expect(venue!.award).toBe("Tripadvisor Travellers' Choice 2026");
   });
 
   it("uses Place (not Museum) for Berlin pre-opening", () => {
