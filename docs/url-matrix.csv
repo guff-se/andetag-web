@@ -5,7 +5,7 @@ https://www.andetag.museum/de/berlin/musik-von-andetag/,https://www.andetag.muse
 https://www.andetag.museum/de/berlin/optische-fasertextil/,https://www.andetag.museum/de/berlin/optische-fasertextil/,de,berlin,content,keep,none,shell canonical
 https://www.andetag.museum/de/berlin/privacy/,https://www.andetag.museum/de/berlin/privacy/,de,berlin,legal,keep,none,shell canonical
 https://www.andetag.museum/de/berlin/ueber-andetag/,https://www.andetag.museum/de/berlin/ueber-andetag/,de,berlin,content,keep,none,shell canonical
-https://www.andetag.museum/en/,https://www.andetag.museum/en/,en,stockholm,content,keep,none,shell canonical
+https://www.andetag.museum/en/,https://www.andetag.museum/en/,en,stockholm,content,keep,none,selector utility shell, meta robots noindex follow, excluded from sitemap
 https://www.andetag.museum/en/berlin/,https://www.andetag.museum/en/berlin/,en,berlin,content,keep,none,shell canonical
 https://www.andetag.museum/en/berlin/about-andetag/,https://www.andetag.museum/en/berlin/about-andetag/,en,berlin,content,keep,none,shell canonical
 https://www.andetag.museum/en/berlin/about-the-artists-malin-gustaf-tadaa/,https://www.andetag.museum/en/berlin/about-the-artists-malin-gustaf-tadaa/,en,berlin,content,keep,none,shell canonical

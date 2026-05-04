@@ -58,6 +58,7 @@ type CookieConsentConfig = {
 
 declare global {
   interface Window {
+    dataLayer?: object[];
     gtag?: (...args: unknown[]) => void;
     CookieConsent?: {
       acceptedCategory: (category: "analytics" | "marketing") => boolean;
@@ -110,6 +111,36 @@ export function buildConsentModeUpdate(consent: ConsentState): ConsentModeUpdate
     ad_user_data: consent.marketing ? "granted" : "denied",
     ad_personalization: consent.marketing ? "granted" : "denied",
   };
+}
+
+/** Coarse bucket for first-consent analytics (no PII). */
+export type CmpFirstConsentTier = "all" | "necessary_only" | "partial";
+
+/**
+ * Map CookieConsent `cookie.categories` to a single reporting tier.
+ * `all` = both optional categories; `necessary_only` = neither; `partial` = one of the two.
+ */
+export function consentTierFromCategories(categories: readonly string[]): CmpFirstConsentTier {
+  const analytics = categories.includes("analytics");
+  const marketing = categories.includes("marketing");
+  if (analytics && marketing) return "all";
+  if (!analytics && !marketing) return "necessary_only";
+  return "partial";
+}
+
+/**
+ * Pushes a one-time measurement payload when the user saves consent for the first time.
+ * GTM should map `event: "cmp_first_consent"` to GA4 (or another store) with a tag that
+ * does not require `analytics_storage`, so "necessary only" visitors are still counted.
+ */
+function pushCmpFirstConsentDataLayer(categories: readonly string[]): void {
+  if (typeof window === "undefined") return;
+  const w = window as Window & { dataLayer?: object[] };
+  w.dataLayer = w.dataLayer ?? [];
+  w.dataLayer.push({
+    event: "cmp_first_consent",
+    cmp_tier: consentTierFromCategories(categories),
+  });
 }
 
 export function createCookieConsentConfig(language: SupportedLanguage): CookieConsentConfig {
@@ -325,6 +356,7 @@ export function createCookieConsentConfig(language: SupportedLanguage): CookieCo
     },
     onFirstConsent: ({ cookie }) => {
       pushConsentUpdate(cookie.categories);
+      pushCmpFirstConsentDataLayer(cookie.categories);
     },
     onConsent: ({ cookie }) => {
       pushConsentUpdate(cookie.categories);

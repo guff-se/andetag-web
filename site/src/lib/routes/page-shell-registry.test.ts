@@ -89,6 +89,7 @@ describe("page shell registry", () => {
         expect(shell.hreflang.de).toBeNull();
         expect(shell.hreflang.sv).toBe("/sv/stockholm/");
         expect(shell.hreflang.en).toBe("/en/");
+        expect(shell.xDefaultPath).toBe("/en/");
       }
       if (path.startsWith("/en/berlin") || path.startsWith("/de/berlin")) {
         expect(shell.hreflang.sv).toBeNull();

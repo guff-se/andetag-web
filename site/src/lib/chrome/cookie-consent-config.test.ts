@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   buildConsentModeUpdate,
   consentStateFromAcceptedCategories,
+  consentTierFromCategories,
   resolveCookieConsentLanguage,
 } from "./cookie-consent-config";
 
@@ -31,6 +32,21 @@ describe("consent state from CMP cookie.categories", () => {
       analytics: true,
       marketing: false,
     });
+  });
+});
+
+describe("consent tier for first-consent dataLayer", () => {
+  it("labels full opt-in", () => {
+    expect(consentTierFromCategories(["necessary", "analytics", "marketing"])).toBe("all");
+  });
+
+  it("labels necessary only", () => {
+    expect(consentTierFromCategories(["necessary"])).toBe("necessary_only");
+  });
+
+  it("labels mixed optional categories as partial", () => {
+    expect(consentTierFromCategories(["necessary", "analytics"])).toBe("partial");
+    expect(consentTierFromCategories(["necessary", "marketing"])).toBe("partial");
   });
 });
 

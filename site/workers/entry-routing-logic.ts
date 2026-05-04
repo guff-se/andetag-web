@@ -219,7 +219,7 @@ export function decideEnglishHubRouting(input: {
   }
 
   if (isEntryVerifiedBot(input.userAgent, input.cf)) {
-    return { type: "serve_asset" };
+    return { type: "redirect", locationPath: suffix("/en/stockholm/") };
   }
 
   const token = parseEntryToken(parseEntryCookieValue(input.cookieHeader));

@@ -80,6 +80,7 @@ The CookieConsent + Consent Mode wiring shipped in **`TrackingHead.astro`**; the
 1. **Confirm Understory** still emits **`understory_*`** and **`on_receipt`** on parent **`dataLayer`** on Astro pages.
 2. **Review conversion linker** domain list for **`www`**, Understory, Stripe, and preview hosts.
 3. **Audit tags** with **`consentStatus`: `NOT_SET`** for alignment with **`docs/tracking-and-consent-requirements.md`**.
+4. **First consent:** the app pushes **`cmp_first_consent`** on the first CMP save (see **`docs/tracking-and-consent-requirements.md` §1b**). Add a GA4 (or other) tag in GTM and **do not** require `analytics_storage` for that tag, or **necessary-only** users will be missing from consent funnels.
 
 ## Funnel Stages (conceptual)
 
@@ -102,6 +103,7 @@ These names were planned for a richer funnel than **page_view + conversions**. I
 | `booking_handoff_click` | 4 | outbound click to Understory flow | widget pages and Art Yoga external booking links | conversion_proxy | `route`, `lang`, `destination`, `outbound_url` | analytics |
 | `brevo_form_submit` | 3-4 | Berlin waitlist form submit | German pre-launch pages | lead | `route`, `lang`, `form_id` | marketing |
 | `consent_updated` | support | user changes consent categories | all | compliance | `analytics_allowed`, `marketing_allowed` | necessary |
+| `cmp_first_consent` | support | first CMP save (once per cookie) | all | compliance | `cmp_tier` (`all` / `necessary_only` / `partial`) | tag must fire without `analytics_storage` (see **§1b** in `docs/tracking-and-consent-requirements.md`) |
 
 ## Mapping to Business KPI
 

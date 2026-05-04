@@ -153,6 +153,8 @@ if (!PageBody && canonicalPath !== "/en/") {
   throw new Error(`No page body component for path: ${canonicalPath}`);
 }
 const headerSelectorOnly = canonicalPath === "/en/";
+const robots = canonicalPath === "/en/" ? "noindex,follow" : undefined;
+const includeStructuredData = canonicalPath !== "/en/";
 
 /** Full-bleed video hero (`SiteHeader.astro`): preload poster + Jost 500 for earlier paint (all breakpoints use video). */
 const heroVideoHeaderIds = new Set<typeof shell.headerVariantId>([
@@ -236,6 +238,8 @@ const lcpBodyFontPreloadHref = LCP_BODY_FONT_PATHS.has(canonicalPath)
   lcpBodyFontPreloadHref={lcpBodyFontPreloadHref}
   headerSelectorOnly={headerSelectorOnly}
   ogImagePublicPath={shell.ogImage}
+  robots={robots}
+  includeStructuredData={includeStructuredData}
 >
   {
     headerSelectorOnly ? null : PageBody === PrivacyPage ? (
