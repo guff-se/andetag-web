@@ -400,7 +400,7 @@
 .component-hero-cover-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(17, 17, 17, 0.56);
+  background: rgba(17, 17, 17, 0.16);
 }
 
 .component-hero-content {
