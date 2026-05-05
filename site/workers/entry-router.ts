@@ -196,12 +196,20 @@ async function handleInquiry(request: Request, env: Env): Promise<Response> {
   return json(200, { ok: true });
 }
 
+function normalizePathname(pathname: string): string {
+  if (pathname.length > 1 && pathname.endsWith("/")) {
+    return pathname.slice(0, -1);
+  }
+  return pathname;
+}
+
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
     const method = request.method.toUpperCase();
+    const pathname = normalizePathname(url.pathname);
 
-    if (method === "POST" && url.pathname === INQUIRY_PATH) {
+    if (method === "POST" && pathname === INQUIRY_PATH) {
       return handleInquiry(request, env);
     }
 

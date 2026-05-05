@@ -40,6 +40,8 @@ const labels =
         privacySuffix: ".",
         success:
           "Tack. Vi har tagit emot din förfrågan och hör av oss inom kort.",
+        error:
+          "Det gick inte att skicka förfrågan just nu. Försök igen om en stund eller skriv till info@andetag.museum.",
         privacyHref: "/sv/stockholm/privacy/",
       }
     : {
@@ -62,6 +64,8 @@ const labels =
         privacyLink: "privacy policy",
         privacySuffix: ".",
         success: "Thank you. Your inquiry has been received and we will be in touch shortly.",
+        error:
+          "We could not send your inquiry right now. Please try again shortly or email info@andetag.museum.",
         privacyHref: "/en/stockholm/privacy/",
       };
 ---
@@ -144,6 +148,8 @@ const labels =
       role="status"
       aria-live="polite"
       data-inquiry-status
+      data-inquiry-success={labels.success}
+      data-inquiry-error={labels.error}
       hidden
     >
       {labels.success}

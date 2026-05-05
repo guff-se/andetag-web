@@ -71,6 +71,40 @@ describe("entry-router Worker", () => {
     vi.stubGlobal("fetch", originalFetch);
   });
 
+  it("handles POST /_inquiry/ (trailing slash) and forwards to Brevo", async () => {
+    const assetFetch = vi.fn(() =>
+      Promise.resolve(new Response(null, { status: 204 })),
+    );
+    const env = {
+      ...makeEnv(assetFetch),
+      BREVO_TRANSACTIONAL_API_KEY: "test-key",
+    };
+    const upstreamFetch = vi.fn(() =>
+      Promise.resolve(new Response(JSON.stringify({ messageId: "abc" }), { status: 201 })),
+    );
+    const originalFetch = globalThis.fetch;
+    vi.stubGlobal("fetch", upstreamFetch);
+
+    const body = new URLSearchParams({
+      name: "Alex",
+      email: "alex@example.com",
+      locale: "en",
+      opt_in: "1",
+      company: "",
+    });
+    const req = new Request("https://www.andetag.museum/_inquiry/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body,
+    });
+    const res = await entryRouter.fetch(req, env);
+
+    expect(res.status).toBe(200);
+    expect(assetFetch).not.toHaveBeenCalled();
+    expect(upstreamFetch).toHaveBeenCalledOnce();
+    vi.stubGlobal("fetch", originalFetch);
+  });
+
   it("accepts honeypot submissions without upstream send", async () => {
     const assetFetch = vi.fn(() =>
       Promise.resolve(new Response(null, { status: 204 })),
