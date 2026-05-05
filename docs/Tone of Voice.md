@@ -153,6 +153,13 @@ Breath, stillness, calm, peace, rhythm, presence, connection, softness, inner, w
 
 Mind-blowing, magical (when used casually), healing, transformative, life-changing, revolutionary, spiritual, must-see, unforgettable.
 
+## Material Terminology (Factual)
+
+When copy describes how the artworks are made, use this as the default factual wording:
+
+- **Custom-woven and hand-stitched optical fibre textiles**.
+- Do not describe the artworks as hand-woven.
+
 ## Example Copy – Short (Ads / Headlines)
 
 **Swedish**

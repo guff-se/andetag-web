@@ -23,7 +23,7 @@ export const ARTWORKS_FAQ_EN: readonly FaqItem[] = [
   {
     title: "How does an Andetag artwork work?",
     bodyHtml:
-      "<p>Each Andetag is a hand-woven optical fibre textile lit from within by addressable LEDs. The light follows a generative animation built from a recording of Malin Tadaa's own breath, slowly evolving in shape, intensity, and colour. Colour shifts are timed to conjunctions of the five visible planets, so the work changes character with one to five months between shifts. Connected to Wi-Fi, every Andetag breathes in time with every other one in the series.</p>",
+      "<p>Each Andetag is a custom-woven and hand-stitched optical fibre textile lit from within by addressable LEDs. The light follows a generative animation built from a recording of Malin Tadaa's own breath, slowly evolving in shape, intensity, and colour. Colour shifts are timed to conjunctions of the five visible planets, so the work changes character with one to five months between shifts. Connected to Wi-Fi, every Andetag breathes in time with every other one in the series.</p>",
   },
   {
     title: "Is the music app included?",
@@ -61,7 +61,7 @@ export const ARTWORKS_FAQ_SV: readonly FaqItem[] = [
   {
     title: "Hur fungerar ett Andetag-konstverk?",
     bodyHtml:
-      "<p>Varje Andetag är en handvävd optisk fibertextil som lyser inifrån med adresserbara LED-pixlar. Ljuset följer en generativ animation byggd kring en inspelning av Malin Tadaas egen andning, och förändras långsamt i form, intensitet och färg. Färgskiften styrs av konjunktioner mellan de fem synliga planeterna, så verket byter karaktär med en till fem månaders mellanrum. När det är uppkopplat andas varje Andetag i takt med alla andra i serien.</p>",
+      "<p>Varje Andetag är en egenvävd och handsydd optisk fibertextil som lyser inifrån med adresserbara LED-pixlar. Ljuset följer en generativ animation byggd kring en inspelning av Malin Tadaas egen andning, och förändras långsamt i form, intensitet och färg. Färgskiften styrs av konjunktioner mellan de fem synliga planeterna, så verket byter karaktär med en till fem månaders mellanrum. När det är uppkopplat andas varje Andetag i takt med alla andra i serien.</p>",
   },
   {
     title: "Är musikappen inkluderad?",
