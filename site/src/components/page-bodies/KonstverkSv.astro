@@ -1,0 +1,196 @@
+---
+import "../../styles/artworks.css";
+import { ARTWORKS, artworkPublicSlug } from "../../lib/content/artworks";
+import { ARTWORK_COLLECTION_PATHS } from "../../lib/routes/artwork-shell-routes";
+import { ARTWORKS_FAQ_SV } from "../../lib/content/stockholm-artworks-faq";
+import { artworkAndetag12HomeDaylightBody } from "../../lib/content/stockholm-body-responsive-images";
+import AccordionSection from "../content/AccordionSection.astro";
+import ArtworkFilterBar from "../content/ArtworkFilterBar.astro";
+import ArtworkGrid from "../content/ArtworkGrid.astro";
+import ArtworkMap from "../embeds/ArtworkMap.astro";
+import ArtworkModal from "../content/ArtworkModal.astro";
+import InquiryForm from "../embeds/InquiryForm.astro";
+import ResponsiveInlinePicture from "../ui/ResponsiveInlinePicture.astro";
+
+const originals = ARTWORKS.filter((a) => a.series === "original");
+const available = originals.filter((a) => a.status !== "sold");
+const sold = originals.filter((a) => a.status === "sold");
+const gems = ARTWORKS.filter((a) => a.series === "gem");
+
+const counts = {
+  formatAll: available.length,
+  formatLandscape: available.filter((a) => a.format === "landscape").length,
+  formatPortrait: available.filter((a) => a.format === "portrait").length,
+  formatDiptych: available.filter((a) => a.format === "diptych").length,
+};
+
+// Serialize artworks for modal JS - order: available originals, gems, sold originals
+const modalOrder = [...available, ...gems, ...sold];
+const artworksJson = JSON.stringify(modalOrder.map((a) => ({
+  id: a.id,
+  pageHref: `${ARTWORK_COLLECTION_PATHS.sv}${artworkPublicSlug(a)}/`,
+  series: a.series, number: a.number ?? null,
+  edition: a.edition ?? null,
+  titleSv: a.title.sv, titleEn: a.title.en,
+  year: a.year, w: a.dimensionsCm.w, h: a.dimensionsCm.h,
+  format: a.format, status: a.status, priceSek: a.priceSek ?? null,
+  exhibitionVenue: a.exhibitionVenue ?? null,
+  locationSv: a.location.label.sv, locationEn: a.location.label.en,
+  images: a.images.map((img) => ({
+    src: img.src, webp640: img.webp640, webp960: img.webp960,
+    fullSrc: img.fullSrc ?? null, mood: img.mood,
+    altSv: img.alt.sv, altEn: img.alt.en,
+  })),
+})));
+---
+
+<div class="page-migrated page-artworks" lang="sv">
+  <script type="application/json" id="artworks-json" set:html={artworksJson}></script>
+
+  <header class="page-artworks__lead">
+    <h1><span class="brand-wordmark">ANDETAG</span>: Konstverken</h1>
+    <div class="page-artworks__lead-intro">
+      <figure class="page-artworks__lead-figure">
+        <ResponsiveInlinePicture
+          sources={artworkAndetag12HomeDaylightBody}
+          alt="Verket ANDETAG no. 12 i rosa och magenta toner hänger över en beige soffa i ett ljust vardagsrum, med bokhyllor till vänster och en grön växt vid fönstret."
+          width={3840}
+          height={2560}
+          loading="eager"
+          sizes="(max-width: 600px) 92vw, 475px"
+        />
+      </figure>
+      <p>
+        <span class="brand-wordmark">ANDETAG</span> är en serie globalt sammanlänkade konstverk i handsydd optisk fibertextil,
+        vävda att andas med rummen de lever i. Spridda över världen håller de alltid samma
+        rytm, fullkomligt synkroniserade.
+      </p>
+      <p>
+        Originalserien består av femtio unika konstverk, skapade som enskilda verk eller som
+        större diptyker i två paneler. Vid sidan av dem finns de tre <span class="brand-wordmark">ANDETAG</span> Gems, mindre
+        verk i upplagor om sex eller tio.
+      </p>
+      <p>
+        Läs om <a href="/sv/stockholm/om-andetag/">berättelsen bakom <span class="brand-wordmark">ANDETAG</span></a>,
+        den <a href="/sv/stockholm/optisk-fibertextil/">optiska fibertextilen</a>
+        som varje verk är vävt av, och
+        <a href="/sv/stockholm/om-konstnarerna-malin-gustaf-tadaa/">konstnärerna bakom serien</a>.
+      </p>
+      <p>Skriv till oss om något fångar din blick.</p>
+    </div>
+  </header>
+
+  <h2 class="page-artworks__group-heading">Tillgängliga verk</h2>
+
+  <section class="page-artworks__section" aria-labelledby="originals-heading-sv">
+    <header class="page-artworks__section-head">
+      <h2 class="page-artworks__section-heading" id="originals-heading-sv"><span class="brand-wordmark">ANDETAG</span> Original</h2>
+      <p class="page-artworks__section-intro">
+        Den ursprungliga <span class="brand-wordmark">ANDETAG</span>-serien: femtio verk, vart och ett unikt i storlek, ljus
+        och rörelse. Serien hade premiär på Art Miami i december 2023. Inget verk är det
+        andra likt. Samma andning bär dem alla.
+      </p>
+    </header>
+
+    <ArtworkFilterBar language="sv" counts={counts} />
+    <ArtworkGrid available={available} language="sv" gridId="originals" eagerFirst={true} />
+  </section>
+
+  <section class="page-artworks__section" aria-labelledby="gems-heading-sv">
+    <header class="page-artworks__section-head">
+      <h2 class="page-artworks__section-heading" id="gems-heading-sv"><span class="brand-wordmark">ANDETAG</span> Gems</h2>
+      <p class="page-artworks__section-intro">
+        En fortsättning på <span class="brand-wordmark">ANDETAG</span>-serien med premiär under Stockholm Art Week i maj 2025.
+        Varje verk rymmer samma rytm och djup som de större originalen, i ett intimare
+        format.
+      </p>
+    </header>
+
+    <ArtworkGrid available={gems} language="sv" gridId="gems" />
+  </section>
+
+  <section class="page-artworks__section page-artworks__section--app" aria-labelledby="app-heading-sv">
+    <header class="page-artworks__section-head">
+      <h2 class="page-artworks__section-heading page-artworks__section-heading--display" id="app-heading-sv"><span class="brand-wordmark">ANDETAG</span>: En app som ljudsätter konsten</h2>
+      <div class="page-artworks__section-app-body">
+        <picture class="page-artworks__app-icon">
+          <source
+            type="image/webp"
+            srcset="/images/app/andetag-app-icon-320w.webp 320w, /images/app/andetag-app-icon-640w.webp 640w"
+            sizes="(min-width: 768px) 160px, 112px"
+          />
+          <img
+            src="/images/app/andetag-app-icon-320w.jpg"
+            srcset="/images/app/andetag-app-icon-320w.jpg 320w, /images/app/andetag-app-icon-640w.jpg 640w"
+            sizes="(min-width: 768px) 160px, 112px"
+            width="320"
+            height="320"
+            alt="ANDETAG-appens ikon"
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
+        <p class="page-artworks__section-intro">
+          Appen låter musiken från Stockholm-utställningen följa ditt verk hem. Ljudet är perfekt
+          synkroniserat med ditt verk och det globala andetaget. Musik och andningsljud kan
+          justeras eller stängas av var för sig.
+        </p>
+        <p class="page-artworks__section-intro">
+          Du kan lyssna direkt från mobilen, eller låta ljudet breda ut sig i rummet via
+          Bluetooth eller AirPlay. Oavsett om du spelar lågmält i bakgrunden eller låter
+          musiken fylla rummet, bär den samma lugna puls som verket självt.
+        </p>
+        <p class="page-artworks__section-intro">
+          Ladda ner för <a href="https://apps.apple.com/se/app/andetag/id6749811621">iPhone</a> eller
+          <a href="https://play.google.com/store/apps/details?id=se.tadaa.andetag&hl=en">Android</a>.
+        </p>
+      </div>
+    </header>
+  </section>
+
+  <section class="page-artworks__section" aria-labelledby="map-heading-sv">
+    <header class="page-artworks__section-head">
+      <h2 class="page-artworks__section-heading page-artworks__section-heading--display" id="map-heading-sv">I samlingar runt om i världen</h2>
+      <p class="page-artworks__section-intro">
+        Sedan lanseringen 2023 har mer än tjugo <span class="brand-wordmark">ANDETAG</span>-konstverk färdigställts och förvaras
+        av privata samlare världen över: i Seattle, New York, Miami, Costa Rica, Portugal och
+        Sverige. Varje verk är förenat med varje annat via internet och andas i samma takt över
+        hela världen.
+      </p>
+      <p class="page-artworks__section-intro">
+        Var ska vi sätta nästa nål?
+      </p>
+    </header>
+
+    <ArtworkMap artworks={sold} language="sv" />
+  </section>
+
+  <section class="page-artworks__section" aria-labelledby="sold-heading-sv">
+    <header class="page-artworks__section-head">
+      <p class="page-artworks__section-eyebrow">Original</p>
+      <h2 class="page-artworks__section-heading" id="sold-heading-sv">I samling ({sold.length})</h2>
+    </header>
+
+    <div class="page-artworks__collection-grid">
+      <ArtworkGrid available={sold} language="sv" gridId="sold" />
+    </div>
+  </section>
+
+  <ArtworkModal language="sv" />
+
+  <h2 class="page-artworks__commissioned-heading">Beställ ett verk</h2>
+  <p class="page-artworks__commissioned">
+    Vi tar också emot beställningar. Har du en plats, ett sammanhang eller en idé,
+    är du välkommen att höra av dig via formuläret nedan.
+  </p>
+
+  <InquiryForm language="sv" />
+
+  <section class="page-artworks__section" aria-labelledby="faq-heading-sv">
+    <header class="page-artworks__section-head">
+      <h2 class="page-artworks__section-heading" id="faq-heading-sv">Frågor och svar</h2>
+    </header>
+    <AccordionSection items={[...ARTWORKS_FAQ_SV]} initialOpenIndex={null} />
+  </section>
+
+</div>

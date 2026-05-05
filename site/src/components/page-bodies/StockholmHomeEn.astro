@@ -4,6 +4,7 @@ import BookingEmbed from "../embeds/BookingEmbed.astro";
 import ButtonGroup from "../content/ButtonGroup.astro";
 import ContentSection from "../content/ContentSection.astro";
 import GallerySection from "../content/GallerySection.astro";
+import ArtworkSalesSlider from "../content/ArtworkSalesSlider.astro";
 import HeroSection from "../content/HeroSection.astro";
 import InfoFrame from "../content/InfoFrame.astro";
 import MapEmbed from "../embeds/MapEmbed.astro";
@@ -13,13 +14,14 @@ import TestimonialCarousel from "../content/TestimonialCarousel.astro";
 import VideoEmbed from "../embeds/VideoEmbed.astro";
 import ResponsiveInlinePicture from "../ui/ResponsiveInlinePicture.astro";
 import { STOCKHOLM_BOOK_HERO_COVER } from "../../lib/chrome/assets";
-import { mainRoomLookingBody, mainRoomMeditationBody } from "../../lib/content/stockholm-body-responsive-images";
+import { homeGroupSeatedHandsClaspedBody, mainRoomMeditationBody } from "../../lib/content/stockholm-body-responsive-images";
 import { stockholmMarketingGalleryHomeEn } from "../../lib/content/stockholm-marketing-gallery";
 import {
   stockholmTestimonialAggregateEn,
   stockholmTravellersChoiceBadgeEn,
 } from "../../lib/content/stockholm-testimonial-aggregate";
 import { stockholmMarketingFaqEn } from "../../lib/page-registry/stockholm-marketing-faq-en";
+import { ARTWORKS } from "../../lib/content/artworks";
 import {
   STOCKHOLM_TICKETS,
   STOCKHOLM_DAYTIME_WINDOW,
@@ -40,7 +42,7 @@ const artYogaBookingHref =
 const introLeadImage = {
   width: 1920,
   height: 1080,
-  alt: "Silhouette of a visitor looking up at luminous art at ANDETAG",
+  alt: "Visitors sitting still with hands clasped near their chins before glowing textile sculptures.",
 } as const;
 
 const artYogaAsideImage = {
@@ -52,7 +54,7 @@ const artYogaAsideImage = {
 const introMarkdown = [
   "<p>Inside <span class=\"brand-wordmark\">ANDETAG</span>, time stands still.</p>",
   "<p><span class=\"brand-wordmark\">ANDETAG</span> is an immersive art experience in central Stockholm. Light and textile art surround the room, and breath and music meet in a quiet museum near Hötorget.</p>",
-  "<p>In a world where the pace is constantly accelerating, You are invited to slow your breath and be enveloped in an enchanting tapestry of shapes, light, and sound.</p>",
+  "<p>In a world where the pace is constantly accelerating, you are invited to slow your breath and be enveloped in an enchanting tapestry of shapes, light, and sound.</p>",
   "<p>Welcome to <span class=\"brand-wordmark\">ANDETAG</span> – a place of stillness and wonder.</p>",
 ].join("");
 
@@ -83,7 +85,7 @@ const seasonMarkdown = [
 ].join("");
 
 const privatMarkdown = [
-  "<p><span class=\"brand-wordmark\">ANDETAG</span> offer tailored events in the morning, daytime, evening, or weekends, perfect for <a href=\"/en/stockholm/corporate-events/\">companies</a>, <a href=\"/en/stockholm/group-bookings/\">groups</a>, or special occasions. We can also offer group discounts.</p>",
+  "<p><span class=\"brand-wordmark\">ANDETAG</span> offers tailored events in the morning, daytime, evening, or weekends, perfect for <a href=\"/en/stockholm/corporate-events/\">companies</a>, <a href=\"/en/stockholm/group-bookings/\">groups</a>, or special occasions. We can also offer group discounts.</p>",
   '<p>Please send an email to <a href="mailto:info@andetag.museum">info@andetag.museum</a> and we will assist you!</p>',
 ].join("");
 
@@ -171,6 +173,12 @@ const contentsamarbetenMarkdown = [
 const mapSrc =
   "https://maps.google.com/maps?q=Andetag%2C%20Kungsgatan%2039%2C%20111%2056%20Stockholm&t=m&z=15&output=embed&iwloc=near";
 
+const saleArtworks = ARTWORKS.filter((a) => a.status !== "sold" && a.series === "original");
+const gemArtworks = ARTWORKS.filter((a) => a.series === "gem");
+
+const collectMarkdown =
+  "<p>Fifty original works in optical fibre textile, each one unique in size, light, and motion. More than twenty live with private collectors across Seattle, New York, Miami, and Stockholm. Every piece breathes in sync with every other, wherever it hangs.</p>";
+
 const mapLocationMarkdown =
   "<p>You&#8217;ll find <span class=\"brand-wordmark\">ANDETAG</span> in the central mezzanine of the Hötorget Subway Station.</p><p><strong>From the subway:</strong> Take the Kungsgatan escalator (middle of the platform), then the Kungsgatan exit towards Stureplan, and Sveavägen towards Sergels Torg.</p><p><strong>From the street:</strong> Just below the stairs of the subway entrance on Kungsgatan 39.</p>";
 
@@ -178,6 +186,7 @@ const vimeoSrc = "https://player.vimeo.com/video/1077937338";
 ---
 
 <div class="page-migrated page-stockholm-home">
+  <div class="page-stockholm-home__intro">
   <section
     class="content-section align-center page-stockholm-home__lead-eyebrow page-stockholm-home__lead-eyebrow--page-title"
     aria-label="Introduction"
@@ -189,7 +198,7 @@ const vimeoSrc = "https://player.vimeo.com/video/1077937338";
       <ContentSection markdown={introMarkdown} />
       <figure class="page-stockholm-home__intro-figure">
         <ResponsiveInlinePicture
-          sources={mainRoomLookingBody}
+          sources={homeGroupSeatedHandsClaspedBody}
           width={introLeadImage.width}
           height={introLeadImage.height}
           alt={introLeadImage.alt}
@@ -216,6 +225,7 @@ const vimeoSrc = "https://player.vimeo.com/video/1077937338";
         fallbackText="The booking calendar could not load. Reload the page or contact us if the problem persists."
       />
     </aside>
+  </div>
   </div>
 
   <div class="page-stockholm-home__loc-desktop" aria-label="Address">
@@ -285,14 +295,38 @@ const vimeoSrc = "https://player.vimeo.com/video/1077937338";
     aggregate={{ ...stockholmTestimonialAggregateEn }}
     awardBadge={{ ...stockholmTravellersChoiceBadgeEn }}
     backgroundImageAlt="Close-up of Andetag no. 27, sweeping folds of optical fibre textile in magenta and deep purple glowing from within at ANDETAG museum"
+    cta={{ label: "Experience ANDETAG!", href: "#book", variant: "secondary" }}
   />
 
-  <div class="page-migrated-cta page-stockholm-home__cta-after-testimonials">
-    <ButtonGroup buttons={[{ label: "Experience Andetag!", href: "#book", variant: "secondary" }]} />
+  <div class="page-stockholm-home__collect">
+  <section class="content-section align-left">
+    <h2>Bring ANDETAG home</h2>
+    <p class="component-eyebrow">available artworks</p>
+    <div class="content-section-body" set:html={collectMarkdown} />
+  </section>
+  <ArtworkSalesSlider
+    rows={[
+      {
+        artworks: saleArtworks,
+        label: "Original artworks",
+        intro: "Hand-woven textile sculptures in optical fibre. Each piece is one of a kind.",
+        randomize: true,
+      },
+      {
+        artworks: gemArtworks,
+        label: "Gems",
+        intro: "A limited series in a smaller format, available in a limited edition.",
+        carouselOnlyMobile: true,
+      },
+    ]}
+    lang="en"
+    artworksHref="/en/artworks/"
+    ctaLabel="View all artworks"
+  />
   </div>
 
   <div class="page-stockholm-home__video-band">
-    <VideoEmbed
+<VideoEmbed
       title="ANDETAG on Vimeo"
       src={vimeoSrc}
       fallbackText="The video could not load. Please try again later."

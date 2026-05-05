@@ -1,5 +1,7 @@
 import type { Destination, Language } from "../chrome/types";
 import { STOCKHOLM_SV_EN_PAIRS } from "./page-shell-registry";
+import { ARTWORK_COLLECTION_PATHS } from "./artwork-shell-routes";
+import { findArtworkByPublicSlug, artworkPublicSlug } from "../content/artworks";
 
 /**
  * Site chrome: single resolver for language and destination controls.
@@ -192,5 +194,39 @@ export function resolveChromeNavigationHref(
     if (hit) return hit;
   }
 
+  const artworkPeer = resolveArtworkPeer(path, lang, dest);
+  if (artworkPeer) return artworkPeer;
+
   return defaultChromeHome(lang, dest);
+}
+
+/**
+ * Per-artwork pages and the collection live at location-free URLs (`SEO-0022`).
+ * The language switcher must keep the visitor on the same artwork (or collection)
+ * when toggling sv ↔ en. Berlin/German targets fall back to the default home -
+ * there is no German artworks subsystem.
+ */
+function resolveArtworkPeer(
+  path: string,
+  lang: Language,
+  dest: Destination,
+): string | null {
+  if (dest === "berlin" || lang === "de") return null;
+
+  if (path === ARTWORK_COLLECTION_PATHS.sv || path === ARTWORK_COLLECTION_PATHS.en) {
+    return lang === "sv" ? ARTWORK_COLLECTION_PATHS.sv : ARTWORK_COLLECTION_PATHS.en;
+  }
+
+  const m =
+    path.match(/^\/en\/artworks\/([^/]+)\/$/) ??
+    path.match(/^\/sv\/konstverk\/([^/]+)\/$/);
+  if (!m) return null;
+
+  const artwork = findArtworkByPublicSlug(m[1]!);
+  if (!artwork) return null;
+
+  const slug = artworkPublicSlug(artwork);
+  return lang === "sv"
+    ? `${ARTWORK_COLLECTION_PATHS.sv}${slug}/`
+    : `${ARTWORK_COLLECTION_PATHS.en}${slug}/`;
 }

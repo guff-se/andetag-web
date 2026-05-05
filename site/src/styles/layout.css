@@ -62,8 +62,64 @@ p {
 }
 
 a {
-  color: inherit;
+  color: var(--component-link);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+/* Navigation and button-like links keep their own presentation. */
+.header-root a,
+.shared-hero-header a,
+.shared-hero-nav-shell a,
+.shared-hero-mobile-nav-shell a,
+.footer-root a,
+.shared-footer-root a,
+.link-cta-primary,
+.link-cta-secondary,
+.link-cta-outline,
+.page-migrated-cta {
   text-decoration: none;
+}
+
+/* Global heading defaults: Jost, uppercase, aubergine (Visual Identity.md).
+   More specific context rules in components.css override as needed. */
+h1,
+h2,
+h3,
+h4 {
+  font-family: "JostLocal", "Jost", Arial, sans-serif;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: var(--component-surface);
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: clamp(1.25rem, 3.2vw, 1.85rem);
+  letter-spacing: 0.3em;
+  line-height: 1.25;
+  margin: 0 0 1rem;
+}
+
+h2 {
+  font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+  letter-spacing: 0.2em;
+  line-height: 1.3;
+  margin: 0 0 0.75rem;
+}
+
+h3 {
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
+  letter-spacing: 0.2em;
+  line-height: 1.3;
+  margin: 0 0 0.75rem;
+}
+
+h4 {
+  font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+  letter-spacing: 0.2em;
+  line-height: 1.3;
+  margin: 0 0 0.5rem;
 }
 
 a:focus-visible,

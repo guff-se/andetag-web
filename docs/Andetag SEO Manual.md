@@ -419,6 +419,17 @@ Phase 2 (opening):
 
 For each page, the keyword line lists conceptual coverage, not terms to stuff.
 
+### 12.0a Artworks subsystem (location-free)
+
+Collection page plus one page per artwork, all at location-free canonicals; deviation from the standard `/{lang}/{location}/...` shape is documented in `docs/seo/decisions.md` `SEO-0022`.
+
+* SV collection: `/sv/konstverk/`
+* EN collection: `/en/artworks/`
+* Per-artwork: `/{sv|en}/{konstverk|artworks}/<slug>/`, where `<slug>` is `andetag-no-<N>` for originals and `andetag-gem-<name>` for gems
+* Hreflang: `sv ↔ en` only (no German variant; deferred). x-default = en.
+* Chrome: Stockholm chrome on every artwork URL by Phase 1 default.
+* Keywords: artwork acquisition, optical fibre textile sculpture, Andetag originals, Andetag Gems, plus per-work `Andetag no. <N>` discovery.
+
 ### 12.0 SEO landings (Stockholm)
 
 Five additional pages exist to rank on broad Swedish discovery queries; see §17 for selection criteria and per-page intent ownership.

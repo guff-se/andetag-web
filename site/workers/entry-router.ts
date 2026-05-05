@@ -8,7 +8,21 @@ import {
 
 export interface Env {
   ASSETS: Fetcher;
+  BREVO_TRANSACTIONAL_API_KEY?: string;
+  INQUIRY_RECIPIENT_EMAIL?: string;
 }
+
+const INQUIRY_PATH = "/_inquiry";
+const DEFAULT_INQUIRY_RECIPIENT = "info@andetag.museum";
+const INQUIRY_SENDER_EMAIL = "info@andetag.museum";
+const INQUIRY_SENDER_NAME = "ANDETAG Website";
+const INQUIRY_LIMITS = {
+  name: 120,
+  email: 254,
+  phone: 40,
+  about: 160,
+  message: 2000,
+} as const;
 
 function redirectResponse(
   locationPath: string,
@@ -66,10 +80,181 @@ function normalizeDeSvRoots(pathname: string, search: string): Response | null {
   return null;
 }
 
+function json(status: number, body: Record<string, unknown>): Response {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "Cache-Control": "no-store",
+    },
+  });
+}
+
+function escapeHtml(value: string): string {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
+function field(form: FormData, name: string): string {
+  const raw = form.get(name);
+  return typeof raw === "string" ? raw.trim() : "";
+}
+
+function isLikelyEmail(value: string): boolean {
+  if (!value || value.length > INQUIRY_LIMITS.email) return false;
+  if (value.includes("<") || value.includes(">")) return false;
+  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/u.test(value);
+}
+
+function exceedsInquiryLimits(input: {
+  name: string;
+  email: string;
+  phone: string;
+  about: string;
+  message: string;
+}): boolean {
+  return (
+    input.name.length > INQUIRY_LIMITS.name ||
+    input.email.length > INQUIRY_LIMITS.email ||
+    input.phone.length > INQUIRY_LIMITS.phone ||
+    input.about.length > INQUIRY_LIMITS.about ||
+    input.message.length > INQUIRY_LIMITS.message
+  );
+}
+
+async function handleInquiry(request: Request, env: Env): Promise<Response> {
+  let form: FormData;
+  try {
+    form = await request.formData();
+  } catch {
+    return json(400, { ok: false, error: "invalid_form_data" });
+  }
+
+  const company = field(form, "company");
+  if (company !== "") return json(200, { ok: true });
+
+  const name = field(form, "name");
+  const email = field(form, "email");
+  const locale = field(form, "locale") || "en";
+  const phone = field(form, "phone");
+  const about = field(form, "about");
+  const message = field(form, "message");
+  const optIn = field(form, "opt_in");
+
+  if (!name || !email || optIn !== "1") {
+    return json(400, { ok: false, error: "missing_required_fields" });
+  }
+  if (
+    exceedsInquiryLimits({
+      name,
+      email,
+      phone,
+      about,
+      message,
+    })
+  ) {
+    return json(400, { ok: false, error: "invalid_field_length" });
+  }
+  if (!isLikelyEmail(email)) {
+    return json(400, { ok: false, error: "invalid_email" });
+  }
+
+  const apiKey = env.BREVO_TRANSACTIONAL_API_KEY;
+  if (!apiKey) {
+    console.error(
+      JSON.stringify({
+        event: "inquiry_send_skipped",
+        reason: "missing_brevo_api_key",
+      }),
+    );
+    return json(202, { ok: true });
+  }
+
+  const recipient = env.INQUIRY_RECIPIENT_EMAIL || DEFAULT_INQUIRY_RECIPIENT;
+  const subject = locale === "sv" ? "Ny konstverksforfragan" : "New artwork inquiry";
+  const safe = {
+    locale: escapeHtml(locale),
+    name: escapeHtml(name),
+    email: escapeHtml(email),
+    phone: escapeHtml(phone || "-"),
+    about: escapeHtml(about || "-"),
+    message: escapeHtml(message || "-"),
+  };
+  const htmlContent = [
+    "<h1>Artwork inquiry</h1>",
+    `<p><strong>Locale:</strong> ${safe.locale}</p>`,
+    `<p><strong>Name:</strong> ${safe.name}</p>`,
+    `<p><strong>Email:</strong> ${safe.email}</p>`,
+    `<p><strong>Phone:</strong> ${safe.phone}</p>`,
+    `<p><strong>Work:</strong> ${safe.about}</p>`,
+    `<p><strong>Message:</strong><br/>${safe.message.replaceAll("\n", "<br/>")}</p>`,
+  ].join("");
+  const textContent = [
+    "Artwork inquiry",
+    `Locale: ${locale}`,
+    `Name: ${name}`,
+    `Email: ${email}`,
+    `Phone: ${phone || "-"}`,
+    `Work: ${about || "-"}`,
+    "Message:",
+    message || "-",
+  ].join("\n");
+
+  try {
+    const upstream = await fetch("https://api.brevo.com/v3/smtp/email", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        "api-key": apiKey,
+      },
+      body: JSON.stringify({
+        sender: { email: INQUIRY_SENDER_EMAIL, name: INQUIRY_SENDER_NAME },
+        to: [{ email: recipient }],
+        replyTo: { email, name },
+        subject,
+        textContent,
+        htmlContent,
+      }),
+    });
+
+    if (!upstream.ok) {
+      console.error(
+        JSON.stringify({
+          event: "inquiry_send_failed",
+          status: upstream.status,
+        }),
+      );
+      return json(502, { ok: false, error: "email_send_failed" });
+    }
+  } catch {
+    console.error(JSON.stringify({ event: "inquiry_send_error" }));
+    return json(502, { ok: false, error: "email_send_failed" });
+  }
+
+  return json(200, { ok: true });
+}
+
+function normalizePathname(pathname: string): string {
+  if (pathname.length > 1 && pathname.endsWith("/")) {
+    return pathname.slice(0, -1);
+  }
+  return pathname;
+}
+
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
     const method = request.method.toUpperCase();
+    const pathname = normalizePathname(url.pathname);
+
+    if (method === "POST" && pathname === INQUIRY_PATH) {
+      return handleInquiry(request, env);
+    }
 
     if (method !== "GET" && method !== "HEAD") {
       return env.ASSETS.fetch(request);

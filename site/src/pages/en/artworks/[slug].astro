@@ -1,0 +1,37 @@
+---
+import SiteLayout from "../../../layouts/SiteLayout.astro";
+import ArtworkPageEn from "../../../components/page-bodies/ArtworkPageEn.astro";
+import {
+  ARTWORKS,
+  artworkPublicSlug,
+  type Artwork,
+} from "../../../lib/content/artworks";
+import { artworkShellRoute } from "../../../lib/routes/artwork-shell-routes";
+
+export function getStaticPaths() {
+  return ARTWORKS.map((a) => ({
+    params: { slug: artworkPublicSlug(a) },
+    props: { artwork: a },
+  }));
+}
+
+type Props = { artwork: Artwork };
+const { artwork } = Astro.props as Props;
+const shell = artworkShellRoute(artwork, "en");
+---
+
+<SiteLayout
+  title={shell.title}
+  description={shell.description}
+  language={shell.language}
+  destination={shell.destination}
+  headerVariantId={shell.headerVariantId}
+  footerVariantId={shell.footerVariantId}
+  canonicalPath={shell.canonicalPath}
+  seoCanonicalPath={shell.seoCanonicalPath}
+  hreflang={shell.hreflang}
+  xDefaultPath={shell.xDefaultPath}
+  ogImagePublicPath={shell.ogImage}
+>
+  <ArtworkPageEn artwork={artwork} />
+</SiteLayout>

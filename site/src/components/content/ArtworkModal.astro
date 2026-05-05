@@ -1,0 +1,82 @@
+---
+type Props = { language: "sv" | "en" };
+const { language } = Astro.props;
+const L = language === "sv" ? {
+  close: "Stäng", prev: "Föregående", next: "Nästa", inquire: "Förfrågan",
+  openPage: "Öppna sida",
+  moodLight: "Belyst", moodDark: "Mörker", moodMid: "Omgivning",
+  inCollection: "I samling", priceOnRequest: "Pris på förfrågan",
+  year: "År", size: "Storlek", format: "Format", location: "Plats", edition: "Upplaga",
+  landscape: "Liggande", portrait: "Stående",
+} : {
+  close: "Close", prev: "Previous", next: "Next", inquire: "Inquire",
+  openPage: "Open page",
+  moodLight: "Spotlight", moodDark: "Darkness", moodMid: "Ambient",
+  inCollection: "In a collection", priceOnRequest: "Price on request",
+  year: "Year", size: "Size", format: "Format", location: "Location", edition: "Edition",
+  landscape: "Landscape", portrait: "Portrait",
+};
+---
+
+<div id="artwork-modal" class="artwork-modal" role="dialog" aria-modal="true"
+  aria-labelledby="artwork-modal-title" hidden
+  data-modal-lang={language}>
+
+  <div class="artwork-modal__backdrop" data-modal-backdrop></div>
+
+  <div class="artwork-modal__panel">
+    <button class="artwork-modal__close" type="button" data-modal-close
+      aria-label={L.close}>×</button>
+
+    <div class="artwork-modal__body">
+      <div class="artwork-modal__img-area" data-modal-img-area>
+        <div class="artwork-modal__img-wrap" data-modal-img-wrap>
+          <!-- JS populates picture elements here -->
+        </div>
+        <button class="artwork-modal__expand" type="button" data-modal-expand
+          aria-label={language === "sv" ? "Fullskärm" : "Full screen"}>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <polyline points="9,1 13,1 13,5"/>
+            <polyline points="5,13 1,13 1,9"/>
+            <line x1="13" y1="1" x2="8.5" y2="5.5"/>
+            <line x1="1" y1="13" x2="5.5" y2="8.5"/>
+          </svg>
+        </button>
+        <div class="artwork-modal__moods" data-modal-moods aria-label={language === "sv" ? "Visa i annat ljus" : "View in different light"}>
+          <!-- JS populates mood buttons here -->
+        </div>
+      </div>
+
+      <div class="artwork-modal__meta">
+        <h2 class="artwork-modal__title" id="artwork-modal-title" data-modal-title></h2>
+        <p class="artwork-modal__price" data-modal-price></p>
+        <dl class="artwork-modal__details" data-modal-details></dl>
+        <div class="artwork-modal__actions">
+          <a class="artwork-modal__btn artwork-modal__open-page" href="#" data-modal-open-page hidden>
+            {L.openPage} →
+          </a>
+          <a class="artwork-modal__btn artwork-modal__inquire" href="#inquiry" data-modal-inquire hidden>
+            {L.inquire} →
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="artwork-modal__nav is-prev" type="button" data-modal-prev aria-label={L.prev}>‹</button>
+  <button class="artwork-modal__nav is-next" type="button" data-modal-next aria-label={L.next}>›</button>
+</div>
+
+<div id="artwork-lightbox" class="artwork-lightbox" hidden
+  role="dialog" aria-modal="true" aria-label={language === "sv" ? "Fullskärm" : "Full screen"}>
+  <div class="artwork-lightbox__backdrop" data-lightbox-backdrop></div>
+  <button class="artwork-lightbox__close" type="button" data-lightbox-close
+    aria-label={language === "sv" ? "Stäng" : "Close"}>×</button>
+  <div class="artwork-lightbox__img-wrap" data-lightbox-img-wrap>
+    <!-- JS populates img here -->
+  </div>
+</div>
+
+<script>
+  import "../../client-scripts/artworks-modal.ts";
+</script>

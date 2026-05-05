@@ -1,0 +1,136 @@
+import { describe, expect, it } from "vitest";
+import {
+  ANDETAG_GEM_TOTAL,
+  ANDETAG_ORIGINAL_TOTAL,
+  ARTWORKS,
+  type ArtworkMood,
+  artworkPublicSlug,
+  findArtworkByPublicSlug,
+  getCatalogueTotals,
+} from "./artworks";
+
+const VALID_MOODS: ArtworkMood[] = [
+  "light", "dark", "mid", "closeup", "person", "context", "alternative",
+];
+
+describe("artworks catalogue", () => {
+  it("every artwork has a unique id", () => {
+    const ids = ARTWORKS.map((a) => a.id);
+    expect(new Set(ids).size).toBe(ids.length);
+  });
+
+  it("every original has a number in 1..50 and no two share it", () => {
+    const numbers = ARTWORKS.filter((a) => a.series === "original").map((a) => a.number);
+    for (const n of numbers) {
+      expect(n).toBeGreaterThanOrEqual(1);
+      expect(n).toBeLessThanOrEqual(ANDETAG_ORIGINAL_TOTAL);
+    }
+    expect(new Set(numbers).size).toBe(numbers.length);
+  });
+
+  it("every gem has an edition and the available count never exceeds the size", () => {
+    for (const gem of ARTWORKS.filter((a) => a.series === "gem")) {
+      expect(gem.edition).toBeDefined();
+      const edition = gem.edition!;
+      expect([6, 10]).toContain(edition.size);
+      expect(edition.available).toBeGreaterThanOrEqual(0);
+      expect(edition.available).toBeLessThanOrEqual(edition.size);
+    }
+  });
+
+  it("only originals carry a number; only gems carry an edition", () => {
+    for (const a of ARTWORKS) {
+      if (a.series === "original") {
+        expect(a.number).toBeDefined();
+        expect(a.edition).toBeUndefined();
+      } else {
+        expect(a.edition).toBeDefined();
+        expect(a.number).toBeUndefined();
+      }
+    }
+  });
+
+  it("every artwork has at least one image with valid sources and a known mood", () => {
+    for (const a of ARTWORKS) {
+      expect(a.images.length).toBeGreaterThanOrEqual(1);
+      for (const img of a.images) {
+        expect(img.src).toMatch(/^\//);
+        expect(img.webp640).toMatch(/^\//);
+        expect(img.webp960).toMatch(/^\//);
+        expect(img.alt.sv.length).toBeGreaterThan(0);
+        expect(img.alt.en.length).toBeGreaterThan(0);
+        expect(VALID_MOODS).toContain(img.mood);
+      }
+    }
+  });
+
+  it("every artwork has positive dimensions and a sensible year", () => {
+    const currentYear = new Date().getFullYear();
+    for (const a of ARTWORKS) {
+      expect(a.dimensionsCm.w).toBeGreaterThan(0);
+      expect(a.dimensionsCm.h).toBeGreaterThan(0);
+      expect(a.year).toBeGreaterThanOrEqual(2020);
+      expect(a.year).toBeLessThanOrEqual(currentYear + 1);
+    }
+  });
+
+  it("every artwork has a location label in both locales", () => {
+    for (const a of ARTWORKS) {
+      expect(a.location.label.sv.length).toBeGreaterThan(0);
+      expect(a.location.label.en.length).toBeGreaterThan(0);
+      expect(a.location.lat).toBeGreaterThanOrEqual(-90);
+      expect(a.location.lat).toBeLessThanOrEqual(90);
+      expect(a.location.lon).toBeGreaterThanOrEqual(-180);
+      expect(a.location.lon).toBeLessThanOrEqual(180);
+    }
+  });
+
+  it("every available artwork either has a price or signals price-on-request via an absent priceSek", () => {
+    for (const a of ARTWORKS) {
+      if (a.priceSek !== undefined) {
+        expect(a.priceSek).toBeGreaterThan(0);
+        expect(["on-exhibition", "in-studio"]).toContain(a.status);
+      }
+    }
+  });
+
+  it("sold artworks never include a list price", () => {
+    for (const a of ARTWORKS) {
+      if (a.status === "sold") {
+        expect(a.priceSek).toBeUndefined();
+      }
+    }
+  });
+
+  it("public slug is unique, ASCII-lowercase, and matches the locked pattern", () => {
+    const slugs = new Set<string>();
+    for (const a of ARTWORKS) {
+      const slug = artworkPublicSlug(a);
+      expect(slug).toMatch(/^[a-z0-9-]+$/);
+      if (a.series === "original") {
+        expect(slug).toBe(`andetag-no-${a.number}`);
+      } else {
+        expect(slug).toBe(`andetag-${a.id}`);
+        expect(slug.startsWith("andetag-gem-")).toBe(true);
+      }
+      expect(slugs.has(slug)).toBe(false);
+      slugs.add(slug);
+    }
+  });
+
+  it("findArtworkByPublicSlug round-trips for every artwork", () => {
+    for (const a of ARTWORKS) {
+      expect(findArtworkByPublicSlug(artworkPublicSlug(a))?.id).toBe(a.id);
+    }
+    expect(findArtworkByPublicSlug("not-a-real-slug")).toBeUndefined();
+  });
+
+  it("totals match the declared series sizes", () => {
+    expect(ANDETAG_ORIGINAL_TOTAL).toBe(50);
+    expect(ANDETAG_GEM_TOTAL).toBe(3);
+    const totals = getCatalogueTotals(ARTWORKS);
+    expect(totals.originals.listed).toBeLessThanOrEqual(ANDETAG_ORIGINAL_TOTAL);
+    expect(totals.gems.listed).toBeLessThanOrEqual(ANDETAG_GEM_TOTAL);
+    expect(totals.gems.totalUnits).toBeGreaterThanOrEqual(totals.gems.soldUnits);
+  });
+});

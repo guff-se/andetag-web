@@ -1,0 +1,212 @@
+---
+/**
+ * Calm SVG world map for the Artworks page. No tiles, no labels, no countries.
+ * Just a soft land outline and one dot per artwork. Land geometry is projected
+ * server-side from `site/src/data/map/land-110m.json` (Natural Earth 110m, public
+ * domain) so the browser only receives the rendered paths.
+ *
+ * Pin sync: each pin carries `data-artwork-id` matching the card's id; the
+ * client script in `client-scripts/artworks-map-sync.ts` highlights the pin when
+ * a card is hovered or focused, and scrolls to the card when the pin is clicked.
+ */
+import type { Artwork } from "../../lib/content/artworks";
+import landPolys from "../../data/map/land-110m.json";
+
+type Props = {
+  artworks: readonly Artwork[];
+  language: "sv" | "en";
+  /** When set, the pin group containing this artwork id renders with the brand-red highlight. */
+  highlightArtworkId?: string;
+  /** When true, artworks at the same location collapse into one pin with a count. */
+  stackByLocation?: boolean;
+};
+
+const { artworks, language, highlightArtworkId, stackByLocation = true } = Astro.props as Props;
+
+const VIEW_W = 1100;
+const VIEW_H = 460;
+
+/** Generous bounds that frame Europe + West Coast NA without chopping pins. */
+const LON_MIN = -130;
+const LON_MAX = 50;
+const LAT_MIN = 5;
+const LAT_MAX = 72;
+
+/** Equirectangular projection. Cheap, distortion-tolerant at this zoom level. */
+function project(lon: number, lat: number): [number, number] {
+  const x = ((lon - LON_MIN) / (LON_MAX - LON_MIN)) * VIEW_W;
+  const y = ((LAT_MAX - lat) / (LAT_MAX - LAT_MIN)) * VIEW_H;
+  return [x, y];
+}
+
+/** Trim a polygon ring to the visible bounds (cheap clip; keeps points inside, otherwise drops the ring). */
+function ringWithinBounds(ring: readonly (readonly [number, number])[]): boolean {
+  for (const [lon, lat] of ring) {
+    if (lon >= LON_MIN - 5 && lon <= LON_MAX + 5 && lat >= LAT_MIN - 5 && lat <= LAT_MAX + 5) {
+      return true;
+    }
+  }
+  return false;
+}
+
+const landPathsD: string[] = [];
+for (const poly of landPolys as readonly (readonly (readonly [number, number])[])[][]) {
+  // poly is an array of rings; first is outer, rest are holes.
+  const outer = poly[0];
+  if (!outer || !ringWithinBounds(outer)) continue;
+  let d = "";
+  for (let i = 0; i < outer.length; i++) {
+    const [x, y] = project(outer[i]![0], outer[i]![1]);
+    d += (i === 0 ? "M" : "L") + x.toFixed(1) + " " + y.toFixed(1);
+  }
+  d += "Z";
+  landPathsD.push(d);
+}
+
+/** Group artworks by rounded location key so multiple-at-one-place stack into one pin. */
+type PinGroup = {
+  key: string;
+  lat: number;
+  lon: number;
+  members: Artwork[];
+};
+const pinGroups = new Map<string, PinGroup>();
+for (const a of artworks) {
+  const k = stackByLocation
+    // Coordinates are already approximate for `city`-privacy; round further for grouping.
+    ? `${a.location.lat.toFixed(2)}_${a.location.lon.toFixed(2)}`
+    : a.id;
+  const existing = pinGroups.get(k);
+  if (existing) {
+    existing.members.push(a);
+  } else {
+    pinGroups.set(k, {
+      key: k,
+      lat: a.location.lat,
+      lon: a.location.lon,
+      members: [a],
+    });
+  }
+}
+
+const pins = [...pinGroups.values()].map((g) => {
+  const [cx, cy] = project(g.lon, g.lat);
+  const onlyAvailable = g.members.every((m) => m.status !== "sold");
+  const labelLocale = g.members[0]!.location.label[language];
+  const isHighlight =
+    highlightArtworkId !== undefined &&
+    g.members.some((m) => m.id === highlightArtworkId);
+  return {
+    key: g.key,
+    cx,
+    cy,
+    count: g.members.length,
+    onlyAvailable,
+    label: labelLocale,
+    artworkIds: g.members.map((m) => m.id),
+    isHighlight,
+  };
+});
+const regularPins = pins.filter((pin) => !pin.isHighlight);
+const highlightPins = pins.filter((pin) => pin.isHighlight);
+
+const sectionLabel =
+  language === "sv" ? "Karta över Andetag-konstverkens platser" : "Map of where Andetag artworks live";
+---
+
+<section class="artwork-map" aria-label={sectionLabel}>
+  <svg
+    viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
+    preserveAspectRatio="xMidYMid meet"
+    role="img"
+    aria-label={sectionLabel}
+    class="artwork-map__svg"
+  >
+    <defs>
+      <radialGradient id="artwork-pin-glow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#4a0d2f" stop-opacity="0.55" />
+        <stop offset="100%" stop-color="#4a0d2f" stop-opacity="0" />
+      </radialGradient>
+    </defs>
+    <rect class="artwork-map__sea" x="0" y="0" width={VIEW_W} height={VIEW_H} />
+    <g class="artwork-map__land" aria-hidden="true">
+      {landPathsD.map((d) => <path d={d} />)}
+    </g>
+    <g class="artwork-map__pins">
+      {regularPins.map((pin) => (
+        <g
+          class:list={[
+            "artwork-map__pin",
+            pin.onlyAvailable ? "is-available" : "is-mixed",
+            pin.isHighlight ? "is-highlight" : null,
+          ]}
+          data-pin-id={pin.key}
+          data-artwork-ids={pin.artworkIds.join(" ")}
+          tabindex="0"
+          role="button"
+          aria-label={
+            pin.count === 1
+              ? pin.label
+              : language === "sv"
+                ? `${pin.label} (${pin.count} verk)`
+                : `${pin.label} (${pin.count} works)`
+          }
+        >
+          <circle class="artwork-map__pin-glow" cx={pin.cx} cy={pin.cy} r="20" />
+          <circle class="artwork-map__pin-dot" cx={pin.cx} cy={pin.cy} r={pin.count > 1 ? 6 : 4.5} />
+          {pin.count > 1 ? (
+            <text
+              class="artwork-map__pin-count"
+              x={pin.cx}
+              y={pin.cy + 1}
+              text-anchor="middle"
+              dominant-baseline="middle"
+            >
+              {pin.count}
+            </text>
+          ) : null}
+          <title>{pin.label}</title>
+        </g>
+      ))}
+      {highlightPins.map((pin) => (
+        <g
+          class:list={[
+            "artwork-map__pin",
+            pin.onlyAvailable ? "is-available" : "is-mixed",
+            "is-highlight",
+          ]}
+          data-pin-id={pin.key}
+          data-artwork-ids={pin.artworkIds.join(" ")}
+          tabindex="0"
+          role="button"
+          aria-label={
+            pin.count === 1
+              ? pin.label
+              : language === "sv"
+                ? `${pin.label} (${pin.count} verk)`
+                : `${pin.label} (${pin.count} works)`
+          }
+        >
+          <circle class="artwork-map__pin-glow" cx={pin.cx} cy={pin.cy} r="20" />
+          <circle class="artwork-map__pin-dot" cx={pin.cx} cy={pin.cy} r={pin.count > 1 ? 6 : 4.5} />
+          {pin.count > 1 ? (
+            <text
+              class="artwork-map__pin-count"
+              x={pin.cx}
+              y={pin.cy + 1}
+              text-anchor="middle"
+              dominant-baseline="middle"
+            >
+              {pin.count}
+            </text>
+          ) : null}
+          <title>{pin.label}</title>
+        </g>
+      ))}
+    </g>
+  </svg>
+</section>
+
+<script>
+  import "../../client-scripts/artworks-map-sync.ts";
+</script>

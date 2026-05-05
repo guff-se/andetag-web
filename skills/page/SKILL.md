@@ -75,6 +75,63 @@ If the user’s goal is an **event with a dedicated page**, **`skills/events/SKI
 
 Before calling a page change **merge-ready**, run **`skills/seo/SKILL.md` §H** (page-pair content review) on the **affected canonical path(s)**. That pass reviews shell meta, on-page copy signals (headings, first paragraph, internal links, keyword fit, tone), and the matching **`dist/**`** HTML for title/description/canonical/hreflang/OG for those locales. Treat **§H** output as part of **§Verification** — fix issues or document an intentional exception (and **EX-NNNN** if the SEO skill says one is required) before merge. Full-site SEO sweeps and Rich Results live checks remain the SEO skill’s own verification matrix; **§H** is scoped to the page work at hand.
 
+## Visual rhythm: balancing full-bleed bands and regular content
+
+Full-bleed bands are high-contrast, visually dominant sections that expand to the full viewport width. The following components create bands:
+
+| Component / element | Width | Background |
+|---|---|---|
+| `HeroSection` (`is-cover`) | full-bleed | photo + overlay |
+| `HeroSection` (`is-solid`) | full-bleed | aubergine `--component-surface` |
+| `TestimonialCarousel` | full-bleed | photo + light overlay |
+| `.page-*__video-band` | full-bleed | aubergine |
+| `.page-*__cta-secondary-band` | full-bleed | lavender |
+| `GallerySection` | full-bleed | transparent (images) |
+
+`ContentSection`, `InfoFrame`, `AccordionSection`, `MediaCopySection`, `ArtworkSalesSlider`, and similar sit on the page's light background and are **not** bands.
+
+### The stacking rule
+
+**Never place two full-bleed bands consecutively without at least one regular content section between them.** A run of bands creates visual fatigue and makes each band less impactful. This rule applies across the entire page, including sections above and below the one you are adding or editing.
+
+### Before adding any band to an existing page
+
+1. Read the full page body. List every existing band above and below your insertion point.
+2. If adding the new band would create two consecutive bands, use a regular section (`ContentSection`, a custom component, or a copy-and-CTA block) instead.
+3. If the surrounding page already has two consecutive bands you did not introduce, flag it — but do not silently leave it worse.
+
+### Choosing the right component
+
+| Situation | Use |
+|---|---|
+| Promotional or story content with a suitable catalog photo | `HeroSection is-cover` (run `skills/images/SKILL.md` to find the photo first) |
+| Same, but no suitable photo exists | `HeroSection is-solid` (fallback only — check the catalog before defaulting here) |
+| Promotional content that shows artwork/product items | `ContentSection` heading + a display component (e.g. `ArtworkSalesSlider`); no dark band needed |
+| Text-only promotional or factual copy | `ContentSection` alone |
+| Band already adjacent to this position | Any of the above **except** a band; favor a regular section regardless of content type |
+
+### Reference rhythm: Stockholm home
+
+The Stockholm home page demonstrates correct alternation. Reading top to bottom:
+
+1. H1 + intro copy — *regular*
+2. Gallery — *full-bleed*
+3. Tickets + pricing — *regular*
+4. `HeroSection is-cover` (booking CTA) — *full-bleed*
+5. Art Yoga section — *regular*
+6. `TestimonialCarousel` — *full-bleed*
+7. `ContentSection` + `ArtworkSalesSlider` (collect) — *regular*
+8. Video band — *full-bleed*
+9. Partners + contact + press — *regular*
+10. CTA secondary band — *full-bleed*
+11. Map — *regular*
+
+No two bands appear in a row. Use this as the reference when building or auditing any Stockholm page.
+
+### Text elements within existing bands
+
+When adding a label or heading inside an existing dark band (e.g. the video band), use the established `component-eyebrow` class on a semantic heading element (`<h2>`, not `<p>`). Put only positioning and size in a page-specific class — font family, color, text-transform, and letter-spacing are already encoded in `component-eyebrow` and must not be duplicated.
+
 ## Files touched
 
 Read before editing. Write paths are marked `write`.
@@ -101,6 +158,7 @@ Read before editing. Write paths are marked `write`.
 
 - **Stockholm:** every canonical page exists in **Swedish + English**. Add both in the same PR. Declare the pair in `STOCKHOLM_SV_EN_PAIRS`.
 - **Berlin:** every story-style canonical page exists in **German + English**. Declare the pair in `BERLIN_DE_EN_STORY_PAIRS`.
+- **Text edits must stay mirrored across all available locales for the same logical page.** If you change editorial copy in one locale, update its peer locale(s) in the same task unless the user explicitly scopes a single locale.
 - **No cross-location parity.** Stockholm pages do not need a Berlin version, and vice versa.
 - **Berlin English story pages** point `<link rel="canonical">` at the Stockholm English equivalent via `BERLIN_EN_STORY_SEO_CANONICAL` — do not omit this when adding a Berlin English story page.
 - **Hreflang** is computed automatically in `resolveSeo()` from the pair tables plus the path-language mapping. Do not hand-write hreflang tags.
@@ -114,8 +172,11 @@ If the user asks for a single-locale change, confirm explicitly before skipping 
 
 1. Identify the body component(s) for the canonical path. Start at `site/src/pages/[...slug].astro` → `pageBodies` map. For Stockholm, edit **both** `*Sv.astro` and `*En.astro` files unless the user asked for a single locale. **For SEO landings** the body is a thin delegator (it imports `StockholmSeoLandingSv` / `…En`); edits to `h1Text` / `h1Html` and `introMarkdown` go in that delegator. Do **not** edit `StockholmSeoLandingSv.astro` / `StockholmSeoLandingEn.astro` directly to change copy for one landing — those files are shared by every landing and changes propagate to all of them.
 2. Apply the change. Keep tone consistent with `docs/Tone of Voice.md`. Copy follows `docs/Andetag SEO Manual.md` constraints (no fabricated URLs, metadata, or prices).
+   - **Wordmark rule:** when the brand name appears in body copy or mixed-content headings, use `<span class="brand-wordmark">ANDETAG</span>` (shared style in `site/src/styles/components.css`) rather than relying on plain uppercase text alone.
+   - **Locale lockstep:** if this is a text/copy change, update the corresponding locale body file(s) in the same edit pass (`*Sv.astro` + `*En.astro`, or `*De.astro` + `*En.astro`). Do not leave one locale behind.
 3. If the edit touches shared data (offers, FAQ, reviews), change the single source listed in `docs/content-model.md`, not the consuming pages.
-4. If the edit **substantially lengthens** the page or **adds sections** in a type that usually carries imagery, re-check **photo / text balance** (see **Coordination**) and, if needed, add figures or a hero via `skills/images/SKILL.md` in the same task.
+4. If the edit **adds a new section** of any kind, apply the **band-balance check** (see **§Visual rhythm**): read the surrounding bands before and after the insertion point; if the new section is a band and the neighbouring section is also a band, use a regular content component instead.
+5. If the edit **substantially lengthens** the page or **adds sections** in a type that usually carries imagery, re-check **photo / text balance** (see **Coordination**) and, if needed, add figures or a hero via `skills/images/SKILL.md` in the same task.
 5. Verification: §Verification.
 
 ### B. Add a new page pair
@@ -128,8 +189,9 @@ Example: new Stockholm page `/sv/stockholm/new-page/` + `/en/stockholm/new-page/
 4. **Body components** — create `site/src/components/page-bodies/NewPageSv.astro` and `NewPageEn.astro`. Structure them after an existing sibling of similar shape (e.g. `OppettiderSv.astro` + `OppettiderEn.astro` for factual anchors, `ArtYogaSv.astro` + `ArtYogaEn.astro` for event-style pages). Reuse section components from `content/` and UI helpers from `ui/`.
 5. **Route wiring** — in `site/src/pages/[...slug].astro`, add imports for both components and add entries to the `pageBodies` map keyed by canonical path. Keys must exactly match `PAGE_CUSTOM_BODY_PATHS`.
 6. **Navigation** — in `site/src/lib/chrome/navigation.ts`, add nav entries under the right variant ids (`sv-main` + `en-main` for Stockholm; `en-main-berlin` + `de-main` for Berlin). Use keyword-aligned anchor text (≤5 words) per `docs/Andetag SEO Manual.md` §15. For cross-location topics, also update `GLOBAL_TRILINGUAL_TOPICS` in `site/src/lib/routes/chrome-navigation-resolve.ts`.
-7. **Images** — follow **`skills/images/SKILL.md`** (catalog, ingest, derivatives, and components — not ad-hoc `<img>`). User-attached files: §E of that skill. Fulfil **photo / text balance** (see **Coordination**): if the new body is still text-heavy vs. a peer of the same kind, add figures or a hero from the catalog before calling the page done. Technical recipe remains `docs/responsive-image-workflow.md` for derivatives; do **not** hotlink or invent placeholders (`AGENTS.md`, Source integrity).
-8. Verification: §Verification.
+7. **Band balance** — apply the **§Visual rhythm** check across the full new body before declaring it done. List every full-bleed band in the page top-to-bottom and confirm no two are adjacent. If you added a `HeroSection` and it would sit next to another band, replace it with a regular content section (or move it to a position with regular content on both sides).
+8. **Images** — follow **`skills/images/SKILL.md`** (catalog, ingest, derivatives, and components — not ad-hoc `<img>`). User-attached files: §E of that skill. Fulfil **photo / text balance** (see **Coordination**): if the new body is still text-heavy vs. a peer of the same kind, add figures or a hero from the catalog before calling the page done. Technical recipe remains `docs/responsive-image-workflow.md` for derivatives; do **not** hotlink or invent placeholders (`AGENTS.md`, Source integrity).
+9. Verification: §Verification.
 
 ### C. Rename a page
 
@@ -190,6 +252,7 @@ Pass means:
 - For new or renamed pages, confirm the new path appears under `site/dist/<path>/index.html` after build, and the old path either no longer exists (renames handled by the 301) or is absent (removals).
 - **SEO content feedback** — Apply **`skills/seo/SKILL.md` §H** to every canonical path this task added or meaningfully changed (both locales of a pair when Stockholm/Berlin rules apply). Record the outcome in the PR: either **"§H pass"** or a short list of fixes applied / exceptions cited. **For any PR that adds or fully rewrites a body component (`*Sv.astro`, `*En.astro`, `*De.astro`), §H is a blocking pre-merge gate — not a post-preview optional.** Deferring §H to after the Cloudflare preview is only acceptable for shell-only changes (meta, registry, schema) where body copy is untouched. A typo-only fix may not need a full §H pass (use judgment); a body rewrite always does.
 - **Em dash scan** — Before committing any body component change, run `grep -rn $'—' site/src/components/page-bodies/ site/src/lib/content/` (U+2014 em dash) and `grep -rn $'–' site/src/components/page-bodies/` (U+2013 en dash). Neither is permitted in editorial prose per `docs/Tone of Voice.md` §Punctuation. Exclude `stockholm-reviews.ts` (verbatim TripAdvisor quotes are exempt).
+- **Wordmark scan** — For page-body copy edits that touch brand mentions, verify new/edited occurrences of `ANDETAG` are rendered with `<span class="brand-wordmark">ANDETAG</span>` where markup supports it (headings, paragraphs, links), not just capitalized plain text.
 
 Optional:
 

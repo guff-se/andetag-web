@@ -2,6 +2,8 @@
 import ButtonGroup from "../content/ButtonGroup.astro";
 import ContentSection from "../content/ContentSection.astro";
 import InfoFrame from "../content/InfoFrame.astro";
+import MediaCopySection from "../content/MediaCopySection.astro";
+import { corporateEventsFoyerBody } from "../../lib/content/stockholm-body-responsive-images";
 
 /** `site-html/en-stockholm-giftcard.html` wp-page. */
 const heroMarkdown =
@@ -30,10 +32,25 @@ const practicalFrameHtml =
   "<p>Location: Central Stockholm, Hötorget</p>" +
   "<p>Duration: Approximately one hour</p>" +
   "<p>Limited number of guests per session</p>";
+
+const giftMomentHtml =
+  "<p>Giving ANDETAG is about sharing a moment, not adding another object.</p>" +
+  "<p>It works both when you want to choose a specific date and when you want to give someone the freedom to decide their own time.</p>";
 ---
 
 <div class="page-migrated page-presentkort-sv">
   <ContentSection markdown={heroMarkdown} />
+  <MediaCopySection
+    heading="A gift to experience together"
+    headingLevel="h2"
+    bodyHtml={giftMomentHtml}
+    imageSources={corporateEventsFoyerBody}
+    imageAlt="The museum lobby with framed textile works, a sofa with visitors, and a large wall sculpture at ANDETAG."
+    imageWidth={2400}
+    imageHeight={1600}
+    mediaSide="end"
+    mediaWidth="half"
+  />
   <ContentSection markdown={twoWaysMarkdown} />
   <div class="page-presentkort-sv__grid">
     <div class="page-presentkort-sv__col">

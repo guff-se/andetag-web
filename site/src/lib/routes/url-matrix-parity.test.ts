@@ -3,6 +3,11 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import { PAGE_SHELL_PATHS } from "./page-shell-registry";
+import { allArtworkCanonicalPaths } from "./artwork-shell-routes";
+
+/** Per-artwork pages live in their own dynamic route, not in `page-shell-meta.json`. */
+const ALL_KEEP_CANONICAL_PATHS = (): string[] =>
+  [...PAGE_SHELL_PATHS, ...allArtworkCanonicalPaths()];
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -30,20 +35,22 @@ function parseKeepCanonicalPathsFromMatrix(): string[] {
 }
 
 describe("url matrix parity", () => {
-  it("every matrix keep canonical path has a page shell route", () => {
+  it("every matrix keep canonical path has a route (shell or per-artwork)", () => {
     const matrixPaths = parseKeepCanonicalPathsFromMatrix().sort();
-    const shellSet = new Set(PAGE_SHELL_PATHS);
-    const missing = matrixPaths.filter((p) => !shellSet.has(p));
-    expect(missing, `Missing shells for: ${missing.join(", ")}`).toEqual([]);
+    const routeSet = new Set(ALL_KEEP_CANONICAL_PATHS());
+    const missing = matrixPaths.filter((p) => !routeSet.has(p));
+    expect(missing, `Missing routes for: ${missing.join(", ")}`).toEqual([]);
   });
 
-  it("every page shell path is a matrix keep canonical (no orphan shells)", () => {
+  it("every served canonical path is a matrix keep canonical (no orphans)", () => {
     const matrixSet = new Set(parseKeepCanonicalPathsFromMatrix());
-    const orphans = PAGE_SHELL_PATHS.filter((p) => !matrixSet.has(p));
-    expect(orphans, `Orphan shells: ${orphans.join(", ")}`).toEqual([]);
+    const orphans = ALL_KEEP_CANONICAL_PATHS().filter((p) => !matrixSet.has(p));
+    expect(orphans, `Orphan routes: ${orphans.join(", ")}`).toEqual([]);
   });
 
-  it("keep row count matches shell count", () => {
-    expect(parseKeepCanonicalPathsFromMatrix().length).toBe(PAGE_SHELL_PATHS.length);
+  it("keep row count matches total route count (shells + per-artwork)", () => {
+    expect(parseKeepCanonicalPathsFromMatrix().length).toBe(
+      ALL_KEEP_CANONICAL_PATHS().length,
+    );
   });
 });

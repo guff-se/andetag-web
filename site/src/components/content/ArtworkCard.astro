@@ -1,0 +1,49 @@
+---
+import type { Artwork } from "../../lib/content/artworks";
+import { artworkPublicSlug } from "../../lib/content/artworks";
+import { ARTWORK_COLLECTION_PATHS } from "../../lib/routes/artwork-shell-routes";
+type Props = { artwork: Artwork; language: "sv" | "en"; eager?: boolean };
+const { artwork, language, eager = false } = Astro.props as Props;
+
+const base = artwork.images.find(i => i.mood === "light")
+  ?? artwork.images.find(i => i.mood === "mid")
+  ?? artwork.images[0]!;
+const dark = artwork.images.find(i => i.mood === "dark");
+const label = artwork.series === "original" ? `no. ${artwork.number}` : artwork.title[language];
+const tooltip = `${artwork.title[language]} · ${artwork.year} · ${artwork.dimensionsCm.w} × ${artwork.dimensionsCm.h} cm`;
+const href = `${ARTWORK_COLLECTION_PATHS[language]}${artworkPublicSlug(artwork)}/`;
+---
+
+<a
+  class:list={["artwork-tile", `is-${artwork.status}`, `is-format-${artwork.format}`]}
+  href={href}
+  data-artwork-tile
+  data-artwork-id={artwork.id}
+  data-artwork-status={artwork.status}
+  data-artwork-format={artwork.format}
+  data-artwork-series={artwork.series}
+  aria-label={artwork.title[language]}
+>
+  <picture class="artwork-tile__frame is-base">
+    <source type="image/webp" srcset={`${base.webp640} 640w, ${base.webp960} 960w`}
+      sizes="(max-width:599px) 46vw,(max-width:1099px) 30vw,(max-width:1399px) 23vw,19vw" />
+    <img src={base.src} alt={base.alt[language]}
+      loading={eager ? "eager" : "lazy"} decoding="async"
+      fetchpriority={eager ? "high" : undefined} />
+  </picture>
+
+  {dark && (
+    <picture class="artwork-tile__frame is-overlay" aria-hidden="true">
+      <source type="image/webp" srcset={`${dark.webp640} 640w, ${dark.webp960} 960w`}
+        sizes="(max-width:599px) 46vw,(max-width:1099px) 30vw,(max-width:1399px) 23vw,19vw" />
+      <img src={dark.src} alt="" loading="lazy" decoding="async" />
+    </picture>
+  )}
+
+  <div class="artwork-tile__foot" aria-hidden="true">
+    <span class="artwork-tile__dot"></span>
+    <span class="artwork-tile__label">{label}</span>
+  </div>
+
+  <span class="artwork-tile__tooltip" aria-hidden="true">{tooltip}</span>
+</a>

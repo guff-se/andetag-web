@@ -33,7 +33,7 @@ The `/` and `/en/` entry routes are handled by the Worker (`site/workers/entry-r
 
 - **Astro static** export to `dist/` (`output: "static"`, `trailingSlash: "always"`, canonical site `https://www.andetag.museum`).
 - **Cloudflare Workers + static assets** with `run_worker_first: true`. Entry router runs first on `/` and exact `/en/`; everything else falls through to the asset handler.
-- **Deploys:** `npm run worker:deploy` from `site/`. Staging on `https://andetag-web.guff.workers.dev` (auto-deploy on `main` historically; post-cutover work uses PR previews).
+- **Deploys:** `npm run worker:deploy` from `site/`. Main/staging alias `https://andetag-web.guff.workers.dev` points at `main` (same runtime as production hostname). Branch previews follow `https://<branch-name>-andetag-web.guff.workers.dev` (for example `https://feature-artworks-andetag-web.guff.workers.dev`).
 - **CI:** GitHub Actions runs `npm test` and `npm run build` on push and PR to `main`.
 
 ## What lives where

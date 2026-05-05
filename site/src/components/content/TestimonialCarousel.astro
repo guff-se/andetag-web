@@ -1,6 +1,8 @@
 ---
 import type { BodyPictureSources } from "../../lib/content/stockholm-body-responsive-images";
 import { testimonialCarouselDefaultBg } from "../../lib/content/stockholm-body-responsive-images";
+import ButtonGroup from "./ButtonGroup.astro";
+import type { Cta } from "../../lib/ui-logic/types";
 
 type TestimonialItem = {
   quote: string;
@@ -47,6 +49,7 @@ type Props = {
   awardBadge?: AwardBadge;
   prevLabel?: string;
   nextLabel?: string;
+  cta?: Cta;
 };
 
 const {
@@ -58,6 +61,7 @@ const {
   awardBadge,
   prevLabel = "Previous testimonial",
   nextLabel = "Next testimonial",
+  cta,
 } = Astro.props as Props;
 
 const useResponsiveBg =
@@ -211,6 +215,11 @@ const showTripAdvisorBrand = aggregate ? aggregate.showTripAdvisorBrand !== fals
       </div>
     ) : null
   }
+  {cta ? (
+    <div class="testimonial-block__cta">
+      <ButtonGroup buttons={[cta]} />
+    </div>
+  ) : null}
 </section>
 
 <script>

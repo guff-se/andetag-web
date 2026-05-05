@@ -1,0 +1,152 @@
+---
+import type { Artwork } from "../../lib/content/artworks";
+import ButtonGroup from "./ButtonGroup.astro";
+
+type SliderRow = {
+  artworks: readonly Artwork[];
+  label?: string;
+  intro?: string;
+  /** Shuffle card order on each page load (client-side). */
+  randomize?: boolean;
+  /** Below ~900px: same horizontal strip + arrows as other rows. From 900px up: no slider, cards stay the same width and sit centered. */
+  carouselOnlyMobile?: boolean;
+};
+
+type Props = {
+  rows: [SliderRow, ...SliderRow[]];
+  lang: "sv" | "en";
+  artworksHref: string;
+  ctaLabel: string;
+};
+
+const { rows, lang, artworksHref, ctaLabel } = Astro.props;
+---
+
+<div class="artwork-sales-slider">
+  {rows.map((row, rowIdx) => {
+    const isSecond = rowIdx > 0;
+    const carouselMobile = row.carouselOnlyMobile === true;
+    return (
+      <div
+        class:list={[
+          "artwork-sales-slider__row",
+          isSecond && "artwork-sales-slider__row--second",
+          carouselMobile && "artwork-sales-slider__row--carousel-mobile",
+        ]}
+        data-randomize-row={row.randomize ? "true" : undefined}
+      >
+        {(row.label || row.intro) && (
+          <div class="artwork-sales-slider__row-header">
+            {row.label && <h3 class="artwork-sales-slider__row-label">{row.label}</h3>}
+            {row.intro && <p class="artwork-sales-slider__row-intro">{row.intro}</p>}
+          </div>
+        )}
+        <div class="artwork-sales-slider__viewport">
+          <button
+            class="artwork-sales-slider__btn artwork-sales-slider__btn--prev"
+            type="button"
+            data-slider-prev
+            aria-label={lang === "sv" ? "Föregående" : "Previous"}
+          >&#8249;</button>
+
+          <ul class="artwork-sales-slider__track">
+            {row.artworks.map((artwork) => {
+              const base = artwork.images.find((img) => img.mood === "light")
+                ?? artwork.images.find((img) => img.mood === "mid")
+                ?? artwork.images[0]!;
+              const dark = artwork.images.find((img) => img.mood === "dark");
+              const alt = lang === "sv" ? base.alt.sv : base.alt.en;
+              const title = lang === "sv" ? artwork.title.sv : artwork.title.en;
+              const { w, h } = artwork.dimensionsCm;
+              const href = `${artworksHref}?artwork=${encodeURIComponent(artwork.id)}`;
+              return (
+                <li class="artwork-sales-slider__item">
+                  <a class="artwork-sales-slider__card" href={href}>
+                    <div class="artwork-sales-slider__img-wrap">
+                      <picture class="artwork-sales-slider__frame is-base">
+                        <source
+                          type="image/webp"
+                          srcset={`${base.webp640} 640w, ${base.webp960} 960w`}
+                          sizes="280px"
+                        />
+                        <img src={base.src} alt={alt} loading="lazy" decoding="async" />
+                      </picture>
+                      {dark && (
+                        <picture class="artwork-sales-slider__frame is-overlay" aria-hidden="true">
+                          <source
+                            type="image/webp"
+                            srcset={`${dark.webp640} 640w, ${dark.webp960} 960w`}
+                            sizes="280px"
+                          />
+                          <img src={dark.src} alt="" loading="lazy" decoding="async" />
+                        </picture>
+                      )}
+                    </div>
+                    <div class="artwork-sales-slider__info">
+                      <p class="artwork-sales-slider__title">{title}</p>
+                      <p class="artwork-sales-slider__dims">{w} × {h} cm</p>
+                    </div>
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+
+          <button
+            class="artwork-sales-slider__btn artwork-sales-slider__btn--next"
+            type="button"
+            data-slider-next
+            aria-label={lang === "sv" ? "Nästa" : "Next"}
+          >&#8250;</button>
+        </div>
+      </div>
+    );
+  })}
+
+  <div class="artwork-sales-slider__footer">
+    <ButtonGroup buttons={[{ label: ctaLabel, href: artworksHref, variant: "secondary" }]} />
+  </div>
+</div>
+
+<script>
+  function shuffleChildren(container) {
+    const items = Array.from(container.children);
+    for (let i = items.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [items[i], items[j]] = [items[j], items[i]];
+    }
+    for (const item of items) {
+      container.appendChild(item);
+    }
+  }
+
+  for (const row of document.querySelectorAll(".artwork-sales-slider__row[data-randomize-row='true']")) {
+    const track = row.querySelector(".artwork-sales-slider__track");
+    if (track && track.children.length > 1) {
+      shuffleChildren(track);
+    }
+  }
+
+  for (const viewport of document.querySelectorAll(".artwork-sales-slider__viewport")) {
+    const track = viewport.querySelector(".artwork-sales-slider__track") as HTMLElement | null;
+    if (!track) continue;
+    const prev = viewport.querySelector("[data-slider-prev]") as HTMLButtonElement | null;
+    const next = viewport.querySelector("[data-slider-next]") as HTMLButtonElement | null;
+
+    const scroll = (dir: number) => {
+      const item = track.querySelector(".artwork-sales-slider__item") as HTMLElement | null;
+      const w = item ? item.getBoundingClientRect().width + 16 : 292;
+      track.scrollBy({ left: dir * w * 2, behavior: "smooth" });
+    };
+
+    const updateState = () => {
+      if (prev) prev.disabled = track.scrollLeft <= 0;
+      if (next) next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 1;
+    };
+
+    prev?.addEventListener("click", () => scroll(-1));
+    next?.addEventListener("click", () => scroll(1));
+    track.addEventListener("scroll", updateState, { passive: true });
+    updateState();
+  }
+</script>

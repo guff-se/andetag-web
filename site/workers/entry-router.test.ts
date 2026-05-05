@@ -23,6 +23,185 @@ function jsonResponse(body: unknown, status = 200): Response {
 }
 
 describe("entry-router Worker", () => {
+  it("handles POST /_inquiry and forwards the email payload to Brevo", async () => {
+    const assetFetch = vi.fn(() =>
+      Promise.resolve(new Response(null, { status: 204 })),
+    );
+    const env = {
+      ...makeEnv(assetFetch),
+      BREVO_TRANSACTIONAL_API_KEY: "test-key",
+      INQUIRY_RECIPIENT_EMAIL: "collector@andetag.museum",
+    };
+    const upstreamFetch = vi.fn(() =>
+      Promise.resolve(new Response(JSON.stringify({ messageId: "abc" }), { status: 201 })),
+    );
+    const originalFetch = globalThis.fetch;
+    vi.stubGlobal("fetch", upstreamFetch);
+
+    const body = new URLSearchParams({
+      name: "Alex",
+      email: "alex@example.com",
+      phone: "0700000000",
+      about: "andetag-13",
+      message: "Hi there",
+      locale: "en",
+      opt_in: "1",
+      company: "",
+    });
+    const req = new Request("https://www.andetag.museum/_inquiry", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body,
+    });
+    const res = await entryRouter.fetch(req, env);
+
+    expect(res.status).toBe(200);
+    expect(assetFetch).not.toHaveBeenCalled();
+    expect(upstreamFetch).toHaveBeenCalledOnce();
+    const [url, init] = upstreamFetch.mock.calls[0] as [string, RequestInit];
+    expect(url).toBe("https://api.brevo.com/v3/smtp/email");
+    expect(init.method).toBe("POST");
+    expect(init.headers).toMatchObject({
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      "api-key": "test-key",
+    });
+    expect(String(init.body)).toContain("collector@andetag.museum");
+
+    vi.stubGlobal("fetch", originalFetch);
+  });
+
+  it("handles POST /_inquiry/ (trailing slash) and forwards to Brevo", async () => {
+    const assetFetch = vi.fn(() =>
+      Promise.resolve(new Response(null, { status: 204 })),
+    );
+    const env = {
+      ...makeEnv(assetFetch),
+      BREVO_TRANSACTIONAL_API_KEY: "test-key",
+    };
+    const upstreamFetch = vi.fn(() =>
+      Promise.resolve(new Response(JSON.stringify({ messageId: "abc" }), { status: 201 })),
+    );
+    const originalFetch = globalThis.fetch;
+    vi.stubGlobal("fetch", upstreamFetch);
+
+    const body = new URLSearchParams({
+      name: "Alex",
+      email: "alex@example.com",
+      locale: "en",
+      opt_in: "1",
+      company: "",
+    });
+    const req = new Request("https://www.andetag.museum/_inquiry/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body,
+    });
+    const res = await entryRouter.fetch(req, env);
+
+    expect(res.status).toBe(200);
+    expect(assetFetch).not.toHaveBeenCalled();
+    expect(upstreamFetch).toHaveBeenCalledOnce();
+    vi.stubGlobal("fetch", originalFetch);
+  });
+
+  it("accepts honeypot submissions without upstream send", async () => {
+    const assetFetch = vi.fn(() =>
+      Promise.resolve(new Response(null, { status: 204 })),
+    );
+    const env = {
+      ...makeEnv(assetFetch),
+      BREVO_TRANSACTIONAL_API_KEY: "test-key",
+    };
+    const upstreamFetch = vi.fn();
+    const originalFetch = globalThis.fetch;
+    vi.stubGlobal("fetch", upstreamFetch);
+
+    const body = new URLSearchParams({
+      name: "Bot",
+      email: "bot@example.com",
+      locale: "en",
+      opt_in: "1",
+      company: "spam",
+    });
+    const req = new Request("https://www.andetag.museum/_inquiry", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body,
+    });
+    const res = await entryRouter.fetch(req, env);
+    expect(res.status).toBe(200);
+    expect(upstreamFetch).not.toHaveBeenCalled();
+    expect(assetFetch).not.toHaveBeenCalled();
+
+    vi.stubGlobal("fetch", originalFetch);
+  });
+
+  it("rejects invalid email shape without sending upstream", async () => {
+    const assetFetch = vi.fn(() =>
+      Promise.resolve(new Response(null, { status: 204 })),
+    );
+    const env = {
+      ...makeEnv(assetFetch),
+      BREVO_TRANSACTIONAL_API_KEY: "test-key",
+    };
+    const upstreamFetch = vi.fn();
+    const originalFetch = globalThis.fetch;
+    vi.stubGlobal("fetch", upstreamFetch);
+
+    const body = new URLSearchParams({
+      name: "Alex",
+      email: "not-an-email",
+      locale: "en",
+      opt_in: "1",
+      company: "",
+    });
+    const req = new Request("https://www.andetag.museum/_inquiry", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body,
+    });
+    const res = await entryRouter.fetch(req, env);
+    expect(res.status).toBe(400);
+    expect(upstreamFetch).not.toHaveBeenCalled();
+    expect(assetFetch).not.toHaveBeenCalled();
+
+    vi.stubGlobal("fetch", originalFetch);
+  });
+
+  it("rejects overlong inquiry message without sending upstream", async () => {
+    const assetFetch = vi.fn(() =>
+      Promise.resolve(new Response(null, { status: 204 })),
+    );
+    const env = {
+      ...makeEnv(assetFetch),
+      BREVO_TRANSACTIONAL_API_KEY: "test-key",
+    };
+    const upstreamFetch = vi.fn();
+    const originalFetch = globalThis.fetch;
+    vi.stubGlobal("fetch", upstreamFetch);
+
+    const body = new URLSearchParams({
+      name: "Alex",
+      email: "alex@example.com",
+      locale: "en",
+      opt_in: "1",
+      company: "",
+      message: "x".repeat(2100),
+    });
+    const req = new Request("https://www.andetag.museum/_inquiry", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body,
+    });
+    const res = await entryRouter.fetch(req, env);
+    expect(res.status).toBe(400);
+    expect(upstreamFetch).not.toHaveBeenCalled();
+    expect(assetFetch).not.toHaveBeenCalled();
+
+    vi.stubGlobal("fetch", originalFetch);
+  });
+
   it("redirects / to a language path (302)", async () => {
     const env = makeEnv(() => Promise.resolve(htmlResponse("")));
     const req = new Request("https://www.andetag.museum/", {

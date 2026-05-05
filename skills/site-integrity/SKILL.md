@@ -5,7 +5,7 @@ description: Use when running internal-consistency and link-health checks on the
 
 ## Purpose
 
-Run a repeatable integrity sweep across eight dimensions and produce a **structured report** (a markdown list grouped by dimension) that other skills can act on. The skill does **not** fix issues itself — fixes belong to the content skill responsible for the area (page, faq, events, operational-facts, images, testimonials). Integrity checks are mostly build-time (Vitest) plus targeted greps on `site/dist/` after a clean build.
+Run a repeatable integrity sweep across nine dimensions and produce a **structured report** (a markdown list grouped by dimension) that other skills can act on. The skill does **not** fix issues itself - fixes belong to the content skill responsible for the area (page, faq, events, operational-facts, images, testimonials). Integrity checks are mostly build-time (Vitest) plus targeted greps on `site/dist/` after a clean build.
 
 This skill is **not** for:
 
@@ -61,7 +61,7 @@ cd site && npm test && npm run build
 
 If tests or build fail, stop here and report that — integrity checks on a stale `dist/` are meaningless.
 
-### B. Run the eight checks
+### B. Run the nine checks
 
 Run each dimension below and capture findings. Each check should be fast (grep- or node-based); none require network calls by default.
 
@@ -204,6 +204,68 @@ comm -12 /tmp/andetag-redirect-sources.txt /tmp/andetag-redirect-destinations.tx
 
 Report: dead destinations, any chains.
 
+#### B.9 Interactive wiring integrity (mandatory for JS-dependent UI)
+
+Structural checks can pass while interactive UI is silently broken. This dimension verifies that known JS-dependent components are not only present in HTML, but wired to executable client code in the built output.
+
+**Current critical contract: `InquiryForm`**
+
+- When `data-inquiry-form` appears in built HTML, the page must also include at least one `type="module"` script chunk under `/_astro/`.
+- At least one referenced module chunk must include inquiry-form runtime markers (`data-inquiry-form` selector or `__andetagInquiryForm` guard from `site/src/client-scripts/inquiry-form.ts`).
+- If the page has inquiry-form markup but no matching runtime marker in loaded chunks, report `UNWIRED-INQUIRY-FORM`.
+
+```bash
+cd site
+node - <<'NODE'
+const fs = require("fs");
+const path = require("path");
+
+const dist = path.join(process.cwd(), "dist");
+const htmlFiles = [];
+function walk(dir) {
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) walk(full);
+    else if (entry.isFile() && entry.name.endsWith(".html")) htmlFiles.push(full);
+  }
+}
+walk(dist);
+
+const markerRegex = /(data-inquiry-form|__andetagInquiryForm)/;
+for (const htmlPath of htmlFiles) {
+  const html = fs.readFileSync(htmlPath, "utf8");
+  if (!html.includes("data-inquiry-form")) continue;
+
+  const rel = "/" + path.relative(dist, htmlPath).replace(/index\.html$/, "");
+  const moduleSrcs = [...html.matchAll(/<script[^>]+type="module"[^>]+src="([^"]+)"/g)]
+    .map((m) => m[1])
+    .filter((src) => src.startsWith("/_astro/"));
+
+  if (moduleSrcs.length === 0) {
+    console.log("UNWIRED-INQUIRY-FORM", rel, "no module chunk loaded");
+    continue;
+  }
+
+  let hasMarker = false;
+  for (const src of moduleSrcs) {
+    const jsPath = path.join(dist, src.replace(/^\//, ""));
+    if (!fs.existsSync(jsPath)) continue;
+    const js = fs.readFileSync(jsPath, "utf8");
+    if (markerRegex.test(js)) {
+      hasMarker = true;
+      break;
+    }
+  }
+
+  if (!hasMarker) {
+    console.log("UNWIRED-INQUIRY-FORM", rel, "runtime marker missing in loaded module chunks");
+  }
+}
+NODE
+```
+
+Report each `UNWIRED-INQUIRY-FORM` line with the emitting `dist/.../index.html` page.
+
 ### C. Produce the report
 
 Output format (copy into a PR comment, a maintenance-backlog row, or a chat reply):
@@ -214,7 +276,7 @@ Output format (copy into a PR comment, a maintenance-backlog row, or a chat repl
 ## Summary
 - Build: pass / fail
 - Tests: pass / fail (134/134 at time of writing)
-- Dimensions with findings: N of 8
+- Dimensions with findings: N of 9
 
 ## Findings by dimension
 
@@ -241,6 +303,9 @@ Output format (copy into a PR comment, a maintenance-backlog row, or a chat repl
 
 ### 8. Redirect chain length
 - `<source> -> <destination>` — destination itself is a redirect source (chain).
+
+### 9. Interactive wiring integrity
+- `<page>` — `data-inquiry-form` present but client runtime missing (`UNWIRED-INQUIRY-FORM`).
 ```
 
 If a dimension has zero findings, write `- none.` — do not omit the heading. A clean audit is itself a useful artifact.
@@ -263,6 +328,7 @@ Stop and ask before proceeding if:
 - The user asks for a full external-link HEAD-check sweep. The number of external links and the domains' bot-blocking make this fragile; confirm scope and live with false positives.
 - Multi-hop redirects are found that were apparently intentional (e.g. two-stage locale migration). Do not collapse them without checking `docs/seo/url-architecture.md` and `docs/seo/decisions.md` and confirming with the maintainer.
 - The audit reveals a registry or sitemap anomaly that the existing tests did not catch. That is a test gap — document it in `docs/maintenance-backlog.md` before fixing the data.
+- Interactive wiring check reports `UNWIRED-INQUIRY-FORM` but source clearly imports the runtime script. Treat as a bundling/build-output anomaly; escalate and capture at least one failing page path plus one referenced module path.
 
 ## Examples
 

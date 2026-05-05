@@ -88,6 +88,24 @@ This file is the post-migration successor to the SEO-relevant rows in `docs/arch
 - **Approval:** Gustaf, 2026-04-25.
 - **Follow-up:** Historical only after `SEO-0021`. Tests at the time: `site/src/lib/routes/page-shell-registry.test.ts` (x-default parity), `site/workers/entry-routing-logic.test.ts` and `site/workers/entry-router.test.ts` (`301` + serve-asset), `site/src/lib/chrome/schema-org.test.ts` (`SiteNavigationElement`).
 
+### `SEO-0022` — Artworks subsystem at location-free URLs
+
+- **Date:** 2026-05-04
+- **Scope:** SEO / URL contract / hreflang / sitemap
+- **Decision:** The artworks subsystem (collection page + one page per artwork) lives at **location-free** canonical paths, deviating from the standard `/{lang}/{location}/...` shape:
+  - Collection: `/en/artworks/` and `/sv/konstverk/`.
+  - Per-artwork: `/en/artworks/<slug>/` and `/sv/konstverk/<slug>/`, where `<slug>` is `andetag-no-<N>` for originals and `andetag-gem-<name>` for gems (computed from `Artwork.id` via `artworkPublicSlug()` in `site/src/lib/content/artworks.ts`).
+  - Hreflang stays Stockholm-style sv ↔ en, x-default = en. No Berlin/Stockholm cross-pairing.
+  - Stockholm chrome is the Phase 1 default for both languages on every artwork URL.
+  - JSON-LD `@id` for each `VisualArtwork` stays on `Artwork.id` (`<host>/#artwork-<id>`); only the browser-facing path uses `<slug>`.
+  - Per-artwork pages live in dedicated dynamic Astro routes (`site/src/pages/en/artworks/[slug].astro`, `site/src/pages/sv/konstverk/[slug].astro`), **not** in `page-shell-meta.json`.
+  - Per-artwork JSON-LD adds `mainEntity` on the `WebPage` node and a single `VisualArtwork` node for the focused work.
+  - Sold-status pages are indexable and emit no inquiry/CTA. Available works embed the `InquiryForm` pre-filled with `?about=<Artwork.id>`.
+- **Rationale:** Single global inventory of unique works supports sales conversations from either Stockholm or Berlin without duplicating the catalogue. The full subsystem was unmerged at the time of the decision, so there were no legacy URLs to preserve. Subsystem-scoped exception, not a site-wide pattern shift.
+- **SEO impact:** Low. Artwork pages are a new index surface; they do not displace existing canonicals. Hreflang scope unchanged.
+- **Approval:** Gustaf, 2026-05-04 (`docs/artwork-pages-plan.md` §13).
+- **Follow-up:** Phase 2 (cookie-driven dual chrome on the same external URL) deferred per `docs/artwork-pages-plan.md` §10.
+
 ---
 
 ## Cross-references

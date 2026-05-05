@@ -56,6 +56,19 @@ Normative path list: `docs/url-matrix.csv` and `site/public/_redirects`. Single-
 
 Internal `hreflang` for these pages is **same-location only** (Stockholm `sv`↔`en`, Berlin `de`↔`en`). No cross-location hreflang pairs.
 
+### Artworks subsystem (location-free)
+
+The artworks subsystem deviates from the `/{lang}/{location}/...` shape and lives at location-free canonicals:
+
+| Surface | Swedish | English |
+|---------|---------|---------|
+| Collection | `/sv/konstverk/` | `/en/artworks/` |
+| Per-artwork | `/sv/konstverk/<slug>/` | `/en/artworks/<slug>/` |
+
+`<slug>` is the public, human-readable slug computed from `Artwork.id` via `artworkPublicSlug()` (originals: `andetag-no-<N>`; gems: `andetag-gem-<name>`). The internal `Artwork.id` is unchanged and is still used for DOM ids, the inquiry `?about=` parameter, JSON-LD `@id`, and image directories under `site/public/images/artworks/<id>/`.
+
+Hreflang for these pages is Stockholm-style `sv ↔ en`, `x-default` = English. There is no German variant (deferred). Stockholm chrome is the Phase 1 default. Decision: `docs/seo/decisions.md` `SEO-0022`. Code: `site/src/lib/routes/artwork-shell-routes.ts`, `site/src/pages/en/artworks/[slug].astro`, `site/src/pages/sv/konstverk/[slug].astro`.
+
 ### Swedish language prefix
 
 All canonical Swedish HTML pages use an explicit `/sv/` language prefix, symmetric with `/en/...` and `/de/...`.
