@@ -464,6 +464,7 @@ function buildStockholmVenueSchema(ctx: SchemaPageContext): { "@context": string
   }
   const focused = focusedArtworkForPath(ctx.canonicalPath);
   if (focused) {
+    graph.push(artworkCollectionNode(ctx, [focused]));
     const webPage = graph[1] as Record<string, unknown>;
     webPage.mainEntity = { "@id": `${CANONICAL_HOST}/#artwork-${focused.id}` };
     graph.push(visualArtworkNode(ctx, focused));
@@ -485,7 +486,7 @@ function focusedArtworkForPath(canonicalPath: string): Artwork | undefined {
   return findArtworkByPublicSlug(m[1]!);
 }
 
-function artworkCollectionNode(ctx: SchemaPageContext): object {
+function artworkCollectionNode(ctx: SchemaPageContext, artworks: readonly Artwork[] = ARTWORKS): object {
   return {
     "@type": "CollectionPage",
     "@id": `${ctx.pageUrl}#artworks`,
@@ -495,7 +496,7 @@ function artworkCollectionNode(ctx: SchemaPageContext): object {
     inLanguage: languageToHreflangAttribute(ctx.language),
     isPartOf: { "@id": `${ctx.pageUrl}#webpage` },
     about: { "@id": `${CANONICAL_HOST}/#museum-stockholm` },
-    hasPart: ARTWORKS.map((a) => ({ "@id": `${CANONICAL_HOST}/#artwork-${a.id}` })),
+    hasPart: artworks.map((a) => ({ "@id": `${CANONICAL_HOST}/#artwork-${a.id}` })),
   };
 }
 
@@ -540,7 +541,7 @@ function visualArtworkNode(ctx: SchemaPageContext, a: Artwork): object {
       url: ctx.pageUrl + `#artwork-${a.id}`,
     };
     if (a.priceSek !== undefined) {
-      offer.price = a.priceSek;
+      offer.price = String(a.priceSek);
     }
     node.offers = offer;
   } else {

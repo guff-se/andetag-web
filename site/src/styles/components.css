@@ -1832,6 +1832,11 @@ body.lightbox-open {
   margin: 1.5rem 0;
 }
 
+.artwork-sales-slider__subtitle {
+  margin: 0 0 0.9rem;
+  font-size: 0.7rem;
+}
+
 .artwork-sales-slider__viewport {
   position: relative;
 }
@@ -1922,22 +1927,45 @@ body.lightbox-open {
   height: 100%;
 }
 
-.artwork-sales-slider__img-wrap img {
+.artwork-sales-slider__frame {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.artwork-sales-slider__frame img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
   display: block;
+}
+
+.artwork-sales-slider__frame.is-base img {
+  transform: scale(1.01);
   transition: transform 0.35s ease;
 }
 
+.artwork-sales-slider__frame.is-overlay {
+  opacity: 0;
+  transition: opacity 0.28s ease;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .artwork-sales-slider__img-wrap img {
+  .artwork-sales-slider__frame.is-base img,
+  .artwork-sales-slider__frame.is-overlay {
     transition: none;
   }
 }
 
-.artwork-sales-slider__card:hover .artwork-sales-slider__img-wrap img {
+.artwork-sales-slider__card:hover .artwork-sales-slider__frame.is-overlay,
+.artwork-sales-slider__card:focus-visible .artwork-sales-slider__frame.is-overlay {
+  opacity: 1;
+}
+
+.artwork-sales-slider__card:hover .artwork-sales-slider__frame.is-base img {
   transform: scale(1.04);
 }
 

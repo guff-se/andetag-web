@@ -15,12 +15,14 @@ type Props = {
   lang: "sv" | "en";
   artworksHref: string;
   ctaLabel: string;
+  subtitle?: string;
 };
 
-const { rows, lang, artworksHref, ctaLabel } = Astro.props;
+const { rows, lang, artworksHref, ctaLabel, subtitle } = Astro.props;
 ---
 
 <div class="artwork-sales-slider">
+  {subtitle && <p class="artwork-sales-slider__subtitle component-eyebrow">{subtitle}</p>}
   {rows.map((row, rowIdx) => {
     const isSecond = rowIdx > 0;
     const carouselMobile = row.carouselOnlyMobile === true;
@@ -48,22 +50,36 @@ const { rows, lang, artworksHref, ctaLabel } = Astro.props;
 
           <ul class="artwork-sales-slider__track">
             {row.artworks.map((artwork) => {
-              const img = artwork.images[0]!;
-              const alt = lang === "sv" ? img.alt.sv : img.alt.en;
+              const base = artwork.images.find((img) => img.mood === "light")
+                ?? artwork.images.find((img) => img.mood === "mid")
+                ?? artwork.images[0]!;
+              const dark = artwork.images.find((img) => img.mood === "dark");
+              const alt = lang === "sv" ? base.alt.sv : base.alt.en;
               const title = lang === "sv" ? artwork.title.sv : artwork.title.en;
               const { w, h } = artwork.dimensionsCm;
+              const href = `${artworksHref}?artwork=${encodeURIComponent(artwork.id)}`;
               return (
                 <li class="artwork-sales-slider__item">
-                  <a class="artwork-sales-slider__card" href={artworksHref}>
+                  <a class="artwork-sales-slider__card" href={href}>
                     <div class="artwork-sales-slider__img-wrap">
-                      <picture>
+                      <picture class="artwork-sales-slider__frame is-base">
                         <source
                           type="image/webp"
-                          srcset={`${img.webp640} 640w, ${img.webp960} 960w`}
+                          srcset={`${base.webp640} 640w, ${base.webp960} 960w`}
                           sizes="280px"
                         />
-                        <img src={img.src} alt={alt} loading="lazy" decoding="async" />
+                        <img src={base.src} alt={alt} loading="lazy" decoding="async" />
                       </picture>
+                      {dark && (
+                        <picture class="artwork-sales-slider__frame is-overlay" aria-hidden="true">
+                          <source
+                            type="image/webp"
+                            srcset={`${dark.webp640} 640w, ${dark.webp960} 960w`}
+                            sizes="280px"
+                          />
+                          <img src={dark.src} alt="" loading="lazy" decoding="async" />
+                        </picture>
+                      )}
                     </div>
                     <div class="artwork-sales-slider__info">
                       <p class="artwork-sales-slider__title">{title}</p>

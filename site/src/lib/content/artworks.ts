@@ -66,7 +66,7 @@ export type ArtworkEdition = {
   available: number;
 };
 
-export type Artwork = {
+type ArtworkBase = {
   /** Stable slug. Used as DOM id, map pin id, and `?about=` inquiry pre-fill. */
   id: string;
   series: ArtworkSeries;
@@ -82,12 +82,24 @@ export type Artwork = {
   status: ArtworkStatus;
   /** Where collectors can view the work in person. Defaults to the location label when absent. */
   exhibitionVenue?: string;
-  /** SEK. Optional even when `for-sale` (renders as "price on request" when absent). */
-  priceSek?: number;
   location: ArtworkLocation;
   /** Always ≥ 1. Two ideally (ambient + illuminated) for the card cross-fade. */
   images: readonly ArtworkImage[];
 };
+
+type SoldArtwork = ArtworkBase & {
+  status: "sold";
+  /** Sold artworks must never retain a list price in source data. */
+  priceSek?: never;
+};
+
+type ForSaleArtwork = ArtworkBase & {
+  status: "on-exhibition" | "in-studio";
+  /** SEK. Optional for "price on request". */
+  priceSek?: number;
+};
+
+export type Artwork = SoldArtwork | ForSaleArtwork;
 
 // ─── Locations ────────────────────────────────────────────────────────────────
 
@@ -884,6 +896,23 @@ export const ARTWORKS: readonly Artwork[] = [
     images: GEM_SAPPHIRE_IMAGES,
   },
 ];
+
+function assertArtworkPricingInvariants(artworks: readonly Artwork[]): void {
+  for (const artwork of artworks) {
+    if (artwork.status === "sold" && artwork.priceSek !== undefined) {
+      throw new Error(`Sold artwork must not include priceSek: ${artwork.id}`);
+    }
+    if (
+      (artwork.status === "on-exhibition" || artwork.status === "in-studio") &&
+      artwork.priceSek !== undefined &&
+      artwork.priceSek <= 0
+    ) {
+      throw new Error(`For-sale artwork has invalid non-positive priceSek: ${artwork.id}`);
+    }
+  }
+}
+
+assertArtworkPricingInvariants(ARTWORKS);
 
 /** Planned total for the series (not all works exist yet). */
 export const ANDETAG_ORIGINAL_TOTAL = 50;

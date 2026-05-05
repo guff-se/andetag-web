@@ -94,6 +94,14 @@ describe("artworks catalogue", () => {
     }
   });
 
+  it("sold artworks never include a list price", () => {
+    for (const a of ARTWORKS) {
+      if (a.status === "sold") {
+        expect(a.priceSek).toBeUndefined();
+      }
+    }
+  });
+
   it("public slug is unique, ASCII-lowercase, and matches the locked pattern", () => {
     const slugs = new Set<string>();
     for (const a of ARTWORKS) {

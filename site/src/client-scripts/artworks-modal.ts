@@ -128,6 +128,19 @@ if (!w.__andetagModal) {
     modal.querySelector<HTMLElement>("[data-modal-close]")?.focus();
   }
 
+  function openFromQueryParam() {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("artwork");
+    if (!id) return;
+    const idx = artworks.findIndex((a) => a.id === id);
+    if (idx === -1) return;
+    const tile = document.querySelector<HTMLElement>(`[data-artwork-id="${CSS.escape(id)}"]`);
+    if (tile) {
+      tile.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+    openModal(idx);
+  }
+
   function closeModal() {
     modal.setAttribute("hidden", "");
     document.body.classList.remove("is-modal-open");
@@ -315,4 +328,6 @@ if (!w.__andetagModal) {
     const idx = artworks.findIndex(a => a.id === id);
     if (idx !== -1) openModal(idx);
   };
+
+  openFromQueryParam();
 }
