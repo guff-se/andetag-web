@@ -14,7 +14,7 @@ import TestimonialCarousel from "../content/TestimonialCarousel.astro";
 import VideoEmbed from "../embeds/VideoEmbed.astro";
 import ResponsiveInlinePicture from "../ui/ResponsiveInlinePicture.astro";
 import { STOCKHOLM_BOOK_HERO_COVER } from "../../lib/chrome/assets";
-import { mainRoomLookingBody, mainRoomMeditationBody } from "../../lib/content/stockholm-body-responsive-images";
+import { homeGroupSeatedHandsClaspedBody, mainRoomMeditationBody } from "../../lib/content/stockholm-body-responsive-images";
 import { stockholmMarketingGalleryHomeEn } from "../../lib/content/stockholm-marketing-gallery";
 import { stockholmTestimonialAggregateEn } from "../../lib/content/stockholm-testimonial-aggregate";
 import { stockholmMarketingFaqEn } from "../../lib/page-registry/stockholm-marketing-faq-en";
@@ -39,7 +39,7 @@ const artYogaBookingHref =
 const introLeadImage = {
   width: 1920,
   height: 1080,
-  alt: "Silhouette of a visitor looking up at luminous art at ANDETAG",
+  alt: "Visitors sitting still with hands clasped near their chins before glowing textile sculptures.",
 } as const;
 
 const artYogaAsideImage = {
@@ -195,7 +195,7 @@ const vimeoSrc = "https://player.vimeo.com/video/1077937338";
       <ContentSection markdown={introMarkdown} />
       <figure class="page-stockholm-home__intro-figure">
         <ResponsiveInlinePicture
-          sources={mainRoomLookingBody}
+          sources={homeGroupSeatedHandsClaspedBody}
           width={introLeadImage.width}
           height={introLeadImage.height}
           alt={introLeadImage.alt}
@@ -295,13 +295,18 @@ const vimeoSrc = "https://player.vimeo.com/video/1077937338";
   />
 
   <div class="page-stockholm-home__collect">
-  <ContentSection heading="Bring Andetag home" headingLevel="h2" markdown={collectMarkdown} />
+  <section class="content-section align-left">
+    <h2>Bring Andetag home</h2>
+    <p class="component-eyebrow">tillgängliga verk</p>
+    <div class="content-section-body" set:html={collectMarkdown} />
+  </section>
   <ArtworkSalesSlider
     rows={[
       {
         artworks: saleArtworks,
         label: "Original artworks",
         intro: "Hand-woven textile sculptures in optical fibre. Each piece is one of a kind.",
+        randomize: true,
       },
       {
         artworks: gemArtworks,
@@ -313,7 +318,6 @@ const vimeoSrc = "https://player.vimeo.com/video/1077937338";
     lang="en"
     artworksHref="/en/artworks/"
     ctaLabel="View all artworks"
-    subtitle="Artworks for sale"
   />
   </div>
 

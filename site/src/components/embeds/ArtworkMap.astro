@@ -17,9 +17,11 @@ type Props = {
   language: "sv" | "en";
   /** When set, the pin group containing this artwork id renders with the brand-red highlight. */
   highlightArtworkId?: string;
+  /** When true, artworks at the same location collapse into one pin with a count. */
+  stackByLocation?: boolean;
 };
 
-const { artworks, language, highlightArtworkId } = Astro.props as Props;
+const { artworks, language, highlightArtworkId, stackByLocation = true } = Astro.props as Props;
 
 const VIEW_W = 1100;
 const VIEW_H = 460;
@@ -70,8 +72,10 @@ type PinGroup = {
 };
 const pinGroups = new Map<string, PinGroup>();
 for (const a of artworks) {
-  // Coordinates are already approximate for `city`-privacy; round further for grouping.
-  const k = `${a.location.lat.toFixed(2)}_${a.location.lon.toFixed(2)}`;
+  const k = stackByLocation
+    // Coordinates are already approximate for `city`-privacy; round further for grouping.
+    ? `${a.location.lat.toFixed(2)}_${a.location.lon.toFixed(2)}`
+    : a.id;
   const existing = pinGroups.get(k);
   if (existing) {
     existing.members.push(a);
@@ -103,6 +107,8 @@ const pins = [...pinGroups.values()].map((g) => {
     isHighlight,
   };
 });
+const regularPins = pins.filter((pin) => !pin.isHighlight);
+const highlightPins = pins.filter((pin) => pin.isHighlight);
 
 const sectionLabel =
   language === "sv" ? "Karta över Andetag-konstverkens platser" : "Map of where Andetag artworks live";
@@ -127,7 +133,7 @@ const sectionLabel =
       {landPathsD.map((d) => <path d={d} />)}
     </g>
     <g class="artwork-map__pins">
-      {pins.map((pin) => (
+      {regularPins.map((pin) => (
         <g
           class:list={[
             "artwork-map__pin",
@@ -162,14 +168,43 @@ const sectionLabel =
           <title>{pin.label}</title>
         </g>
       ))}
+      {highlightPins.map((pin) => (
+        <g
+          class:list={[
+            "artwork-map__pin",
+            pin.onlyAvailable ? "is-available" : "is-mixed",
+            "is-highlight",
+          ]}
+          data-pin-id={pin.key}
+          data-artwork-ids={pin.artworkIds.join(" ")}
+          tabindex="0"
+          role="button"
+          aria-label={
+            pin.count === 1
+              ? pin.label
+              : language === "sv"
+                ? `${pin.label} (${pin.count} verk)`
+                : `${pin.label} (${pin.count} works)`
+          }
+        >
+          <circle class="artwork-map__pin-glow" cx={pin.cx} cy={pin.cy} r="20" />
+          <circle class="artwork-map__pin-dot" cx={pin.cx} cy={pin.cy} r={pin.count > 1 ? 6 : 4.5} />
+          {pin.count > 1 ? (
+            <text
+              class="artwork-map__pin-count"
+              x={pin.cx}
+              y={pin.cy + 1}
+              text-anchor="middle"
+              dominant-baseline="middle"
+            >
+              {pin.count}
+            </text>
+          ) : null}
+          <title>{pin.label}</title>
+        </g>
+      ))}
     </g>
   </svg>
-  <p class="artwork-map__legend">
-    <span class="artwork-map__legend-dot is-available" aria-hidden="true"></span>
-    <span>{language === "sv" ? "Tillgänglig" : "Available"}</span>
-    <span class="artwork-map__legend-dot is-mixed" aria-hidden="true"></span>
-    <span>{language === "sv" ? "I samling" : "In a collection"}</span>
-  </p>
 </section>
 
 <script>

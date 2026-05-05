@@ -6,6 +6,8 @@ type SliderRow = {
   artworks: readonly Artwork[];
   label?: string;
   intro?: string;
+  /** Shuffle card order on each page load (client-side). */
+  randomize?: boolean;
   /** Below ~900px: same horizontal strip + arrows as other rows. From 900px up: no slider, cards stay the same width and sit centered. */
   carouselOnlyMobile?: boolean;
 };
@@ -15,14 +17,12 @@ type Props = {
   lang: "sv" | "en";
   artworksHref: string;
   ctaLabel: string;
-  subtitle?: string;
 };
 
-const { rows, lang, artworksHref, ctaLabel, subtitle } = Astro.props;
+const { rows, lang, artworksHref, ctaLabel } = Astro.props;
 ---
 
 <div class="artwork-sales-slider">
-  {subtitle && <p class="artwork-sales-slider__subtitle component-eyebrow">{subtitle}</p>}
   {rows.map((row, rowIdx) => {
     const isSecond = rowIdx > 0;
     const carouselMobile = row.carouselOnlyMobile === true;
@@ -33,10 +33,11 @@ const { rows, lang, artworksHref, ctaLabel, subtitle } = Astro.props;
           isSecond && "artwork-sales-slider__row--second",
           carouselMobile && "artwork-sales-slider__row--carousel-mobile",
         ]}
+        data-randomize-row={row.randomize ? "true" : undefined}
       >
         {(row.label || row.intro) && (
           <div class="artwork-sales-slider__row-header">
-            {row.label && <h3 class="artwork-sales-slider__row-label component-eyebrow">{row.label}</h3>}
+            {row.label && <h3 class="artwork-sales-slider__row-label">{row.label}</h3>}
             {row.intro && <p class="artwork-sales-slider__row-intro">{row.intro}</p>}
           </div>
         )}
@@ -108,6 +109,24 @@ const { rows, lang, artworksHref, ctaLabel, subtitle } = Astro.props;
 </div>
 
 <script>
+  function shuffleChildren(container) {
+    const items = Array.from(container.children);
+    for (let i = items.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [items[i], items[j]] = [items[j], items[i]];
+    }
+    for (const item of items) {
+      container.appendChild(item);
+    }
+  }
+
+  for (const row of document.querySelectorAll(".artwork-sales-slider__row[data-randomize-row='true']")) {
+    const track = row.querySelector(".artwork-sales-slider__track");
+    if (track && track.children.length > 1) {
+      shuffleChildren(track);
+    }
+  }
+
   for (const viewport of document.querySelectorAll(".artwork-sales-slider__viewport")) {
     const track = viewport.querySelector(".artwork-sales-slider__track") as HTMLElement | null;
     if (!track) continue;

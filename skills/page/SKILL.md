@@ -158,6 +158,7 @@ Read before editing. Write paths are marked `write`.
 
 - **Stockholm:** every canonical page exists in **Swedish + English**. Add both in the same PR. Declare the pair in `STOCKHOLM_SV_EN_PAIRS`.
 - **Berlin:** every story-style canonical page exists in **German + English**. Declare the pair in `BERLIN_DE_EN_STORY_PAIRS`.
+- **Text edits must stay mirrored across all available locales for the same logical page.** If you change editorial copy in one locale, update its peer locale(s) in the same task unless the user explicitly scopes a single locale.
 - **No cross-location parity.** Stockholm pages do not need a Berlin version, and vice versa.
 - **Berlin English story pages** point `<link rel="canonical">` at the Stockholm English equivalent via `BERLIN_EN_STORY_SEO_CANONICAL` — do not omit this when adding a Berlin English story page.
 - **Hreflang** is computed automatically in `resolveSeo()` from the pair tables plus the path-language mapping. Do not hand-write hreflang tags.
@@ -171,6 +172,8 @@ If the user asks for a single-locale change, confirm explicitly before skipping 
 
 1. Identify the body component(s) for the canonical path. Start at `site/src/pages/[...slug].astro` → `pageBodies` map. For Stockholm, edit **both** `*Sv.astro` and `*En.astro` files unless the user asked for a single locale. **For SEO landings** the body is a thin delegator (it imports `StockholmSeoLandingSv` / `…En`); edits to `h1Text` / `h1Html` and `introMarkdown` go in that delegator. Do **not** edit `StockholmSeoLandingSv.astro` / `StockholmSeoLandingEn.astro` directly to change copy for one landing — those files are shared by every landing and changes propagate to all of them.
 2. Apply the change. Keep tone consistent with `docs/Tone of Voice.md`. Copy follows `docs/Andetag SEO Manual.md` constraints (no fabricated URLs, metadata, or prices).
+   - **Wordmark rule:** when the brand name appears in body copy or mixed-content headings, use `<span class="brand-wordmark">ANDETAG</span>` (shared style in `site/src/styles/components.css`) rather than relying on plain uppercase text alone.
+   - **Locale lockstep:** if this is a text/copy change, update the corresponding locale body file(s) in the same edit pass (`*Sv.astro` + `*En.astro`, or `*De.astro` + `*En.astro`). Do not leave one locale behind.
 3. If the edit touches shared data (offers, FAQ, reviews), change the single source listed in `docs/content-model.md`, not the consuming pages.
 4. If the edit **adds a new section** of any kind, apply the **band-balance check** (see **§Visual rhythm**): read the surrounding bands before and after the insertion point; if the new section is a band and the neighbouring section is also a band, use a regular content component instead.
 5. If the edit **substantially lengthens** the page or **adds sections** in a type that usually carries imagery, re-check **photo / text balance** (see **Coordination**) and, if needed, add figures or a hero via `skills/images/SKILL.md` in the same task.
@@ -249,6 +252,7 @@ Pass means:
 - For new or renamed pages, confirm the new path appears under `site/dist/<path>/index.html` after build, and the old path either no longer exists (renames handled by the 301) or is absent (removals).
 - **SEO content feedback** — Apply **`skills/seo/SKILL.md` §H** to every canonical path this task added or meaningfully changed (both locales of a pair when Stockholm/Berlin rules apply). Record the outcome in the PR: either **"§H pass"** or a short list of fixes applied / exceptions cited. **For any PR that adds or fully rewrites a body component (`*Sv.astro`, `*En.astro`, `*De.astro`), §H is a blocking pre-merge gate — not a post-preview optional.** Deferring §H to after the Cloudflare preview is only acceptable for shell-only changes (meta, registry, schema) where body copy is untouched. A typo-only fix may not need a full §H pass (use judgment); a body rewrite always does.
 - **Em dash scan** — Before committing any body component change, run `grep -rn $'—' site/src/components/page-bodies/ site/src/lib/content/` (U+2014 em dash) and `grep -rn $'–' site/src/components/page-bodies/` (U+2013 en dash). Neither is permitted in editorial prose per `docs/Tone of Voice.md` §Punctuation. Exclude `stockholm-reviews.ts` (verbatim TripAdvisor quotes are exempt).
+- **Wordmark scan** — For page-body copy edits that touch brand mentions, verify new/edited occurrences of `ANDETAG` are rendered with `<span class="brand-wordmark">ANDETAG</span>` where markup supports it (headings, paragraphs, links), not just capitalized plain text.
 
 Optional:
 

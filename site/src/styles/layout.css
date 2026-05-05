@@ -62,7 +62,22 @@ p {
 }
 
 a {
-  color: inherit;
+  color: var(--component-link);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+/* Navigation and button-like links keep their own presentation. */
+.header-root a,
+.shared-hero-header a,
+.shared-hero-nav-shell a,
+.shared-hero-mobile-nav-shell a,
+.footer-root a,
+.shared-footer-root a,
+.link-cta-primary,
+.link-cta-secondary,
+.link-cta-outline,
+.page-migrated-cta {
   text-decoration: none;
 }
 

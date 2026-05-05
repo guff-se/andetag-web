@@ -6,6 +6,13 @@ MALIN & GUSTAF TADAA
 
 Use Jost (Google Font) for names and headings, in UPPERCASE, with 0.3em letter spacing. The brand name ANDETAG should *always* be written this way.
 
+When the brand name appears inside page copy or mixed-content headings, do not enforce this by hardcoding uppercase text alone. Use the shared wordmark hook:
+
+- `site/src/styles/components.css` → `.brand-wordmark`
+- Markup: `<span class="brand-wordmark">ANDETAG</span>`
+
+This keeps the wordmark styling consistent and avoids one-off typography drift.
+
 Jost:
 https://fonts.google.com/specimen/Jost
 

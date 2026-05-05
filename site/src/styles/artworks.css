@@ -43,7 +43,7 @@
    above the lead copy and reads as an opening image. */
 .page-artworks__lead-figure {
   float: right;
-  width: clamp(220px, 36%, 380px);
+  width: clamp(275px, 45%, 475px);
   margin: 0.25rem 0 1rem 1.75rem;
   border-radius: 6px;
   overflow: hidden;
@@ -1288,9 +1288,11 @@ body.is-modal-open {
 
 .page-artwork {
   --artwork-pink: #4a0d2f;
+  --artwork-cream: #faf3ee;
   --artwork-graphite: #2a2226;
   --artwork-muted: #635961;
   --artwork-line: rgba(74, 13, 47, 0.18);
+  --artwork-radius: 14px;
   color: var(--artwork-graphite);
   max-width: 880px;
   margin: 0 auto;

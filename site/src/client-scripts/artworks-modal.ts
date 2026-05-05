@@ -33,6 +33,7 @@ if (!w.__andetagModal) {
   let artworks: ModalArtwork[] = [];
   let currentIdx = 0;
   let currentMoodIdx = 0;
+  let consumedArtworkQueryParam = false;
 
   // Read embedded artwork JSON
   const jsonEl = document.getElementById("artworks-json");
@@ -128,10 +129,21 @@ if (!w.__andetagModal) {
     modal.querySelector<HTMLElement>("[data-modal-close]")?.focus();
   }
 
+  function stripArtworkQueryParamFromUrl() {
+    const url = new URL(window.location.href);
+    if (!url.searchParams.has("artwork")) return;
+    url.searchParams.delete("artwork");
+    const next = `${url.pathname}${url.search}${url.hash}`;
+    window.history.replaceState(window.history.state, "", next);
+  }
+
   function openFromQueryParam() {
+    if (consumedArtworkQueryParam) return;
     const params = new URLSearchParams(window.location.search);
     const id = params.get("artwork");
     if (!id) return;
+    consumedArtworkQueryParam = true;
+    stripArtworkQueryParamFromUrl();
     const idx = artworks.findIndex((a) => a.id === id);
     if (idx === -1) return;
     const tile = document.querySelector<HTMLElement>(`[data-artwork-id="${CSS.escape(id)}"]`);

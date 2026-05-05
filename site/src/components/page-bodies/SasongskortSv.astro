@@ -1,6 +1,8 @@
 ---
 import ContentSection from "../content/ContentSection.astro";
+import MediaCopySection from "../content/MediaCopySection.astro";
 import { STOCKHOLM_SEASON_PASS } from "../../lib/content/stockholm-offers";
+import { npfBlueGlowBody } from "../../lib/content/stockholm-body-responsive-images";
 
 /** `site-html/stockholm-sasongskort.html` wp-page **2804**. */
 const h1Html =
@@ -30,6 +32,10 @@ const calmMarkdown =
   "<h3>Ett lugnt åtagande</h3>" +
   "<p>Säsongskortet är inte ett löfte om förändring. Det är ett erbjudande om kontinuitet. En plats som finns där, när du behöver den.</p>" +
   "<p>Ett andetag. Om och om igen.</p>";
+
+const seasonRhythmHtml =
+  "<p>Ett återkommande besök förändrar ofta relationen till upplevelsen. Rummet känns bekant, men ljuset rör sig alltid i nya variationer.</p>" +
+  "<p>Många använder säsongskortet som en stilla veckorytm, en plats att landa i mellan dagar som går fort.</p>";
 ---
 
 <div class="page-migrated page-sasongskort-sv">
@@ -38,6 +44,17 @@ const calmMarkdown =
   </section>
   <ContentSection markdown={subMarkdown} />
   <ContentSection markdown={bodyMarkdown} />
+  <MediaCopySection
+    heading="En rytm att återvända till"
+    headingLevel="h2"
+    bodyHtml={seasonRhythmHtml}
+    imageSources={npfBlueGlowBody}
+    imageAlt="Lugn besökare i blått ljus med lysande textilformer som svävar omkring."
+    imageWidth={2400}
+    imageHeight={1600}
+    mediaSide="end"
+    mediaWidth="half"
+  />
   <div class="page-sasongskort-sv__two-col">
     <ContentSection markdown={givesMarkdown} />
     <ContentSection markdown={priceMarkdown} />

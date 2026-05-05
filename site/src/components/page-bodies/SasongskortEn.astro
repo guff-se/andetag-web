@@ -1,6 +1,8 @@
 ---
 import ContentSection from "../content/ContentSection.astro";
+import MediaCopySection from "../content/MediaCopySection.astro";
 import { STOCKHOLM_SEASON_PASS } from "../../lib/content/stockholm-offers";
+import { npfBlueGlowBody } from "../../lib/content/stockholm-body-responsive-images";
 
 /** `site-html/en-stockholm-season-pass.html` wp-page. */
 const h1Html = "<h1>Season Pass for <span class=\"brand-wordmark\">ANDETAG</span></h1>";
@@ -29,6 +31,10 @@ const calmMarkdown =
   "<h3>A quiet commitment</h3>" +
   "<p>The season pass is not a promise of transformation. It is an invitation to continuity. A place that remains, ready when you are.</p>" +
   "<p>One breath. Again and again.</p>";
+
+const seasonRhythmHtml =
+  "<p>Returning regularly often changes how the experience is felt. The space becomes familiar, while the light keeps unfolding in new variations.</p>" +
+  "<p>Many use the season pass as a quiet weekly rhythm, a place to land between faster days in the city.</p>";
 ---
 
 <div class="page-migrated page-sasongskort-sv">
@@ -37,6 +43,17 @@ const calmMarkdown =
   </section>
   <ContentSection markdown={subMarkdown} />
   <ContentSection markdown={bodyMarkdown} />
+  <MediaCopySection
+    heading="A rhythm to return to"
+    headingLevel="h2"
+    bodyHtml={seasonRhythmHtml}
+    imageSources={npfBlueGlowBody}
+    imageAlt="Calm visitor in blue light, luminous textile forms floating around."
+    imageWidth={2400}
+    imageHeight={1600}
+    mediaSide="end"
+    mediaWidth="half"
+  />
   <div class="page-sasongskort-sv__two-col">
     <ContentSection markdown={givesMarkdown} />
     <ContentSection markdown={priceMarkdown} />

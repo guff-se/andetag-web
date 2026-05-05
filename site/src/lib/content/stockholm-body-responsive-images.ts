@@ -178,3 +178,62 @@ export const artworkAndetag12HomeDaylightBody: BodyPictureSources = {
   webp960:
     "/wp-content/uploads/2026/05/artwork-andetag-12-home-daylight-body-960w.webp",
 };
+
+/**
+ * Group-bookings page (sv/en) inline group figure: five visitors lying on the
+ * floor beneath a ceiling of luminous textile art. Chosen to keep group-bookings
+ * visually distinct from corporate-events while preserving a clearly social scene.
+ * Source master: `assets/images/main-room-five-visitors-lying-ceiling-light.jpg`
+ * (2400x1600, landscape).
+ */
+export const groupBookingsFiveVisitorsBody: BodyPictureSources = {
+  jpeg960:
+    "/wp-content/uploads/2026/05/main-room-five-visitors-lying-ceiling-light-body-960w.jpg",
+  webp640:
+    "/wp-content/uploads/2026/05/main-room-five-visitors-lying-ceiling-light-body-640w.webp",
+  webp960:
+    "/wp-content/uploads/2026/05/main-room-five-visitors-lying-ceiling-light-body-960w.webp",
+};
+
+/**
+ * Stockholm home (sv/en) intro inline figure: seated group in contemplation.
+ * Source master: `assets/images/main-room-group-seated-hands-clasped.jpg`
+ * (2400x1618, landscape).
+ */
+export const homeGroupSeatedHandsClaspedBody: BodyPictureSources = {
+  jpeg960:
+    "/wp-content/uploads/2026/05/main-room-group-seated-hands-clasped-body-960w.jpg",
+  webp640:
+    "/wp-content/uploads/2026/05/main-room-group-seated-hands-clasped-body-640w.webp",
+  webp960:
+    "/wp-content/uploads/2026/05/main-room-group-seated-hands-clasped-body-960w.webp",
+};
+
+/**
+ * About-andetag page (sv/en) inline figure below H1: portrait of a visitor beside
+ * the artwork Andetag no. 21. Source master:
+ * `assets/images/artwork-andetag-21-portrait-woman.jpg` (5184x3456, landscape).
+ */
+export const aboutAndetagArtwork21Body: BodyPictureSources = {
+  jpeg960:
+    "/wp-content/uploads/2026/05/artwork-andetag-21-portrait-woman-body-960w.jpg",
+  webp640:
+    "/wp-content/uploads/2026/05/artwork-andetag-21-portrait-woman-body-640w.webp",
+  webp960:
+    "/wp-content/uploads/2026/05/artwork-andetag-21-portrait-woman-body-960w.webp",
+};
+
+/**
+ * About-andetag page (sv/en) hero cover before the "Från enskilda verk..."
+ * section. Source master uploaded by collaborator:
+ * `assets/images/main-room-meditation-silhouette-iridescent-wall.jpg`
+ * (1024x768).
+ */
+export const aboutAndetagMeditationHero: BodyPictureSources = {
+  jpeg960:
+    "/wp-content/uploads/2026/05/main-room-meditation-silhouette-iridescent-wall-hero-960w.jpg",
+  webp640:
+    "/wp-content/uploads/2026/05/main-room-meditation-silhouette-iridescent-wall-hero-640w.webp",
+  webp960:
+    "/wp-content/uploads/2026/05/main-room-meditation-silhouette-iridescent-wall-hero-960w.webp",
+};

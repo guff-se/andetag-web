@@ -1,6 +1,7 @@
 ---
-import ContentSection from "../content/ContentSection.astro";
 import ButtonGroup from "../content/ButtonGroup.astro";
+import MediaCopySection from "../content/MediaCopySection.astro";
+import { groupBookingsFiveVisitorsBody } from "../../lib/content/stockholm-body-responsive-images";
 
 /** `site-html/en-stockholm-group-bookings.html` wp-post **2567**. */
 const bodyHtml = [
@@ -16,10 +17,16 @@ const bodyHtml = [
 ---
 
 <div class="page-migrated">
-  <ContentSection
+  <MediaCopySection
     heading="For groups and private parties"
     headingLevel="h1"
-    markdown={bodyHtml}
+    bodyHtml={bodyHtml}
+    imageSources={groupBookingsFiveVisitorsBody}
+    imageAlt="Five visitors lying on the floor looking up at a ceiling of luminous textile art."
+    imageWidth={2400}
+    imageHeight={1718}
+    mediaSide="end"
+    mediaWidth="half"
   />
   <div class="page-migrated-cta">
     <ButtonGroup

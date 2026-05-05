@@ -16,47 +16,47 @@ export type StockholmMarketingGalleryImage = {
 };
 
 const FULL_SRC = [
-  "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-6074-scaled.jpg",
-  "/wp-content/uploads/2024/11/Andetag-13-35-copy-2.jpg",
-  "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-5983-scaled.jpg",
-  "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-6038-scaled.jpg",
-  "/wp-content/uploads/2024/11/Andetag-10-53-copy-2.jpg",
-  "/wp-content/uploads/2025/01/ANDETAG-Tadaa-Photo-Johan-Eriksson-_-TERRAN-59311-scaled.jpg",
-  "/wp-content/uploads/2024/11/Andetag-19-508-copy.jpg",
-  "/wp-content/uploads/2024/11/Andetag-10-69-copy.jpg",
+  "/wp-content/uploads/2026/04/reception-lobby-with-sculpture.jpg",
+  "/wp-content/uploads/2026/05/gallery-visitors-admiring-iridescent-work.jpg",
+  "/wp-content/uploads/2026/05/gallery-info-panel-and-visitors.jpg",
+  "/wp-content/uploads/2026/05/artwork-andetag-16-hand-close-up.jpg",
+  "/wp-content/uploads/2026/05/artwork-andetag-3-silhouette-contemplation.jpg",
+  "/wp-content/uploads/2026/05/theme-kids-lying-among-sculptures.jpg",
+  "/wp-content/uploads/2026/05/main-room-wide-hall-visitors-resting.jpg",
+  "/wp-content/uploads/2026/05/main-room-visitors-on-pillows-suspended-art.jpg",
 ] as const;
 
 const HOME_ALTS_EN = [
-  "Three glowing textile wall sculptures in a warm-lit gallery at ANDETAG Stockholm with a visitor on a round ottoman",
-  "Close-up of optical fibre textile illuminated in magenta, cyan and violet",
-  "Visitor sitting on the floor looking up at a cluster of glowing pink textile sculptures at ANDETAG Stockholm",
-  "Quiet lounge with a white sofa beneath a backlit textile sculpture at ANDETAG Stockholm",
-  "Visitor gazing at a large glowing textile sculpture in purple and magenta at ANDETAG Stockholm",
-  "Person meditating cross-legged beneath a symmetrical spread of glowing textile sculptures at ANDETAG Stockholm",
-  "Glowing multicoloured textile sculpture suspended in a dark room at ANDETAG Stockholm",
-  "Close-up of peach-and-pink jacquard textile at ANDETAG Stockholm with dark leopard-like patterning",
+  "The museum lobby with framed textile works, a sofa with visitors, and a large wall sculpture at ANDETAG.",
+  "Two visitors contemplating a shimmering textile sculpture in violet, gold, and green.",
+  "The exhibition gallery with the ANDETAG info panel on the wall and visitors viewing textile works.",
+  "Close-up with a hand pointing toward the artwork Andetag no. 16, green and silver shimmering optical fibre textile.",
+  "Silhouette of a visitor before two textile sculptures glowing in violet and magenta light, the artwork Andetag no. 3.",
+  "Two children lying on the floor surrounded by large, luminous Andetag sculptures in blue and violet.",
+  "Wide view of the main room at ANDETAG, visitors resting before a wall of breathing light art.",
+  "Visitors resting on pillows beneath floating, luminous textile sculptures.",
 ] as const;
 
 const HOME_ALTS_SV = [
-  "Tre lysande textilskulpturer i ett varmt upplyst galleri på ANDETAG Stockholm med en besökare på en rund sittpuff",
-  "Närbild av optisk fibertextil upplyst i magenta, cyan och violett",
-  "Besökare sitter på golvet och blickar upp mot ett kluster av lysande rosa textilskulpturer på ANDETAG Stockholm",
-  "Tyst loungehörna med vit soffa under en upplyst textilskulptur på ANDETAG Stockholm",
-  "Besökare betraktar en stor lysande textilskulptur i lila och magenta på ANDETAG Stockholm",
-  "Person sitter i meditation under ett symmetriskt arrangemang av lysande textilskulpturer på ANDETAG Stockholm",
-  "Lysande flerfärgad textilskulptur svävar i ett mörklagt rum på ANDETAG Stockholm",
-  "Närbild av persika- och rosafärgad jacquardvävd textil på ANDETAG Stockholm med mörkt leopardliknande mönster",
+  "Museets foajé med inramade textilverk, soffa med besökare och en stor väggskulptur i ANDETAG.",
+  "Två besökare betraktar en skimrande textilskulptur i lila, guld och grönt.",
+  "Utställningens galleri med ANDETAGs infotext på väggen och besökare som betraktar textilverk.",
+  "Närbild där en hand pekar mot verket Andetag nr 16, grönt och silver skimrande optisk fibertextil.",
+  "Siluett av besökare framför två textilskulpturer som lyser i lila och magenta, verket Andetag no. 3.",
+  "Två barn ligger på golvet omgivna av stora, lysande Andetag-skulpturer i blått och lila.",
+  "Översikt av ANDETAGs huvudrum med besökare som ligger ner framför en lysande textilväggsinstallation.",
+  "Besökare vilar på kuddar under svävande, lysande textilskulpturer.",
 ] as const;
 
 const HOME_ALTS_DE = [
-  "Drei leuchtende Textilwandskulpturen in einem warm beleuchteten Galerieraum im ANDETAG mit Besucherin auf rundem Hocker",
-  "Nahaufnahme von optischem Fasertextil in Magenta, Cyan und Violett beleuchtet",
-  "Besucherin sitzt am Boden und blickt zu einer Gruppe leuchtender rosa Textilskulpturen im ANDETAG auf",
-  "Ruhige Lounge-Ecke mit weißem Sofa unter einer beleuchteten Textilskulptur im ANDETAG",
-  "Besucherin betrachtet eine große leuchtende Textilskulptur in Violett und Magenta im ANDETAG",
-  "Person meditiert im Schneidersitz unter einer symmetrischen Anordnung leuchtender Textilskulpturen im ANDETAG",
-  "Leuchtende mehrfarbige Textilskulptur schwebt in einem abgedunkelten Raum im ANDETAG",
-  "Nahaufnahme eines pfirsich-rosa Jacquardstoffs im ANDETAG mit dunklem leopardenartigem Muster",
+  "Das Museumsfoyer mit gerahmten Textilwerken, einem Sofa mit Besuchenden und einer großen Wandskulptur bei ANDETAG.",
+  "Zwei Besucherinnen betrachten eine schimmernde Textilskulptur in Violett, Gold und Grün.",
+  "Die Ausstellungsgalerie mit dem ANDETAG-Infoschild an der Wand und Besuchenden vor Textilwerken.",
+  "Nahaufnahme mit einer Hand, die zum Werk Andetag Nr. 16 zeigt, grün und silbern schimmernde optische Fasertextilie.",
+  "Silhouette einer Besucherin vor zwei Textilskulpturen, die in violett und magenta leuchten, dem Werk Andetag no. 3.",
+  "Zwei Kinder liegen auf dem Boden, umgeben von großen, leuchtenden Andetag-Skulpturen in Blau und Violett.",
+  "Weite Sicht in den Hauptraum von ANDETAG mit Besuchenden vor einer leuchtenden Textilwandinstallation.",
+  "Besuchende ruhen auf Kissen unter schwebenden, leuchtenden Textilskulpturen.",
 ] as const;
 
 function entry(fullSrc: (typeof FULL_SRC)[number], alt: string): StockholmMarketingGalleryImage {

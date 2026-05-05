@@ -12,18 +12,12 @@ const language = "en" as const;
 const lead = artwork.images.find((i) => i.mood === "light") ?? artwork.images[0]!;
 const rest = artwork.images.filter((img) => img !== lead);
 
-const heading =
-  artwork.series === "original" ? `Andetag no. ${artwork.number}` : artwork.title[language];
-
 const formatLabel =
   artwork.format === "landscape"
     ? "Landscape"
     : artwork.format === "portrait"
       ? "Portrait"
       : "Diptych";
-
-const seriesLabel =
-  artwork.series === "original" ? "Andetag Originals" : "Andetag Gem";
 
 const statusLabel =
   artwork.status === "sold"
@@ -55,8 +49,26 @@ const soldArtworks = showCollectorMap
   </p>
 
   <header class="page-artwork__lead">
-    <h1 class="page-artwork__heading">{heading}</h1>
-    <p class="page-artwork__eyebrow">{seriesLabel}</p>
+    <h1 class="page-artwork__heading">
+      {artwork.series === "original" ? (
+        <>
+          <span class="brand-wordmark">ANDETAG</span> no. {artwork.number}
+        </>
+      ) : (
+        artwork.title[language]
+      )}
+    </h1>
+    <p class="page-artwork__eyebrow">
+      {artwork.series === "original" ? (
+        <>
+          <span class="brand-wordmark">ANDETAG</span> Originals
+        </>
+      ) : (
+        <>
+          <span class="brand-wordmark">ANDETAG</span> Gem
+        </>
+      )}
+    </p>
   </header>
 
   <figure class="page-artwork__hero">
@@ -137,6 +149,7 @@ const soldArtworks = showCollectorMap
         artworks={soldArtworks}
         language="en"
         highlightArtworkId={artwork.id}
+        stackByLocation={false}
       />
     </section>
   )}
