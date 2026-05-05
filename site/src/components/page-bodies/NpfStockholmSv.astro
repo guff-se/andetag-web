@@ -32,15 +32,15 @@ const expectMarkdown =
 
 const tempoMarkdown =
   "<p>Ett stilla museum, inte ett bullrigt. Besöksgrupperna är små. Du går igenom i din egen takt. Ingen guide som förklarar. Inga tidsbegränsningar. Du stannar så länge du vill. En upplevelse med låga krav: inget kräver ditt svar. I genomsnitt runt 50 minuter, men du är fri att stanna så länge du vill.</p>" +
-  "<p>Läs mer om <a href=\"/sv/stockholm/vilken-typ-av-upplevelse/\">vilken typ av upplevelse ANDETAG är</a>, eller titta i vanliga <a href=\"/sv/stockholm/fragor-svar/\">frågor och svar</a> inför besöket.</p>" +
-  "<p>Upplevelsen ligger på ett plan. Tydliga flöden, lugna övergångar. En plats att andas ut när sinnesintrycken blir för mycket. Hela utställningen är rullstolsanpassad. Ledsagare eller personlig assistent går in utan kostnad – säg till i entrén. Se även <a href=\"/sv/stockholm/tillganglighet/\">tillgänglighet på ANDETAG</a> för fullständig information.</p>";
+  "<p>Läs mer om <a href=\"/sv/stockholm/vilken-typ-av-upplevelse/\">vilken typ av upplevelse <span class=\"brand-wordmark\">ANDETAG</span> är</a>, eller titta i vanliga <a href=\"/sv/stockholm/fragor-svar/\">frågor och svar</a> inför besöket.</p>" +
+  "<p>Upplevelsen ligger på ett plan. Tydliga flöden, lugna övergångar. En plats att andas ut när sinnesintrycken blir för mycket. Hela utställningen är rullstolsanpassad. Ledsagare eller personlig assistent går in utan kostnad – säg till i entrén. Se även <a href=\"/sv/stockholm/tillganglighet/\">tillgänglighet på <span class=\"brand-wordmark\">ANDETAG</span></a> för fullständig information.</p>";
 
 const adhdMarkdown =
-  "<p>ANDETAG är en lågstimulerande miljö som ger uppmärksamheten en fast punkt: en långsam, förutsägbar rytm i ljus och musik. Inga köer i utställningen, inga moment som kräver svar, inget tempo att hålla. Du går igenom rummen när du själv vill, och stannar i det sista rummet så länge du behöver.</p>" +
+  "<p><span class=\"brand-wordmark\">ANDETAG</span> är en lågstimulerande miljö som ger uppmärksamheten en fast punkt: en långsam, förutsägbar rytm i ljus och musik. Inga köer i utställningen, inga moment som kräver svar, inget tempo att hålla. Du går igenom rummen när du själv vill, och stannar i det sista rummet så länge du behöver.</p>" +
   "<p>De flesta besökare stannar runt 50 minuter, men du bestämmer själv. Många med ADHD beskriver att de plötsligt kan vila i intrycken: att uppmärksamheten får något att luta sig mot, utan att den dras isär. För många blir det också en <a href=\"/sv/stockholm/meditation-stockholm/\">stillsam plats för meditation</a> utan klassformat eller instruktion.</p>";
 
 const autismMarkdown =
-  "<p>ANDETAG följer ett förutsägbart flöde: fyra rum med samma musik, samma andetagsrytm, samma ljussvar. Inga plötsliga förändringar, inga guider som pratar över upplevelsen, inga interaktiva moment som kräver svar. Du kan läsa igenom det sensoriska underlaget innan du kommer.</p>" +
+  "<p><span class=\"brand-wordmark\">ANDETAG</span> följer ett förutsägbart flöde: fyra rum med samma musik, samma andetagsrytm, samma ljussvar. Inga plötsliga förändringar, inga guider som pratar över upplevelsen, inga interaktiva moment som kräver svar. Du kan läsa igenom det sensoriska underlaget innan du kommer.</p>" +
   "<p>Grupperna är små och du går i din egen takt. Ledsagare eller personlig assistent följer med utan kostnad. Säg till i entrén. Vill du veta mer om en specifik del av besöket innan, mejla <a href=\"mailto:info@andetag.museum\">info@andetag.museum</a>.</p>";
 
 const sensoryMarkdown =
@@ -101,9 +101,9 @@ const practicalFrameHtml =
     mediaWidth="third"
   />
 
-  <ContentSection heading="ANDETAG och ADHD" headingLevel="h2" markdown={adhdMarkdown} />
-  <ContentSection heading="ANDETAG och autism" headingLevel="h2" markdown={autismMarkdown} />
-  <ContentSection heading="ANDETAG vid sensorisk känslighet" headingLevel="h2" markdown={sensoryMarkdown} />
+  <ContentSection headingHtml='<span class="brand-wordmark">ANDETAG</span> och ADHD' headingLevel="h2" markdown={adhdMarkdown} />
+  <ContentSection headingHtml='<span class="brand-wordmark">ANDETAG</span> och autism' headingLevel="h2" markdown={autismMarkdown} />
+  <ContentSection headingHtml='<span class="brand-wordmark">ANDETAG</span> vid sensorisk känslighet' headingLevel="h2" markdown={sensoryMarkdown} />
   <div class="page-npf-stockholm-sv__cta">
     <ButtonGroup buttons={[{ label: "Boka biljetter nu!", href: "/sv/stockholm/biljetter/#book", variant: "secondary" }]} />
   </div>
