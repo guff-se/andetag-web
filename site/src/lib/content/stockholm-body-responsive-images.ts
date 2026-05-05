@@ -110,7 +110,7 @@ export const corporateEventsConversationBody: BodyPictureSources = {
 
 /**
  * Corporate-events page (sv/en) inline foyer figure: the museum lobby with
- * sofa, visitors, framed textile works and a large wall sculpture — the room
+ * sofa, visitors, framed textile works and a large wall sculpture - the room
  * a corporate group steps into when they arrive. Lives in the
  * `Praktisk information` / `Practical information` MediaCopySection at
  * `mediaWidth="half"` so the 3:2 landscape pairs reasonably with the
@@ -129,7 +129,7 @@ export const corporateEventsFoyerBody: BodyPictureSources = {
 /**
  * Neurodiversity page (sv/en) inline figure paired with the "What to expect"
  * section. A solo visitor held inside a calm, blue-lit field of luminous
- * textile forms — the calm, low-stimulus tone the page promises. Wired
+ * textile forms - the calm, low-stimulus tone the page promises. Wired
  * through `MediaCopySection` at `mediaWidth="half"`; landscape 3:2 keeps
  * the figure height close to the medium-density copy beside it.
  * Source master: `assets/images/main-room-visitor-blue-glow-forms.jpg`
@@ -147,7 +147,7 @@ export const npfBlueGlowBody: BodyPictureSources = {
 /**
  * Neurodiversity page (sv/en) inline figure paired with "Low stimulus, small
  * groups, quiet pace". Overhead frame of visitors at rest among the
- * sculptures — shows the room with people lying down, the option the page
+ * sculptures - shows the room with people lying down, the option the page
  * tells visitors they have. Wired through `MediaCopySection` at
  * `mediaWidth="third"`; portrait orientation balances the denser copy
  * beside it. Source master:

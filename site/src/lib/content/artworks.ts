@@ -25,9 +25,9 @@ export type ArtworkStatus = "on-exhibition" | "in-studio" | "sold";
 export type ArtworkFormat = "landscape" | "portrait" | "diptych";
 
 export type ArtworkMood =
-  /** Spotlight on, room lit — primary card image. */
+  /** Spotlight on, room lit - primary card image. */
   | "light"
-  /** Spotlight on, full darkness — card cross-fade target on hover. */
+  /** Spotlight on, full darkness - card cross-fade target on hover. */
   | "dark"
   /** Ambient / mid-level room light. */
   | "mid"

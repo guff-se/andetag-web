@@ -11,7 +11,7 @@ import {
 } from "../page-registry/stockholm-what-is-andetag-faq-copy";
 
 export type FaqItem = {
-  /** Plain-text question — used verbatim as `Question.name` in JSON-LD. */
+  /** Plain-text question - used verbatim as `Question.name` in JSON-LD. */
   title: string;
   /** Optional HTML title for the accordion (e.g. wraps ANDETAG in a brand span). */
   titleHtml?: string;

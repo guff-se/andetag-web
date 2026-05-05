@@ -59,14 +59,14 @@ function artworkPageDescription(a: Artwork, language: ArtworkPageLanguage): stri
       : a.title[language];
   if (language === "sv") {
     if (a.status === "sold") {
-      return `${head}, textilskulptur i optisk fibertextil. ${dim}, ${a.year}. I en privat samling.`;
+      return `${head}, textilskulptur i optisk fibertextil. ${dim}, ${a.year}. Visad i ANDETAGs samlingar och nu placerad i en privat samling.`;
     }
-    return `${head}, textilskulptur i optisk fibertextil. ${dim}, ${a.year}. Skriv till oss för förfrågan.`;
+    return `${head}, textilskulptur i optisk fibertextil. ${dim}, ${a.year}. Visas på ANDETAG i Stockholm. Skriv till oss för förfrågan om förvärv.`;
   }
   if (a.status === "sold") {
-    return `${head}, optical fibre textile sculpture. ${dim}, ${a.year}. In a private collection.`;
+    return `${head}, optical fibre textile sculpture. ${dim}, ${a.year}. Shown in ANDETAG's collection and now placed in a private collection.`;
   }
-  return `${head}, optical fibre textile sculpture. ${dim}, ${a.year}. Write to us to inquire.`;
+  return `${head}, optical fibre textile sculpture. ${dim}, ${a.year}. Shown at ANDETAG Stockholm. Write to us to inquire about acquisition.`;
 }
 
 export function artworkShellRoute(a: Artwork, language: ArtworkPageLanguage): PageShellRoute {

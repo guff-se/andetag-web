@@ -222,7 +222,7 @@
 }
 
 /* ============================================================
- * Filter bar — format only
+ * Filter bar - format only
  * ============================================================ */
 
 .artwork-filter-bar {
@@ -370,7 +370,7 @@
 }
 
 /* ============================================================
- * Gallery grid — square tiles
+ * Gallery grid - square tiles
  *
  * 2 col < 600px | 3 col 600–1099px | 4 col 1100–1399px | 5 col ≥ 1400px
  * (sold-only "In a collection" strip on the artworks page: +1 col via
@@ -534,7 +534,7 @@
   line-height: 1;
 }
 
-/* ---- tooltip (Tier 2 — desktop hover only) ---- */
+/* ---- tooltip (Tier 2 - desktop hover only) ---- */
 
 .artwork-tile__tooltip {
   position: absolute;
@@ -642,7 +642,7 @@
   }
 }
 
-/* Muted sold grid — more columns to reduce visual weight */
+/* Muted sold grid - more columns to reduce visual weight */
 .artwork-grid--sold {
   margin-top: 0;
   opacity: 0.85;
@@ -667,7 +667,7 @@
   }
 }
 
-/* Animate open/close — best-effort (no CSS-only for details content height) */
+/* Animate open/close - best-effort (no CSS-only for details content height) */
 .artwork-sold-details .artwork-grid--sold {
   animation: none;
 }

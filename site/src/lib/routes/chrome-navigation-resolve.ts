@@ -203,7 +203,7 @@ export function resolveChromeNavigationHref(
 /**
  * Per-artwork pages and the collection live at location-free URLs (`SEO-0022`).
  * The language switcher must keep the visitor on the same artwork (or collection)
- * when toggling sv ↔ en. Berlin/German targets fall back to the default home —
+ * when toggling sv ↔ en. Berlin/German targets fall back to the default home -
  * there is no German artworks subsystem.
  */
 function resolveArtworkPeer(

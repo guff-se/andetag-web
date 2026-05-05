@@ -15,7 +15,7 @@ export const STOCKHOLM_CORPORATE_PRICING = {
   groupPerPersonSek: 240,
   /**
    * Starting hourly rate when the museum is reserved exclusively for one
-   * group (SEK). Final price depends on time of day and day of week — copy
+   * group (SEK). Final price depends on time of day and day of week - copy
    * everywhere this number renders should say "from {price}", not a flat rate.
    */
   exclusiveHourlySek: 5000,

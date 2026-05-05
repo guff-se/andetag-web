@@ -24,7 +24,7 @@ const counts = {
   formatDiptych: available.filter((a) => a.format === "diptych").length,
 };
 
-// Serialize artworks for modal JS — order: available originals, gems, sold originals
+// Serialize artworks for modal JS - order: available originals, gems, sold originals
 const modalOrder = [...available, ...gems, ...sold];
 const artworksJson = JSON.stringify(modalOrder.map((a) => ({
   id: a.id,

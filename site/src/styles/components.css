@@ -400,7 +400,7 @@
 .component-hero-cover-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(17, 17, 17, 0.16);
+  background: rgba(17, 17, 17, 0.15);
 }
 
 .component-hero-content {
@@ -2511,7 +2511,7 @@ body.lightbox-open {
  * MediaCopySection (`site/src/components/content/MediaCopySection.astro`):
  * single section that pairs a figure with copy in a 2-col grid at ≥768px and
  * stacks on mobile. The component owns the grid so page bodies never wrap a
- * `ContentSection` (or other top-level page block) in an ad-hoc grid div —
+ * `ContentSection` (or other top-level page block) in an ad-hoc grid div -
  * that pattern produced empty cells when image height ≠ copy height (see
  * 2026-04 corporate-events rebuild and `skills/images/SKILL.md` §L5).
  *
