@@ -4,11 +4,36 @@
  */
 import {
   STOCKHOLM_RATING,
+  STOCKHOLM_TRAVELLERS_CHOICE,
   STOCKHOLM_TRIPADVISOR_URL,
   stockholmTripadvisorRatingCommaDecimal,
 } from "./stockholm-reviews";
 
 export const stockholmTripadvisorReviewsUrl = STOCKHOLM_TRIPADVISOR_URL;
+
+/**
+ * Travellers' Choice 2026 badge content per locale. Stockholm only — do not import
+ * from Berlin pages (the award is for ANDETAG Stockholm specifically).
+ */
+export const stockholmTravellersChoiceBadgeSv = {
+  imageSrc: STOCKHOLM_TRAVELLERS_CHOICE.badgeSrc,
+  imageAlt: `Tripadvisor Travellers' Choice ${STOCKHOLM_TRAVELLERS_CHOICE.year}, utmärkelse tilldelad ANDETAG`,
+  eyebrow: "Tripadvisor",
+  headline: "Travellers' Choice",
+  year: String(STOCKHOLM_TRAVELLERS_CHOICE.year),
+  linkHref: STOCKHOLM_TRIPADVISOR_URL,
+  linkAriaLabel: `Travellers' Choice ${STOCKHOLM_TRAVELLERS_CHOICE.year}, läs omdömen på Tripadvisor`,
+} as const;
+
+export const stockholmTravellersChoiceBadgeEn = {
+  imageSrc: STOCKHOLM_TRAVELLERS_CHOICE.badgeSrc,
+  imageAlt: `Tripadvisor Travellers' Choice ${STOCKHOLM_TRAVELLERS_CHOICE.year} award given to ANDETAG`,
+  eyebrow: "Tripadvisor",
+  headline: "Travellers' Choice",
+  year: String(STOCKHOLM_TRAVELLERS_CHOICE.year),
+  linkHref: STOCKHOLM_TRIPADVISOR_URL,
+  linkAriaLabel: `Travellers' Choice ${STOCKHOLM_TRAVELLERS_CHOICE.year}, read reviews on Tripadvisor`,
+} as const;
 
 export const stockholmTestimonialAggregateSv = {
   eyebrow: "Besökaromdömen",

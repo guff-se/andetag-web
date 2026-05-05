@@ -4,6 +4,7 @@ import { buildCanonicalUrl, CANONICAL_HOST, languageToHreflangAttribute } from "
 import {
   STOCKHOLM_FEATURED_REVIEWS,
   STOCKHOLM_RATING,
+  STOCKHOLM_TRAVELLERS_CHOICE,
 } from "../content/stockholm-reviews";
 import {
   STOCKHOLM_ART_YOGA_EVENT,
@@ -431,6 +432,7 @@ function buildStockholmVenueSchema(ctx: SchemaPageContext): { "@context": string
         reviewCount: STOCKHOLM_RATING.reviewCount,
         bestRating: STOCKHOLM_RATING.bestRating,
       },
+      award: STOCKHOLM_TRAVELLERS_CHOICE.awardName,
       review: STOCKHOLM_FEATURED_REVIEWS.map((r) => ({
         "@type": "Review",
         author: { "@type": "Person", name: r.author },

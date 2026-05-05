@@ -116,6 +116,25 @@ Same as §C — treat the whole array as a list edit and re-sync the drift hotsp
 
 Out of scope for this skill. Background image belongs to `skills/images/SKILL.md` (`testimonialCarouselDefaultBg`). Carousel behaviour is a component-level change (`site/src/components/content/TestimonialCarousel.astro`).
 
+### F. Bump the Tripadvisor Travellers' Choice award year (annual)
+
+Tripadvisor announces a new Travellers' Choice list each spring. When the museum is awarded for a new year (or removed from the list), update in lockstep:
+
+1. **Source of truth** — `site/src/lib/content/stockholm-reviews.ts`:
+   - `STOCKHOLM_TRAVELLERS_CHOICE.year` → new number.
+   - `STOCKHOLM_TRAVELLERS_CHOICE.awardName` → `"Tripadvisor Travellers' Choice <year>"`.
+   - `STOCKHOLM_TRAVELLERS_CHOICE.badgeSrc` → if Tripadvisor ships a new SVG, save it to `site/public/assets/tripadvisor/tripadvisor-travellers-choice-<year>.svg` and point here.
+   - Bump `Last verified`.
+2. **Schema-org test** — `site/src/lib/chrome/schema-org.test.ts` pins the award string. Update the assertion (`expect(venue!.award).toBe("Tripadvisor Travellers' Choice <year>")`).
+3. **Besökaromdömen / visitor-reviews bullet** — both `BesokaromdomenSv.astro` and `BesokaromdomenEn.astro` reference `STOCKHOLM_TRAVELLERS_CHOICE.year` in the overview list, so they auto-update. Confirm with `git grep STOCKHOLM_TRAVELLERS_CHOICE`.
+4. **Pages that render the badge** (auto-propagate via `stockholmTravellersChoiceBadge{Sv,En}`): `StockholmHomeSv/En.astro`, `StockholmSeoLandingSv/En.astro`. Berlin pages do **not** import the badge — keep it that way unless Berlin is also awarded.
+5. If the museum is **not** re-awarded for a given year:
+   - Remove the `awardBadge={…}` prop from each Stockholm carousel call site (4 pages).
+   - Drop the `award` field from the Museum node in `schema-org.ts` and the matching test assertion.
+   - Drop the new bullet in both `besokaromdomen`/`visitor-reviews` bodies.
+   - Keep `STOCKHOLM_TRAVELLERS_CHOICE` exported (commented-out historical record) so the next year's bump is mechanical.
+6. Verification: §Verification, plus `grep -lr 'tripadvisor-travellers-choice' dist/` should match every Stockholm carousel page (currently 14: Stockholm home pair + 6 SEO landing pairs); Berlin pages must be absent.
+
 ## Verification
 
 Run from `site/`.

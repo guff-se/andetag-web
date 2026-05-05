@@ -22,6 +22,17 @@ type TestimonialAggregate = {
   showTripAdvisorBrand?: boolean;
 };
 
+/** Optional award lockup rendered above the aggregate strip (e.g. Travellers' Choice). */
+type AwardBadge = {
+  imageSrc: string;
+  imageAlt: string;
+  eyebrow: string;
+  headline: string;
+  year: string;
+  linkHref: string;
+  linkAriaLabel: string;
+};
+
 const tripadvisorDotsSrc = "/assets/tripadvisor/tripadvisor-5dots.png";
 const tripadvisorLogoSrc = "/assets/tripadvisor/tripadvisor-logo.svg";
 
@@ -33,6 +44,7 @@ type Props = {
   backgroundImageAlt?: string;
   autoplayMs?: number;
   aggregate?: TestimonialAggregate;
+  awardBadge?: AwardBadge;
   prevLabel?: string;
   nextLabel?: string;
 };
@@ -43,6 +55,7 @@ const {
   backgroundImageAlt = "",
   autoplayMs = 6000,
   aggregate,
+  awardBadge,
   prevLabel = "Previous testimonial",
   nextLabel = "Next testimonial",
 } = Astro.props as Props;
@@ -116,6 +129,32 @@ const showTripAdvisorBrand = aggregate ? aggregate.showTripAdvisorBrand !== fals
     aggregate ? (
       <div class="testimonial-block__aggregate">
         <div class="testimonial-block__aggregate-inner" role="region" aria-label={regionLabel}>
+          {
+            awardBadge ? (
+              <a
+                class="testimonial-block__award"
+                href={awardBadge.linkHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={awardBadge.linkAriaLabel}
+              >
+                <img
+                  class="testimonial-block__award-mark"
+                  src={awardBadge.imageSrc}
+                  alt={awardBadge.imageAlt}
+                  width="64"
+                  height="64"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <span class="testimonial-block__award-text">
+                  <span class="testimonial-block__award-eyebrow">{awardBadge.eyebrow}</span>
+                  <span class="testimonial-block__award-headline">{awardBadge.headline}</span>
+                  <span class="testimonial-block__award-year">{awardBadge.year}</span>
+                </span>
+              </a>
+            ) : null
+          }
           <p class="testimonial-block__aggregate-eyebrow">{aggregate.eyebrow}</p>
           {
             showTripAdvisorBrand ? (
