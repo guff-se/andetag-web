@@ -2002,6 +2002,23 @@ body.lightbox-open {
   right: 0.4rem;
 }
 
+/* Gems row (three tiles): wide viewports show a centered strip, no arrows. */
+@media (min-width: 900px) {
+  .artwork-sales-slider__row--carousel-mobile .artwork-sales-slider__btn {
+    display: none;
+  }
+
+  .artwork-sales-slider__row--carousel-mobile .artwork-sales-slider__track {
+    overflow-x: visible;
+    justify-content: center;
+    scroll-snap-type: none;
+  }
+
+  .artwork-sales-slider__row--carousel-mobile .artwork-sales-slider__item {
+    scroll-snap-align: none;
+  }
+}
+
 .artwork-sales-slider__footer {
   display: flex;
   justify-content: center;

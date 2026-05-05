@@ -15,9 +15,11 @@ import landPolys from "../../data/map/land-110m.json";
 type Props = {
   artworks: readonly Artwork[];
   language: "sv" | "en";
+  /** When set, the pin group containing this artwork id renders with the brand-red highlight. */
+  highlightArtworkId?: string;
 };
 
-const { artworks, language } = Astro.props as Props;
+const { artworks, language, highlightArtworkId } = Astro.props as Props;
 
 const VIEW_W = 1100;
 const VIEW_H = 460;
@@ -87,6 +89,9 @@ const pins = [...pinGroups.values()].map((g) => {
   const [cx, cy] = project(g.lon, g.lat);
   const onlyAvailable = g.members.every((m) => m.status !== "sold");
   const labelLocale = g.members[0]!.location.label[language];
+  const isHighlight =
+    highlightArtworkId !== undefined &&
+    g.members.some((m) => m.id === highlightArtworkId);
   return {
     key: g.key,
     cx,
@@ -95,11 +100,12 @@ const pins = [...pinGroups.values()].map((g) => {
     onlyAvailable,
     label: labelLocale,
     artworkIds: g.members.map((m) => m.id),
+    isHighlight,
   };
 });
 
 const sectionLabel =
-  language === "sv" ? "Karta över Andetagverkens platser" : "Map of where Andetag artworks live";
+  language === "sv" ? "Karta över Andetag-konstverkens platser" : "Map of where Andetag artworks live";
 ---
 
 <section class="artwork-map" aria-label={sectionLabel}>
@@ -126,6 +132,7 @@ const sectionLabel =
           class:list={[
             "artwork-map__pin",
             pin.onlyAvailable ? "is-available" : "is-mixed",
+            pin.isHighlight ? "is-highlight" : null,
           ]}
           data-pin-id={pin.key}
           data-artwork-ids={pin.artworkIds.join(" ")}

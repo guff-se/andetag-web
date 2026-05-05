@@ -79,10 +79,15 @@ describe("page shell registry", () => {
   it("avoids cross-location hreflang (Stockholm vs Berlin)", () => {
     for (const path of PAGE_SHELL_PATHS) {
       const shell = getPageShellRoute(path);
-      if (path.startsWith("/sv/") || path.startsWith("/en/stockholm")) {
+      if (path.startsWith("/sv/") || path.startsWith("/en/stockholm") || path === "/en/artworks/") {
         expect(shell.hreflang.de).toBeNull();
         if (shell.hreflang.en) {
-          expect(shell.hreflang.en.startsWith("/en/stockholm")).toBe(true);
+          // Stockholm shells pair across `/en/stockholm/`; the location-free
+          // artworks subsystem (SEO-0022) pairs across `/en/artworks/`.
+          expect(
+            shell.hreflang.en.startsWith("/en/stockholm") ||
+              shell.hreflang.en.startsWith("/en/artworks/"),
+          ).toBe(true);
         }
       }
       if (path === "/en/") {

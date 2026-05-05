@@ -4,6 +4,8 @@ import {
   ANDETAG_ORIGINAL_TOTAL,
   ARTWORKS,
   type ArtworkMood,
+  artworkPublicSlug,
+  findArtworkByPublicSlug,
   getCatalogueTotals,
 } from "./artworks";
 
@@ -90,6 +92,29 @@ describe("artworks catalogue", () => {
         expect(["on-exhibition", "in-studio"]).toContain(a.status);
       }
     }
+  });
+
+  it("public slug is unique, ASCII-lowercase, and matches the locked pattern", () => {
+    const slugs = new Set<string>();
+    for (const a of ARTWORKS) {
+      const slug = artworkPublicSlug(a);
+      expect(slug).toMatch(/^[a-z0-9-]+$/);
+      if (a.series === "original") {
+        expect(slug).toBe(`andetag-no-${a.number}`);
+      } else {
+        expect(slug).toBe(`andetag-${a.id}`);
+        expect(slug.startsWith("andetag-gem-")).toBe(true);
+      }
+      expect(slugs.has(slug)).toBe(false);
+      slugs.add(slug);
+    }
+  });
+
+  it("findArtworkByPublicSlug round-trips for every artwork", () => {
+    for (const a of ARTWORKS) {
+      expect(findArtworkByPublicSlug(artworkPublicSlug(a))?.id).toBe(a.id);
+    }
+    expect(findArtworkByPublicSlug("not-a-real-slug")).toBeUndefined();
   });
 
   it("totals match the declared series sizes", () => {

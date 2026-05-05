@@ -14,7 +14,9 @@
  *
  * Images live in assets/artworks/ (source) and are served from
  * site/public/images/artworks/{id}/ (derivatives). Each original has
- * light, dark, and mid photos (nos. 22 and 29 have dark + mid only).
+ * light, dark, and mid photos (no. 29 has no mid). Some originals add
+ * close-up, person-scale, or alternative views as extra stems
+ * (`closeup-1`, `person-1`, `alt-1`, …) after the base moods.
  * Gems have dedicated photos processed into site/public/images/artworks/gem-{name}/.
  */
 
@@ -208,25 +210,28 @@ function p(
 function origPhotos(n: number): readonly ArtworkImage[] {
   const id = `andetag-${n}`;
   const num = `no. ${n}`;
-  const hasLight = n !== 22 && n !== 29;
+  // Per-piece mood availability. Most originals carry all three moods; a few
+  // pieces lack a specific mood master in `assets/artworks/`. Keep this list
+  // anchored to the actual files on disk under `site/public/images/artworks/`.
+  const hasMid = n !== 29;
   const arr: ArtworkImage[] = [];
-  if (hasLight) {
-    arr.push(p(
-      id, "light",
-      `Verket Andetag ${num}, textilskulptur i spotlight.`,
-      `The artwork Andetag ${num}, textile sculpture in spotlight.`,
-    ));
-  }
+  arr.push(p(
+    id, "light",
+    `Verket Andetag ${num}, textilskulptur i spotlight.`,
+    `The artwork Andetag ${num}, textile sculpture in spotlight.`,
+  ));
   arr.push(p(
     id, "dark",
     `Verket Andetag ${num}, lysande textilskulptur i mörker.`,
     `The artwork Andetag ${num}, luminous textile sculpture in darkness.`,
   ));
-  arr.push(p(
-    id, "mid",
-    `Verket Andetag ${num}, textilskulptur i mjukt omgivningsljus.`,
-    `The artwork Andetag ${num}, textile sculpture in soft ambient light.`,
-  ));
+  if (hasMid) {
+    arr.push(p(
+      id, "mid",
+      `Verket Andetag ${num}, textilskulptur i mjukt omgivningsljus.`,
+      `The artwork Andetag ${num}, textile sculpture in soft ambient light.`,
+    ));
+  }
   return arr;
 }
 
@@ -245,6 +250,11 @@ function gemPhoto(
     mood,
     alt: { sv, en },
   };
+}
+
+/** Base light / dark / mid moods plus optional extra catalogue photos. */
+function origWith(n: number, ...extras: ArtworkImage[]): readonly ArtworkImage[] {
+  return [...origPhotos(n), ...extras];
 }
 
 const GEM_EMERALD_IMAGES: readonly ArtworkImage[] = [
@@ -373,7 +383,12 @@ export const ARTWORKS: readonly Artwork[] = [
     status: "on-exhibition",
     priceSek: 190000,
     location: ANDETAG_MUSEUM,
-    images: origPhotos(5),
+    images: origWith(
+      5,
+      gemPhoto("andetag-5", "person-1", "person",
+        "Verket Andetag no. 5 med en person i ramen som visar textilskulpturens storlek.",
+        "The artwork Andetag no. 5 with a person in the frame showing the textile sculpture's scale."),
+    ),
   },
   {
     id: "andetag-6",
@@ -398,7 +413,12 @@ export const ARTWORKS: readonly Artwork[] = [
     status: "on-exhibition",
     priceSek: 190000,
     location: ANDETAG_MUSEUM,
-    images: origPhotos(7),
+    images: origWith(
+      7,
+      gemPhoto("andetag-7", "person-1", "person",
+        "Verket Andetag no. 7 med en person i ramen som visar textilskulpturens storlek.",
+        "The artwork Andetag no. 7 with a person in the frame showing the textile sculpture's scale."),
+    ),
   },
   {
     id: "andetag-8",
@@ -471,7 +491,12 @@ export const ARTWORKS: readonly Artwork[] = [
     status: "on-exhibition",
     priceSek: 190000,
     location: ANDETAG_MUSEUM,
-    images: origPhotos(13),
+    images: origWith(
+      13,
+      gemPhoto("andetag-13", "person-1", "person",
+        "Verket Andetag no. 13 med en person i ramen som visar textilskulpturens storlek.",
+        "The artwork Andetag no. 13 with a person in the frame showing the textile sculpture's scale."),
+    ),
   },
   {
     id: "andetag-14",
@@ -556,7 +581,18 @@ export const ARTWORKS: readonly Artwork[] = [
     status: "on-exhibition",
     priceSek: 190000,
     location: ANDETAG_MUSEUM,
-    images: origPhotos(20),
+    images: origWith(
+      20,
+      gemPhoto("andetag-20", "closeup-1", "closeup",
+        "Närbild av verket Andetag no. 20, vävda strukturer i optisk fibertextil.",
+        "Close-up of the artwork Andetag no. 20, woven structure in optical fibre textile."),
+      gemPhoto("andetag-20", "person-1", "person",
+        "Verket Andetag no. 20 med en person i ramen som visar textilskulpturens storlek.",
+        "The artwork Andetag no. 20 with a person in the frame showing the textile sculpture's scale."),
+      gemPhoto("andetag-20", "person-2", "person",
+        "Verket Andetag no. 20, ytterligare vy med en person bredvid textilskulpturen.",
+        "The artwork Andetag no. 20, another view with a person beside the textile sculpture."),
+    ),
   },
   {
     id: "andetag-21",
@@ -581,7 +617,18 @@ export const ARTWORKS: readonly Artwork[] = [
     status: "on-exhibition",
     priceSek: 190000,
     location: ANDETAG_MUSEUM,
-    images: origPhotos(22),
+    images: origWith(
+      22,
+      gemPhoto("andetag-22", "closeup-1", "closeup",
+        "Närbild av verket Andetag no. 22, vävda strukturer i optisk fibertextil.",
+        "Close-up of the artwork Andetag no. 22, woven structure in optical fibre textile."),
+      gemPhoto("andetag-22", "closeup-2", "closeup",
+        "Verket Andetag no. 22, ytterligare närbild av textilens vävda yta.",
+        "The artwork Andetag no. 22, further close-up of the textile weave."),
+      gemPhoto("andetag-22", "person-1", "person",
+        "Verket Andetag no. 22 med en person i ramen som visar textilskulpturens storlek.",
+        "The artwork Andetag no. 22 with a person in the frame showing the textile sculpture's scale."),
+    ),
   },
   {
     id: "andetag-23",
@@ -606,7 +653,18 @@ export const ARTWORKS: readonly Artwork[] = [
     status: "on-exhibition",
     priceSek: 190000,
     location: ANDETAG_MUSEUM,
-    images: origPhotos(24),
+    images: origWith(
+      24,
+      gemPhoto("andetag-24", "closeup-1", "closeup",
+        "Närbild av verket Andetag no. 24, vävda strukturer i optisk fibertextil.",
+        "Close-up of the artwork Andetag no. 24, woven structure in optical fibre textile."),
+      gemPhoto("andetag-24", "person-1", "person",
+        "Verket Andetag no. 24 med en person i ramen som visar textilskulpturens storlek.",
+        "The artwork Andetag no. 24 with a person in the frame showing the textile sculpture's scale."),
+      gemPhoto("andetag-24", "person-2", "person",
+        "Verket Andetag no. 24, ytterligare vy med en person bredvid textilskulpturen.",
+        "The artwork Andetag no. 24, another view with a person beside the textile sculpture."),
+    ),
   },
   {
     id: "andetag-25",
@@ -619,7 +677,18 @@ export const ARTWORKS: readonly Artwork[] = [
     status: "on-exhibition",
     priceSek: 190000,
     location: ANDETAG_MUSEUM,
-    images: origPhotos(25),
+    images: origWith(
+      25,
+      gemPhoto("andetag-25", "closeup-1", "closeup",
+        "Närbild av verket Andetag no. 25, vävda strukturer i optisk fibertextil.",
+        "Close-up of the artwork Andetag no. 25, woven structure in optical fibre textile."),
+      gemPhoto("andetag-25", "closeup-2", "closeup",
+        "Verket Andetag no. 25, ytterligare närbild av textilens vävda yta.",
+        "The artwork Andetag no. 25, further close-up of the textile weave."),
+      gemPhoto("andetag-25", "person-1", "person",
+        "Verket Andetag no. 25 med en person i ramen som visar textilskulpturens storlek.",
+        "The artwork Andetag no. 25 with a person in the frame showing the textile sculpture's scale."),
+    ),
   },
   {
     id: "andetag-26",
@@ -632,7 +701,18 @@ export const ARTWORKS: readonly Artwork[] = [
     status: "on-exhibition",
     priceSek: 190000,
     location: ANDETAG_MUSEUM,
-    images: origPhotos(26),
+    images: origWith(
+      26,
+      gemPhoto("andetag-26", "closeup-1", "closeup",
+        "Närbild av verket Andetag no. 26, vävda strukturer i optisk fibertextil.",
+        "Close-up of the artwork Andetag no. 26, woven structure in optical fibre textile."),
+      gemPhoto("andetag-26", "closeup-2", "closeup",
+        "Verket Andetag no. 26, ytterligare närbild av textilens vävda yta.",
+        "The artwork Andetag no. 26, further close-up of the textile weave."),
+      gemPhoto("andetag-26", "person-1", "person",
+        "Verket Andetag no. 26 med en person i ramen som visar textilskulpturens storlek.",
+        "The artwork Andetag no. 26 with a person in the frame showing the textile sculpture's scale."),
+    ),
   },
   {
     id: "andetag-27",
@@ -657,7 +737,15 @@ export const ARTWORKS: readonly Artwork[] = [
     status: "on-exhibition",
     priceSek: 190000,
     location: ANDETAG_MUSEUM,
-    images: origPhotos(28),
+    images: origWith(
+      28,
+      gemPhoto("andetag-28", "alt-1", "alternative",
+        "Verket Andetag no. 28, alternativ vy av textilskulpturen.",
+        "The artwork Andetag no. 28, alternative view of the textile sculpture."),
+      gemPhoto("andetag-28", "alt-2", "alternative",
+        "Verket Andetag no. 28, ytterligare alternativ vy av textilskulpturen.",
+        "The artwork Andetag no. 28, further alternative view of the textile sculpture."),
+    ),
   },
   {
     id: "andetag-29",
@@ -695,7 +783,15 @@ export const ARTWORKS: readonly Artwork[] = [
     status: "in-studio",
     priceSek: 190000,
     location: STUDIO,
-    images: origPhotos(31),
+    images: origWith(
+      31,
+      gemPhoto("andetag-31", "alt-1", "alternative",
+        "Verket Andetag no. 31, alternativ vy av textilskulpturen.",
+        "The artwork Andetag no. 31, alternative view of the textile sculpture."),
+      gemPhoto("andetag-31", "alt-2", "alternative",
+        "Verket Andetag no. 31, ytterligare alternativ vy av textilskulpturen.",
+        "The artwork Andetag no. 31, further alternative view of the textile sculpture."),
+    ),
   },
   {
     id: "andetag-35",
@@ -708,7 +804,18 @@ export const ARTWORKS: readonly Artwork[] = [
     status: "on-exhibition",
     priceSek: 340000,
     location: ANDETAG_MUSEUM,
-    images: origPhotos(35),
+    images: origWith(
+      35,
+      gemPhoto("andetag-35", "closeup-1", "closeup",
+        "Närbild av verket Andetag no. 35, vävda strukturer i optisk fibertextil.",
+        "Close-up of the artwork Andetag no. 35, woven structure in optical fibre textile."),
+      gemPhoto("andetag-35", "closeup-2", "closeup",
+        "Verket Andetag no. 35, ytterligare närbild av textilens vävda yta.",
+        "The artwork Andetag no. 35, further close-up of the textile weave."),
+      gemPhoto("andetag-35", "person-1", "person",
+        "Verket Andetag no. 35 med en person i ramen som visar textilskulpturens storlek.",
+        "The artwork Andetag no. 35 with a person in the frame showing the textile sculpture's scale."),
+    ),
   },
   {
     id: "andetag-40",
@@ -781,6 +888,27 @@ export const ARTWORKS: readonly Artwork[] = [
 /** Planned total for the series (not all works exist yet). */
 export const ANDETAG_ORIGINAL_TOTAL = 50;
 export const ANDETAG_GEM_TOTAL = 3;
+
+/**
+ * Public, human-readable URL slug for an artwork's per-artwork page.
+ * Originals: `andetag-no-<N>`. Gems: `andetag-gem-<name>`.
+ * `Artwork.id` stays the internal key (DOM ids, inquiry `?about=`, JSON-LD `@id`,
+ * image directories). Only the browser-facing path segment uses this slug.
+ */
+export function artworkPublicSlug(a: Artwork): string {
+  if (a.series === "gem") {
+    return `andetag-${a.id}`;
+  }
+  return a.id.replace(/^andetag-/, "andetag-no-");
+}
+
+const ARTWORK_BY_PUBLIC_SLUG = new Map<string, Artwork>(
+  ARTWORKS.map((a) => [artworkPublicSlug(a), a]),
+);
+
+export function findArtworkByPublicSlug(slug: string): Artwork | undefined {
+  return ARTWORK_BY_PUBLIC_SLUG.get(slug);
+}
 
 /** Catalogue totals derived from actual data (used by intro copy + schema). */
 export function getCatalogueTotals(artworks: readonly Artwork[]): {

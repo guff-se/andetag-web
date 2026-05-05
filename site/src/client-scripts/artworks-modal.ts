@@ -9,7 +9,9 @@ type ModalImage = {
 };
 
 type ModalArtwork = {
-  id: string; series: string; number?: number;
+  id: string;
+  pageHref?: string;
+  series: string; number?: number;
   edition?: { size: number; available: number };
   titleSv: string; titleEn: string;
   year: number; w: number; h: number;
@@ -46,6 +48,7 @@ if (!w.__andetagModal) {
   const priceEl   = modal.querySelector<HTMLElement>("[data-modal-price]")!;
   const detailsEl = modal.querySelector<HTMLElement>("[data-modal-details]")!;
   const inquireEl = modal.querySelector<HTMLElement>("[data-modal-inquire]")!;
+  const openPageEl = modal.querySelector<HTMLElement>("[data-modal-open-page]");
 
   const lightbox        = document.getElementById("artwork-lightbox")!;
   const lightboxImgWrap = lightbox?.querySelector<HTMLElement>("[data-lightbox-img-wrap]");
@@ -57,6 +60,63 @@ if (!w.__andetagModal) {
 
   function esc(s: string): string {
     return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  /** File stem before `-960w.jpg` etc., e.g. `closeup-2`, `alt-1`, `light`. */
+  function derivativeStem(img: ModalImage): string | null {
+    const u = img.fullSrc ?? img.src;
+    const m = u.match(/\/([^/]+)-(640w|960w|1920w)\.(webp|jpg)$/i);
+    return m ? m[1]! : null;
+  }
+
+  /**
+   * Short strip label for the mood switcher. Primaries stay spotlight-lit vs dark;
+   * other stems use the derivative filename so close-ups, people shots, and alt
+   * angles do not all read as one ambient bucket.
+   */
+  function moodStripLabel(img: ModalImage): string {
+    const stem = derivativeStem(img);
+    const sv = lang === "sv";
+
+    if (stem) {
+      if (stem === "light") return sv ? "Belyst" : "Light";
+      if (stem === "dark") return sv ? "Mörker" : "Dark";
+      if (stem === "mid") return sv ? "Mjukt rumsijus" : "Room light";
+
+      const closeupN = /^closeup-(\d+)$/.exec(stem);
+      if (closeupN) {
+        const n = parseInt(closeupN[1]!, 10);
+        if (n === 1) return sv ? "Närbild" : "Close-up";
+        if (n === 2) return sv ? "Närbild, struktur" : "Close-up, texture";
+        return sv ? `Närbild (${n})` : `Close-up (${n})`;
+      }
+
+      const personN = /^person-(\d+)$/.exec(stem);
+      if (personN) {
+        const n = parseInt(personN[1]!, 10);
+        if (n === 1) return sv ? "Med person" : "With a person";
+        if (n === 2) return sv ? "Med person, ny vinkel" : "With a person, new angle";
+        return sv ? `Med person (${n})` : `With a person (${n})`;
+      }
+
+      const altN = /^alt-(\d+)$/.exec(stem);
+      if (altN) {
+        const n = parseInt(altN[1]!, 10);
+        if (n === 1) return sv ? "Annan vinkel" : "Another angle";
+        if (n === 2) return sv ? "Ytterligare vinkel" : "Further angle";
+        return sv ? `Vinkel (${n})` : `Angle (${n})`;
+      }
+    }
+
+    const m = img.mood;
+    if (m === "light") return sv ? "Belyst" : "Light";
+    if (m === "dark") return sv ? "Mörker" : "Dark";
+    if (m === "mid") return sv ? "Mjukt rumsijus" : "Room light";
+    if (m === "closeup") return sv ? "Närbild" : "Close-up";
+    if (m === "person") return sv ? "Med person" : "With a person";
+    if (m === "context") return sv ? "I rummet" : "In situ";
+    if (m === "alternative") return sv ? "Alternativ vy" : "Alternative view";
+    return sv ? "Vy" : "View";
   }
 
   function openModal(idx: number) {
@@ -108,19 +168,22 @@ if (!w.__andetagModal) {
 
   function renderMoods(artwork: ModalArtwork) {
     if (artwork.images.length < 2) { moodsEl.innerHTML = ""; return; }
-    const moodLabel = (m: string) => {
-      if (m === "light") return lang === "sv" ? "Belyst" : "Spotlight";
-      if (m === "dark")  return lang === "sv" ? "Mörker"  : "Darkness";
-      return lang === "sv" ? "Omgivning" : "Ambient";
-    };
+    const baseLabels = artwork.images.map((img) => moodStripLabel(img));
+    const seen = new Map<string, number>();
+    const labels = baseLabels.map((lab) => {
+      const n = (seen.get(lab) ?? 0) + 1;
+      seen.set(lab, n);
+      return n === 1 ? lab : `${lab} · ${n}`;
+    });
     moodsEl.innerHTML = "";
     artwork.images.forEach((img, i) => {
+      const label = labels[i]!;
       const btn = document.createElement("button");
       btn.type = "button";
       btn.className = "artwork-modal__mood-btn" + (i === currentMoodIdx ? " is-active" : "");
       btn.dataset.moodIdx = String(i);
       btn.setAttribute("aria-pressed", String(i === currentMoodIdx));
-      btn.textContent = moodLabel(img.mood);
+      btn.textContent = label;
       btn.addEventListener("click", () => {
         currentMoodIdx = i;
         renderImg(artwork.images[i]!);
@@ -188,6 +251,14 @@ if (!w.__andetagModal) {
     }
     detailsEl.innerHTML = html;
 
+    // Open per-artwork page (always shown)
+    if (openPageEl && a.pageHref) {
+      (openPageEl as HTMLAnchorElement).href = a.pageHref;
+      openPageEl.removeAttribute("hidden");
+    } else if (openPageEl) {
+      openPageEl.setAttribute("hidden", "");
+    }
+
     // Inquire
     if (a.status !== "sold") {
       (inquireEl as HTMLAnchorElement).href = `#inquiry?about=${a.id}`;
@@ -216,8 +287,14 @@ if (!w.__andetagModal) {
     if (t.closest("[data-modal-next]")) { navigate(1); return; }
     const tile = t.closest<HTMLElement>("[data-artwork-tile]");
     if (tile) {
+      // Tile is now an <a> link to the per-artwork page (progressive
+      // enhancement: navigates when JS fails). With JS, intercept and open
+      // the quick-view modal instead.
       const idx = artworks.findIndex(a => a.id === tile.dataset.artworkId);
-      if (idx !== -1) openModal(idx);
+      if (idx !== -1) {
+        e.preventDefault();
+        openModal(idx);
+      }
     }
   });
 

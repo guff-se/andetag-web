@@ -1,7 +1,7 @@
 /*
  * Artworks page styles.
  *
- * Scoped to `/sv/stockholm/konstverk/` and `/en/stockholm/artworks/`.
+ * Scoped to `/sv/konstverk/` and `/en/artworks/`.
  * Imported once from `KonstverkSv.astro` / `ArtworksEn.astro`.
  *
  * Visual language:
@@ -32,7 +32,42 @@
   margin: 0 0 3.5rem;
 }
 
-.page-artworks__lead h1 {
+/* Lead opening copy + right-floated figure (all intro paragraphs through the CTA).
+   `flow-root` keeps the float inside this block so the H1 above stays full width. */
+.page-artworks__lead-intro {
+  display: flow-root;
+}
+
+/* Right-floated illustrative figure inside the lead (e.g. an Andetag work in a
+   private home). On narrow viewports the float is removed so the figure sits
+   above the lead copy and reads as an opening image. */
+.page-artworks__lead-figure {
+  float: right;
+  width: clamp(220px, 36%, 380px);
+  margin: 0.25rem 0 1rem 1.75rem;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.page-artworks__lead-figure picture,
+.page-artworks__lead-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+@media (max-width: 600px) {
+  .page-artworks__lead-figure {
+    float: none;
+    width: 100%;
+    margin: 0 0 1.5rem;
+  }
+}
+
+/* Lead H1 and selected section H2s (App, world map): same display scale. */
+.page-artworks__lead h1,
+.page-artworks__group-heading,
+.page-artworks__section-heading.page-artworks__section-heading--display {
   font-family: "JostLocal", "Jost", sans-serif;
   font-weight: 500;
   font-size: clamp(1.25rem, 3.2vw, 1.85rem);
@@ -41,6 +76,10 @@
   line-height: 1.25;
   margin: 0 0 1.5rem;
   color: var(--artwork-pink);
+}
+
+.page-artworks__group-heading {
+  margin: 2.5rem 0 1.75rem;
 }
 
 .page-artworks__lead p {
@@ -124,6 +163,17 @@
 
 .artwork-map__pin.is-mixed .artwork-map__pin-dot {
   fill: rgba(74, 13, 47, 0.45);
+}
+
+/* Highlight: brand red `#bc2026` (per `docs/Visual Identity.md`). Used on the
+   per-artwork sold map to mark the artwork the visitor is viewing. */
+.artwork-map__pin.is-highlight .artwork-map__pin-dot {
+  fill: #bc2026;
+  transform: scale(1.4);
+}
+
+.artwork-map__pin.is-highlight .artwork-map__pin-glow {
+  opacity: 1;
 }
 
 .artwork-map__pin-count {
@@ -297,10 +347,34 @@
   margin-top: 0.75rem;
 }
 
+/* App section: H2 on its own row; icon floats with the intro copy only. */
+.page-artworks__section-app-body {
+  display: flow-root;
+}
+
+.page-artworks__app-icon {
+  float: left;
+  width: clamp(96px, 18vw, 160px);
+  aspect-ratio: 1;
+  margin: 0 1.5rem 1rem 0;
+  border-radius: 22.5%;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+.page-artworks__app-icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 /* ============================================================
  * Gallery grid — square tiles
  *
  * 2 col < 600px | 3 col 600–1099px | 4 col 1100–1399px | 5 col ≥ 1400px
+ * (sold-only "In a collection" strip on the artworks page: +1 col via
+ * `.page-artworks__collection-grid`.)
  * ============================================================ */
 
 .artwork-grid-section {
@@ -542,6 +616,30 @@
 .artwork-sold-details[open] .artwork-sold-summary {
   border-bottom: none;
   margin-bottom: 0;
+}
+
+/* "In a collection" / `I samling`: one extra column vs the main catalogue grid so
+   sold tiles read quieter (smaller squares). Scoped to `.page-artworks` only. */
+.page-artworks__collection-grid .artwork-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (min-width: 600px) {
+  .page-artworks__collection-grid .artwork-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1100px) {
+  .page-artworks__collection-grid .artwork-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media (min-width: 1400px) {
+  .page-artworks__collection-grid .artwork-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
 }
 
 /* Muted sold grid — more columns to reduce visual weight */
@@ -825,9 +923,15 @@ body.is-modal-open {
   font-variant-numeric: tabular-nums;
 }
 
-/* Inquire link */
-.artwork-modal__inquire {
-  align-self: flex-start;
+/* Action row: Open page (left) + Inquire (right). Each is a full pill button. */
+.artwork-modal__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-top: auto;
+}
+
+.artwork-modal__btn {
   font-family: "JostLocal", "Jost", sans-serif;
   font-size: 0.78rem;
   letter-spacing: 0.22em;
@@ -839,16 +943,16 @@ body.is-modal-open {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
+  text-decoration: none;
   transition: background 220ms ease, color 220ms ease;
-  margin-top: auto;
 }
 
-.artwork-modal__inquire[hidden] {
+.artwork-modal__btn[hidden] {
   display: none;
 }
 
-.artwork-modal__inquire:hover,
-.artwork-modal__inquire:focus-visible {
+.artwork-modal__btn:hover,
+.artwork-modal__btn:focus-visible {
   background: var(--artwork-pink);
   color: #fafafa;
 }
@@ -1176,4 +1280,119 @@ body.is-modal-open {
   .artwork-tile:hover .artwork-tile__frame.is-base img {
     transform: none;
   }
+}
+
+/* ============================================================
+ * Per-artwork page (/en/artworks/<slug>/, /sv/konstverk/<slug>/)
+ * ============================================================ */
+
+.page-artwork {
+  --artwork-pink: #4a0d2f;
+  --artwork-graphite: #2a2226;
+  --artwork-muted: #635961;
+  --artwork-line: rgba(74, 13, 47, 0.18);
+  color: var(--artwork-graphite);
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 4rem;
+}
+
+.page-artwork__back {
+  margin: 0 0 1.25rem;
+  font-size: 0.95rem;
+}
+
+.page-artwork__back a {
+  color: var(--artwork-pink);
+  text-decoration: none;
+}
+
+.page-artwork__back a:hover {
+  text-decoration: underline;
+}
+
+.page-artwork__lead {
+  margin: 0 0 1.25rem;
+}
+
+.page-artwork__heading {
+  margin: 0 0 0.25rem;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  line-height: 1.15;
+}
+
+.page-artwork__eyebrow {
+  margin: 0;
+  color: var(--artwork-muted);
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.page-artwork__hero {
+  margin: 0 0 1.5rem;
+  border-radius: 6px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.page-artwork__hero picture,
+.page-artwork__hero img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.page-artwork__facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.75rem 1.5rem;
+  margin: 0 0 2.5rem;
+  padding: 1.25rem 0;
+  border-top: 1px solid var(--artwork-line);
+  border-bottom: 1px solid var(--artwork-line);
+}
+
+.page-artwork__fact dt {
+  margin: 0 0 0.15rem;
+  color: var(--artwork-muted);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.page-artwork__fact dd {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.page-artwork__gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  margin: 0 0 2.5rem;
+}
+
+.page-artwork__gallery-item {
+  margin: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.page-artwork__gallery-item picture,
+.page-artwork__gallery-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.page-artwork__map {
+  margin: 0 0 2.5rem;
+}
+
+.page-artwork__map-heading {
+  margin: 0 0 1rem;
+  font-size: 1.25rem;
+  letter-spacing: 0.04em;
 }

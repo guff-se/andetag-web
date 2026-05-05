@@ -97,7 +97,7 @@ const NAVIGATION_VARIANTS: Record<NavigationVariant["id"], NavigationVariant> = 
         href: "/sv/stockholm/om-andetag/",
         children: [
           { label: "Om ANDETAG", href: "/sv/stockholm/om-andetag/" },
-          { label: "Konstverk", href: "/sv/stockholm/konstverk/" },
+          { label: "Konstverk", href: "/sv/konstverk/" },
           { label: "Textilen", href: "/sv/stockholm/optisk-fibertextil/" },
           { label: "Musiken", href: "/sv/stockholm/musik/" },
           { label: "Om konstnärerna", href: "/sv/stockholm/om-konstnarerna-malin-gustaf-tadaa/" },
@@ -148,7 +148,7 @@ const NAVIGATION_VARIANTS: Record<NavigationVariant["id"], NavigationVariant> = 
         href: "/en/stockholm/about-andetag/",
         children: [
           { label: "About ANDETAG", href: "/en/stockholm/about-andetag/" },
-          { label: "Artworks", href: "/en/stockholm/artworks/" },
+          { label: "The Artworks", href: "/en/artworks/" },
           { label: "The Textile", href: "/en/stockholm/optical-fibre-textile/" },
           { label: "The Music", href: "/en/stockholm/music/" },
           { label: "The Artists", href: "/en/stockholm/about-the-artists-malin-gustaf-tadaa/" },

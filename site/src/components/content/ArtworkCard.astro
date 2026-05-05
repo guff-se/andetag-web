@@ -1,5 +1,7 @@
 ---
 import type { Artwork } from "../../lib/content/artworks";
+import { artworkPublicSlug } from "../../lib/content/artworks";
+import { ARTWORK_COLLECTION_PATHS } from "../../lib/routes/artwork-shell-routes";
 type Props = { artwork: Artwork; language: "sv" | "en"; eager?: boolean };
 const { artwork, language, eager = false } = Astro.props as Props;
 
@@ -9,11 +11,12 @@ const base = artwork.images.find(i => i.mood === "light")
 const dark = artwork.images.find(i => i.mood === "dark");
 const label = artwork.series === "original" ? `no. ${artwork.number}` : artwork.title[language];
 const tooltip = `${artwork.title[language]} · ${artwork.year} · ${artwork.dimensionsCm.w} × ${artwork.dimensionsCm.h} cm`;
+const href = `${ARTWORK_COLLECTION_PATHS[language]}${artworkPublicSlug(artwork)}/`;
 ---
 
-<button
+<a
   class:list={["artwork-tile", `is-${artwork.status}`, `is-format-${artwork.format}`]}
-  type="button"
+  href={href}
   data-artwork-tile
   data-artwork-id={artwork.id}
   data-artwork-status={artwork.status}
@@ -43,4 +46,4 @@ const tooltip = `${artwork.title[language]} · ${artwork.year} · ${artwork.dime
   </div>
 
   <span class="artwork-tile__tooltip" aria-hidden="true">{tooltip}</span>
-</button>
+</a>

@@ -63,7 +63,7 @@ export function getEnglishStockholmFooterModel() {
       title: "About",
       links: [
         { label: "About ANDETAG", href: "/en/stockholm/about-andetag/" },
-        { label: "Artworks", href: "/en/stockholm/artworks/" },
+        { label: "The Artworks", href: "/en/artworks/" },
         { label: "The Textile", href: "/en/stockholm/optical-fibre-textile/" },
         { label: "About the Artists", href: "/en/stockholm/about-the-artists-malin-gustaf-tadaa/" },
       ],

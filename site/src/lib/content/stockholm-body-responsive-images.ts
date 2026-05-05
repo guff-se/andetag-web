@@ -162,3 +162,19 @@ export const npfOverheadRestingBody: BodyPictureSources = {
   webp960:
     "/wp-content/uploads/2026/04/main-room-overhead-visitors-resting-body-960w.webp",
 };
+
+/**
+ * Artworks page (sv/en) lead figure: Andetag no. 12 hanging in a private home
+ * in daylight. Floated to the right of the lead copy on desktop, stacks above
+ * the lead on narrow viewports. Source master:
+ * `assets/images/artwork-andetag-12-home-daylight.jpg` (3840x2560, 3:2
+ * landscape).
+ */
+export const artworkAndetag12HomeDaylightBody: BodyPictureSources = {
+  jpeg960:
+    "/wp-content/uploads/2026/05/artwork-andetag-12-home-daylight-body-960w.jpg",
+  webp640:
+    "/wp-content/uploads/2026/05/artwork-andetag-12-home-daylight-body-640w.webp",
+  webp960:
+    "/wp-content/uploads/2026/05/artwork-andetag-12-home-daylight-body-960w.webp",
+};

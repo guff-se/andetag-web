@@ -41,7 +41,7 @@ export const STOCKHOLM_SV_EN_PAIRS: ReadonlyArray<readonly [string, string]> = [
   ],
   ["/sv/stockholm/optisk-fibertextil/", "/en/stockholm/optical-fibre-textile/"],
   ["/sv/stockholm/art-yoga/", "/en/stockholm/art-yoga/"],
-  ["/sv/stockholm/konstverk/", "/en/stockholm/artworks/"],
+  ["/sv/konstverk/", "/en/artworks/"],
   ["/sv/stockholm/besokaromdomen/", "/en/stockholm/visitor-reviews/"],
   ["/sv/stockholm/biljetter/", "/en/stockholm/tickets/"],
   ["/sv/stockholm/dejt/", "/en/stockholm/date/"],

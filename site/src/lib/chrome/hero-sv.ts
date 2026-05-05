@@ -97,12 +97,14 @@ const MENU_DEFINITION: Array<{
     href: "/sv/stockholm/om-andetag/",
     matchPrefixes: [
       "/sv/stockholm/om-andetag/",
+      "/sv/konstverk/",
       "/sv/stockholm/optisk-fibertextil/",
       "/sv/stockholm/musik/",
       "/sv/stockholm/om-konstnarerna-malin-gustaf-tadaa/",
     ],
     subMenu: [
       { label: "Om ANDETAG", href: "/sv/stockholm/om-andetag/" },
+      { label: "Konstverk", href: "/sv/konstverk/" },
       { label: "Textilen", href: "/sv/stockholm/optisk-fibertextil/" },
       { label: "Musiken", href: "/sv/stockholm/musik/" },
       { label: "Om konstnärerna", href: "/sv/stockholm/om-konstnarerna-malin-gustaf-tadaa/" },

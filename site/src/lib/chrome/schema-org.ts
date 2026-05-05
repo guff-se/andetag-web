@@ -20,7 +20,7 @@ import {
   STOCKHOLM_CORPORATE_FAQ_SV,
 } from "../content/stockholm-corporate";
 import { computeArtYogaOccurrenceSeriesIso } from "./art-yoga-next-occurrence";
-import { ARTWORKS, type Artwork } from "../content/artworks";
+import { ARTWORKS, findArtworkByPublicSlug, type Artwork } from "../content/artworks";
 
 const FAQ_PATHS = {
   "/en/stockholm/faq/": STOCKHOLM_FAQ_EN,
@@ -462,13 +462,28 @@ function buildStockholmVenueSchema(ctx: SchemaPageContext): { "@context": string
       graph.push(visualArtworkNode(ctx, a));
     }
   }
+  const focused = focusedArtworkForPath(ctx.canonicalPath);
+  if (focused) {
+    const webPage = graph[1] as Record<string, unknown>;
+    webPage.mainEntity = { "@id": `${CANONICAL_HOST}/#artwork-${focused.id}` };
+    graph.push(visualArtworkNode(ctx, focused));
+  }
   return { "@context": "https://schema.org", "@graph": graph };
 }
 
 const ARTWORK_PAGE_PATHS: ReadonlySet<string> = new Set([
-  "/sv/stockholm/konstverk/",
-  "/en/stockholm/artworks/",
+  "/sv/konstverk/",
+  "/en/artworks/",
 ]);
+
+/** Per-artwork canonical paths look like `/en/artworks/<slug>/` or `/sv/konstverk/<slug>/`. */
+function focusedArtworkForPath(canonicalPath: string): Artwork | undefined {
+  const m =
+    canonicalPath.match(/^\/en\/artworks\/([^/]+)\/$/) ??
+    canonicalPath.match(/^\/sv\/konstverk\/([^/]+)\/$/);
+  if (!m) return undefined;
+  return findArtworkByPublicSlug(m[1]!);
+}
 
 function artworkCollectionNode(ctx: SchemaPageContext): object {
   return {

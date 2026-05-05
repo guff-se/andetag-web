@@ -94,10 +94,10 @@
       "title": "Art Yoga in Stockholm | Slow yoga at ANDETAG | ANDETAG Stockholm",
       "description": "Art Yoga is a slow yoga class in ANDETAG's enveloping art space in central Stockholm. A place to move, breathe, and settle, once a week."
     },
-    "/en/stockholm/artworks/": {
+    "/en/artworks/": {
       "sourceFile": "curated",
-      "title": "Artworks for acquisition | ANDETAG Stockholm",
-      "description": "The Andetag artworks. Fifty originals in optical fibre textile and three Gems in editions. Inquire to add a work to your collection from Stockholm."
+      "title": "Artworks for acquisition | ANDETAG",
+      "description": "The Andetag artworks. Fifty originals in optical fibre textile and three Gems in editions. Inquire to add a work to your collection."
     },
     "/en/stockholm/corporate-events/": {
       "sourceFile": "en-stockholm-corporate-events.html",
@@ -264,10 +264,10 @@
       "title": "Hitta till ANDETAG | Hötorget, Stockholm",
       "description": "ANDETAG ligger i Hötorgets tunnelbanestation i centrala Stockholm. En stillsam plats precis under stadens tempo, lätt att nå med tunnelbana."
     },
-    "/sv/stockholm/konstverk/": {
+    "/sv/konstverk/": {
       "sourceFile": "curated",
-      "title": "Konstverk att förvärva | ANDETAG Stockholm",
-      "description": "Andetagverken. Femtio originalverk i optisk fibertextil och tre Gems i upplagor. Skriv till oss om något fångar din blick. Lägg till verket i din samling."
+      "title": "Konstverk att förvärva | ANDETAG",
+      "description": "Andetag: Konstverken. Femtio originalverk i optisk fibertextil och tre Gems i upplagor. Skriv till oss om något fångar din blick. Lägg till verket i din samling."
     },
     "/sv/stockholm/meditation-stockholm/": {
       "sourceFile": "curated",

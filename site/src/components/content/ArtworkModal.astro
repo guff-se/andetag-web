@@ -3,12 +3,14 @@ type Props = { language: "sv" | "en" };
 const { language } = Astro.props;
 const L = language === "sv" ? {
   close: "Stäng", prev: "Föregående", next: "Nästa", inquire: "Förfrågan",
+  openPage: "Öppna sida",
   moodLight: "Belyst", moodDark: "Mörker", moodMid: "Omgivning",
   inCollection: "I samling", priceOnRequest: "Pris på förfrågan",
   year: "År", size: "Storlek", format: "Format", location: "Plats", edition: "Upplaga",
   landscape: "Liggande", portrait: "Stående",
 } : {
   close: "Close", prev: "Previous", next: "Next", inquire: "Inquire",
+  openPage: "Open page",
   moodLight: "Spotlight", moodDark: "Darkness", moodMid: "Ambient",
   inCollection: "In a collection", priceOnRequest: "Price on request",
   year: "Year", size: "Size", format: "Format", location: "Location", edition: "Edition",
@@ -49,9 +51,14 @@ const L = language === "sv" ? {
         <h2 class="artwork-modal__title" id="artwork-modal-title" data-modal-title></h2>
         <p class="artwork-modal__price" data-modal-price></p>
         <dl class="artwork-modal__details" data-modal-details></dl>
-        <a class="artwork-modal__inquire" href="#inquiry" data-modal-inquire hidden>
-          {L.inquire} →
-        </a>
+        <div class="artwork-modal__actions">
+          <a class="artwork-modal__btn artwork-modal__open-page" href="#" data-modal-open-page hidden>
+            {L.openPage} →
+          </a>
+          <a class="artwork-modal__btn artwork-modal__inquire" href="#inquiry" data-modal-inquire hidden>
+            {L.inquire} →
+          </a>
+        </div>
       </div>
     </div>
   </div>

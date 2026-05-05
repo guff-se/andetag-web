@@ -6,6 +6,8 @@ type SliderRow = {
   artworks: readonly Artwork[];
   label?: string;
   intro?: string;
+  /** Below ~900px: same horizontal strip + arrows as other rows. From 900px up: no slider, cards stay the same width and sit centered. */
+  carouselOnlyMobile?: boolean;
 };
 
 type Props = {
@@ -21,8 +23,15 @@ const { rows, lang, artworksHref, ctaLabel } = Astro.props;
 <div class="artwork-sales-slider">
   {rows.map((row, rowIdx) => {
     const isSecond = rowIdx > 0;
+    const carouselMobile = row.carouselOnlyMobile === true;
     return (
-      <div class:list={["artwork-sales-slider__row", isSecond && "artwork-sales-slider__row--second"]}>
+      <div
+        class:list={[
+          "artwork-sales-slider__row",
+          isSecond && "artwork-sales-slider__row--second",
+          carouselMobile && "artwork-sales-slider__row--carousel-mobile",
+        ]}
+      >
         {(row.label || row.intro) && (
           <div class="artwork-sales-slider__row-header">
             {row.label && <h3 class="artwork-sales-slider__row-label component-eyebrow">{row.label}</h3>}

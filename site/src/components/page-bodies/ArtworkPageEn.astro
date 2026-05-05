@@ -1,0 +1,179 @@
+---
+import "../../styles/artworks.css";
+import { ARTWORKS, type Artwork } from "../../lib/content/artworks";
+import { ARTWORK_COLLECTION_PATHS } from "../../lib/routes/artwork-shell-routes";
+import ArtworkMap from "../embeds/ArtworkMap.astro";
+import InquiryForm from "../embeds/InquiryForm.astro";
+
+type Props = { artwork: Artwork };
+const { artwork } = Astro.props as Props;
+const language = "en" as const;
+
+const lead = artwork.images.find((i) => i.mood === "light") ?? artwork.images[0]!;
+const rest = artwork.images.filter((img) => img !== lead);
+
+const heading =
+  artwork.series === "original" ? `Andetag no. ${artwork.number}` : artwork.title[language];
+
+const formatLabel =
+  artwork.format === "landscape"
+    ? "Landscape"
+    : artwork.format === "portrait"
+      ? "Portrait"
+      : "Diptych";
+
+const seriesLabel =
+  artwork.series === "original" ? "Andetag Originals" : "Andetag Gem";
+
+const statusLabel =
+  artwork.status === "sold"
+    ? "In a private collection"
+    : artwork.status === "on-exhibition"
+      ? "On exhibition"
+      : "In the studio";
+
+const priceFormatted =
+  artwork.priceSek !== undefined
+    ? new Intl.NumberFormat("en-SE", {
+        style: "currency",
+        currency: "SEK",
+        maximumFractionDigits: 0,
+      }).format(artwork.priceSek)
+    : "Price on request";
+
+const showPrice = artwork.status !== "sold";
+const showInquiry = artwork.status !== "sold";
+const showCollectorMap = artwork.status === "sold";
+const soldArtworks = showCollectorMap
+  ? ARTWORKS.filter((a) => a.status === "sold")
+  : [];
+---
+
+<div class="page-migrated page-artwork" lang="en">
+  <p class="page-artwork__back">
+    <a href={ARTWORK_COLLECTION_PATHS.en}>← All artworks</a>
+  </p>
+
+  <header class="page-artwork__lead">
+    <h1 class="page-artwork__heading">{heading}</h1>
+    <p class="page-artwork__eyebrow">{seriesLabel}</p>
+  </header>
+
+  <figure class="page-artwork__hero">
+    <picture>
+      <source
+        type="image/webp"
+        srcset={`${lead.webp640} 640w, ${lead.webp960} 960w`}
+        sizes="(max-width: 720px) 92vw, 720px"
+      />
+      <img
+        src={lead.src}
+        alt={lead.alt[language]}
+        loading="eager"
+        decoding="async"
+        fetchpriority="high"
+      />
+    </picture>
+  </figure>
+
+  <dl class="page-artwork__facts">
+    <div class="page-artwork__fact">
+      <dt>Year</dt>
+      <dd>{artwork.year}</dd>
+    </div>
+    <div class="page-artwork__fact">
+      <dt>Size</dt>
+      <dd>{artwork.dimensionsCm.w} × {artwork.dimensionsCm.h} cm</dd>
+    </div>
+    <div class="page-artwork__fact">
+      <dt>Format</dt>
+      <dd>{formatLabel}</dd>
+    </div>
+    <div class="page-artwork__fact">
+      <dt>Status</dt>
+      <dd>{statusLabel}</dd>
+    </div>
+    {artwork.series === "gem" && artwork.edition && (
+      <div class="page-artwork__fact">
+        <dt>Edition</dt>
+        <dd>{artwork.edition.available} of {artwork.edition.size} available</dd>
+      </div>
+    )}
+    <div class="page-artwork__fact">
+      <dt>Location</dt>
+      <dd>{artwork.location.label[language]}</dd>
+    </div>
+    {showPrice && (
+      <div class="page-artwork__fact">
+        <dt>Price</dt>
+        <dd>{priceFormatted}</dd>
+      </div>
+    )}
+  </dl>
+
+  {rest.length > 0 && (
+    <section class="page-artwork__gallery" aria-label="More views">
+      {rest.map((img) => (
+        <figure class="page-artwork__gallery-item">
+          <picture>
+            <source
+              type="image/webp"
+              srcset={`${img.webp640} 640w, ${img.webp960} 960w`}
+              sizes="(max-width: 720px) 92vw, 480px"
+            />
+            <img src={img.src} alt={img.alt[language]} loading="lazy" decoding="async" />
+          </picture>
+        </figure>
+      ))}
+    </section>
+  )}
+
+  {showCollectorMap && (
+    <section class="page-artwork__map" aria-labelledby="artwork-map-heading-en">
+      <h2 id="artwork-map-heading-en" class="page-artwork__map-heading">
+        In collections around the world
+      </h2>
+      <ArtworkMap
+        artworks={soldArtworks}
+        language="en"
+        highlightArtworkId={artwork.id}
+      />
+    </section>
+  )}
+
+  {showInquiry && (
+    <div id={`inquiry-${artwork.id}`}>
+      <InquiryForm language="en" />
+    </div>
+  )}
+
+  {/* Pre-fill the inquiry "About" field on load via the same hash-based mechanism
+      used from the collection page. */}
+  {showInquiry && (
+    <script
+      type="application/json"
+      id="artwork-inquiry-prefill"
+      set:html={JSON.stringify({ about: artwork.id })}
+    />
+  )}
+  {showInquiry && (
+    <script>
+      (() => {
+        const el = document.getElementById("artwork-inquiry-prefill");
+        if (!el) return;
+        try {
+          const data = JSON.parse(el.textContent || "{}");
+          const about = String(data.about || "");
+          if (!about) return;
+          const fields = document.querySelectorAll("[data-inquiry-about]");
+          fields.forEach((f) => {
+            const input = f as HTMLInputElement;
+            if (!input.value) input.value = about;
+          });
+        } catch {
+          /* ignore */
+        }
+      })();
+    </script>
+  )}
+</div>

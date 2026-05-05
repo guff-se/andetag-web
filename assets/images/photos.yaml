@@ -298,6 +298,24 @@ photos:
       de: "Nahaufnahme des Werks Andetag Nr. 11, spitzenartige Falten in optischer Fasertextilie in Blau, Violett und Magenta."
     tags: [artwork, andetag-11, textile-art, close-up, lace, blue, violet, magenta, optical-fibre]
 
+  - file: artwork-andetag-12-home-evening-glow.jpg
+    original: Andetag 12-home-dark.jpg
+    artwork: "Andetag no. 12"
+    alt:
+      sv: "Verket Andetag no. 12 lyser i rött, magenta och bärnstensljus över en beige soffa i ett kvällsstämt vardagsrum, med tända ljus på bordet och i fönstret."
+      en: "The artwork Andetag no. 12 glows in red, magenta, and amber light above a beige sofa in an evening living room, with lit candles on the table and on the windowsill."
+      de: "Das Werk Andetag no. 12 leuchtet in rotem, magentafarbenem und bernsteinfarbenem Licht über einem beigen Sofa in einem abendlichen Wohnzimmer, mit brennenden Kerzen auf dem Tisch und am Fensterbrett."
+    tags: [artwork, andetag-12, textile-art, light-sculpture, home, interior, sofa, candlelight, evening, red, magenta, warm-light]
+
+  - file: artwork-andetag-12-home-daylight.jpg
+    original: Andetag 12-home-light.jpg
+    artwork: "Andetag no. 12"
+    alt:
+      sv: "Verket Andetag no. 12 i rosa och magenta toner hänger över en beige soffa i ett ljust vardagsrum, med bokhyllor till vänster och en grön växt vid fönstret."
+      en: "The artwork Andetag no. 12 in pink and magenta tones hangs above a beige sofa in a daylit living room, with bookshelves on the left and a green plant by the window."
+      de: "Das Werk Andetag no. 12 in rosa und magentafarbenen Tönen hängt über einem beigen Sofa in einem hellen Wohnzimmer, mit Bücherregalen links und einer grünen Pflanze am Fenster."
+    tags: [artwork, andetag-12, textile-art, home, interior, sofa, daylight, bookshelf, plant, pink, magenta]
+
   - file: artwork-andetag-13-night-and-day.jpg
     original: Andetag 13-31-NIGHT-DAY.jpg
     artwork: "Andetag no. 13"
