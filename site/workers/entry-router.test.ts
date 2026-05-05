@@ -137,6 +137,71 @@ describe("entry-router Worker", () => {
     vi.stubGlobal("fetch", originalFetch);
   });
 
+  it("rejects invalid email shape without sending upstream", async () => {
+    const assetFetch = vi.fn(() =>
+      Promise.resolve(new Response(null, { status: 204 })),
+    );
+    const env = {
+      ...makeEnv(assetFetch),
+      BREVO_TRANSACTIONAL_API_KEY: "test-key",
+    };
+    const upstreamFetch = vi.fn();
+    const originalFetch = globalThis.fetch;
+    vi.stubGlobal("fetch", upstreamFetch);
+
+    const body = new URLSearchParams({
+      name: "Alex",
+      email: "not-an-email",
+      locale: "en",
+      opt_in: "1",
+      company: "",
+    });
+    const req = new Request("https://www.andetag.museum/_inquiry", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body,
+    });
+    const res = await entryRouter.fetch(req, env);
+    expect(res.status).toBe(400);
+    expect(upstreamFetch).not.toHaveBeenCalled();
+    expect(assetFetch).not.toHaveBeenCalled();
+
+    vi.stubGlobal("fetch", originalFetch);
+  });
+
+  it("rejects overlong inquiry message without sending upstream", async () => {
+    const assetFetch = vi.fn(() =>
+      Promise.resolve(new Response(null, { status: 204 })),
+    );
+    const env = {
+      ...makeEnv(assetFetch),
+      BREVO_TRANSACTIONAL_API_KEY: "test-key",
+    };
+    const upstreamFetch = vi.fn();
+    const originalFetch = globalThis.fetch;
+    vi.stubGlobal("fetch", upstreamFetch);
+
+    const body = new URLSearchParams({
+      name: "Alex",
+      email: "alex@example.com",
+      locale: "en",
+      opt_in: "1",
+      company: "",
+      message: "x".repeat(2100),
+    });
+    const req = new Request("https://www.andetag.museum/_inquiry", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body,
+    });
+    const res = await entryRouter.fetch(req, env);
+    expect(res.status).toBe(400);
+    expect(upstreamFetch).not.toHaveBeenCalled();
+    expect(assetFetch).not.toHaveBeenCalled();
+
+    vi.stubGlobal("fetch", originalFetch);
+  });
+
   it("redirects / to a language path (302)", async () => {
     const env = makeEnv(() => Promise.resolve(htmlResponse("")));
     const req = new Request("https://www.andetag.museum/", {

@@ -16,6 +16,13 @@ const INQUIRY_PATH = "/_inquiry";
 const DEFAULT_INQUIRY_RECIPIENT = "info@andetag.museum";
 const INQUIRY_SENDER_EMAIL = "info@andetag.museum";
 const INQUIRY_SENDER_NAME = "ANDETAG Website";
+const INQUIRY_LIMITS = {
+  name: 120,
+  email: 254,
+  phone: 40,
+  about: 160,
+  message: 2000,
+} as const;
 
 function redirectResponse(
   locationPath: string,
@@ -97,6 +104,28 @@ function field(form: FormData, name: string): string {
   return typeof raw === "string" ? raw.trim() : "";
 }
 
+function isLikelyEmail(value: string): boolean {
+  if (!value || value.length > INQUIRY_LIMITS.email) return false;
+  if (value.includes("<") || value.includes(">")) return false;
+  return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/u.test(value);
+}
+
+function exceedsInquiryLimits(input: {
+  name: string;
+  email: string;
+  phone: string;
+  about: string;
+  message: string;
+}): boolean {
+  return (
+    input.name.length > INQUIRY_LIMITS.name ||
+    input.email.length > INQUIRY_LIMITS.email ||
+    input.phone.length > INQUIRY_LIMITS.phone ||
+    input.about.length > INQUIRY_LIMITS.about ||
+    input.message.length > INQUIRY_LIMITS.message
+  );
+}
+
 async function handleInquiry(request: Request, env: Env): Promise<Response> {
   let form: FormData;
   try {
@@ -118,6 +147,20 @@ async function handleInquiry(request: Request, env: Env): Promise<Response> {
 
   if (!name || !email || optIn !== "1") {
     return json(400, { ok: false, error: "missing_required_fields" });
+  }
+  if (
+    exceedsInquiryLimits({
+      name,
+      email,
+      phone,
+      about,
+      message,
+    })
+  ) {
+    return json(400, { ok: false, error: "invalid_field_length" });
+  }
+  if (!isLikelyEmail(email)) {
+    return json(400, { ok: false, error: "invalid_email" });
   }
 
   const apiKey = env.BREVO_TRANSACTIONAL_API_KEY;

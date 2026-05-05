@@ -44,7 +44,7 @@ Full current-state description: [`docs/project-overview.md`](docs/project-overvi
 
 - **Stack.** Astro static export (`output: "static"`, `trailingSlash: "always"`, canonical `https://www.andetag.museum`) on Cloudflare Workers (`run_worker_first: true`). Static `dist/` served via the `ASSETS` binding. No `@astrojs/cloudflare` adapter.
 - **Entry router.** `site/workers/entry-router.ts` handles `/` and exact `/en/`. Verified bots receive a `301` to `/en/stockholm/`; humans are routed by `Accept-Language` + Cloudflare `cf.country` + the `andetag_entry` cookie. Everything else falls through to the asset handler.
-- **Hosts.** Production `https://www.andetag.museum`. Staging `https://andetag-web.guff.workers.dev`.
+- **Hosts.** Production `https://www.andetag.museum`. Main/staging alias `https://andetag-web.guff.workers.dev` (tracks `main`). Branch previews use `https://<branch-name>-andetag-web.guff.workers.dev` (for example `https://feature-artworks-andetag-web.guff.workers.dev`).
 - **People.** Sole maintainer is Gustaf. Museum directors collaborate through Cloud Claude Code or OpenClaw with full PR rights. Onboarding: [`docs/collaborator-guide.md`](docs/collaborator-guide.md).
 - **External tools.** Read-only GSC / GA4 / sales queries use the sibling `andetag-stats` CLI (`../stats/cli`); credentials live in that project, not this repo.
 
@@ -210,7 +210,7 @@ The preview is the merge gate. Open it, walk the change, then merge.
 
 - **Astro:** `output: "static"`, `trailingSlash: "always"`, `site: https://www.andetag.museum`. Static export to `dist/`. No `@astrojs/cloudflare` adapter.
 - **Workers + static assets:** `wrangler.jsonc` sets `run_worker_first: true`. The entry router handles `/` and exact `/en/` language routing, then falls through to `ASSETS.fetch` for static pages.
-- **Deploy:** `npm run worker:deploy` from `site/`. Staging: `https://andetag-web.guff.workers.dev`.
+- **Deploy:** `npm run worker:deploy` from `site/`. Main/staging alias: `https://andetag-web.guff.workers.dev` (same runtime as production hostname). Branch previews follow `https://<branch-name>-andetag-web.guff.workers.dev`.
 - **`_headers`:** Cache-Control per asset type. ~30 day max-age on `/wp-content/uploads/*`. Prefer new filenames when replacing media at the same URL.
 
 ---
