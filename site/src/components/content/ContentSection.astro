@@ -4,16 +4,17 @@ import type { HeadingLevel } from "../../lib/ui-logic/types";
 
 type Props = {
   heading?: string;
+  headingHtml?: string;
   headingLevel?: HeadingLevel | "h4";
   markdown: string;
   align?: "left" | "center";
 };
 
-const { heading, headingLevel = "h2", markdown, align = "left" } = Astro.props as Props;
+const { heading, headingHtml, headingLevel = "h2", markdown, align = "left" } = Astro.props as Props;
 const HeadingTag = getHeadingTag(headingLevel, "h2");
 ---
 
 <section class={`content-section align-${align}`}>
-  {heading ? <HeadingTag>{heading}</HeadingTag> : null}
+  {headingHtml ? <HeadingTag set:html={headingHtml} /> : heading ? <HeadingTag>{heading}</HeadingTag> : null}
   <div class="content-section-body" set:html={markdown} />
 </section>
