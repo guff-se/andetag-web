@@ -6,7 +6,7 @@
  * to propagate. See Phase 9 skill P9-14 for the maintenance workflow.
  *
  * Source: https://www.tripadvisor.com/Attraction_Review-g189852-d32883203-Reviews-Andetag-Stockholm.html
- * Last verified: 2026-04-13
+ * Last verified: 2026-05-02
  */
 
 export const STOCKHOLM_TRIPADVISOR_URL =
@@ -19,6 +19,21 @@ export const STOCKHOLM_RATING = {
   /** Subset rated five stars (on-page stats only; not used in JSON-LD). */
   fiveStarReviewCount: 179,
   bestRating: "5",
+} as const;
+
+/**
+ * Tripadvisor Travellers' Choice award given to ANDETAG Stockholm.
+ * Used by the testimonial carousel badge and the Museum node `award` field in JSON-LD.
+ * Stockholm only — Berlin has no award (escalate before adding).
+ */
+export const STOCKHOLM_TRAVELLERS_CHOICE = {
+  year: 2026,
+  /** Canonical award name in JSON-LD (`Place.award`). */
+  awardName: "Tripadvisor Travellers' Choice 2026",
+  /** Self-hosted SVG badge (Tripadvisor owl with laurel wreath). */
+  badgeSrc: "/assets/tripadvisor/tripadvisor-travellers-choice-2026.svg",
+  badgeWidth: 139,
+  badgeHeight: 139,
 } as const;
 
 /** Comma decimal for Swedish/German UI (Tripadvisor-style). */

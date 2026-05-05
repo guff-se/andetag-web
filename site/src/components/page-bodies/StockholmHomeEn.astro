@@ -16,7 +16,10 @@ import ResponsiveInlinePicture from "../ui/ResponsiveInlinePicture.astro";
 import { STOCKHOLM_BOOK_HERO_COVER } from "../../lib/chrome/assets";
 import { homeGroupSeatedHandsClaspedBody, mainRoomMeditationBody } from "../../lib/content/stockholm-body-responsive-images";
 import { stockholmMarketingGalleryHomeEn } from "../../lib/content/stockholm-marketing-gallery";
-import { stockholmTestimonialAggregateEn } from "../../lib/content/stockholm-testimonial-aggregate";
+import {
+  stockholmTestimonialAggregateEn,
+  stockholmTravellersChoiceBadgeEn,
+} from "../../lib/content/stockholm-testimonial-aggregate";
 import { stockholmMarketingFaqEn } from "../../lib/page-registry/stockholm-marketing-faq-en";
 import { ARTWORKS } from "../../lib/content/artworks";
 import {
@@ -290,6 +293,7 @@ const vimeoSrc = "https://player.vimeo.com/video/1077937338";
   <TestimonialCarousel
     items={[...testimonialItems]}
     aggregate={{ ...stockholmTestimonialAggregateEn }}
+    awardBadge={{ ...stockholmTravellersChoiceBadgeEn }}
     backgroundImageAlt="Close-up of Andetag no. 27, sweeping folds of optical fibre textile in magenta and deep purple glowing from within at ANDETAG museum"
     cta={{ label: "Experience ANDETAG!", href: "#book", variant: "secondary" }}
   />

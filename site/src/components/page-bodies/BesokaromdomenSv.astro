@@ -2,6 +2,7 @@
 import ContentSection from "../content/ContentSection.astro";
 import {
   STOCKHOLM_RATING,
+  STOCKHOLM_TRAVELLERS_CHOICE,
   STOCKHOLM_TRIPADVISOR_URL,
   stockholmTripadvisorRatingCommaDecimal,
 } from "../../lib/content/stockholm-reviews";
@@ -19,6 +20,7 @@ const bodyMarkdown = [
   `<li><p>${STOCKHOLM_RATING.fiveStarReviewCount} femstjärniga betyg</p></li>`,
   `<li><p>Genomsnittsbetyg: ${stockholmTripadvisorRatingCommaDecimal()} / ${STOCKHOLM_RATING.bestRating}</p></li>`,
   "<li><p>Topprankat konstmuseum i Stockholm på Tripadvisor</p></li>",
+  `<li><p>Tilldelad <strong>Tripadvisor Travellers&rsquo; Choice ${STOCKHOLM_TRAVELLERS_CHOICE.year}</strong></p></li>`,
   "</ul>",
   "<hr />",
   "<h3>Vad besökare beskriver</h3>",
