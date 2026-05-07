@@ -21,7 +21,7 @@ magick "$INPUT" -resize 960x -strip -quality 82 "${BASE}-${SUFFIX}-960w.jpg"
 
 | Role | `SUFFIX` | Markup / module |
 |------|----------|-----------------|
-| `GallerySection` tile | `gallery` | `site/src/lib/content/stockholm-marketing-gallery.ts`; `thumbWebp640` / `thumbWebp960`, `src` = `jpeg960`, `fullSrc` = master |
+| `GallerySection` tile | `gallery` | `site/src/lib/content/stockholm-marketing-gallery.ts`; `thumbWebp640` / `thumbWebp960`, `src` = `jpeg960`, `fullSrc` = `*-gallery-1920w.jpg` (not the uncapped master) |
 | Inline figure (intro, aside, Berlin teaser) | `body` or `aside` | `ResponsiveInlinePicture.astro`; paths in `site/src/lib/content/stockholm-body-responsive-images.ts` |
 | `HeroSection` full-bleed cover | `hero` | `HeroCoverImage` object; `STOCKHOLM_BOOK_HERO_COVER` in `site/src/lib/chrome/assets.ts`, others in `stockholm-body-responsive-images.ts` |
 | `TestimonialCarousel` background | `testimonial` | `BodyPictureSources` default or prop; `testimonialCarouselDefaultBg` in `stockholm-body-responsive-images.ts` |
