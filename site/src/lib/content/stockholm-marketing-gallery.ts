@@ -1,6 +1,7 @@
 /**
- * Shared Stockholm marketing gallery: same eight full-resolution JPEGs with
- * generated responsive thumbs (`*-gallery-{640,960}w.webp`, `*-gallery-960w.jpg`).
+ * Shared Stockholm marketing gallery: same eight source masters with generated
+ * responsive thumbs (`*-gallery-{640,960}w.webp`, `*-gallery-960w.jpg`) and a
+ * capped 1920px lightbox JPEG (`*-gallery-1920w.jpg`).
  *
  * Alt text per locale (EN/SV/DE); tone: `docs/Tone of Voice.md`, gallery component: `docs/component-usage.md`.
  */
@@ -15,7 +16,7 @@ export type StockholmMarketingGalleryImage = {
   caption?: string;
 };
 
-const FULL_SRC = [
+const MASTER_SRC = [
   "/wp-content/uploads/2026/04/reception-lobby-with-sculpture.jpg",
   "/wp-content/uploads/2026/05/gallery-visitors-admiring-iridescent-work.jpg",
   "/wp-content/uploads/2026/05/gallery-info-panel-and-visitors.jpg",
@@ -59,10 +60,10 @@ const HOME_ALTS_DE = [
   "Besuchende ruhen auf Kissen unter schwebenden, leuchtenden Textilskulpturen.",
 ] as const;
 
-function entry(fullSrc: (typeof FULL_SRC)[number], alt: string): StockholmMarketingGalleryImage {
-  const base = fullSrc.slice(0, -".jpg".length);
+function entry(masterSrc: (typeof MASTER_SRC)[number], alt: string): StockholmMarketingGalleryImage {
+  const base = masterSrc.slice(0, -".jpg".length);
   return {
-    fullSrc,
+    fullSrc: `${base}-gallery-1920w.jpg`,
     src: `${base}-gallery-960w.jpg`,
     thumbWebp640: `${base}-gallery-640w.webp`,
     thumbWebp960: `${base}-gallery-960w.webp`,
@@ -71,17 +72,17 @@ function entry(fullSrc: (typeof FULL_SRC)[number], alt: string): StockholmMarket
 }
 
 /** English: Stockholm home, Vilken typ (en), English SEO landings (same descriptive alts as former SEO_EN). */
-export const stockholmMarketingGalleryHomeEn: readonly StockholmMarketingGalleryImage[] = FULL_SRC.map(
+export const stockholmMarketingGalleryHomeEn: readonly StockholmMarketingGalleryImage[] = MASTER_SRC.map(
   (path, i) => entry(path, HOME_ALTS_EN[i]!),
 );
 
 /** Swedish: Stockholm home, shared body, Swedish SEO landings, Vilken typ (sv). */
-export const stockholmMarketingGalleryHomeSv: readonly StockholmMarketingGalleryImage[] = FULL_SRC.map(
+export const stockholmMarketingGalleryHomeSv: readonly StockholmMarketingGalleryImage[] = MASTER_SRC.map(
   (path, i) => entry(path, HOME_ALTS_SV[i]!),
 );
 
 /** German: reserved for Berlin or other DE surfaces that reuse this gallery. */
-export const stockholmMarketingGalleryHomeDe: readonly StockholmMarketingGalleryImage[] = FULL_SRC.map(
+export const stockholmMarketingGalleryHomeDe: readonly StockholmMarketingGalleryImage[] = MASTER_SRC.map(
   (path, i) => entry(path, HOME_ALTS_DE[i]!),
 );
 
