@@ -15,9 +15,9 @@ export const STOCKHOLM_TRIPADVISOR_URL =
 export const STOCKHOLM_RATING = {
   ratingValue: "4.9",
   /** Total reviews on Tripadvisor (aggregateRating reviewCount). */
-  reviewCount: 178,
+  reviewCount: 197,
   /** Subset rated five stars (on-page stats only; not used in JSON-LD). */
-  fiveStarReviewCount: 169,
+  fiveStarReviewCount: 183,
   bestRating: "5",
 } as const;
 
