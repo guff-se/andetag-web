@@ -26,6 +26,7 @@ import {
   STOCKHOLM_SEASON_PASS,
   STOCKHOLM_DAYTIME_WINDOW,
 } from "../../lib/content/stockholm-offers";
+import { STOCKHOLM_FEATURED_REVIEWS } from "../../lib/content/stockholm-reviews";
 
 export interface Props {
   galleryId: string;
@@ -78,33 +79,7 @@ const privateMarkdown = [
   '<p>Email <a href="mailto:info@andetag.museum">info@andetag.museum</a> and we will help you.</p>',
 ].join("");
 
-const testimonialItems = [
-  {
-    quote:
-      "A breathing room in the heart of the city! Beautiful immersive sound, music and light experience. A space to connect to each other but also to yourself and your own breath.",
-    author: "maijak2026",
-  },
-  {
-    quote:
-      "This experience completely shifted my day. I stepped in from the chaos of the subway and left in stillness—feeling grounded, grateful, and present. It's hard to put into words, but something subtle and powerful happens here. A must.",
-    author: "PetterWallberg",
-  },
-  {
-    quote:
-      "Take your time in here and just follow the sounds and the visuals. It is so deeply relaxing and beautiful, like a spa for the brain and then some.",
-    author: "Traveler566865",
-  },
-  {
-    quote:
-      "Such a beautiful immersive experience. Really took me out of my mind and out of the city into a deep visceral place. I'd recommend this to anybody wanted to do something different and come back to their body and breathe through art.",
-    author: "J4366RQmichelleg",
-  },
-  {
-    quote:
-      "A brilliant and unique visualization of the core of the human condition. Makes you awe over what it is to be human. Must see when in Stockholm!",
-    author: "565patrikg",
-  },
-] as const;
+const testimonialItems = STOCKHOLM_FEATURED_REVIEWS.map((r) => ({ quote: r.quote, author: r.author }));
 
 const mapSrc =
   "https://maps.google.com/maps?q=Andetag%2C%20Kungsgatan%2039%2C%20111%2056%20Stockholm&t=m&z=15&output=embed&iwloc=near";
