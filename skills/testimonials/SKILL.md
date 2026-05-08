@@ -139,13 +139,17 @@ Only use `status = ready` entries. Select 3–6 English entries ranked by:
 
 **Never** truncate or edit a quote. Never add a review that is not in the CSV or not verifiable on the live TripAdvisor page. Never use `needs_human_review` entries.
 
+#### Important: the CSV is a curated subset, not a full export
+
+`tripadvisor-review-approval-pack.csv` contains only reviews that have been pre-filtered as relevant for testimonial use. It does **not** represent all reviews on TripAdvisor. Do **not** derive `reviewCount` or `fiveStarReviewCount` from the row count in the CSV. Always get aggregate figures from the live TripAdvisor page or confirm with Gustaf.
+
 #### Workflow
 
 1. Open `docs/tripadvisor-review-approval-pack.csv`. Filter to `status = ready, language = en, rating = 5.0 of 5 bubbles`.
 2. Score candidates against the criteria above. Draft a shortlist of 5–8.
 3. For the **home slider**, present the shortlist to Gustaf before committing — the slider is high-visibility and benefits from a human read.
 4. Implement the agreed set via §C (add/replace featured reviews), including drift-hotspot sync.
-5. Update `Last verified` and, if the live TripAdvisor page shows new aggregate figures, also bump `STOCKHOLM_RATING` per §A.
+5. Update `Last verified` and bump `STOCKHOLM_RATING` per §A using figures confirmed from the live TripAdvisor page or by Gustaf — never from the CSV row count.
 
 #### Tone note
 
