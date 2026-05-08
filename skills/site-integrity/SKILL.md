@@ -86,6 +86,10 @@ comm -23 /tmp/andetag-internal-hrefs.txt <(cat /tmp/andetag-built-routes.txt /tm
 
 Report: each orphan href, paired with the first file that emits it.
 
+**Known non-issues:** The `href=` grep matches all HTML `href=` attributes, not just `<a href>`. Expect these categories in the output — do not report them as broken:
+- `<link rel="stylesheet|preload|icon|apple-touch-icon|manifest" href="…">` — CSS, fonts, favicons, webmanifest. All are static assets served from `dist/`.
+- Gallery lightbox `<a href="/wp-content/uploads/…-1920w.jpg" class="gallery-lightbox-link">` — full-resolution images linked for the JS lightbox overlay. These are asset files, not navigable HTML routes; all exist in `dist/wp-content/uploads/`.
+
 #### B.2 External link health (optional HEAD-check)
 
 Default: list external hrefs only, no network call. (The old `lychee` CI job was removed — see `CHANGELOG.md` **Removed**.)
@@ -204,15 +208,20 @@ comm -12 /tmp/andetag-redirect-sources.txt /tmp/andetag-redirect-destinations.tx
 
 Report: dead destinations, any chains.
 
+**Known non-issues from the dead-destination check:**
+- Quicklink UTM rules (`/z6ch`, `/8xno`, `/qauz`, etc.) redirect to `/?utm_source=…` — the `?` query string is not a filesystem path, so the check reports them as DEAD. They work correctly on Cloudflare. Ignore.
+- The splat wildcard rule `/stockholm/* → /sv/stockholm/:splat` — `:splat` is a Cloudflare variable, not a literal path. Ignore.
+
 #### B.9 Interactive wiring integrity (mandatory for JS-dependent UI)
 
 Structural checks can pass while interactive UI is silently broken. This dimension verifies that known JS-dependent components are not only present in HTML, but wired to executable client code in the built output.
 
 **Current critical contract: `InquiryForm`**
 
-- When `data-inquiry-form` appears in built HTML, the page must also include at least one `type="module"` script chunk under `/_astro/`.
-- At least one referenced module chunk must include inquiry-form runtime markers (`data-inquiry-form` selector or `__andetagInquiryForm` guard from `site/src/client-scripts/inquiry-form.ts`).
-- If the page has inquiry-form markup but no matching runtime marker in loaded chunks, report `UNWIRED-INQUIRY-FORM`.
+- When `data-inquiry-form` appears in built HTML, the handler must be present either in an **inline `<script>` block** within the same HTML file, or in an **external `/_astro/*.js` module chunk** loaded by the page.
+- Astro may bundle the handler inline (no external chunk) when a script has a single or small number of consumers — this is correct and expected on artwork pages (`/en/artworks/…`, `/sv/konstverk/…`), which each embed the InquiryForm handler directly in the HTML. Do **not** flag inline wiring as broken.
+- The runtime markers to look for: `data-inquiry-form` as an event-listener selector target, or the `__andetagInquiryForm` guard from `site/src/client-scripts/inquiry-form.ts`.
+- Only report `UNWIRED-INQUIRY-FORM` if the marker is absent from **both** inline scripts and all loaded external chunks.
 
 ```bash
 cd site
@@ -237,28 +246,29 @@ for (const htmlPath of htmlFiles) {
   if (!html.includes("data-inquiry-form")) continue;
 
   const rel = "/" + path.relative(dist, htmlPath).replace(/index\.html$/, "");
+
+  // Check 1: inline <script> blocks (no src= attribute) — Astro bundles the handler inline
+  // on pages with a single consumer (e.g. artwork pages).
+  const inlineScripts = [...html.matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/g)]
+    .map((m) => m[1]);
+  if (inlineScripts.some((s) => markerRegex.test(s))) continue;
+
+  // Check 2: external /_astro/*.js module chunks
   const moduleSrcs = [...html.matchAll(/<script[^>]+type="module"[^>]+src="([^"]+)"/g)]
     .map((m) => m[1])
     .filter((src) => src.startsWith("/_astro/"));
-
-  if (moduleSrcs.length === 0) {
-    console.log("UNWIRED-INQUIRY-FORM", rel, "no module chunk loaded");
-    continue;
-  }
 
   let hasMarker = false;
   for (const src of moduleSrcs) {
     const jsPath = path.join(dist, src.replace(/^\//, ""));
     if (!fs.existsSync(jsPath)) continue;
     const js = fs.readFileSync(jsPath, "utf8");
-    if (markerRegex.test(js)) {
-      hasMarker = true;
-      break;
-    }
+    if (markerRegex.test(js)) { hasMarker = true; break; }
   }
 
   if (!hasMarker) {
-    console.log("UNWIRED-INQUIRY-FORM", rel, "runtime marker missing in loaded module chunks");
+    const reason = moduleSrcs.length === 0 ? "no module chunk loaded" : "runtime marker missing in all script sources";
+    console.log("UNWIRED-INQUIRY-FORM", rel, reason);
   }
 }
 NODE
@@ -316,8 +326,8 @@ The audit is itself a verification. There is nothing to re-verify post-audit unl
 
 Automated coverage that already runs in CI (do not duplicate in this skill):
 
-- `npm test` — 134 tests, includes registry, parity, and navigation coverage.
-- `npm run build` — 65 pages generated; build fails on broken imports or typed route mismatches.
+- `npm test` — 177 tests (30 test files), includes registry, parity, and navigation coverage.
+- `npm run build` — 141 pages generated; build fails on broken imports or typed route mismatches.
 
 ## When to escalate
 
@@ -328,7 +338,7 @@ Stop and ask before proceeding if:
 - The user asks for a full external-link HEAD-check sweep. The number of external links and the domains' bot-blocking make this fragile; confirm scope and live with false positives.
 - Multi-hop redirects are found that were apparently intentional (e.g. two-stage locale migration). Do not collapse them without checking `docs/seo/url-architecture.md` and `docs/seo/decisions.md` and confirming with the maintainer.
 - The audit reveals a registry or sitemap anomaly that the existing tests did not catch. That is a test gap — document it in `docs/maintenance-backlog.md` before fixing the data.
-- Interactive wiring check reports `UNWIRED-INQUIRY-FORM` but source clearly imports the runtime script. Treat as a bundling/build-output anomaly; escalate and capture at least one failing page path plus one referenced module path.
+- Interactive wiring check reports `UNWIRED-INQUIRY-FORM` and neither inline scripts nor external module chunks contain the marker. Treat as a bundling/build-output anomaly; escalate and capture at least one failing page path plus one referenced script source.
 
 ## Examples
 
