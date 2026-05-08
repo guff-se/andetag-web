@@ -43,25 +43,25 @@ Paths are relative to the repo root. All listed files sit under `site/`.
 | Stockholm home (`/sv/stockholm/`, `/en/stockholm/`) TestimonialCarousel | `STOCKHOLM_FEATURED_REVIEWS.map(r => ({ quote: r.quote, author: r.author }))` | `site/src/components/page-bodies/StockholmHomeSv.astro`, `StockholmHomeEn.astro` |
 | `besökaromdömen` page copy (totals, five-star count, average rating, TripAdvisor link) | `STOCKHOLM_RATING`, `STOCKHOLM_TRIPADVISOR_URL`, `stockholmTripadvisorRatingCommaDecimal` | `site/src/components/page-bodies/BesokaromdomenSv.astro`, `BesokaromdomenEn.astro` |
 
-### Drift hotspots (literal copies of featured reviews — must hand-sync)
+### Auto-propagating consumers (complete list)
 
-> These files inline their own `testimonialItems` array with the same quote strings. They are **not** imported from `STOCKHOLM_FEATURED_REVIEWS` today. Edit here **in addition to** the catalog.
+All carousel surfaces now derive `testimonialItems` from `STOCKHOLM_FEATURED_REVIEWS` via `.map(r => ({ quote: r.quote, author: r.author }))`. No hand-sync is required when updating the catalog.
 
-| File | What it holds |
-|------|---------------|
-| `site/src/components/page-bodies/StockholmSeoLandingSv.astro` | Inline `const testimonialItems = [...] as const` (3 entries, passed to `TestimonialCarousel items`). |
-| `site/src/components/page-bodies/StockholmSeoLandingEn.astro` | Same as above. |
-| `site/src/components/page-bodies/StockholmHomeSharedBody.astro` | Inline `const testimonialItems = [...]`. **Currently has no consumers** (no other file imports this component). Safe to ignore in most edits but keep in sync if quoted in review. |
+| File | How it consumes the catalog |
+|------|-----------------------------|
+| `site/src/components/page-bodies/StockholmHomeSv.astro` | `.map()` from import |
+| `site/src/components/page-bodies/StockholmHomeEn.astro` | `.map()` from import |
+| `site/src/components/page-bodies/StockholmSeoLandingSv.astro` | `.map()` from import |
+| `site/src/components/page-bodies/StockholmSeoLandingEn.astro` | `.map()` from import |
+| `site/src/components/page-bodies/StockholmHomeSharedBody.astro` | `.map()` from import |
 
-If you edit featured reviews, run this grep before finishing:
+After editing `STOCKHOLM_FEATURED_REVIEWS`, confirm no literal copies remain:
 
 ```bash
 git grep -n 'const testimonialItems' -- 'site/src/components/page-bodies/'
 ```
 
-Every match that is not a `.map(r => …)` form from `STOCKHOLM_FEATURED_REVIEWS` is a literal copy that must be updated by hand.
-
-Consider opening a maintenance-backlog item (`M-0003` or next free id in `docs/maintenance-backlog.md`) to collapse these literals onto the catalog import if the drift becomes painful.
+Every match should be the `.map(r => …)` form. If any literal array appears, it is a new drift hotspot that must be collapsed before merging.
 
 ## Locale parity rules
 
@@ -100,17 +100,55 @@ Consider opening a maintenance-backlog item (`M-0003` or next free id in `docs/m
 ### C. Add, replace, or remove a featured review
 
 1. Edit `STOCKHOLM_FEATURED_REVIEWS` in `stockholm-reviews.ts`. Keep the `as const` assertion and the `readonly` tuple shape. Each entry must provide `author`, `quote`, `datePublished` (ISO `YYYY-MM-DD`), `ratingValue: "5"`.
-2. **Sync the drift hotspots** (see §Files touched):
-   - `site/src/components/page-bodies/StockholmSeoLandingSv.astro` — update the inline `testimonialItems` array to match (same count, same quotes, same authors).
-   - `site/src/components/page-bodies/StockholmSeoLandingEn.astro` — same.
-   - `site/src/components/page-bodies/StockholmHomeSharedBody.astro` — same, if the shared body is registered.
-3. Schema-org `review` array will auto-update from the catalog. The schema test has loose bounds (`reviews.length >= 1`) so it will still pass; no test change is required.
-4. Home pages (`StockholmHomeSv.astro`, `StockholmHomeEn.astro`) use `.map(r => ({ quote, author }))` over `STOCKHOLM_FEATURED_REVIEWS` — auto-update.
-5. Verification: §Verification. Additionally, grep `dist/sv/stockholm/index.html` for the new author name to confirm home carousel propagation, and `dist/sv/stockholm-dejt/index.html` (or any SEO landing you touched) for the literal sync.
+2. All carousel consumers auto-propagate via `.map()` — no hand-sync needed (see §Auto-propagating consumers). Schema-org `review` array also auto-updates.
+3. Verification: §Verification. Spot-check that the new author name appears in `dist/sv/stockholm/index.html` and at least one SEO landing page.
 
 ### D. Reorder featured reviews
 
-Same as §C — treat the whole array as a list edit and re-sync the drift hotspots in order. Order matters: both the home carousel and the inline SEO-landing arrays render in array order.
+Same as §C — treat the whole array as a list edit. Order matters: all carousels render in array order and auto-propagate via `.map()`.
+
+### G. Select featured reviews from the review approval pack
+
+`docs/tripadvisor-review-approval-pack.csv` is the canonical source for curating featured reviews. It contains all TripAdvisor reviews exported for curation. Process it when refreshing `STOCKHOLM_FEATURED_REVIEWS`.
+
+#### CSV fields
+
+| Column | Use |
+|--------|-----|
+| `gid` | TripAdvisor review identifier (`taur:…`). Keep as a source reference comment when adding to the catalog. |
+| `status` | `ready` = safe to feature. `needs_human_review` = skip until manually resolved. |
+| `language` | ISO 639-1 code. Prefer `en` entries for the catalog (original-language policy). |
+| `reviewer` | TripAdvisor username — use verbatim as `author`. |
+| `dateText` | Original date string (e.g. `"May 4, 2026"`). Convert to ISO `YYYY-MM-DD` for `datePublished`. |
+| `rating` | Verify `5.0 of 5 bubbles` before including. Only 5-star reviews belong in `STOCKHOLM_FEATURED_REVIEWS`. |
+| `reviewText` | The reviewer's own words — use verbatim. Never truncate, paraphrase, or translate. |
+
+#### Selection criteria for `STOCKHOLM_FEATURED_REVIEWS`
+
+Only use `status = ready` entries. Select 3–6 English entries ranked by:
+
+1. **Conversion signal.** Clear before/after arc (stress → calm, outside world → present), a specific sensory detail, or a concrete social-proof signal (repeat visit, brought friends, favourite place in Stockholm). Concise enough to read in two or three breaths without scrolling.
+2. **SEO value.** Naturally contains one or more of: immersive art, meditation, breathing, mindfulness, relaxation, textile art, light installation, Stockholm, unique experience. Specificity beats density — a review that mentions the fabric, the breathing soundtrack, or the subway location is better than one that only says "amazing".
+3. **Voice diversity.** Cover a spread of visitor profiles: tourist, local, couple, solo. Avoid two entries from the same reviewer.
+4. **Freshness.** Prefer reviews from the last 12 months where quality is equal.
+
+**Never** truncate or edit a quote. Never add a review that is not in the CSV or not verifiable on the live TripAdvisor page. Never use `needs_human_review` entries.
+
+#### Important: the CSV is a curated subset, not a full export
+
+`tripadvisor-review-approval-pack.csv` contains only reviews that have been pre-filtered as relevant for testimonial use. It does **not** represent all reviews on TripAdvisor. Do **not** derive `reviewCount` or `fiveStarReviewCount` from the row count in the CSV. Always get aggregate figures from the live TripAdvisor page or confirm with Gustaf.
+
+#### Workflow
+
+1. Open `docs/tripadvisor-review-approval-pack.csv`. Filter to `status = ready, language = en, rating = 5.0 of 5 bubbles`.
+2. Score candidates against the criteria above. Draft a shortlist of 5–8.
+3. For the **home slider**, present the shortlist to Gustaf before committing — the slider is high-visibility and benefits from a human read.
+4. Implement the agreed set via §C (add/replace featured reviews), including drift-hotspot sync.
+5. Update `Last verified` and bump `STOCKHOLM_RATING` per §A using figures confirmed from the live TripAdvisor page or by Gustaf — never from the CSV row count.
+
+#### Tone note
+
+Some visitor quotes contain em dashes (—). Site copy policy prohibits em dashes in brand-authored text, but verbatim visitor quotes are exempt because they are attributed third-party words. If a proposed quote contains an em dash and an equally strong alternative does not, prefer the alternative.
 
 ### E. Change the review display component (background image, carousel behaviour)
 
@@ -162,20 +200,12 @@ git grep -n "tripadvisor.com/Attraction_Review" site/dist/ | head -20
 for q in $(node -e 'const r = require("./site/src/lib/content/stockholm-reviews.ts"); console.log(r.STOCKHOLM_FEATURED_REVIEWS.map(x => x.author).join(" "));') ; do grep -l "$q" site/dist/**/index.html >/dev/null || echo "MISSING $q"; done
 ```
 
-Drift check after §C or §D:
+Drift guard after §C or §D:
 
 ```bash
-# Every SEO-landing testimonialItems array must have the same authors as the catalog,
-# in the same order.
-for f in site/src/components/page-bodies/StockholmSeoLandingSv.astro \
-         site/src/components/page-bodies/StockholmSeoLandingEn.astro; do
-  echo "--- $f"
-  grep -A 200 "const testimonialItems" "$f" | grep 'author:' | head
-done
-grep 'author:' site/src/lib/content/stockholm-reviews.ts
+# Confirm no literal testimonialItems array remains (every match should be the .map form).
+git grep -n 'const testimonialItems' -- 'site/src/components/page-bodies/'
 ```
-
-Authors should match line-for-line in order across all three outputs.
 
 ## When to escalate
 

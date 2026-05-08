@@ -1,12 +1,12 @@
 # Artworks subsystem: implementation plan
 
-Status: **Draft**, awaiting approval before implementation.
+Status: **Implemented** — Phase 1 shipped in PR #24 (`feature/artworks`), merged to `main` 2026-04.
 Owner: Gustaf.
-Drafted: 2026-05-04.
+Drafted: 2026-05-04. Implemented: 2026-04.
 
-The full artworks subsystem (collection pages, content module, components, images, schema) lives on a branch that is **not yet merged to `main`** and is therefore **not on production `www`**. There are **no legacy URLs to preserve**. This plan designs the artworks URL contract and per-artwork pages as one coherent system, ready to ship in a single (or small set of) PRs.
+Phase 1 is live on production `www.andetag.museum`. Phase 2 (cookie-driven dual chrome, §10) and Phase 3 (About/story page migration to location-free URLs, §11) remain deferred.
 
-The plan is grounded in the actual code (Astro static export, `[...slug].astro` shell, page-shell registry, page-body registry, schema-org graph, `entry-router.ts`).
+This document is kept as a reference for the subsystem design and for the two deferred phases. Do not treat it as an action item.
 
 ---
 
@@ -311,30 +311,26 @@ This artworks plan does **not** lock the site into a "location-free" pattern. It
 
 ---
 
-## 12. Implementation checkpoints
+## 12. Implementation checkpoints — completed
 
-The whole artworks subsystem is unmerged, so doctrine and code can ship together in one PR (or a small, sequenced set if size demands). Suggested sequence inside the same branch:
+Phase 1 shipped as PR #24. All steps 1–4 below were completed in that PR.
 
-1. **Doctrine first** in the branch: update `docs/seo/url-architecture.md`, `docs/seo/decisions.md` (`SEO-NNNN`), `docs/url-matrix.csv`, `docs/Andetag SEO Manual.md`. Establishes the contract before code.
-2. **Collection rekey:** move the collection to `/en/artworks/` and `/sv/konstverk/` across registry, navigation, schema, internal links.
-3. **Per-artwork route:** dynamic route, body components, schema per-artwork node, ArtworkCard linkification, sitemap inclusion, tests.
-4. **Curated launch content:** per-artwork narrative paragraphs in `artwork-page-copy.ts` for the launch subset (available originals + gems).
-5. (Optional later) **Phase 2 PR:** only if §10.5 trigger fires.
-
-Steps 1 to 4 can be a single PR or split if review effort demands. The Cloudflare preview is the merge gate; `npm test && npm run build` must be green; `skills/seo/SKILL.md` §H pass on touched URLs is recorded in the PR body.
+1. **Doctrine:** `docs/seo/url-architecture.md` §3 (artworks subsystem), `docs/seo/decisions.md` (`SEO-0022`), `docs/url-matrix.csv`, `docs/Andetag SEO Manual.md` §12 updated. **Done.**
+2. **Collection rekey:** `/en/artworks/` and `/sv/konstverk/` in registry, navigation, schema, internal links. **Done.**
+3. **Per-artwork route:** `site/src/pages/en/artworks/[slug].astro` + `site/src/pages/sv/konstverk/[slug].astro`, body components, schema `mainEntity`, `ArtworkCard` as `<a>`, modal "Open page" link, sitemap. **Done.**
+4. **Launch content:** all artworks and gems generate pages; per-artwork narrative from `Artwork` structured fields (no separate copy module). **Done.**
+5. **Phase 2 PR:** deferred — see §10.5 trigger conditions.
 
 ---
 
-## 13. Decisions still open
+## 13. Decisions — resolved
 
-Settle these before code starts.
+All decisions were settled during implementation (PR #24).
 
-1. **Move the collection to location-free URLs (`/en/artworks/`, `/sv/konstverk/`)?** Recommended: **yes**. Symmetric with per-artwork URLs, nothing is live to break, and "up" navigation matches "down" navigation. The alternative (collection at `/en/stockholm/artworks/`, individual works at `/en/artworks/<slug>/`) is asymmetric and harder to explain.
-2. **Title pattern.** Proposed English: `Andetag no. <N> ({format}, {year}) | ANDETAG`. Swedish equivalent. Confirm or revise.
-3. **Public URL slug.** **Locked:** originals `andetag-no-<N>`; gems `andetag-gem-<name>` (e.g. `andetag-gem-emerald`). Implemented via `artworkPublicSlug()`; internal `Artwork.id` unchanged.
-4. **Sold pages indexable?** Default in this plan: **yes** (sales support extends to general discoverability and to "available again on secondary market" conversations). Confirm.
-5. **Curated launch subset vs all 50 + gems on day one?** Default: **curated subset first** (avoids thin-page risk), grow over time.
-6. **Where lives the per-artwork copy module?** Default: `site/src/lib/content/artwork-page-copy.ts`, keyed by `Artwork.id`, `{ sv: string | null, en: string | null }` so absence is explicit (slug is never a copy key).
-7. **Berlin per-artwork CTA copy.** Wording for the "Visit in Stockholm or Berlin" block on each page; one sentence each (sv + en).
-
-Once these are settled, the implementation PR is straightforward and follows §12.
+1. **Collection at location-free URLs?** **Resolved: yes.** `/en/artworks/` and `/sv/konstverk/` are live.
+2. **Title pattern.** **Resolved:** `Andetag no. <N> (<format>, <year>) | ANDETAG` for originals; gem title equivalent. Implemented in `artwork-shell-routes.ts`.
+3. **Public URL slug.** **Resolved:** originals `andetag-no-<N>`; gems `andetag-gem-<name>`. `artworkPublicSlug()` in `artworks.ts`; internal `Artwork.id` unchanged.
+4. **Sold pages indexable?** **Resolved: yes.** Sold pages are indexed; inquiry CTA is hidden; collector-map shown instead.
+5. **Curated vs all on day one?** **Resolved:** all artworks and gems generate pages on launch.
+6. **Per-artwork copy module.** **Resolved differently from plan:** a separate `artwork-page-copy.ts` was not created. Per-artwork narrative is driven entirely from structured fields in `Artwork` in `artworks.ts`. No prose-only copy module is needed.
+7. **Berlin per-artwork CTA copy.** **Resolved:** "Visit in Stockholm or Berlin" link pair implemented in `ArtworkPageEn.astro` and `ArtworkPageSv.astro`.

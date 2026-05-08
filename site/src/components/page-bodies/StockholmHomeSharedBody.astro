@@ -22,6 +22,7 @@ import {
   STOCKHOLM_SEASON_PASS,
   STOCKHOLM_DAYTIME_WINDOW,
 } from "../../lib/content/stockholm-offers";
+import { STOCKHOLM_FEATURED_REVIEWS } from "../../lib/content/stockholm-reviews";
 
 /**
  * Swedish Stockholm home: body from `site-html/index.html`
@@ -83,23 +84,7 @@ const artYogaMarkdown = [
   "<p>Klassen är öppen för både nybörjare och erfarna yogautövare.<br />Inga förkunskaper krävs.</p>",
 ].join("");
 
-const testimonialItems = [
-  {
-    quote:
-      "The installation is incredibly immersive, with light, sound and textile art blending into a unique experience. It invites you to slow down, breathe and simply be present. Truly one of a kind.",
-    author: "Edwin",
-  },
-  {
-    quote:
-      "A calming and meditative experience that feels like a deep breath for the whole body. The movement of light and color creates a soothing atmosphere. You leave feeling grounded, rested and quietly moved.",
-    author: "Therese",
-  },
-  {
-    quote:
-      "The artwork is stunning, with intricate textures and glowing fibers that feel alive. The experience engages many senses at once, creating a rare sense of wonder. Beautiful, thoughtful and unforgettable.",
-    author: "Gabrielle",
-  },
-] as const;
+const testimonialItems = STOCKHOLM_FEATURED_REVIEWS.map((r) => ({ quote: r.quote, author: r.author }));
 
 const partners = [
   {

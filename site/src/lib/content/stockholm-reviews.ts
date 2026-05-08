@@ -6,7 +6,7 @@
  * to propagate. See Phase 9 skill P9-14 for the maintenance workflow.
  *
  * Source: https://www.tripadvisor.com/Attraction_Review-g189852-d32883203-Reviews-Andetag-Stockholm.html
- * Last verified: 2026-05-02
+ * Last verified: 2026-05-08
  */
 
 export const STOCKHOLM_TRIPADVISOR_URL =
@@ -15,9 +15,9 @@ export const STOCKHOLM_TRIPADVISOR_URL =
 export const STOCKHOLM_RATING = {
   ratingValue: "4.9",
   /** Total reviews on Tripadvisor (aggregateRating reviewCount). */
-  reviewCount: 193,
+  reviewCount: 197,
   /** Subset rated five stars (on-page stats only; not used in JSON-LD). */
-  fiveStarReviewCount: 179,
+  fiveStarReviewCount: 183,
   bestRating: "5",
 } as const;
 
@@ -55,24 +55,43 @@ export type StockholmReview = {
  */
 export const STOCKHOLM_FEATURED_REVIEWS: readonly StockholmReview[] = [
   {
-    author: "Edwin",
+    // taur:1046062736
+    author: "maijak2026",
     quote:
-      "The installation is incredibly immersive, with light, sound and textile art blending into a unique experience. It invites you to slow down, breathe and simply be present. Truly one of a kind.",
-    datePublished: "2025-01-15",
+      "A breathing room in the heart of the city! Beautiful immersive sound, music and light experience. A space to connect to each other but also to yourself and your own breath.",
+    datePublished: "2026-01-14",
     ratingValue: "5",
   },
   {
-    author: "Therese",
+    // taur:999934844
+    author: "PetterWallberg",
     quote:
-      "A calming and meditative experience that feels like a deep breath for the whole body. The movement of light and color creates a soothing atmosphere. You leave feeling grounded, rested and quietly moved.",
-    datePublished: "2025-01-15",
+      "This experience completely shifted my day. I stepped in from the chaos of the subway and left in stillness—feeling grounded, grateful, and present. It’s hard to put into words, but something subtle and powerful happens here. A must.",
+    datePublished: "2025-03-26",
     ratingValue: "5",
   },
   {
-    author: "Gabrielle",
+    // taur:1048628312
+    author: "Traveler566865",
     quote:
-      "The artwork is stunning, with intricate textures and glowing fibers that feel alive. The experience engages many senses at once, creating a rare sense of wonder. Beautiful, thoughtful and unforgettable.",
-    datePublished: "2025-01-15",
+      "Take your time in here and just follow the sounds and the visuals. It is so deeply relaxing and beautiful, like a spa for the brain and then some.",
+    datePublished: "2026-02-08",
+    ratingValue: "5",
+  },
+  {
+    // taur:1028923793
+    author: "J4366RQmichelleg",
+    quote:
+      "Such a beautiful immersive experience. Really took me out of my mind and out of the city into a deep visceral place. I’d recommend this to anybody wanted to do something different and come back to their body and breathe through art.",
+    datePublished: "2025-09-05",
+    ratingValue: "5",
+  },
+  {
+    // taur:1039320693
+    author: "565patrikg",
+    quote:
+      "A brilliant and unique visualization of the core of the human condition. Makes you awe over what it is to be human. Must see when in Stockholm!",
+    datePublished: "2025-11-17",
     ratingValue: "5",
   },
 ] as const;

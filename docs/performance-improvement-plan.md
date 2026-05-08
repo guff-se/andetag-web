@@ -340,7 +340,7 @@ Cloudflare’s overview ([speed up a website](https://www.cloudflare.com/en-gb/l
 - [ ] **CLS** regression check on **four** URLs flagged in [Lighthouse batch insights](#lighthouse-batch-insights-april-2026).
 - [x] Booking widget still functions after **`defer`** (dates, language, checkout handoff).
 - [x] Gallery lightbox (open / close / Escape) without jQuery.
-- [ ] GTM + consent: tags still fire correctly after any future load deferral (**P2** completion).
+- [x] GTM + consent: tags fire correctly after deferral (**P2** done — GTM deferred to `window.load`, CMP injected post-LCP via `PerformanceObserver`).
 - [x] Visual parity on hero poster and video fade (stakeholder sign-off when possible).
 - [ ] **P3** API responses carry **`Content-Encoding`** when Understory enables compression (verify in Network).
 - [ ] **Production `www`:** Facebook Sharing Debugger on key URLs after content updates that change `og:image` or canonical paths.

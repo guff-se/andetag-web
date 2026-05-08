@@ -29,6 +29,7 @@ import {
   STOCKHOLM_SEASON_PASS,
   STOCKHOLM_DAYTIME_WINDOW,
 } from "../../lib/content/stockholm-offers";
+import { STOCKHOLM_FEATURED_REVIEWS } from "../../lib/content/stockholm-reviews";
 
 export interface Props {
   /** Passed to `GallerySection` for lightbox grouping (must be unique per page). */
@@ -85,23 +86,7 @@ const privatMarkdown = [
   '<p>Skicka ett mejl till <a href="mailto:info@andetag.museum">info@andetag.museum</a>, så hjälper vi dig!</p>',
 ].join("");
 
-const testimonialItems = [
-  {
-    quote:
-      "The installation is incredibly immersive, with light, sound and textile art blending into a unique experience. It invites you to slow down, breathe and simply be present. Truly one of a kind.",
-    author: "Edwin",
-  },
-  {
-    quote:
-      "A calming and meditative experience that feels like a deep breath for the whole body. The movement of light and color creates a soothing atmosphere. You leave feeling grounded, rested and quietly moved.",
-    author: "Therese",
-  },
-  {
-    quote:
-      "The artwork is stunning, with intricate textures and glowing fibers that feel alive. The experience engages many senses at once, creating a rare sense of wonder. Beautiful, thoughtful and unforgettable.",
-    author: "Gabrielle",
-  },
-] as const;
+const testimonialItems = STOCKHOLM_FEATURED_REVIEWS.map((r) => ({ quote: r.quote, author: r.author }));
 
 const mapSrc =
   "https://maps.google.com/maps?q=Andetag%2C%20Kungsgatan%2039%2C%20111%2056%20Stockholm&t=m&z=15&output=embed&iwloc=near";
