@@ -111,7 +111,7 @@ Do **not** set `andetag_entry` when sending a visitor to the English hub (`/en/`
 
 ### Root path `/`
 
-`/` is **not** an on-page Stockholm-vs-Berlin chooser. It routes by language lane (Swedish, German, or English). For English-lane visitors (top `Accept-Language` primary is not `sv` or `de`), `cf.country` `SE` or `DE` sends them straight to `/en/stockholm/` or `/en/berlin/` with the matching cookie; otherwise they go to the `/en/` hub. Crawlers are handled separately so they always reach a full English Stockholm page.
+`/` is **not** an on-page Stockholm-vs-Berlin chooser. It routes by language lane (Swedish, German, or English). For English-lane visitors (top `Accept-Language` primary is not `sv` or `de`), `cf.country` `SE` or `DE` sends them straight to `/en/stockholm/` or `/en/berlin/` with the matching cookie; otherwise they default to `/en/stockholm/`. Crawlers are handled separately so they always reach a full English Stockholm page.
 
 Handled at the edge for `GET` (and `HEAD` as appropriate).
 
@@ -125,7 +125,7 @@ Handled at the edge for `GET` (and `HEAD` as appropriate).
 2. If top primary is not `sv` or `de`, use Cloudflare `cf.country` (when present and a normal two-letter code):
    - `SE`: `302` to `/en/stockholm/`, `Set-Cookie` `v1:en-s`.
    - `DE`: `302` to `/en/berlin/`, `Set-Cookie` `v1:en-b`.
-3. Otherwise: `302` to `/en/` (English hub), **omit `Set-Cookie`** (visitor picks Stockholm or Berlin on the hub).
+3. Otherwise: `302` to `/en/stockholm/`, **omit `Set-Cookie`**.
 
 **With cookie:** if `andetag_entry` is present and valid, `302` to the mapped path:
 

@@ -200,7 +200,7 @@ export function decideRootRouting(input: {
     };
   }
 
-  return { type: "redirect", locationPath: suffix("/en/") };
+  return { type: "redirect", locationPath: suffix("/en/stockholm/") };
 }
 
 export function decideEnglishHubRouting(input: {

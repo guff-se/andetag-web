@@ -298,7 +298,7 @@ export default {
       if (d.type === "redirect") {
         return redirectResponse(d.locationPath, d.setCookie, d.permanent);
       }
-      return redirectResponse(`/en/${url.search}`);
+      return redirectResponse(`/en/stockholm/${url.search}`);
     }
 
     if (url.pathname === "/en/") {

@@ -87,9 +87,9 @@ describe("decideRootRouting", () => {
     });
   });
 
-  it("with no cookie and no Accept-Language, sends humans to English hub when geo unknown", () => {
+  it("with no cookie and no Accept-Language, sends humans to English Stockholm when geo unknown", () => {
     const d = decideRootRouting({ ...base, acceptLanguage: null });
-    expect(d).toEqual({ type: "redirect", locationPath: "/en/" });
+    expect(d).toEqual({ type: "redirect", locationPath: "/en/stockholm/" });
   });
 
   it("with no cookie, no Accept-Language, SE geo sends to English Stockholm with cookie", () => {
@@ -147,7 +147,7 @@ describe("decideRootRouting", () => {
       search: "?utm=x",
       acceptLanguage: null,
     });
-    expect(d).toEqual({ type: "redirect", locationPath: "/en/?utm=x" });
+    expect(d).toEqual({ type: "redirect", locationPath: "/en/stockholm/?utm=x" });
   });
 });
 
