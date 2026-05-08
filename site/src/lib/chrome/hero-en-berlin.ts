@@ -121,7 +121,7 @@ export function getEnglishBerlinHeroHeaderModel(pathname: string) {
      */
     centerCopy: {
       titleLines: ["ANDETAG is coming", "to Berlin"] as const,
-      subtitleLines: ["The Breathing Museum", "Opening autumn 2026"] as const,
+      subtitleLines: ["The Breathing Museum", "Opening soon"] as const,
     },
   };
 }

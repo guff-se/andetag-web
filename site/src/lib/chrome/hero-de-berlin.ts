@@ -115,7 +115,7 @@ export function getGermanBerlinHeroHeaderModel(pathname: string) {
     languageFlags,
     centerCopy: {
       titleLines: ["ANDETAG kommt", "nach Berlin"] as const,
-      subtitleLines: ["Das Atemmuseum", "Eröffnung Herbst 2026"] as const,
+      subtitleLines: ["Das Atemmuseum", "Eröffnung demnächst"] as const,
     },
   };
 }

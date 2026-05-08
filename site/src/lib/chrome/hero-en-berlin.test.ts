@@ -6,7 +6,7 @@ describe("english berlin hero header model", () => {
     const model = getEnglishBerlinHeroHeaderModel("/en/berlin/");
     expect(model.centerCopy).toEqual({
       titleLines: ["ANDETAG is coming", "to Berlin"],
-      subtitleLines: ["The Breathing Museum", "Opening autumn 2026"],
+      subtitleLines: ["The Breathing Museum", "Opening soon"],
     });
   });
 

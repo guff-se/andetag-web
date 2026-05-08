@@ -6,7 +6,7 @@ describe("german berlin hero header model", () => {
     const model = getGermanBerlinHeroHeaderModel("/de/berlin/");
     expect(model.centerCopy).toEqual({
       titleLines: ["ANDETAG kommt", "nach Berlin"],
-      subtitleLines: ["Das Atemmuseum", "Eröffnung Herbst 2026"],
+      subtitleLines: ["Das Atemmuseum", "Eröffnung demnächst"],
     });
   });
 

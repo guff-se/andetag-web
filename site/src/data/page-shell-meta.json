@@ -6,7 +6,7 @@
   "pages": {
     "/de/berlin/": {
       "sourceFile": "de-berlin.html",
-      "title": "ANDETAG Berlin | Das Atemmuseum, eröffnet im Herbst 2026",
+      "title": "ANDETAG Berlin | Das Atemmuseum, eröffnet bald",
       "description": "ANDETAG eröffnet bald in Berlin, ein stilles Atemmuseum, in dem Licht, Textil und Musik sich im Rhythmus eines gemeinsamen Atemzugs bewegen."
     },
     "/de/berlin/die-kuenstler-malin-gustaf-tadaa/": {
@@ -41,8 +41,8 @@
     },
     "/en/berlin/": {
       "sourceFile": "en-berlin-en.html",
-      "title": "ANDETAG Berlin | The Breathing Museum, Opens Autumn 2026",
-      "description": "ANDETAG, the breathing museum, is coming to Berlin in autumn 2026. A calm, light-based art experience built for stillness and presence. Sign up to be the first to know."
+      "title": "ANDETAG Berlin | The Breathing Museum, Opening Soon",
+      "description": "ANDETAG, the breathing museum, is coming to Berlin soon. A calm, light-based art experience built for stillness and presence. Sign up to be the first to know."
     },
     "/en/berlin/about-andetag/": {
       "sourceFile": "en-about-andetag.html",
