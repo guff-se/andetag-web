@@ -112,6 +112,45 @@ Consider opening a maintenance-backlog item (`M-0003` or next free id in `docs/m
 
 Same as §C — treat the whole array as a list edit and re-sync the drift hotspots in order. Order matters: both the home carousel and the inline SEO-landing arrays render in array order.
 
+### G. Select featured reviews from the review approval pack
+
+`docs/tripadvisor-review-approval-pack.csv` is the canonical source for curating featured reviews. It contains all TripAdvisor reviews exported for curation. Process it when refreshing `STOCKHOLM_FEATURED_REVIEWS`.
+
+#### CSV fields
+
+| Column | Use |
+|--------|-----|
+| `gid` | TripAdvisor review identifier (`taur:…`). Keep as a source reference comment when adding to the catalog. |
+| `status` | `ready` = safe to feature. `needs_human_review` = skip until manually resolved. |
+| `language` | ISO 639-1 code. Prefer `en` entries for the catalog (original-language policy). |
+| `reviewer` | TripAdvisor username — use verbatim as `author`. |
+| `dateText` | Original date string (e.g. `"May 4, 2026"`). Convert to ISO `YYYY-MM-DD` for `datePublished`. |
+| `rating` | Verify `5.0 of 5 bubbles` before including. Only 5-star reviews belong in `STOCKHOLM_FEATURED_REVIEWS`. |
+| `reviewText` | The reviewer's own words — use verbatim. Never truncate, paraphrase, or translate. |
+
+#### Selection criteria for `STOCKHOLM_FEATURED_REVIEWS`
+
+Only use `status = ready` entries. Select 3–6 English entries ranked by:
+
+1. **Conversion signal.** Clear before/after arc (stress → calm, outside world → present), a specific sensory detail, or a concrete social-proof signal (repeat visit, brought friends, favourite place in Stockholm). Concise enough to read in two or three breaths without scrolling.
+2. **SEO value.** Naturally contains one or more of: immersive art, meditation, breathing, mindfulness, relaxation, textile art, light installation, Stockholm, unique experience. Specificity beats density — a review that mentions the fabric, the breathing soundtrack, or the subway location is better than one that only says "amazing".
+3. **Voice diversity.** Cover a spread of visitor profiles: tourist, local, couple, solo. Avoid two entries from the same reviewer.
+4. **Freshness.** Prefer reviews from the last 12 months where quality is equal.
+
+**Never** truncate or edit a quote. Never add a review that is not in the CSV or not verifiable on the live TripAdvisor page. Never use `needs_human_review` entries.
+
+#### Workflow
+
+1. Open `docs/tripadvisor-review-approval-pack.csv`. Filter to `status = ready, language = en, rating = 5.0 of 5 bubbles`.
+2. Score candidates against the criteria above. Draft a shortlist of 5–8.
+3. For the **home slider**, present the shortlist to Gustaf before committing — the slider is high-visibility and benefits from a human read.
+4. Implement the agreed set via §C (add/replace featured reviews), including drift-hotspot sync.
+5. Update `Last verified` and, if the live TripAdvisor page shows new aggregate figures, also bump `STOCKHOLM_RATING` per §A.
+
+#### Tone note
+
+Some visitor quotes contain em dashes (—). Site copy policy prohibits em dashes in brand-authored text, but verbatim visitor quotes are exempt because they are attributed third-party words. If a proposed quote contains an em dash and an equally strong alternative does not, prefer the alternative.
+
 ### E. Change the review display component (background image, carousel behaviour)
 
 Out of scope for this skill. Background image belongs to `skills/images/SKILL.md` (`testimonialCarouselDefaultBg`). Carousel behaviour is a component-level change (`site/src/components/content/TestimonialCarousel.astro`).
