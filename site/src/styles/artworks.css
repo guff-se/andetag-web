@@ -112,7 +112,7 @@
 .artwork-map {
   background: var(--artwork-cream);
   border-radius: var(--artwork-radius);
-  padding: 1.25rem 1.25rem 0.75rem;
+  padding: 0.625rem 0.625rem 0.375rem;
   margin: 0 0 4rem;
   border: 1px solid var(--artwork-line);
   overflow: hidden;
