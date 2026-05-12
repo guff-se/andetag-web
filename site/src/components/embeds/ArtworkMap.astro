@@ -26,11 +26,14 @@ const { artworks, language, highlightArtworkId, stackByLocation = true } = Astro
 const VIEW_W = 1100;
 const VIEW_H = 460;
 
-/** Generous bounds that frame Europe + West Coast NA without chopping pins. */
-const LON_MIN = -130;
-const LON_MAX = 50;
 const LAT_MIN = 5;
 const LAT_MAX = 72;
+
+/** Fit longitude bounds tightly to the actual artworks with equal padding on each side. */
+const LON_PAD = 10;
+const _artworkLons = artworks.map((a) => a.location.lon);
+const LON_MIN = (_artworkLons.length > 0 ? Math.min(..._artworkLons) : -120) - LON_PAD;
+const LON_MAX = (_artworkLons.length > 0 ? Math.max(..._artworkLons) : 20) + LON_PAD;
 
 /** Equirectangular projection. Cheap, distortion-tolerant at this zoom level. */
 function project(lon: number, lat: number): [number, number] {
@@ -152,8 +155,8 @@ const sectionLabel =
                 : `${pin.label} (${pin.count} works)`
           }
         >
-          <circle class="artwork-map__pin-glow" cx={pin.cx} cy={pin.cy} r="20" />
-          <circle class="artwork-map__pin-dot" cx={pin.cx} cy={pin.cy} r={pin.count > 1 ? 6 : 4.5} />
+          <circle class="artwork-map__pin-glow" cx={pin.cx} cy={pin.cy} r="26" />
+          <circle class="artwork-map__pin-dot" cx={pin.cx} cy={pin.cy} r={pin.count > 1 ? 9 : 7} />
           {pin.count > 1 ? (
             <text
               class="artwork-map__pin-count"
@@ -187,8 +190,8 @@ const sectionLabel =
                 : `${pin.label} (${pin.count} works)`
           }
         >
-          <circle class="artwork-map__pin-glow" cx={pin.cx} cy={pin.cy} r="20" />
-          <circle class="artwork-map__pin-dot" cx={pin.cx} cy={pin.cy} r={pin.count > 1 ? 6 : 4.5} />
+          <circle class="artwork-map__pin-glow" cx={pin.cx} cy={pin.cy} r="26" />
+          <circle class="artwork-map__pin-dot" cx={pin.cx} cy={pin.cy} r={pin.count > 1 ? 9 : 7} />
           {pin.count > 1 ? (
             <text
               class="artwork-map__pin-count"
