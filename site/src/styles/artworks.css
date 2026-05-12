@@ -938,6 +938,12 @@ body.is-modal-open {
   margin-top: auto;
 }
 
+@media (max-width: 639px) {
+  .artwork-modal__actions {
+    justify-content: center;
+  }
+}
+
 .artwork-modal__btn {
   font-family: "JostLocal", "Jost", sans-serif;
   font-size: 0.78rem;
@@ -999,6 +1005,16 @@ body.is-modal-open {
 
 .artwork-modal__nav.is-next {
   right: 0.5rem;
+}
+
+/* On mobile the panel fills ~90vh and is vertically centered, leaving ~5vh
+   above it. The image area is min-height:260px, so its center is at ~5vh+130px.
+   Anchor nav buttons there so they sit over the photo, not the text. */
+@media (max-width: 639px) {
+  .artwork-modal__nav {
+    top: calc(5vh + 130px);
+    transform: translateY(-50%);
+  }
 }
 
 @media (min-width: 960px) {
