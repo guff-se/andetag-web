@@ -961,6 +961,7 @@ body.is-modal-open {
   align-items: center;
   gap: 0.5rem;
   text-decoration: none;
+  white-space: nowrap;
   transition: background 220ms ease, color 220ms ease;
 }
 
