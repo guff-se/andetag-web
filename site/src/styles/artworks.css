@@ -941,6 +941,10 @@ body.is-modal-open {
 @media (max-width: 639px) {
   .artwork-modal__actions {
     justify-content: center;
+    flex-wrap: nowrap;
+  }
+  .artwork-modal__btn {
+    padding-inline: 0.65rem;
   }
 }
 
