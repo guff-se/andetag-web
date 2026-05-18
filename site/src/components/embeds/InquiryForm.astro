@@ -42,6 +42,10 @@ const labels =
           "Tack. Vi har tagit emot din förfrågan och hör av oss inom kort.",
         error:
           "Det gick inte att skicka förfrågan just nu. Försök igen om en stund eller skriv till info@andetag.museum.",
+        errorConsent:
+          "Bekräfta att ANDETAG får höra av sig och att du accepterar integritetspolicyn innan du skickar förfrågan.",
+        errorTitle: "Förfrågan kunde inte skickas",
+        errorDismiss: "Stäng",
         privacyHref: "/sv/stockholm/privacy/",
       }
     : {
@@ -66,6 +70,10 @@ const labels =
         success: "Thank you. Your inquiry has been received and we will be in touch shortly.",
         error:
           "We could not send your inquiry right now. Please try again shortly or email info@andetag.museum.",
+        errorConsent:
+          "Please confirm that ANDETAG may reply and that you accept the privacy policy before sending your inquiry.",
+        errorTitle: "Your inquiry could not be sent",
+        errorDismiss: "Close",
         privacyHref: "/en/stockholm/privacy/",
       };
 ---
@@ -149,12 +157,33 @@ const labels =
       aria-live="polite"
       data-inquiry-status
       data-inquiry-success={labels.success}
-      data-inquiry-error={labels.error}
       hidden
     >
       {labels.success}
     </p>
   </form>
+
+  <div
+    class="inquiry-form__error-modal"
+    role="alertdialog"
+    aria-modal="true"
+    aria-labelledby="inquiry-error-heading"
+    data-inquiry-error-modal
+    data-inquiry-error-generic={labels.error}
+    data-inquiry-error-consent={labels.errorConsent}
+    hidden
+  >
+    <div class="inquiry-form__error-modal__backdrop" data-inquiry-error-dismiss></div>
+    <div class="inquiry-form__error-modal__panel">
+      <h3 class="inquiry-form__error-modal__title" id="inquiry-error-heading">
+        {labels.errorTitle}
+      </h3>
+      <p class="inquiry-form__error-modal__message" data-inquiry-error-message></p>
+      <button type="button" class="inquiry-form__error-modal__dismiss" data-inquiry-error-dismiss>
+        {labels.errorDismiss}
+      </button>
+    </div>
+  </div>
 </section>
 
 <script>

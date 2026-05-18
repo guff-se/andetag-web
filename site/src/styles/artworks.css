@@ -1282,6 +1282,83 @@ body.is-modal-open {
   padding-top: 1rem;
 }
 
+.inquiry-form__optin--invalid {
+  color: var(--artwork-pink);
+}
+
+.inquiry-form__optin--invalid input[type="checkbox"] {
+  outline: 2px solid var(--artwork-pink);
+  outline-offset: 2px;
+}
+
+.inquiry-form__error-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 210;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+}
+
+.inquiry-form__error-modal[hidden] {
+  display: none;
+}
+
+.inquiry-form__error-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(42, 34, 38, 0.72);
+  backdrop-filter: blur(3px);
+  cursor: pointer;
+}
+
+.inquiry-form__error-modal__panel {
+  position: relative;
+  width: min(28rem, 100%);
+  background: #fff;
+  border-radius: var(--artwork-radius);
+  padding: 2rem 1.75rem 1.75rem;
+  box-shadow: 0 24px 64px rgba(42, 34, 38, 0.28);
+  text-align: center;
+}
+
+.inquiry-form__error-modal__title {
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-weight: 400;
+  font-size: 1.05rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--artwork-pink);
+  margin: 0 0 1rem;
+}
+
+.inquiry-form__error-modal__message {
+  font-family: "BaskervvilleLocal", "Baskervville", Georgia, serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--artwork-graphite);
+  margin: 0 0 1.5rem;
+}
+
+.inquiry-form__error-modal__dismiss {
+  font-family: "JostLocal", "Jost", sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #fafafa;
+  background: var(--artwork-pink);
+  border: 1px solid var(--artwork-pink);
+  border-radius: 999px;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  transition: background 220ms ease;
+}
+
+.inquiry-form__error-modal__dismiss:hover,
+.inquiry-form__error-modal__dismiss:focus-visible {
+  background: #2a071b;
+}
+
 /* ============================================================
  * Reduced motion
  * ============================================================ */
@@ -1301,7 +1378,8 @@ body.is-modal-open {
   .artwork-lightbox__close,
   .artwork-sold-summary__arrow,
   .artwork-filter-pill,
-  .inquiry-form__submit {
+  .inquiry-form__submit,
+  .inquiry-form__error-modal__dismiss {
     transition: none;
   }
 
