@@ -96,6 +96,19 @@ const STOCKHOLM_GEO = {
   longitude: 18.0640809,
 };
 
+const STOCKHOLM_PLACE_ID = `${CANONICAL_HOST}/#place-stockholm`;
+
+/** Physical venue for Event.location (Google expects Place, not Museum). */
+function stockholmPlaceNode(): object {
+  return {
+    "@type": "Place",
+    "@id": STOCKHOLM_PLACE_ID,
+    name: "ANDETAG Stockholm",
+    address: STOCKHOLM_ADDRESS,
+    geo: STOCKHOLM_GEO,
+  };
+}
+
 /** Source: `site-html/en-stockholm-tickets.html` footer JSON-LD. */
 const STOCKHOLM_OPENING_HOURS: object[] = [
   {
@@ -363,7 +376,7 @@ function artYogaEventNodes(language: Language): object[] {
         endTime: ev.schedule.endTime,
         scheduleTimezone: ev.schedule.scheduleTimezone,
       },
-      location: { "@id": `${CANONICAL_HOST}/#museum-stockholm` },
+      location: { "@id": STOCKHOLM_PLACE_ID },
       organizer: { "@id": `${CANONICAL_HOST}/#organization` },
       performer: { "@type": "Person", name: ev.performer },
       offers: {
@@ -410,6 +423,7 @@ function buildStockholmVenueSchema(ctx: SchemaPageContext): { "@context": string
       sameAs: [...ORG_SAME_AS],
     },
     heroImageNode(),
+    stockholmPlaceNode(),
     {
       // Museum for semantics; LocalBusiness is required by Google's review-snippet list of valid
       // parent types for nested aggregateRating/review (Museum alone is not listed).

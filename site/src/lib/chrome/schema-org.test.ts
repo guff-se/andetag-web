@@ -30,7 +30,7 @@ describe("buildSchemaJsonLd", () => {
     const flat = types.flatMap((t) => (Array.isArray(t) ? t : t ? [t] : []));
     expect(flat).toContain("Museum");
     expect(flat).toContain("LocalBusiness");
-    expect(flat).not.toContain("Place");
+    expect(flat).toContain("Place");
     expect(flat).not.toContain("TouristAttraction");
   });
 
@@ -113,9 +113,15 @@ describe("buildSchemaJsonLd", () => {
       (n) => (n as Record<string, unknown>)["@type"] === "Event",
     ) as Record<string, unknown>[];
     expect(events.length).toBe(4);
+    const place = graphNodeWithSchemaType(doc["@graph"], "Place");
+    expect(place).toBeDefined();
+    expect(place!["@id"]).toBe("https://www.andetag.museum/#place-stockholm");
     for (const event of events) {
       expect(event.name).toBe("Art Yoga at ANDETAG");
       expect(event.duration).toBe("PT1H");
+      expect((event.location as Record<string, unknown>)["@id"]).toBe(
+        "https://www.andetag.museum/#place-stockholm",
+      );
       const schedule = event.eventSchedule as Record<string, unknown>;
       expect(schedule["@type"]).toBe("Schedule");
       expect(schedule.repeatFrequency).toBe("P1W");
