@@ -17,22 +17,22 @@
     "/de/berlin/musik-von-andetag/": {
       "sourceFile": "de-musik-von-andetag.html",
       "title": "Musik von ANDETAG | Originalmusik zum Atmen | Berlin",
-      "description": "Zwölf Stücke. Gut eine Stunde zusammenhängendes Hören. Die Originalmusik von ANDETAG, komponiert für Stille und Gegenwärtigkeit, von Gustaf Tadaa und Povel Olsson."
+      "description": "Zwölf Stücke, gut eine Stunde Hören. Originalmusik von ANDETAG für Stille und Gegenwärtigkeit, von Gustaf Tadaa und Povel Olsson."
     },
     "/de/berlin/optische-fasertextil/": {
       "sourceFile": "de-optische-fasertextil.html",
       "title": "Optische Fasertextil | Die Textilkunst von ANDETAG | Berlin",
-      "description": "Jedes ANDETAG-Werk beginnt mit einem Gewebe. Optische Faser, Baumwolle und Licht werden zu einer Textilkunst verwoben, die langsam leuchtet und sich nie wiederholt."
+      "description": "Jedes ANDETAG-Werk beginnt mit einem Gewebe. Optische Faser, Baumwolle und Licht werden zu Textilkunst verwoben, die langsam leuchtet und sich nie wiederholt."
     },
     "/de/berlin/privacy/": {
       "sourceFile": "privacy.html",
       "title": "Datenschutz | ANDETAG Berlin",
-      "description": "Datenschutzerklärung für ANDETAG Berlin. Wie Tadaa Art AB personenbezogene Daten erhebt, verarbeitet und schützt, wenn Sie andetag.museum besuchen oder Tickets buchen."
+      "description": "Datenschutzerklärung für ANDETAG Berlin. Wie Tadaa Art AB personenbezogene Daten erhebt und schützt, wenn Sie andetag.museum besuchen oder Tickets buchen."
     },
     "/de/berlin/ueber-andetag/": {
       "sourceFile": "de-ueber-andetag.html",
       "title": "Über ANDETAG | Ein gemeinsamer Atemzug als Kunst | Berlin",
-      "description": "ANDETAG: ein fortlaufendes Kunstprojekt, in dem Licht, Textil und Musik sich im Rhythmus eines gemeinsamen Atemzugs bewegen. Nie abgeschlossen, immer in Bewegung."
+      "description": "ANDETAG: ein fortlaufendes Kunstprojekt, in dem Licht, Textil und Musik sich im Rhythmus eines gemeinsamen Atemzugs bewegen. Immer in Bewegung."
     },
     "/en/": {
       "sourceFile": "en.html",
@@ -87,7 +87,7 @@
     "/en/stockholm/accessibility/": {
       "sourceFile": "en-stockholm-accessibility.html",
       "title": "Accessibility at ANDETAG Stockholm | ANDETAG Stockholm",
-      "description": "Accessibility information for ANDETAG in Stockholm. Wheelchair-accessible exhibition, elevators from street and metro, free entry for caregivers. Groups welcome."
+      "description": "Accessibility at ANDETAG in Stockholm. Wheelchair-accessible exhibition, elevators from street and metro, free entry for caregivers. Groups welcome."
     },
     "/en/stockholm/art-yoga/": {
       "sourceFile": "en-stockholm-art-yoga.html",
@@ -107,7 +107,7 @@
     "/en/stockholm/date/": {
       "sourceFile": "en-stockholm-date.html",
       "title": "Date in Stockholm | Calm, no demands, 1 hour | ANDETAG Stockholm",
-      "description": "Calm date in central Stockholm, about 1 hour. No talking required, no tempo to keep. From {REGULAR_DAYTIME_SEK} SEK daytime, {REGULAR_SEK} SEK regular. Works for first dates and established couples."
+      "description": "Calm date in Stockholm, about 1 hour. No talking required. From {REGULAR_DAYTIME_SEK} SEK daytime, {REGULAR_SEK} SEK regular. For first dates and established couples."
     },
     "/en/stockholm/event-stockholm/": {
       "sourceFile": "stockholm-att-gora-stockholm.html",
@@ -187,7 +187,7 @@
     "/en/stockholm/things-to-do-stockholm/": {
       "sourceFile": "stockholm-att-gora-stockholm.html",
       "title": "ANDETAG | Something calm to do in Stockholm | ANDETAG Stockholm",
-      "description": "Things to do in Stockholm today? ANDETAG, the breathing museum, is a calm art experience in central Stockholm. Light, breath, and presence. Open year-round at Hötorget."
+      "description": "Things to do in Stockholm? ANDETAG, the breathing museum, is a calm experience in central Stockholm. Light, breath, and presence. Open year-round at Hötorget."
     },
     "/en/stockholm/tickets/": {
       "sourceFile": "en-stockholm-tickets.html",
@@ -202,12 +202,12 @@
     "/en/stockholm/what-kind-of-experience/": {
       "sourceFile": "en-stockholm-what-kind-of-experience.html",
       "title": "What kind of experience is ANDETAG? | Stockholm",
-      "description": "ANDETAG is a calm, immersive art experience shaped by stillness, presence, and a shared breathing rhythm. A clear description of what to expect before you visit."
+      "description": "ANDETAG is a calm, immersive art experience shaped by stillness, presence, and a shared breath. What to expect before you visit."
     },
     "/sv/stockholm/": {
       "sourceFile": "index.html",
       "title": "ANDETAG | En stillsam konstupplevelse i Stockholm",
-      "description": "Andetag är ett stillsam konstupplevelse i centrala Stockholm. En omslutande upplevelse av ljus, textil och musik, skapad för närvaro, vila och ett gemensamt andetag."
+      "description": "Andetag är en stillsam konstupplevelse i centrala Stockholm. Ljus, textil och musik för närvaro, vila och ett gemensamt andetag."
     },
     "/sv/stockholm/aktivitet-inomhus-stockholm/": {
       "sourceFile": "stockholm-aktivitet-inomhus-stockholm.html",
@@ -237,7 +237,7 @@
     "/sv/stockholm/dejt/": {
       "sourceFile": "stockholm-dejt.html",
       "title": "Dejt i Stockholm | Lugn, inga krav, 1 timme | ANDETAG Stockholm",
-      "description": "Lugn dejt mitt i Stockholm, ca 1 timme. Inga krav på samtal, inget tempo att hålla. Från {REGULAR_DAYTIME_SEK} kr dagtid, {REGULAR_SEK} kr ordinarie. Passar både första dejten och etablerade par."
+      "description": "Lugn dejt i Stockholm, ca 1 timme. Inga krav på samtal eller tempo. Från {REGULAR_DAYTIME_SEK} kr dagtid, {REGULAR_SEK} kr ordinarie. För första dejten och etablerade par."
     },
     "/sv/stockholm/event-stockholm/": {
       "sourceFile": "stockholm-att-gora-stockholm.html",
@@ -267,7 +267,7 @@
     "/sv/konstverk/": {
       "sourceFile": "curated",
       "title": "Konstverk att förvärva | ANDETAG",
-      "description": "Andetag: Konstverken. Femtio originalverk i optisk fibertextil och tre Gems i upplagor. Skriv till oss om något fångar din blick. Lägg till verket i din samling."
+      "description": "Andetag: Konstverken. Femtio original i optisk fibertextil och tre Gems i upplagor. Skriv till oss om något fångar din blick."
     },
     "/sv/stockholm/meditation-stockholm/": {
       "sourceFile": "curated",
@@ -301,7 +301,7 @@
     },
     "/sv/stockholm/oppettider/": {
       "sourceFile": "stockholm-oppettider.html",
-      "title": "Öppettider ANDETAG Stockholm | ANDETAG Stockholm",
+      "title": "Öppettider | ANDETAG Stockholm",
       "description": "Se aktuella öppettider för ANDETAG i Stockholm. En stillsam konstupplevelse med fasta starttider och begränsat antal platser."
     },
     "/sv/stockholm/optisk-fibertextil/": {
@@ -317,7 +317,7 @@
     "/sv/stockholm/privacy/": {
       "sourceFile": "privacy.html",
       "title": "Integritetspolicy | ANDETAG Stockholm",
-      "description": "Integritetspolicy för ANDETAG. Hur Tadaa Art AB samlar in, behandlar och skyddar personuppgifter när du besöker andetag.museum, bokar biljetter eller kontaktar oss."
+      "description": "Integritetspolicy för ANDETAG. Hur Tadaa Art AB samlar in och skyddar personuppgifter när du besöker andetag.museum, bokar biljetter eller kontaktar oss."
     },
     "/sv/stockholm/sasongskort/": {
       "sourceFile": "stockholm-sasongskort.html",
