@@ -2540,6 +2540,14 @@ body.lightbox-open {
   margin-bottom: 0;
 }
 
+.page-vilken-typ-sv > * :first-child {
+  margin-top: 0;
+}
+
+.page-vilken-typ-sv > * :last-child {
+  margin-bottom: 0;
+}
+
 .page-vilken-typ-sv__intro {
   display: grid;
   gap: 1.5rem;
