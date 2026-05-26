@@ -2552,6 +2552,14 @@ body.lightbox-open {
   height: auto;
 }
 
+.page-vilken-typ-sv__video-band {
+  margin: 1.5rem 0;
+}
+
+.page-vilken-typ-sv__video-band + .page-vilken-typ-sv__lists {
+  margin-top: 1.5rem;
+}
+
 .page-vilken-typ-sv__lists {
   display: grid;
   gap: 2rem;
