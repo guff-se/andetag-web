@@ -2529,11 +2529,21 @@ body.lightbox-open {
 }
 
 /* `VilkenTypAvUpplevelseSv.astro` (wp-page 2930). */
+.page-vilken-typ-sv {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.page-vilken-typ-sv > * {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
 .page-vilken-typ-sv__intro {
   display: grid;
   gap: 1.5rem;
   align-items: start;
-  margin-top: 1rem;
 }
 
 @media (min-width: 768px) {
@@ -2553,17 +2563,13 @@ body.lightbox-open {
 }
 
 .page-vilken-typ-sv__video-band {
-  margin: 1.5rem 0;
-}
-
-.page-vilken-typ-sv__video-band + .page-vilken-typ-sv__lists {
-  margin-top: 1.5rem;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
 }
 
 .page-vilken-typ-sv__lists {
   display: grid;
   gap: 2rem;
-  margin-top: 2rem;
 }
 
 @media (min-width: 768px) {
