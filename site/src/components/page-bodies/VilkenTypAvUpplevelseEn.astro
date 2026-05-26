@@ -1,7 +1,10 @@
 ---
 import ContentSection from "../content/ContentSection.astro";
 import GallerySection from "../content/GallerySection.astro";
+import VideoEmbed from "../embeds/VideoEmbed.astro";
 import { stockholmMarketingGalleryHomeEn } from "../../lib/content/stockholm-marketing-gallery";
+
+const vimeoSrc = "https://player.vimeo.com/video/1049805246";
 
 /**
  * `site-html/en-stockholm-what-kind-of-experience.html` wp-page.
@@ -67,6 +70,13 @@ const heroImage = {
         decoding="async"
       />
     </figure>
+  </div>
+  <div class="page-vilken-typ-sv__video-band">
+    <VideoEmbed
+      title="ANDETAG on Vimeo"
+      src={vimeoSrc}
+      fallbackText="The video could not load. Please try again later."
+    />
   </div>
   <div class="page-vilken-typ-sv__lists">
     <ContentSection markdown={forYouMarkdown} />
