@@ -41,6 +41,13 @@ export function getLanguagesAvailableForDestination(destination: Destination): L
   );
 }
 
+/**
+ * Header parity: the rendered desktop/mobile menu in `SiteHeader.astro` reads
+ * `MENU_DEFINITION` in `hero-{sv,en-stockholm,en-berlin,de-berlin}.ts`, NOT the
+ * `NAVIGATION_VARIANTS` below. When adding a nav link you MUST update both.
+ * The hero version carries `matchPrefixes` (parent-active state) on top of the
+ * label+href pairs; `nav-parity.test.ts` asserts the descendant link set agrees.
+ */
 export function getChromeTopLanguageAlternates(input: {
   canonicalPath: string;
   language: Language;

@@ -51,6 +51,9 @@ export function isEnglishBerlinSharedHeroHeader(headerId: HeaderVariantId): bool
 export function getEnglishBerlinHeroHeaderModel(pathname: string) {
   const chromeCtx = inferChromePathContext(pathname);
 
+  // Source of truth for the rendered English Berlin header menu. Mirrors
+  // `NAVIGATION_VARIANTS["en-main-berlin"]` in `navigation.ts`; edits here must
+  // be applied there too. `nav-parity.test.ts` enforces agreement.
   const menuItems: HeroMenuItem[] = [
     {
       label: "ANDETAG Berlin",
