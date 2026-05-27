@@ -7,6 +7,10 @@ and this project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
 ## [Unreleased]
 
+### Changed
+
+- **`CLAUDE.md` now `@`-imports `AGENTS.md` directly instead of pointing at it.** Claude Code transcludes files referenced via `@<path>` into the session's initial context, so `AGENTS.md` is loaded automatically at session start without an indirection step the agent could skip. The previous `SessionStart` hook (`.claude/hooks/session-start.sh` + the `SessionStart` entry in `.claude/settings.json`) is removed in favor of this lighter mechanism; the existing `PreToolUse` git-push guard in `settings.json` is preserved. Zero startup latency vs. the hook's `cat` + `jq` overhead, and the rule-injection mechanism is now visible in the file every contributor reads first.
+
 ### Added
 
 - **Vimeo trailer on the "Vilken typ av upplevelse" / "What kind of experience" page (both locales).** New `VideoEmbed` (`https://player.vimeo.com/video/1049805246`) below the intro prose + hero figure on `VilkenTypAvUpplevelseSv.astro` and `VilkenTypAvUpplevelseEn.astro`. Renders as a full-bleed band (`calc(50% - 50vw)` breakout) via the new `.page-vilken-typ-sv__video-band` wrapper. Without a self-hosted poster the embed renders as a lazy-loaded iframe; if a poster is added later (`/assets/video/vimeo-poster-1049805246.{webp,jpg}` + `posterWebp`/`posterJpeg` props), the standard click-to-load facade activates. Locale-localized title/fallback strings match the existing convention on `StockholmHomeSv/En`.
