@@ -49,6 +49,7 @@ export const STOCKHOLM_SV_EN_PAIRS: ReadonlyArray<readonly [string, string]> = [
   ["/sv/stockholm/fragor-svar/", "/en/stockholm/faq/"],
   ["/sv/stockholm/gruppbokning/", "/en/stockholm/group-bookings/"],
   ["/sv/stockholm/hitta-hit/", "/en/stockholm/how-to-find-us/"],
+  ["/sv/stockholm/kontakt/", "/en/stockholm/contact/"],
   ["/sv/stockholm/oppettider/", "/en/stockholm/opening-hours/"],
   ["/sv/stockholm/presentkort/", "/en/stockholm/giftcard/"],
   ["/sv/stockholm/sasongskort/", "/en/stockholm/season-pass/"],

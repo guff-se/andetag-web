@@ -2109,14 +2109,14 @@ body.lightbox-open {
   margin: 0;
 }
 
-.page-stockholm-home__press-grid {
+.page-kontakt-sv__press-grid {
   display: grid;
   gap: 2rem;
   margin: 2rem 0;
 }
 
 @media (min-width: 768px) {
-  .page-stockholm-home__press-grid {
+  .page-kontakt-sv__press-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     align-items: start;
   }

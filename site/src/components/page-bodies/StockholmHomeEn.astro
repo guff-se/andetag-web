@@ -153,23 +153,6 @@ const partners = [
   },
 ] as const;
 
-const kontaktMarkdown =
-  "<p>For questions regarding tickets, event bookings or general information, please contact: <a href=\"mailto:info@andetag.museum\">info@andetag.museum</a></p>";
-
-const pressMarkdown = [
-  "<h3>Press</h3>",
-  "<p><strong>Press Contact</strong><br />Gustaf Tadaa<br />0709-854979<br /><a href=\"mailto:info@andetag.museum\">info@andetag.museum</a></p>",
-  '<p><a href="https://andetag.museum/presskit" target="_blank" rel="noreferrer noopener">Link to press kit</a></p>',
-].join("");
-
-const contentsamarbetenMarkdown = [
-  "<h3>Content collaborations</h3>",
-  "<p>Are you a content creator, photographer, or influencer looking for a unique and luminous backdrop for your work? We&#8217;d love to collaborate!</p>",
-  "<p>Our space is a haven of glowing art, stillness, and inspiration – perfect for capturing truly one-of-a-kind content.</p>",
-  '<p>Send an email to <a href="mailto:info@andetag.museum">info@andetag.museum</a> for inquiries.</p>',
-  "<p>Let&#8217;s create something magical together.</p>",
-].join("");
-
 const mapSrc =
   "https://maps.google.com/maps?q=Andetag%2C%20Kungsgatan%2039%2C%20111%2056%20Stockholm&t=m&z=15&output=embed&iwloc=near";
 
@@ -336,13 +319,6 @@ const vimeoSrc = "https://player.vimeo.com/video/1077937338";
   </div>
 
   <PartnersSection heading="Our partners" headingLevel="h3" partners={[...partners]} />
-
-  <ContentSection heading="Contact" headingLevel="h3" markdown={kontaktMarkdown} />
-
-  <div class="page-stockholm-home__press-grid">
-    <ContentSection markdown={pressMarkdown} />
-    <ContentSection markdown={contentsamarbetenMarkdown} />
-  </div>
 
   <div class="page-stockholm-home__cta-secondary-band">
     <div class="page-migrated-cta">

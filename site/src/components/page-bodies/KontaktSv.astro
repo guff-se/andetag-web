@@ -1,0 +1,29 @@
+---
+import ContentSection from "../content/ContentSection.astro";
+
+const kontaktMarkdown =
+  "<p>För frågor gällande biljetter, evenemangsbokning eller generell information, vänligen kontakta: <a href=\"mailto:info@andetag.museum\">info@andetag.museum</a></p>";
+
+const pressMarkdown = [
+  "<h2>Press</h2>",
+  "<p><strong>Presskontakt:</strong><br />Gustaf Tadaa<br />0709-854979<br /><a href=\"mailto:info@andetag.museum\">info@andetag.museum</a></p>",
+  '<p><a href="https://andetag.museum/presskit" target="_blank" rel="noreferrer noopener">Länk till presskit</a></p>',
+].join("");
+
+const contentsamarbetenMarkdown = [
+  "<h2>Innehållssamarbeten</h2>",
+  "<p>Är du en innehållsskapare, fotograf eller influencer som letar efter en unik och lysande bakgrund för ditt arbete? Vi vill gärna samarbeta!</p>",
+  "<p>Vårt utrymme är en oas av glödande konst, stillhet och inspiration, perfekt för att skapa innehåll som verkligen är unikt.</p>",
+  '<p>Skicka ett mejl till <a href="mailto:info@andetag.museum">info@andetag.museum</a> med din förfrågan.</p>',
+  "<p>Låt oss skapa något magiskt tillsammans.</p>",
+].join("");
+---
+
+<div class="page-migrated page-kontakt-sv">
+  <ContentSection heading="Kontakt" headingLevel="h1" markdown={kontaktMarkdown} />
+
+  <div class="page-kontakt-sv__press-grid">
+    <ContentSection markdown={pressMarkdown} />
+    <ContentSection markdown={contentsamarbetenMarkdown} />
+  </div>
+</div>
