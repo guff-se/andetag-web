@@ -101,6 +101,7 @@ const MENU_DEFINITION: Array<{
       "/sv/stockholm/optisk-fibertextil/",
       "/sv/stockholm/musik/",
       "/sv/stockholm/om-konstnarerna-malin-gustaf-tadaa/",
+      "/sv/stockholm/kontakt/",
     ],
     subMenu: [
       { label: "Om ANDETAG", href: "/sv/stockholm/om-andetag/" },
@@ -108,6 +109,7 @@ const MENU_DEFINITION: Array<{
       { label: "Textilen", href: "/sv/stockholm/optisk-fibertextil/" },
       { label: "Musiken", href: "/sv/stockholm/musik/" },
       { label: "Om konstnärerna", href: "/sv/stockholm/om-konstnarerna-malin-gustaf-tadaa/" },
+      { label: "Kontakt", href: "/sv/stockholm/kontakt/" },
     ],
   },
 ];
