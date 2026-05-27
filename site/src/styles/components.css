@@ -2115,6 +2115,17 @@ body.lightbox-open {
   margin: 2rem 0;
 }
 
+.page-kontakt-sv__press-grid > .content-section {
+  margin: 0;
+}
+
+/* The markdown bodies start with an `<h2>` whose `.content-section-body h2` rule adds
+   `margin-top: 1.25rem`; strip that on the first child so the grid `gap` is the only
+   inter-section spacing. */
+.page-kontakt-sv__press-grid .content-section-body > :first-child {
+  margin-top: 0;
+}
+
 @media (min-width: 768px) {
   .page-kontakt-sv__press-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
