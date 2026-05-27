@@ -1,5 +1,6 @@
 ---
 import ContentSection from "../content/ContentSection.astro";
+import StyledLink from "../ui/StyledLink.astro";
 
 const kontaktMarkdown =
   "<p>For questions regarding tickets, event bookings or general information, please contact: <a href=\"mailto:info@andetag.museum\">info@andetag.museum</a></p>";
@@ -25,5 +26,24 @@ const contentsamarbetenMarkdown = [
   <div class="page-kontakt-sv__press-grid">
     <ContentSection markdown={pressMarkdown} />
     <ContentSection markdown={contentsamarbetenMarkdown} />
+  </div>
+
+  <div class="page-kontakt-sv__loc-mobile" aria-label="Address">
+    <p class="page-kontakt-sv__loc-mobile-text">
+      <span class="brand-wordmark">ANDETAG</span><br />
+      Kungsgatan 39, Hötorget subway,<br /> Stockholm
+    </p>
+    <div class="page-kontakt-sv__hitta-row">
+      <StyledLink label="Getting here" href="/en/stockholm/how-to-find-us/" styleVariant="cta-primary" />
+    </div>
+  </div>
+
+  <div class="page-kontakt-sv__loc-desktop" aria-label="Address">
+    <p class="page-kontakt-sv__loc-desktop-text">
+      <span class="brand-wordmark">ANDETAG-</span>Kungsgatan 39, Hötorget subway, Stockholm
+    </p>
+    <div class="page-kontakt-sv__hitta-row">
+      <StyledLink label="Getting here" href="/en/stockholm/how-to-find-us/" styleVariant="cta-primary" />
+    </div>
   </div>
 </div>

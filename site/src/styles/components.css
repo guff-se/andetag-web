@@ -2122,6 +2122,51 @@ body.lightbox-open {
   }
 }
 
+.page-kontakt-sv__hitta-row {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 0.75rem;
+}
+
+.page-kontakt-sv__loc-mobile {
+  margin-top: 1.5rem;
+}
+
+.page-kontakt-sv__loc-mobile-text {
+  text-align: center;
+  margin: 0 0 0.75rem;
+}
+
+@media (min-width: 901px) {
+  .page-kontakt-sv__loc-mobile {
+    display: none;
+  }
+}
+
+.page-kontakt-sv__loc-desktop {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  margin: 1.5rem 0 2rem;
+  text-align: center;
+}
+
+.page-kontakt-sv__loc-desktop-text {
+  margin: 0;
+}
+
+.page-kontakt-sv__loc-desktop .page-kontakt-sv__hitta-row {
+  margin-top: 0.75rem;
+}
+
+@media (min-width: 901px) {
+  .page-kontakt-sv__loc-desktop {
+    display: flex;
+  }
+}
+
 .page-stockholm-home__cta-secondary-band {
   background: var(--component-accent);
   margin: 2.25rem calc(50% - 50vw);
