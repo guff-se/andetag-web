@@ -49,6 +49,9 @@ export function isGermanBerlinSharedHeroHeader(headerId: HeaderVariantId): boole
 export function getGermanBerlinHeroHeaderModel(pathname: string) {
   const chromeCtx = inferChromePathContext(pathname);
 
+  // Source of truth for the rendered German Berlin header menu. Mirrors
+  // `NAVIGATION_VARIANTS["de-main"]` in `navigation.ts`; edits here must be
+  // applied there too. `nav-parity.test.ts` enforces agreement.
   const menuItems: HeroMenuItem[] = [
     {
       label: "ANDETAG Berlin",
