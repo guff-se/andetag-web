@@ -61,6 +61,7 @@ export function getSwedishFooterModel() {
         { label: "Konstverk", href: "/sv/konstverk/" },
         { label: "Textilen", href: "/sv/stockholm/optisk-fibertextil/" },
         { label: "Om konstnärerna", href: "/sv/stockholm/om-konstnarerna-malin-gustaf-tadaa/" },
+        { label: "Kontakt", href: "/sv/stockholm/kontakt/" },
       ],
     },
   ];

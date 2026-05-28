@@ -2109,16 +2109,72 @@ body.lightbox-open {
   margin: 0;
 }
 
-.page-stockholm-home__press-grid {
+.page-kontakt-sv__press-grid {
   display: grid;
   gap: 2rem;
   margin: 2rem 0;
 }
 
+.page-kontakt-sv__press-grid > .content-section {
+  margin: 0;
+}
+
+/* The markdown bodies start with an `<h2>` whose `.content-section-body h2` rule adds
+   `margin-top: 1.25rem`; strip that on the first child so the grid `gap` is the only
+   inter-section spacing. */
+.page-kontakt-sv__press-grid .content-section-body > :first-child {
+  margin-top: 0;
+}
+
 @media (min-width: 768px) {
-  .page-stockholm-home__press-grid {
+  .page-kontakt-sv__press-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     align-items: start;
+  }
+}
+
+.page-kontakt-sv__hitta-row {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 0.75rem;
+}
+
+.page-kontakt-sv__loc-mobile {
+  margin-top: 1.5rem;
+}
+
+.page-kontakt-sv__loc-mobile-text {
+  text-align: center;
+  margin: 0 0 0.75rem;
+}
+
+@media (min-width: 901px) {
+  .page-kontakt-sv__loc-mobile {
+    display: none;
+  }
+}
+
+.page-kontakt-sv__loc-desktop {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  margin: 1.5rem 0 2rem;
+  text-align: center;
+}
+
+.page-kontakt-sv__loc-desktop-text {
+  margin: 0;
+}
+
+.page-kontakt-sv__loc-desktop .page-kontakt-sv__hitta-row {
+  margin-top: 0.75rem;
+}
+
+@media (min-width: 901px) {
+  .page-kontakt-sv__loc-desktop {
+    display: flex;
   }
 }
 

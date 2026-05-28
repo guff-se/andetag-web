@@ -99,6 +99,11 @@
       "title": "Artworks for acquisition | ANDETAG",
       "description": "The Andetag artworks. Fifty originals in optical fibre textile and three Gems in editions. Inquire to add a work to your collection."
     },
+    "/en/stockholm/contact/": {
+      "sourceFile": "curated",
+      "title": "Contact | ANDETAG Stockholm",
+      "description": "Contact information for ANDETAG in Stockholm: tickets, events, press, and content collaborations. Reach us at info@andetag.museum."
+    },
     "/en/stockholm/corporate-events/": {
       "sourceFile": "en-stockholm-corporate-events.html",
       "title": "Corporate events in Stockholm | Kickoff & conference | ANDETAG",
@@ -268,6 +273,11 @@
       "sourceFile": "curated",
       "title": "Konstverk att förvärva | ANDETAG",
       "description": "Andetag: Konstverken. Femtio original i optisk fibertextil och tre Gems i upplagor. Skriv till oss om något fångar din blick."
+    },
+    "/sv/stockholm/kontakt/": {
+      "sourceFile": "curated",
+      "title": "Kontakt | ANDETAG Stockholm",
+      "description": "Kontaktuppgifter för ANDETAG i Stockholm: biljetter, evenemang, press och innehållssamarbeten. Nå oss på info@andetag.museum."
     },
     "/sv/stockholm/meditation-stockholm/": {
       "sourceFile": "curated",
