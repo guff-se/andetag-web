@@ -961,23 +961,48 @@ body.lightbox-open {
   z-index: 1;
   padding: 0rem max(1.25rem, calc((100vw - 1100px) / 2)) 3.35rem;
   text-align: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem 2.5rem;
 }
 
-.testimonial-block__aggregate-eyebrow {
-  margin: 0 0 0.35rem;
+@media (max-width: 599px) {
+  .testimonial-block__aggregate-inner {
+    flex-direction: column;
+  }
+}
+
+.testimonial-block__aggregate-summary {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.testimonial-block__aggregate-meta-link {
   color: var(--component-surface);
   font-family: "JostLocal", "Jost", Arial, sans-serif;
-  font-size: 0.78rem;
-  font-weight: 500;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+  transition: opacity 160ms ease;
+}
+
+.testimonial-block__aggregate-meta-link:hover,
+.testimonial-block__aggregate-meta-link:focus-visible {
+  opacity: 0.85;
 }
 
 .testimonial-block__award {
   display: inline-flex;
   align-items: center;
   gap: 0.85rem;
-  margin: 0 auto 1.4rem;
+  margin: 0;
   padding: 0.5rem 1.1rem 0.5rem 0.65rem;
   border: 1px solid color-mix(in srgb, var(--component-surface) 40%, transparent);
   border-radius: 5px;
@@ -1030,37 +1055,6 @@ body.lightbox-open {
   opacity: 0.85;
 }
 
-.testimonial-block__aggregate-brand {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem 1.15rem;
-  margin: 0.1rem auto 0.4rem;
-}
-
-.testimonial-block__aggregate-dots {
-  display: block;
-  height: 1.2rem;
-  width: auto;
-}
-
-.testimonial-block__aggregate-logo {
-  display: block;
-  height: clamp(1.2rem, 2.6vw, 1.65rem);
-  width: auto;
-  max-width: min(17.5rem, 90vw);
-}
-
-.testimonial-block__aggregate-score-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: center;
-  gap: 0.5rem 1rem;
-  margin-bottom: 0.35rem;
-}
-
 .testimonial-block__aggregate-score {
   margin: 0;
   color: var(--component-surface);
@@ -1072,55 +1066,13 @@ body.lightbox-open {
 }
 
 .testimonial-block__aggregate-score span {
+  display: block;
   font-size: 0.45em;
   font-weight: 400;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   opacity: 0.85;
-}
-
-.testimonial-block__aggregate-stars {
-  display: flex;
-  gap: 0.12rem;
-  font-size: 1.15rem;
-  line-height: 1;
-  color: var(--component-surface);
-  letter-spacing: 0.02em;
-}
-
-.testimonial-block__aggregate-stars span {
-  opacity: 0.92;
-}
-
-.testimonial-block__aggregate-stars span:last-child {
-  opacity: 0.55;
-}
-
-.testimonial-block__aggregate-meta {
-  margin: 0.5rem auto 0.65rem;
-  max-width: 28rem;
-  color: var(--component-surface);
-  font-size: 0.95rem;
-  line-height: 1.45;
-}
-
-.testimonial-block__aggregate-link {
-  display: inline-block;
-  margin-top: 0.15rem;
-  color: var(--component-link);
-  font-family: "JostLocal", "Jost", Arial, sans-serif;
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.22em;
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-transform: uppercase;
-  text-underline-offset: 0.25em;
-}
-
-.testimonial-block__aggregate-link:hover,
-.testimonial-block__aggregate-link:focus-visible {
-  color: #2b0b1c;
+  margin-top: 0.25rem;
 }
 
 .testimonial-slide {
