@@ -11,17 +11,13 @@ type TestimonialItem = {
 
 /** Optional aggregate strip below quotes; background image spans carousel + aggregate. */
 type TestimonialAggregate = {
-  eyebrow: string;
   score: string;
   scoreCaption: string;
   meta: string;
   linkHref: string;
-  linkLabel: string;
-  /** Optional; use when visible `linkLabel` omits the destination name (for example Tripadvisor wordmark nearby). */
+  /** Accessible label for the meta link (e.g. "Read all reviews on Tripadvisor"). */
   linkAriaLabel?: string;
   regionAriaLabel?: string;
-  /** When false, hide self-hosted Tripadvisor dots + wordmark and show Unicode stars in the score row instead. */
-  showTripAdvisorBrand?: boolean;
 };
 
 /** Optional award lockup rendered above the aggregate strip (e.g. Travellers' Choice). */
@@ -34,9 +30,6 @@ type AwardBadge = {
   linkHref: string;
   linkAriaLabel: string;
 };
-
-const tripadvisorDotsSrc = "/assets/tripadvisor/tripadvisor-5dots.png";
-const tripadvisorLogoSrc = "/assets/tripadvisor/tripadvisor-logo.svg";
 
 type Props = {
   items: TestimonialItem[];
@@ -72,7 +65,6 @@ const legacyBgUrl = typeof backgroundImageProp === "string" ? backgroundImagePro
 const responsiveBg = useResponsiveBg ? (backgroundImageProp as BodyPictureSources) : null;
 
 const regionLabel = aggregate?.regionAriaLabel ?? "Sammanfattning av omdömen";
-const showTripAdvisorBrand = aggregate ? aggregate.showTripAdvisorBrand !== false : false;
 ---
 
 <section
@@ -159,58 +151,21 @@ const showTripAdvisorBrand = aggregate ? aggregate.showTripAdvisorBrand !== fals
               </a>
             ) : null
           }
-          <p class="testimonial-block__aggregate-eyebrow">{aggregate.eyebrow}</p>
-          {
-            showTripAdvisorBrand ? (
-              <div class="testimonial-block__aggregate-brand">
-                <img
-                  class="testimonial-block__aggregate-dots"
-                  src={tripadvisorDotsSrc}
-                  alt=""
-                  width="512"
-                  height="96"
-                  loading="lazy"
-                  decoding="async"
-                />
-                <img
-                  class="testimonial-block__aggregate-logo"
-                  src={tripadvisorLogoSrc}
-                  alt="Tripadvisor"
-                  width="561"
-                  height="86"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-            ) : null
-          }
-          <div class="testimonial-block__aggregate-score-row">
+          <div class="testimonial-block__aggregate-summary">
             <p class="testimonial-block__aggregate-score">
               {aggregate.score}
               <span>{aggregate.scoreCaption}</span>
             </p>
-            {
-              !showTripAdvisorBrand ? (
-                <div class="testimonial-block__aggregate-stars" aria-hidden="true">
-                  <span>★</span>
-                  <span>★</span>
-                  <span>★</span>
-                  <span>★</span>
-                  <span>★</span>
-                </div>
-              ) : null
-            }
+            <a
+              class="testimonial-block__aggregate-meta-link"
+              href={aggregate.linkHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={aggregate.linkAriaLabel}
+            >
+              {aggregate.meta}
+            </a>
           </div>
-          <p class="testimonial-block__aggregate-meta">{aggregate.meta}</p>
-          <a
-            class="testimonial-block__aggregate-link"
-            href={aggregate.linkHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={aggregate.linkAriaLabel}
-          >
-            {aggregate.linkLabel}
-          </a>
         </div>
       </div>
     ) : null

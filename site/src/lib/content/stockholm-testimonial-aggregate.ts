@@ -36,34 +36,28 @@ export const stockholmTravellersChoiceBadgeEn = {
 } as const;
 
 export const stockholmTestimonialAggregateSv = {
-  eyebrow: "Besökaromdömen",
   score: stockholmTripadvisorRatingCommaDecimal(),
   scoreCaption: `av ${STOCKHOLM_RATING.bestRating}`,
   meta: `${STOCKHOLM_RATING.reviewCount} recensioner`,
   linkHref: stockholmTripadvisorReviewsUrl,
-  linkLabel: "Läs alla recensioner",
-  linkAriaLabel: "Läs alla recensioner på Tripadvisor",
+  linkAriaLabel: `${STOCKHOLM_RATING.reviewCount} recensioner på Tripadvisor`,
   regionAriaLabel: "Sammanfattning av omdömen",
 } as const;
 
 export const stockholmTestimonialAggregateEn = {
-  eyebrow: "Visitor reviews",
   score: STOCKHOLM_RATING.ratingValue,
   scoreCaption: `out of ${STOCKHOLM_RATING.bestRating}`,
   meta: `${STOCKHOLM_RATING.reviewCount} reviews`,
   linkHref: stockholmTripadvisorReviewsUrl,
-  linkLabel: "Read all reviews",
-  linkAriaLabel: "Read all reviews on Tripadvisor",
+  linkAriaLabel: `${STOCKHOLM_RATING.reviewCount} reviews on Tripadvisor`,
   regionAriaLabel: "Review summary",
 } as const;
 
 export const stockholmTestimonialAggregateDe = {
-  eyebrow: "Besucherbewertungen",
   score: stockholmTripadvisorRatingCommaDecimal(),
   scoreCaption: `von ${STOCKHOLM_RATING.bestRating}`,
   meta: `${STOCKHOLM_RATING.reviewCount} Bewertungen`,
   linkHref: stockholmTripadvisorReviewsUrl,
-  linkLabel: "Alle Bewertungen lesen",
-  linkAriaLabel: "Alle Bewertungen auf Tripadvisor lesen",
+  linkAriaLabel: `${STOCKHOLM_RATING.reviewCount} Bewertungen auf Tripadvisor`,
   regionAriaLabel: "Zusammenfassung der Bewertungen",
 } as const;
