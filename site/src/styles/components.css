@@ -1063,16 +1063,17 @@ body.lightbox-open {
   font-weight: 500;
   letter-spacing: 0.02em;
   line-height: 1;
+  white-space: nowrap;
 }
 
 .testimonial-block__aggregate-score span {
-  display: block;
   font-size: 0.45em;
   font-weight: 400;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   opacity: 0.85;
-  margin-top: 0.25rem;
+  margin-left: 0.4em;
+  white-space: nowrap;
 }
 
 .testimonial-slide {
