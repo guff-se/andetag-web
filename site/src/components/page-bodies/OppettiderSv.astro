@@ -34,12 +34,13 @@ const accordionItems = [
 ---
 
 <div class="page-migrated page-oppettider-sv">
+  <ContentSection heading="Öppettider" headingLevel="h1" markdown="" />
   <div class="page-oppettider-sv__top">
     <div class="page-oppettider-sv__hours">
       <InfoFrame bodyHtml={hoursHtml} />
     </div>
     <div class="page-oppettider-sv__main">
-      <ContentSection heading="Öppettider" headingLevel="h1" markdown={introMarkdown} />
+      <ContentSection markdown={introMarkdown} />
       <AccordionSection items={accordionItems} initialOpenIndex={0} />
     </div>
   </div>
