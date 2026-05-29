@@ -2516,18 +2516,6 @@ body.lightbox-open {
 }
 
 /* `SasongskortSv.astro` (wp-page 2804). */
-.page-sasongskort-sv__two-col {
-  display: grid;
-  gap: 2rem;
-  margin-top: 1rem;
-}
-
-@media (min-width: 768px) {
-  .page-sasongskort-sv__two-col {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
 /* `NpfStockholmSv.astro` (wp-page 4384). */
 .page-npf-stockholm-sv__cta {
   margin: 1.5rem 0;
