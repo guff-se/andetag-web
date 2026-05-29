@@ -1,5 +1,6 @@
 ---
 import ContentSection from "../content/ContentSection.astro";
+import InfoFrame from "../content/InfoFrame.astro";
 import MediaCopySection from "../content/MediaCopySection.astro";
 import { STOCKHOLM_SEASON_PASS } from "../../lib/content/stockholm-offers";
 import { npfBlueGlowBody } from "../../lib/content/stockholm-body-responsive-images";
@@ -14,27 +15,17 @@ const bodyMarkdown =
   "<p>The season pass is for those who want to make <span class=\"brand-wordmark\">ANDETAG</span> part of everyday life. A place to come back to, without planning. Without rushing.</p>" +
   "<p>Each visit is familiar, but never identical. Light and music move in sync with a shared breath, unfolding in subtle variations. You arrive when you need to. You stay as long as you wish.</p>";
 
-const givesMarkdown =
-  "<h3>What the season pass includes</h3>" +
-  "<p>The season pass gives you <strong>unlimited access for six months</strong>.</p>" +
-  "<p>You book time slots as usual, subject to availability, and can visit as often as you like during the period.</p>" +
-  "<p>Some come once a week. Others more often. There is no right way.</p>";
-
-const priceMarkdown =
-  "<h3>Price and conditions</h3>" +
+const priceBodyHtml =
   "<p><strong>Season passes are purchased at the entrance.</strong></p>" +
   `<p><strong>Season pass: ${STOCKHOLM_SEASON_PASS.price} SEK</strong><br />Valid for ${STOCKHOLM_SEASON_PASS.durationMonths} months from the date of purchase.</p>` +
   "<p>If you have already purchased a standard ticket, its value can be deducted when buying a season pass at the entrance. Simply show your ticket at the desk.</p>" +
   "<p>The season pass is personal and non-transferable.</p>";
 
-const calmMarkdown =
-  "<h3>A quiet commitment</h3>" +
-  "<p>The season pass is not a promise of transformation. It is an invitation to continuity. A place that remains, ready when you are.</p>" +
-  "<p>One breath. Again and again.</p>";
-
 const seasonRhythmHtml =
   "<p>Returning regularly often changes how the experience is felt. The space becomes familiar, while the light keeps unfolding in new variations.</p>" +
-  "<p>Many use the season pass as a quiet weekly rhythm, a place to land between faster days in the city.</p>";
+  "<p>Many use the season pass as a quiet weekly rhythm, a place to land between faster days in the city.</p>" +
+  "<p>The season pass is not a promise of transformation. It is an invitation to continuity. A place that remains, ready when you are.</p>" +
+  "<p>One breath. Again and again.</p>";
 ---
 
 <div class="page-migrated page-sasongskort-sv">
@@ -54,9 +45,5 @@ const seasonRhythmHtml =
     mediaSide="end"
     mediaWidth="half"
   />
-  <div class="page-sasongskort-sv__two-col">
-    <ContentSection markdown={givesMarkdown} />
-    <ContentSection markdown={priceMarkdown} />
-  </div>
-  <ContentSection markdown={calmMarkdown} />
+  <InfoFrame heading="Price and conditions" bodyHtml={priceBodyHtml} />
 </div>

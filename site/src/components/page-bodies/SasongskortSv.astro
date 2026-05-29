@@ -1,5 +1,6 @@
 ---
 import ContentSection from "../content/ContentSection.astro";
+import InfoFrame from "../content/InfoFrame.astro";
 import MediaCopySection from "../content/MediaCopySection.astro";
 import { STOCKHOLM_SEASON_PASS } from "../../lib/content/stockholm-offers";
 import { npfBlueGlowBody } from "../../lib/content/stockholm-body-responsive-images";
@@ -15,27 +16,17 @@ const bodyMarkdown =
   "<p>Säsongskortet är för dig som vill göra <span class=\"brand-wordmark\">ANDETAG</span> till en del av din vardag. En plats att komma tillbaka till, utan att planera. Utan att skynda.</p>" +
   "<p>Varje besök är likt, men aldrig identiskt. Ljus och musik rör sig i takt med ett gemensamt andetag, i ständigt föränderliga variationer. Du kommer när du behöver. Du stannar så länge du vill.</p>";
 
-const givesMarkdown =
-  "<h3>Vad säsongskortet ger</h3>" +
-  "<p>Med säsongskortet har du fri tillgång till <span class=\"brand-wordmark\">ANDETAG</span> i <strong>sex månader</strong>.</p>" +
-  "<p>Du kan boka tider som vanligt, i mån av plats, och använda kortet så ofta du vill under perioden.</p>" +
-  "<p>Många använder det som en veckovis paus. Andra kommer oftare. Det finns inget rätt sätt.</p>";
-
-const priceMarkdown =
-  "<h3>Pris och villkor</h3>" +
+const priceBodyHtml =
   "<p><strong>Säsongskort säljs i kassan.</strong></p>" +
   `<p><strong>Pris: ${STOCKHOLM_SEASON_PASS.price} kr</strong><br />Gäller i ${STOCKHOLM_SEASON_PASS.durationMonths} månader från inköpsdatum.</p>` +
   "<p>Om du redan har köpt en ordinarie biljett kan dess värde dras av vid köp av säsongskort i entrén. Visa upp din biljett i kassan.</p>" +
   "<p>Säsongskortet är personligt.</p>";
 
-const calmMarkdown =
-  "<h3>Ett lugnt åtagande</h3>" +
-  "<p>Säsongskortet är inte ett löfte om förändring. Det är ett erbjudande om kontinuitet. En plats som finns där, när du behöver den.</p>" +
-  "<p>Ett andetag. Om och om igen.</p>";
-
 const seasonRhythmHtml =
   "<p>Ett återkommande besök förändrar ofta relationen till upplevelsen. Rummet känns bekant, men ljuset rör sig alltid i nya variationer.</p>" +
-  "<p>Många använder säsongskortet som en stilla veckorytm, en plats att landa i mellan dagar som går fort.</p>";
+  "<p>Många använder säsongskortet som en stilla veckorytm, en plats att landa i mellan dagar som går fort.</p>" +
+  "<p>Säsongskortet är inte ett löfte om förändring. Det är ett erbjudande om kontinuitet. En plats som finns där, när du behöver den.</p>" +
+  "<p>Ett andetag. Om och om igen.</p>";
 ---
 
 <div class="page-migrated page-sasongskort-sv">
@@ -55,9 +46,5 @@ const seasonRhythmHtml =
     mediaSide="end"
     mediaWidth="half"
   />
-  <div class="page-sasongskort-sv__two-col">
-    <ContentSection markdown={givesMarkdown} />
-    <ContentSection markdown={priceMarkdown} />
-  </div>
-  <ContentSection markdown={calmMarkdown} />
+  <InfoFrame heading="Pris och villkor" bodyHtml={priceBodyHtml} />
 </div>
