@@ -16,7 +16,7 @@ The migration from WordPress (Phases 0 through 8 of the original grand plan) clo
 
 - **Primary KPI:** completed ticket purchase in the external Understory checkout. The site is funnel optimization into that flow.
 - **Audience priorities (ranked):** Stockholm locals → tourists → couples and corporate visitors → mindfulness/yoga audiences. Berlin will mirror once open.
-- **Brand positioning:** "the breathing museum." Calm, invitational tone. Banned words and locale register are normative in `docs/Tone of Voice.md`.
+- **Brand positioning:** “the breathing museum” in **English and German** discoverability copy only; in Swedish the name ANDETAG is self-explanatory and does not use that bridge phrase (SEO Manual §1.1.2). Calm, invitational tone. Banned words and locale register are normative in `docs/Tone of Voice.md`.
 - **Material fact (copy baseline):** describe the artworks as custom-woven and hand-stitched optical fibre textiles; do not describe them as hand-woven.
 
 ## Languages and locations
