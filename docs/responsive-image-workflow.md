@@ -2,6 +2,8 @@
 
 Mandatory procedure when adding a new photograph or large raster to the Astro site (hero, gallery tile, body figure, testimonial band, Berlin teaser, `og:image` targets, and similar). Do not rely on the full-resolution master alone in HTML.
 
+**Photo catalog:** trilingual alt text and tags live in `assets/images/photos.yaml`. New uploads follow `skills/images/SKILL.md` (archive master under `assets/images/`, then copy to `site/public/` with derivatives below).
+
 ## 1. Commit the master
 
 Place the file on the same URL path the site will serve (for example `site/public/wp-content/uploads/.../original.jpg`). Keep provenance: encode from the real asset, do not substitute different imagery.

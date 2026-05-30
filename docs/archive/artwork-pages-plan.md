@@ -1,5 +1,7 @@
 # Artworks subsystem: implementation plan
 
+**Status:** **Closed / shipped.** The live contract is `docs/seo/decisions.md` `SEO-0022`, `docs/seo/url-architecture.md` §3 (Artworks subsystem), and `docs/content-model.md`. This file is a historical implementation plan; do not extend it.
+
 Status: **Implemented** — Phase 1 shipped in PR #24 (`feature/artworks`), merged to `main` 2026-04.
 Owner: Gustaf.
 Drafted: 2026-05-04. Implemented: 2026-04.

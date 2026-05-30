@@ -31,9 +31,9 @@ This file is the post-migration successor to the SEO-relevant rows in `docs/arch
 - **Scope:** content / on-page metadata
 - **Decision:** `/en/` uses destination-neutral `<title>` and meta description aligned with `docs/Andetag SEO Manual.md` §1 and §1.1 (**breathing museum**, definite article where applicable). On-page copy is the header-selector hero only — no `<main>` body. The `page-shell-meta.json` row for `/en/` is the SEO source of truth; keep the hub row stable (do not replace with copy sourced from any legacy export).
 - **Rationale:** Legacy `en.html` is a full Stockholm marketing home, not a two-city chooser. The hub UX requires coherent copy that does not commit to a destination before the visitor picks one.
-- **SEO impact:** Low. Changes English `/en/` SERP snippet and social preview vs legacy Yoast.
+- **SEO impact:** Low at adoption time (SERP snippet and social preview vs legacy Yoast). After `SEO-0021`, on-page metadata on `/en/` serves UX and sharing only; the shell is not an index target.
 - **Approval:** Gustaf.
-- **Follow-up:** None beyond maintaining the hand-authored `/en/` row in `page-shell-meta.json`.
+- **Follow-up:** Maintain the hand-authored `/en/` row in `page-shell-meta.json`. Do not optimize `/en/` head copy for ranking (`SEO-0021`).
 
 ### `SEO-0016` — Berlin English story shells canonicalize to Stockholm English
 
@@ -88,6 +88,19 @@ This file is the post-migration successor to the SEO-relevant rows in `docs/arch
 - **Approval:** Gustaf, 2026-04-25.
 - **Follow-up:** Historical only after `SEO-0021`. Tests at the time: `site/src/lib/routes/page-shell-registry.test.ts` (x-default parity), `site/workers/entry-routing-logic.test.ts` and `site/workers/entry-router.test.ts` (`301` + serve-asset), `site/src/lib/chrome/schema-org.test.ts` (`SiteNavigationElement`).
 
+### `SEO-0021` — `/en/` selector hub de-indexed; bots routed to `/en/stockholm/`
+
+- **Date:** 2026-05-01
+- **Scope:** SEO / indexation / entry routing / sitemap
+- **Decision:**
+  - **`/en/`** remains the live Stockholm-vs-Berlin chooser for humans who reach it directly, but it is **not** an SEO target: HTML emits `meta robots="noindex,follow"`, and the Astro sitemap filter excludes `/en/`.
+  - **Verified bots at `/en/`** receive a redirect to `/en/stockholm/` instead of the selector asset (supersedes the bot-handling bullet in `SEO-0020`).
+  - Ranking signals for English discovery consolidate on **`/en/stockholm/`** and other indexable English shells.
+- **Rationale:** Gustaf clarified that `/en/` is a manual-entry utility, not a page to rank. Humans can still use it when they navigate to `/en/`; root `/` routes English-lane visitors to `/en/stockholm/` by default (see `docs/seo/url-architecture.md` §4).
+- **SEO impact:** Low–medium. Removes `/en/` from the indexable set; expected consolidation onto `/en/stockholm/`. On-page title/description on `/en/` (`SEO-0015`) remain for UX and social preview only, not SERP targeting.
+- **Approval:** Gustaf.
+- **Follow-up:** Tests: `site/workers/entry-routing-logic.test.ts`, `site/workers/entry-router.test.ts`, built HTML spot-check for `noindex`, sitemap exclusion. See `docs/seo/url-architecture.md` §4 and `docs/Andetag SEO Manual.md` §12.1.
+
 ### `SEO-0022` — Artworks subsystem at location-free URLs
 
 - **Date:** 2026-05-04
@@ -103,8 +116,8 @@ This file is the post-migration successor to the SEO-relevant rows in `docs/arch
   - Sold-status pages are indexable and emit no inquiry/CTA. Available works embed the `InquiryForm` pre-filled with `?about=<Artwork.id>`.
 - **Rationale:** Single global inventory of unique works supports sales conversations from either Stockholm or Berlin without duplicating the catalogue. The full subsystem was unmerged at the time of the decision, so there were no legacy URLs to preserve. Subsystem-scoped exception, not a site-wide pattern shift.
 - **SEO impact:** Low. Artwork pages are a new index surface; they do not displace existing canonicals. Hreflang scope unchanged.
-- **Approval:** Gustaf, 2026-05-04 (`docs/artwork-pages-plan.md` §13).
-- **Follow-up:** Phase 2 (cookie-driven dual chrome on the same external URL) deferred per `docs/artwork-pages-plan.md` §10.
+- **Approval:** Gustaf, 2026-05-04.
+- **Follow-up:** Shipped with Stockholm chrome on all artwork URLs. Cookie-driven dual chrome on the same URL (Berlin vs Stockholm nav) is not planned unless Berlin sales require it.
 
 ---
 

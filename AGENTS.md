@@ -121,7 +121,7 @@ Read each doc when the work intersects its topic. Mental model lives in `docs/pr
 | [`docs/seo/url-architecture.md`](docs/seo/url-architecture.md) | Canonical URL contract, redirects, hreflang, entry routing, sitemap. |
 | [`docs/seo/decisions.md`](docs/seo/decisions.md) | Durable SEO decisions log (`SEO-NNNN`): deviations from default rules. |
 | [`docs/seo/README.md`](docs/seo/README.md) | SEO doctrine entry-point map. |
-| [`docs/content-model.md`](docs/content-model.md) | Page frontmatter, shared data contracts, component props. |
+| [`docs/content-model.md`](docs/content-model.md) | Shell metadata, shared data modules, chrome variants; component props in `component-usage.md`. |
 | [`docs/component-usage.md`](docs/component-usage.md) | Component API reference and usage patterns. |
 | [`docs/responsive-image-workflow.md`](docs/responsive-image-workflow.md) | **Mandatory** when adding photos: derivative generation, suffix rules, wiring. |
 | [`docs/performance-improvement-plan.md`](docs/performance-improvement-plan.md) | Lighthouse budgets, image and script playbook. |

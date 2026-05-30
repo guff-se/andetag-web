@@ -1,6 +1,6 @@
 # Tracking and Consent Requirements
 
-Purpose: define tracking and consent guardrails before implementation decisions in later phases.
+Purpose: define tracking and consent guardrails for the live static site (CookieConsent + GTM + Consent Mode v2).
 
 **Third-party CMP:** The live site uses **CookieConsent** only (self-hosted). **Termly is not used** (no third-party commercial CMP scripts, SDK, or dashboard dependency).
 

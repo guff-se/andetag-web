@@ -471,7 +471,7 @@ English hub (city chooser; static `200` for humans when edge routing applies)
 * EN: **`/en/`**
 * Role: human selector utility for uncookied visitors who need to choose Stockholm or Berlin.
 * Indexation: **not** an SEO target. The shell emits `noindex,follow`, is excluded from the XML sitemap, and verified crawlers on **`/`** or **`/en/`** are routed to **`/en/stockholm/`** instead.
-* Entry: humans hitting **`/`** with no `sv` or `de` match in **`Accept-Language`** receive **`302`** to **`/en/`** (see section 14).
+* Entry: humans reach **`/en/`** by navigating to that URL directly (or via bookmarks/links). Root **`/`** does **not** funnel generic English-lane visitors to **`/en/`**; it sends them to **`/en/stockholm/`** by default (see section 14).
 
 About Andetag (canonical shells; legacy global URLs **`301`** to Stockholm English where applicable)
 
@@ -675,25 +675,30 @@ Normative rules live in **`docs/seo/url-architecture.md`** §3–§4. **Implemen
 Summary:
 
 * **`/`** is an **entry router** at the edge (not the Swedish home document). Canonical Swedish home for indexation and hreflang is **`/sv/stockholm/`**.
-* **`/en/`** is the **English hub** (static **`200`**) when the visitor is in the English lane without a committed Stockholm or Berlin preference. It is a human selector utility, not an index target: `noindex,follow`, no sitemap row, and verified crawlers are routed onward to **`/en/stockholm/`**.
+* **`/en/`** is the **English hub** (static **`200`**) when a human opens **`/en/`** without a routing cookie that commits Stockholm or Berlin. It is a human selector utility, not an index target: `noindex,follow`, no sitemap row, and verified crawlers are routed onward to **`/en/stockholm/`**.
 * Legacy Swedish paths without **`/sv/`** **`301`** to **`/sv/stockholm/...`** per the URL matrix and **`site/public/_redirects`**.
 * **Static `_redirects` does not define `/` → Swedish home**; that hop would bypass the Worker. Local **`astro preview`** still serves **`/`** as a client redirect stub to **`/sv/stockholm/`** (development convenience only).
 
-### 14.1 Live entry responses (aligned with policy, `302` unless noted)
+### 14.1 Live entry responses (aligned with policy; `302` unless noted)
 
 | Request | Condition | Response |
 |---------|-----------|----------|
-| **`/`** | Verified bot (Cloudflare **`verifiedBot`** when available, else conservative **`User-Agent`**) | **`302`** → **`/en/stockholm/`**, no **`Set-Cookie`** |
-| **`/`** | Human, no **`andetag_entry`**, no usable **`Accept-Language`** | **`302`** → **`/en/`**, no cookie |
-| **`/`** | Human, no cookie, **`Accept-Language`** first match **`sv`** | **`302`** → **`/sv/stockholm/`**, **`Set-Cookie`** **`andetag_entry=v1:sv`** |
+| **`/`** | Verified bot (Cloudflare **`verifiedBot`** when available, else conservative **`User-Agent`**) | **`301`** → **`/en/stockholm/`**, no **`Set-Cookie`** |
+| **`/`** | Human, no **`andetag_entry`**, **`Accept-Language`** first match **`sv`** | **`302`** → **`/sv/stockholm/`**, **`Set-Cookie`** **`andetag_entry=v1:sv`** |
 | **`/`** | Human, no cookie, **`Accept-Language`** first match **`de`** | **`302`** → **`/de/berlin/`**, **`Set-Cookie`** **`andetag_entry=v1:de`** |
-| **`/`** | Human, no cookie, languages exhausted without **`sv`** or **`de`** | **`302`** → **`/en/`** |
+| **`/`** | Human, no cookie, languages exhausted without **`sv`** or **`de`**, **`cf.country`** **`SE`** | **`302`** → **`/en/stockholm/`**, **`Set-Cookie`** **`v1:en-s`** |
+| **`/`** | Human, no cookie, languages exhausted without **`sv`** or **`de`**, **`cf.country`** **`DE`** | **`302`** → **`/en/berlin/`**, **`Set-Cookie`** **`v1:en-b`** |
+| **`/`** | Human, no cookie, languages exhausted without **`sv`** or **`de`**, other or missing geo | **`302`** → **`/en/stockholm/`**, no cookie |
 | **`/`** | Valid **`andetag_entry`** | **`302`** to mapped path (**`/sv/stockholm/`**, **`/de/berlin/`**, **`/en/stockholm/`**, **`/en/berlin/`**) |
 | **`/en`** | Any | **`301`** → **`/en/`** (query preserved) |
 | **`/en/`** | Verified bot | **`302`** → **`/en/stockholm/`** |
 | **`/en/`** | Cookie **`v1:en-s`** or **`v1:sv`** | **`302`** → **`/en/stockholm/`** |
 | **`/en/`** | Cookie **`v1:en-b`** or **`v1:de`** | **`302`** → **`/en/berlin/`** |
-| **`/en/`** | Human, no routing cookie | **Static hub `200`** |
+| **`/en/`** | Human, no routing cookie, **`Accept-Language`** **`sv`** | **`302`** → **`/sv/stockholm/`**, **`Set-Cookie`** **`v1:sv`** |
+| **`/en/`** | Human, no routing cookie, **`Accept-Language`** **`de`** | **`302`** → **`/de/berlin/`**, **`Set-Cookie`** **`v1:de`** |
+| **`/en/`** | Human, no routing cookie, **`cf.country`** **`SE`** | **`302`** → **`/en/stockholm/`**, **`Set-Cookie`** **`v1:en-s`** |
+| **`/en/`** | Human, no routing cookie, **`cf.country`** **`DE`** | **`302`** → **`/en/berlin/`**, **`Set-Cookie`** **`v1:en-b`** |
+| **`/en/`** | Human, no routing cookie, otherwise | **Static hub `200`** |
 
 Cookie shape and refresh rules: **`docs/seo/url-architecture.md`** §4 (**`andetag_entry`**). The Worker also appends **`Set-Cookie`** on **`200`** responses under **`/sv/...`**, **`/de/berlin...`**, **`/en/stockholm/...`**, and **`/en/berlin/...`** to match **When to set or refresh** (not on **`/en/`** hub alone). Redirect tests: **`docs/archive/phase-4-redirect-tests.md`** (with the live runner at **`site/scripts/verify-staging-entry-routing.mjs`**).
 

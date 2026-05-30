@@ -4,7 +4,7 @@
 
 After **P0** (hero poster), **P1** (gallery, marketing bodies, small header, about-the-artists lead aside, optical-fibre figures), and **P2** partial (lazy booking script, vanilla gallery and parallax), a **full-site batch** run helps avoid tuning only the Stockholm home URL.
 
-**Batch method:** `cd site && npm run build && npm run lighthouse:all` (see **How to re-verify** below). **Lighthouse 11**, **mobile** configuration, **performance** category only, **`dist/`** served locally (random `127.0.0.1` port). **63** HTML routes; report example **`site/reports/lighthouse-performance.json`** (gitignored).
+**Batch method:** `cd site && npm run build && npm run lighthouse:all` (see **How to re-verify** below). **Lighthouse 11**, **mobile** configuration, **performance** category only, **`dist/`** served locally (random `127.0.0.1` port). The April 2026 baseline run covered **63** shell routes; a full build today emits **141** HTML files (dynamic artwork routes included). Re-run the batch after structural changes; report example **`site/reports/lighthouse-performance.json`** (gitignored).
 
 **Aggregate from one representative run (`generatedAt` 2026-04-05, local `serve`):**
 
@@ -72,7 +72,7 @@ Mobile [PageSpeed Insights](https://pagespeed.web.dev/analysis/https-andetag-web
 
 ## How this aligns with broader guidance (Cloudflare + static sites)
 
-This project is a **static export** (Astro `output: "static"`) served from **Cloudflare Workers** with **`dist/`** as static assets ([ADR 0001](decisions/0001-static-stack-selection.md)). That matches the common pattern Cloudflare describes for fast sites: **pre-built HTML/CSS/JS**, **edge caching**, and **fewer server round-trips** than a dynamic CMS per request.
+This project is a **static export** (Astro `output: "static"`) served from **Cloudflare Workers** with **`dist/`** as static assets ([ADR 0001](archive/decisions/0001-static-stack-selection.md)). That matches the common pattern Cloudflare describes for fast sites: **pre-built HTML/CSS/JS**, **edge caching**, and **fewer server round-trips** than a dynamic CMS per request.
 
 ### Cloudflare Learning: [Tips to improve website speed](https://www.cloudflare.com/en-gb/learning/performance/speed-up-a-website/)
 

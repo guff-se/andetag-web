@@ -115,7 +115,7 @@ Do **not** set `andetag_entry` when sending a visitor to the English hub (`/en/`
 
 Handled at the edge for `GET` (and `HEAD` as appropriate).
 
-**Verified bots** (maintained allowlist or platform bot signal), no cookie (ignore any `andetag_entry`): `302` to `/en/stockholm/`, **omit `Set-Cookie`**, **ignore `Accept-Language`**. Single hop.
+**Verified bots** (maintained allowlist or platform bot signal), no cookie (ignore any `andetag_entry`): **`301`** to `/en/stockholm/`, **omit `Set-Cookie`**, **ignore `Accept-Language`**. Single hop (`SEO-0020`).
 
 **Everyone else, no cookie:**
 

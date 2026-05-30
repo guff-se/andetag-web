@@ -16,6 +16,7 @@ This directory holds the **ongoing** SEO doctrine for `andetag.museum`. Migratio
 | What URL pattern should this page have? | `url-architecture.md` §1 (canonical), §3 (language/destination), §5 (SEO landings) |
 | Why does Berlin English canonical to Stockholm English? | `decisions.md` `SEO-0016` |
 | Why does Stockholm have `Museum + LocalBusiness` paired? | `decisions.md` `SEO-0017` |
+| Why is `/en/` noindex while still live for humans? | `decisions.md` `SEO-0021` |
 | What does `/` and `/en/` do at the edge? | `url-architecture.md` §4 |
 | How does the sitemap pick what to include? | `url-architecture.md` §11 |
 | How do I add a new SEO-relevant deviation? | `decisions.md` "How to add a row" |
@@ -35,5 +36,5 @@ The skill that owns SEO edits is `skills/seo/SKILL.md`. Page edits go through `s
 ## Source integrity
 
 - Never invent canonicals, redirects, or schema patterns. Anchor every change in this directory + the SEO Manual.
-- `site-html/` is **legacy WordPress scrape** — reference only.
+- `archive/legacy-wordpress-site/site-html/` is the **legacy WordPress scrape** — reference only; agents must not use `archive/` for maintenance work.
 - The runtime contract is `site/src/lib/routes/page-shell-registry.ts` + `site/src/lib/chrome/schema-org.ts` + `site/src/lib/chrome/seo.ts`. When this directory and the runtime disagree, fix one to match the other deliberately.
