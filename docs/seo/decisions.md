@@ -119,6 +119,16 @@ This file is the post-migration successor to the SEO-relevant rows in `docs/arch
 - **Approval:** Gustaf, 2026-05-04.
 - **Follow-up:** Shipped with Stockholm chrome on all artwork URLs. Cookie-driven dual chrome on the same URL (Berlin vs Stockholm nav) is not planned unless Berlin sales require it.
 
+### `SEO-0023` — Swedish shells: no "breathing museum" bridge phrase
+
+- **Date:** 2026-05-30
+- **Scope:** content / metadata / locale keyword strategy
+- **Decision:** Do **not** use *andande konstmuseum*, *atmende museum*, or literal translations of the English discoverability phrase **breathing museum** in Swedish titles, meta descriptions, or as a forced SEO keyword. The brand name **ANDETAG** is self-explanatory in Swedish (literally “a breath”). Swedish shells use the name and natural Swedish vocabulary (*konstprojekt*, *konstupplevelse*, *stillhet*, *andetag*) instead. The English phrase **breathing museum** and German **Atemmuseum** / **atmendes Museum** remain required bridge phrases for **non-Swedish locales only** (SEO Manual §1.1, `docs/Tone of Voice.md`).
+- **Rationale:** Translating the English discoverability phrase into Swedish reads unnatural and duplicates what the brand name already conveys.
+- **SEO impact:** Low. Clarifies locale asymmetry already practiced on live copy (e.g. `/sv/stockholm/om-andetag/` meta stays konstprojekt-framed while English About shells may use *breathing art museum*).
+- **Approval:** Gustaf.
+- **Follow-up:** SEO skill §B meta checks and page-pair reviews must not flag missing *breathing museum* on Swedish shells. Do not literal-translate English meta refreshes into Swedish.
+
 ---
 
 ## Cross-references

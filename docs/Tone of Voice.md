@@ -113,20 +113,21 @@ No language should feel translated. Each should feel native and considered in it
 
 ## Explaining the Name in Non-Swedish Languages
 
-In Swedish, *andetag* literally means *a breath*. The name is immediately understood and felt.
+In Swedish, *andetag* literally means *a breath*. The name is immediately understood and felt — no English-style bridge phrase is needed or desirable.
 
-In all other languages, the name requires a bridge. Readers and audiences who encounter "ANDETAG" for the first time will not know what it means. Copy in non-Swedish languages should naturally weave in a clarifying phrase early: not as a dictionary definition, but as part of the invitation.
+In **English and German**, the name requires a bridge. Readers who encounter "ANDETAG" for the first time will not know what it means. Copy in those languages should naturally weave in a clarifying phrase early: not as a dictionary definition, but as part of the invitation.
 
 **Key phrases by language:**
 
 | Language | Clarifying phrase | Usage context |
 |----------|-------------------|---------------|
+| Swedish | *(none — name is self-explanatory)* | Do **not** use *andande konstmuseum* or literal “breathing museum” in titles or meta descriptions |
 | English | *breathing museum* | Titles, meta descriptions, first mention in copy |
 | German | *Atemmuseum* / *Museum des Atmens* | Titles, meta descriptions, first mention in copy |
 
-These phrases serve two purposes:
+These phrases (English and German only) serve two purposes:
 
-1. **Comprehension**: they tell the reader what ANDETAG is, since the Swedish name alone does not.
+1. **Comprehension**: they tell the reader what ANDETAG is, since the Swedish name alone does not (for non-Swedish readers).
 2. **Discoverability**: they align with how people actually search (e.g. "breathing museum Stockholm").
 
 **How to use them:**
@@ -144,6 +145,7 @@ These phrases serve two purposes:
 
 - "Andetag (which means breath in Swedish) is a museum…": too clinical.
 - Using "breathing museum" or "Atemmuseum" repeatedly throughout a text: once is enough.
+- Translating *breathing museum* into Swedish (*andande konstmuseum*) in titles or meta descriptions.
 
 ## Words We Like
 

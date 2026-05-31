@@ -17,6 +17,7 @@ This directory holds the **ongoing** SEO doctrine for `andetag.museum`. Migratio
 | Why does Berlin English canonical to Stockholm English? | `decisions.md` `SEO-0016` |
 | Why does Stockholm have `Museum + LocalBusiness` paired? | `decisions.md` `SEO-0017` |
 | Why is `/en/` noindex while still live for humans? | `decisions.md` `SEO-0021` |
+| Why does Swedish avoid "breathing museum" in meta? | `decisions.md` `SEO-0023`; SEO Manual §1.1.2 |
 | What does `/` and `/en/` do at the edge? | `url-architecture.md` §4 |
 | How does the sitemap pick what to include? | `url-architecture.md` §11 |
 | How do I add a new SEO-relevant deviation? | `decisions.md` "How to add a row" |

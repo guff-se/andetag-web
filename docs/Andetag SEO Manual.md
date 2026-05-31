@@ -28,16 +28,21 @@ Apply consistently in:
 * Page titles (once per location)
 * Factual anchor pages
 
-### 1.1 English positioning (international readiness)
+### 1.1 Non-Swedish discoverability bridge (English and German)
 
-The brand Andetag (Swedish for “a breath”) is used globally. For English markets, the primary discoverability phrase is **breathing museum**: how visitors recall and search for the experience. This prepares for expansion: when launching in Germany, parallel SEO will target “Atem museum”, “atmendes Museum”, etc., all tying back to the Andetag brand.
+The brand Andetag (Swedish for “a breath”) is **self-explanatory in Swedish** — see §1.1.2. In **English and German**, the name needs a clarifying discoverability phrase: how international visitors recall and search for the experience before they know the brand.
 
-English-specific rules:
+**English rules:**
 
-* **breathing museum** is a primary keyword for all English index and hub pages.
+* **breathing museum** is a primary keyword for English index and hub pages.
 * It must appear in the page title and meta description of `/en/stockholm/` and the English location hubs that are intended to rank.
 * Frame the concept naturally: “a museum with breathing light art”, “breathing art museum”.
 * Do not replace “Andetag” with “breathing museum” in branding; use it for discoverability and recall.
+
+**German rules:**
+
+* **Atemmuseum** / **atmendes Museum** are the primary German discoverability phrases (see `docs/Tone of Voice.md`).
+* Use them in titles and meta descriptions on `/de/berlin/` and German Berlin story shells intended to rank, with the same “once early, then let ANDETAG stand alone” cadence as English.
 
 ### 1.1.1 "andas" is a Swedish brand search
 
@@ -51,6 +56,12 @@ Operational rules:
 * Allow `andas` to appear naturally in body copy on the Stockholm hub, the experience page, and the optical-fibre textile page (e.g. "ett museum som andas", "konsten andas i takt med dig"). Do not force it into titles or meta descriptions where it would crowd the canonical brand phrase.
 * Where the brand-recall query `andas utställning` is matched on a non-Andetag page in SERP, audit and link that page to the Stockholm hub.
 * Do not pluralize or conjugate aggressively (avoid "andandes" SEO spam patterns).
+
+### 1.1.2 Swedish: no "breathing museum" bridge phrase
+
+In Swedish, **do not** use *andande konstmuseum*, *atmende museum*, or literal translations of **breathing museum** in titles, meta descriptions, or as a forced discoverability keyword. The brand name **ANDETAG** already communicates breath; Swedish SEO relies on the name plus natural Swedish vocabulary (*konstupplevelse*, *konstmuseum*, *stillhet*, *andetag*, *konstprojekt*) instead.
+
+The English phrase **breathing museum** and German **Atemmuseum** / **atmendes Museum** apply to **non-Swedish locales only** (§1.1, `docs/Tone of Voice.md` §Explaining the Name).
 
 ### 1.2 Literal product facts (safe to cite)
 
@@ -478,7 +489,8 @@ About Andetag (canonical shells; legacy global URLs **`301`** to Stockholm Engli
 * SV: **`/sv/stockholm/om-andetag/`**
 * EN: **`/en/stockholm/about-andetag/`** (Berlin English duplicate: **`/en/berlin/about-andetag/`** with HTML canonical to Stockholm English)
 * DE: **`/de/berlin/ueber-andetag/`**
-* Keywords: Andetag project, breathing museum concept, breathing art, concept, art, stillness
+* Keywords (EN/DE): Andetag project, breathing museum concept, breathing art, concept, art, stillness
+* Keywords (SV): Andetag, konstprojekt, andetag, stillhet, konstupplevelse (no *andande konstmuseum* or *breathing museum* bridge — §1.1.2)
 
 About the artists
 
@@ -500,7 +512,8 @@ Location hub
 
 * SV: /sv/stockholm/
 * EN: /en/stockholm/
-* Keywords: **breathing museum**, Andetag Stockholm, breathing light art museum, breathing art museum, light-based art museum, stillness
+* Keywords (EN): **breathing museum**, Andetag Stockholm, breathing light art museum, breathing art museum, light-based art museum, stillness
+* Keywords (SV): Andetag Stockholm, konstupplevelse stockholm, konstmuseum stockholm, stillhet, ljusbaserad konst (no *breathing museum* bridge — §1.1.2)
 
 Core factual anchors
 
