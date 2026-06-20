@@ -227,7 +227,7 @@
     "/sv/stockholm/att-gora-stockholm/": {
       "sourceFile": "stockholm-att-gora-stockholm.html",
       "title": "ANDETAG | Något lugnt att göra i Stockholm",
-      "description": "Att göra i Stockholm idag? ANDETAG – en stillsam konstupplevelse i centrala Stockholm. Ljus, andning och närvaro. Öppet året runt vid Hötorget."
+      "description": "Att göra i Stockholm idag? ANDETAG, en stillsam konstupplevelse i centrala Stockholm. Ljus, andning och närvaro. Öppet året runt vid Hötorget."
     },
     "/sv/stockholm/besokaromdomen/": {
       "sourceFile": "stockholm-besokaromdomen.html",
@@ -282,12 +282,12 @@
     "/sv/stockholm/meditation-stockholm/": {
       "sourceFile": "curated",
       "title": "ANDETAG | En stillsam plats för meditation i Stockholm",
-      "description": "Stillsam meditation och andning i Stockholm. ANDETAG vid Hötorget – ljus, textil och musik som rör sig i ett gemensamt andetag. En lugn plats att landa i."
+      "description": "Stillsam meditation och andning i Stockholm. ANDETAG vid Hötorget: ljus, textil och musik som rör sig i ett gemensamt andetag. En lugn plats att landa i."
     },
     "/sv/stockholm/museum-stockholm/": {
       "sourceFile": "stockholm-museum-stockholm.html",
       "title": "ANDETAG | Ett stillsamt museum i Stockholm",
-      "description": "Ett stillsamt konstmuseum i Stockholm. ANDETAG vid Hötorget – ljusbaserad konst, närvaro och andning. Kvällsöppet museum i centrala Stockholm."
+      "description": "Ett stillsamt konstmuseum i Stockholm. ANDETAG vid Hötorget: ljusbaserad konst, närvaro och andning. Kvällsöppet museum i centrala Stockholm."
     },
     "/sv/stockholm/musik/": {
       "sourceFile": "musik.html",
@@ -297,7 +297,7 @@
     "/sv/stockholm/npf-stockholm/": {
       "sourceFile": "stockholm-npf-stockholm.html",
       "title": "NPF-vänlig utställning vid Hötorget | ANDETAG Stockholm",
-      "description": "En NPF-vänlig och sensoriskt vänlig museum i Stockholm. ANDETAG – lugnt museum med låg stimulus, förutsägbart ljus och små grupper. Autismvänlig. Vid Hötorget."
+      "description": "En NPF-vänlig och sensoriskt vänlig museum i Stockholm. ANDETAG, lugnt museum med låg stimulus, förutsägbart ljus och små grupper. Autismvänlig. Vid Hötorget."
     },
     "/sv/stockholm/om-andetag/": {
       "sourceFile": "om-andetag.html",
@@ -342,7 +342,7 @@
     "/sv/stockholm/utstallning-stockholm/": {
       "sourceFile": "stockholm-utstallning-stockholm.html",
       "title": "ANDETAG | En stillsam konstutställning i Stockholm",
-      "description": "En stillsam konstutställning i Stockholm. ANDETAG vid Hötorget – ljus- och textilkonst som andas. Öppna utställningar i centrala Stockholm."
+      "description": "En stillsam konstutställning i Stockholm. ANDETAG vid Hötorget: ljus- och textilkonst som andas. Öppna utställningar i centrala Stockholm."
     },
     "/sv/stockholm/vilken-typ-av-upplevelse/": {
       "sourceFile": "stockholm-vilken-typ-av-upplevelse.html",
