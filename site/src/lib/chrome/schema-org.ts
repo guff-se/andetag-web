@@ -67,7 +67,7 @@ const STOCKHOLM_MUSEUM_SAME_AS = [
 
 /** Source: `site-html/stockholm-museum-stockholm.html` meta description. */
 const STOCKHOLM_MUSEUM_DESCRIPTION_SV =
-  "Ett stillsamt konstmuseum i Stockholm. ANDETAG vid Hötorget – ljusbaserad konst, närvaro och andning. Kvällsöppet museum i centrala Stockholm.";
+  "Ett stillsamt konstmuseum i Stockholm. ANDETAG vid Hötorget: ljusbaserad konst, närvaro och andning. Kvällsöppet museum i centrala Stockholm.";
 
 /** Source: `site-html/en-stockholm-tickets.html` Museum `description` in footer JSON-LD. */
 const STOCKHOLM_MUSEUM_DESCRIPTION_EN =
