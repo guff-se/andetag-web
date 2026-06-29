@@ -422,9 +422,8 @@ export const ARTWORKS: readonly Artwork[] = [
     year: 2023,
     dimensionsCm: { w: 110, h: 90 },
     format: "portrait",
-    status: "on-exhibition",
-    priceSek: 190000,
-    location: ANDETAG_MUSEUM,
+    status: "sold",
+    location: STOCKHOLM,
     images: origWith(
       7,
       gemPhoto("andetag-7", "person-1", "person",
