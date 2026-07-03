@@ -1,0 +1,21 @@
+---
+import SiteLayout from "../../../layouts/SiteLayout.astro";
+import ArtworkDocumentationEn from "../../../components/page-bodies/ArtworkDocumentationEn.astro";
+
+const canonicalPath = "/en/artworks/documentation/";
+---
+
+<SiteLayout
+  title="Collector documentation | ANDETAG"
+  description="Practical collector guide for installing, connecting, caring for, and transporting ANDETAG artworks."
+  language="en"
+  destination="stockholm"
+  headerVariantId="chrome-hdr-en-stockholm-small"
+  footerVariantId="chrome-ftr-en-stockholm"
+  canonicalPath={canonicalPath}
+  hreflang={{ sv: null, en: canonicalPath, de: null }}
+  robots="noindex,follow"
+  includeStructuredData={false}
+>
+  <ArtworkDocumentationEn />
+</SiteLayout>

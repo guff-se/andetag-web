@@ -129,6 +129,20 @@ This file is the post-migration successor to the SEO-relevant rows in `docs/arch
 - **Approval:** Gustaf.
 - **Follow-up:** SEO skill §B meta checks and page-pair reviews must not flag missing *breathing museum* on Swedish shells. Do not literal-translate English meta refreshes into Swedish.
 
+### `SEO-0024` — Collector documentation page under artworks is English-only and non-indexed
+
+- **Date:** 2026-07-03
+- **Scope:** SEO / indexation / sitemap / artworks support route
+- **Decision:**
+  - `/en/artworks/documentation/` is a dedicated collector-support page for installation, Wi-Fi setup, care, packing, and service documentation.
+  - It is intentionally **English only** and does not participate in hreflang parity with `/sv/konstverk/`.
+  - The page is **self-canonical**, emits `meta robots="noindex,follow"`, is excluded from the XML sitemap, and is omitted from site navigation.
+  - It uses the existing English Stockholm artworks chrome so the route feels native to the artworks subsystem without becoming a public discovery target.
+- **Rationale:** Gustaf requested a shareable page for collectors that can be sent directly to the people who need it, without adding menu clutter or creating a new SEO surface. The route belongs under `/en/artworks/` because it supports the collector relationship around the artwork catalogue, but it should not compete with the public marketing and sales pages for indexation.
+- **SEO impact:** Low. Adds one live support route while keeping the indexable URL set unchanged.
+- **Approval:** Gustaf, 2026-07-03.
+- **Follow-up:** Keep future revisions scoped to collector-support content. If a Swedish or German counterpart is ever needed, treat that as a separate IA decision rather than silently extending hreflang.
+
 ---
 
 ## Cross-references

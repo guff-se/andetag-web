@@ -16,6 +16,8 @@ export default defineConfig({
         if (page === `${root}/` || page === root) return false;
         // `/en/` is a human selector utility: live for visitors, but not an index target.
         if (page === `${root}/en/`) return false;
+        // Collector-facing documentation page: shareable, but not a search target.
+        if (page === `${root}/en/artworks/documentation/`) return false;
         // Berlin English story shells canonicalize to Stockholm English (`SEO-0016`); exclude them so the sitemap
         // doesn't list a URL whose canonical lives elsewhere (see `docs/seo/decisions.md`).
         const berlinEnStoryShells = [
