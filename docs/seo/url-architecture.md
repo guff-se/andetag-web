@@ -69,7 +69,7 @@ The artworks subsystem deviates from the `/{lang}/{location}/...` shape and live
 
 Hreflang for these pages is Stockholm-style `sv ↔ en`, `x-default` = English. There is no German variant (deferred). Stockholm chrome is the Phase 1 default. Decision: `docs/seo/decisions.md` `SEO-0022`. Code: `site/src/lib/routes/artwork-shell-routes.ts`, `site/src/pages/en/artworks/[slug].astro`, `site/src/pages/sv/konstverk/[slug].astro`.
 
-The collector-facing documentation page at `/en/artworks/documentation/` is an explicit exception inside the artworks subtree: English only, self-canonical, `noindex,follow`, omitted from navigation, and excluded from the XML sitemap. Decision: `SEO-0024`.
+The Collector's Guide at `/en/collector/` is a related but separate standalone route (not part of the `/en/artworks/` subtree): English only, self-canonical, `noindex,follow`, omitted from navigation, and excluded from the XML sitemap. It reuses the artworks chrome and visual language despite the different path. Decision: `SEO-0024`.
 
 ### Swedish language prefix
 
@@ -246,7 +246,7 @@ The published XML sitemap at `https://www.andetag.museum/sitemap-0.xml` follows 
    - Query-string variants as separate entries: canonical URLs are path-only.
 3. **Pagination or filters:** if the static site ever exposes them, list only the canonical page URL unless a deliberate exception is logged in `docs/seo/decisions.md`.
 4. **Entry URLs:** include `/sv/stockholm/`, the location hubs, and inner pages per matrix `keep` rules. `/` is a routing URL and is excluded because `site/src/pages/index.astro` is only a `301` to `/sv/stockholm/`. `/en/` is also excluded: it remains a live selector shell for humans, but its own HTML emits `noindex,follow` and it is not an index target.
-5. **Private support routes:** `/en/artworks/documentation/` stays live for direct sharing but is excluded from the sitemap because it is a collector-support page, not a public discovery page.
+5. **Private support routes:** `/en/collector/` (the Collector's Guide) stays live for direct sharing but is excluded from the sitemap because it is a collector-support page, not a public discovery page.
 6. **Media and deep links:** keep stable `/wp-content/uploads/...` paths in `site/public/` so bookmarks and external embeds keep working. If a media path must change, add a `301` and a matrix or decision note; do not leave old URLs `404` without approval.
 
 ### Regression checks

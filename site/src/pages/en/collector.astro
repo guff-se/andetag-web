@@ -1,12 +1,12 @@
 ---
-import SiteLayout from "../../../layouts/SiteLayout.astro";
-import ArtworkDocumentationEn from "../../../components/page-bodies/ArtworkDocumentationEn.astro";
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import CollectorGuideEn from "../../components/page-bodies/CollectorGuideEn.astro";
 
-const canonicalPath = "/en/artworks/documentation/";
+const canonicalPath = "/en/collector/";
 ---
 
 <SiteLayout
-  title="Collector documentation | ANDETAG"
+  title="Collector's Guide | ANDETAG"
   description="Practical collector guide for installing, connecting, caring for, and transporting ANDETAG artworks."
   language="en"
   destination="stockholm"
@@ -17,5 +17,5 @@ const canonicalPath = "/en/artworks/documentation/";
   robots="noindex,follow"
   includeStructuredData={false}
 >
-  <ArtworkDocumentationEn />
+  <CollectorGuideEn />
 </SiteLayout>

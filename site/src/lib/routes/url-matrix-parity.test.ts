@@ -7,7 +7,7 @@ import { allArtworkCanonicalPaths } from "./artwork-shell-routes";
 
 /** Per-artwork pages live in their own dynamic route, not in `page-shell-meta.json`. */
 const DIRECT_KEEP_CANONICAL_PATHS = [
-  "/en/artworks/documentation/",
+  "/en/collector/",
 ];
 
 /** Per-artwork pages live in their own dynamic route, not in `page-shell-meta.json`. */
