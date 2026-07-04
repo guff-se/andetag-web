@@ -6,16 +6,20 @@ import "../../styles/artworks.css";
  * Shares the artwork detail page language (`.page-artwork` in artworks.css):
  * 880px column, hairline fact rows, 6px-radius figures, muted eyebrows.
  */
-const screwDistances = [
-  { works: "Andetag no. 1, 5, 8, 14, 18", distance: "96.3 cm / 37.9 in" },
-  { works: "Andetag no. 2, 4, 9, 17, 23", distance: "69.8 cm / 27.5 in" },
-  { works: "Andetag no. 3, 35", distance: "70.4 cm / 27.7 in" },
+const screwDistanceGroups = [
+  { editions: [1, 5, 8, 14, 18], distance: "96.3 cm / 37.9 in" },
+  { editions: [2, 4, 9, 17, 23], distance: "69.8 cm / 27.5 in" },
+  { editions: [3, 35], distance: "70.4 cm / 27.7 in" },
   {
-    works: "Andetag no. 6, 7, 10, 12, 13, 15, 16, 19, 20, 21, 22, 24, 25, 26, 27, 28, 29, 31",
+    editions: [6, 7, 10, 12, 13, 15, 16, 19, 20, 21, 22, 24, 25, 26, 27, 28, 29, 31],
     distance: "80 cm / 31.5 in",
   },
-  { works: "Andetag no. 11, 30", distance: "93 cm / 36.6 in" },
+  { editions: [11, 30], distance: "93 cm / 36.6 in" },
 ];
+
+const screwDistanceOptions = screwDistanceGroups
+  .flatMap((group) => group.editions.map((edition) => ({ edition, distance: group.distance })))
+  .sort((a, b) => a.edition - b.edition);
 ---
 
 <article class="page-migrated page-artwork page-artwork-doc" lang="en">
@@ -335,15 +339,35 @@ const screwDistances = [
       The artwork has two keyholes on the back and is intended to hang on two screws, which are not
       supplied.
     </p>
-    <p>The distance between the screws is:</p>
-    <ul class="page-artwork-doc__distances">
-      {screwDistances.map((row) => (
-        <li>
-          <span class="page-artwork-doc__distance-works">{row.works}</span>
-          <strong class="page-artwork-doc__distance-value">{row.distance}</strong>
-        </li>
-      ))}
-    </ul>
+    <p>The distance between the screws depends on your edition.</p>
+    <div class="page-artwork-doc__distance-picker">
+      <label class="page-artwork-doc__distance-label" for="doc-distance-edition">
+        Your edition
+      </label>
+      <select id="doc-distance-edition" class="page-artwork-doc__distance-select">
+        <option value="">Select your artwork</option>
+        {screwDistanceOptions.map((row) => (
+          <option value={row.distance}>Andetag no. {row.edition}</option>
+        ))}
+      </select>
+      <p class="page-artwork-doc__distance-result" data-distance-result aria-live="polite" hidden>
+        Distance between the screws:
+        <strong data-distance-value></strong>
+      </p>
+    </div>
+    <details class="page-artwork-doc__distance-all">
+      <summary>Distances for all editions</summary>
+      <ul class="page-artwork-doc__distances">
+        {screwDistanceGroups.map((group) => (
+          <li>
+            <span class="page-artwork-doc__distance-works">
+              Andetag no. {group.editions.join(", ")}
+            </span>
+            <strong class="page-artwork-doc__distance-value">{group.distance}</strong>
+          </li>
+        ))}
+      </ul>
+    </details>
     <p class="page-artwork-doc__note">
       If your edition is not listed, write to
       <a href="mailto:support@tadaa.se">support@tadaa.se</a>.
@@ -590,11 +614,72 @@ const screwDistances = [
     width: 100%;
   }
 
+  /* Edition picker: control styling mirrors the inquiry form fields. */
+  .page-artwork-doc__distance-picker {
+    display: grid;
+    gap: 0.5rem;
+    margin: 1.25rem 0;
+    max-width: 22rem;
+  }
+
+  .page-artwork-doc__distance-label {
+    color: var(--artwork-muted);
+    font-family: "JostLocal", "Jost", sans-serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
+  .page-artwork-doc__distance-select {
+    background: #ffffff;
+    border: 1px solid var(--artwork-line);
+    border-radius: 8px;
+    color: var(--artwork-graphite);
+    font-family: "BaskervvilleLocal", "Baskervville", Georgia, serif;
+    font-size: 1rem;
+    padding: 0.7rem 0.9rem;
+    width: 100%;
+  }
+
+  .page-artwork-doc__distance-select:focus {
+    border-color: var(--artwork-pink);
+    box-shadow: 0 0 0 3px rgba(74, 13, 47, 0.12);
+    outline: none;
+  }
+
+  .page-artwork-doc__distance-result {
+    margin: 0.25rem 0 0;
+  }
+
+  .page-artwork-doc__distance-result strong {
+    color: var(--artwork-pink);
+    font-family: "JostLocal", "Jost", sans-serif;
+    font-size: 1.15rem;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+  }
+
+  /* Full chart tucked behind a disclosure; also the no-script fallback. */
+  .page-artwork-doc__distance-all {
+    margin: 0 0 1rem;
+  }
+
+  .page-artwork-doc__distance-all summary {
+    color: var(--artwork-pink);
+    cursor: pointer;
+    font-size: 0.98rem;
+  }
+
+  .page-artwork-doc__distance-all summary:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
   /* Screw distances: hairline rows, mirroring the artwork fact strip. */
   .page-artwork-doc__distances {
     border-bottom: 1px solid var(--artwork-line);
     list-style: none;
-    margin: 0 0 1.25rem;
+    margin: 0.75rem 0 1.25rem;
     padding: 0;
   }
 
@@ -631,3 +716,19 @@ const screwDistances = [
     }
   }
 </style>
+
+<script>
+  const select = document.getElementById("doc-distance-edition") as HTMLSelectElement | null;
+  const result = document.querySelector<HTMLElement>("[data-distance-result]");
+  const value = document.querySelector<HTMLElement>("[data-distance-value]");
+  if (select && result && value) {
+    select.addEventListener("change", () => {
+      if (!select.value) {
+        result.hidden = true;
+        return;
+      }
+      result.hidden = false;
+      value.textContent = select.value;
+    });
+  }
+</script>
