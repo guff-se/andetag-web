@@ -6,20 +6,30 @@ import "../../styles/artworks.css";
  * Shares the artwork detail page language (`.page-artwork` in artworks.css):
  * 880px column, hairline fact rows, 6px-radius figures, muted eyebrows.
  */
-const screwDistanceGroups = [
+/**
+ * Editions whose screw distance differs from the 80 cm default; every other
+ * work in the 50-piece edition hangs at 80 cm.
+ */
+const screwDistanceExceptions = [
   { editions: [1, 5, 8, 14, 18], distance: "96.3 cm / 37.9 in" },
   { editions: [2, 4, 9, 17, 23], distance: "69.8 cm / 27.5 in" },
   { editions: [3, 35], distance: "70.4 cm / 27.7 in" },
-  {
-    editions: [6, 7, 10, 12, 13, 15, 16, 19, 20, 21, 22, 24, 25, 26, 27, 28, 29, 31],
-    distance: "80 cm / 31.5 in",
-  },
   { editions: [11, 30], distance: "93 cm / 36.6 in" },
 ];
+const SCREW_DISTANCE_DEFAULT = "80 cm / 31.5 in";
+const EDITION_SIZE = 50;
 
-const screwDistanceOptions = screwDistanceGroups
-  .flatMap((group) => group.editions.map((edition) => ({ edition, distance: group.distance })))
-  .sort((a, b) => a.edition - b.edition);
+const exceptionByEdition = new Map<number, string>();
+for (const group of screwDistanceExceptions) {
+  for (const edition of group.editions) exceptionByEdition.set(edition, group.distance);
+}
+
+const screwDistanceOptions = Array.from({ length: EDITION_SIZE }, (_, i) => i + 1).map(
+  (edition) => ({
+    edition,
+    distance: exceptionByEdition.get(edition) ?? SCREW_DISTANCE_DEFAULT,
+  }),
+);
 ---
 
 <article class="page-migrated page-artwork page-artwork-doc" lang="en">
@@ -358,7 +368,7 @@ const screwDistanceOptions = screwDistanceGroups
     <details class="page-artwork-doc__distance-all">
       <summary>Distances for all editions</summary>
       <ul class="page-artwork-doc__distances">
-        {screwDistanceGroups.map((group) => (
+        {screwDistanceExceptions.map((group) => (
           <li>
             <span class="page-artwork-doc__distance-works">
               Andetag no. {group.editions.join(", ")}
@@ -366,12 +376,12 @@ const screwDistanceOptions = screwDistanceGroups
             <strong class="page-artwork-doc__distance-value">{group.distance}</strong>
           </li>
         ))}
+        <li>
+          <span class="page-artwork-doc__distance-works">All other editions</span>
+          <strong class="page-artwork-doc__distance-value">{SCREW_DISTANCE_DEFAULT}</strong>
+        </li>
       </ul>
     </details>
-    <p class="page-artwork-doc__note">
-      If your edition is not listed, write to
-      <a href="mailto:support@tadaa.se">support@tadaa.se</a>.
-    </p>
     <p>
       It is also possible to hang the artwork on strings by using 9 mm washers in the keyholes. Be
       mindful that monofilament lines may snap if the metal pinches them.
