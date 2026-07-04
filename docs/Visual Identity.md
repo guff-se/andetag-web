@@ -13,6 +13,8 @@ When the brand name appears inside page copy or mixed-content headings, do not e
 
 This keeps the wordmark styling consistent and avoids one-off typography drift.
 
+Artwork names are not wordmarks. In body copy, individual artwork titles such as "Andetag no. 5" render as plain text; only the collection and museum name ANDETAG takes the wordmark treatment.
+
 Jost:
 https://fonts.google.com/specimen/Jost
 
