@@ -1,0 +1,744 @@
+---
+import "../../styles/artworks.css";
+
+/**
+ * Collector documentation for ANDETAG artworks (`SEO-0024`).
+ * Shares the artwork detail page language (`.page-artwork` in artworks.css):
+ * 880px column, hairline fact rows, 6px-radius figures, muted eyebrows.
+ */
+/**
+ * Editions whose screw distance differs from the 80 cm default; every other
+ * work in the 50-piece edition hangs at 80 cm.
+ */
+const screwDistanceExceptions = [
+  { editions: [1, 5, 8, 14, 18], distance: "96.3 cm / 37.9 in" },
+  { editions: [2, 4, 9, 17, 23], distance: "69.8 cm / 27.5 in" },
+  { editions: [3, 35], distance: "70.4 cm / 27.7 in" },
+  { editions: [11, 30], distance: "93 cm / 36.6 in" },
+];
+const SCREW_DISTANCE_DEFAULT = "80 cm / 31.5 in";
+const EDITION_SIZE = 50;
+
+const exceptionByEdition = new Map<number, string>();
+for (const group of screwDistanceExceptions) {
+  for (const edition of group.editions) exceptionByEdition.set(edition, group.distance);
+}
+
+const screwDistanceOptions = Array.from({ length: EDITION_SIZE }, (_, i) => i + 1).map(
+  (edition) => ({
+    edition,
+    distance: exceptionByEdition.get(edition) ?? SCREW_DISTANCE_DEFAULT,
+  }),
+);
+---
+
+<article class="page-migrated page-artwork page-artwork-doc" lang="en">
+  <header class="page-artwork__lead">
+    <h1 class="page-artwork__heading">
+      <span class="brand-wordmark">ANDETAG</span> documentation
+    </h1>
+    <p class="page-artwork__eyebrow">Collector's guide</p>
+  </header>
+
+  <figure class="page-artwork__hero">
+    <img
+      src="/images/artworks/documentation/cover.jpg"
+      alt="Several ANDETAG artworks glow in blue and magenta in a dark exhibition space."
+      width="800"
+      height="533"
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+    />
+  </figure>
+
+  <div class="page-artwork-doc__intro">
+    <p class="page-artwork-doc__definition">
+      <strong>andetag</strong> <span class="page-artwork-doc__phonetic">[ˈanːdetaːɡ]</span>
+      <em>Swedish noun</em>, from <em>ande</em> (spirit) and <em>tag</em> (take): a breath, one
+      inhalation and exhalation of air from the lungs.
+    </p>
+    <p>
+      This page gathers the practical information we send to collectors: what the work is, how it
+      is made, how to connect and hang it, and how to care for it over time.
+    </p>
+    <p>
+      <span class="brand-wordmark">ANDETAG</span> is a visual manifestation of a deep breath. The
+      artworks are made from custom-woven optical fibre textiles and animated with light to
+      illustrate the flow of air through the lungs. Every piece is synchronized via the internet to
+      the others in the series, a shared rhythm held across the world.
+    </p>
+  </div>
+
+  <dl class="page-artwork__facts">
+    <div class="page-artwork__fact">
+      <dt>Edition</dt>
+      <dd>The first edition contains 50 pieces.</dd>
+    </div>
+    <div class="page-artwork__fact">
+      <dt>Medium</dt>
+      <dd>
+        Custom-woven optical fibre fabric, addressable LEDs, ESP32 microcontroller, and wooden
+        frame.
+      </dd>
+    </div>
+    <div class="page-artwork__fact">
+      <dt>Dimensions</dt>
+      <dd>
+        Single works measure 110 × 90 cm, 90 × 110 cm, or 85 × 110 cm. Diptychs measure 110 × 190
+        cm, 99 × 226 cm, or 105 × 205 cm.
+      </dd>
+    </div>
+    <div class="page-artwork__fact">
+      <dt>Links</dt>
+      <dd>
+        <a href="/en/artworks/">Artwork catalogue</a><br />
+        <a href="https://www.tadaa.se">Artist portfolio</a><br />
+        <a href="https://www.instagram.com/malintadaa">Malin Tadaa on Instagram</a><br />
+        <a href="https://www.instagram.com/andetag.museum"
+          ><span class="brand-wordmark">ANDETAG</span> on Instagram</a
+        >
+      </dd>
+    </div>
+  </dl>
+
+  <section class="page-artwork-doc__section" aria-labelledby="doc-artist-heading">
+    <h2 id="doc-artist-heading">Artists and methods</h2>
+    <p>
+      <a href="/en/stockholm/about-the-artists-malin-gustaf-tadaa/">Malin and Gustaf Tadaa</a> are
+      an artist duo who combine technology and art. They have worked together since 2011, creating
+      pieces that explore what it means to feel connection: with an object, an experience, or
+      other people. Malin, with her background as a weaver, constructs the physical materials and
+      forms, the bodies of the artworks. Gustaf programs and creates the algorithms that bring the
+      works to life and give them their soul.
+    </p>
+    <p>
+      Malin Bobeck Tadaa is a Stockholm-based artist known for interactive installations that
+      bring light and electronics into woven structures. Her work has been shown at
+      Nationalmuseum in Stockholm, Art Miami, Zona Maco, and Institut Suédois in Paris.
+    </p>
+    <p>
+      Gustaf Josefsson Tadaa is an entrepreneur, lecturer, and artist with 25 years of experience
+      in participatory culture. A self-taught programmer who wrote his first computer game at the
+      age of 10, he has built a 12-meter Viking ship in the desert, founded Sweden's first 3D
+      print shop in Stockholm's Old Town, and served on the board of the Swedish Arts Grants
+      Committee.
+    </p>
+    <p>
+      The textile in each artwork is designed and woven by Malin herself. She developed a
+      <a href="/en/stockholm/optical-fibre-textile/">method for integrating optical fibre</a> into
+      industrial jacquard looms. The fabric is woven at
+      <a href="https://ekelunds.com" target="_blank" rel="noopener noreferrer"
+        >Ekelunds Linneväveri</a
+      > in Horred, Sweden's oldest weaving mill, founded in 1692, on a 160 cm cotton warp of 4440
+      threads, with optical fibre, cotton, chenille, lurex, and shrink yarn in the weft. The weave
+      holds two layers: the shrink yarn sits in one, the optical fibre in the other.
+    </p>
+    <p>
+      In the studio, the textile is trimmed and the ends of the optical fibre are connected to
+      programmable LEDs, between 100 and 130 in each work. The fabric is then heated with a
+      steaming iron so the shrink yarn contracts and bends the optical fibre into a
+      three-dimensional surface. The work is hand-stitched onto a felt canvas, shaped with
+      polyester filling, and mounted on a CNC-milled wooden frame with its electronics and
+      controller attached on the back. Each piece is programmed with its own unique animation.
+    </p>
+    <p>
+      The breathing animation is built from a recording of Malin's own breath during meditation.
+      The light changes in shape, intensity, and colour through a generative algorithm. The
+      sequence is pseudorandom: mathematically predetermined, yet no breath looks quite like the
+      last, and what you see in front of you will never be shown again.
+    </p>
+    <p>
+      The biggest shift comes when the work changes colour palette. That change is set by the five
+      planets visible to the naked eye: whenever they meet in conjunction in the night sky, the
+      palette turns, usually every one to five months.
+    </p>
+
+    <div class="page-artwork-doc__figures page-artwork-doc__figures--tiles">
+      <figure>
+        <img
+          src="/images/artworks/documentation/artist-bio.jpg"
+          alt="Malin Tadaa stands beside a glowing ANDETAG textile artwork in a dark exhibition space."
+          width="533"
+          height="800"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+      <figure>
+        <img
+          src="/images/artworks/documentation/methods-weaving.jpg"
+          alt="Close view of ANDETAG textile being woven with optical fibre."
+          width="600"
+          height="800"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+      <figure>
+        <img
+          src="/images/artworks/documentation/methods-animation.jpg"
+          alt="Studio process view showing the animation and assembly work behind an ANDETAG artwork."
+          width="800"
+          height="533"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+    </div>
+  </section>
+
+  <section
+    class="page-artwork-doc__section page-artwork-doc__section--app"
+    aria-labelledby="doc-app-heading"
+  >
+    <h2 id="doc-app-heading">The exhibition, music, and app</h2>
+    <figure class="page-artwork-doc__app-figure">
+      <img
+        src="/images/artworks/documentation/app.jpg"
+        alt="Phone screen showing the ANDETAG app used to play synchronized audio for the artwork."
+        width="368"
+        height="800"
+        loading="lazy"
+        decoding="async"
+      />
+    </figure>
+    <p>
+      The <a href="/en/stockholm/">immersive exhibition</a>
+      <span class="brand-wordmark">ANDETAG</span> Stockholm opened in January 2025 as a fully
+      enclosed space for stillness, light, music, and breath. The whole exhibition breathes in
+      unison with the artworks held by collectors around the world.
+    </p>
+    <p>
+      The <a href="/en/stockholm/music/">music</a> was written by Gustaf Tadaa and Povel Olsson.
+      Each song carries something to be discovered within, some friction, a moment of tension,
+      before being released home. The sound blends neoclassical piano, wind instruments, field
+      recordings, and electronic textures. The app lets that music follow your artwork home and
+      stay synchronized with the global breath.
+    </p>
+    <p>
+      When you press play, the app waits for the next global breath and then starts the music and
+      Malin's breathing sound in sync. Music and breath can be adjusted or muted separately.
+    </p>
+    <p>
+      Download the
+      <a href="https://apps.apple.com/se/app/andetag/id6749811621">iPhone app</a> or the
+      <a href="https://play.google.com/store/apps/details?id=se.tadaa.andetag&hl=en">Android app</a>.
+    </p>
+    <p class="page-artwork-doc__note">
+      For the app to stay in sync with your artwork, the artwork must be connected to Wi-Fi.
+    </p>
+  </section>
+
+  <section class="page-artwork-doc__section" aria-labelledby="doc-box-heading">
+    <h2 id="doc-box-heading">What is in the box</h2>
+    <ul>
+      <li>1 artwork</li>
+      <li>1 hex key</li>
+      <li>1 USB charger (5 V)</li>
+    </ul>
+  </section>
+
+  <section class="page-artwork-doc__section" aria-labelledby="doc-unpacking-heading">
+    <p class="page-artworks__section-eyebrow">Step 1</p>
+    <h2 id="doc-unpacking-heading">Unpacking</h2>
+    <p>The artwork comes screwed into the lid of a flight case.</p>
+    <ol>
+      <li>Put the case on the floor with the lid facing down.</li>
+      <li>
+        Open the six butterfly locks by twisting them 180 degrees counterclockwise, then lift the
+        box straight up.
+      </li>
+      <li>
+        Put the lid with the artwork on a smaller flat surface so it can stay level while you
+        access the four transportation screws from below. The case itself works well for this.
+      </li>
+      <li>
+        Use the supplied 1.5 mm hex key (kept in the small fabric bag with the cord) to remove the
+        four transportation screws from below. Save the screws and the case for future
+        transportation.
+      </li>
+    </ol>
+
+    <div class="page-artwork-doc__figures page-artwork-doc__figures--pair">
+      <figure>
+        <img
+          src="/images/artworks/documentation/unpacking-case.jpg"
+          alt="ANDETAG flight case placed on the floor with the lid facing down."
+          width="800"
+          height="404"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+      <figure>
+        <img
+          src="/images/artworks/documentation/unpacking-screws.jpg"
+          alt="The back of the artwork accessible from below while the transport screws are removed."
+          width="800"
+          height="512"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+    </div>
+  </section>
+
+  <section class="page-artwork-doc__section" aria-labelledby="doc-wifi-heading">
+    <p class="page-artworks__section-eyebrow">Step 2</p>
+    <h2 id="doc-wifi-heading">Setting up Wi-Fi</h2>
+    <p>
+      Since the button is placed on the back of the artwork, it is practical to set up Wi-Fi before
+      hanging it.
+    </p>
+    <ol>
+      <li>Connect the artwork to 110-240V power with the supplied USB charger.</li>
+      <li>Find the button on the back at the bottom of the artwork and hold it for 3 seconds.</li>
+      <li>
+        Open the Wi-Fi settings on your phone or computer and connect to the network
+        <strong>Andetag X</strong>, where X is the edition number.
+      </li>
+      <li>Select <strong>Configure WiFi</strong> on the configuration page.</li>
+      <li>Choose your local Wi-Fi network and enter the password if needed.</li>
+      <li>The artwork will reboot and connect to the selected network.</li>
+    </ol>
+    <p class="page-artwork-doc__note">
+      Captive portals are not supported. On a diptych, both parts need to connect to Wi-Fi.
+    </p>
+
+    <div class="page-artwork-doc__figures page-artwork-doc__figures--phones">
+      <figure>
+        <img
+          src="/images/artworks/documentation/wifi-network.jpg"
+          alt="Phone Wi-Fi settings showing the temporary Andetag setup network."
+          width="370"
+          height="800"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+      <figure>
+        <img
+          src="/images/artworks/documentation/wifi-config.jpg"
+          alt="Configuration screen for selecting the local Wi-Fi network for the artwork."
+          width="370"
+          height="800"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+    </div>
+
+    <h3>Reconfiguring Wi-Fi</h3>
+    <p>
+      If you want to change the network later, hold the button on the back of the artwork for 3
+      seconds and repeat the setup steps.
+    </p>
+    <h3>What happens without Wi-Fi?</h3>
+    <p>
+      The artwork works as normal without Wi-Fi. It will simply be out of sync with the other
+      artworks in the series. Diptychs also include Bluetooth synchronization so their two parts
+      can stay together even when they are not connected to the global breath.
+    </p>
+  </section>
+
+  <section class="page-artwork-doc__section" aria-labelledby="doc-hanging-heading">
+    <p class="page-artworks__section-eyebrow">Step 3</p>
+    <h2 id="doc-hanging-heading">Hanging the artwork</h2>
+    <p>
+      The artwork has two keyholes on the back and is intended to hang on two screws, which are not
+      supplied.
+    </p>
+    <p>The distance between the screws depends on your edition.</p>
+    <div class="page-artwork-doc__distance-picker">
+      <label class="page-artwork-doc__distance-label" for="doc-distance-edition">
+        Your edition
+      </label>
+      <select id="doc-distance-edition" class="page-artwork-doc__distance-select">
+        <option value="">Select your artwork</option>
+        {screwDistanceOptions.map((row) => (
+          <option value={row.distance}>Andetag no. {row.edition}</option>
+        ))}
+      </select>
+      <p class="page-artwork-doc__distance-result" data-distance-result aria-live="polite" hidden>
+        Distance between the screws:
+        <strong data-distance-value></strong>
+      </p>
+    </div>
+    <details class="page-artwork-doc__distance-all">
+      <summary>Distances for all editions</summary>
+      <ul class="page-artwork-doc__distances">
+        {screwDistanceExceptions.map((group) => (
+          <li>
+            <span class="page-artwork-doc__distance-works">
+              Andetag no. {group.editions.join(", ")}
+            </span>
+            <strong class="page-artwork-doc__distance-value">{group.distance}</strong>
+          </li>
+        ))}
+        <li>
+          <span class="page-artwork-doc__distance-works">All other editions</span>
+          <strong class="page-artwork-doc__distance-value">{SCREW_DISTANCE_DEFAULT}</strong>
+        </li>
+      </ul>
+    </details>
+    <p>
+      It is also possible to hang the artwork on strings by using 9 mm washers in the keyholes. Be
+      mindful that monofilament lines may snap if the metal pinches them.
+    </p>
+    <p>
+      The keyhole is not very deep at the top, so hanging from a hook is less advisable than a
+      screw or a string-and-washer setup.
+    </p>
+
+    <div class="page-artwork-doc__figures page-artwork-doc__figures--tiles">
+      <figure>
+        <img
+          src="/images/artworks/documentation/hanging-back.jpg"
+          alt="Back of the artwork showing the two keyhole mounts."
+          width="800"
+          height="600"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+      <figure>
+        <img
+          src="/images/artworks/documentation/hanging-keyhole.jpg"
+          alt="Close-up view of the keyhole mount detail used for wall hanging."
+          width="563"
+          height="800"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+      <figure>
+        <img
+          src="/images/artworks/documentation/hanging-washer.jpg"
+          alt="Washer positioned in the keyhole for a string-based hanging method."
+          width="526"
+          height="800"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+    </div>
+  </section>
+
+  <section class="page-artwork-doc__section" aria-labelledby="doc-care-heading">
+    <h2 id="doc-care-heading">Care instructions</h2>
+    <ul>
+      <li>Avoid direct sunlight.</li>
+      <li>Remove dust with a soft dry cloth or a can of compressed air.</li>
+      <li>The electronics carry a one-year warranty.</li>
+    </ul>
+    <p>
+      For questions, write to <a href="mailto:support@tadaa.se">support@tadaa.se</a>.
+    </p>
+  </section>
+
+  <section class="page-artwork-doc__section" aria-labelledby="doc-packing-heading">
+    <h2 id="doc-packing-heading">Packing the artwork</h2>
+    <ol>
+      <li>Open the box and place the lid on top of the box.</li>
+      <li>
+        Place the artwork on top of the lid, taking care not to scratch it on the edges or rivets.
+        Use the outline drawn on the lid to find the right placement.
+      </li>
+      <li>
+        Push the packing screws in from below. Lift the artwork slightly so you can feel where each
+        screw enters, then tighten them lightly with your fingers.
+      </li>
+      <li>
+        Once all four screws are in place, use the supplied hex key to screw them in. Stop when you
+        feel tension and the screw is fully seated. You do not need to apply force.
+      </li>
+      <li>
+        Lift the lid off the box, place it on the floor, then turn the box upside down and lower it
+        straight onto the lid.
+      </li>
+      <li>Lock the six butterfly locks.</li>
+    </ol>
+  </section>
+
+  <section class="page-artwork-doc__section" aria-labelledby="doc-service-heading">
+    <h2 id="doc-service-heading">Service and tech specifications</h2>
+    <p>
+      The USB-C cable can be replaced by unscrewing the back plate of the artwork. Andetag no. 1
+      and no. 2 use micro-USB. We do not recommend a cable longer than 2 meters.
+    </p>
+    <p>
+      The LEDs are expected to last around 10 years of burn time. Servicing can be carried out by a
+      digital art technician or LED specialist with experience in Arduino and LED pixels. We use
+      replaceable industry-standard components.
+    </p>
+    <ul>
+      <li>LED: WS2812b, 60 px/m, in strips of 4, 6, or 9 pixels</li>
+      <li>
+        Microcomputer: ATOM Lite ESP32 IoT Development Kit, or another ESP32-compatible controller
+      </li>
+      <li><a href="https://tadaa.se/source/andetag">Source code</a></li>
+    </ul>
+    <p>
+      Spare parts are held in storage by the artist and are also readily available from OEM
+      manufacturers worldwide.
+    </p>
+  </section>
+</article>
+
+<style>
+  /* Body copy matches the artworks lead scale (artworks.css `.page-artworks__lead p`). */
+  .page-artwork-doc p,
+  .page-artwork-doc li {
+    font-size: 1.05rem;
+    line-height: 1.65;
+  }
+
+  .page-artwork-doc p {
+    margin: 0 0 1rem;
+  }
+
+  .page-artwork-doc p:last-child {
+    margin-bottom: 0;
+  }
+
+  .page-artwork-doc__intro {
+    margin: 0 0 1.5rem;
+  }
+
+  /* Dictionary-style epigraph from the printed collector's guide. */
+  .page-artwork-doc__definition {
+    border-left: 2px solid var(--artwork-line);
+    padding-left: 0.9rem;
+  }
+
+  .page-artwork-doc__phonetic {
+    color: var(--artwork-muted);
+  }
+
+  .page-artwork-doc__section {
+    margin: 0 0 3.25rem;
+  }
+
+  .page-artwork-doc__section h2 {
+    margin: 0 0 1rem;
+  }
+
+  .page-artwork-doc__section h3 {
+    font-size: 0.98rem;
+    letter-spacing: 0.18em;
+    margin: 1.75rem 0 0.5rem;
+  }
+
+  .page-artwork-doc__section ul,
+  .page-artwork-doc__section ol {
+    margin: 0 0 1rem;
+    padding-left: 1.4rem;
+  }
+
+  .page-artwork-doc__section li {
+    margin-bottom: 0.4em;
+  }
+
+  .page-artwork-doc__section li:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Eyebrow above the numbered install steps (shared artworks class handles type). */
+  .page-artwork-doc__section .page-artworks__section-eyebrow {
+    font-size: 0.72rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .page-artwork-doc__note {
+    border-left: 2px solid var(--artwork-line);
+    color: var(--artwork-muted);
+    font-size: 0.98rem;
+    padding-left: 0.9rem;
+  }
+
+  /* Figure groups: same 6px-radius, soft-backing treatment as the artwork galleries. */
+  .page-artwork-doc__figures {
+    display: grid;
+    gap: 1rem;
+    margin: 1.75rem 0 0;
+  }
+
+  .page-artwork-doc__figures figure {
+    background: rgba(0, 0, 0, 0.04);
+    border-radius: 6px;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  .page-artwork-doc__figures img {
+    display: block;
+    height: auto;
+    width: 100%;
+  }
+
+  /* Uniform square tiles for atmosphere and detail shots (gallery-wall idiom). */
+  .page-artwork-doc__figures--tiles figure {
+    aspect-ratio: 1;
+  }
+
+  .page-artwork-doc__figures--tiles img {
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Instructional pairs keep their natural aspect so no step detail is cropped away. */
+  .page-artwork-doc__figures--pair {
+    align-items: start;
+  }
+
+  /* Phone screenshots: shown at phone width instead of full column width. */
+  .page-artwork-doc__figures--phones {
+    grid-template-columns: repeat(auto-fit, minmax(0, 13.5rem));
+  }
+
+  .page-artwork-doc__figures--phones figure {
+    background: #ffffff;
+    border: 1px solid var(--artwork-line);
+    border-radius: 12px;
+  }
+
+  /* App screenshot floats beside the copy, like the artworks lead figure. */
+  .page-artwork-doc__section--app {
+    display: flow-root;
+  }
+
+  .page-artwork-doc__app-figure {
+    background: #ffffff;
+    border: 1px solid var(--artwork-line);
+    border-radius: 12px;
+    float: right;
+    margin: 0.25rem 0 1rem 1.5rem;
+    overflow: hidden;
+    width: clamp(8.75rem, 32%, 12.5rem);
+  }
+
+  .page-artwork-doc__app-figure img {
+    display: block;
+    height: auto;
+    width: 100%;
+  }
+
+  /* Edition picker: control styling mirrors the inquiry form fields. */
+  .page-artwork-doc__distance-picker {
+    display: grid;
+    gap: 0.5rem;
+    margin: 1.25rem 0;
+    max-width: 22rem;
+  }
+
+  .page-artwork-doc__distance-label {
+    color: var(--artwork-muted);
+    font-family: "JostLocal", "Jost", sans-serif;
+    font-size: 0.74rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
+  .page-artwork-doc__distance-select {
+    background: #ffffff;
+    border: 1px solid var(--artwork-line);
+    border-radius: 8px;
+    color: var(--artwork-graphite);
+    font-family: "BaskervvilleLocal", "Baskervville", Georgia, serif;
+    font-size: 1rem;
+    padding: 0.7rem 0.9rem;
+    width: 100%;
+  }
+
+  .page-artwork-doc__distance-select:focus {
+    border-color: var(--artwork-pink);
+    box-shadow: 0 0 0 3px rgba(74, 13, 47, 0.12);
+    outline: none;
+  }
+
+  .page-artwork-doc__distance-result {
+    margin: 0.25rem 0 0;
+  }
+
+  .page-artwork-doc__distance-result strong {
+    color: var(--artwork-pink);
+    font-family: "JostLocal", "Jost", sans-serif;
+    font-size: 1.15rem;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+  }
+
+  /* Full chart tucked behind a disclosure; also the no-script fallback. */
+  .page-artwork-doc__distance-all {
+    margin: 0 0 1rem;
+  }
+
+  .page-artwork-doc__distance-all summary {
+    color: var(--artwork-pink);
+    cursor: pointer;
+    font-size: 0.98rem;
+  }
+
+  .page-artwork-doc__distance-all summary:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  /* Screw distances: hairline rows, mirroring the artwork fact strip. */
+  .page-artwork-doc__distances {
+    border-bottom: 1px solid var(--artwork-line);
+    list-style: none;
+    margin: 0.75rem 0 1.25rem;
+    padding: 0;
+  }
+
+  .page-artwork-doc__distances li {
+    border-top: 1px solid var(--artwork-line);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1rem;
+    justify-content: space-between;
+    padding: 0.65rem 0;
+  }
+
+  .page-artwork-doc__distance-value {
+    margin-left: auto;
+    white-space: nowrap;
+  }
+
+  @media (min-width: 640px) {
+    .page-artwork-doc__figures--tiles {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .page-artwork-doc__figures--pair {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  /* Narrow phones: the floated app screenshot leaves too little room for copy. */
+  @media (max-width: 480px) {
+    .page-artwork-doc__app-figure {
+      float: none;
+      margin: 0 0 1.25rem;
+      width: 13.5rem;
+    }
+  }
+</style>
+
+<script>
+  const select = document.getElementById("doc-distance-edition") as HTMLSelectElement | null;
+  const result = document.querySelector<HTMLElement>("[data-distance-result]");
+  const value = document.querySelector<HTMLElement>("[data-distance-value]");
+  if (select && result && value) {
+    select.addEventListener("change", () => {
+      if (!select.value) {
+        result.hidden = true;
+        return;
+      }
+      result.hidden = false;
+      value.textContent = select.value;
+    });
+  }
+</script>

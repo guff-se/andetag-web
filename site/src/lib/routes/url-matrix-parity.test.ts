@@ -6,8 +6,13 @@ import { PAGE_SHELL_PATHS } from "./page-shell-registry";
 import { allArtworkCanonicalPaths } from "./artwork-shell-routes";
 
 /** Per-artwork pages live in their own dynamic route, not in `page-shell-meta.json`. */
+const DIRECT_KEEP_CANONICAL_PATHS = [
+  "/en/artworks/documentation/",
+];
+
+/** Per-artwork pages live in their own dynamic route, not in `page-shell-meta.json`. */
 const ALL_KEEP_CANONICAL_PATHS = (): string[] =>
-  [...PAGE_SHELL_PATHS, ...allArtworkCanonicalPaths()];
+  [...PAGE_SHELL_PATHS, ...allArtworkCanonicalPaths(), ...DIRECT_KEEP_CANONICAL_PATHS];
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
