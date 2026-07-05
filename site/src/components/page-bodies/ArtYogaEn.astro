@@ -1,6 +1,7 @@
 ---
 import ContentSection from "../content/ContentSection.astro";
 import HeroSection from "../content/HeroSection.astro";
+import { STOCKHOLM_ART_YOGA_EVENT } from "../../lib/content/stockholm-offers";
 import { artYogaHeroCover } from "../../lib/content/stockholm-body-responsive-images";
 
 /**
@@ -8,13 +9,13 @@ import { artYogaHeroCover } from "../../lib/content/stockholm-body-responsive-im
  * Layout matches `ArtYogaSv.astro`: intro, `HeroSection` mid-band + outline CTA, practical block with list.
  * Image: same asset as Swedish page (`elementor-element-0a8e569` / `post-2519.css`).
  */
-const bookingHref =
-  "https://andetag.understory.io/experience/cc2f4ed4e1709b93a454a1e5abad6595";
+const summerBreakNotice = STOCKHOLM_ART_YOGA_EVENT.summerBreakNoticeEn;
 
 const introHtml = [
   '<h1>Art Yoga at <span class="brand-wordmark">ANDETAG</span></h1>',
-  "<h2>Yoga in Stockholm every Tuesday at 17:00</h2>",
+  "<h2>Yoga in Stockholm, now on summer break</h2>",
   "<p>Art Yoga is a slow yoga class held inside <span class=\"brand-wordmark\">ANDETAG</span>&#8217;s immersive art environment in central Stockholm.<br />It is a place to move, breathe, and settle, in the middle of the city.</p>",
+  `<p>${summerBreakNotice}</p>`,
   "<p>Surrounded by glowing textile art and living light, the class is guided by yoga teacher <strong>Fabian Macklin</strong>.<br />Movement and breath unfold at a gentle pace, with attention on presence rather than performance.</p>",
   "<p>The class is open to both beginners and experienced practitioners.<br />No prior experience is required.</p>",
 ].join("");
@@ -22,15 +23,13 @@ const introHtml = [
 const practicalHtml = [
   "<h3>Practical information</h3>",
   "<ul>",
-  "<li>Time: Tuesdays at 17:00</li>",
-  "<li>Book your slot online before you arrive</li>",
+  `<li>${summerBreakNotice}</li>`,
+  "<li>In the meantime, you are welcome to book a ticket for the exhibition and experience ANDETAG at your own pace.</li>",
   "<li>Location: <span class=\"brand-wordmark\">ANDETAG</span>, Stockholm</li>",
-  "<li>Doors close at 17:00. Please arrive on time.</li>",
-  "<li>You are welcome to arrive 20 minutes early and stay after the class.</li>",
   "<li>Bring your own yoga mat if you wish. Practicing without a mat is also possible.</li>",
   "<li>There are no changing rooms or showers. Lockers are available for personal belongings.</li>",
   "</ul>",
-  "<p>Art Yoga at <span class=\"brand-wordmark\">ANDETAG</span> is a quiet meeting between body and art.<br />One shared breath each week.</p>",
+  "<p>Art Yoga at <span class=\"brand-wordmark\">ANDETAG</span> is a quiet meeting between body and art.</p>",
   "<p>Prefer the exhibition without a yoga class? Read about <a href=\"/en/stockholm/what-kind-of-experience/\">what kind of experience</a> <span class=\"brand-wordmark\">ANDETAG</span> is, or <a href=\"/en/stockholm/tickets/\">book tickets</a> directly. Looking instead for a <a href=\"/en/stockholm/meditation-stockholm/\">calm place for meditation</a> without a class format? You are welcome to visit the exhibition at your own pace.</p>",
 ].join("");
 ---
@@ -40,15 +39,7 @@ const practicalHtml = [
   <HeroSection
     backgroundImage={artYogaHeroCover}
     coverImageAlt="Group of participants lying on yoga mats during Art Yoga at ANDETAG, facing a wall of glowing light sculptures at ANDETAG museum"
-    ariaLabel="Book Art Yoga"
-    ctas={[
-      {
-        label: "Book Yoga",
-        href: bookingHref,
-        variant: "outline",
-        external: true,
-      },
-    ]}
+    ariaLabel="Art Yoga at ANDETAG"
   />
   <ContentSection markdown={practicalHtml} />
 </div>

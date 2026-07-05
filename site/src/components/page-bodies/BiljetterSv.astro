@@ -23,7 +23,7 @@ const introHtml = [
   '<p><span class="brand-wordmark">ANDETAG</span> är en stillsam konstupplevelse i centrala Stockholm. En plats att stiga ur vardagens tempo och ta ett gemensamt andetag.</p>',
   "<p>För att skapa ett lugnt publikflöde används tidsbokning, vilket gör att inte för många besökare anländer samtidigt.</p>",
   '<p>Du är välkommen att anlända före din bokade tid, förutsatt att <a href="/sv/stockholm/oppettider/">ordinarie öppettider</a> råder. Biljett kan även köpas på plats i mån av tillgång.</p>',
-  '<p>Vid utvalda tider erbjuds <a href="/sv/stockholm/art-yoga/">Art Yoga</a>, en lugn yogaklass som även den kan bokas igenom bokningskalendern.</p>',
+  '<p><a href="/sv/stockholm/art-yoga/">Art Yoga</a> är på sommaruppehåll just nu. Nya tider publiceras där när klassen är tillbaka.</p>',
 ].join("");
 
 const regular = STOCKHOLM_TICKETS.find((t) => t.id === "regular")!;
@@ -35,7 +35,7 @@ const priceFrameHtml = [
   `<p><strong>${regular.nameSv}:</strong> ${regular.price} kr (${regular.daytimePrice} kr dagtid)</p>`,
   `<p><strong>${studentSenior.nameSv}:</strong> ${studentSenior.price} kr (${studentSenior.daytimePrice} kr dagtid)</p>`,
   `<p><strong>${youth.nameSv}:</strong> ${youth.price} kr</p>`,
-  `<p><strong>${artYoga.nameSv} (Tisdagar 17.00-18.00):</strong> ${artYoga.price} kr</p>`,
+  `<p><strong>${artYoga.nameSv}:</strong> ${artYoga.price} kr (på sommaruppehåll)</p>`,
   `<p><strong>Dagtidspris:</strong> g\u00e4ller ${STOCKHOLM_DAYTIME_WINDOW.descriptionSv}</p>`,
   "<p>Inga boknings- eller serviceavgifter. Allt ingår.</p>",
 ].join("");

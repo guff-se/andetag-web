@@ -64,8 +64,8 @@ export const STOCKHOLM_DAYTIME_WINDOW = {
 } as const;
 
 /**
- * Art Yoga recurring event metadata for schema.org Event + Schedule.
- * Every Tuesday 17:00–18:00 at ANDETAG Stockholm.
+ * Art Yoga metadata for page copy and schema.org Event + Schedule.
+ * The recurring Tuesday schedule is currently paused for summer break.
  */
 export const STOCKHOLM_ART_YOGA_EVENT = {
   nameSv: "Art Yoga p\u00e5 ANDETAG",
@@ -77,6 +77,11 @@ export const STOCKHOLM_ART_YOGA_EVENT = {
   performer: "Fabian Macklin",
   pathSv: "/sv/stockholm/art-yoga/",
   pathEn: "/en/stockholm/art-yoga/",
+  isOnSummerBreak: true,
+  summerBreakNoticeSv:
+    "Art Yoga har sommaruppeh\u00e5ll just nu. Nya tider publiceras h\u00e4r n\u00e4r klassen \u00e4r tillbaka.",
+  summerBreakNoticeEn:
+    "Art Yoga is on summer break right now. New times will be published here when the class returns.",
   bookingUrl:
     "https://andetag.understory.io/experience/cc2f4ed4e1709b93a454a1e5abad6595",
   schedule: {

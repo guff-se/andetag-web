@@ -349,6 +349,7 @@ function stockholmOffers(language: Language): object[] {
 
 function artYogaEventNodes(language: Language): object[] {
   const ev = STOCKHOLM_ART_YOGA_EVENT;
+  if (ev.isOnSummerBreak) return [];
   const name = language === "sv" ? ev.nameSv : ev.nameEn;
   const description = language === "sv" ? ev.descriptionSv : ev.descriptionEn;
   const url = buildCanonicalUrl(language === "sv" ? ev.pathSv : ev.pathEn);
