@@ -44,3 +44,7 @@ Three variants in `ButtonGroup` / `StyledLink` (`cta-primary`, `cta-secondary`, 
 | **3** | `outline` | **Photo or busy backgrounds** (for example image-cover hero): transparent fill, light text and border so the control stays readable over imagery. |
 
 Implementation lives in `site/src/styles/components.css` (classes `.link-cta-primary`, `.link-cta-secondary`, `.link-cta-outline`). Production layouts on dark surfaces should follow the table above.
+
+## Agent workflow
+
+Visual and layout changes on the site are governed by **`skills/design/SKILL.md`**. Agents read this document for brand tokens, then follow the vendored design system prompt and review procedures in `skills/design/`. Do not invent alternate palettes or typography unless explicitly asked to explore options.

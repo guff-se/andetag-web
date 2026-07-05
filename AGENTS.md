@@ -24,7 +24,7 @@ These are the invariants. Treat them as a contract; let them drive judgment on e
 
 3. **Locale parity.** Stockholm runs `sv` + `en`; Berlin runs `de` + `en`. Hreflang is paired per location (no Stockholm/Berlin cross-pairing). When the same logical page exists in more than one language, update **every** locale in the same task unless the collaborator explicitly scopes to one. A Berlin English shell that canonicalizes to Stockholm English (`SEO-0016`) is still a parity-bound page for hreflang purposes.
 
-4. **Skills are the contract.** Routine maintenance work runs through `skills/<name>/SKILL.md`. The skill names which files move together, which parity rules apply, and which verification commands gate merge. Read the matching skill before editing. If no skill covers the work, **add or extend one** — do not bury tribal knowledge in PR descriptions or in this guide.
+4. **Skills are the contract.** Routine maintenance work runs through `skills/<name>/SKILL.md`. The skill names which files move together, which parity rules apply, and which verification commands gate merge. Read the matching skill before editing. If no skill covers the work, **add or extend one** — do not bury tribal knowledge in PR descriptions or in this guide. **All visual/UI design work** (layout, typography, color, components, interaction states, hierarchy, accessibility polish) runs through **`skills/design/SKILL.md`** — load the vendored system prompt and invoke matching procedures from `skills/design/procedures/`; ANDETAG brand docs override greenfield aesthetic exploration.
 
 5. **PR, preview, merge.** No direct pushes to `main`. Every change ships via PR. Cloudflare posts a per-commit preview URL; that preview is the practical merge gate. Open it, walk the change, then merge.
 
@@ -102,6 +102,7 @@ Skills are the unit of repeatable maintenance work. Each one teaches an agent ho
 | [`performance-check`](skills/performance-check/SKILL.md) | Build + Lighthouse + drilldowns; GSC / GA4 / sales bridge to `andetag-stats`. |
 | [`seo`](skills/seo/SKILL.md) | On-page SEO and entity graph: titles, meta, canonical, hreflang, OG, JSON-LD, internal linking, tone. |
 | [`quicklinks`](skills/quicklinks/SKILL.md) | Manage the `302` Quicklinks block in `site/public/_redirects`. |
+| [`design`](skills/design/SKILL.md) | Mandatory design collaborator for all UI/visual work. Vendored [Claude Design System prompt](https://github.com/Trystan-SA/claude-design-system-prompt) + 14 procedures (discovery, wireframe, token extract, accessibility, slop check, polish pass). ANDETAG brand via `docs/Visual Identity.md`. |
 
 Index of record and authoring template: [`skills/README.md`](skills/README.md).
 
@@ -203,6 +204,7 @@ The preview is the merge gate. Open it, walk the change, then merge.
 - **Copy:** Follow `docs/Tone of Voice.md` and SEO doctrine exactly.
 - **Editorial copy and prose docs:** The em dash (U+2014) is absolutely prohibited in all user-facing copy — page body components, FAQ answers, event copy, component strings, metadata, and documentation prose. Use commas, colons, or parentheses instead (`docs/Tone of Voice.md` §Punctuation). Before committing body components: `grep -rn $'—' site/src/components/page-bodies/ site/src/lib/content/` (see also `skills/seo/SKILL.md` §B.2 for the full detection command).
 - **Design tokens** are universal across languages. Language changes content and variants, not core styling, unless an approved exception is logged in `docs/seo/decisions.md` (SEO) or the relevant skill's §Decisions block (operational).
+- **Design work:** Follow `skills/design/SKILL.md` for any change to layout, typography, color, components, or interaction states. Read `skills/design/system-prompt.md` and apply ANDETAG brand from `docs/Visual Identity.md`; run review procedures before merge.
 
 ---
 

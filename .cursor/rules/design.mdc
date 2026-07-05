@@ -1,0 +1,30 @@
+---
+description: >-
+  Mandatory for all visual/UI design work — layout, typography, color, components,
+  interaction states, accessibility polish. Canonical: /skills/design/SKILL.md.
+  Vendored Claude Design System prompt + 14 procedures.
+globs:
+  - site/src/styles/**
+  - site/src/components/**
+  - site/src/layouts/**
+  - docs/Visual Identity.md
+  - docs/component-usage.md
+alwaysApply: false
+---
+
+# Design skill (pointer)
+
+**All design work on this project runs through the design skill.** Read the canonical file before editing matching paths.
+
+Canonical: [`/skills/design/SKILL.md`](../../skills/design/SKILL.md)
+
+Quick mandate:
+
+1. Read [`skills/design/system-prompt.md`](../../skills/design/system-prompt.md) (philosophy + workflow) and [`skills/design/andetag-adaptations.md`](../../skills/design/andetag-adaptations.md) (ANDETAG overrides).
+2. Brand sources: [`docs/Visual Identity.md`](../../docs/Visual%20Identity.md), `site/src/styles/components.css`, [`docs/component-usage.md`](../../docs/component-usage.md). Do not invent a new visual language unless the user explicitly asks.
+3. When a task trigger matches chapter 20 of the system prompt, read and follow the procedure in [`skills/design/procedures/`](../../skills/design/procedures/).
+4. After substantive visual changes, run **`polish-pass`** (or its constituent reviews) in-loop; then `npm test && npm run build` from `site/`.
+5. Locale parity: paired page bodies (`*Sv`/`*En`, Berlin `*De`/`*En`) stay structurally aligned unless scoped to one locale.
+6. Copy/metadata: [`skills/seo/SKILL.md`](../../skills/seo/SKILL.md). New pages/routes: [`skills/page/SKILL.md`](../../skills/page/SKILL.md).
+
+See the canonical skill for full workflow, verification, escalation, and attribution.
