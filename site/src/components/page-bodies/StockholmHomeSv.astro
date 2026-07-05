@@ -37,8 +37,7 @@ import {
  */
 const understoryCompanyId = "3b3aa7a7c2cd455b8f3a56cd81033110";
 
-const artYogaBookingHref =
-  "https://andetag.understory.io/experience/cc2f4ed4e1709b93a454a1e5abad6595";
+const artYogaHref = "/sv/stockholm/art-yoga/";
 
 const introLeadImage = {
   width: 1920,
@@ -89,6 +88,7 @@ const privatMarkdown = [
 ].join("");
 
 const artYogaMarkdown = [
+  "<p>Art Yoga har sommaruppeh\u00e5ll just nu. P\u00e5 <a href=\"/sv/stockholm/art-yoga/\">Art Yoga-sidan</a> publiceras nya tider n\u00e4r klassen \u00e4r tillbaka.</p>",
   "<p>Art Yoga är en långsam yogaklass i <span class=\"brand-wordmark\">ANDETAG</span>s omslutande konstmiljö i centrala Stockholm. En plats att röra sig, andas och landa, mitt i staden.</p>",
   "<p>Omgiven av glödande textilkonst och levande ljus leds klassen av yogaläraren <strong>Fabian Macklin</strong>. Rörelse, andning och närvaro vävs samman i ett mjukt tempo. Fokus ligger på att lyssna in kroppen snarare än att prestera.</p>",
   "<p>Klassen är öppen för både nybörjare och erfarna yogautövare.<br />Inga förkunskaper krävs.</p>",
@@ -249,10 +249,10 @@ const vimeoSrc = "https://player.vimeo.com/video/1077937338";
 
   <div class="page-layout-with-aside page-stockholm-home__art-yoga">
     <div class="page-layout-with-aside__main">
-      <ContentSection heading="Art Yoga - varje tisdag kl. 17.00" headingLevel="h2" markdown={artYogaMarkdown} />
+      <ContentSection heading="Art Yoga - sommaruppeh\u00e5ll" headingLevel="h2" markdown={artYogaMarkdown} />
       <div class="page-stockholm-home__art-yoga-cta">
         <ButtonGroup
-          buttons={[{ label: "Boka Yoga", href: artYogaBookingHref, variant: "primary", external: true }]}
+          buttons={[{ label: "L\u00e4s mer", href: artYogaHref, variant: "primary" }]}
         />
       </div>
     </div>
