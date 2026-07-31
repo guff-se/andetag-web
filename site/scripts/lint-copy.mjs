@@ -5,9 +5,11 @@
  *
  * Enforces docs/Tone of Voice.md §Spelling: English copy uses British
  * spelling and vocabulary, in Oxford spelling (`-ize`/`-ization`, but `-yse`
- * in the analyse group and `-ise` in the never--izein verbs). The §Punctuation dash rule is a separate,
- * pre-existing grep documented in that file and in AGENTS.md; it is not
- * checked here.
+ * in the analyse group and `-ise` in the never--izein verbs).
+ *
+ * Also enforces §Punctuation: no em or en dash in prose. Dashes that mean
+ * "to" between two values (times, days, numbers, reference ranges) are
+ * intervals and are allowed.
  *
  * Scope and deliberate blind spots
  * --------------------------------
@@ -120,11 +122,55 @@ for (const stem of OXFORD_STEMS) {
   }
 }
 
+/**
+ * Terms deliberately written as a British/international pair for clarity, such
+ * as "pushchair / stroller". Swedish speakers routinely say stroller for
+ * barnvagn, so the dual form removes ambiguity on the visitor FAQ. The
+ * non-British half is allowed only when its British partner appears on the
+ * same line; a bare "stroller" is still flagged.
+ */
+const PAIRED_PARTNER = { stroller: "pushchair", strollers: "pushchair" };
+
 /** Checked only in English-only files (also valid Swedish otherwise). */
 const ENGLISH_ONLY = {
   fiber: "fibre", fibers: "fibres",
   meter: "metre", meters: "metres",
 };
+
+/**
+ * §Punctuation: a dash is allowed only as an interval ("to" between two
+ * values) -- 12.00 - 20.00, Tuesday-Saturday, 8-17 years, 231-239. Anywhere
+ * else it is prose and must become a comma, colon or parentheses.
+ *
+ * Classified by what flanks the dash: both sides must contain a digit, or both
+ * must be day/month names. "inspiration - perfect" therefore fails, while
+ * "L1-L6" and "Mon-Fri" pass.
+ */
+const DASH_RX = /[\u2014\u2013]/g;
+const RANGE_WORDS = new Set([
+  "mon", "tue", "tues", "wed", "thu", "thur", "thurs", "fri", "sat", "sun",
+  "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday",
+  "jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "sept", "oct",
+  "nov", "dec", "january", "february", "march", "april", "june", "july",
+  "august", "september", "october", "november", "december",
+]);
+
+/** Nearest whitespace-delimited token on one side of the dash. */
+function edgeToken(text, side) {
+  const cleaned = text.replace(/[^\S\n]+$/, "").replace(/^[^\S\n]+/, "");
+  const parts = cleaned.split(/\s/);
+  const token = side === "before" ? parts[parts.length - 1] : parts[0];
+  return (token || "").replace(/^[^\w§~]+|[^\w]+$/g, "");
+}
+
+function isInterval(line, index) {
+  const before = edgeToken(line.slice(0, index), "before");
+  const after = edgeToken(line.slice(index + 1), "after");
+  if (!before || !after) return false;
+  const numeric = (t) => /\d/.test(t);
+  if (numeric(before) && numeric(after)) return true;
+  return RANGE_WORDS.has(before.toLowerCase()) && RANGE_WORDS.has(after.toLowerCase());
+}
 
 const GENERAL_RX = wordRegex(Object.keys(GENERAL).filter((k) => GENERAL[k]));
 const ENGLISH_ONLY_WORD_RX = wordRegex(Object.keys(ENGLISH_ONLY));
@@ -169,7 +215,10 @@ function checkFile(absPath) {
       findings.push({ file: rel, line: i + 1, found, suggestion });
     };
 
+    const lowerLine = line.toLowerCase();
     for (const m of line.matchAll(GENERAL_RX)) {
+      const partner = PAIRED_PARTNER[m[0].toLowerCase()];
+      if (partner && lowerLine.includes(partner)) continue;
       report(m[0], GENERAL[m[0].toLowerCase()]);
     }
     if (englishOnly) {
@@ -179,6 +228,15 @@ function checkFile(absPath) {
       for (const m of line.matchAll(BARE_COLOR_RX)) {
         report(m[0], "colour");
       }
+    }
+    for (const m of line.matchAll(DASH_RX)) {
+      if (isInterval(line, m.index)) continue;
+      findings.push({
+        file: rel,
+        line: i + 1,
+        found: m[0] === "\u2014" ? "em dash in prose" : "en dash in prose",
+        suggestion: "comma, colon or parentheses",
+      });
     }
   });
 
@@ -192,12 +250,14 @@ const files = [
 const findings = files.flatMap(checkFile);
 
 if (findings.length === 0) {
-  console.log(`lint:copy — ${files.length} files clean (British spelling).`);
+  console.log(
+  `lint:copy — ${files.length} files clean (British spelling, no prose dashes).`,
+);
   process.exit(0);
 }
 
 console.error(
-  `\nUS spellings found (docs/Tone of Voice.md §Spelling) — ${findings.length} issue(s):`,
+  `\nCopy issues (docs/Tone of Voice.md §Spelling, §Punctuation) — ${findings.length}:`,
 );
 for (const f of findings) {
   console.error(`  ${f.file}:${f.line}  "${f.found}" -> "${f.suggestion}"`);

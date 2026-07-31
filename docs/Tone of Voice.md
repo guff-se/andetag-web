@@ -97,9 +97,28 @@ Reading ANDETAG copy should feel like slowing down.
 
 ## Punctuation
 
-**The em dash (U+2014) is absolutely prohibited under all circumstances.** Use commas, colons, or parentheses instead. The en dash (U+2013, `–`) is likewise prohibited in editorial prose.
+**In prose, dashes are prohibited under all circumstances.** This covers the em dash (U+2014, `—`) and the en dash (U+2013, `–`), and it applies to every sentence a reader meets: page copy, FAQ answers, headings, metadata, alt text, link labels, and documentation prose. Use a comma, a colon, or parentheses instead. A dash used as a parenthetical or a dramatic pause is always wrong here.
 
-**For agents and automated tools:** before committing any copy change, run `grep -rn $'—' site/src/components/page-bodies/ site/src/lib/content/` (em dash) and `grep -rn $'–' site/src/components/page-bodies/` (en dash). The only permitted exception is `stockholm-reviews.ts`, which contains verbatim TripAdvisor review text.
+### The one exception: intervals
+
+**A dash is correct when it means "to" between two values.** This is the ordinary typographic job of the en dash and is not a stylistic flourish:
+
+- Times: `12.00 – 20.00`, `17:00–18:00`
+- Days: `Tuesday–Saturday`, `Mon–Fri`
+- Numbers and ages: `8–17 years`, `240–190 SEK`
+- Reference ranges in code comments: `§L1–L6`, `~231–239`
+
+Prefer the en dash for intervals. Spacing may follow whatever the surrounding block already does: the opening-hours pages use `12.00 – 20.00` with spaces, and that is fine.
+
+The test is simple: if removing the dash and writing "to" still reads correctly, it is an interval and the dash stays. If you would have to write "which is" or "and" or start a new clause, it is prose and the dash must go.
+
+### Verification
+
+```bash
+cd site && npm run lint:copy     # also fails on prose dashes, and allows intervals
+```
+
+The linter classifies each dash by what flanks it, so intervals pass and prose dashes fail. The only blanket exception is `stockholm-reviews.ts`, which holds verbatim TripAdvisor review text, quoted exactly as visitors wrote it (one review contains `stillness—feeling`). Any other verbatim quotation gets a `uk-copy-lint-ignore-next-line` comment on the line above.
 
 ## Spelling: British English
 
@@ -148,12 +167,14 @@ Choose the British word where a clear pair exists. The ones that actually come u
 | lift | elevator |
 | toilet, accessible toilet | restroom, bathroom |
 | metro (Stockholm's tunnelbana is officially the *Stockholm metro*) | subway |
-| pushchair | stroller |
+| pushchair / stroller (write both) | stroller alone |
 | ground floor | first floor (US sense) |
 | car park | parking lot |
 | autumn | fall |
 | queue | line |
 | booking | reservation (for a ticket or a table) |
+
+**Pushchair is the one deliberate exception to picking a single word.** Swedish speakers routinely say *stroller* for *barnvagn*, so visitor-facing copy writes the pair, "pushchair / stroller", to remove any ambiguity. Use the pair on first mention and then a pronoun ("you can lock yours at the bike parking") rather than repeating both words in one short answer. A bare *stroller* is still wrong.
 
 ### What this rule does **not** touch
 

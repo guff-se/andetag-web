@@ -61,9 +61,9 @@ export const STOCKHOLM_FAQ_EN_LEFT: readonly FaqItem[] = [
 
 export const STOCKHOLM_FAQ_EN_RIGHT: readonly FaqItem[] = [
   {
-    title: "Can I bring a pushchair?",
+    title: "Can I bring a pushchair / stroller?",
     bodyHtml:
-      "<p>Not inside the venue. You can lock a pushchair at the bike parking on Sveavägen.</p>",
+      "<p>Not inside the venue. You can lock a pushchair / stroller at the bike parking on Sveavägen.</p>",
   },
   {
     title: "Is the experience accessible?",

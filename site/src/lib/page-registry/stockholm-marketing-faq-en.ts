@@ -16,7 +16,7 @@ export const stockholmMarketingFaqEn = [
     titleHtml:
       'Is <span class="brand-wordmark">ANDETAG</span> suitable for children?',
     bodyHtml:
-      "<p>Yes, we&#8217;ve had many kids visit us an belive that all ages can find a calmer rhythm at <span class=\"brand-wordmark\">ANDETAG.</span></p><p>Please note that there is no space for pushchairs inside the venue. You can lock your pushchair at the bike parking on Sveavägen.</p>",
+      "<p>Yes, we&#8217;ve had many kids visit us an belive that all ages can find a calmer rhythm at <span class=\"brand-wordmark\">ANDETAG.</span></p><p>Please note that there is no space for pushchairs / strollers inside the venue. You can lock yours at the bike parking on Sveavägen.</p>",
   },
   {
     title: "Can I buy tickets on-site?",
