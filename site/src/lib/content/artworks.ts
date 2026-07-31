@@ -287,7 +287,7 @@ const GEM_EMERALD_IMAGES: readonly ArtworkImage[] = [
     "Detail shot of Emerald's dense weave in emerald green and amber."),
   gemPhoto("gem-emerald", "alt-1", "alternative",
     "Emerald sedd från sidan, skulpturens djup och textur framhävs.",
-    "Emerald viewed from the side, the sculpture's depth and texture emphasized."),
+    "Emerald viewed from the side, the sculpture's depth and texture emphasised."),
 ];
 
 const GEM_RUBY_IMAGES: readonly ArtworkImage[] = [
@@ -329,7 +329,7 @@ const GEM_SAPPHIRE_IMAGES: readonly ArtworkImage[] = [
     "Detail shot of Sapphire's dense weave in deep blue and violet."),
   gemPhoto("gem-sapphire", "alt-1", "alternative",
     "Sapphire sedd från sidan, skulpturens djup och textur framhävs.",
-    "Sapphire viewed from the side, the sculpture's depth and texture emphasized."),
+    "Sapphire viewed from the side, the sculpture's depth and texture emphasised."),
 ];
 
 // ─── Catalogue ────────────────────────────────────────────────────────────────

@@ -31,7 +31,7 @@ const HOME_ALTS_EN = [
   "The museum lobby with framed textile works, a sofa with visitors, and a large wall sculpture at ANDETAG.",
   "Two visitors contemplating a shimmering textile sculpture in violet, gold, and green.",
   "The exhibition gallery with the ANDETAG info panel on the wall and visitors viewing textile works.",
-  "Close-up with a hand pointing toward the artwork Andetag no. 16, green and silver shimmering optical fibre textile.",
+  "Close-up with a hand pointing towards the artwork Andetag no. 16, green and silver shimmering optical fibre textile.",
   "Silhouette of a visitor before two textile sculptures glowing in violet and magenta light, the artwork Andetag no. 3.",
   "Two children lying on the floor surrounded by large, luminous Andetag sculptures in blue and violet.",
   "Wide view of the main room at ANDETAG, visitors resting before a wall of breathing light art.",

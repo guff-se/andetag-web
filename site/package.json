@@ -11,6 +11,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "test": "vitest run",
+    "lint:copy": "node scripts/lint-copy.mjs",
     "fonts:sync": "node scripts/sync-fonts.mjs",
     "worker:dev": "npm run build && wrangler dev",
     "worker:deploy": "npm run build && wrangler deploy",

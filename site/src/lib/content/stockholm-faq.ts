@@ -61,14 +61,14 @@ export const STOCKHOLM_FAQ_EN_LEFT: readonly FaqItem[] = [
 
 export const STOCKHOLM_FAQ_EN_RIGHT: readonly FaqItem[] = [
   {
-    title: "Can I bring a stroller?",
+    title: "Can I bring a pushchair?",
     bodyHtml:
-      "<p>Not inside the venue. You can lock a stroller at the bike parking on Sveavägen.</p>",
+      "<p>Not inside the venue. You can lock a pushchair at the bike parking on Sveavägen.</p>",
   },
   {
     title: "Is the experience accessible?",
     bodyHtml:
-      "<p>There are elevators from both the metro and street level. The exhibition is wheelchair accessible, but unfortunately we do not have a fully equipped wheelchair-accessible restroom.</p><p>Some parts of the exhibition are dark, but navigation is relatively straightforward. Guide dogs are welcome.</p><p>Caregivers or personal assistants are admitted free of charge.</p><p><a href=\"/en/stockholm/accessibility/\">Read more about accessibility</a>.</p>",
+      "<p>There are lifts from both the metro and street level. The exhibition is wheelchair accessible, but unfortunately we do not have a fully equipped wheelchair-accessible toilet.</p><p>Some parts of the exhibition are dark, but navigation is relatively straightforward. Guide dogs are welcome.</p><p>Caregivers or personal assistants are admitted free of charge.</p><p><a href=\"/en/stockholm/accessibility/\">Read more about accessibility</a>.</p>",
   },
   {
     title: "Is there a hearing loop?",
@@ -78,7 +78,7 @@ export const STOCKHOLM_FAQ_EN_RIGHT: readonly FaqItem[] = [
   {
     title: "Can we visit as a group?",
     bodyHtml:
-      "<p>Yes. <span class=\"brand-wordmark\">ANDETAG</span> can be visited as a group, both as a <a href=\"/en/stockholm/group-bookings/\">private gathering</a> and as a corporate event.</p><p>For groups, school classes, day activity programs, or companies, we recommend booking in advance. This allows us to welcome you in a calm and considered way.</p><p>We offer a <a href=\"/en/stockholm/group-bookings/\">group discount </a>for group bookings.</p><p>For arrangements and bookings, please contact: <a href=\"mailto:info@andetag.museum\">info@andetag.museum</a></p>",
+      "<p>Yes. <span class=\"brand-wordmark\">ANDETAG</span> can be visited as a group, both as a <a href=\"/en/stockholm/group-bookings/\">private gathering</a> and as a corporate event.</p><p>For groups, school classes, day activity programmes, or companies, we recommend booking in advance. This allows us to welcome you in a calm and considered way.</p><p>We offer a <a href=\"/en/stockholm/group-bookings/\">group discount </a>for group bookings.</p><p>For arrangements and bookings, please contact: <a href=\"mailto:info@andetag.museum\">info@andetag.museum</a></p>",
   },
   {
     title: "Do you offer a membership?",

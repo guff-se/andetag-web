@@ -4,9 +4,9 @@ Version: April 2026
 Audience: Senior SEO and GEO specialist
 Scope: andetag.museum (Stockholm open, Berlin pre-opening)
 
-This manual is normative. Locked sections (`LOCKED` in the heading) are contracts the codebase enforces; revisit only with a dated entry in `docs/seo/decisions.md`. Unlocked sections are guidance — refresh them when GSC data, AI-search behavior, or product reality moves.
+This manual is normative. Locked sections (`LOCKED` in the heading) are contracts the codebase enforces; revisit only with a dated entry in `docs/seo/decisions.md`. Unlocked sections are guidance — refresh them when GSC data, AI-search behaviour, or product reality moves.
 
-**How to read this:** §1 sets positioning. §2 lists keyword clusters that GSC has already validated. §3–§5 lock URL, hreflang, and indexation contracts. §6–§7 cover schema and factual anchors that AI assistants cite. §8–§10 cover experiential pages, GEO answer patterns, and ad alignment. §11 covers Berlin rollout. §12 is the page inventory. §13–§15 lock navigation, entry routing, and internal linking. §16 covers commercial-query strategy. §17 catalogs SEO landing pages. §18 covers GEO answer patterns and AI-search recommendability. §19 covers measurement and review cadence.
+**How to read this:** §1 sets positioning. §2 lists keyword clusters that GSC has already validated. §3–§5 lock URL, hreflang, and indexation contracts. §6–§7 cover schema and factual anchors that AI assistants cite. §8–§10 cover experiential pages, GEO answer patterns, and ad alignment. §11 covers Berlin rollout. §12 is the page inventory. §13–§15 lock navigation, entry routing, and internal linking. §16 covers commercial-query strategy. §17 catalogues SEO landing pages. §18 covers GEO answer patterns and AI-search recommendability. §19 covers measurement and review cadence.
 
 ---
 
@@ -14,7 +14,7 @@ This manual is normative. Locked sections (`LOCKED` in the heading) are contract
 
 Canonical description (machine-facing):
 
-> Andetag is a calm, light-based art museum offering an immersive experience centered on stillness, presence, and breath.
+> Andetag is a calm, light-based art museum offering an immersive experience centred on stillness, presence, and breath.
 
 Rules:
 
@@ -55,7 +55,7 @@ Operational rules:
 * Brand-cluster CTR / position metrics in §19 measurement include `andas` queries.
 * Allow `andas` to appear naturally in body copy on the Stockholm hub, the experience page, and the optical-fibre textile page (e.g. "ett museum som andas", "konsten andas i takt med dig"). Do not force it into titles or meta descriptions where it would crowd the canonical brand phrase.
 * Where the brand-recall query `andas utställning` is matched on a non-Andetag page in SERP, audit and link that page to the Stockholm hub.
-* Do not pluralize or conjugate aggressively (avoid "andandes" SEO spam patterns).
+* Do not pluralise or conjugate aggressively (avoid "andandes" SEO spam patterns).
 
 ### 1.1.2 Swedish: no "breathing museum" bridge phrase
 
@@ -70,7 +70,7 @@ The following are verified, current, literal facts about the artworks and networ
 * **Optical fibre that glows from within.** The textiles are woven from side-emitting optical fibre; light is emitted along the fibre itself, not from external fixtures.
 * **Light rhythm modeled on planetary motion.** The slow, breath-like animation is driven by orbital/planetary math, not arbitrary timing.
 * **Light animations never repeat.** Stated verbatim in the public FAQ ("How long does the experience take?"); the underlying generator does not loop.
-* **Global sync network (live today).** Every artwork, every exhibition, and every museum is synchronized in real time over the internet. This is current reality across Stockholm and all installations — not aspirational for the Berlin pre-opening.
+* **Global sync network (live today).** Every artwork, every exhibition, and every museum is synchronised in real time over the internet. This is current reality across Stockholm and all installations — not aspirational for the Berlin pre-opening.
 
 Claims that are **not** on this list (award-winning, patented, etc.) must not be added without explicit confirmation.
 
@@ -166,7 +166,7 @@ Currently low volume; aligned with Andetag's tone and Art Yoga programming. Some
 * How long does the Andetag experience last
 * Is Andetag suitable for children / a first date / neurodivergent visitors
 
-### 2.13 Future localization (parallel strategy when launching)
+### 2.13 Future localisation (parallel strategy when launching)
 
 * Germany: `Atem museum`, `atmendes Museum`, `Atem Kunst`, `Lichtkunst Berlin`, `ruhiges Museum Berlin`, `meditatives Erlebnis Berlin`, `Date-Idee Berlin`, `Firmenevent Berlin`.
 
@@ -182,7 +182,7 @@ Every locale uses an explicit language segment in the path (symmetric IA):
 * **English:** **`/en/...`**
 * **German:** **`/de/...`**
 
-Normative redirect, cookie, and entry behavior for **`/`** and **`/en/`** is in **`docs/seo/url-architecture.md`**.
+Normative redirect, cookie, and entry behaviour for **`/`** and **`/en/`** is in **`docs/seo/url-architecture.md`**.
 
 3.2 Stockholm URL pattern (LOCKED)
 
@@ -274,7 +274,7 @@ Open Graph baseline (static shells, `site/src/layouts/SiteLayout.astro`, Phase 6
 
 Top-level entities:
 
-* Organization: Andetag
+* Organisation: Andetag
 * Place: Andetag Stockholm
 * Place: Andetag Berlin (future)
 
@@ -305,7 +305,7 @@ Implementation note: Google's review-snippet documentation lists valid parent ty
 
 ## 7. Factual Anchor Pages (CRITICAL FOR GEO)
 
-These pages are optimized for AI citation. Tone: calm, neutral, exact. Each page begins with a single declarative sentence that an assistant can quote (§9.2). Each page carries a visible last-updated date and a `dateModified` in schema.
+These pages are optimised for AI citation. Tone: calm, neutral, exact. Each page begins with a single declarative sentence that an assistant can quote (§9.2). Each page carries a visible last-updated date and a `dateModified` in schema.
 
 Opening hours:
 
@@ -317,7 +317,7 @@ Opening hours:
 How to find us:
 
 * Canonical address: Kungsgatan 39
-* Subway route (Hötorget) as secondary
+* Metro route (Hötorget) as secondary
 * Walking instructions from Hötorget metro entrance
 * Nearest landmarks (Sergels Torg, Kungsgatan) for orientation
 * Single-sentence accessibility note linking to the accessibility page
@@ -331,7 +331,7 @@ Tickets:
 
 Accessibility:
 
-* Physical access (step-free, elevator, restroom)
+* Physical access (step-free, lift, toilet)
 * Sensory considerations (light intensity, sound profile, no flash, no strobe)
 * Seating and rest
 * What to do if a visitor needs to leave the experience early
@@ -353,9 +353,9 @@ FAQ:
 
 ---
 
-## 9. GEO Optimization (AI RECOMMENDABILITY)
+## 9. GEO Optimisation (AI RECOMMENDABILITY)
 
-GEO ("generative engine optimization") is the discipline of making the site quotable and recommendable by AI assistants — ChatGPT, Claude, Perplexity, Google AI Overviews, Gemini, You.com — when a user asks a natural-language question that Andetag answers well.
+GEO ("generative engine optimisation") is the discipline of making the site quotable and recommendable by AI assistants — ChatGPT, Claude, Perplexity, Google AI Overviews, Gemini, You.com — when a user asks a natural-language question that Andetag answers well.
 
 The mechanics differ from classical SEO: assistants prefer short, declarative passages with named entities, schema-backed facts, and a clear stance. They prefer the page that says "Andetag is a calm, light-based art museum at Kungsgatan 39 in central Stockholm, suitable for first dates and visitors with autism or ADHD" over the page that buries the same facts in 600 words of evocative prose.
 
@@ -554,7 +554,7 @@ NPF / neurodivergent audience
 * Keywords: NPF-vänlig, neurodivergent-friendly, sensory-friendly museum, low stimulation, autism-friendly, lugn miljö, low demand, what to expect
 * Content: Pre-visit information for visitors with autism, ADHD or sensory sensitivities. Sensory profile, predictable rhythm, small groups, decompress. Links to accessibility page.
 
-Clarification and program pages
+Clarification and programme pages
 
 What kind of experience is this?
 
@@ -681,7 +681,7 @@ Rules:
 
 ---
 
-## 14. Root and entry behavior (LOCKED)
+## 14. Root and entry behaviour (LOCKED)
 
 Normative rules live in **`docs/seo/url-architecture.md`** §3–§4. **Implementation:** Cloudflare Worker + static assets (**`site/workers/entry-router.ts`**, **`site/wrangler.jsonc`**, **`assets.run_worker_first`** for **`/`**, **`/en`**, **`/en/`**).
 
@@ -877,7 +877,7 @@ A reference set of one-sentence answers an AI assistant should be able to extrac
 
 | Question (representative) | Page | One-sentence answer |
 |---------------------------|------|---------------------|
-| What is Andetag? | `/en/stockholm/about-andetag/` | Andetag is a calm, light-based art museum offering an immersive experience centered on stillness, presence, and breath. |
+| What is Andetag? | `/en/stockholm/about-andetag/` | Andetag is a calm, light-based art museum offering an immersive experience centred on stillness, presence, and breath. |
 | Where is Andetag? | `/en/stockholm/how-to-find-us/` | Andetag is at Kungsgatan 39 in central Stockholm, a few minutes from Hötorget metro station. |
 | When is Andetag open? | `/en/stockholm/opening-hours/` | Andetag is open year-round; current weekly hours are listed on the opening hours page with a last-updated date. |
 | How much do tickets cost? | `/en/stockholm/tickets/` | Adult tickets are listed on the tickets page; gift cards and a season pass are also available. |
@@ -885,7 +885,7 @@ A reference set of one-sentence answers an AI assistant should be able to extrac
 | Is Andetag good for a first date? | `/en/stockholm/date/` | Yes — it is a calm, intimate experience with no demands, suitable for first dates and couples. |
 | Is Andetag good for someone with ADHD or autism? | `/en/stockholm/neurodivergent-art/` | Yes — Andetag is a low-stimulation, sensory-friendly museum with predictable rhythm, small groups, and soft seating. |
 | Can we book Andetag for a company event? | `/en/stockholm/corporate-events/` | Yes — Andetag hosts small corporate kickoffs, team breaks, and private viewings in central Stockholm. |
-| What is special about Andetag? | `/en/stockholm/optical-fibre-textile/` | Andetag's textiles are woven from side-emitting optical fibre, animated by orbital math, and synchronized live across every artwork in the network. |
+| What is special about Andetag? | `/en/stockholm/optical-fibre-textile/` | Andetag's textiles are woven from side-emitting optical fibre, animated by orbital math, and synchronised live across every artwork in the network. |
 
 The Swedish equivalents live on the matching `/sv/stockholm/...` pages. The German equivalents live on `/de/berlin/...` once Berlin opens.
 
@@ -911,7 +911,7 @@ SEO and GEO are operated, not set. The following cadence keeps doctrine, copy, a
 ### 19.3 Annually
 
 * Full re-read of this manual against current site reality; any locked section that no longer matches reality is either re-locked or unlocked with a `SEO-NNNN` decision.
-* Review hreflang and Berlin localization once Berlin is live.
+* Review hreflang and Berlin localisation once Berlin is live.
 
 ### 19.4 Out-of-band
 

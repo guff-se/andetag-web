@@ -33,9 +33,9 @@ This file is the post-migration successor to the SEO-relevant rows in `docs/arch
 - **Rationale:** Legacy `en.html` is a full Stockholm marketing home, not a two-city chooser. The hub UX requires coherent copy that does not commit to a destination before the visitor picks one.
 - **SEO impact:** Low at adoption time (SERP snippet and social preview vs legacy Yoast). After `SEO-0021`, on-page metadata on `/en/` serves UX and sharing only; the shell is not an index target.
 - **Approval:** Gustaf.
-- **Follow-up:** Maintain the hand-authored `/en/` row in `page-shell-meta.json`. Do not optimize `/en/` head copy for ranking (`SEO-0021`).
+- **Follow-up:** Maintain the hand-authored `/en/` row in `page-shell-meta.json`. Do not optimise `/en/` head copy for ranking (`SEO-0021`).
 
-### `SEO-0016` — Berlin English story shells canonicalize to Stockholm English
+### `SEO-0016` — Berlin English story shells canonicalise to Stockholm English
 
 - **Date:** 2026-04-04
 - **Scope:** SEO / canonical / hreflang
@@ -81,10 +81,10 @@ This file is the post-migration successor to the SEO-relevant rows in `docs/arch
   - **x-default flips to the English sibling** for every shell that emits hreflang. Stockholm pairs use `/en/stockholm/...`, Berlin pairs use `/en/berlin/...`, and the `/en/` hub uses `/en/`. Privacy shells use the English privacy URL of their location.
   - **Verified bots at `/`** receive a `301` to `/en/stockholm/` (was `302`). Verified-bot detection uses `cf.botManagement.verifiedBot` with a User-Agent fallback (Googlebot, Bingbot, etc.) inside `site/workers/entry-routing-logic.ts`.
   - **Verified bots at `/en/`** receive the static EN hub asset (`200`) instead of being routed onward by cookie or UA defaults, so the global English root remains directly indexable (**superseded by `SEO-0021` on 2026-05-01**).
-  - **Sitemap excludes the four Berlin English story shells** that `SEO-0016` canonicalizes to Stockholm English (`/en/berlin/about-andetag/`, `/en/berlin/music/`, `/en/berlin/optical-fibre-textile/`, `/en/berlin/about-the-artists-malin-gustaf-tadaa/`); they continue to serve as `200` HTML to humans.
+  - **Sitemap excludes the four Berlin English story shells** that `SEO-0016` canonicalises to Stockholm English (`/en/berlin/about-andetag/`, `/en/berlin/music/`, `/en/berlin/optical-fibre-textile/`, `/en/berlin/about-the-artists-malin-gustaf-tadaa/`); they continue to serve as `200` HTML to humans.
   - **`SiteNavigationElement` JSON-LD** is added to the entity graph: one node per locale on Stockholm shells (`sv`, `en`) and one on Berlin shells (`de`, `en`), listing the in-locale primary subpages.
 - **Rationale:** English is the broadest-audience locale and the most defensible global default for unauthenticated requests; flipping x-default away from the Swedish hub aligns the international targeting with the actual content depth in English. Returning `301` to bots at the bare host stops engines from caching `/` as the canonical entry. At the time, serving `/en/` to bots preserved the indexed global hub; that specific part was later reversed in `SEO-0021` when `/en/` was reclassified as a human selector utility. The sitemap exclusion mirrors the canonical decision in `SEO-0016`. `SiteNavigationElement` gives crawlers an explicit primary-nav signal per locale.
-- **SEO impact:** Medium. International SERPs may shift toward the English page when no language match is determined. `/en/stockholm/` is the primary global landing page for English-speaking discovery; `/en/` remained indexed only until `SEO-0021`. Sitemap row count drops by four (consistent with the canonical decision, not a new exclusion of indexable content).
+- **SEO impact:** Medium. International SERPs may shift towards the English page when no language match is determined. `/en/stockholm/` is the primary global landing page for English-speaking discovery; `/en/` remained indexed only until `SEO-0021`. Sitemap row count drops by four (consistent with the canonical decision, not a new exclusion of indexable content).
 - **Approval:** Gustaf, 2026-04-25.
 - **Follow-up:** Historical only after `SEO-0021`. Tests at the time: `site/src/lib/routes/page-shell-registry.test.ts` (x-default parity), `site/workers/entry-routing-logic.test.ts` and `site/workers/entry-router.test.ts` (`301` + serve-asset), `site/src/lib/chrome/schema-org.test.ts` (`SiteNavigationElement`).
 

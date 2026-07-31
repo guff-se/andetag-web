@@ -12,9 +12,9 @@ Maintain a human-readable changelog for meaningful repository changes.
 
 ## Entry quality
 
-- Write for humans, not commit logs, and summarize user-visible impact.
-- Group related changes; avoid noisy internal-only notes unless they affect behavior or operations.
-- Include migration notes when URL behavior, schema fields, or contracts change.
+- Write for humans, not commit logs, and summarise user-visible impact.
+- Group related changes; avoid noisy internal-only notes unless they affect behaviour or operations.
+- Include migration notes when URL behaviour, schema fields, or contracts change.
 - Explicitly call out breaking changes and deprecations before removals.
 - Include verification notes for major changes (tests run, deterministic checks, or manual validation scope).
 

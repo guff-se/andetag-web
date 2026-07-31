@@ -14,8 +14,9 @@
  * - Shipping policy and "app is included" confirmed by Gustaf, 2026-05-04.
  *
  * Tone of Voice (`docs/Tone of Voice.md`): no em dash (U+2014) or en dash
- * (U+2013) in answer prose; commas, colons, and periods only. UK English
- * (`fibre`); Oxford `-ize` for `synchronize` to match the existing page lead.
+ * (U+2013) in answer prose; commas, colons, and periods only. British
+ * English throughout, `-ise` not `-ize` (`fibre`, `colour`, `synchronise`)
+ * per §Spelling. Verify with `npm run lint:copy`.
  */
 import type { FaqItem } from "./stockholm-faq";
 
@@ -28,7 +29,7 @@ export const ARTWORKS_FAQ_EN: readonly FaqItem[] = [
   {
     title: "Is the music app included?",
     bodyHtml:
-      "<p>Yes. The Andetag app plays the music from the Stockholm exhibition, synchronized with your artwork. It is free to download for iPhone and Android. Music and breath sound can be adjusted or muted independently.</p>",
+      "<p>Yes. The Andetag app plays the music from the Stockholm exhibition, synchronised with your artwork. It is free to download for iPhone and Android. Music and breath sound can be adjusted or muted independently.</p>",
   },
   {
     title: "What is the warranty?",
@@ -48,7 +49,7 @@ export const ARTWORKS_FAQ_EN: readonly FaqItem[] = [
   {
     title: "Does it need Wi-Fi?",
     bodyHtml:
-      "<p>No. The artwork runs fully on its own without an internet connection. With Wi-Fi, it joins the global rhythm of every other Andetag in the world. Diptychs synchronize over Bluetooth in addition, so the two panels always breathe as one.</p>",
+      "<p>No. The artwork runs fully on its own without an internet connection. With Wi-Fi, it joins the global rhythm of every other Andetag in the world. Diptychs synchronise over Bluetooth in addition, so the two panels always breathe as one.</p>",
   },
   {
     title: "What does installation require?",

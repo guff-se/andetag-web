@@ -8,13 +8,13 @@ This doc replaces `docs/archive/grand-plan.md` (the historical migration roadmap
 
 ## What the site is
 
-`https://www.andetag.museum` is the website of ANDETAG, an immersive museum that breathes. Stockholm is live and operational; Berlin is pre-launch (opening planned for fall 2026). The site is a static Astro export served by a Cloudflare Workers entry router plus the static asset binding. There is no CMS and no WordPress runtime; content is versioned in this repo.
+`https://www.andetag.museum` is the website of ANDETAG, an immersive museum that breathes. Stockholm is live and operational; Berlin is pre-launch (opening planned for autumn 2026). The site is a static Astro export served by a Cloudflare Workers entry router plus the static asset binding. There is no CMS and no WordPress runtime; content is versioned in this repo.
 
-The migration from WordPress (Phases 0 through 8 of the original grand plan) closed on **2026-04-14**. The maintenance program (formerly Phase 9) closed on **2026-04-25**. From this point forward, the project is operated as a maintenance repository, not a build project.
+The migration from WordPress (Phases 0 through 8 of the original grand plan) closed on **2026-04-14**. The maintenance programme (formerly Phase 9) closed on **2026-04-25**. From this point forward, the project is operated as a maintenance repository, not a build project.
 
 ## Audiences and goals
 
-- **Primary KPI:** completed ticket purchase in the external Understory checkout. The site is funnel optimization into that flow.
+- **Primary KPI:** completed ticket purchase in the external Understory checkout. The site is funnel optimisation into that flow.
 - **Audience priorities (ranked):** Stockholm locals → tourists → couples and corporate visitors → mindfulness/yoga audiences. Berlin will mirror once open.
 - **Brand positioning:** “the breathing museum” in **English and German** discoverability copy only; in Swedish the name ANDETAG is self-explanatory and does not use that bridge phrase (SEO Manual §1.1.2). Calm, invitational tone. Banned words and locale register are normative in `docs/Tone of Voice.md`.
 - **Material fact (copy baseline):** describe the artworks as custom-woven and hand-stitched optical fibre textiles; do not describe them as hand-woven.
@@ -26,7 +26,7 @@ Three locales, two locations:
 - **Stockholm:** Swedish (`sv`) and English (`en`). Hreflang pairs Swedish with English; no German alternate.
 - **Berlin:** German (`de`) and English (`en`). Hreflang pairs German with English; no Swedish alternate. Pre-opening pages emit `Place` JSON-LD only.
 
-The four Berlin English story shells canonicalize to their Stockholm English siblings (`SEO-0016`); their hreflang stays Berlin-internal.
+The four Berlin English story shells canonicalise to their Stockholm English siblings (`SEO-0016`); their hreflang stays Berlin-internal.
 
 The `/` and `/en/` entry routes are handled by the Worker (`site/workers/entry-router.ts`) using `Accept-Language`, Cloudflare `cf.country`, and the `andetag_entry` cookie. Verified bots land on `/en/stockholm/` from both `/` and `/en/`; `/en/` remains a human selector utility, emitted as `noindex,follow` and excluded from the sitemap (`SEO-0021`).
 
@@ -51,7 +51,7 @@ The `/` and `/en/` entry routes are handled by the Worker (`site/workers/entry-r
 | Operational facts | `site/src/lib/content/stockholm-offers.ts` (prices, daytime window, Art Yoga), `schema-org.ts` (address, geo, hours) |
 | Reviews | `site/src/lib/content/stockholm-reviews.ts` |
 | FAQs | `site/src/lib/content/stockholm-faq.ts` (+ shared "What is ANDETAG?" copy) |
-| Image catalog | `assets/images/photos.yaml` (per-file trilingual alt + tags) |
+| Image catalogue | `assets/images/photos.yaml` (per-file trilingual alt + tags) |
 | Skills | `skills/<name>/SKILL.md` |
 
 ## Operating model

@@ -74,4 +74,4 @@ Rows reflect the active maintenance skill set. The numeric ids carry from the or
 
 Skills are invoked automatically by the agent when a user request matches the skill's `description`. The agent does not need a human to name the skill; the description field drives matching.
 
-For Claude Code, the `.claude/skills/` directory is the discoverable location. For Cursor, `.cursor/rules/` serves the same role. Both reference the canonical file so behavior stays consistent across tools.
+For Claude Code, the `.claude/skills/` directory is the discoverable location. For Cursor, `.cursor/rules/` serves the same role. Both reference the canonical file so behaviour stays consistent across tools.

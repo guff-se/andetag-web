@@ -1,14 +1,14 @@
 # Content model
 
-Current-state contract for how page data, shared modules, and component props are organized on the Astro site. For implementation detail on individual components, see `docs/component-usage.md`.
+Current-state contract for how page data, shared modules, and component props are organised on the Astro site. For implementation detail on individual components, see `docs/component-usage.md`.
 
 The migration-era **frontmatter + Elementor mapping** contract lives in `docs/archive/content-model-v1-contract.md` (reference only; not implemented in `site/`).
 
 ---
 
-## Locale synchronization rule
+## Locale synchronisation rule
 
-Editorial copy updates are locale-synchronized by default. When a logical page exists in multiple locales (Stockholm `sv` + `en`, Berlin `de` + `en`), copy edits must be applied to every available locale in the same task unless the requester explicitly asks for a single-locale change.
+Editorial copy updates are locale-synchronised by default. When a logical page exists in multiple locales (Stockholm `sv` + `en`, Berlin `de` + `en`), copy edits must be applied to every available locale in the same task unless the requester explicitly asks for a single-locale change.
 
 ---
 
@@ -53,7 +53,7 @@ Single-source modules consumed by page bodies, schema, and chrome. Edit the modu
 | FAQ entries | `site/src/lib/content/stockholm-faq.ts` |
 | Reviews + TripAdvisor figures | `site/src/lib/content/stockholm-reviews.ts` |
 | Artworks catalogue | `site/src/lib/content/artworks.ts` |
-| Photo catalog (trilingual alt) | `assets/images/photos.yaml` |
+| Photo catalogue (trilingual alt) | `assets/images/photos.yaml` |
 | Hours, address, geo (schema) | `site/src/lib/chrome/schema-org.ts` (+ prose drift hotspots in page bodies; see `docs/maintenance-backlog.md` M-0001, M-0002) |
 | Navigation labels + URLs | `site/src/lib/chrome/navigation.ts`, locale hero/footer modules under `site/src/lib/chrome/` |
 | Responsive image paths | `site/src/lib/content/stockholm-body-responsive-images.ts`, `stockholm-marketing-gallery.ts` |

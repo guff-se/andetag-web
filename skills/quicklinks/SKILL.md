@@ -9,7 +9,7 @@ Maintain **302 quicklinks** in **`site/public/_redirects`**: short first-party p
 
 **Hard scope — `_redirects` file:** The agent may **only** change text **inside the Quicklinks section** of **`site/public/_redirects`**. It must **never** add, delete, or edit any line **outside** that section (all legacy **301** rules, **`/display`**, the **`/stockholm/*`** splat, the Worker/entry `index` comment at EOF, or any other line).
 
-**Not for:** canonical URL moves (**301**), new content pages, **`docs/seo/url-architecture.md`** edits, or **Worker** / **entry-router** behavior. Those belong to **`skills/page/SKILL.md`**, **SEO** / **site-integrity** workflows, or infra owners.
+**Not for:** canonical URL moves (**301**), new content pages, **`docs/seo/url-architecture.md`** edits, or **Worker** / **entry-router** behaviour. Those belong to **`skills/page/SKILL.md`**, **SEO** / **site-integrity** workflows, or infra owners.
 
 ## When to use
 
@@ -74,7 +74,7 @@ Deeper redirect audits: **`skills/site-integrity/SKILL.md`**. Policy context: **
 
 ## When to escalate
 
-- Need to add or change a **301** rule, **splat** behavior, or **entry** routing.
+- Need to add or change a **301** rule, **splat** behaviour, or **entry** routing.
 - Unsure whether a path should be a **302** quicklink or a **canonical** site URL (use **page** / **SEO**).
 - User cannot provide a destination URL for an external or form link.
 

@@ -9,7 +9,7 @@ Purpose: define tracking and consent guardrails for the live static site (Cookie
 This document extends requirements already stated in:
 
 - `docs/project-overview.md` (current stack and operating model)
-- `docs/archive/existing-site-structure.md` (legacy WordPress integrations and script behavior)
+- `docs/archive/existing-site-structure.md` (legacy WordPress integrations and script behaviour)
 
 ## Scope Decision
 
@@ -117,7 +117,7 @@ Out-of-scope for this inventory: **first-party** media (hero video poster, galle
 ## 6) Technical Requirements for Static Delivery
 
 - Consent decisions must be readable before tag execution.
-- Tag initialization must run after consent state is resolved.
+- Tag initialisation must run after consent state is resolved.
 - No optional tag should fire on first paint without consent.
 - Consent and tag gating must work across all supported language paths (`/`, `/en/`, `/de/...`).
 

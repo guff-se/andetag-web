@@ -34,7 +34,7 @@ This skill is **not** for:
 Read-first in every invocation (the doctrine changes more often than the code):
 
 - `docs/Andetag SEO Manual.md` — positioning, keyword constraints, URL architecture, indexation, hreflang, schema strategy, GEO (AI-recommendability), internal linking. **Normative** for on-page SEO.
-- `docs/Tone of Voice.md` — copy constraints. Em dash (U+2014) is prohibited. Words we avoid (mind-blowing, magical, healing, transformative, life-changing, revolutionary, spiritual, must-see, unforgettable). Invitational, not instructional.
+- `docs/Tone of Voice.md` — copy constraints. Em dash (U+2014) is prohibited. **All English copy is British English** (§Spelling): `-ise`/`-isation`, `-yse`, `-our`, `-re`, `-ogue`, doubled `-ll-`, `programme` for events, `towards`, and lift / toilet / metro / pushchair. Words we avoid (mind-blowing, magical, healing, transformative, life-changing, revolutionary, spiritual, must-see, unforgettable). Invitational, not instructional.
 - `docs/seo/url-architecture.md` — URL architecture, canonical rules, redirect policy, sitemap membership rules, entry routing at `/` and `/en/`, location-scoped story URLs, privacy URL policy, query-parameter policy.
 - `docs/seo/decisions.md` — durable SEO deviations from default rules. Most-cited rows: `SEO-0015` (`/en/` hub copy), `SEO-0016` (Berlin English canonicals → Stockholm English), `SEO-0017` (Museum + LocalBusiness for AggregateRating/Review), `SEO-0019` (konstutställning spelling override vs the scraped Yoast title). Each drift from a "default" SEO rule has a row; edits that contradict a row must update it or add a new one.
 - `site/src/data/page-shell-meta.json` — per-shell `title` and `description` (and optional `ogImage`). The single source for shell head copy; edit this JSON for title/description changes, coordinated with the SEO Manual and `docs/seo/decisions.md`.
@@ -43,7 +43,7 @@ Read for the runtime contract:
 
 - `site/src/lib/routes/page-shell-registry.ts` — `STOCKHOLM_SV_EN_PAIRS`, `BERLIN_DE_EN_STORY_PAIRS`, `BERLIN_EN_STORY_SEO_CANONICAL`, `resolveSeo()` builds the hreflang record and `x-default`. Canonical/hreflang changes start here.
 - `site/src/lib/chrome/seo.ts` — `CANONICAL_HOST` (`https://www.andetag.museum`), `OG_SITE_NAME` (`ANDETAG`), `languageToHreflangAttribute` (sv → `sv-SE`, en → `en`, de → `de-DE`), `languageToOgLocale` (underscore form `sv_SE` / `en_US` / `de_DE`), `ogLocaleAlternates`, `buildHreflangLinks`. **Do not edit these without checking the SEO Manual §5.**
-- `site/src/lib/chrome/schema-org.ts` — entity graph. Museum + LocalBusiness, Organization, WebSite, WebPage, ImageObject, Event (Art Yoga), FAQPage (when on `/sv/stockholm/fragor-svar/` or `/en/stockholm/faq/`), Place (Berlin). Addresses, opening hours, offers, aggregateRating, review sourced from `stockholm-*.ts` in `site/src/lib/content/`.
+- `site/src/lib/chrome/schema-org.ts` — entity graph. Museum + LocalBusiness, Organisation, WebSite, WebPage, ImageObject, Event (Art Yoga), FAQPage (when on `/sv/stockholm/fragor-svar/` or `/en/stockholm/faq/`), Place (Berlin). Addresses, opening hours, offers, aggregateRating, review sourced from `stockholm-*.ts` in `site/src/lib/content/`.
 - `site/src/layouts/SiteLayout.astro` — where `<title>`, `<meta name="description">`, canonical + hreflang, OG, Twitter, and JSON-LD are emitted per shell. `robots?: "index,follow" | "noindex,follow" | "noindex,nofollow"` prop (default indexable).
 
 Read for content-level SEO:
@@ -106,6 +106,7 @@ Run these checks against the built `dist/` — a stale `dist/` makes the audit m
    - Not identical across shells in the same locale family (de-duplication).
    - Tone: calm, concrete, invitational. No em dash (U+2014) — use commas, colons, or parentheses. No banned words (mind-blowing, magical, healing, transformative, life-changing, revolutionary, spiritual, must-see, unforgettable) unless quoting a review (reviews are fair game per `SEO-0017`'s lineage).
    - **Em dash scan (body copy too):** before committing, run `grep -rn $'—' site/src/components/page-bodies/ site/src/lib/content/` to catch U+2014 in editorial copy. Exclude `stockholm-reviews.ts` (review quote text is permitted). Also check U+2013 (en dash `–`): `grep -rn $'–' site/src/components/page-bodies/`. Neither dash is permitted in editorial prose or meta descriptions.
+   - **British spelling (English titles, descriptions, and body copy):** run `cd site && npm run lint:copy`. UK spelling is normative per `docs/Tone of Voice.md` §Spelling, and it applies to `page-shell-meta.json` English rows and JSON-LD `description` strings as much as to page bodies. The linter skips words that collide with code (`color`, `center`, `behavior`, `program`), so also read the copy. Verbatim review quotes keep the reviewer's spelling: mark those lines `uk-copy-lint-ignore-next-line`.
 3. **Canonical**
    - Exactly one `<link rel="canonical">` per page.
    - Absolute URL rooted at `https://www.andetag.museum` (never `andetag.museum` bare or `http://`).
@@ -131,7 +132,7 @@ Run these checks against the built `dist/` — a stale `dist/` makes the audit m
    - Non-indexable routes: `/en/` is `noindex,follow` (selector utility; `SEO-0021`), 404 has `noindex,follow`, `/component-showcase/` retired 2026-03-23 (no live noindex needed); Understory endpoints / ticket modals never served as HTML shells.
    - Transactional confirmation / cancellation links are external (Understory domain), not ours.
 7. **Structured data (JSON-LD)**
-   - Exactly one `<script type="application/ld+json">` per page; `@graph` pattern (Organization, WebSite, WebPage, Museum-LocalBusiness or Place, plus topical nodes).
+   - Exactly one `<script type="application/ld+json">` per page; `@graph` pattern (Organisation, WebSite, WebPage, Museum-LocalBusiness or Place, plus topical nodes).
    - Stockholm pages: `@type: ["Museum", "LocalBusiness"]` on the venue node (`SEO-0017` — not a drift, a documented decision).
    - `aggregateRating.reviewCount` is a **JSON number**, not a string (`193`, not `"193"`). `ratingValue` is a **string** (`"4.9"`, not `4.9`) per Google's own doc examples. Mixing these breaks Rich Results.
    - `Offer.price` is a **string** (`"245"`), `priceCurrency` is `"SEK"` (ISO 4217).
@@ -145,7 +146,7 @@ Run these checks against the built `dist/` — a stale `dist/` makes the audit m
    - Density 1–3 per prose block target; pillar hubs allowed more.
 9. **Sitemap**
    - `dist/sitemap-0.xml` lists exactly the canonical indexable URLs: same set as `keep` rows that are intended to rank in `docs/url-matrix.csv` plus shell registry.
-   - Excludes `/` (router), `/en/` (selector utility, `noindex,follow`), `_redirects` aliases, noindex, Berlin English story shells (they are indexed via the Stockholm English canonical they point to — confirm current behavior against registry when editing).
+   - Excludes `/` (router), `/en/` (selector utility, `noindex,follow`), `_redirects` aliases, noindex, Berlin English story shells (they are indexed via the Stockholm English canonical they point to — confirm current behaviour against registry when editing).
    - After edit: `npm run build` and re-grep the sitemap.
 
 ### C. International SEO (Stockholm sv+en, Berlin en+de)
@@ -160,7 +161,7 @@ Run these checks against the built `dist/` — a stale `dist/` makes the audit m
 - **H1 per page.** Exactly one. Keyword-aligned but not stuffed. Body modules own H1 (not `SiteLayout`); verify by grep on `dist/`.
 - **Heading hierarchy.** `h1 → h2 → h3`, no skips. Landmark roles (`<main>`, `<nav>`, `<footer>`) unchanged.
 - **First paragraph** should state what the page is, using the page's keyword line from SEO Manual §12 naturally — not in the first five words, not as a list of terms.
-- **Image alt text** pulls from `assets/images/photos.yaml` per `skills/images`. Do not hand-write alt that contradicts the catalog — extend the catalog instead.
+- **Image alt text** pulls from `assets/images/photos.yaml` per `skills/images`. Do not hand-write alt that contradicts the catalogue — extend the catalogue instead.
 - **Internal links** per §B.8 above; §15 of the SEO Manual lists the required contextual targets per page (Opening hours → Tickets + How to find us; Tickets → Opening hours + Art Yoga + Season pass; etc.). Audit before shipping a body rewrite.
 - **Trust signals.** About, Contact, Privacy pages exist (EEAT). This skill does not add a new Contact page — that is `skills/page`.
 
@@ -193,7 +194,7 @@ If source data is missing, say so. Do not fabricate.
 Skills reviewed before authoring (all MIT-licensed, structural inspiration only):
 
 - **`coreyhaines31/marketingskills/skills/seo-audit`** — best section structure for a general SEO audit skill. Influenced the ordering of this SKILL.md (technical → international → on-page → schema → source integrity). No copy adopted verbatim; the generic "when to use" triggers would be meaningless here without ANDETAG's locked architecture.
-- **`JeffLi1993/seo-audit-skill`** — single-page audit format (URL in, report out). The two-layer pattern (deterministic script + agent judgment) informed the §B mandatory checks list. Not adopted because the ANDETAG pipeline is static and already has Vitest-based parity tests + `skills/site-integrity` for the deterministic half.
+- **`JeffLi1993/seo-audit-skill`** — single-page audit format (URL in, report out). The two-layer pattern (deterministic script + agent judgement) informed the §B mandatory checks list. Not adopted because the ANDETAG pipeline is static and already has Vitest-based parity tests + `skills/site-integrity` for the deterministic half.
 - **`kostja94/marketing-skills`** — 160+ page-type skills. Reviewed for naming conventions; ANDETAG's page set is small and locked, so breadth was not useful.
 
 No skill was installed as a dependency; the frontmatter and workflow above are written to this project. If a future release of `seo-audit` adds a pattern worth adopting (for example a standardised Rich Results test checklist), extend §E rather than vendor the upstream file — ANDETAG's doctrine is specific enough that upstream drift would regress us.

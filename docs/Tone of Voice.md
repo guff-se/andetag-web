@@ -101,6 +101,74 @@ Reading ANDETAG copy should feel like slowing down.
 
 **For agents and automated tools:** before committing any copy change, run `grep -rn $'—' site/src/components/page-bodies/ site/src/lib/content/` (em dash) and `grep -rn $'–' site/src/components/page-bodies/` (en dash). The only permitted exception is `stockholm-reviews.ts`, which contains verbatim TripAdvisor review text.
 
+## Spelling: British English
+
+**All English copy on the site uses British (UK) English.** This is normative, not a preference. It applies to page copy, headings, FAQ answers, alt text, titles, meta descriptions, Open Graph text, JSON-LD description strings, and the prose in this repository's own documentation.
+
+British English suits ANDETAG: the museum is European, the English pages serve visitors arriving from across Europe and beyond, and the register is calm and considered rather than transatlantic-breezy. It also removes a real ambiguity, since the site previously mixed both.
+
+### Spelling rules
+
+| Rule | Use | Not |
+|------|-----|-----|
+| `-ise`, not `-ize` | organise, recognise, synchronise, visualise, optimise, prioritise, finalise, summarise, normalise, localise, standardise, capitalise | organize, recognize, synchronize, … |
+| `-isation`, not `-ization` | organisation, synchronisation, optimisation, localisation, visualisation | organization, synchronization, … |
+| `-yse`, not `-yze` | analyse, analysis, paralyse | analyze, paralyze |
+| `-our`, not `-or` | colour, behaviour, favour, honour, labour, neighbour, flavour | color, behavior, favor, … |
+| `-re`, not `-er` | centre, centred, metre, metres, fibre, fibres, theatre, litre | center, centered, meter, fiber, … |
+| `-ogue`, not `-og` | catalogue, dialogue, analogue | catalog, dialog, analog |
+| `-ce` for nouns, `-se` for verbs | a licence / to license; a practice / to practise; defence, offence, pretence | license (noun), practise (noun), defense, offense |
+| Double the `l` | travelled, cancelled, labelled, modelling, marvellous, jewellery, counsellor, fuelled, signalling | traveled, canceled, labeled, modeling, … |
+| Single `l` in these | fulfil, fulfilment, skilful, enrol, enrolment, instalment, distil | fulfill, fulfillment, skillful, enrollment, … |
+| `programme` for schedules and events; `program` only for computer code | a day activity programme, the evening programme; *but* the LEDs are programmed, Gustaf programs the algorithms | program (event sense) |
+| `-ae`/`-oe` retained | aesthetic, encyclopaedia, manoeuvre, archaeology, paediatric | esthetic, encyclopedia, maneuver, … |
+| `towards`, not `toward` | towards Stureplan, pointing towards the artwork | toward |
+| Other singles | grey, tyre, kerb, storey (of a building), judgement, ageing, ambience, moustache, sulphur, mould, cosy, aluminium, autumn (not fall) | gray, tire, curb, story (floor), judgment, aging, … |
+
+`-ise` is the house rule because it is the form most readers recognise as British. Do **not** use Oxford `-ize` spellings, even though they are also technically British: mixing the two is what created the drift in the first place. The only words that keep `z` are those where `z` is not a variant at all: *size*, *seize*, *prize*, *capsize*.
+
+### Vocabulary
+
+Choose the British word where a clear pair exists. The ones that actually come up on this site:
+
+| Use | Not |
+|-----|-----|
+| lift | elevator |
+| toilet, accessible toilet | restroom, bathroom |
+| metro (Stockholm's tunnelbana is officially the *Stockholm metro*) | subway |
+| pushchair | stroller |
+| ground floor | first floor (US sense) |
+| car park | parking lot |
+| autumn | fall |
+| queue | line |
+| booking | reservation (for a ticket or a table) |
+
+### What this rule does **not** touch
+
+British spelling governs prose written for readers. It never governs machine-facing strings, because renaming those breaks the site:
+
+- **Code identifiers** — variable, function, prop, and CSS class names (`randomize`, `normalize()`, `serialize`, `mediaSizes`, `align-center`). Rename only as a deliberate refactor, never as part of a copy pass.
+- **CSS properties and values** — `color`, `background-color`, `text-align: center`, `grayscale`, `scroll-behavior`. These are language keywords.
+- **Third-party API keys and vocabularies** — Google Consent Mode (`ad_personalization`), schema.org types and properties (`Organization`, `organizer`, `parentOrganization`, `OfferCatalog`). These are contracts with external systems.
+- **URLs, file paths, and filenames.** Existing paths stay put; a spelling change to a live URL is a redirect decision, not a copy edit. (`/en/stockholm/optical-fibre-textile/` was already British, which is why the body copy was the thing out of step.)
+- **Vendored third-party content** — `skills/design/system-prompt.md` and `skills/design/procedures/` mirror an upstream repository and must stay verbatim.
+- **`docs/archive/`** and **`archive/`** — closed records, not live copy.
+- **Existing `CHANGELOG.md` entries** — a dated record of what was done and what the copy used to say. Write new entries in British English, but do not rewrite old ones, and quote prior copy exactly when an entry describes a change to it.
+- **Verbatim quotations.** TripAdvisor review text in `stockholm-reviews.ts`, and the review quotes embedded in `DejtEn.astro` / `DejtSv.astro`, are quoted exactly as visitors wrote them, American spellings included. Never silently "correct" a quotation.
+- **Swedish and German copy**, which have their own conventions.
+
+### Verification
+
+```bash
+cd site && npm run lint:copy     # fails on US spellings in site/src
+```
+
+The check reads source, not rendered prose, so it deliberately skips words that collide with code: `color`, `center`, `behavior`, `catalog`, `dialog`, `program`, `normalize`, `serialize`, `personalization`. A clean run is therefore necessary but not sufficient, so still read the copy. Words that are also correct Swedish (`fibre`/`fiber`, `metre`/`meter`) are only checked in English-only files.
+
+For a verbatim visitor quote that must keep its original spelling, add a `uk-copy-lint-ignore-next-line` comment above the line. Documentation prose is not covered by the linter: review it by eye against the tables above.
+
+The dash rule in §Punctuation has its own separate grep and is not part of `lint:copy`.
+
 ## Language Nuance: Swedish, English, German
 
 The Swedish tone is slightly more restrained, inward, and minimal. The name *Andetag* speaks for itself: it means *breath*, so the language can stay close to the experience without explanation.
@@ -204,7 +272,7 @@ When copy describes how the artworks are made, use this as the default factual w
 
 **English**
 
-> Andetag is a visual manifestation of a deep human breath. Through woven optical fiber, living light and original music, the experience invites slowness and attention. All works breathe together, synchronized across the world. A global breath you can step into.
+> Andetag is a visual manifestation of a deep human breath. Through woven optical fibre, living light and original music, the experience invites slowness and attention. All works breathe together, synchronised across the world. A global breath you can step into.
 
 **German**
 
@@ -212,7 +280,7 @@ When copy describes how the artworks are made, use this as the default factual w
 
 ## Final Guideline for Agencies
 
-Before finalizing any copy, ask:
+Before finalising any copy, ask:
 
 - Does this feel calm?
 - Does it respect the reader?
