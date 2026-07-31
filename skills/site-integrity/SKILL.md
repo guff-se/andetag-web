@@ -48,7 +48,7 @@ Primary tests (already present — rely on them; do not duplicate):
 ## Locale parity rules
 
 - Stockholm pairs: every `sv` path in `STOCKHOLM_SV_EN_PAIRS` must have a matching `en` path built, with symmetric hreflang and mutual canonicals per `docs/Andetag SEO Manual.md` §hreflang.
-- Berlin story pairs: every `de` path in `BERLIN_DE_EN_STORY_PAIRS` must have a matching `en` path built. Berlin English story shells canonicalise to Stockholm English per `BERLIN_EN_STORY_SEO_CANONICAL` — this is **expected asymmetry** documented in `docs/seo/decisions.md` `SEO-0016`; do not flag it.
+- Berlin story pairs: every `de` path in `BERLIN_DE_EN_STORY_PAIRS` must have a matching `en` path built. Berlin English story shells canonicalize to Stockholm English per `BERLIN_EN_STORY_SEO_CANONICAL` — this is **expected asymmetry** documented in `docs/seo/decisions.md` `SEO-0016`; do not flag it.
 - `x-default` required on Berlin English shells per registry test; confirm in the built HTML head.
 
 ## Workflow

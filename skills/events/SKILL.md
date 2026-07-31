@@ -23,7 +23,7 @@ This skill is **not** for:
 
 - Adding a **one-off event block** (concert, workshop, temporary experience) to the Stockholm home pages, **or** a **one-off with its own page** (page skill first, then this skill — see §D).
 - Adding or editing a **recurring event with its own page**: metadata, schedule, booking URL, performer, JSON-LD window, or body copy. (New URLs: page skill first, then this skill.)
-- **Editing a one-off** — Always **check where it is surfaced**: dedicated page body (`site/src/components/page-bodies/`), home block, `stockholm-offers.ts` (if the event is centralised there), and `schema-org.ts` (if it has `Event` JSON-LD). Update **every** location that still applies so copy and links stay in sync; do not assume “home only.”
+- **Editing a one-off** — Always **check where it is surfaced**: dedicated page body (`site/src/components/page-bodies/`), home block, `stockholm-offers.ts` (if the event is centralized there), and `schema-org.ts` (if it has `Event` JSON-LD). Update **every** location that still applies so copy and links stay in sync; do not assume “home only.”
 - Removing a past or cancelled one-off event (home block, detail page, schema — see §E).
 - Changing how many future occurrences a recurring in-page programme emits in JSON-LD (see **Art Yoga** and `ART_YOGA_SCHEMA_WEEKS` as the concrete pattern).
 
@@ -51,7 +51,7 @@ Read before editing. All paths relative to repo root. **Art Yoga** is named thro
 ## Locale parity rules
 
 - **Stockholm events are `sv + en`.** Every edit lands in both languages in the same task.
-- **Swedish vs English date/time prose.** Swedish: `YYYY-MM-DD`, 24-hour time with period separator (`kl. 17.00`), weekday lowercase. English: 24-hour `17:00` with capitalised weekday. Human-readable in body; ISO in schema.
+- **Swedish vs English date/time prose.** Swedish: `YYYY-MM-DD`, 24-hour time with period separator (`kl. 17.00`), weekday lowercase. English: 24-hour `17:00` with capitalized weekday. Human-readable in body; ISO in schema.
 - **Timezone** is always `Europe/Stockholm` for Stockholm events. Do not use UTC in copy or JSON-LD for these.
 - **No German Stockholm events.** Do not add `De` variants.
 - **No Berlin events.** Berlin is pre-launch; escalate if asked.

@@ -55,7 +55,7 @@ Operational rules:
 * Brand-cluster CTR / position metrics in §19 measurement include `andas` queries.
 * Allow `andas` to appear naturally in body copy on the Stockholm hub, the experience page, and the optical-fibre textile page (e.g. "ett museum som andas", "konsten andas i takt med dig"). Do not force it into titles or meta descriptions where it would crowd the canonical brand phrase.
 * Where the brand-recall query `andas utställning` is matched on a non-Andetag page in SERP, audit and link that page to the Stockholm hub.
-* Do not pluralise or conjugate aggressively (avoid "andandes" SEO spam patterns).
+* Do not pluralize or conjugate aggressively (avoid "andandes" SEO spam patterns).
 
 ### 1.1.2 Swedish: no "breathing museum" bridge phrase
 
@@ -70,7 +70,7 @@ The following are verified, current, literal facts about the artworks and networ
 * **Optical fibre that glows from within.** The textiles are woven from side-emitting optical fibre; light is emitted along the fibre itself, not from external fixtures.
 * **Light rhythm modeled on planetary motion.** The slow, breath-like animation is driven by orbital/planetary math, not arbitrary timing.
 * **Light animations never repeat.** Stated verbatim in the public FAQ ("How long does the experience take?"); the underlying generator does not loop.
-* **Global sync network (live today).** Every artwork, every exhibition, and every museum is synchronised in real time over the internet. This is current reality across Stockholm and all installations — not aspirational for the Berlin pre-opening.
+* **Global sync network (live today).** Every artwork, every exhibition, and every museum is synchronized in real time over the internet. This is current reality across Stockholm and all installations — not aspirational for the Berlin pre-opening.
 
 Claims that are **not** on this list (award-winning, patented, etc.) must not be added without explicit confirmation.
 
@@ -166,7 +166,7 @@ Currently low volume; aligned with Andetag's tone and Art Yoga programming. Some
 * How long does the Andetag experience last
 * Is Andetag suitable for children / a first date / neurodivergent visitors
 
-### 2.13 Future localisation (parallel strategy when launching)
+### 2.13 Future localization (parallel strategy when launching)
 
 * Germany: `Atem museum`, `atmendes Museum`, `Atem Kunst`, `Lichtkunst Berlin`, `ruhiges Museum Berlin`, `meditatives Erlebnis Berlin`, `Date-Idee Berlin`, `Firmenevent Berlin`.
 
@@ -274,7 +274,7 @@ Open Graph baseline (static shells, `site/src/layouts/SiteLayout.astro`, Phase 6
 
 Top-level entities:
 
-* Organisation: Andetag
+* Organization: Andetag
 * Place: Andetag Stockholm
 * Place: Andetag Berlin (future)
 
@@ -305,7 +305,7 @@ Implementation note: Google's review-snippet documentation lists valid parent ty
 
 ## 7. Factual Anchor Pages (CRITICAL FOR GEO)
 
-These pages are optimised for AI citation. Tone: calm, neutral, exact. Each page begins with a single declarative sentence that an assistant can quote (§9.2). Each page carries a visible last-updated date and a `dateModified` in schema.
+These pages are optimized for AI citation. Tone: calm, neutral, exact. Each page begins with a single declarative sentence that an assistant can quote (§9.2). Each page carries a visible last-updated date and a `dateModified` in schema.
 
 Opening hours:
 
@@ -353,9 +353,9 @@ FAQ:
 
 ---
 
-## 9. GEO Optimisation (AI RECOMMENDABILITY)
+## 9. GEO Optimization (AI RECOMMENDABILITY)
 
-GEO ("generative engine optimisation") is the discipline of making the site quotable and recommendable by AI assistants — ChatGPT, Claude, Perplexity, Google AI Overviews, Gemini, You.com — when a user asks a natural-language question that Andetag answers well.
+GEO ("generative engine optimization") is the discipline of making the site quotable and recommendable by AI assistants — ChatGPT, Claude, Perplexity, Google AI Overviews, Gemini, You.com — when a user asks a natural-language question that Andetag answers well.
 
 The mechanics differ from classical SEO: assistants prefer short, declarative passages with named entities, schema-backed facts, and a clear stance. They prefer the page that says "Andetag is a calm, light-based art museum at Kungsgatan 39 in central Stockholm, suitable for first dates and visitors with autism or ADHD" over the page that buries the same facts in 600 words of evocative prose.
 
@@ -885,7 +885,7 @@ A reference set of one-sentence answers an AI assistant should be able to extrac
 | Is Andetag good for a first date? | `/en/stockholm/date/` | Yes — it is a calm, intimate experience with no demands, suitable for first dates and couples. |
 | Is Andetag good for someone with ADHD or autism? | `/en/stockholm/neurodivergent-art/` | Yes — Andetag is a low-stimulation, sensory-friendly museum with predictable rhythm, small groups, and soft seating. |
 | Can we book Andetag for a company event? | `/en/stockholm/corporate-events/` | Yes — Andetag hosts small corporate kickoffs, team breaks, and private viewings in central Stockholm. |
-| What is special about Andetag? | `/en/stockholm/optical-fibre-textile/` | Andetag's textiles are woven from side-emitting optical fibre, animated by orbital math, and synchronised live across every artwork in the network. |
+| What is special about Andetag? | `/en/stockholm/optical-fibre-textile/` | Andetag's textiles are woven from side-emitting optical fibre, animated by orbital math, and synchronized live across every artwork in the network. |
 
 The Swedish equivalents live on the matching `/sv/stockholm/...` pages. The German equivalents live on `/de/berlin/...` once Berlin opens.
 
@@ -911,7 +911,7 @@ SEO and GEO are operated, not set. The following cadence keeps doctrine, copy, a
 ### 19.3 Annually
 
 * Full re-read of this manual against current site reality; any locked section that no longer matches reality is either re-locked or unlocked with a `SEO-NNNN` decision.
-* Review hreflang and Berlin localisation once Berlin is live.
+* Review hreflang and Berlin localization once Berlin is live.
 
 ### 19.4 Out-of-band
 

@@ -111,9 +111,9 @@ British English suits ANDETAG: the museum is European, the English pages serve v
 
 | Rule | Use | Not |
 |------|-----|-----|
-| `-ise`, not `-ize` | organise, recognise, synchronise, visualise, optimise, prioritise, finalise, summarise, normalise, localise, standardise, capitalise | organize, recognize, synchronize, … |
-| `-isation`, not `-ization` | organisation, synchronisation, optimisation, localisation, visualisation | organization, synchronization, … |
-| `-yse`, not `-yze` | analyse, analysis, paralyse | analyze, paralyze |
+| **Oxford `-ize`**, not `-ise` | organize, recognize, synchronize, visualize, optimize, prioritize, finalize, summarize, normalize, localize, standardize, capitalize, emphasize | organise, recognise, synchronise, … |
+| **Oxford `-ization`**, not `-isation` | organization, synchronization, optimization, localization, visualization | organisation, synchronisation, … |
+| `-yse`, not `-yze` | analyse, analysis, paralyse, catalyse | analyze, paralyze |
 | `-our`, not `-or` | colour, behaviour, favour, honour, labour, neighbour, flavour | color, behavior, favor, … |
 | `-re`, not `-er` | centre, centred, metre, metres, fibre, fibres, theatre, litre | center, centered, meter, fiber, … |
 | `-ogue`, not `-og` | catalogue, dialogue, analogue | catalog, dialog, analog |
@@ -125,7 +125,19 @@ British English suits ANDETAG: the museum is European, the English pages serve v
 | `towards`, not `toward` | towards Stureplan, pointing towards the artwork | toward |
 | Other singles | grey, tyre, kerb, storey (of a building), judgement, ageing, ambience, moustache, sulphur, mould, cosy, aluminium, autumn (not fall) | gray, tire, curb, story (floor), judgment, aging, … |
 
-`-ise` is the house rule because it is the form most readers recognise as British. Do **not** use Oxford `-ize` spellings, even though they are also technically British: mixing the two is what created the drift in the first place. The only words that keep `z` are those where `z` is not a variant at all: *size*, *seize*, *prize*, *capsize*.
+#### The `-ize` rule in detail
+
+The house style is **Oxford spelling**: British English with `-ize` rather than `-ise`. This is the Oxford English Dictionary's own convention and the style used by academic and museum publishing, so it is fully British, not a concession to American English. It is also the etymologically motivated choice, since these verbs come from the Greek `-izein`.
+
+`-ize` is not a blanket rule, and this is where it goes wrong if applied mechanically. Three groups keep `s`:
+
+1. **The `-yse` group** always keeps `s`, because it comes from Greek `-lusis`, not `-izein`: **analyse**, *analysed*, *analysis*, **paralyse**, **catalyse**, **dialyse**, **electrolyse**, **hydrolyse**. Writing *analyze* is an error under this rule, not an alternative.
+2. **Verbs that were never `-izein`** keep `s` regardless: **advertise, advise, arise, chastise, circumcise, comprise, compromise, despise, devise, disguise, enterprise, excise, exercise, expertise, franchise, improvise, incise, merchandise, premise, promise, revise, rise, supervise, surmise, surprise, televise**. There is no *advertize*.
+3. **Nouns that merely end in `-sis` or `-ise`** are not verbs in this family at all: *emphasis*, *basis*, *crisis*, *analysis*, *expertise*.
+
+So: **synchronize** and **organize**, but **analyse** and **advertise**. When unsure whether a verb belongs to the `-izein` family, check whether a matching `-ization` noun exists naturally (*organization*, *synchronization* → `-ize`; there is no *advertization* → `-ise`).
+
+Note that this rule is about `z` versus `s` only. Every other row in the table above is ordinary British spelling and is unaffected: it is still `colour`, `centre`, `fibre`, `catalogue`, `programme`, `towards`.
 
 ### Vocabulary
 
@@ -160,10 +172,10 @@ British spelling governs prose written for readers. It never governs machine-fac
 ### Verification
 
 ```bash
-cd site && npm run lint:copy     # fails on US spellings in site/src
+cd site && npm run lint:copy     # fails on US spellings in site/src and site/public
 ```
 
-The check reads source, not rendered prose, so it deliberately skips words that collide with code: `color`, `center`, `behavior`, `catalog`, `dialog`, `program`, `normalize`, `serialize`, `personalization`. A clean run is therefore necessary but not sufficient, so still read the copy. Words that are also correct Swedish (`fibre`/`fiber`, `metre`/`meter`) are only checked in English-only files.
+The check covers `site/src` plus the text files in `site/public` (`llms.txt`, `robots.txt`), which are English copy that AI assistants read. It reads source, not rendered prose, so it deliberately skips words that collide with code: `color`, `center`, `behavior`, `catalog`, `dialog`, `program`, `normalize`, `serialize`, `personalization`. A clean run is therefore necessary but not sufficient, so still read the copy. Words that are also correct Swedish (`fibre`/`fiber`, `metre`/`meter`) are only checked in English-only files.
 
 For a verbatim visitor quote that must keep its original spelling, add a `uk-copy-lint-ignore-next-line` comment above the line. Documentation prose is not covered by the linter: review it by eye against the tables above.
 

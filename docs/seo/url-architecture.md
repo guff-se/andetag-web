@@ -21,9 +21,9 @@ Related runtime files: `site/workers/entry-router.ts`, `site/public/_redirects`,
 - Non-trailing-slash HTML page paths → trailing-slash paths: `301`.
 - Uppercase path requests → lowercase canonical paths: `301`.
 - Preserve all query parameters through redirects (including `utm_*`, `gclid`, `fbclid`, `msclkid`).
-- Normalise malformed paths (duplicate slashes, percent-encoded unreserved ASCII, mixed-case hex bytes) to canonical form via `301`.
+- Normalize malformed paths (duplicate slashes, percent-encoded unreserved ASCII, mixed-case hex bytes) to canonical form via `301`.
 
-Trailing-slash normalisation applies only to HTML content routes, never to file-extension endpoints (`.pdf`, `.jpg`, `.xml`, `.json`).
+Trailing-slash normalization applies only to HTML content routes, never to file-extension endpoints (`.pdf`, `.jpg`, `.xml`, `.json`).
 
 ## §3. Language and destination routing
 
@@ -36,7 +36,7 @@ Trailing-slash normalisation applies only to HTML content routes, never to file-
 
 ### Location shortcut paths
 
-`/berlin` and `/stockholm` (with or without trailing slash) are convenience entry paths that route to the correct localised home via the Worker. Priority: stored cookie → browser `Accept-Language` → English default. Geo is not used (visitor named a destination explicitly).
+`/berlin` and `/stockholm` (with or without trailing slash) are convenience entry paths that route to the correct localized home via the Worker. Priority: stored cookie → browser `Accept-Language` → English default. Geo is not used (visitor named a destination explicitly).
 
 | Path | Cookie `v1:de` | Cookie `v1:sv` | No cookie, `de` browser | No cookie, `sv` browser | No cookie, other |
 |------|---------------|---------------|------------------------|------------------------|-----------------|
@@ -140,7 +140,7 @@ Handled at the edge for `GET` (and `HEAD` as appropriate).
 
 ### English hub `/en/`
 
-Handled at the edge for the exact entry URL only (respect trailing-slash normalisation). Does not apply to other `/en/*` paths. The shell is a **human selector utility**: canonical to itself for browser UX, but emitted with `meta robots="noindex,follow"` and excluded from the XML sitemap.
+Handled at the edge for the exact entry URL only (respect trailing-slash normalization). Does not apply to other `/en/*` paths. The shell is a **human selector utility**: canonical to itself for browser UX, but emitted with `meta robots="noindex,follow"` and excluded from the XML sitemap.
 
 - Verified bots (no routing cookie): `302` to `/en/stockholm/`, omit `Set-Cookie` (same default English location as bot handling on `/`).
 - Valid cookie `v1:en-s` or `v1:en-b`: `302` to `/en/stockholm/` or `/en/berlin/`.
@@ -226,7 +226,7 @@ Policy notes:
 
 ---
 
-## §11. XML sitemap and canonicalisation
+## §11. XML sitemap and canonicalization
 
 **Stakeholder intent:** preserve inbound links and ranking signals. URLs and redirects stay conservative; metadata and on-page SEO may improve over time. Improvements must not silently drop routes or break asset URLs.
 

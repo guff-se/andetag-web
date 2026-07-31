@@ -1,9 +1,11 @@
 #!/usr/bin/env node
 /**
- * Copy linter for English source under site/src.
+ * Copy linter for English copy under site/src and the text files in
+ * site/public (llms.txt, robots.txt).
  *
  * Enforces docs/Tone of Voice.md §Spelling: English copy uses British
- * spelling and vocabulary. The §Punctuation dash rule is a separate,
+ * spelling and vocabulary, in Oxford spelling (`-ize`/`-ization`, but `-yse`
+ * in the analyse group and `-ise` in the never--izein verbs). The §Punctuation dash rule is a separate,
  * pre-existing grep documented in that file and in AGENTS.md; it is not
  * checked here.
  *
@@ -34,6 +36,9 @@ import { join, relative, sep } from "node:path";
 
 const ROOT = new URL("..", import.meta.url).pathname.replace(/\/$/, "");
 const SRC = join(ROOT, "src");
+const PUBLIC = join(ROOT, "public");
+/** Text files under public/ that carry English copy (llms.txt, robots.txt). */
+const PUBLIC_TEXT_RX = /\.(txt|md)$/i;
 
 const SKIP_DIRS = new Set(["styles", "vendor", "node_modules"]);
 const SKIP_FILE_RX = /\.(css|svg|png|jpg|jpeg|webp|woff2?)$/i;
@@ -50,31 +55,10 @@ const ENGLISH_ONLY_RX = /(En|-en|-en-berlin|EnBerlin)\.(astro|ts)$/;
  * Swedish collision, so a match is always real prose.
  */
 const GENERAL = {
-  // -ise / -isation
-  synchronize: "synchronise", synchronized: "synchronised",
-  synchronizes: "synchronises", synchronizing: "synchronising",
-  synchronization: "synchronisation",
-  recognize: "recognise", recognized: "recognised",
-  recognizes: "recognises", recognizing: "recognising",
-  organizations: "organisations", organize: "organise",
-  organized: "organised", organizing: "organising",
-  visualize: "visualise", visualized: "visualised",
-  visualization: "visualisation",
-  optimize: "optimise", optimized: "optimised", optimizing: "optimising",
-  optimization: "optimisation",
-  emphasize: "emphasise", emphasized: "emphasised",
-  minimize: "minimise", minimized: "minimised",
-  maximize: "maximise", maximized: "maximised",
-  prioritize: "prioritise", prioritized: "prioritised",
-  specialize: "specialise", specialized: "specialised",
-  summarize: "summarise", summarized: "summarised",
-  finalize: "finalise", finalized: "finalised", finalizing: "finalising",
-  anonymize: "anonymise", anonymized: "anonymised",
-  utilize: "utilise", utilized: "utilised", utilization: "utilisation",
-  apologize: "apologise", apologized: "apologised",
-  // -yse
+  // -yse keeps s even in Oxford spelling (Greek -lusis, not -izein).
   analyze: "analyse", analyzed: "analysed", analyzing: "analysing",
-  paralyze: "paralyse",
+  analyzes: "analyses", paralyze: "paralyse", paralyzed: "paralysed",
+  catalyze: "catalyse", dialyze: "dialyse",
   // -our
   behavioral: "behavioural",
   colors: "colours", colored: "coloured", colorful: "colourful",
@@ -113,6 +97,28 @@ const GENERAL = {
   subway: "metro", subways: "metros",
   stroller: "pushchair", strollers: "pushchairs",
 };
+
+/**
+ * Oxford spelling: the Greek -izein verb family takes `-ize`, so an `-ise`
+ * spelling of one of these stems is the error. Deliberately absent: the -yse
+ * group (handled above) and verbs that were never -izein (advertise, advise,
+ * comprise, exercise, supervise, surprise, ...), which are `-ise` in British
+ * English too. A bare stem never matches: a suffix is always required, so the
+ * noun `emphasis` is not mistaken for the verb `emphasise`.
+ */
+const OXFORD_STEMS = [
+  "synchronis", "recognis", "organis", "visualis", "optimis", "localis",
+  "normalis", "prioritis", "centralis", "standardis", "summaris", "finalis",
+  "capitalis", "initialis", "sanitis", "tokenis", "pluralis", "customis",
+  "emphasis", "minimis", "maximis", "specialis", "personalis", "categoris",
+  "apologis", "anonymis", "utilis", "canonicalis", "modernis", "realis",
+];
+const OXFORD_SUFFIXES = ["e", "es", "ed", "ing", "ation", "ations", "er", "ers"];
+for (const stem of OXFORD_STEMS) {
+  for (const suffix of OXFORD_SUFFIXES) {
+    GENERAL[stem + suffix] = `${stem.slice(0, -1)}z${suffix}`;
+  }
+}
 
 /** Checked only in English-only files (also valid Swedish otherwise). */
 const ENGLISH_ONLY = {
@@ -179,7 +185,10 @@ function checkFile(absPath) {
   return findings;
 }
 
-const files = await walk(SRC);
+const files = [
+  ...(await walk(SRC)),
+  ...(await walk(PUBLIC)).filter((f) => PUBLIC_TEXT_RX.test(f)),
+];
 const findings = files.flatMap(checkFile);
 
 if (findings.length === 0) {

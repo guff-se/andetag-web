@@ -36,7 +36,7 @@ Purpose: implementation-facing usage guidance for the approved Astro components 
 
 ### `StyledLink`
 
-- Purpose: centralise link appearance variants.
+- Purpose: centralize link appearance variants.
 - Key props:
   - `label: string`
   - `href: string`

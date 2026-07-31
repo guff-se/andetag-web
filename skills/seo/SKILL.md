@@ -14,7 +14,7 @@ This skill is **not** for:
 - **Writing or shipping new pages.** Page creation/removal/renames are `skills/page`. When this skill finds an SEO regression it cannot fix in-body (a missing shell, a stale registry row), route to `page`.
 - **Changing operational facts** (hours, prices, contact, address). That is `skills/operational-facts`; however, this skill reviews the JSON-LD representation when those facts propagate to `schema-org.ts`.
 - **Running Lighthouse / Core Web Vitals.** That is `skills/performance-check`. CWV field data correlates with ranking but is measured elsewhere; the report template in §F cross-links.
-- **Rewriting the URL architecture.** Locked by `docs/seo/url-architecture.md` and `site/workers/entry-router.ts`. Any proposed change is out of scope — escalate, do not "optimise" it.
+- **Rewriting the URL architecture.** Locked by `docs/seo/url-architecture.md` and `site/workers/entry-router.ts`. Any proposed change is out of scope — escalate, do not "optimize" it.
 - **Inventing new schema types or markup patterns** not already grounded in `docs/Andetag SEO Manual.md` §6 and `docs/seo/decisions.md` `SEO-0017`. Expansion requires a new row in `docs/seo/decisions.md` approved by Gustaf.
 
 ## When to use
@@ -34,7 +34,7 @@ This skill is **not** for:
 Read-first in every invocation (the doctrine changes more often than the code):
 
 - `docs/Andetag SEO Manual.md` — positioning, keyword constraints, URL architecture, indexation, hreflang, schema strategy, GEO (AI-recommendability), internal linking. **Normative** for on-page SEO.
-- `docs/Tone of Voice.md` — copy constraints. Em dash (U+2014) is prohibited. **All English copy is British English** (§Spelling): `-ise`/`-isation`, `-yse`, `-our`, `-re`, `-ogue`, doubled `-ll-`, `programme` for events, `towards`, and lift / toilet / metro / pushchair. Words we avoid (mind-blowing, magical, healing, transformative, life-changing, revolutionary, spiritual, must-see, unforgettable). Invitational, not instructional.
+- `docs/Tone of Voice.md` — copy constraints. Em dash (U+2014) is prohibited. **All English copy is British English in Oxford spelling** (§Spelling): `-ize`/`-ization`, but `-yse` (analyse) and `-ise` for the never-`-izein` verbs (advertise, exercise, supervise); then `-our`, `-re`, `-ogue`, doubled `-ll-`, `programme` for events, `towards`, and lift / toilet / metro / pushchair. Words we avoid (mind-blowing, magical, healing, transformative, life-changing, revolutionary, spiritual, must-see, unforgettable). Invitational, not instructional.
 - `docs/seo/url-architecture.md` — URL architecture, canonical rules, redirect policy, sitemap membership rules, entry routing at `/` and `/en/`, location-scoped story URLs, privacy URL policy, query-parameter policy.
 - `docs/seo/decisions.md` — durable SEO deviations from default rules. Most-cited rows: `SEO-0015` (`/en/` hub copy), `SEO-0016` (Berlin English canonicals → Stockholm English), `SEO-0017` (Museum + LocalBusiness for AggregateRating/Review), `SEO-0019` (konstutställning spelling override vs the scraped Yoast title). Each drift from a "default" SEO rule has a row; edits that contradict a row must update it or add a new one.
 - `site/src/data/page-shell-meta.json` — per-shell `title` and `description` (and optional `ogImage`). The single source for shell head copy; edit this JSON for title/description changes, coordinated with the SEO Manual and `docs/seo/decisions.md`.
@@ -43,7 +43,7 @@ Read for the runtime contract:
 
 - `site/src/lib/routes/page-shell-registry.ts` — `STOCKHOLM_SV_EN_PAIRS`, `BERLIN_DE_EN_STORY_PAIRS`, `BERLIN_EN_STORY_SEO_CANONICAL`, `resolveSeo()` builds the hreflang record and `x-default`. Canonical/hreflang changes start here.
 - `site/src/lib/chrome/seo.ts` — `CANONICAL_HOST` (`https://www.andetag.museum`), `OG_SITE_NAME` (`ANDETAG`), `languageToHreflangAttribute` (sv → `sv-SE`, en → `en`, de → `de-DE`), `languageToOgLocale` (underscore form `sv_SE` / `en_US` / `de_DE`), `ogLocaleAlternates`, `buildHreflangLinks`. **Do not edit these without checking the SEO Manual §5.**
-- `site/src/lib/chrome/schema-org.ts` — entity graph. Museum + LocalBusiness, Organisation, WebSite, WebPage, ImageObject, Event (Art Yoga), FAQPage (when on `/sv/stockholm/fragor-svar/` or `/en/stockholm/faq/`), Place (Berlin). Addresses, opening hours, offers, aggregateRating, review sourced from `stockholm-*.ts` in `site/src/lib/content/`.
+- `site/src/lib/chrome/schema-org.ts` — entity graph. Museum + LocalBusiness, Organization, WebSite, WebPage, ImageObject, Event (Art Yoga), FAQPage (when on `/sv/stockholm/fragor-svar/` or `/en/stockholm/faq/`), Place (Berlin). Addresses, opening hours, offers, aggregateRating, review sourced from `stockholm-*.ts` in `site/src/lib/content/`.
 - `site/src/layouts/SiteLayout.astro` — where `<title>`, `<meta name="description">`, canonical + hreflang, OG, Twitter, and JSON-LD are emitted per shell. `robots?: "index,follow" | "noindex,follow" | "noindex,nofollow"` prop (default indexable).
 
 Read for content-level SEO:
@@ -132,7 +132,7 @@ Run these checks against the built `dist/` — a stale `dist/` makes the audit m
    - Non-indexable routes: `/en/` is `noindex,follow` (selector utility; `SEO-0021`), 404 has `noindex,follow`, `/component-showcase/` retired 2026-03-23 (no live noindex needed); Understory endpoints / ticket modals never served as HTML shells.
    - Transactional confirmation / cancellation links are external (Understory domain), not ours.
 7. **Structured data (JSON-LD)**
-   - Exactly one `<script type="application/ld+json">` per page; `@graph` pattern (Organisation, WebSite, WebPage, Museum-LocalBusiness or Place, plus topical nodes).
+   - Exactly one `<script type="application/ld+json">` per page; `@graph` pattern (Organization, WebSite, WebPage, Museum-LocalBusiness or Place, plus topical nodes).
    - Stockholm pages: `@type: ["Museum", "LocalBusiness"]` on the venue node (`SEO-0017` — not a drift, a documented decision).
    - `aggregateRating.reviewCount` is a **JSON number**, not a string (`193`, not `"193"`). `ratingValue` is a **string** (`"4.9"`, not `4.9`) per Google's own doc examples. Mixing these breaks Rich Results.
    - `Offer.price` is a **string** (`"245"`), `priceCurrency` is `"SEK"` (ISO 4217).
@@ -197,7 +197,7 @@ Skills reviewed before authoring (all MIT-licensed, structural inspiration only)
 - **`JeffLi1993/seo-audit-skill`** — single-page audit format (URL in, report out). The two-layer pattern (deterministic script + agent judgement) informed the §B mandatory checks list. Not adopted because the ANDETAG pipeline is static and already has Vitest-based parity tests + `skills/site-integrity` for the deterministic half.
 - **`kostja94/marketing-skills`** — 160+ page-type skills. Reviewed for naming conventions; ANDETAG's page set is small and locked, so breadth was not useful.
 
-No skill was installed as a dependency; the frontmatter and workflow above are written to this project. If a future release of `seo-audit` adds a pattern worth adopting (for example a standardised Rich Results test checklist), extend §E rather than vendor the upstream file — ANDETAG's doctrine is specific enough that upstream drift would regress us.
+No skill was installed as a dependency; the frontmatter and workflow above are written to this project. If a future release of `seo-audit` adds a pattern worth adopting (for example a standardized Rich Results test checklist), extend §E rather than vendor the upstream file — ANDETAG's doctrine is specific enough that upstream drift would regress us.
 
 ### H. Page-pair content review (invocation from `skills/page` or a focused page PR)
 

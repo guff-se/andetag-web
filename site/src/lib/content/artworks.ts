@@ -57,7 +57,7 @@ export type ArtworkLocation = {
   /** Coordinates for the SVG map. Jittered to ≥1 km when `privacy === "city"`. */
   lat: number;
   lon: number;
-  /** `exhibition` for publicly shown works; `city` anonymises private collections. */
+  /** `exhibition` for publicly shown works; `city` anonymizes private collections. */
   privacy: "exhibition" | "city";
 };
 
@@ -287,7 +287,7 @@ const GEM_EMERALD_IMAGES: readonly ArtworkImage[] = [
     "Detail shot of Emerald's dense weave in emerald green and amber."),
   gemPhoto("gem-emerald", "alt-1", "alternative",
     "Emerald sedd från sidan, skulpturens djup och textur framhävs.",
-    "Emerald viewed from the side, the sculpture's depth and texture emphasised."),
+    "Emerald viewed from the side, the sculpture's depth and texture emphasized."),
 ];
 
 const GEM_RUBY_IMAGES: readonly ArtworkImage[] = [
@@ -329,7 +329,7 @@ const GEM_SAPPHIRE_IMAGES: readonly ArtworkImage[] = [
     "Detail shot of Sapphire's dense weave in deep blue and violet."),
   gemPhoto("gem-sapphire", "alt-1", "alternative",
     "Sapphire sedd från sidan, skulpturens djup och textur framhävs.",
-    "Sapphire viewed from the side, the sculpture's depth and texture emphasised."),
+    "Sapphire viewed from the side, the sculpture's depth and texture emphasized."),
 ];
 
 // ─── Catalogue ────────────────────────────────────────────────────────────────

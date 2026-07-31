@@ -43,7 +43,7 @@ On the legacy site, **GA4** and the **Google Ads** “all pages” **Google tag*
 **Required maintainer action:**
 
 - Reconfigure GTM so tags fire under **CookieConsent + Google Consent Mode v2** per **`docs/archive/gtm-consent-migration-runbook.md`** (consent-aware triggers, tag consent checks), **or**
-- Replace **`cmplz_*`** custom-event triggers with **Consent Initialisation** / **All Pages** plus **tag-level consent** settings that match **`analytics_storage`**, **`ad_storage`**, etc.
+- Replace **`cmplz_*`** custom-event triggers with **Consent Initialization** / **All Pages** plus **tag-level consent** settings that match **`analytics_storage`**, **`ad_storage`**, etc.
 
 Both options were applied at cutover; this section is kept for reference if a future container audit reopens the question.
 

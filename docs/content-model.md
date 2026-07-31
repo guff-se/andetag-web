@@ -1,14 +1,14 @@
 # Content model
 
-Current-state contract for how page data, shared modules, and component props are organised on the Astro site. For implementation detail on individual components, see `docs/component-usage.md`.
+Current-state contract for how page data, shared modules, and component props are organized on the Astro site. For implementation detail on individual components, see `docs/component-usage.md`.
 
 The migration-era **frontmatter + Elementor mapping** contract lives in `docs/archive/content-model-v1-contract.md` (reference only; not implemented in `site/`).
 
 ---
 
-## Locale synchronisation rule
+## Locale synchronization rule
 
-Editorial copy updates are locale-synchronised by default. When a logical page exists in multiple locales (Stockholm `sv` + `en`, Berlin `de` + `en`), copy edits must be applied to every available locale in the same task unless the requester explicitly asks for a single-locale change.
+Editorial copy updates are locale-synchronized by default. When a logical page exists in multiple locales (Stockholm `sv` + `en`, Berlin `de` + `en`), copy edits must be applied to every available locale in the same task unless the requester explicitly asks for a single-locale change.
 
 ---
 

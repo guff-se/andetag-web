@@ -71,7 +71,7 @@ const STOCKHOLM_MUSEUM_DESCRIPTION_SV =
 
 /** Source: `site-html/en-stockholm-tickets.html` Museum `description` in footer JSON-LD. */
 const STOCKHOLM_MUSEUM_DESCRIPTION_EN =
-  "ANDETAG is a breathing museum and calm light-based art experience inside the Hötorget metro station in Stockholm. Visitors move through glowing textile installations synchronised with breath and sound, offering a mindful sensory journey.";
+  "ANDETAG is a breathing museum and calm light-based art experience inside the Hötorget metro station in Stockholm. Visitors move through glowing textile installations synchronized with breath and sound, offering a mindful sensory journey.";
 
 const ORG_SAME_AS = [
   "https://www.instagram.com/andetag.museum",

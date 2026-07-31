@@ -34,7 +34,7 @@ Paths are relative to the repo root. All listed files sit under `site/`.
   - `STOCKHOLM_FEATURED_REVIEWS: readonly StockholmReview[]` — currently 3 entries.
   - A `Last verified: YYYY-MM-DD` comment line at the top. Bump it every time.
 
-### Centralised consumers (auto-propagate via import — no hand edit needed)
+### Centralized consumers (auto-propagate via import — no hand edit needed)
 
 | Consumer | What it uses | File |
 |----------|--------------|------|
@@ -66,7 +66,7 @@ Every match should be the `.map(r => …)` form. If any literal array appears, i
 ## Locale parity rules
 
 - Stockholm is `sv + en + de` for the aggregate strip (`stockholmTestimonialAggregate{Sv,En,De}`), **but** review content itself is **English-only** in `STOCKHOLM_FEATURED_REVIEWS` — quotes are presented in the language the visitor originally wrote them (TripAdvisor policy). Do not translate quotes.
-- The author name is rendered as provided; do not localise (for example, "Therese" stays "Therese" in every locale).
+- The author name is rendered as provided; do not localize (for example, "Therese" stays "Therese" in every locale).
 - The aggregate strip's `score` uses comma decimal for sv and de (`4,9`) and point decimal for en (`4.9`). Enforced automatically by `stockholmTripadvisorRatingCommaDecimal()`.
 - `ratingValue` is a string in the catalogue (`"4.9"`) — JSON-LD uses `Number()` conversions in tests only. Keep the string form in the source.
 - `reviewCount` is a JSON **number** (not a string) — required by Google's rich-results validator per `docs/seo/decisions.md` `SEO-0017` and `docs/Andetag SEO Manual.md` §6.

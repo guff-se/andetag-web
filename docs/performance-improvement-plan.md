@@ -81,7 +81,7 @@ The article’s checklist maps to this codebase as follows (gaps are where we st
 | Cloudflare recommendation | This stack | Notes / action |
 |---------------------------|------------|----------------|
 | **Measure first** (Core Web Vitals, TTFB, DNS, TTI) | Lighthouse / PSI + optional **Cloudflare Observatory** (dashboard) | Use the same canonical URL (staging vs `www`) when comparing runs. |
-| **Optimise images** (dimensions, resolution, compression) | Strong for shipped P1 | Hero poster (P0), gallery, small header, marketing **`picture`** / covers, testimonial, about-artists lead, optical-fibre (**done**). Remaining: **portrait duo** **`1024x1024`** on about-the-artists, optional **WebP tuning** for **`malin-vaver2`**, route-specific LCP preloads only after DevTools confirmation. |
+| **Optimize images** (dimensions, resolution, compression) | Strong for shipped P1 | Hero poster (P0), gallery, small header, marketing **`picture`** / covers, testimonial, about-artists lead, optical-fibre (**done**). Remaining: **portrait duo** **`1024x1024`** on about-the-artists, optional **WebP tuning** for **`malin-vaver2`**, route-specific LCP preloads only after DevTools confirmation. |
 | **Limit HTTP requests** | Partially | Lab run showed **~63 requests** on Stockholm home; third parties multiply trips; audit duplicates and lazy third-party load. |
 | **Browser caching** (`Cache-Control`, etc.) | Strong for fingerprints | `site/public/_headers` covers `/_astro/*`, fonts, uploads (**`/wp-content/uploads/*`** ~**30d** `max-age` + long **`stale-while-revalidate`** for large video or poster repeat visits; replace-in-place at the same URL should use a new filename per **`AGENTS.md`**). HTML stays short TTL or revalidate. |
 | **Remove render-blocking JS** | Mixed | GTM in head; Understory booking script uses **`defer`** (**P2** partial). |
@@ -100,7 +100,7 @@ The article’s checklist maps to this codebase as follows (gaps are where we st
 1. **Shift cost to build time:** Image variants, minification, and sitemap generation belong in **`npm run build`**, not the browser (consider `@astrojs/image` or a small Sharp script for `srcset` if you want automation).
 2. **Immutable hashed assets:** Astro’s `/_astro/*` filenames are ideal for **`immutable`** caching (already in `_headers`); avoid caching HTML aggressively unless deploy purges are reliable.
 3. **Prefetch discipline:** Astro/client **prefetch** of internal links helps perceived speed but **adds bytes and CPU** on mobile; enable only where it matches product goals.
-4. **Third parties are the new “origin”:** API Gateway JSON and widgets bypass your static optimisations; treat them like slow origins (compression **P3**, script loading **P2**, lazy load).
+4. **Third parties are the new “origin”:** API Gateway JSON and widgets bypass your static optimizations; treat them like slow origins (compression **P3**, script loading **P2**, lazy load).
 5. **Video hero:** `preload="none"` on the hero video is good for **data**; LCP is then **poster-driven**, so poster weight dominates (P0).
 
 ---
@@ -121,7 +121,7 @@ The article’s checklist maps to this codebase as follows (gaps are where we st
 
 ---
 
-## Prioritised pain points and mitigations
+## Prioritized pain points and mitigations
 
 ### How priority was chosen (read this first)
 
@@ -143,7 +143,7 @@ The article’s checklist maps to this codebase as follows (gaps are where we st
 
 ---
 
-### Next actions (reprioritised, April 2026)
+### Next actions (reprioritized, April 2026)
 
 Use this order when **serial** engineering time is limited. **Parallel** items (P3, Playbook) can overlap.
 
@@ -171,7 +171,7 @@ Use this order when **serial** engineering time is limited. **Parallel** items (
 
 **Plan (completed):**
 
-1. **Produce optimised poster assets** (keep provenance: export from the same source frame, do not invent imagery):
+1. **Produce optimized poster assets** (keep provenance: export from the same source frame, do not invent imagery):
    - **Mobile width** (e.g. 800–1200 px wide) WebP + AVIF (or WebP-only if AVIF tooling is heavy).
    - **Desktop** wider variant if needed (still avoid 2K+ sources if the hero never displays that wide).
 2. **Use `<picture>`** on the hero (or swap `poster=` to a smaller default and upgrade via media): `source type="image/avif"`, `source type="image/webp"`, `img` fallback JPEG for ancient browsers.
@@ -199,7 +199,7 @@ Use this order when **serial** engineering time is limited. **Parallel** items (
 2. **`ResponsiveInlinePicture.astro`**; **`HeroSection`** + **`TestimonialCarousel`** accept **`BodyPictureSources`** or legacy string URLs.
 3. **`components.css`:** **`.component-hero-cover-picture`**, **`.testimonial-block__bg--picture`**, figure **`picture`** rules.
 
-**Ongoing workflow:** Batch-optimise new uploads before commit; add entries to **`stockholm-body-responsive-images.ts`** (or split module if it grows) when introducing new large marketing photos.
+**Ongoing workflow:** Batch-optimize new uploads before commit; add entries to **`stockholm-body-responsive-images.ts`** (or split module if it grows) when introducing new large marketing photos.
 
 **Files:** `site/src/components/ui/ResponsiveInlinePicture.astro`, `site/src/lib/content/stockholm-body-responsive-images.ts`, `site/src/components/content/HeroSection.astro`, `site/src/components/content/TestimonialCarousel.astro`, `site/src/lib/ui-logic/hero-cover-image.ts`, `site/src/lib/chrome/assets.ts`, `GallerySection` / gallery module as before, assets under `site/public/wp-content/uploads/...`.
 
@@ -222,7 +222,7 @@ Use this order when **serial** engineering time is limited. **Parallel** items (
 5. **LCP preloads above tracking:** Image and font preloads moved before `<TrackingHead />` in `SiteLayout.astro`.
 6. **jQuery:** **Done:** vanilla DOM; `jquery` is not in `site/package.json`.
 
-**Additional optimisations (April 2026, v2):**
+**Additional optimizations (April 2026, v2):**
 
 6. **Third-party CMP deferred to after LCP:** `PerformanceObserver` for `largest-contentful-paint`, with 4 s fallback timeout. Download never competes with LCP image preloads. FCP now matches no-tracking baseline (~1.2 s).
 7. **`fetchpriority="low"` removed (CMP script dynamically injected):** No `<script>` tag in HTML at all; injected via DOM after LCP fires.
@@ -258,7 +258,7 @@ Use this order when **serial** engineering time is limited. **Parallel** items (
 
 1. **Vendor / backend:** Ask Understory (or whoever owns the API Gateway) to enable **gzip and/or Brotli** on API responses (`Content-Encoding: br` or `gzip`). This is the correct fix; you cannot set headers on their origin from Cloudflare alone unless traffic is **proxied through your zone** with a transforming Worker.
 2. **App-level mitigation (optional):** Reduce **parallel month fetches** if the widget requests many ranges at once; fewer requests help mobile CPUs and contention (requires Understory widget support or custom integration).
-3. **Advanced (only if product agrees):** A **Cloudflare Worker** on your hostname could cache normalised calendar JSON at the edge with short TTL; only if data freshness and terms allow.
+3. **Advanced (only if product agrees):** A **Cloudflare Worker** on your hostname could cache normalized calendar JSON at the edge with short TTL; only if data freshness and terms allow.
 
 ---
 
@@ -301,19 +301,19 @@ Cloudflare’s overview ([speed up a website](https://www.cloudflare.com/en-gb/l
 2. Keep **TLS** modern (Full Strict); stale clients are rare; botched TLS modes add retries and latency.
 3. **Worker path length:** Entry routing that does extra lookups or redirects adds **TTFB**; keep the **`200`** path for locale HTML as direct as possible (see [`seo/url-architecture.md`](seo/url-architecture.md) §4).
 
-### Recommended dashboard checks (Speed → Optimisation)
+### Recommended dashboard checks (Speed → Optimization)
 
 1. **Brotli / compression:** Ensure responses are compressed at the edge. For **Workers**, responses your Worker returns must opt into compression where applicable; **static assets** from `assets.directory` are served by Cloudflare and typically compress well. Re-test HTML/CSS/JS `Content-Encoding` in DevTools.
 2. **HTTP/2 and HTTP/3:** Cloudflare supports **HTTP/2** by default; enable **HTTP/3 (QUIC)** on the zone for high-latency mobile ([HTTP/3 learning article](https://www.cloudflare.com/en-gb/learning/performance/what-is-http3/)). Multiplexing (HTTP/2+) also addresses the classic **many small requests** penalty versus HTTP/1.1 ([HTTP/2 vs HTTP/1.1](https://www.cloudflare.com/en-gb/learning/performance/http2-vs-http1.1/)).
 3. **Early Hints (103):** Optional; can help preconnect/preload hints for critical origins (evaluate with care so you do not hint stale URLs).
-4. **Polish** (image optimisation): Matches Cloudflare’s **image optimisation** bullet: automatic WebP/AVIF derivation for **JPEG/PNG** on eligible proxied traffic. **Caveats:** Verify visual quality for brand photography; **does not replace** deliberate art direction and responsive `srcset` in markup. Confirm it applies to your **production** route (Worker + custom domain vs `workers.dev`).
-5. **Mirage** (mobile optimisation): Optional deferred loading; can conflict with your **explicit** `loading` and LCP tuning. If enabled, **re-run LCP** tests ([lazy loading](https://www.cloudflare.com/en-gb/learning/performance/what-is-lazy-loading/) is better done explicitly for LCP images).
+4. **Polish** (image optimization): Matches Cloudflare’s **image optimization** bullet: automatic WebP/AVIF derivation for **JPEG/PNG** on eligible proxied traffic. **Caveats:** Verify visual quality for brand photography; **does not replace** deliberate art direction and responsive `srcset` in markup. Confirm it applies to your **production** route (Worker + custom domain vs `workers.dev`).
+5. **Mirage** (mobile optimization): Optional deferred loading; can conflict with your **explicit** `loading` and LCP tuning. If enabled, **re-run LCP** tests ([lazy loading](https://www.cloudflare.com/en-gb/learning/performance/what-is-lazy-loading/) is better done explicitly for LCP images).
 
 ### Cache Rules (Caching → Cache Rules)
 
 - **Long TTL** for immutable build assets (you already use `immutable` on `/_astro/*`).
 - **Shorter TTL** for HTML if you need fast content updates, or purge on deploy.
-- For **HTML** on aggressive cache, ensure **no stale** `andetag_entry` or locale cookies break personalisation (likely N/A for this static site).
+- For **HTML** on aggressive cache, ensure **no stale** `andetag_entry` or locale cookies break personalization (likely N/A for this static site).
 
 ### Argo / Tiered Cache
 
@@ -328,14 +328,14 @@ Cloudflare’s overview ([speed up a website](https://www.cloudflare.com/en-gb/l
 - **Understory AWS API** missing `Content-Encoding` (third-party origin).
 - **Oversized images** in `public/` (must fix bytes at source or via build pipeline).
 - **Blocking third-party scripts** without code changes (`async`/`defer`, lazy load).
-- **Redirect chains** in your own marketing or legacy links (fix at source; Cloudflare cannot remove extra hops inside a long chain without URL normalisation rules you maintain).
+- **Redirect chains** in your own marketing or legacy links (fix at source; Cloudflare cannot remove extra hops inside a long chain without URL normalization rules you maintain).
 
 ---
 
 ## Verification checklist (after changes)
 
-- [x] **P0** Lighthouse mobile LCP improved materially vs **~8 s** baseline; **full-site batch** **mean LCP ~3.1 s** (local) still above **2.5 s** good (see [Next actions](#next-actions-reprioritised-april-2026) **item 1**).
-- [x] **P1** Stockholm home and marketing routes no longer ship **multi-megabyte** unoptimised JPEGs for scoped **`picture`** / gallery / header paths; re-check **Network** total after **GTM** completes if comparing to legacy **~10 MB** anecdotes.
+- [x] **P0** Lighthouse mobile LCP improved materially vs **~8 s** baseline; **full-site batch** **mean LCP ~3.1 s** (local) still above **2.5 s** good (see [Next actions](#next-actions-reprioritized-april-2026) **item 1**).
+- [x] **P1** Stockholm home and marketing routes no longer ship **multi-megabyte** unoptimized JPEGs for scoped **`picture`** / gallery / header paths; re-check **Network** total after **GTM** completes if comparing to legacy **~10 MB** anecdotes.
 - [ ] **LCP ≤ 2.5 s** (lab, throttled) on **worst batch URLs** (privacy, musik, företagsevent, visitor-reviews) after targeted fixes.
 - [ ] **CLS** regression check on **four** URLs flagged in [Lighthouse batch insights](#lighthouse-batch-insights-april-2026).
 - [x] Booking widget still functions after **`defer`** (dates, language, checkout handoff).
@@ -353,6 +353,6 @@ The original **60s** scores were driven by **LCP and bytes**: a **very large her
 
 **Current state (April 2026):** Staging scores are **84-86** on mobile Lighthouse with consent management + GTM active. **Without tracking, scores are 98-100**, confirming first-party performance is excellent. The remaining gap is the measured cost of consent management + analytics executing on a throttled mobile CPU.
 
-**Pre-Phase-7 score of ~89 was without consent management.** Recovering to 89 generally requires reducing third-party consent/analytics cost (architectural decision, not a code optimisation).
+**Pre-Phase-7 score of ~89 was without consent management.** Recovering to 89 generally requires reducing third-party consent/analytics cost (architectural decision, not a code optimization).
 
 **Next leverage:** **P3** API compression (vendor), **fonts** (P4), **CSS** (P5), and **Cloudflare** playbook (zone settings). Keep validating **LCP**, **INP** (field), and **CLS**, not only the synthetic score. **Social:** default **`og:image`** targets **`https://www.andetag.museum`**; confirm with **Facebook Sharing Debugger** on **`www`** after Phase 8 (**P8-23**).

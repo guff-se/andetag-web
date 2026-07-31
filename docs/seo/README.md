@@ -6,7 +6,7 @@ This directory holds the **ongoing** SEO doctrine for `andetag.museum`. Migratio
 
 | File | Purpose |
 |------|---------|
-| [`url-architecture.md`](url-architecture.md) | Canonical URL rules, redirect rules, language and destination routing, location-scoped story URLs, entry routing + `andetag_entry` cookie contract, SEO landing page policy, privacy URLs, query/non-HTML/asset-locality rules, Berlin transition, sitemap and canonicalisation. |
+| [`url-architecture.md`](url-architecture.md) | Canonical URL rules, redirect rules, language and destination routing, location-scoped story URLs, entry routing + `andetag_entry` cookie contract, SEO landing page policy, privacy URLs, query/non-HTML/asset-locality rules, Berlin transition, sitemap and canonicalization. |
 | [`decisions.md`](decisions.md) | Durable SEO decisions log: deviations from default rules (canonical override, schema parent type, on-page copy override). Successor to the SEO-relevant rows of `docs/archive/migration-exceptions.md`; IDs preserved as `SEO-NNNN`. |
 
 ## When to read what

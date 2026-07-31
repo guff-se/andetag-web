@@ -11,7 +11,7 @@ Also contains the **P9-40 stats bridge recipe** (per **P9-41**: no standalone do
 
 This skill is **not** for:
 
-- Writing or extending new performance optimisations (that is content / chrome work in the responsible skill; this skill only measures).
+- Writing or extending new performance optimizations (that is content / chrome work in the responsible skill; this skill only measures).
 - Editing `docs/performance-improvement-plan.md` substance — the skill reads it; updates to the plan happen when a track moves from "Open" → "Done" in a content PR.
 - Vendor-side asks (Understory gzip/Brotli **P3** etc.); those are tracked in the improvement plan, not here.
 
@@ -179,4 +179,4 @@ Action:
 
 1. §B full. §C aggregate review.
 2. §E if you want to correlate with GSC/GA4: `stats query "traffic by source"` + `stats query "top keywords"` for this month vs last.
-3. Summarise into a maintenance-backlog row (`M-NNNN`, owner `skills/performance-check`) with the run date and one-line summary; attach the JSON path if it was saved.
+3. Summarize into a maintenance-backlog row (`M-NNNN`, owner `skills/performance-check`) with the run date and one-line summary; attach the JSON path if it was saved.

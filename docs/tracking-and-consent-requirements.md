@@ -117,7 +117,7 @@ Out-of-scope for this inventory: **first-party** media (hero video poster, galle
 ## 6) Technical Requirements for Static Delivery
 
 - Consent decisions must be readable before tag execution.
-- Tag initialisation must run after consent state is resolved.
+- Tag initialization must run after consent state is resolved.
 - No optional tag should fire on first paint without consent.
 - Consent and tag gating must work across all supported language paths (`/`, `/en/`, `/de/...`).
 
