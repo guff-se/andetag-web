@@ -58,7 +58,7 @@ This file is the post-migration successor to the SEO-relevant rows in `docs/arch
   - 6 `Offer` nodes from `stockholm-offers.ts`.
   - Four dated `Event` nodes for Art Yoga via `computeArtYogaOccurrenceSeriesIso` (build-time).
   - **Berlin pre-opening:** `Place` only (no aggregateRating, no opening-hours).
-- **Rationale:** Aligns with `docs/Andetag SEO Manual.md` §6 and §11. AggregateRating per §6; offers from centralised price data (stable for 1+ year); `Event` uses `eventSchedule` for recurring Art Yoga.
+- **Rationale:** Aligns with `docs/Andetag SEO Manual.md` §6 and §11. AggregateRating per §6; offers from centralized price data (stable for 1+ year); `Event` uses `eventSchedule` for recurring Art Yoga.
 - **SEO impact:** Low (graph hygiene). Star ratings, price range, and event rich results eligible in SERP for Stockholm pages.
 - **Approval:** Gustaf, 2026-04-12.
 - **Follow-up:** Monitor Rich Results in GSC for 2-4 weeks post-cutover. Maintenance: `skills/testimonials/` (review data), `skills/operational-facts/` (prices), `skills/events/` (Art Yoga occurrences).
@@ -84,7 +84,7 @@ This file is the post-migration successor to the SEO-relevant rows in `docs/arch
   - **Sitemap excludes the four Berlin English story shells** that `SEO-0016` canonicalizes to Stockholm English (`/en/berlin/about-andetag/`, `/en/berlin/music/`, `/en/berlin/optical-fibre-textile/`, `/en/berlin/about-the-artists-malin-gustaf-tadaa/`); they continue to serve as `200` HTML to humans.
   - **`SiteNavigationElement` JSON-LD** is added to the entity graph: one node per locale on Stockholm shells (`sv`, `en`) and one on Berlin shells (`de`, `en`), listing the in-locale primary subpages.
 - **Rationale:** English is the broadest-audience locale and the most defensible global default for unauthenticated requests; flipping x-default away from the Swedish hub aligns the international targeting with the actual content depth in English. Returning `301` to bots at the bare host stops engines from caching `/` as the canonical entry. At the time, serving `/en/` to bots preserved the indexed global hub; that specific part was later reversed in `SEO-0021` when `/en/` was reclassified as a human selector utility. The sitemap exclusion mirrors the canonical decision in `SEO-0016`. `SiteNavigationElement` gives crawlers an explicit primary-nav signal per locale.
-- **SEO impact:** Medium. International SERPs may shift toward the English page when no language match is determined. `/en/stockholm/` is the primary global landing page for English-speaking discovery; `/en/` remained indexed only until `SEO-0021`. Sitemap row count drops by four (consistent with the canonical decision, not a new exclusion of indexable content).
+- **SEO impact:** Medium. International SERPs may shift towards the English page when no language match is determined. `/en/stockholm/` is the primary global landing page for English-speaking discovery; `/en/` remained indexed only until `SEO-0021`. Sitemap row count drops by four (consistent with the canonical decision, not a new exclusion of indexable content).
 - **Approval:** Gustaf, 2026-04-25.
 - **Follow-up:** Historical only after `SEO-0021`. Tests at the time: `site/src/lib/routes/page-shell-registry.test.ts` (x-default parity), `site/workers/entry-routing-logic.test.ts` and `site/workers/entry-router.test.ts` (`301` + serve-asset), `site/src/lib/chrome/schema-org.test.ts` (`SiteNavigationElement`).
 

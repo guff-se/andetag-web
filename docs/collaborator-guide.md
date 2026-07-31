@@ -17,7 +17,7 @@ For **museum directors** and other content owners who keep the ANDETAG website u
 ## What stays off-limits for now
 
 - URLs, redirects, and the overall site structure.
-- Design system: fonts, colors, layout rules.
+- Design system: fonts, colours, layout rules.
 - Third-party integrations (booking system, analytics, cookie consent).
 - Build configuration and the edge worker.
 

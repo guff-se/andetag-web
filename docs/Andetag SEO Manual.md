@@ -4,9 +4,9 @@ Version: April 2026
 Audience: Senior SEO and GEO specialist
 Scope: andetag.museum (Stockholm open, Berlin pre-opening)
 
-This manual is normative. Locked sections (`LOCKED` in the heading) are contracts the codebase enforces; revisit only with a dated entry in `docs/seo/decisions.md`. Unlocked sections are guidance — refresh them when GSC data, AI-search behavior, or product reality moves.
+This manual is normative. Locked sections (`LOCKED` in the heading) are contracts the codebase enforces; revisit only with a dated entry in `docs/seo/decisions.md`. Unlocked sections are guidance — refresh them when GSC data, AI-search behaviour, or product reality moves.
 
-**How to read this:** §1 sets positioning. §2 lists keyword clusters that GSC has already validated. §3–§5 lock URL, hreflang, and indexation contracts. §6–§7 cover schema and factual anchors that AI assistants cite. §8–§10 cover experiential pages, GEO answer patterns, and ad alignment. §11 covers Berlin rollout. §12 is the page inventory. §13–§15 lock navigation, entry routing, and internal linking. §16 covers commercial-query strategy. §17 catalogs SEO landing pages. §18 covers GEO answer patterns and AI-search recommendability. §19 covers measurement and review cadence.
+**How to read this:** §1 sets positioning. §2 lists keyword clusters that GSC has already validated. §3–§5 lock URL, hreflang, and indexation contracts. §6–§7 cover schema and factual anchors that AI assistants cite. §8–§10 cover experiential pages, GEO answer patterns, and ad alignment. §11 covers Berlin rollout. §12 is the page inventory. §13–§15 lock navigation, entry routing, and internal linking. §16 covers commercial-query strategy. §17 catalogues SEO landing pages. §18 covers GEO answer patterns and AI-search recommendability. §19 covers measurement and review cadence.
 
 ---
 
@@ -14,7 +14,7 @@ This manual is normative. Locked sections (`LOCKED` in the heading) are contract
 
 Canonical description (machine-facing):
 
-> Andetag is a calm, light-based art museum offering an immersive experience centered on stillness, presence, and breath.
+> Andetag is a calm, light-based art museum offering an immersive experience centred on stillness, presence, and breath.
 
 Rules:
 
@@ -182,7 +182,7 @@ Every locale uses an explicit language segment in the path (symmetric IA):
 * **English:** **`/en/...`**
 * **German:** **`/de/...`**
 
-Normative redirect, cookie, and entry behavior for **`/`** and **`/en/`** is in **`docs/seo/url-architecture.md`**.
+Normative redirect, cookie, and entry behaviour for **`/`** and **`/en/`** is in **`docs/seo/url-architecture.md`**.
 
 3.2 Stockholm URL pattern (LOCKED)
 
@@ -317,7 +317,7 @@ Opening hours:
 How to find us:
 
 * Canonical address: Kungsgatan 39
-* Subway route (Hötorget) as secondary
+* Metro route (Hötorget) as secondary
 * Walking instructions from Hötorget metro entrance
 * Nearest landmarks (Sergels Torg, Kungsgatan) for orientation
 * Single-sentence accessibility note linking to the accessibility page
@@ -331,7 +331,7 @@ Tickets:
 
 Accessibility:
 
-* Physical access (step-free, elevator, restroom)
+* Physical access (step-free, lift, toilet)
 * Sensory considerations (light intensity, sound profile, no flash, no strobe)
 * Seating and rest
 * What to do if a visitor needs to leave the experience early
@@ -554,7 +554,7 @@ NPF / neurodivergent audience
 * Keywords: NPF-vänlig, neurodivergent-friendly, sensory-friendly museum, low stimulation, autism-friendly, lugn miljö, low demand, what to expect
 * Content: Pre-visit information for visitors with autism, ADHD or sensory sensitivities. Sensory profile, predictable rhythm, small groups, decompress. Links to accessibility page.
 
-Clarification and program pages
+Clarification and programme pages
 
 What kind of experience is this?
 
@@ -681,7 +681,7 @@ Rules:
 
 ---
 
-## 14. Root and entry behavior (LOCKED)
+## 14. Root and entry behaviour (LOCKED)
 
 Normative rules live in **`docs/seo/url-architecture.md`** §3–§4. **Implementation:** Cloudflare Worker + static assets (**`site/workers/entry-router.ts`**, **`site/wrangler.jsonc`**, **`assets.run_worker_first`** for **`/`**, **`/en`**, **`/en/`**).
 
@@ -877,7 +877,7 @@ A reference set of one-sentence answers an AI assistant should be able to extrac
 
 | Question (representative) | Page | One-sentence answer |
 |---------------------------|------|---------------------|
-| What is Andetag? | `/en/stockholm/about-andetag/` | Andetag is a calm, light-based art museum offering an immersive experience centered on stillness, presence, and breath. |
+| What is Andetag? | `/en/stockholm/about-andetag/` | Andetag is a calm, light-based art museum offering an immersive experience centred on stillness, presence, and breath. |
 | Where is Andetag? | `/en/stockholm/how-to-find-us/` | Andetag is at Kungsgatan 39 in central Stockholm, a few minutes from Hötorget metro station. |
 | When is Andetag open? | `/en/stockholm/opening-hours/` | Andetag is open year-round; current weekly hours are listed on the opening hours page with a last-updated date. |
 | How much do tickets cost? | `/en/stockholm/tickets/` | Adult tickets are listed on the tickets page; gift cards and a season pass are also available. |

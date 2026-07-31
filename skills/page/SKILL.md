@@ -104,11 +104,11 @@ Full-bleed bands are high-contrast, visually dominant sections that expand to th
 
 | Situation | Use |
 |---|---|
-| Promotional or story content with a suitable catalog photo | `HeroSection is-cover` (run `skills/images/SKILL.md` to find the photo first) |
-| Same, but no suitable photo exists | `HeroSection is-solid` (fallback only — check the catalog before defaulting here) |
+| Promotional or story content with a suitable catalogue photo | `HeroSection is-cover` (run `skills/images/SKILL.md` to find the photo first) |
+| Same, but no suitable photo exists | `HeroSection is-solid` (fallback only — check the catalogue before defaulting here) |
 | Promotional content that shows artwork/product items | `ContentSection` heading + a display component (e.g. `ArtworkSalesSlider`); no dark band needed |
 | Text-only promotional or factual copy | `ContentSection` alone |
-| Band already adjacent to this position | Any of the above **except** a band; favor a regular section regardless of content type |
+| Band already adjacent to this position | Any of the above **except** a band; favour a regular section regardless of content type |
 
 ### Reference rhythm: Stockholm home
 
@@ -130,7 +130,7 @@ No two bands appear in a row. Use this as the reference when building or auditin
 
 ### Text elements within existing bands
 
-When adding a label or heading inside an existing dark band (e.g. the video band), use the established `component-eyebrow` class on a semantic heading element (`<h2>`, not `<p>`). Put only positioning and size in a page-specific class — font family, color, text-transform, and letter-spacing are already encoded in `component-eyebrow` and must not be duplicated.
+When adding a label or heading inside an existing dark band (e.g. the video band), use the established `component-eyebrow` class on a semantic heading element (`<h2>`, not `<p>`). Put only positioning and size in a page-specific class — font family, colour, text-transform, and letter-spacing are already encoded in `component-eyebrow` and must not be duplicated.
 
 ## Files touched
 
@@ -138,8 +138,8 @@ Read before editing. Write paths are marked `write`.
 
 | Area | File | Notes |
 |------|------|-------|
-| Shell title + description (write) | `site/src/data/page-shell-meta.json` | For **new** pages, add `pages` entries for both locales with `title`, `description`, and `sourceFile: "curated"`. `PAGE_SHELL_PATHS` is `Object.keys(metaPages).sort()` — a path missing from this JSON is not a shell route. This file is the only shell-meta source; there is no separate markdown catalog or batch extractor. |
-| Shell registry (`write`) | `site/src/lib/routes/page-shell-registry.ts` | Append the new hreflang pair to `STOCKHOLM_SV_EN_PAIRS` (Stockholm sv+en) or `BERLIN_DE_EN_STORY_PAIRS` (Berlin de+en story). For Berlin English story pages that should canonicalise to the Stockholm English equivalent, add a row to `BERLIN_EN_STORY_SEO_CANONICAL`. |
+| Shell title + description (write) | `site/src/data/page-shell-meta.json` | For **new** pages, add `pages` entries for both locales with `title`, `description`, and `sourceFile: "curated"`. `PAGE_SHELL_PATHS` is `Object.keys(metaPages).sort()` — a path missing from this JSON is not a shell route. This file is the only shell-meta source; there is no separate markdown catalogue or batch extractor. |
+| Shell registry (`write`) | `site/src/lib/routes/page-shell-registry.ts` | Append the new hreflang pair to `STOCKHOLM_SV_EN_PAIRS` (Stockholm sv+en) or `BERLIN_DE_EN_STORY_PAIRS` (Berlin de+en story). For Berlin English story pages that should canonicalize to the Stockholm English equivalent, add a row to `BERLIN_EN_STORY_SEO_CANONICAL`. |
 | Body registry (`write`) | `site/src/lib/page-registry/page-body-registry.ts` | Add both new paths to the `PAGE_CUSTOM_BODY_PATHS` set. Paths in this set must have a matching entry in the `pageBodies` map in `[...slug].astro`. |
 | File-based route (`write`) | `site/src/pages/[...slug].astro` | Import the new body component(s) and add entries to the `pageBodies` map. Keys must match `PAGE_CUSTOM_BODY_PATHS` exactly. |
 | Page body components (`write`, new) | `site/src/components/page-bodies/<Name>Sv.astro`, `<Name>En.astro`, `<Name>De.astro` | Naming convention: locale suffix last. Shared-locale bodies use no suffix. Import section components from `site/src/components/content/` (`ContentSection`, `MediaCopySection` for any image-beside-copy figure, `HeroSection`, `GallerySection`, `InfoFrame`, `AccordionSection`, `ButtonGroup`), UI from `ui/`, embeds from `embeds/`. **Never** wrap a `ContentSection` / `InfoFrame` / `AccordionSection` in an ad-hoc grid `<div>` to add a side image — use `<MediaCopySection>` (see `skills/images/SKILL.md` §L2). |
@@ -190,7 +190,7 @@ Example: new Stockholm page `/sv/stockholm/new-page/` + `/en/stockholm/new-page/
 5. **Route wiring** — in `site/src/pages/[...slug].astro`, add imports for both components and add entries to the `pageBodies` map keyed by canonical path. Keys must exactly match `PAGE_CUSTOM_BODY_PATHS`.
 6. **Navigation** — edit **both** sources. (a) `site/src/lib/chrome/navigation.ts` `NAVIGATION_VARIANTS` for the right variant ids (`sv-main` + `en-main` for Stockholm; `en-main-berlin` + `de-main` for Berlin). (b) The matching `MENU_DEFINITION` in `site/src/lib/chrome/hero-sv.ts` / `hero-en-stockholm.ts` (or the inline `menuItems` array in `hero-en-berlin.ts` / `hero-de-berlin.ts`) — this is what `SiteHeader.astro` actually renders. For pages with a parent menu, also extend that parent's `matchPrefixes` so it stays highlighted when the new page is open. Use keyword-aligned anchor text (≤5 words) per `docs/Andetag SEO Manual.md` §15. `nav-parity.test.ts` will fail if the two sources disagree. For cross-location topics, also update `GLOBAL_TRILINGUAL_TOPICS` in `site/src/lib/routes/chrome-navigation-resolve.ts`.
 7. **Band balance** — apply the **§Visual rhythm** check across the full new body before declaring it done. List every full-bleed band in the page top-to-bottom and confirm no two are adjacent. If you added a `HeroSection` and it would sit next to another band, replace it with a regular content section (or move it to a position with regular content on both sides).
-8. **Images** — follow **`skills/images/SKILL.md`** (catalog, ingest, derivatives, and components — not ad-hoc `<img>`). User-attached files: §E of that skill. Fulfil **photo / text balance** (see **Coordination**): if the new body is still text-heavy vs. a peer of the same kind, add figures or a hero from the catalog before calling the page done. Technical recipe remains `docs/responsive-image-workflow.md` for derivatives; do **not** hotlink or invent placeholders (`AGENTS.md`, Source integrity).
+8. **Images** — follow **`skills/images/SKILL.md`** (catalogue, ingest, derivatives, and components — not ad-hoc `<img>`). User-attached files: §E of that skill. Fulfil **photo / text balance** (see **Coordination**): if the new body is still text-heavy vs. a peer of the same kind, add figures or a hero from the catalogue before calling the page done. Technical recipe remains `docs/responsive-image-workflow.md` for derivatives; do **not** hotlink or invent placeholders (`AGENTS.md`, Source integrity).
 9. Verification: §Verification.
 
 ### C. Rename a page
@@ -250,7 +250,7 @@ Pass means:
 - `npm test` exits 0 with all files passing.
 - `npm run build` exits 0 and lists the expected page count (previously 65 for Stockholm + Berlin + privacy; recalculate if you added or removed pages).
 - For new or renamed pages, confirm the new path appears under `site/dist/<path>/index.html` after build, and the old path either no longer exists (renames handled by the 301) or is absent (removals).
-- **SEO content feedback** — Apply **`skills/seo/SKILL.md` §H** to every canonical path this task added or meaningfully changed (both locales of a pair when Stockholm/Berlin rules apply). Record the outcome in the PR: either **"§H pass"** or a short list of fixes applied / exceptions cited. **For any PR that adds or fully rewrites a body component (`*Sv.astro`, `*En.astro`, `*De.astro`), §H is a blocking pre-merge gate — not a post-preview optional.** Deferring §H to after the Cloudflare preview is only acceptable for shell-only changes (meta, registry, schema) where body copy is untouched. A typo-only fix may not need a full §H pass (use judgment); a body rewrite always does.
+- **SEO content feedback** — Apply **`skills/seo/SKILL.md` §H** to every canonical path this task added or meaningfully changed (both locales of a pair when Stockholm/Berlin rules apply). Record the outcome in the PR: either **"§H pass"** or a short list of fixes applied / exceptions cited. **For any PR that adds or fully rewrites a body component (`*Sv.astro`, `*En.astro`, `*De.astro`), §H is a blocking pre-merge gate — not a post-preview optional.** Deferring §H to after the Cloudflare preview is only acceptable for shell-only changes (meta, registry, schema) where body copy is untouched. A typo-only fix may not need a full §H pass (use judgement); a body rewrite always does.
 - **Em dash scan** — Before committing any body component change, run `grep -rn $'—' site/src/components/page-bodies/ site/src/lib/content/` (U+2014 em dash) and `grep -rn $'–' site/src/components/page-bodies/` (U+2013 en dash). Neither is permitted in editorial prose per `docs/Tone of Voice.md` §Punctuation. Exclude `stockholm-reviews.ts` (verbatim TripAdvisor quotes are exempt).
 - **Wordmark scan** — For page-body copy edits that touch brand mentions, verify new/edited occurrences of `ANDETAG` are rendered with `<span class="brand-wordmark">ANDETAG</span>` where markup supports it (headings, paragraphs, links), not just capitalized plain text.
 
@@ -314,6 +314,6 @@ Action:
 
 ### Example 4: new event page (handoff from the events skill)
 
-The user (via the events flow) needs `/sv/stockholm/<sv-slug>/` and `/en/stockholm/<en-slug>/` for a one-off or recurring program, with shells and minimal bodies before event data and schema.
+The user (via the events flow) needs `/sv/stockholm/<sv-slug>/` and `/en/stockholm/<en-slug>/` for a one-off or recurring programme, with shells and minimal bodies before event data and schema.
 
 Action: run **§B** in this skill to create the pair, meta, registries, `pageBodies`, nav, and thin `*Sv.astro` / `*En.astro` (mirror `ArtYoga*.astro` if helpful). If the user attached hero photos, run **`skills/images/SKILL.md` §E** and wire. `npm test && npm run build`, then **`skills/seo/SKILL.md` §H** on the new paths. Return to **`skills/events/SKILL.md`** for `stockholm-offers.ts` (or equivalent), `schema-org.ts` occurrence emitters, and event copy; re-**§H** after event copy if it materially changes the page bodies or meta.

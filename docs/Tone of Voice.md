@@ -97,9 +97,110 @@ Reading ANDETAG copy should feel like slowing down.
 
 ## Punctuation
 
-**The em dash (U+2014) is absolutely prohibited under all circumstances.** Use commas, colons, or parentheses instead. The en dash (U+2013, `–`) is likewise prohibited in editorial prose.
+**In prose, dashes are prohibited under all circumstances.** This covers the em dash (U+2014, `—`) and the en dash (U+2013, `–`), and it applies to every sentence a reader meets: page copy, FAQ answers, headings, metadata, alt text, link labels, and documentation prose. Use a comma, a colon, or parentheses instead. A dash used as a parenthetical or a dramatic pause is always wrong here.
 
-**For agents and automated tools:** before committing any copy change, run `grep -rn $'—' site/src/components/page-bodies/ site/src/lib/content/` (em dash) and `grep -rn $'–' site/src/components/page-bodies/` (en dash). The only permitted exception is `stockholm-reviews.ts`, which contains verbatim TripAdvisor review text.
+### The one exception: intervals
+
+**A dash is correct when it means "to" between two values.** This is the ordinary typographic job of the en dash and is not a stylistic flourish:
+
+- Times: `12.00 – 20.00`, `17:00–18:00`
+- Days: `Tuesday–Saturday`, `Mon–Fri`
+- Numbers and ages: `8–17 years`, `240–190 SEK`
+- Reference ranges in code comments: `§L1–L6`, `~231–239`
+
+Prefer the en dash for intervals. Spacing may follow whatever the surrounding block already does: the opening-hours pages use `12.00 – 20.00` with spaces, and that is fine.
+
+The test is simple: if removing the dash and writing "to" still reads correctly, it is an interval and the dash stays. If you would have to write "which is" or "and" or start a new clause, it is prose and the dash must go.
+
+### Verification
+
+```bash
+cd site && npm run lint:copy     # also fails on prose dashes, and allows intervals
+```
+
+The linter classifies each dash by what flanks it, so intervals pass and prose dashes fail. The only blanket exception is `stockholm-reviews.ts`, which holds verbatim TripAdvisor review text, quoted exactly as visitors wrote it (one review contains `stillness—feeling`). Any other verbatim quotation gets a `uk-copy-lint-ignore-next-line` comment on the line above.
+
+## Spelling: British English
+
+**All English copy on the site uses British (UK) English.** This is normative, not a preference. It applies to page copy, headings, FAQ answers, alt text, titles, meta descriptions, Open Graph text, JSON-LD description strings, and the prose in this repository's own documentation.
+
+British English suits ANDETAG: the museum is European, the English pages serve visitors arriving from across Europe and beyond, and the register is calm and considered rather than transatlantic-breezy. It also removes a real ambiguity, since the site previously mixed both.
+
+### Spelling rules
+
+| Rule | Use | Not |
+|------|-----|-----|
+| **Oxford `-ize`**, not `-ise` | organize, recognize, synchronize, visualize, optimize, prioritize, finalize, summarize, normalize, localize, standardize, capitalize, emphasize | organise, recognise, synchronise, … |
+| **Oxford `-ization`**, not `-isation` | organization, synchronization, optimization, localization, visualization | organisation, synchronisation, … |
+| `-yse`, not `-yze` | analyse, analysis, paralyse, catalyse | analyze, paralyze |
+| `-our`, not `-or` | colour, behaviour, favour, honour, labour, neighbour, flavour | color, behavior, favor, … |
+| `-re`, not `-er` | centre, centred, metre, metres, fibre, fibres, theatre, litre | center, centered, meter, fiber, … |
+| `-ogue`, not `-og` | catalogue, dialogue, analogue | catalog, dialog, analog |
+| `-ce` for nouns, `-se` for verbs | a licence / to license; a practice / to practise; defence, offence, pretence | license (noun), practise (noun), defense, offense |
+| Double the `l` | travelled, cancelled, labelled, modelling, marvellous, jewellery, counsellor, fuelled, signalling | traveled, canceled, labeled, modeling, … |
+| Single `l` in these | fulfil, fulfilment, skilful, enrol, enrolment, instalment, distil | fulfill, fulfillment, skillful, enrollment, … |
+| `programme` for schedules and events; `program` only for computer code | a day activity programme, the evening programme; *but* the LEDs are programmed, Gustaf programs the algorithms | program (event sense) |
+| `-ae`/`-oe` retained | aesthetic, encyclopaedia, manoeuvre, archaeology, paediatric | esthetic, encyclopedia, maneuver, … |
+| `towards`, not `toward` | towards Stureplan, pointing towards the artwork | toward |
+| Other singles | grey, tyre, kerb, storey (of a building), judgement, ageing, ambience, moustache, sulphur, mould, cosy, aluminium, autumn (not fall) | gray, tire, curb, story (floor), judgment, aging, … |
+
+#### The `-ize` rule in detail
+
+The house style is **Oxford spelling**: British English with `-ize` rather than `-ise`. This is the Oxford English Dictionary's own convention and the style used by academic and museum publishing, so it is fully British, not a concession to American English. It is also the etymologically motivated choice, since these verbs come from the Greek `-izein`.
+
+`-ize` is not a blanket rule, and this is where it goes wrong if applied mechanically. Three groups keep `s`:
+
+1. **The `-yse` group** always keeps `s`, because it comes from Greek `-lusis`, not `-izein`: **analyse**, *analysed*, *analysis*, **paralyse**, **catalyse**, **dialyse**, **electrolyse**, **hydrolyse**. Writing *analyze* is an error under this rule, not an alternative.
+2. **Verbs that were never `-izein`** keep `s` regardless: **advertise, advise, arise, chastise, circumcise, comprise, compromise, despise, devise, disguise, enterprise, excise, exercise, expertise, franchise, improvise, incise, merchandise, premise, promise, revise, rise, supervise, surmise, surprise, televise**. There is no *advertize*.
+3. **Nouns that merely end in `-sis` or `-ise`** are not verbs in this family at all: *emphasis*, *basis*, *crisis*, *analysis*, *expertise*.
+
+So: **synchronize** and **organize**, but **analyse** and **advertise**. When unsure whether a verb belongs to the `-izein` family, check whether a matching `-ization` noun exists naturally (*organization*, *synchronization* → `-ize`; there is no *advertization* → `-ise`).
+
+Note that this rule is about `z` versus `s` only. Every other row in the table above is ordinary British spelling and is unaffected: it is still `colour`, `centre`, `fibre`, `catalogue`, `programme`, `towards`.
+
+### Vocabulary
+
+Choose the British word where a clear pair exists. The ones that actually come up on this site:
+
+| Use | Not |
+|-----|-----|
+| lift | elevator |
+| toilet, accessible toilet | restroom, bathroom |
+| metro (Stockholm's tunnelbana is officially the *Stockholm metro*) | subway |
+| pushchair / stroller (write both) | stroller alone |
+| ground floor | first floor (US sense) |
+| car park | parking lot |
+| autumn | fall |
+| queue | line |
+| booking | reservation (for a ticket or a table) |
+
+**Pushchair is the one deliberate exception to picking a single word.** Swedish speakers routinely say *stroller* for *barnvagn*, so visitor-facing copy writes the pair, "pushchair / stroller", to remove any ambiguity. Use the pair on first mention and then a pronoun ("you can lock yours at the bike parking") rather than repeating both words in one short answer. A bare *stroller* is still wrong.
+
+### What this rule does **not** touch
+
+British spelling governs prose written for readers. It never governs machine-facing strings, because renaming those breaks the site:
+
+- **Code identifiers** — variable, function, prop, and CSS class names (`randomize`, `normalize()`, `serialize`, `mediaSizes`, `align-center`). Rename only as a deliberate refactor, never as part of a copy pass.
+- **CSS properties and values** — `color`, `background-color`, `text-align: center`, `grayscale`, `scroll-behavior`. These are language keywords.
+- **Third-party API keys and vocabularies** — Google Consent Mode (`ad_personalization`), schema.org types and properties (`Organization`, `organizer`, `parentOrganization`, `OfferCatalog`). These are contracts with external systems.
+- **URLs, file paths, and filenames.** Existing paths stay put; a spelling change to a live URL is a redirect decision, not a copy edit. (`/en/stockholm/optical-fibre-textile/` was already British, which is why the body copy was the thing out of step.)
+- **Vendored third-party content** — `skills/design/system-prompt.md` and `skills/design/procedures/` mirror an upstream repository and must stay verbatim.
+- **`docs/archive/`** and **`archive/`** — closed records, not live copy.
+- **Existing `CHANGELOG.md` entries** — a dated record of what was done and what the copy used to say. Write new entries in British English, but do not rewrite old ones, and quote prior copy exactly when an entry describes a change to it.
+- **Verbatim quotations.** TripAdvisor review text in `stockholm-reviews.ts`, and the review quotes embedded in `DejtEn.astro` / `DejtSv.astro`, are quoted exactly as visitors wrote them, American spellings included. Never silently "correct" a quotation.
+- **Swedish and German copy**, which have their own conventions.
+
+### Verification
+
+```bash
+cd site && npm run lint:copy     # fails on US spellings in site/src and site/public
+```
+
+The check covers `site/src` plus the text files in `site/public` (`llms.txt`, `robots.txt`), which are English copy that AI assistants read. It reads source, not rendered prose, so it deliberately skips words that collide with code: `color`, `center`, `behavior`, `catalog`, `dialog`, `program`, `normalize`, `serialize`, `personalization`. A clean run is therefore necessary but not sufficient, so still read the copy. Words that are also correct Swedish (`fibre`/`fiber`, `metre`/`meter`) are only checked in English-only files.
+
+For a verbatim visitor quote that must keep its original spelling, add a `uk-copy-lint-ignore-next-line` comment above the line. Documentation prose is not covered by the linter: review it by eye against the tables above.
+
+The dash rule in §Punctuation has its own separate grep and is not part of `lint:copy`.
 
 ## Language Nuance: Swedish, English, German
 
@@ -204,7 +305,7 @@ When copy describes how the artworks are made, use this as the default factual w
 
 **English**
 
-> Andetag is a visual manifestation of a deep human breath. Through woven optical fiber, living light and original music, the experience invites slowness and attention. All works breathe together, synchronized across the world. A global breath you can step into.
+> Andetag is a visual manifestation of a deep human breath. Through woven optical fibre, living light and original music, the experience invites slowness and attention. All works breathe together, synchronised across the world. A global breath you can step into.
 
 **German**
 
@@ -212,7 +313,7 @@ When copy describes how the artworks are made, use this as the default factual w
 
 ## Final Guideline for Agencies
 
-Before finalizing any copy, ask:
+Before finalising any copy, ask:
 
 - Does this feel calm?
 - Does it respect the reader?

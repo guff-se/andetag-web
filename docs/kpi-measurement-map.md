@@ -1,6 +1,6 @@
 # KPI Measurement Map
 
-Purpose: align conversion goals with **GTM** behavior, consent, and optional event instrumentation. Normative consent categories: **`docs/tracking-and-consent-requirements.md`**.
+Purpose: align conversion goals with **GTM** behaviour, consent, and optional event instrumentation. Normative consent categories: **`docs/tracking-and-consent-requirements.md`**.
 
 ## Reused Inputs
 
@@ -128,7 +128,7 @@ These names were planned for a richer funnel than **page_view + conversions**. I
 **Minimum (aligned with § Minimum viable measurement):**
 
 1. GTM Preview on staging: after analytics consent, **GA4** receives **`page_view`** (or equivalent).
-2. After marketing consent where applicable, **Meta** / **Ads** behave as expected; without consent, restricted behavior matches policy.
+2. After marketing consent where applicable, **Meta** / **Ads** behave as expected; without consent, restricted behaviour matches policy.
 3. Complete a test purchase or sandbox flow: **`on_receipt`** (or your chosen conversion signal) still reaches Ads/GA4/Meta if you rely on legacy tags.
 
 **Extended (only if you keep optional tags or custom taxonomy):**

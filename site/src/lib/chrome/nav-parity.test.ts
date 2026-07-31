@@ -41,7 +41,7 @@ describe("nav parity: navigation.ts ↔ hero MENU_DEFINITION", () => {
       headerVariantId: "chrome-hdr-sv-stockholm-hero",
     });
     const hero = getSwedishHeroHeaderModel("/sv/stockholm/");
-    // Drop the CTA top-level (e.g. "Biljetter") from nav — hero exposes it separately as ticketItem.
+    // Drop the CTA top-level (e.g. "Biljetter") from nav (hero exposes it separately as ticketItem).
     const navItems = nav.items.filter((i) => !i.cta);
     expect(variantLinks(navItems).sort(sortByHref)).toEqual(heroLinks(hero.menuItems).sort(sortByHref));
   });

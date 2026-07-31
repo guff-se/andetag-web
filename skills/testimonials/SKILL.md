@@ -5,7 +5,7 @@ description: Use when updating Stockholm TripAdvisor testimonials, ratings, revi
 
 ## Purpose
 
-Maintain Stockholm review content in a single place (`site/src/lib/content/stockholm-reviews.ts`) and propagate changes cleanly to every consumer. Track the **known drift sites** — SEO-landing `testimonialItems` arrays and `StockholmHomeSharedBody.astro` still hold literal quote strings instead of importing the catalog — so an agent cannot accidentally ship an inconsistent number or quote set.
+Maintain Stockholm review content in a single place (`site/src/lib/content/stockholm-reviews.ts`) and propagate changes cleanly to every consumer. Track the **known drift sites** — SEO-landing `testimonialItems` arrays and `StockholmHomeSharedBody.astro` still hold literal quote strings instead of importing the catalogue — so an agent cannot accidentally ship an inconsistent number or quote set.
 
 This skill is **not** for:
 
@@ -34,7 +34,7 @@ Paths are relative to the repo root. All listed files sit under `site/`.
   - `STOCKHOLM_FEATURED_REVIEWS: readonly StockholmReview[]` — currently 3 entries.
   - A `Last verified: YYYY-MM-DD` comment line at the top. Bump it every time.
 
-### Centralised consumers (auto-propagate via import — no hand edit needed)
+### Centralized consumers (auto-propagate via import — no hand edit needed)
 
 | Consumer | What it uses | File |
 |----------|--------------|------|
@@ -45,9 +45,9 @@ Paths are relative to the repo root. All listed files sit under `site/`.
 
 ### Auto-propagating consumers (complete list)
 
-All carousel surfaces now derive `testimonialItems` from `STOCKHOLM_FEATURED_REVIEWS` via `.map(r => ({ quote: r.quote, author: r.author }))`. No hand-sync is required when updating the catalog.
+All carousel surfaces now derive `testimonialItems` from `STOCKHOLM_FEATURED_REVIEWS` via `.map(r => ({ quote: r.quote, author: r.author }))`. No hand-sync is required when updating the catalogue.
 
-| File | How it consumes the catalog |
+| File | How it consumes the catalogue |
 |------|-----------------------------|
 | `site/src/components/page-bodies/StockholmHomeSv.astro` | `.map()` from import |
 | `site/src/components/page-bodies/StockholmHomeEn.astro` | `.map()` from import |
@@ -66,16 +66,16 @@ Every match should be the `.map(r => …)` form. If any literal array appears, i
 ## Locale parity rules
 
 - Stockholm is `sv + en + de` for the aggregate strip (`stockholmTestimonialAggregate{Sv,En,De}`), **but** review content itself is **English-only** in `STOCKHOLM_FEATURED_REVIEWS` — quotes are presented in the language the visitor originally wrote them (TripAdvisor policy). Do not translate quotes.
-- The author name is rendered as provided; do not localise (for example, "Therese" stays "Therese" in every locale).
+- The author name is rendered as provided; do not localize (for example, "Therese" stays "Therese" in every locale).
 - The aggregate strip's `score` uses comma decimal for sv and de (`4,9`) and point decimal for en (`4.9`). Enforced automatically by `stockholmTripadvisorRatingCommaDecimal()`.
-- `ratingValue` is a string in the catalog (`"4.9"`) — JSON-LD uses `Number()` conversions in tests only. Keep the string form in the source.
+- `ratingValue` is a string in the catalogue (`"4.9"`) — JSON-LD uses `Number()` conversions in tests only. Keep the string form in the source.
 - `reviewCount` is a JSON **number** (not a string) — required by Google's rich-results validator per `docs/seo/decisions.md` `SEO-0017` and `docs/Andetag SEO Manual.md` §6.
 
 ## Workflow
 
 ### A. Bump the review count and rating (periodic refresh)
 
-1. Open `https://www.tripadvisor.com/Attraction_Review-g189852-d32883203-Reviews-Andetag-Stockholm.html` (the URL in the catalog). Note: rating, total review count, five-star breakdown.
+1. Open `https://www.tripadvisor.com/Attraction_Review-g189852-d32883203-Reviews-Andetag-Stockholm.html` (the URL in the catalogue). Note: rating, total review count, five-star breakdown.
 2. Edit `site/src/lib/content/stockholm-reviews.ts`:
    - `STOCKHOLM_RATING.ratingValue` → new string (e.g. `"4.8"`).
    - `STOCKHOLM_RATING.reviewCount` → new number.
@@ -115,9 +115,9 @@ Same as §C — treat the whole array as a list edit. Order matters: all carouse
 
 | Column | Use |
 |--------|-----|
-| `gid` | TripAdvisor review identifier (`taur:…`). Keep as a source reference comment when adding to the catalog. |
+| `gid` | TripAdvisor review identifier (`taur:…`). Keep as a source reference comment when adding to the catalogue. |
 | `status` | `ready` = safe to feature. `needs_human_review` = skip until manually resolved. |
-| `language` | ISO 639-1 code. Prefer `en` entries for the catalog (original-language policy). |
+| `language` | ISO 639-1 code. Prefer `en` entries for the catalogue (original-language policy). |
 | `reviewer` | TripAdvisor username — use verbatim as `author`. |
 | `dateText` | Original date string (e.g. `"May 4, 2026"`). Convert to ISO `YYYY-MM-DD` for `datePublished`. |
 | `rating` | Verify `5.0 of 5 bubbles` before including. Only 5-star reviews belong in `STOCKHOLM_FEATURED_REVIEWS`. |
@@ -128,7 +128,7 @@ Same as §C — treat the whole array as a list edit. Order matters: all carouse
 Only use `status = ready` entries. Select 3–6 English entries ranked by:
 
 1. **Conversion signal.** Clear before/after arc (stress → calm, outside world → present), a specific sensory detail, or a concrete social-proof signal (repeat visit, brought friends, favourite place in Stockholm). Concise enough to read in two or three breaths without scrolling.
-2. **SEO value.** Naturally contains one or more of: immersive art, meditation, breathing, mindfulness, relaxation, textile art, light installation, Stockholm, unique experience. Specificity beats density — a review that mentions the fabric, the breathing soundtrack, or the subway location is better than one that only says "amazing".
+2. **SEO value.** Naturally contains one or more of: immersive art, meditation, breathing, mindfulness, relaxation, textile art, light installation, Stockholm, unique experience. Specificity beats density — a review that mentions the fabric, the breathing soundtrack, or the metro location is better than one that only says "amazing".
 3. **Voice diversity.** Cover a spread of visitor profiles: tourist, local, couple, solo. Avoid two entries from the same reviewer.
 4. **Freshness.** Prefer reviews from the last 12 months where quality is equal.
 
@@ -196,7 +196,7 @@ grep -h 'reviewCount' site/dist/sv/stockholm/index.html | head
 # TripAdvisor link unchanged (or updated) across all consumers
 git grep -n "tripadvisor.com/Attraction_Review" site/dist/ | head -20
 
-# Every quote from the catalog appears in at least one built page
+# Every quote from the catalogue appears in at least one built page
 for q in $(node -e 'const r = require("./site/src/lib/content/stockholm-reviews.ts"); console.log(r.STOCKHOLM_FEATURED_REVIEWS.map(x => x.author).join(" "));') ; do grep -l "$q" site/dist/**/index.html >/dev/null || echo "MISSING $q"; done
 ```
 

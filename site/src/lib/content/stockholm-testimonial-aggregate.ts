@@ -12,7 +12,7 @@ import {
 export const stockholmTripadvisorReviewsUrl = STOCKHOLM_TRIPADVISOR_URL;
 
 /**
- * Travellers' Choice 2026 badge content per locale. Stockholm only — do not import
+ * Travellers' Choice 2026 badge content per locale. Stockholm only: do not import
  * from Berlin pages (the award is for ANDETAG Stockholm specifically).
  */
 export const stockholmTravellersChoiceBadgeSv = {

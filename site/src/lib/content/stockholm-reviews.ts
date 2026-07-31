@@ -24,7 +24,7 @@ export const STOCKHOLM_RATING = {
 /**
  * Tripadvisor Travellers' Choice award given to ANDETAG Stockholm.
  * Used by the testimonial carousel badge and the Museum node `award` field in JSON-LD.
- * Stockholm only — Berlin has no award (escalate before adding).
+ * Stockholm only: Berlin has no award (escalate before adding).
  */
 export const STOCKHOLM_TRAVELLERS_CHOICE = {
   year: 2026,

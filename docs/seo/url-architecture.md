@@ -36,7 +36,7 @@ Trailing-slash normalization applies only to HTML content routes, never to file-
 
 ### Location shortcut paths
 
-`/berlin` and `/stockholm` (with or without trailing slash) are convenience entry paths that route to the correct localised home via the Worker. Priority: stored cookie → browser `Accept-Language` → English default. Geo is not used (visitor named a destination explicitly).
+`/berlin` and `/stockholm` (with or without trailing slash) are convenience entry paths that route to the correct localized home via the Worker. Priority: stored cookie → browser `Accept-Language` → English default. Geo is not used (visitor named a destination explicitly).
 
 | Path | Cookie `v1:de` | Cookie `v1:sv` | No cookie, `de` browser | No cookie, `sv` browser | No cookie, other |
 |------|---------------|---------------|------------------------|------------------------|-----------------|
@@ -157,7 +157,7 @@ Handled at the edge for the exact entry URL only (respect trailing-slash normali
 
 Verified bots on `/` or `/en/` always reach `/en/stockholm/` in one hop, not the English hub, so crawlers index a full English Stockholm page. Document bot detection, `cf.country`, and sample `User-Agent` or platform signals in redirect tests.
 
-When entry behavior changes, update `docs/Andetag SEO Manual.md` §5 hreflang baseline and `x-default` examples to match.
+When entry behaviour changes, update `docs/Andetag SEO Manual.md` §5 hreflang baseline and `x-default` examples to match.
 
 ### Status codes for entry routes
 

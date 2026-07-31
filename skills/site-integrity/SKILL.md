@@ -36,7 +36,7 @@ Primary reads:
 - `site/src/data/page-shell-meta.json`.
 - `site/public/_redirects` — pre-build source for the redirect dimension.
 - `docs/url-matrix.csv` — the intended URL-keep/redirect inventory.
-- `assets/images/photos.yaml` — curated image catalog for reference-integrity checks.
+- `assets/images/photos.yaml` — curated image catalogue for reference-integrity checks.
 
 Primary tests (already present — rely on them; do not duplicate):
 
@@ -48,7 +48,7 @@ Primary tests (already present — rely on them; do not duplicate):
 ## Locale parity rules
 
 - Stockholm pairs: every `sv` path in `STOCKHOLM_SV_EN_PAIRS` must have a matching `en` path built, with symmetric hreflang and mutual canonicals per `docs/Andetag SEO Manual.md` §hreflang.
-- Berlin story pairs: every `de` path in `BERLIN_DE_EN_STORY_PAIRS` must have a matching `en` path built. Berlin English story shells canonicalise to Stockholm English per `BERLIN_EN_STORY_SEO_CANONICAL` — this is **expected asymmetry** documented in `docs/seo/decisions.md` `SEO-0016`; do not flag it.
+- Berlin story pairs: every `de` path in `BERLIN_DE_EN_STORY_PAIRS` must have a matching `en` path built. Berlin English story shells canonicalize to Stockholm English per `BERLIN_EN_STORY_SEO_CANONICAL` — this is **expected asymmetry** documented in `docs/seo/decisions.md` `SEO-0016`; do not flag it.
 - `x-default` required on Berlin English shells per registry test; confirm in the built HTML head.
 
 ## Workflow
@@ -169,7 +169,7 @@ grep -E '^/' /tmp/andetag-image-refs.txt | while read -r p; do
 done
 ```
 
-Cross-check the catalog: files named in `assets/images/photos.yaml` (`file:` field) should either appear under `site/public/wp-content/uploads/<year>/<month>/` with derivatives or be noted as unwired. A catalog entry with no consumers is not a bug; a `src` pointing at a nonexistent file is.
+Cross-check the catalogue: files named in `assets/images/photos.yaml` (`file:` field) should either appear under `site/public/wp-content/uploads/<year>/<month>/` with derivatives or be noted as unwired. A catalogue entry with no consumers is not a bug; a `src` pointing at a nonexistent file is.
 
 #### B.7 Sitemap canonicalness
 

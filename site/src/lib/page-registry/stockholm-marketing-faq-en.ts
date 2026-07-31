@@ -16,7 +16,7 @@ export const stockholmMarketingFaqEn = [
     titleHtml:
       'Is <span class="brand-wordmark">ANDETAG</span> suitable for children?',
     bodyHtml:
-      "<p>Yes, we&#8217;ve had many kids visit us an belive that all ages can find a calmer rhythm at <span class=\"brand-wordmark\">ANDETAG.</span></p><p>Please note that there is no space for strollers inside the venue. You can lock your stroller at the bike parking on Sveavägen.</p>",
+      "<p>Yes, we&#8217;ve had many kids visit us an belive that all ages can find a calmer rhythm at <span class=\"brand-wordmark\">ANDETAG.</span></p><p>Please note that there is no space for pushchairs / strollers inside the venue. You can lock yours at the bike parking on Sveavägen.</p>",
   },
   {
     title: "Can I buy tickets on-site?",
@@ -34,6 +34,6 @@ export const stockholmMarketingFaqEn = [
   {
     title: "Is the experience accessible?",
     bodyHtml:
-      "<p>There are elevators to both street level and the subway. The exhibition is wheelchair accessible, but unfortunately, we do not have a fully equipped wheelchair-accessible restroom.</p><p>Some parts of the exhibition are dark, but navigation is relatively straightforward. Guide dogs are welcome.</p><p>There is no hearing loop available, but the music can be accessed online if you&#8217;d like to play it on your own device.</p><p>Caregivers or assistants are admitted free of charge.</p>",
+      "<p>There are lifts to both street level and the metro. The exhibition is wheelchair accessible, but unfortunately, we do not have a fully equipped wheelchair-accessible toilet.</p><p>Some parts of the exhibition are dark, but navigation is relatively straightforward. Guide dogs are welcome.</p><p>There is no hearing loop available, but the music can be accessed online if you&#8217;d like to play it on your own device.</p><p>Caregivers or assistants are admitted free of charge.</p>",
   },
 ] as const;

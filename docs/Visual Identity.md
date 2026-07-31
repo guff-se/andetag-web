@@ -24,11 +24,11 @@ Use Baskervville for body text.
 https://fonts.google.com/specimen/Baskervville
 
 
-## Colors
+## Colours
 
 - Background: light pink `#f7dcea` or black
-- Other colors: aubergine `#4a0d2f` and lavender `#d0a4cc`
-- Accent color: yellow-green `#e0e31c` (must not be used on black)
+- Other colours: aubergine `#4a0d2f` and lavender `#d0a4cc`
+- Accent colour: yellow-green `#e0e31c` (must not be used on black)
 - Buttons:
   - Red `#bc2026`
   - Green `#5ebf84`

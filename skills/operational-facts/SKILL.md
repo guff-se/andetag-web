@@ -26,7 +26,7 @@ This skill is **not** for:
 
 Paths are relative to the repo root.
 
-### Centralised (single source of truth)
+### Centralized (single source of truth)
 
 | Fact | Single source | Consumers (auto-propagate via import) |
 |------|---------------|---------------------------------------|
@@ -38,15 +38,15 @@ Paths are relative to the repo root.
 | Address | `site/src/lib/chrome/schema-org.ts` → `STOCKHOLM_ADDRESS` | `schema-org.ts` (Museum node). Page bodies currently render address as prose; verify match. |
 | Geo coordinates | `site/src/lib/chrome/schema-org.ts` → `STOCKHOLM_GEO` | `schema-org.ts` (Museum `geo`) |
 
-### Not centralised (edit every listed file in the same task)
+### Not centralized (edit every listed file in the same task)
 
 | Fact | All locations that must change together |
 |------|-----------------------------------------|
 | **Opening hours** | (1) `site/src/components/page-bodies/OppettiderSv.astro` — prose list (`Måndag: Stängt`, `Tisdag–Lördag: 12.00–20.00`, `Söndag: 12.00–17.00`). (2) `site/src/components/page-bodies/OppettiderEn.astro` — English equivalent. (3) `site/src/lib/chrome/schema-org.ts` → `STOCKHOLM_OPENING_HOURS` array (two `OpeningHoursSpecification` entries: Tue–Sat 12–20, Sun 12–17; Monday omitted = closed). Any other page body that references hours in copy (home, SEO landings). |
 | **Public contact email** | (1) `site/src/lib/ui-logic/booking-embed-contact.ts` → `CONTACT_HTML` (sv/en/de) and `getBookingEmbedContactHtml()`. (2) `site/src/lib/chrome/schema-org.ts` Museum node `email` field (search `info@andetag.museum`). (3) Every page body that renders a `mailto:` link or shows the address in prose, including: `StockholmHomeSharedBody.astro`, `StockholmHomeSv.astro`, `StockholmSeoLandingSv/En.astro`, `GruppbokningSv/En.astro`, `ForetagseventSv/En.astro`, `NpfStockholmSv/En.astro`, `TillganglighetSv.astro` (and any new body bodies added since). **Use grep** (see §Verification) to find every occurrence before editing. |
-| **Phone** | Not defined anywhere yet. If introducing a phone number, centralise it in `stockholm-offers.ts` or `schema-org.ts` and consume from there, do not hardcode in page bodies. |
+| **Phone** | Not defined anywhere yet. If introducing a phone number, centralize it in `stockholm-offers.ts` or `schema-org.ts` and consume from there, do not hardcode in page bodies. |
 
-If you find yourself touching more than one of the non-centralised facts often, note a maintenance-backlog item in `docs/maintenance-backlog.md` (already tracks `M-0001` opening hours and `M-0002` contact email centralisation).
+If you find yourself touching more than one of the non-centralized facts often, note a maintenance-backlog item in `docs/maintenance-backlog.md` (already tracks `M-0001` opening hours and `M-0002` contact email centralization).
 
 ## Locale parity rules
 
@@ -83,24 +83,24 @@ See `skills/events/SKILL.md` §A. This skill does not duplicate that workflow.
 
 ### E. Change opening hours
 
-Non-centralised — every location must change together.
+Non-centralized — every location must change together.
 
 1. Edit **`site/src/components/page-bodies/OppettiderSv.astro`** (prose list). Use period separators in Swedish (`12.00–20.00`). Closed days say `Stängt`.
 2. Edit **`site/src/components/page-bodies/OppettiderEn.astro`** (English equivalent). Typical format: `Tuesday–Saturday: 12.00–20.00`. Closed days say `Closed`.
 3. Edit **`STOCKHOLM_OPENING_HOURS`** in `site/src/lib/chrome/schema-org.ts`. Each `OpeningHoursSpecification` takes `dayOfWeek` (array of `"Tuesday"`, `"Saturday"`, etc.), `opens`, `closes` (HH:MM:SS). **A day that is not listed is implicitly closed.** To mark Monday closed, omit it from the array (current pattern).
-4. Grep the repo for any other hour references that may have been inlined into page copy or CSS (see §Verification). Update them. If the repeated references are growing, raise maintenance-backlog item `M-0001` for centralisation.
+4. Grep the repo for any other hour references that may have been inlined into page copy or CSS (see §Verification). Update them. If the repeated references are growing, raise maintenance-backlog item `M-0001` for centralization.
 5. Verification: §Verification. Spot-check `dist/sv/stockholm/oppettider/index.html`, `dist/en/stockholm/opening-hours/index.html`, and any `dist/.../index.html` that embeds the Museum JSON-LD (home, all SEO landings).
 
 ### F. Change the public contact email
 
-Non-centralised — every `mailto:` and every prose occurrence must change together.
+Non-centralized — every `mailto:` and every prose occurrence must change together.
 
 1. **Grep first**: `git grep "info@andetag.museum" -- 'site/'` to list every file touching the email. Expect ~13 page bodies, `booking-embed-contact.ts`, and `schema-org.ts`.
 2. Update **`site/src/lib/ui-logic/booking-embed-contact.ts`** — `CONTACT_HTML` for each locale (`sv`, `en`, `de`).
 3. Update the **Museum node `email`** in `site/src/lib/chrome/schema-org.ts` (search for the literal string; single occurrence).
 4. Update every page body returned by grep. Check both prose lines and `href="mailto:…"` links.
 5. If the change is also a policy change (migrating away from `info@andetag.museum` entirely), update §Decisions below ("Public contact inbox") with the new decision and date.
-6. Consider raising maintenance-backlog item `M-0002` (centralisation) if not already open.
+6. Consider raising maintenance-backlog item `M-0002` (centralization) if not already open.
 7. Verification: §Verification. `git grep "<old-email>"` must return empty across `site/` after the change.
 
 ### G. Change the venue address or geo coordinates

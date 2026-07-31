@@ -2,7 +2,7 @@
 
 Mandatory procedure when adding a new photograph or large raster to the Astro site (hero, gallery tile, body figure, testimonial band, Berlin teaser, `og:image` targets, and similar). Do not rely on the full-resolution master alone in HTML.
 
-**Photo catalog:** trilingual alt text and tags live in `assets/images/photos.yaml`. New uploads follow `skills/images/SKILL.md` (archive master under `assets/images/`, then copy to `site/public/` with derivatives below).
+**Photo catalogue:** trilingual alt text and tags live in `assets/images/photos.yaml`. New uploads follow `skills/images/SKILL.md` (archive master under `assets/images/`, then copy to `site/public/` with derivatives below).
 
 ## 1. Commit the master
 
@@ -34,7 +34,7 @@ Use `sizes` and `<picture>` as in `docs/component-usage.md`. Add or extend a Vit
 
 ## 5. Docs and changelog
 
-Update `docs/performance-improvement-plan.md` if the workflow or scope changes. Add a `CHANGELOG.md` note for user-visible image behavior.
+Update `docs/performance-improvement-plan.md` if the workflow or scope changes. Add a `CHANGELOG.md` note for user-visible image behaviour.
 
 ## Exceptions
 

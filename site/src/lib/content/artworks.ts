@@ -57,7 +57,7 @@ export type ArtworkLocation = {
   /** Coordinates for the SVG map. Jittered to ≥1 km when `privacy === "city"`. */
   lat: number;
   lon: number;
-  /** `exhibition` for publicly shown works; `city` anonymises private collections. */
+  /** `exhibition` for publicly shown works; `city` anonymizes private collections. */
   privacy: "exhibition" | "city";
 };
 

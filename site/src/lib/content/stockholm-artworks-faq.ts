@@ -14,8 +14,9 @@
  * - Shipping policy and "app is included" confirmed by Gustaf, 2026-05-04.
  *
  * Tone of Voice (`docs/Tone of Voice.md`): no em dash (U+2014) or en dash
- * (U+2013) in answer prose; commas, colons, and periods only. UK English
- * (`fibre`); Oxford `-ize` for `synchronize` to match the existing page lead.
+ * (U+2013) in answer prose; commas, colons, and periods only. British
+ * English in Oxford spelling (`fibre`, `colour`, `synchronize`) per
+ * §Spelling. Verify with `npm run lint:copy`.
  */
 import type { FaqItem } from "./stockholm-faq";
 

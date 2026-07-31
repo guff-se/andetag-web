@@ -8,9 +8,9 @@ This doc replaces `docs/archive/grand-plan.md` (the historical migration roadmap
 
 ## What the site is
 
-`https://www.andetag.museum` is the website of ANDETAG, an immersive museum that breathes. Stockholm is live and operational; Berlin is pre-launch (opening planned for fall 2026). The site is a static Astro export served by a Cloudflare Workers entry router plus the static asset binding. There is no CMS and no WordPress runtime; content is versioned in this repo.
+`https://www.andetag.museum` is the website of ANDETAG, an immersive museum that breathes. Stockholm is live and operational; Berlin is pre-launch (opening planned for autumn 2026). The site is a static Astro export served by a Cloudflare Workers entry router plus the static asset binding. There is no CMS and no WordPress runtime; content is versioned in this repo.
 
-The migration from WordPress (Phases 0 through 8 of the original grand plan) closed on **2026-04-14**. The maintenance program (formerly Phase 9) closed on **2026-04-25**. From this point forward, the project is operated as a maintenance repository, not a build project.
+The migration from WordPress (Phases 0 through 8 of the original grand plan) closed on **2026-04-14**. The maintenance programme (formerly Phase 9) closed on **2026-04-25**. From this point forward, the project is operated as a maintenance repository, not a build project.
 
 ## Audiences and goals
 
@@ -51,7 +51,7 @@ The `/` and `/en/` entry routes are handled by the Worker (`site/workers/entry-r
 | Operational facts | `site/src/lib/content/stockholm-offers.ts` (prices, daytime window, Art Yoga), `schema-org.ts` (address, geo, hours) |
 | Reviews | `site/src/lib/content/stockholm-reviews.ts` |
 | FAQs | `site/src/lib/content/stockholm-faq.ts` (+ shared "What is ANDETAG?" copy) |
-| Image catalog | `assets/images/photos.yaml` (per-file trilingual alt + tags) |
+| Image catalogue | `assets/images/photos.yaml` (per-file trilingual alt + tags) |
 | Skills | `skills/<name>/SKILL.md` |
 
 ## Operating model

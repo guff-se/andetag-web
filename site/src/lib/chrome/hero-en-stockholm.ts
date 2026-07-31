@@ -40,7 +40,7 @@ const FLAG_BY_LANGUAGE: Record<Language, string> = {
  * Source of truth for the rendered English Stockholm header menu (desktop + mobile).
  * Mirrors `NAVIGATION_VARIANTS["en-main"]` in `navigation.ts` (label+href pairs) and
  * adds `matchPrefixes` for parent-active highlighting. Edits here must be applied to
- * `navigation.ts` too — `nav-parity.test.ts` enforces agreement.
+ * `navigation.ts` too; `nav-parity.test.ts` enforces agreement.
  */
 const MENU_DEFINITION: Array<{
   label: string;

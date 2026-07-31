@@ -9,7 +9,7 @@ Purpose: define tracking and consent guardrails for the live static site (Cookie
 This document extends requirements already stated in:
 
 - `docs/project-overview.md` (current stack and operating model)
-- `docs/archive/existing-site-structure.md` (legacy WordPress integrations and script behavior)
+- `docs/archive/existing-site-structure.md` (legacy WordPress integrations and script behaviour)
 
 ## Scope Decision
 

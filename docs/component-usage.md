@@ -52,7 +52,7 @@ Purpose: implementation-facing usage guidance for the approved Astro components 
 - Key props:
   - `buttons: Array<{ label: string; href: string; variant: "primary" | "secondary" | "outline"; external?: boolean }>`
 - Notes:
-  - **Layout:** in **`components.css`**, **`.button-group`** uses **`justify-content: center`** so items stay centered in their container; **`page-migrated-cta`** also centers the group on migrated pages. Stockholm home and SEO landings use **`page-stockholm-home__cta-after-testimonials`** on the **Upplev Andetag!** row below testimonials for wider vertical margins (**`4rem 0 4rem`** vs default **`0.5rem 0 2rem`**).
+  - **Layout:** in **`components.css`**, **`.button-group`** uses **`justify-content: center`** so items stay centred in their container; **`page-migrated-cta`** also centres the group on migrated pages. Stockholm home and SEO landings use **`page-stockholm-home__cta-after-testimonials`** on the **Upplev Andetag!** row below testimonials for wider vertical margins (**`4rem 0 4rem`** vs default **`0.5rem 0 2rem`**).
   - Use for hero and card CTA clusters.
   - Set **`external: true`** for third-party booking or partner URLs so links open in a new tab with safe `rel` (wired through `StyledLink`).
   - Keep labels concise and action-oriented.
@@ -110,12 +110,12 @@ Purpose: implementation-facing usage guidance for the approved Astro components 
   - **`titleHtml`** (when set) renders inside **`.accordion-item-toggle-label`** on the **`button`**; **`bodyHtml`** renders inside **`.accordion-item-body`**. **`components.css`** styles links, **`strong`** (**Jost** **`700`**; Baskerville has no bold master), and **`.brand-wordmark`** in both toggle and body so the wordmark keeps **Jost** uppercase spacing beside Baskerville question copy.
   - Visual: **`+`** / **minus** (U+2212) on the **`summary`** left via **`::before`** (legacy Elementor plus/minus icons); default disclosure marker hidden. **`accordion-section`** is **border-only** (no fill), **`transparent`** background.
   - Motion: content sits in **`.accordion-item-expand`** > **`.accordion-item-expand-inner`**; **`components.css`** animates height with **`grid-template-rows`** **`0fr`→`1fr`** (smooth open). Bottom padding on **`.accordion-item-expand-inner`** applies only when **`.accordion-item.is-open`** so the closed row does not keep a **`0fr`** min height from padding. **`prefers-reduced-motion: reduce`** disables the transition.
-  - Behavior: **`button.accordion-item-toggle`** + **`.is-open`** on **`accordion-item`** (not native **`<details>`**) so **`.accordion-item-expand`** **`grid-template-rows`** animates on every open and close in Chromium/WebKit. Within each **`accordion-section`**, only one panel stays open (**`accordion-section-exclusive.ts`** click handler closes siblings). Multiple **`AccordionSection`** instances on a page (for example FAQ columns) are independent. The user can still close the open row so none are expanded.
+  - Behaviour: **`button.accordion-item-toggle`** + **`.is-open`** on **`accordion-item`** (not native **`<details>`**) so **`.accordion-item-expand`** **`grid-template-rows`** animates on every open and close in Chromium/WebKit. Within each **`accordion-section`**, only one panel stays open (**`accordion-section-exclusive.ts`** click handler closes siblings). Multiple **`AccordionSection`** instances on a page (for example FAQ columns) are independent. The user can still close the open row so none are expanded.
   - **`FragorSvarEn.astro`** / **`FragorSvarSv.astro`:** two **`AccordionSection`** instances in **`.page-faq-accordions`** (two-column grid, stacks under **`900px`**). FAQ copy is imported from **`site/src/lib/content/stockholm-faq.ts`** (single source with **`schema-org.ts`** **`FAQPage`** JSON-LD on those routes).
 
 ### `GallerySection`
 
-- Purpose: image gallery with responsive behavior.
+- Purpose: image gallery with responsive behaviour.
 - Key props:
   - `images: Array<{ src: string; alt: string; caption?: string; fullSrc?: string; thumbWebp640?: string; thumbWebp960?: string }>` (when **`thumbWebp640`** and **`thumbWebp960`** are both set, the tile renders **`<picture>`** with WebP **`srcset`** and **`src`** as JPEG fallback; **`fullSrc`** (or **`src`**) is still the lightbox target via the anchor **`href`**)
   - `mobileMode: "carousel" | "grid"`
@@ -178,7 +178,7 @@ Purpose: implementation-facing usage guidance for the approved Astro components 
   - `unframed?: boolean` (default **`false`**; no border, background, or padding; **use in the booking aside column** per standard layout below)
   - `showContact?: boolean` (default **`true`**: **`.booking-embed-contact`** below the widget mount with **`info@andetag.museum`**; copy from **`getBookingEmbedContactHtml`** in **`site/src/lib/ui-logic/booking-embed-contact.ts`**; **EX-0010**)
 - Notes:
-  - With **`heading`**, **`.embed-shell-heading`** (**`margin-bottom: 1.1rem`**) is always **centered** above the widget (**`.booking-embed`** in **`components.css`**), including in the narrow aside column; **`.booking-embed-contact`** stays centered under the widget.
+  - With **`heading`**, **`.embed-shell-heading`** (**`margin-bottom: 1.1rem`**) is always **centred** above the widget (**`.booking-embed`** in **`components.css`**), including in the narrow aside column; **`.booking-embed-contact`** stays centred under the widget.
   - **Standard page layout:** Put **`BookingEmbed`** in the **fixed-width right column** of **`page-layout-with-aside`** (**`site/src/styles/components.css`**: **`--page-aside-width`** default **`420px`**, stacks to one column under **`900px`** with the widget **below** the main column). The **left column** (**`page-layout-with-aside__main`**) is **variable width** and holds the rest of the page flow that should sit beside the calendar (for example **`InfoFrame`**, **`AccordionSection`**). Place any **full-width** blocks **above** this grid when the design calls for it (for example hero, testimonials band); **`DejtSv.astro`** does this. In the aside, prefer **`unframed`** so the widget is not double-boxed and **`.page-layout-with-aside__aside .embed-shell`** can keep **`margin-top: 0`** aligned with the main column top.
   - Loaded-state implementation uses the Understory official embed snippet:
     - script: `https://widgets.understory.io/widgets/understory-booking-widget.js` (**`defer`**), injected by **`site/src/client-scripts/booking-embed-lazy.ts`** when the embed shell nears the viewport (**`IntersectionObserver`**, **`rootMargin` ~400px**; **`data-booking-embed-lazy`** / **`data-booking-script-src`** on **`section.embed-shell`**; one script load per URL via a module-level **`Set`**; **`window.__andetagBookingLazyInit`** avoids duplicate observers when multiple **`BookingEmbed`** instances each ship the same client module). Without **`IntersectionObserver`**, the script loads immediately.
@@ -205,7 +205,7 @@ Purpose: implementation-facing usage guidance for the approved Astro components 
 
 ### `MapEmbed`
 
-- Purpose: map embed surface with consent/unavailable fallback behavior.
+- Purpose: map embed surface with consent/unavailable fallback behaviour.
 - Key props:
   - `title: string`
   - `src: string`
@@ -215,7 +215,7 @@ Purpose: implementation-facing usage guidance for the approved Astro components 
 
 ### `VideoEmbed`
 
-- Purpose: video embed surface with consent/unavailable fallback behavior.
+- Purpose: video embed surface with consent/unavailable fallback behaviour.
 - Loaded state: root **`video-embed`** (no padding, margin, border, or background; iframe is **`width: 100%`** of the container). Unavailable state: framed **`embed-shell`** with **`embed-fallback`**.
 - Key props:
   - `title: string`

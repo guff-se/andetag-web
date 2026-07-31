@@ -1,7 +1,7 @@
 ---
 name: design
 description: >-
-  Mandatory design collaborator for all visual, layout, typography, color, component,
+  Mandatory design collaborator for all visual, layout, typography, colour, component,
   interaction-state, and UI polish work on the ANDETAG site. Use when changing CSS,
   Astro components, chrome, page layout, CTAs, spacing, hierarchy, accessibility of
   UI, or when the user asks for design exploration, prototypes, variations, or review.
@@ -40,7 +40,7 @@ Existing brand and implementation — **do not invent a new visual language** un
 | [`docs/Tone of Voice.md`](../../docs/Tone%20of%20Voice.md) | Copy tone; em dash (U+2014) prohibited in user-facing text |
 | [`docs/component-usage.md`](../../docs/component-usage.md) | Component APIs and usage patterns |
 | `site/src/styles/components.css` | `.brand-wordmark`, `.link-cta-primary|secondary|outline`, shared tokens |
-| `site/src/styles/` | Spacing, typography, color implementation |
+| `site/src/styles/` | Spacing, typography, colour implementation |
 | [`docs/responsive-image-workflow.md`](../../docs/responsive-image-workflow.md) | When design work adds or changes photos |
 
 For token extraction from the live codebase, invoke **`design-system-extract`** (procedure below) against these sources — not against memory.
@@ -59,7 +59,7 @@ For token extraction from the live codebase, invoke **`design-system-extract`** 
 - `site/src/styles/**`
 - `site/src/components/**`
 - `site/src/layouts/**`
-- Occasionally `docs/Visual Identity.md` or `docs/component-usage.md` when behavior changes (doc/code coherence)
+- Occasionally `docs/Visual Identity.md` or `docs/component-usage.md` when behaviour changes (doc/code coherence)
 
 **Do not touch** without the matching content skill: `page-shell-meta.json`, registries, `_redirects`, operational data modules.
 
@@ -118,7 +118,7 @@ Report in the PR: which procedures ran and any unresolved findings.
 
 ## When to escalate
 
-- Design change requires new brand colors, fonts, or CTA doctrine → stop; update `docs/Visual Identity.md` with human approval first.
+- Design change requires new brand colours, fonts, or CTA doctrine → stop; update `docs/Visual Identity.md` with human approval first.
 - Berlin locale styling divergence from Stockholm → check `docs/seo/decisions.md` and SEO manual before proceeding.
 - Task needs new page routes, redirects, or shell meta → hand off to `skills/page`.
 - Copy/metadata changes dominate → `skills/seo`.

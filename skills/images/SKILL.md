@@ -7,13 +7,13 @@ description: Use when selecting and wiring photographs for a page on the ANDETAG
 
 Help an agent **pick and wire** photographs that match a page's intent in one pass, using the **existing UI components** the site already uses (unless the user asks for a different pattern). The agent does **not** stop to ask "which of these do you want?" before wiring. Put candidate reasoning, `file` names, and slot decisions in the **PR / commit message**; the user reviews the built page in preview and approves at merge.
 
-Markup, alt text, derivatives, and path constants stay consistent with peers. The **catalog** of photo metadata (alt in `sv + en + de`, tags) is `assets/images/photos.yaml`. **Archival originals** (source-of-truth before derivatives) live under `assets/images/<canonical-filename>.jpg` alongside the catalog. The **served** masters and their derivatives live under `site/public/wp-content/uploads/<year>/<month>/` (see `docs/responsive-image-workflow.md`). New uploads must land in **`assets/images/`** first, get a **new canonical `file` name** and full **`alt` block + `tags`**, then—when the site should show them—copy or sync the file to `site/public/…`, generate derivatives, and wire. Wiring constants live in `site/src/lib/content/stockholm-body-responsive-images.ts` (body figures, testimonial backgrounds, most hero covers) and `site/src/lib/chrome/assets.ts` (chrome-level hero assets). **Default wiring:** `<MediaCopySection>` for any inline image-beside-copy figure (it wraps `ResponsiveInlinePicture` and owns the grid + figure CSS), `HeroSection` for page heroes, `GallerySection` (plus `stockholm-marketing-gallery.ts` / gallery props) for gallery-style strips, bare `ResponsiveInlinePicture` only for the rare inset variant (§B step 7) — follow nearby bodies on the same page or route family.
+Markup, alt text, derivatives, and path constants stay consistent with peers. The **catalogue** of photo metadata (alt in `sv + en + de`, tags) is `assets/images/photos.yaml`. **Archival originals** (source-of-truth before derivatives) live under `assets/images/<canonical-filename>.jpg` alongside the catalogue. The **served** masters and their derivatives live under `site/public/wp-content/uploads/<year>/<month>/` (see `docs/responsive-image-workflow.md`). New uploads must land in **`assets/images/`** first, get a **new canonical `file` name** and full **`alt` block + `tags`**, then—when the site should show them—copy or sync the file to `site/public/…`, generate derivatives, and wire. Wiring constants live in `site/src/lib/content/stockholm-body-responsive-images.ts` (body figures, testimonial backgrounds, most hero covers) and `site/src/lib/chrome/assets.ts` (chrome-level hero assets). **Default wiring:** `<MediaCopySection>` for any inline image-beside-copy figure (it wraps `ResponsiveInlinePicture` and owns the grid + figure CSS), `HeroSection` for page heroes, `GallerySection` (plus `stockholm-marketing-gallery.ts` / gallery props) for gallery-style strips, bare `ResponsiveInlinePicture` only for the rare inset variant (§B step 7) — follow nearby bodies on the same page or route family.
 
 This skill is **not** for:
 
 - Re-cropping, re-toning, or editing the pixels of an existing photo (that is a content operation on the master file, outside the agent's scope).
 - Deciding whether a new page should exist at all (see `skills/page/SKILL.md`).
-- **Berlin-only** image requests with no catalog match and no file to ingest — escalate (see **When to escalate**).
+- **Berlin-only** image requests with no catalogue match and no file to ingest — escalate (see **When to escalate**).
 - Icons, logos, or SVG assets (the responsive workflow explicitly excludes these).
 
 ## When to use
@@ -29,10 +29,10 @@ This skill is **not** for:
 Paths are relative to the repo root.
 
 - **Read / consult:**
-  - `assets/images/photos.yaml` — curated catalog. Fields: `file`, `original`, `alt.{sv,en,de}`, `tags`. Version `1`. **For existing entries:** use `alt` verbatim when wiring. **For new uploads (§E):** the agent **authors** all three alts in one go (calm, concrete, sensory; Andetag voice) so the PR can be reviewed at merge.
+  - `assets/images/photos.yaml` — curated catalogue. Fields: `file`, `original`, `alt.{sv,en,de}`, `tags`. Version `1`. **For existing entries:** use `alt` verbatim when wiring. **For new uploads (§E):** the agent **authors** all three alts in one go (calm, concrete, sensory; Andetag voice) so the PR can be reviewed at merge.
   - `assets/images/*.jpg` — **Archival masters** for new uploads: canonical filename, stored here before or alongside serving under `site/public/…`.
   - `docs/responsive-image-workflow.md` — ImageMagick derivative recipe (`-640w.webp`, `-960w.webp`, `-960w.jpg`) and the `SUFFIX` table (`gallery` / `body` / `aside` / `hero` / `testimonial`).
-  - `docs/alt-text-review.md` — alt-text tone and review notes (if the catalog entry is missing or needs editing).
+  - `docs/alt-text-review.md` — alt-text tone and review notes (if the catalogue entry is missing or needs editing).
   - `docs/Tone of Voice.md` — voice guidance for any copy changes around the figure.
   - `docs/Andetag SEO Manual.md` §image / alt — SEO expectations for alt text (single locale per page, keyword-aware but not stuffed).
 - **Possibly write:**
@@ -86,7 +86,7 @@ The sanctioned way to put an image beside copy is the **`<MediaCopySection>`** c
 
 - **Heading** renders inside the prose half via `heading` + `headingLevel`. Do **not** put a `<ContentSection heading="…" markdown="" />` next to a MediaCopySection to "label" it — that produces an orphan H2.
 - **Mobile:** the grid stacks to a single column, prose first, image second, regardless of `mediaSide`. Source order matters; the component places the prose div before the figure on purpose.
-- **Image aspect:** the component does **not** crop. It centers the shorter sibling vertically (`align-items: center`). Pair aspects to copy length per **§L4** so neither side has a long dead zone.
+- **Image aspect:** the component does **not** crop. It centres the shorter sibling vertically (`align-items: center`). Pair aspects to copy length per **§L4** so neither side has a long dead zone.
 
 ### L4. Image aspect must match copy length
 
@@ -98,7 +98,7 @@ Even with `<MediaCopySection>`, a portrait at column-1/3 width is ~1.5× the col
 | Medium: heading + 4–6 paragraphs or a small InfoFrame (~400–500px) | **Landscape** at 1/2 width → ~300–360px, or **portrait** at 1/3 width → ~535px (slightly taller, OK) | Both work; lean landscape if copy is short within the band |
 | Dense: heading + InfoFrame, or 6+ paragraphs (~500–650px) | **Portrait** (2:3 / 3:4) at 1/3 width → ~535–710px | Portrait pairs cleanly with dense vertical copy |
 
-If the copy and image aspect mismatch, the prose centers vertically with whitespace above and below — readable but ugly. **Pick the image to match the copy**, not the other way around. When wiring two figures on one page, reach for **one landscape + one portrait** so each section has its right partner.
+If the copy and image aspect mismatch, the prose centres vertically with whitespace above and below — readable but ugly. **Pick the image to match the copy**, not the other way around. When wiring two figures on one page, reach for **one landscape + one portrait** so each section has its right partner.
 
 ### L5. Spread images evenly down the page
 
@@ -113,10 +113,10 @@ This rule cooperates with §L1 (heroes already act as a break in the middle): if
 ## Locale parity rules
 
 - Stockholm pages render in `sv + en`. Both bodies read the **same** `BodyPictureSources` constant, so a single wiring change reaches both locales. The `alt=` attribute on the `<ResponsiveInlinePicture>` is locale-specific — pull `alt.sv` into the Swedish body and `alt.en` into the English body from `photos.yaml`.
-- **New catalog rows (§E)** must include `alt.de` as well as `alt.sv` and `alt.en` (aligned meaning, Andetag voice). `tags` are required for searchability.
-- Berlin pages: use `alt.de` from the catalog for any listed image. If the product asks for a Berlin-only page image path with **no** suitable catalog row and no new file to ingest, **escalate** (do not invent filenames or alt for an unseen asset).
+- **New catalogue rows (§E)** must include `alt.de` as well as `alt.sv` and `alt.en` (aligned meaning, Andetag voice). `tags` are required for searchability.
+- Berlin pages: use `alt.de` from the catalogue for any listed image. If the product asks for a Berlin-only page image path with **no** suitable catalogue row and no new file to ingest, **escalate** (do not invent filenames or alt for an unseen asset).
 - Never ship an image with alt text in only one language on a Stockholm pair; the pair must carry `alt.sv` and `alt.en` together.
-- Alt text stays faithful to what is visible in the frame. Do not claim a colour the light paints on a sculpture is the sculpture's intrinsic colour (the catalog header at `assets/images/photos.yaml` lines 1–24 documents this rule).
+- Alt text stays faithful to what is visible in the frame. Do not claim a colour the light paints on a sculpture is the sculpture's intrinsic colour (the catalogue header at `assets/images/photos.yaml` lines 1–24 documents this rule).
 
 ## Workflow
 
@@ -137,11 +137,11 @@ This rule cooperates with §L1 (heroes already act as a break in the middle): if
 6. **Plan placement** before wiring. List the page's sections in order, decide which sections are the natural copy partners for each figure (per **§L3**), and check that the resulting positions meet **§L4** (~35–40% and ~65–70% of page height for two images). If a hero is in the plan, confirm **§L1** (≥80% viewport on each side; not the second element). Adjust before touching code: re-placing a wired figure costs more than picking the right slot first.
 7. **Wire immediately** using §B (inline via `<MediaCopySection>`), §C (hero), and/or §D (gallery) as needed. **Unless the user said otherwise:** use the same **components and props shape** as similar pages — `HeroSection` with a cover from `stockholm-body-responsive-images` or `assets.ts`, `<MediaCopySection>` for any inline image-beside-copy figure, `GallerySection` with data from `stockholm-marketing-gallery.ts`. Copy structure from a peer `page-bodies` file rather than inventing a one-off `<img>`, raw `<picture>`, or ad-hoc grid wrapper.
 8. **Verify in Claude Preview** per **§L6**. Build success is not visual success.
-9. **Document for review** in the PR body (or a short `## Images` section in the PR description): for each slot, the chosen `file` from the catalog, one line of rationale, the components/constants touched, and the aspect-pairing decision per **§L4**. The **human approves** the preview/merge, not a separate "pick one of three" step in chat. If **§E** added new files, note the new `file` and `original` in the PR.
+9. **Document for review** in the PR body (or a short `## Images` section in the PR description): for each slot, the chosen `file` from the catalogue, one line of rationale, the components/constants touched, and the aspect-pairing decision per **§L4**. The **human approves** the preview/merge, not a separate "pick one of three" step in chat. If **§E** added new files, note the new `file` and `original` in the PR.
 
 ### B. Wire a selected image as an inline body figure
 
-Use after selecting a file in §A, or when the catalog choice is already fixed. **Default pattern: `<MediaCopySection>` pairing the figure with one specific copy block on the page** (§L2, §L3). Free-floating full-width bands between sections are not allowed; ad-hoc `<div class="page-<slug>__<section>-grid">` wrappers around `<ContentSection>` / `<InfoFrame>` / `<AccordionSection>` are forbidden (§L2).
+Use after selecting a file in §A, or when the catalogue choice is already fixed. **Default pattern: `<MediaCopySection>` pairing the figure with one specific copy block on the page** (§L2, §L3). Free-floating full-width bands between sections are not allowed; ad-hoc `<div class="page-<slug>__<section>-grid">` wrappers around `<ContentSection>` / `<InfoFrame>` / `<AccordionSection>` are forbidden (§L2).
 
 1. Confirm the master file is served under `site/public/wp-content/uploads/<year>/<month>/<slug>.jpg`. If not:
    - Copy or generate the master at the target path. Use the published year/month if the photo is pre-existing; use the current year/month if the photograph is new. Keep the slug readable.
@@ -209,11 +209,11 @@ Use when the user (or a shoot handoff) provides **a new image file** not yet in 
    - Otherwise describe the scene: place + subject + light/mood, e.g. `corridor-visitors-on-pillows-evening.jpg`.
    - `file` in YAML = this new name; it must match the file saved in `assets/images/`.
 3. **Save the original in `assets/images/`** — Write the image to `assets/images/<file>` (same as the new canonical name). This is the **long-term archive**; `original` in YAML is the **uploaded** filename (e.g. `IMG_8821.jpg` or `Export-2026-01.jpg`) **preserved verbatim**.
-4. **Author `alt.sv`, `alt.en`, and `alt.de` ("automatic" in workflow terms)** — The agent **generates** all three in one pass from what is (or can be) seen in the image, following `docs/Tone of Voice.md`, `docs/alt-text-review.md`, and the **light vs. textile** rule in the `photos.yaml` header. Do not stuff keywords. Keep to a similar length to peer rows (~≤125 characters when reasonable for `en`/`de`). "Automatic" does **not** mean placeholder text — it means the agent composes the catalog string without a separate human draft step; the PR is the check.
+4. **Author `alt.sv`, `alt.en`, and `alt.de` ("automatic" in workflow terms)** — The agent **generates** all three in one pass from what is (or can be) seen in the image, following `docs/Tone of Voice.md`, `docs/alt-text-review.md`, and the **light vs. textile** rule in the `photos.yaml` header. Do not stuff keywords. Keep to a similar length to peer rows (~≤125 characters when reasonable for `en`/`de`). "Automatic" does **not** mean placeholder text — it means the agent composes the catalogue string without a separate human draft step; the PR is the check.
 5. **Choose `tags`** — Lowercase, hyphenated tokens matching library style: room/area, subjects (`visitor`, `group`), mood, lighting, artwork refs when applicable.
 6. **Append to `assets/images/photos.yaml`** — Add a new list item with `file`, `original`, `alt` (all three keys), and `tags`. Match YAML indentation; keep list order consistent with the rest of the file (typically append to `photos:`).
-7. **Serve on the site (when the task needs the image live)** — Copy the same master to `site/public/wp-content/uploads/<year>/<month>/` using the **same basename** as `file` (or the project’s month convention; align with `docs/responsive-image-workflow.md` and neighboring uploads). Run ImageMagick to produce the three derivatives for the right `SUFFIX` (§B–D). The copy in `public` is the **served** master; the copy in `assets/images/` remains the **catalog archive**.
-8. **Wire** — If the task needs the image on a page, complete **step 7** (served master + derivatives), then **§B/C/D** using the new `file` and `alt.sv` / `alt.en` from the row you added. If the task is **library-only** (catalog + archive for later), stop after **step 6**; skip steps 7–8 until a page build needs the asset.
+7. **Serve on the site (when the task needs the image live)** — Copy the same master to `site/public/wp-content/uploads/<year>/<month>/` using the **same basename** as `file` (or the project’s month convention; align with `docs/responsive-image-workflow.md` and neighbouring uploads). Run ImageMagick to produce the three derivatives for the right `SUFFIX` (§B–D). The copy in `public` is the **served** master; the copy in `assets/images/` remains the **catalogue archive**.
+8. **Wire** — If the task needs the image on a page, complete **step 7** (served master + derivatives), then **§B/C/D** using the new `file` and `alt.sv` / `alt.en` from the row you added. If the task is **library-only** (catalogue + archive for later), stop after **step 6**; skip steps 7–8 until a page build needs the asset.
 
 **Summary:** `assets/images/<new-name>.jpg` = archived original; `photos.yaml` = metadata; `site/public/…` = web master + derivatives for pages.
 
@@ -369,11 +369,11 @@ If `skills/site-integrity/SKILL.md` is in place when this skill runs, defer imag
 
 Stop and ask before proceeding if:
 
-- No **existing** row in `assets/images/photos.yaml` fits the page, **and** the user has **not** supplied a new file to ingest — do not invent catalog rows or filenames without bytes. They may add a shoot file; then use **§E**.
-- A **Berlin** page needs an image that is **not** in the catalog and there is **no** new upload to add per §E (Berlin is pre-launch; do not fabricate paths or alt for unseen assets).
+- No **existing** row in `assets/images/photos.yaml` fits the page, **and** the user has **not** supplied a new file to ingest — do not invent catalogue rows or filenames without bytes. They may add a shoot file; then use **§E**.
+- A **Berlin** page needs an image that is **not** in the catalogue and there is **no** new upload to add per §E (Berlin is pre-launch; do not fabricate paths or alt for unseen assets).
 - The user requests a single-locale wiring on a Stockholm pair (violates parity).
 - The master file is missing from `assets/images/` **and** from `site/public/wp-content/uploads/` when you need to wire an image that is supposed to exist — request the source asset from the user.
-- A requested alt text includes colour claims that contradict the catalog's light-vs-textile rule (`assets/images/photos.yaml` header lines 1–24). Propose a corrected alt in the PR; do not ship a catalog edit that breaks that rule.
+- A requested alt text includes colour claims that contradict the catalogue's light-vs-textile rule (`assets/images/photos.yaml` header lines 1–24). Propose a corrected alt in the PR; do not ship a catalogue edit that breaks that rule.
 - Derivative generation is not possible in the current environment (ImageMagick missing). Skill cannot complete; ask the user to run §2 of `docs/responsive-image-workflow.md` locally.
 
 ## Examples
@@ -389,14 +389,14 @@ Action:
    - Hero (only if §L1): `main-room-visitor-profile-blue-sculptures.jpg` — `HeroSection` + hero derivatives (`SUFFIX=hero`).
    - Inline 1: `lockers-visitors-preparing.jpg` (landscape) → `<MediaCopySection mediaSide="end" mediaWidth="third">` next to the short "what to expect" copy. `SUFFIX=body`.
    - Inline 2: `corridor-lounge-illuminated-sculptures.jpg` (portrait) → `<MediaCopySection mediaSide="start" mediaWidth="third">` wrapping the practical-info `<InfoFrame>` in its slot.
-5. Verify in Claude Preview at 1280 + 375 (§L6); `npm test && npm run build`. In the PR: short table of slot, `file`, aspect, copy partner, `alt.sv` / `alt.en` verbatim from the catalog.
+5. Verify in Claude Preview at 1280 + 375 (§L6); `npm test && npm run build`. In the PR: short table of slot, `file`, aspect, copy partner, `alt.sv` / `alt.en` verbatim from the catalogue.
 
 ### Example 2: replace the Stockholm home intro figure
 
 Action:
 
 1. Current figure uses `mainRoomLookingBody` (`main-room-looking-body-960w.jpg`). Find a better file with `main-room` + `visitor` + `group` tags, e.g. `main-room-wall-of-light-four-visitors.jpg` (wide, four-person, pink+violet wall of light).
-2. Generate the `-body-640w.webp`, `-body-960w.webp`, `-body-960w.jpg` under `site/public/wp-content/uploads/2026/<month>/` (use 2026/04 per the catalog timeline).
+2. Generate the `-body-640w.webp`, `-body-960w.webp`, `-body-960w.jpg` under `site/public/wp-content/uploads/2026/<month>/` (use 2026/04 per the catalogue timeline).
 3. Update `stockholm-body-responsive-images.ts` — new `BodyPictureSources` or update the existing constant; keep **`ResponsiveInlinePicture`** in `StockholmHomeSv.astro` / `StockholmHomeEn.astro` and swap sources + `alt.sv` / `alt.en` from `photos.yaml`.
 4. `npm test && npm run build` in `site/`. Grep `dist/sv/stockholm/index.html` for the new derivative path. Note the swap in the PR.
 
@@ -405,7 +405,7 @@ Action:
 Action:
 
 1. User provides `IMG_7742.jpg` (visitors on pillows in the corridor). Save bytes to `assets/images/corridor-visitors-on-pillows-evening.jpg` (new canonical name); set `original: IMG_7742.jpg` in YAML.
-2. Generate `alt.sv` / `alt.en` / `alt.de` and `tags` in the same style as neighboring rows (faithful to the frame; light-vs-textile rule in the catalog header).
+2. Generate `alt.sv` / `alt.en` / `alt.de` and `tags` in the same style as neighbouring rows (faithful to the frame; light-vs-textile rule in the catalogue header).
 3. Append the new list item to `assets/images/photos.yaml`.
 4. **If** the task is **library-only**, stop — the next page change can pick this `file` via §A.
 5. **If** the task also needs the image on a page: copy the same master to `site/public/wp-content/uploads/<year>/<month>/corridor-visitors-on-pillows-evening.jpg`, run ImageMagick per `docs/responsive-image-workflow.md`, add `BodyPictureSources` (or hero/gallery constants), wire with `ResponsiveInlinePicture` / `HeroSection` / `GallerySection`, `npm test && npm run build`.

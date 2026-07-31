@@ -6,25 +6,25 @@ Read this at session start. Then read [`docs/project-overview.md`](docs/project-
 
 ## Why this project exists
 
-`https://www.andetag.museum` is the public website of ANDETAG, an immersive museum that breathes. Stockholm is live and operational; Berlin is pre-launch (opening fall 2026). The site has one job: send qualified visitors into the external Understory checkout to complete a ticket purchase. Everything else — copy, photography, FAQ, schema, performance, locale routing — is funnel optimization in service of that primary KPI.
+`https://www.andetag.museum` is the public website of ANDETAG, an immersive museum that breathes. Stockholm is live and operational; Berlin is pre-launch (opening autumn 2026). The site has one job: send qualified visitors into the external Understory checkout to complete a ticket purchase. Everything else — copy, photography, FAQ, schema, performance, locale routing — is funnel optimization in service of that primary KPI.
 
 Audience priority is ranked: Stockholm locals → tourists → couples and corporate visitors → mindfulness/yoga audiences. Berlin will mirror once open. The brand register is calm and invitational ("the breathing museum"). Tone, visual identity, and SEO doctrine are normative, not decorative.
 
-The migration from WordPress closed on **2026-04-14**. The Phase 9 maintenance program closed on **2026-04-25**. From that point the project is operated as a **maintenance repository**, not a build project. There is no roadmap of phases, no cutover work, no migration vocabulary. There is the live site, the doctrine that governs it, and the work it needs.
+The migration from WordPress closed on **2026-04-14**. The Phase 9 maintenance programme closed on **2026-04-25**. From that point the project is operated as a **maintenance repository**, not a build project. There is no roadmap of phases, no cutover work, no migration vocabulary. There is the live site, the doctrine that governs it, and the work it needs.
 
 ---
 
 ## Operating principles
 
-These are the invariants. Treat them as a contract; let them drive judgment on every change.
+These are the invariants. Treat them as a contract; let them drive judgement on every change.
 
 1. **Source integrity.** This site ships real content for a public museum. Never fabricate URLs, prices, hours, ratings, review quotes, photo credits, or schema fields. Anchor every change to a runtime source (`stockholm-*.ts`, `schema-org.ts`, `page-shell-meta.json`, `photos.yaml`) or to a live doctrine doc under `docs/` (outside `docs/archive/`). If required data is missing or ambiguous, stop and ask. **Do not** open, search, or use **`archive/`** (including `archive/legacy-wordpress-site/`) for content, copy, SEO, or “what did the old site say.” It exists for repository history, not for maintenance work. The same rule applies to **`docs/archive/`**: do not extend it or treat it as an active manual.
 
-2. **Doc/code coherence.** Every behavior change updates the doc that describes it, in the same task. Doctrine docs (`docs/seo/`, `docs/Tone of Voice.md`, `docs/Andetag SEO Manual.md`, `docs/Visual Identity.md`, `docs/content-model.md`) are normative. When code drifts from doctrine, fix the code or revise the doctrine — never both silently, never neither.
+2. **Doc/code coherence.** Every behaviour change updates the doc that describes it, in the same task. Doctrine docs (`docs/seo/`, `docs/Tone of Voice.md`, `docs/Andetag SEO Manual.md`, `docs/Visual Identity.md`, `docs/content-model.md`) are normative. When code drifts from doctrine, fix the code or revise the doctrine — never both silently, never neither.
 
 3. **Locale parity.** Stockholm runs `sv` + `en`; Berlin runs `de` + `en`. Hreflang is paired per location (no Stockholm/Berlin cross-pairing). When the same logical page exists in more than one language, update **every** locale in the same task unless the collaborator explicitly scopes to one. A Berlin English shell that canonicalizes to Stockholm English (`SEO-0016`) is still a parity-bound page for hreflang purposes.
 
-4. **Skills are the contract.** Routine maintenance work runs through `skills/<name>/SKILL.md`. The skill names which files move together, which parity rules apply, and which verification commands gate merge. Read the matching skill before editing. If no skill covers the work, **add or extend one** — do not bury tribal knowledge in PR descriptions or in this guide. **All visual/UI design work** (layout, typography, color, components, interaction states, hierarchy, accessibility polish) runs through **`skills/design/SKILL.md`** — load the vendored system prompt and invoke matching procedures from `skills/design/procedures/`; ANDETAG brand docs override greenfield aesthetic exploration.
+4. **Skills are the contract.** Routine maintenance work runs through `skills/<name>/SKILL.md`. The skill names which files move together, which parity rules apply, and which verification commands gate merge. Read the matching skill before editing. If no skill covers the work, **add or extend one** — do not bury tribal knowledge in PR descriptions or in this guide. **All visual/UI design work** (layout, typography, colour, components, interaction states, hierarchy, accessibility polish) runs through **`skills/design/SKILL.md`** — load the vendored system prompt and invoke matching procedures from `skills/design/procedures/`; ANDETAG brand docs override greenfield aesthetic exploration.
 
 5. **PR, preview, merge.** No direct pushes to `main`. Every change ships via PR. Cloudflare posts a per-commit preview URL; that preview is the practical merge gate. Open it, walk the change, then merge.
 
@@ -118,7 +118,7 @@ Read each doc when the work intersects its topic. Mental model lives in `docs/pr
 | [`docs/collaborator-guide.md`](docs/collaborator-guide.md) | Onboarding a non-technical collaborator (museum directors). |
 | [`docs/Andetag SEO Manual.md`](docs/Andetag%20SEO%20Manual.md) | Page intent, language strategy, schema strategy, Berlin rollout, internal linking. |
 | [`docs/Tone of Voice.md`](docs/Tone%20of%20Voice.md) | Any user-facing copy or metadata text; banned words; locale register. |
-| [`docs/Visual Identity.md`](docs/Visual%20Identity.md) | Typography, color palette, CTA mapping. |
+| [`docs/Visual Identity.md`](docs/Visual%20Identity.md) | Typography, colour palette, CTA mapping. |
 | [`docs/seo/url-architecture.md`](docs/seo/url-architecture.md) | Canonical URL contract, redirects, hreflang, entry routing, sitemap. |
 | [`docs/seo/decisions.md`](docs/seo/decisions.md) | Durable SEO decisions log (`SEO-NNNN`): deviations from default rules. |
 | [`docs/seo/README.md`](docs/seo/README.md) | SEO doctrine entry-point map. |
@@ -133,7 +133,7 @@ Read each doc when the work intersects its topic. Mental model lives in `docs/pr
 | [`docs/maintenance-backlog.md`](docs/maintenance-backlog.md) | One-time tasks tracked across maintenance work (`M-NNNN`). |
 | `docs/archive/` | **Agents must not** read or cite for ongoing work. Maintainers may consult humans-only; the live stack is in non-archive docs and `site/src/`. |
 
-**Rule:** if behavior changes, update the relevant doc in the same task.
+**Rule:** if behaviour changes, update the relevant doc in the same task.
 
 ---
 
@@ -146,13 +146,13 @@ Most changes touch multiple layers. Audit before concluding:
 | Astro site | `site/src/` components, pages, lib, styles, client scripts |
 | Workers / routing | `site/workers/`, `site/public/_redirects`, `_headers`, `docs/seo/url-architecture.md` |
 | SEO / shell meta | `docs/Andetag SEO Manual.md`, `site/src/data/page-shell-meta.json`, `docs/seo/decisions.md` |
-| Doctrine docs | Tone, SEO, content model, URL architecture — update any doc that describes changed behavior |
+| Doctrine docs | Tone, SEO, content model, URL architecture — update any doc that describes changed behaviour |
 
 For cross-cutting changes:
 
 1. Search for old field names, slugs, URL paths.
 2. Verify language-specific impacts (`sv` / `en` / `de`) and hreflang/canonical consistency.
-3. Confirm no contradiction with tone or SEO doctrine. For body copy changes, run the em dash scan (`grep -rn $'—' site/src/components/page-bodies/`) and check against the banned-words list in `docs/Tone of Voice.md`.
+3. Confirm no contradiction with tone or SEO doctrine. For body copy changes, run `cd site && npm run lint:copy` (British spelling plus the no-dashes-in-prose rule) and check against the banned-words list in `docs/Tone of Voice.md`.
 
 **Multilingual page parity:** When the same logical page exists in more than one language (paired bodies such as `*En.astro` / `*Sv.astro`, mirrored FAQ modules, or Berlin `de`/`en` pairs), update **every** language variant in the **same task** unless the collaborator explicitly requests a single-locale change. Editing one locale and not the others causes structural and copy drift, breaks hreflang intent, and is easy to miss in review.
 
@@ -183,7 +183,7 @@ Standing exceptions for SEO live in `docs/seo/decisions.md` (`SEO-NNNN`). Operat
 
 When finishing substantial work:
 
-1. Report concrete file-level changes and behavior impact.
+1. Report concrete file-level changes and behaviour impact.
 2. Call out doctrine constraints that shaped the implementation.
 3. Mention residual risks — language edge cases, untested variants, network-dependent checks.
 4. Confirm the Cloudflare preview URL (or note that the change is doc-only).
@@ -202,9 +202,10 @@ The preview is the merge gate. Open it, walk the change, then merge.
 - **JS:** Reimplement with local code and package-managed deps. No legacy third-party scripts from retired stacks.
 - **Fonts:** Maintain `site/src/lib/fonts/sources.json`; regenerate via `npm run fonts:sync`.
 - **Copy:** Follow `docs/Tone of Voice.md` and SEO doctrine exactly.
-- **Editorial copy and prose docs:** The em dash (U+2014) is absolutely prohibited in all user-facing copy — page body components, FAQ answers, event copy, component strings, metadata, and documentation prose. Use commas, colons, or parentheses instead (`docs/Tone of Voice.md` §Punctuation). Before committing body components: `grep -rn $'—' site/src/components/page-bodies/ site/src/lib/content/` (see also `skills/seo/SKILL.md` §B.2 for the full detection command).
+- **English is British English, in Oxford spelling.** All English copy uses UK spelling and vocabulary with `-ize`/`-ization` (the OED's own convention, not an Americanism), **but** `-yse` in the analyse/paralyse group and `-ise` in the never-`-izein` verbs (advertise, advise, comprise, exercise, supervise, surprise). Then ordinary British forms throughout: `-our`, `-re`, `-ogue`, doubled `-ll-`, `programme` for events, `towards`, plus lift / toilet / metro / pushchair over the American equivalents. Full tables, the `-ize` exception groups, and the exclusion list are in `docs/Tone of Voice.md` §Spelling. This governs prose only: code identifiers, CSS properties, schema.org and Consent Mode keys, URLs, vendored files under `skills/design/`, and verbatim review quotes keep their existing spelling. Before committing: `cd site && npm run lint:copy`.
+- **Editorial copy and prose docs:** Dashes are prohibited in prose, em (U+2014) and en (U+2013) alike, across page body components, FAQ answers, event copy, component strings, metadata, link labels, and documentation prose. Use commas, colons, or parentheses instead (`docs/Tone of Voice.md` §Punctuation). **The one exception is an interval**, where the dash means "to": `12.00 – 20.00`, `Tuesday–Saturday`, `8–17 years`, `§L1–L6`. Test it by substituting "to"; if that breaks, it is prose and the dash goes. Before committing: `cd site && npm run lint:copy`, which classifies each dash by what flanks it.
 - **Design tokens** are universal across languages. Language changes content and variants, not core styling, unless an approved exception is logged in `docs/seo/decisions.md` (SEO) or the relevant skill's §Decisions block (operational).
-- **Design work:** Follow `skills/design/SKILL.md` for any change to layout, typography, color, components, or interaction states. Read `skills/design/system-prompt.md` and apply ANDETAG brand from `docs/Visual Identity.md`; run review procedures before merge.
+- **Design work:** Follow `skills/design/SKILL.md` for any change to layout, typography, colour, components, or interaction states. Read `skills/design/system-prompt.md` and apply ANDETAG brand from `docs/Visual Identity.md`; run review procedures before merge.
 
 ---
 

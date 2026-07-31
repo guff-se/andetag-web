@@ -53,7 +53,7 @@ Single-source modules consumed by page bodies, schema, and chrome. Edit the modu
 | FAQ entries | `site/src/lib/content/stockholm-faq.ts` |
 | Reviews + TripAdvisor figures | `site/src/lib/content/stockholm-reviews.ts` |
 | Artworks catalogue | `site/src/lib/content/artworks.ts` |
-| Photo catalog (trilingual alt) | `assets/images/photos.yaml` |
+| Photo catalogue (trilingual alt) | `assets/images/photos.yaml` |
 | Hours, address, geo (schema) | `site/src/lib/chrome/schema-org.ts` (+ prose drift hotspots in page bodies; see `docs/maintenance-backlog.md` M-0001, M-0002) |
 | Navigation labels + URLs | `site/src/lib/chrome/navigation.ts`, locale hero/footer modules under `site/src/lib/chrome/` |
 | Responsive image paths | `site/src/lib/content/stockholm-body-responsive-images.ts`, `stockholm-marketing-gallery.ts` |
