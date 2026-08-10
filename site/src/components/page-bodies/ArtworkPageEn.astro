@@ -1,6 +1,7 @@
 ---
 import "../../styles/artworks.css";
 import { ARTWORKS, type Artwork } from "../../lib/content/artworks";
+import { ARTWORK_MEDIUM, ARTWORK_MEDIUM_LABEL } from "../../lib/content/artwork-medium";
 import { ARTWORK_COLLECTION_PATHS } from "../../lib/routes/artwork-shell-routes";
 import ArtworkMap from "../embeds/ArtworkMap.astro";
 import InquiryForm from "../embeds/InquiryForm.astro";
@@ -121,6 +122,10 @@ const soldArtworks = showCollectorMap
         <dd>{priceFormatted}</dd>
       </div>
     )}
+    <div class="page-artwork__fact page-artwork__fact--wide">
+      <dt>{ARTWORK_MEDIUM_LABEL[language]}</dt>
+      <dd>{ARTWORK_MEDIUM[language]}</dd>
+    </div>
   </dl>
 
   {rest.length > 0 && (

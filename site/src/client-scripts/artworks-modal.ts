@@ -3,6 +3,8 @@
  * Artwork data is read from #artworks-json (embedded by page body).
  */
 
+import { ARTWORK_MEDIUM, ARTWORK_MEDIUM_LABEL } from "../lib/content/artwork-medium";
+
 type ModalImage = {
   src: string; webp640: string; webp960: string; fullSrc?: string;
   mood: string; altSv: string; altEn: string;
@@ -247,10 +249,8 @@ if (!w.__andetagModal) {
     const fmtLabel = lang === "sv"
       ? (a.format === "landscape" ? "Liggande" : a.format === "diptych" ? "Diptyk" : "Stående")
       : (a.format === "landscape" ? "Landscape" : a.format === "diptych" ? "Diptych" : "Portrait");
-    const med = lang === "sv" ? "Material" : "Medium";
-    const medVal = lang === "sv"
-      ? "Optisk fibertextil: bomullsvarp med optisk fiber, bomull, chenille och krympgarn i inslaget; polyesterfyllning; adresserbara RGB-lysdioder; mikrodator; träram"
-      : "Optical fibre fabric: cotton warp with optical fibre, cotton, chenille and shrinking yarn in weft; polyester fill; addressable RGB LEDs; microcomputer; wooden frame";
+    const med = ARTWORK_MEDIUM_LABEL[lang];
+    const medVal = ARTWORK_MEDIUM[lang];
     const yr  = lang === "sv" ? "År" : "Year";
     const sz  = lang === "sv" ? "Storlek" : "Size";
     const fmt = "Format";

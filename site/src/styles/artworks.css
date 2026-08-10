@@ -1474,6 +1474,15 @@ body.is-modal-open {
   font-size: 1rem;
 }
 
+/* Medium: a sentence, not a value. Spans the grid and keeps a readable measure. */
+.page-artwork__fact--wide {
+  grid-column: 1 / -1;
+}
+
+.page-artwork__fact--wide dd {
+  max-width: 60ch;
+}
+
 .page-artwork__gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
