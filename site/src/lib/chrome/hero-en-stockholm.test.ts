@@ -29,11 +29,11 @@ describe("english stockholm hero header model", () => {
     expect(about?.active).toBe(true);
   });
 
-  it("marks The Experience active on NPF and SEO landing paths", () => {
+  it("marks Experience active on NPF and SEO landing paths", () => {
     const npf = getEnglishStockholmHeroHeaderModel("/en/stockholm/neurodivergent-art/");
-    expect(npf.menuItems.find((item) => item.label === "The Experience")?.active).toBe(true);
+    expect(npf.menuItems.find((item) => item.label === "Experience")?.active).toBe(true);
 
     const indoor = getEnglishStockholmHeroHeaderModel("/en/stockholm/indoor-activity-stockholm/");
-    expect(indoor.menuItems.find((item) => item.label === "The Experience")?.active).toBe(true);
+    expect(indoor.menuItems.find((item) => item.label === "Experience")?.active).toBe(true);
   });
 });

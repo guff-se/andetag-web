@@ -134,7 +134,7 @@ const NAVIGATION_VARIANTS: Record<NavigationVariant["id"], NavigationVariant> = 
         ],
       },
       {
-        label: "The Experience",
+        label: "Experience",
         href: "/en/stockholm/what-kind-of-experience/",
         children: [
           { label: "What is it", href: "/en/stockholm/what-kind-of-experience/" },

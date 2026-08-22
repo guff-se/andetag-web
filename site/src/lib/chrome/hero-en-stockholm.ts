@@ -74,7 +74,7 @@ const MENU_DEFINITION: Array<{
     ],
   },
   {
-    label: "The Experience",
+    label: "Experience",
     href: "/en/stockholm/what-kind-of-experience/",
     matchPrefixes: [
       "/en/stockholm/what-kind-of-experience/",
