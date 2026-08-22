@@ -96,6 +96,13 @@ const MENU_DEFINITION: Array<{
     ],
   },
   {
+    label: "The Artworks",
+    href: "/en/artworks/",
+    /** Prefix match also covers the per-artwork pages `/en/artworks/<slug>/`. */
+    matchPrefixes: ["/en/artworks/"],
+    subMenu: [],
+  },
+  {
     label: "Groups",
     href: "/en/stockholm/group-bookings/",
     matchPrefixes: ["/en/stockholm/group-bookings/", "/en/stockholm/corporate-events/"],
@@ -109,7 +116,6 @@ const MENU_DEFINITION: Array<{
     href: "/en/stockholm/about-andetag/",
     matchPrefixes: [
       "/en/stockholm/about-andetag/",
-      "/en/artworks/",
       "/en/stockholm/optical-fibre-textile/",
       "/en/stockholm/about-the-artists-malin-gustaf-tadaa/",
       "/en/stockholm/music/",
@@ -117,7 +123,6 @@ const MENU_DEFINITION: Array<{
     ],
     subMenu: [
       { label: "About ANDETAG", href: "/en/stockholm/about-andetag/" },
-      { label: "The Artworks", href: "/en/artworks/" },
       { label: "The Textile", href: "/en/stockholm/optical-fibre-textile/" },
       { label: "The Music", href: "/en/stockholm/music/" },
       { label: "The Artists", href: "/en/stockholm/about-the-artists-malin-gustaf-tadaa/" },
