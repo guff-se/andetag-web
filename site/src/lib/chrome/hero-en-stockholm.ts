@@ -96,7 +96,7 @@ const MENU_DEFINITION: Array<{
     ],
   },
   {
-    label: "The Artworks",
+    label: "Artworks",
     href: "/en/artworks/",
     /** Prefix match also covers the per-artwork pages `/en/artworks/<slug>/`. */
     matchPrefixes: ["/en/artworks/"],
