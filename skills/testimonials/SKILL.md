@@ -116,7 +116,7 @@ Same as §C — treat the whole array as a list edit. Order matters: all carouse
 | Column | Use |
 |--------|-----|
 | `gid` | TripAdvisor review identifier (`taur:…`). Keep as a source reference comment when adding to the catalogue. |
-| `status` | `ready` = safe to feature. `needs_human_review` = skip until manually resolved. |
+| `status` | `ready` = safe to feature. `approved_posted` = owner reply already posted; still safe to feature. `pending_approval` = owner-reply draft not yet posted; the review text may still be featured if it passes the other filters. `needs_human_review` = skip until manually resolved. |
 | `language` | ISO 639-1 code. Prefer `en` entries for the catalogue (original-language policy). |
 | `reviewer` | TripAdvisor username — use verbatim as `author`. |
 | `dateText` | Original date string (e.g. `"May 4, 2026"`). Convert to ISO `YYYY-MM-DD` for `datePublished`. |
@@ -125,7 +125,7 @@ Same as §C — treat the whole array as a list edit. Order matters: all carouse
 
 #### Selection criteria for `STOCKHOLM_FEATURED_REVIEWS`
 
-Only use `status = ready` entries. Select 3–6 English entries ranked by:
+Only use entries whose `status` is `ready`, `approved_posted`, or `pending_approval`. Skip `needs_human_review`. Select 3–6 English entries ranked by:
 
 1. **Conversion signal.** Clear before/after arc (stress → calm, outside world → present), a specific sensory detail, or a concrete social-proof signal (repeat visit, brought friends, favourite place in Stockholm). Concise enough to read in two or three breaths without scrolling.
 2. **SEO value.** Naturally contains one or more of: immersive art, meditation, breathing, mindfulness, relaxation, textile art, light installation, Stockholm, unique experience. Specificity beats density — a review that mentions the fabric, the breathing soundtrack, or the metro location is better than one that only says "amazing".
@@ -140,7 +140,7 @@ Only use `status = ready` entries. Select 3–6 English entries ranked by:
 
 #### Workflow
 
-1. Open `docs/tripadvisor-review-approval-pack.csv`. Filter to `status = ready, language = en, rating = 5.0 of 5 bubbles`.
+1. Open `docs/tripadvisor-review-approval-pack.csv`. Filter to `language = en`, `rating = 5.0 of 5 bubbles`, and `status` in `ready` / `approved_posted` / `pending_approval`.
 2. Score candidates against the criteria above. Draft a shortlist of 5–8.
 3. For the **home slider**, present the shortlist to Gustaf before committing — the slider is high-visibility and benefits from a human read.
 4. Implement the agreed set via §C (add/replace featured reviews), including drift-hotspot sync.
